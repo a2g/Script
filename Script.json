@@ -8,6 +8,11 @@
             "properties": {
                 "script": {
                     "$ref": "#/definitions/the_enum"
+                },
+                "count": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 100
                 }
             },
             "required": [ "script" ],
