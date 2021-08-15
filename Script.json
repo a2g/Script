@@ -1,7 +1,7 @@
 {
     "$id": "https://raw.githubusercontent.com/a2g/Script/main/Script.json",
     "$schema": "http://json-schema.org/draft-07/schema",
-    "description": "The game is made up of Objects(inv,reg,prop) and Script. The Script reference the Objects, and the objects are specific/unique to a game - so you'd expect they are too entangled to be able to factor out a reusable component. That certainly would be the case in xml schema. But Json schema is great!: the #requires# tag isn't statically checked - and long story short, this whole set of scripts, and the schema that enforces them can be factored out and re-used by multiple games/scanarios",
+    "description": "The game is made up of Objects(inv,flag,prop) and Script. The Script reference the Objects, and the objects are specific/unique to a game - so you'd expect they are too entangled to be able to factor out a reusable component. That certainly would be the case in xml schema. But Json schema is great!: the #requires# tag isn't statically checked - and long story short, this whole set of scripts, and the schema that enforces them can be factored out and re-used by multiple games/scanarios",
     "type": "object",
     "definitions": {
         "script_type": {
@@ -241,13 +241,13 @@
                     "if": {
                         "properties": {
                             "script": {
-                                "const": "AUTO_REG1_TRIGGERED_BY_PROPS",
+                                "const": "AUTO_FLAG1_TRIGGERED_BY_PROPS",
                                 "description": "updated the vacuum tube"
                             }
                         }
                     },
                     "then": {
-                        "required": [ "reg1" ],
+                        "required": [ "flag1" ],
                         "not": {
                             "required": [
                                 "inv1",
@@ -289,12 +289,12 @@
                     "if": {
                         "properties": {
                             "script": {
-                                "const": "AUTO_REG1_TRIGGERS_REG2"
+                                "const": "AUTO_FLAG1_TRIGGERS_FLAG2"
                             }
                         }
                     },
                     "then": {
-                        "required": [ "reg1", "reg2" ],
+                        "required": [ "flag1", "flag2" ],
                         "not": {
                             "required": [
                                 "prop1",
@@ -328,8 +328,8 @@
                 "PROP1_GOES_WHEN_GRAB_INV1",
                 "TOGGLE_PROP1_BECOMES_PROP2",
                 "TOGGLE_PROP1_CHANGES_STATE_TO_PROP2",
-                "AUTO_REG1_TRIGGERED_BY_PROPS",
-                "AUTO_REG1_TRIGGERS_REG2",
+                "AUTO_FLAG1_TRIGGERED_BY_PROPS",
+                "AUTO_FLAG1_TRIGGERS_FLAG2",
                 "AUTO_PROP1_BECOMES_PROP2_VIA_PROPS"
             ]
         }
@@ -351,7 +351,7 @@
     "PROP1_GOES_WHEN_GRAB_INV1": "PROP1_GOES_WHEN_GRAB_INV1",
     "TOGGLE_PROP1_BECOMES_PROP2": "TOGGLE_PROP1_BECOMES_PROP2",
     "TOGGLE_PROP1_CHANGES_STATE_TO_PROP2": "TOGGLE_PROP1_CHANGES_STATE_TO_PROP2",
-    "AUTO_REG1_TRIGGERED_BY_PROPS": "AUTO_REG1_TRIGGERED_BY_PROPS",
-    "AUTO_REG1_TRIGGERS_REG2": "AUTO_REG1_TRIGGERS_REG2",
+    "AUTO_FLAG1_TRIGGERED_BY_PROPS": "AUTO_FLAG1_TRIGGERED_BY_PROPS",
+    "AUTO_FLAG1_TRIGGERS_FLAG2": "AUTO_FLAG1_TRIGGERS_FLAG2",
     "AUTO_PROP1_BECOMES_PROP2_VIA_PROPS": "AUTO_PROP1_BECOMES_PROP2_VIA_PROPS"
 }
