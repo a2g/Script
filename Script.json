@@ -261,7 +261,7 @@
                     "if": {
                         "properties": {
                             "script": {
-                                "const": "INV1_WITH_PROP1_SETS_FLAG_KEPT_ALL",
+                                "const": "INV1_WITH_PROP1_SETS_FLAG1_KEPT_ALL",
                                 "description": "eg use sword with baddie wins game"
                             }
                         }
@@ -374,7 +374,7 @@
     "INV1_BECOMES_INV2_BY_KEEPING_PROP1": "INV1_BECOMES_INV2_BY_KEEPING_PROP1",
     "INV1_BECOMES_INV2_BY_LOSING_INV3": "INV1_BECOMES_INV2_BY_LOSING_INV3",
     "INV1_WITH_PROP1_REVEALS_PROP2_KEPT_ALL": "INV1_WITH_PROP1_REVEALS_PROP2_KEPT_ALL",
-    "INV1_WITH_PROP1_SETS_FLAG_KEPT_ALL": "INV1_WITH_PROP1_SETS_FLAG_KEPT_ALL",
+    "INV1_WITH_PROP1_SETS_FLAG1_KEPT_ALL": "INV1_WITH_PROP1_SETS_FLAG1_KEPT_ALL",
     "OBTAIN_INV1_BY_PROP1_WITH_PROP2_LOSE_PROPS": "OBTAIN_INV1_BY_PROP1_WITH_PROP2_LOSE_PROPS",
     "PROP1_BECOMES_PROP2_BY_KEEPING_INV1": "PROP1_BECOMES_PROP2_BY_KEEPING_INV1",
     "PROP1_BECOMES_PROP2_BY_KEEPING_PROP3": "PROP1_BECOMES_PROP2_BY_KEEPING_PROP3",
