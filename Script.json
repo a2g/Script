@@ -276,6 +276,7 @@
                             "required": [
                                 "inv2",
                                 "flag2",
+                                "flag3",
                                 "prop2",
                                 "prop3",
                                 "prop4",
@@ -335,6 +336,47 @@
                             ]
                         }
                     }
+                },
+                {
+                    "if": {
+                        "properties": {
+                            "script": {
+                                "const": "AUTO_FLAG1_SET_BY_FLAG2"
+                            }
+                        }
+                    },
+                    "then": {
+                        "required": [ "flag1", "flag2" ],
+                        "not": {
+                            "required": [
+                                "flag3",
+                                "prop1",
+                                "prop2",
+                                "prop3",
+                                "inv1",
+                                "inv2",
+                                "inv3"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "if": {
+                        "properties": {
+                            "script": {
+                                "const": "FLAG1_SET_BY_LOSING_INV1_USED_WITH_PROP1_AND_PROPS"
+                            }
+                        }
+                    },
+                    "then": {
+                        "required": [ "flag1", "inv1", "prop1", "prop2","prop3" ],
+                        "not": {
+                            "required": [
+                                "inv2",
+                                "inv3"
+                            ]
+                        }
+                    }
                 }
             ]
         },
@@ -343,6 +385,7 @@
                 "AUTO_FLAG1_SET_BY_FLAG2",
                 "AUTO_FLAG1_SET_BY_PROPS",
                 "AUTO_PROP1_BECOMES_PROP2_BY_PROPS",
+                "FLAG1_SET_BY_LOSING_INV1_USED_WITH_PROP1_AND_PROPS",
                 "INV1_AND_INV2_FORM_INV3",
                 "INV1_AND_INV2_GENERATE_INV3",
                 "INV1_BECOMES_INV2_BY_KEEPING_INV3",
@@ -366,6 +409,7 @@
     "AUTO_FLAG1_SET_BY_FLAG2": "AUTO_FLAG1_SET_BY_FLAG2",
     "AUTO_FLAG1_SET_BY_PROPS": "AUTO_FLAG1_SET_BY_PROPS",
     "AUTO_PROP1_BECOMES_PROP2_BY_PROPS": "AUTO_PROP1_BECOMES_PROP2_BY_PROPS",
+    "FLAG1_SET_BY_LOSING_INV1_USED_WITH_PROP1_AND_PROPS" : "FLAG1_SET_BY_LOSING_INV1_USED_WITH_PROP1_AND_PROPS",
     "INV1_AND_INV2_FORM_INV3": "INV1_AND_INV2_FORM_INV3",
     "INV1_AND_INV2_GENERATE_INV3": "INV1_AND_INV2_GENERATE_INV3",
     "INV1_BECOMES_INV2_BY_KEEPING_INV3": "INV1_BECOMES_INV2_BY_KEEPING_INV3",
