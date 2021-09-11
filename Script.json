@@ -261,6 +261,36 @@
                     "if": {
                         "properties": {
                             "script": {
+                                "const": "INV1_WITH_INV2_SETS_FLAG1_KEPT_ALL",
+                                "description": "eg use two invs together wins game"
+                            }
+                        }
+                    },
+                    "then": {
+                        "required": [
+                            "inv1",
+                            "inv2",
+                            "flag1"
+                        ],
+                        "not": {
+                            "required": [
+                                "prop1",
+                                "flag2",
+                                "flag3",
+                                "prop2",
+                                "prop3",
+                                "prop4",
+                                "prop5",
+                                "prop6",
+                                "prop7"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "if": {
+                        "properties": {
+                            "script": {
                                 "const": "INV1_WITH_PROP1_SETS_FLAG1_KEPT_ALL",
                                 "description": "eg use sword with baddie wins game"
                             }
@@ -391,6 +421,7 @@
                 "INV1_BECOMES_INV2_BY_KEEPING_INV3",
                 "INV1_BECOMES_INV2_BY_KEEPING_PROP1",
                 "INV1_BECOMES_INV2_BY_LOSING_INV3",
+                "INV1_WITH_INV2_SETS_FLAG1_KEPT_ALL",
                 "INV1_WITH_PROP1_REVEALS_PROP2_KEPT_ALL",
                 "INV1_WITH_PROP1_SETS_FLAG1_KEPT_ALL",
                 "OBTAIN_INV1_BY_PROP1_WITH_PROP2_LOSE_PROPS",
@@ -415,6 +446,7 @@
     "INV1_BECOMES_INV2_BY_KEEPING_INV3": "INV1_BECOMES_INV2_BY_KEEPING_INV3",
     "INV1_BECOMES_INV2_BY_KEEPING_PROP1": "INV1_BECOMES_INV2_BY_KEEPING_PROP1",
     "INV1_BECOMES_INV2_BY_LOSING_INV3": "INV1_BECOMES_INV2_BY_LOSING_INV3",
+    "INV1_WITH_INV2_SETS_FLAG1_KEPT_ALL" :"INV1_WITH_INV2_SETS_FLAG1_KEPT_ALL",
     "INV1_WITH_PROP1_REVEALS_PROP2_KEPT_ALL": "INV1_WITH_PROP1_REVEALS_PROP2_KEPT_ALL",
     "INV1_WITH_PROP1_SETS_FLAG1_KEPT_ALL": "INV1_WITH_PROP1_SETS_FLAG1_KEPT_ALL",
     "OBTAIN_INV1_BY_PROP1_WITH_PROP2_LOSE_PROPS": "OBTAIN_INV1_BY_PROP1_WITH_PROP2_LOSE_PROPS",
