@@ -261,7 +261,7 @@
                     "if": {
                         "properties": {
                             "script": {
-                                "const": "INV1_WITH_INV2_SETS_FLAG1_KEPT_ALL",
+                                "const": "FLAG1_SET_BY_USING_INV1_WITH_INV2",
                                 "description": "eg use two invs together wins game"
                             }
                         }
@@ -291,7 +291,7 @@
                     "if": {
                         "properties": {
                             "script": {
-                                "const": "INV1_WITH_PROP1_SETS_FLAG1_KEPT_ALL",
+                                "const": "FLAG1_SET_BY_USING_INV1_WITH_PROP1",
                                 "description": "eg use sword with baddie wins game"
                             }
                         }
@@ -308,6 +308,36 @@
                                 "flag2",
                                 "flag3",
                                 "prop2",
+                                "prop3",
+                                "prop4",
+                                "prop5",
+                                "prop6",
+                                "prop7"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "if": {
+                        "properties": {
+                            "script": {
+                                "const": "FLAG1_SET_BY_USING_PROP1_WITH_PROP2",
+                                "description": "eg flag set by "
+                            }
+                        }
+                    },
+                    "then": {
+                        "required": [
+                            "prop1",
+                            "prop2",
+                            "flag1"
+                        ],
+                        "not": {
+                            "required": [
+                                "inv2",
+                                "flag2",
+                                "flag3",
+                                "inv1",
                                 "prop3",
                                 "prop4",
                                 "prop5",
@@ -416,14 +446,15 @@
                 "AUTO_FLAG1_SET_BY_PROPS",
                 "AUTO_PROP1_BECOMES_PROP2_BY_PROPS",
                 "FLAG1_SET_BY_LOSING_INV1_USED_WITH_PROP1_AND_PROPS",
+                "FLAG1_SET_BY_USING_INV1_WITH_INV2" ,
+                "FLAG1_SET_BY_USING_INV1_WITH_PROP1",
+                "FLAG1_SET_BY_USING_PROP1_WITH_PROP2",
                 "INV1_AND_INV2_FORM_INV3",
                 "INV1_AND_INV2_GENERATE_INV3",
                 "INV1_BECOMES_INV2_BY_KEEPING_INV3",
                 "INV1_BECOMES_INV2_BY_KEEPING_PROP1",
                 "INV1_BECOMES_INV2_BY_LOSING_INV3",
-                "INV1_WITH_INV2_SETS_FLAG1_KEPT_ALL",
                 "INV1_WITH_PROP1_REVEALS_PROP2_KEPT_ALL",
-                "INV1_WITH_PROP1_SETS_FLAG1_KEPT_ALL",
                 "OBTAIN_INV1_BY_PROP1_WITH_PROP2_LOSE_PROPS",
                 "PROP1_BECOMES_PROP2_BY_KEEPING_INV1",
                 "PROP1_BECOMES_PROP2_BY_KEEPING_PROP3",
@@ -441,14 +472,15 @@
     "AUTO_FLAG1_SET_BY_PROPS": "AUTO_FLAG1_SET_BY_PROPS",
     "AUTO_PROP1_BECOMES_PROP2_BY_PROPS": "AUTO_PROP1_BECOMES_PROP2_BY_PROPS",
     "FLAG1_SET_BY_LOSING_INV1_USED_WITH_PROP1_AND_PROPS" : "FLAG1_SET_BY_LOSING_INV1_USED_WITH_PROP1_AND_PROPS",
+    "FLAG1_SET_BY_USING_INV1_WITH_INV2" : "FLAG1_SET_BY_USING_INV1_WITH_INV2",
+    "FLAG1_SET_BY_USING_INV1_WITH_PROP1": "FLAG1_SET_BY_USING_INV1_WITH_PROP1",
+    "FLAG1_SET_BY_USING_PROP1_WITH_PROP2": "FLAG1_SET_BY_USING_PROP1_WITH_PROP2",
     "INV1_AND_INV2_FORM_INV3": "INV1_AND_INV2_FORM_INV3",
     "INV1_AND_INV2_GENERATE_INV3": "INV1_AND_INV2_GENERATE_INV3",
     "INV1_BECOMES_INV2_BY_KEEPING_INV3": "INV1_BECOMES_INV2_BY_KEEPING_INV3",
     "INV1_BECOMES_INV2_BY_KEEPING_PROP1": "INV1_BECOMES_INV2_BY_KEEPING_PROP1",
     "INV1_BECOMES_INV2_BY_LOSING_INV3": "INV1_BECOMES_INV2_BY_LOSING_INV3",
-    "INV1_WITH_INV2_SETS_FLAG1_KEPT_ALL" :"INV1_WITH_INV2_SETS_FLAG1_KEPT_ALL",
     "INV1_WITH_PROP1_REVEALS_PROP2_KEPT_ALL": "INV1_WITH_PROP1_REVEALS_PROP2_KEPT_ALL",
-    "INV1_WITH_PROP1_SETS_FLAG1_KEPT_ALL": "INV1_WITH_PROP1_SETS_FLAG1_KEPT_ALL",
     "OBTAIN_INV1_BY_PROP1_WITH_PROP2_LOSE_PROPS": "OBTAIN_INV1_BY_PROP1_WITH_PROP2_LOSE_PROPS",
     "PROP1_BECOMES_PROP2_BY_KEEPING_INV1": "PROP1_BECOMES_PROP2_BY_KEEPING_INV1",
     "PROP1_BECOMES_PROP2_BY_KEEPING_PROP3": "PROP1_BECOMES_PROP2_BY_KEEPING_PROP3",
