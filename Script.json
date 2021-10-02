@@ -286,6 +286,37 @@
                             ]
                         }
                     }
+                }
+                ,
+                {
+                    "if": {
+                        "properties": {
+                            "script": {
+                                "const": "FLAG1_SET_BY_USING_INV1_WITH_PROP1_NEED_FLAG2",
+                                "description": "eg win game using use silver with werewolf during lunar eclipse"
+                            }
+                        }
+                    },
+                    "then": {
+                        "required": [
+                            "inv1",
+                            "prop1",
+                            "flag1",
+                            "flag2"
+                        ],
+                        "not": {
+                            "required": [
+                                "inv2", 
+                                "flag3",
+                                "prop2",
+                                "prop3",
+                                "prop4",
+                                "prop5",
+                                "prop6",
+                                "prop7"
+                            ]
+                        }
+                    }
                 },
                 {
                     "if": {
@@ -448,6 +479,7 @@
                 "FLAG1_SET_BY_LOSING_INV1_USED_WITH_PROP1_AND_PROPS",
                 "FLAG1_SET_BY_USING_INV1_WITH_INV2" ,
                 "FLAG1_SET_BY_USING_INV1_WITH_PROP1",
+                "FLAG1_SET_BY_USING_INV1_WITH_PROP1_NEED_FLAG2",
                 "FLAG1_SET_BY_USING_PROP1_WITH_PROP2",
                 "INV1_AND_INV2_FORM_INV3",
                 "INV1_AND_INV2_GENERATE_INV3",
@@ -474,6 +506,7 @@
     "FLAG1_SET_BY_LOSING_INV1_USED_WITH_PROP1_AND_PROPS" : "FLAG1_SET_BY_LOSING_INV1_USED_WITH_PROP1_AND_PROPS",
     "FLAG1_SET_BY_USING_INV1_WITH_INV2" : "FLAG1_SET_BY_USING_INV1_WITH_INV2",
     "FLAG1_SET_BY_USING_INV1_WITH_PROP1": "FLAG1_SET_BY_USING_INV1_WITH_PROP1",
+    "FLAG1_SET_BY_USING_INV1_WITH_PROP1_NEED_FLAG2" : "FLAG1_SET_BY_USING_INV1_WITH_PROP1_NEED_FLAG2",
     "FLAG1_SET_BY_USING_PROP1_WITH_PROP2": "FLAG1_SET_BY_USING_PROP1_WITH_PROP2",
     "INV1_AND_INV2_FORM_INV3": "INV1_AND_INV2_FORM_INV3",
     "INV1_AND_INV2_GENERATE_INV3": "INV1_AND_INV2_GENERATE_INV3",
