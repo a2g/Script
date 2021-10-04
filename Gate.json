@@ -1,12 +1,12 @@
 {
-    "$id": "https://raw.githubusercontent.com/a2g/Script/main/Script.json",
+    "$id": "https://raw.githubusercontent.com/a2g/Script/main/Gate.json",
     "$schema": "http://json-schema.org/draft-07/schema",
-    "description": "The game is made up of Objects(inv,flag,prop) and Script. The Script reference the Objects, and the objects are specific/unique to a game - so you'd expect they are too entangled to be able to factor out a reusable component. That certainly would be the case in xml schema. But Json schema is great!: the #requires# tag isn't statically checked - and long story short, this whole set of scripts, and the schema that enforces them can be factored out and re-used by multiple games/scanarios",
+    "description": "A puzzle dependency graph defined in json schema. This Gate.json includes an enum of types of Gate nodes that describe an adventure game puzzle, and some jscon schema contraints for each nodes",
     "type": "object",
     "definitions": {
-        "script_type": {
+        "gate_type": {
             "properties": {
-                "script": {
+                "gate": {
                     "$ref": "#/definitions/the_enum"
                 },
                 "count": {
@@ -15,14 +15,14 @@
                     "maximum": 100
                 }
             },
-            "required": [ "script" ],
+            "required": [ "gate" ],
             "allOf": [
                 {
                     "if": {
                         "anyOf": [
                             {
                                 "properties": {
-                                    "script": {
+                                    "gate": {
                                         "const": "INV1_AND_INV2_GENERATE_INV3",
                                         "description": "eg none yet"
                                     }
@@ -30,7 +30,7 @@
                             },
                             {
                                 "properties": {
-                                    "script": {
+                                    "gate": {
                                         "const": "INV1_AND_INV2_FORM_INV3",
                                         "description": "not quite the amp fixing - but close"
                                     }
@@ -38,7 +38,7 @@
                             },
                             {
                                 "properties": {
-                                    "script": {
+                                    "gate": {
                                         "const": "INV1_BECOMES_INV2_BY_KEEPING_INV3",
                                         "description": "eg FLAT BALL becomes INFLATED BALL via keeping PUMP"
                                     }
@@ -46,7 +46,7 @@
                             },
                             {
                                 "properties": {
-                                    "script": {
+                                    "gate": {
                                         "const": "INV1_BECOMES_INV2_BY_LOSING_INV3",
                                         "description": "eg broken amp becomes FIXED AMP via losing RADIO_TUBE"
                                     }
@@ -74,7 +74,7 @@
                         "anyOf": [
                             {
                                 "properties": {
-                                    "script": {
+                                    "gate": {
                                         "const": "INV1_WITH_PROP1_REVEALS_PROP2_KEPT_ALL",
                                         "description": "eg use ball with backboard generate prop"
                                     }
@@ -82,7 +82,7 @@
                             },
                             {
                                 "properties": {
-                                    "script": {
+                                    "gate": {
                                         "const": "PROP1_BECOMES_PROP2_BY_LOSING_INV1",
                                         "description": "powerpoint -> plugged-in-amp via losing INV_FIXEDAMP"
                                     }
@@ -90,7 +90,7 @@
                             },
                             {
                                 "properties": {
-                                    "script": {
+                                    "gate": {
                                         "const": "PROP1_BECOMES_PROP2_BY_KEEPING_INV1",
                                         "description": "eg RAISEDBACKBOARD becomes LOWEREDBACKBOARD vie keeping POLEHOOK",
                                         "title": " eg CLOSED_RADIO becomes  OPENED_RADIO_WITH_TUBE via keeping SCREWDRIVER"
@@ -99,7 +99,7 @@
                             },
                             {
                                 "properties": {
-                                    "script": {
+                                    "gate": {
                                         "const": "OBTAIN_INV1_BY_PROP1_WITH_PROP2_LOSE_PROPS",
                                         "description": "eg use radiation suit with the meteor",
                                         "title": "By using the A with B you are able to obtain the INV"
@@ -108,7 +108,7 @@
                             },
                             {
                                 "properties": {
-                                    "script": {
+                                    "gate": {
                                         "const": "PROP1_BECOMES_PROP2_WHEN_GRAB_INV1",
                                         "description": "eg opened raio with radiotube becomes merely OPENED RADIO when you grab RADIOTUBE"
                                     }
@@ -116,7 +116,7 @@
                             },
                             {
                                 "properties": {
-                                    "script": {
+                                    "gate": {
                                         "const": "PROP1_CHANGES_STATE_TO_PROP2_BY_KEEPING_INV1",
                                         "description": "eg use radiation suit with the meteor",
                                         "title": "By using the A with B you are able to obtain the INV"
@@ -145,7 +145,7 @@
                         "anyOf": [
                             {
                                 "properties": {
-                                    "script": {
+                                    "gate": {
                                         "const": "PROP1_BECOMES_PROP2_BY_LOSING_PROP3",
                                         "description": "eg none yet"
                                     }
@@ -153,7 +153,7 @@
                             },
                             {
                                 "properties": {
-                                    "script": {
+                                    "gate": {
                                         "const": "AUTO_PROP1_BECOMES_PROP2_BY_PROPS",
                                         "description": "eg none yet"
                                     }
@@ -181,7 +181,7 @@
                         "anyOf": [
                             {
                                 "properties": {
-                                    "script": {
+                                    "gate": {
                                         "const": "PROP1_GOES_WHEN_GRAB_INV1",
                                         "description": "everywhere!"
                                     }
@@ -206,7 +206,7 @@
                         "anyOf": [
                             {
                                 "properties": {
-                                    "script": {
+                                    "gate": {
                                         "const": "TOGGLE_PROP1_BECOMES_PROP2_PROP_BECOMES_PROP",
                                         "description": "toggle magged up vacuum tubes"
                                     }
@@ -214,7 +214,7 @@
                             },
                             {
                                 "properties": {
-                                    "script": {
+                                    "gate": {
                                         "const": "TOGGLE_PROP1_CHANGES_STATE_TO_PROP2",
                                         "description": "toggle on to off, or activated to deactivated"
                                     }
@@ -240,7 +240,7 @@
                 {
                     "if": {
                         "properties": {
-                            "script": {
+                            "gate": {
                                 "const": "AUTO_FLAG1_SET_BY_PROPS",
                                 "description": "updated the vacuum tube"
                             }
@@ -260,7 +260,7 @@
                 {
                     "if": {
                         "properties": {
-                            "script": {
+                            "gate": {
                                 "const": "FLAG1_SET_BY_USING_INV1_WITH_INV2",
                                 "description": "eg use two invs together wins game"
                             }
@@ -291,7 +291,7 @@
                 {
                     "if": {
                         "properties": {
-                            "script": {
+                            "gate": {
                                 "const": "FLAG1_SET_BY_USING_INV1_WITH_PROP1_NEED_FLAG2",
                                 "description": "eg win game using use silver with werewolf during lunar eclipse"
                             }
@@ -321,7 +321,7 @@
                 {
                     "if": {
                         "properties": {
-                            "script": {
+                            "gate": {
                                 "const": "FLAG1_SET_BY_USING_INV1_WITH_PROP1",
                                 "description": "eg use sword with baddie wins game"
                             }
@@ -351,7 +351,7 @@
                 {
                     "if": {
                         "properties": {
-                            "script": {
+                            "gate": {
                                 "const": "FLAG1_SET_BY_USING_PROP1_WITH_PROP2",
                                 "description": "eg flag set by "
                             }
@@ -381,7 +381,7 @@
                 {
                     "if": {
                         "properties": {
-                            "script": {
+                            "gate": {
                                 "const": "INV1_BECOMES_INV2_BY_KEEPING_PROP",
                                 "description": "manuscript b edited via tpewriter"
                             }
@@ -409,7 +409,7 @@
                 {
                     "if": {
                         "properties": {
-                            "script": {
+                            "gate": {
                                 "const": "AUTO_FLAG1_SET_BY_FLAG2"
                             }
                         }
@@ -431,7 +431,7 @@
                 {
                     "if": {
                         "properties": {
-                            "script": {
+                            "gate": {
                                 "const": "AUTO_FLAG1_SET_BY_FLAG2"
                             }
                         }
@@ -454,7 +454,7 @@
                 {
                     "if": {
                         "properties": {
-                            "script": {
+                            "gate": {
                                 "const": "FLAG1_SET_BY_LOSING_INV1_USED_WITH_PROP1_AND_PROPS"
                             }
                         }
@@ -472,7 +472,7 @@
                 {
                     "if": {
                         "properties": {
-                            "script": {
+                            "gate": {
                                 "const": "AUTO_FLAG1_CAUSES_IMPORT_OF_JSON"
                             }
                         }

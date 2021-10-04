@@ -1,2 +1,2 @@
-# Script
-Script base for an adventure game
+# Gate
+A puzzle dependency graph defined in json schema.
