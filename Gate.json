@@ -15,7 +15,9 @@
                     "maximum": 100
                 }
             },
-            "required": [ "gate" ],
+            "required": [
+                "gate"
+            ],
             "allOf": [
                 {
                     "if": {
@@ -24,7 +26,9 @@
                                 "properties": {
                                     "gate": {
                                         "const": "INV1_AND_INV2_GENERATE_INV3",
-                                        "description": "eg none yet"
+                                        "examples": [
+                                            "eg none yet"
+                                        ]
                                     }
                                 }
                             },
@@ -32,7 +36,9 @@
                                 "properties": {
                                     "gate": {
                                         "const": "INV1_AND_INV2_FORM_INV3",
-                                        "description": "not quite the amp fixing - but close"
+                                        "examples": [
+                                            "not quite the amp fixing - but close"
+                                        ]
                                     }
                                 }
                             },
@@ -40,7 +46,9 @@
                                 "properties": {
                                     "gate": {
                                         "const": "INV1_BECOMES_INV2_BY_KEEPING_INV3",
-                                        "description": "eg FLAT BALL becomes INFLATED BALL via keeping PUMP"
+                                        "examples": [
+                                            "eg FLAT BALL becomes INFLATED BALL via keeping PUMP"
+                                        ]
                                     }
                                 }
                             },
@@ -48,7 +56,9 @@
                                 "properties": {
                                     "gate": {
                                         "const": "INV1_BECOMES_INV2_BY_LOSING_INV3",
-                                        "description": "eg broken amp becomes FIXED AMP via losing RADIO_TUBE"
+                                        "examples": [
+                                            "eg broken amp becomes FIXED AMP via losing RADIO_TUBE"
+                                        ]
                                     }
                                 }
                             }
@@ -76,7 +86,9 @@
                                 "properties": {
                                     "gate": {
                                         "const": "INV1_WITH_PROP1_REVEALS_PROP2_KEPT_ALL",
-                                        "description": "eg use ball with backboard generate prop"
+                                        "examples": [
+                                            "eg use ball with backboard generate prop"
+                                        ]
                                     }
                                 }
                             },
@@ -84,7 +96,9 @@
                                 "properties": {
                                     "gate": {
                                         "const": "PROP1_BECOMES_PROP2_BY_LOSING_INV1",
-                                        "description": "powerpoint -> plugged-in-amp via losing INV_FIXEDAMP"
+                                        "examples": [
+                                            "powerpoint -> plugged-in-amp via losing INV_FIXEDAMP"
+                                        ]
                                     }
                                 }
                             },
@@ -92,8 +106,10 @@
                                 "properties": {
                                     "gate": {
                                         "const": "PROP1_BECOMES_PROP2_BY_KEEPING_INV1",
-                                        "description": "eg RAISEDBACKBOARD becomes LOWEREDBACKBOARD vie keeping POLEHOOK",
-                                        "title": " eg CLOSED_RADIO becomes  OPENED_RADIO_WITH_TUBE via keeping SCREWDRIVER"
+                                        "examples": [
+                                            "eg RAISEDBACKBOARD becomes LOWEREDBACKBOARD vie keeping POLEHOOK",
+                                            "eg CLOSED_RADIO becomes  OPENED_RADIO_WITH_TUBE via keeping SCREWDRIVER"
+                                        ]
                                     }
                                 }
                             },
@@ -101,8 +117,11 @@
                                 "properties": {
                                     "gate": {
                                         "const": "OBTAIN_INV1_BY_PROP1_WITH_PROP2_LOSE_PROPS",
-                                        "description": "eg use radiation suit with the meteor",
-                                        "title": "By using the A with B you are able to obtain the INV"
+                                        "description": "By using the A with B you are able to obtain the INV",
+                                        "examples": [
+                                            "powerpoint -> plugged-in-amp via losing INV_FIXEDAMP",
+                                            "eg use radiation suit with the meteor"
+                                        ]
                                     }
                                 }
                             },
@@ -110,7 +129,9 @@
                                 "properties": {
                                     "gate": {
                                         "const": "PROP1_BECOMES_PROP2_WHEN_GRAB_INV1",
-                                        "description": "eg opened raio with radiotube becomes merely OPENED RADIO when you grab RADIOTUBE"
+                                        "examples": [
+                                            "eg opened raio with radiotube becomes merely OPENED RADIO when you grab RADIOTUBE"
+                                        ]
                                     }
                                 }
                             },
@@ -118,8 +139,10 @@
                                 "properties": {
                                     "gate": {
                                         "const": "PROP1_CHANGES_STATE_TO_PROP2_BY_KEEPING_INV1",
-                                        "description": "eg use radiation suit with the meteor",
-                                        "title": "By using the A with B you are able to obtain the INV"
+                                        "description": "By using the A with B you are able to obtain the INV",
+                                        "examples": [
+                                            "eg use radiation suit with the meteor"
+                                        ]
                                     }
                                 }
                             }
@@ -147,7 +170,9 @@
                                 "properties": {
                                     "gate": {
                                         "const": "PROP1_BECOMES_PROP2_BY_LOSING_PROP3",
-                                        "description": "eg none yet"
+                                        "examples": [
+                                            "eg none yet"
+                                        ]
                                     }
                                 }
                             },
@@ -155,7 +180,9 @@
                                 "properties": {
                                     "gate": {
                                         "const": "AUTO_PROP1_BECOMES_PROP2_BY_PROPS",
-                                        "description": "eg none yet"
+                                        "examples": [
+                                            "eg none yet"
+                                        ]
                                     }
                                 }
                             }
@@ -183,14 +210,19 @@
                                 "properties": {
                                     "gate": {
                                         "const": "PROP1_GOES_WHEN_GRAB_INV1",
-                                        "description": "everywhere!"
+                                        "examples": [
+                                            "everywhere!"
+                                        ]
                                     }
                                 }
                             }
                         ]
                     },
                     "then": {
-                        "required": [ "prop1", "inv1" ],
+                        "required": [
+                            "prop1",
+                            "inv1"
+                        ],
                         "not": {
                             "required": [
                                 "prop2",
@@ -208,7 +240,9 @@
                                 "properties": {
                                     "gate": {
                                         "const": "TOGGLE_PROP1_BECOMES_PROP2_PROP_BECOMES_PROP",
-                                        "description": "toggle magged up vacuum tubes"
+                                        "examples": [
+                                            "toggle magged up vacuum tubes"
+                                        ]
                                     }
                                 }
                             },
@@ -216,7 +250,10 @@
                                 "properties": {
                                     "gate": {
                                         "const": "TOGGLE_PROP1_CHANGES_STATE_TO_PROP2",
-                                        "description": "toggle on to off, or activated to deactivated"
+                                        "examples": [
+                                            "eg toggle on to off",
+                                            "eg activated to deactivated"
+                                        ]
                                     }
                                 }
                             }
@@ -242,12 +279,16 @@
                         "properties": {
                             "gate": {
                                 "const": "AUTO_FLAG1_SET_BY_PROPS",
-                                "description": "updated the vacuum tube"
+                                "examples": [
+                                    "eg flag_wall_has_been_graffitied set by graffitied_wall"
+                                ]
                             }
                         }
                     },
                     "then": {
-                        "required": [ "flag1" ],
+                        "required": [
+                            "flag1"
+                        ],
                         "not": {
                             "required": [
                                 "inv1",
@@ -262,7 +303,9 @@
                         "properties": {
                             "gate": {
                                 "const": "FLAG1_SET_BY_USING_INV1_WITH_INV2",
-                                "description": "eg use two invs together wins game"
+                                "examples": [
+                                    "eg use two invs together wins game"
+                                ]
                             }
                         }
                     },
@@ -286,14 +329,15 @@
                             ]
                         }
                     }
-                }
-                ,
+                },
                 {
                     "if": {
                         "properties": {
                             "gate": {
                                 "const": "FLAG1_SET_BY_USING_INV1_WITH_PROP1_NEED_FLAG2",
-                                "description": "eg win game using use silver with werewolf during lunar eclipse"
+                                "examples": [
+                                    "eg win game using use silver with werewolf during lunar eclipse"
+                                ]
                             }
                         }
                     },
@@ -306,7 +350,7 @@
                         ],
                         "not": {
                             "required": [
-                                "inv2", 
+                                "inv2",
                                 "flag3",
                                 "prop2",
                                 "prop3",
@@ -320,12 +364,29 @@
                 },
                 {
                     "if": {
-                        "properties": {
-                            "gate": {
-                                "const": "FLAG1_SET_BY_USING_INV1_WITH_PROP1",
-                                "description": "eg use sword with baddie wins game"
+                        "anyOf": [
+                            {
+                                "properties": {
+                                    "gate": {
+                                        "const": "FLAG1_SET_BY_USING_INV1_WITH_PROP1",
+                                        "examples": [
+                                            "eg use sword with baddie wins game"
+                                        ]
+                                    }
+                                }
+                            },
+                            {
+                                "properties": {
+                                    "gate": {
+                                        "const": "FLAG1_SET_BY_USING_INV1_WITH_PROP1_LOSE_PROPS",
+                                        "examples": [
+                                            "eg toggle on to off",
+                                            "eg activated to deactivated"
+                                        ]
+                                    }
+                                }
                             }
-                        }
+                        ]
                     },
                     "then": {
                         "required": [
@@ -353,7 +414,9 @@
                         "properties": {
                             "gate": {
                                 "const": "FLAG1_SET_BY_USING_PROP1_WITH_PROP2",
-                                "description": "eg flag set by "
+                                "examples": [
+                                    "eg flag set by "
+                                ]
                             }
                         }
                     },
@@ -380,29 +443,35 @@
                 },
                 {
                     "if": {
-                        "properties": {
-                            "gate": {
-                                "const": "INV1_BECOMES_INV2_BY_KEEPING_PROP",
-                                "description": "manuscript b edited via tpewriter"
+                        "anyOf": [
+                            {
+                                "properties": {
+                                    "gate": {
+                                        "const": "INV1_BECOMES_INV2_BY_KEEPING_PROP",
+                                        "examples": [
+                                            "eg manuscript b edited via typewriter by keeping prop"
+                                        ]
+                                    }
+                                }
                             }
-                        }
-                    },
-                    "then": {
-                        "required": [
-                            "inv1",
-                            "inv2",
-                            "prop1"
                         ],
-                        "not": {
+                        "then": {
                             "required": [
-                                "inv3",
-                                "prop2",
-                                "prop3",
-                                "prop4",
-                                "prop5",
-                                "prop6",
-                                "prop7"
-                            ]
+                                "inv1",
+                                "inv2",
+                                "prop1"
+                            ],
+                            "not": {
+                                "required": [
+                                    "inv3",
+                                    "prop2",
+                                    "prop3",
+                                    "prop4",
+                                    "prop5",
+                                    "prop6",
+                                    "prop7"
+                                ]
+                            }
                         }
                     }
                 },
@@ -415,7 +484,10 @@
                         }
                     },
                     "then": {
-                        "required": [ "flag1", "flag2" ],
+                        "required": [
+                            "flag1",
+                            "flag2"
+                        ],
                         "not": {
                             "required": [
                                 "prop1",
@@ -437,7 +509,10 @@
                         }
                     },
                     "then": {
-                        "required": [ "flag1", "flag2" ],
+                        "required": [
+                            "flag1",
+                            "flag2"
+                        ],
                         "not": {
                             "required": [
                                 "flag3",
@@ -460,7 +535,13 @@
                         }
                     },
                     "then": {
-                        "required": [ "flag1", "inv1", "prop1", "prop2","prop3" ],
+                        "required": [
+                            "flag1",
+                            "inv1",
+                            "prop1",
+                            "prop2",
+                            "prop3"
+                        ],
                         "not": {
                             "required": [
                                 "inv2",
@@ -478,7 +559,10 @@
                         }
                     },
                     "then": {
-                        "required": ["flag1", "fileToMerge"],
+                        "required": [
+                            "flag1",
+                            "fileToMerge"
+                        ],
                         "not": {
                             "required": [
                                 "flag2",
@@ -492,6 +576,33 @@
                         }
                     }
                 }
+                ,
+                {
+                    "if": {
+                        "properties": {
+                            "gate": {
+                                "const":  "PROP1_BECOMES_PROP2_AS_INV1_BECOMES_INV2"
+                            }
+                        }
+                    },
+                    "then": {
+                        "required": [
+                            "prop1",
+                            "prop2",
+                            "inv1",
+                            "inv2"
+                        ],
+                        "not": {
+                            "required": [
+                                "flag1",
+                                "flag2",
+                                "inv3",
+                                "prop3",
+                                "fileToMerge"
+                            ]
+                        }
+                    }
+                }
             ]
         },
         "the_enum": {
@@ -501,8 +612,9 @@
                 "AUTO_FLAG1_SET_BY_PROPS",
                 "AUTO_PROP1_BECOMES_PROP2_BY_PROPS",
                 "FLAG1_SET_BY_LOSING_INV1_USED_WITH_PROP1_AND_PROPS",
-                "FLAG1_SET_BY_USING_INV1_WITH_INV2" ,
+                "FLAG1_SET_BY_USING_INV1_WITH_INV2",
                 "FLAG1_SET_BY_USING_INV1_WITH_PROP1",
+                "FLAG1_SET_BY_USING_INV1_WITH_PROP1_LOSE_PROPS",
                 "FLAG1_SET_BY_USING_INV1_WITH_PROP1_NEED_FLAG2",
                 "FLAG1_SET_BY_USING_PROP1_WITH_PROP2",
                 "INV1_AND_INV2_FORM_INV3",
@@ -512,6 +624,7 @@
                 "INV1_BECOMES_INV2_BY_LOSING_INV3",
                 "INV1_WITH_PROP1_REVEALS_PROP2_KEPT_ALL",
                 "OBTAIN_INV1_BY_PROP1_WITH_PROP2_LOSE_PROPS",
+                "PROP1_BECOMES_PROP2_AS_INV1_BECOMES_INV2",
                 "PROP1_BECOMES_PROP2_BY_KEEPING_INV1",
                 "PROP1_BECOMES_PROP2_BY_KEEPING_PROP3",
                 "PROP1_BECOMES_PROP2_BY_LOSING_INV1",
@@ -524,14 +637,15 @@
             ]
         }
     },
-    "AUTO_FLAG1_CAUSES_IMPORT_OF_JSON" : "AUTO_FLAG1_CAUSES_IMPORT_OF_JSON",
+    "AUTO_FLAG1_CAUSES_IMPORT_OF_JSON": "AUTO_FLAG1_CAUSES_IMPORT_OF_JSON",
     "AUTO_FLAG1_SET_BY_FLAG2": "AUTO_FLAG1_SET_BY_FLAG2",
     "AUTO_FLAG1_SET_BY_PROPS": "AUTO_FLAG1_SET_BY_PROPS",
     "AUTO_PROP1_BECOMES_PROP2_BY_PROPS": "AUTO_PROP1_BECOMES_PROP2_BY_PROPS",
-    "FLAG1_SET_BY_LOSING_INV1_USED_WITH_PROP1_AND_PROPS" : "FLAG1_SET_BY_LOSING_INV1_USED_WITH_PROP1_AND_PROPS",
-    "FLAG1_SET_BY_USING_INV1_WITH_INV2" : "FLAG1_SET_BY_USING_INV1_WITH_INV2",
+    "FLAG1_SET_BY_LOSING_INV1_USED_WITH_PROP1_AND_PROPS": "FLAG1_SET_BY_LOSING_INV1_USED_WITH_PROP1_AND_PROPS",
+    "FLAG1_SET_BY_USING_INV1_WITH_INV2": "FLAG1_SET_BY_USING_INV1_WITH_INV2",
     "FLAG1_SET_BY_USING_INV1_WITH_PROP1": "FLAG1_SET_BY_USING_INV1_WITH_PROP1",
-    "FLAG1_SET_BY_USING_INV1_WITH_PROP1_NEED_FLAG2" : "FLAG1_SET_BY_USING_INV1_WITH_PROP1_NEED_FLAG2",
+    "FLAG1_SET_BY_USING_INV1_WITH_PROP1_LOSE_PROPS" :"FLAG1_SET_BY_USING_INV1_WITH_PROP1_LOSE_PROPS",
+    "FLAG1_SET_BY_USING_INV1_WITH_PROP1_NEED_FLAG2": "FLAG1_SET_BY_USING_INV1_WITH_PROP1_NEED_FLAG2",
     "FLAG1_SET_BY_USING_PROP1_WITH_PROP2": "FLAG1_SET_BY_USING_PROP1_WITH_PROP2",
     "INV1_AND_INV2_FORM_INV3": "INV1_AND_INV2_FORM_INV3",
     "INV1_AND_INV2_GENERATE_INV3": "INV1_AND_INV2_GENERATE_INV3",
@@ -540,6 +654,7 @@
     "INV1_BECOMES_INV2_BY_LOSING_INV3": "INV1_BECOMES_INV2_BY_LOSING_INV3",
     "INV1_WITH_PROP1_REVEALS_PROP2_KEPT_ALL": "INV1_WITH_PROP1_REVEALS_PROP2_KEPT_ALL",
     "OBTAIN_INV1_BY_PROP1_WITH_PROP2_LOSE_PROPS": "OBTAIN_INV1_BY_PROP1_WITH_PROP2_LOSE_PROPS",
+    "PROP1_BECOMES_PROP2_AS_INV1_BECOMES_INV2" :  "PROP1_BECOMES_PROP2_AS_INV1_BECOMES_INV2",
     "PROP1_BECOMES_PROP2_BY_KEEPING_INV1": "PROP1_BECOMES_PROP2_BY_KEEPING_INV1",
     "PROP1_BECOMES_PROP2_BY_KEEPING_PROP3": "PROP1_BECOMES_PROP2_BY_KEEPING_PROP3",
     "PROP1_BECOMES_PROP2_BY_LOSING_INV1": "PROP1_BECOMES_PROP2_BY_LOSING_INV1",
@@ -549,4 +664,4 @@
     "PROP1_GOES_WHEN_GRAB_INV1": "PROP1_GOES_WHEN_GRAB_INV1",
     "TOGGLE_PROP1_BECOMES_PROP2": "TOGGLE_PROP1_BECOMES_PROP2",
     "TOGGLE_PROP1_CHANGES_STATE_TO_PROP2": "TOGGLE_PROP1_CHANGES_STATE_TO_PROP2"
-   }
+}
