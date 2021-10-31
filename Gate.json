@@ -165,7 +165,17 @@
                 },
                 {
                     "if": {
-                        "anyOf": [
+                        "anyOf": [ 
+                            {
+                                "properties": {
+                                    "gate": {
+                                        "const": "TOGGLE_PROP1_REVEALS_PROP2_AS_IT_BECOMES_PROP3",
+                                        "examples": [
+                                            "eg open fridge, open window, open blind, open window"
+                                        ]
+                                    }
+                                }
+                            },
                             {
                                 "properties": {
                                     "gate": {
@@ -239,7 +249,7 @@
                             {
                                 "properties": {
                                     "gate": {
-                                        "const": "TOGGLE_PROP1_BECOMES_PROP2_PROP_BECOMES_PROP",
+                                        "const": "TOGGLE_PROP1_BECOMES_PROP2",
                                         "examples": [
                                             "toggle magged up vacuum tubes"
                                         ]
@@ -633,7 +643,8 @@
                 "PROP1_CHANGES_STATE_TO_PROP2_BY_KEEPING_INV1",
                 "PROP1_GOES_WHEN_GRAB_INV1",
                 "TOGGLE_PROP1_BECOMES_PROP2",
-                "TOGGLE_PROP1_CHANGES_STATE_TO_PROP2"
+                "TOGGLE_PROP1_CHANGES_STATE_TO_PROP2",
+                "TOGGLE_PROP1_REVEALS_PROP2_AS_IT_BECOMES_PROP3"
             ]
         }
     },
@@ -663,5 +674,6 @@
     "PROP1_CHANGES_STATE_TO_PROP2_BY_KEEPING_INV1": "PROP1_CHANGES_STATE_TO_PROP2_BY_KEEPING_INV1",
     "PROP1_GOES_WHEN_GRAB_INV1": "PROP1_GOES_WHEN_GRAB_INV1",
     "TOGGLE_PROP1_BECOMES_PROP2": "TOGGLE_PROP1_BECOMES_PROP2",
-    "TOGGLE_PROP1_CHANGES_STATE_TO_PROP2": "TOGGLE_PROP1_CHANGES_STATE_TO_PROP2"
+    "TOGGLE_PROP1_CHANGES_STATE_TO_PROP2": "TOGGLE_PROP1_CHANGES_STATE_TO_PROP2",
+    "TOGGLE_PROP1_REVEALS_PROP2_AS_IT_BECOMES_PROP3" : "TOGGLE_PROP1_REVEALS_PROP2_AS_IT_BECOMES_PROP3"
 }
