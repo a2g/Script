@@ -221,7 +221,27 @@
                                     "gate": {
                                         "const": "PROP1_GOES_WHEN_GRAB_INV1",
                                         "examples": [
-                                            "everywhere!"
+                                            "eg grab coconut"
+                                        ]
+                                    }
+                                }
+                            },
+                            {
+                                "properties": {
+                                    "gate": {
+                                        "const": "PROP1_STAYS_WHEN_GRAB_INV1",
+                                        "examples": [
+                                            "eg grab pile of coconuts"
+                                        ]
+                                    }
+                                }
+                            },
+                            {
+                                "properties": {
+                                    "gate": {
+                                        "const": "TALK_TO_PROP1_GETS_INV1",
+                                        "examples": [
+                                            "eg talk to woman"
                                         ]
                                     }
                                 }
@@ -642,6 +662,8 @@
                 "PROP1_BECOMES_PROP2_WHEN_GRAB_INV1",
                 "PROP1_CHANGES_STATE_TO_PROP2_BY_KEEPING_INV1",
                 "PROP1_GOES_WHEN_GRAB_INV1",
+                "PROP1_STAYS_WHEN_GRAB_INV1",
+                "TALK_TO_PROP1_GETS_INV1",
                 "TOGGLE_PROP1_BECOMES_PROP2",
                 "TOGGLE_PROP1_CHANGES_STATE_TO_PROP2",
                 "TOGGLE_PROP1_REVEALS_PROP2_AS_IT_BECOMES_PROP3"
@@ -673,6 +695,8 @@
     "PROP1_BECOMES_PROP2_WHEN_GRAB_INV1": "PROP1_BECOMES_PROP2_WHEN_GRAB_INV1",
     "PROP1_CHANGES_STATE_TO_PROP2_BY_KEEPING_INV1": "PROP1_CHANGES_STATE_TO_PROP2_BY_KEEPING_INV1",
     "PROP1_GOES_WHEN_GRAB_INV1": "PROP1_GOES_WHEN_GRAB_INV1",
+    "PROP1_STAYS_WHEN_GRAB_INV1": "PROP1_STAYS_WHEN_GRAB_INV1",
+    "TALK_TO_PROP1_GETS_INV1" : "TALK_TO_PROP1_GETS_INV1",
     "TOGGLE_PROP1_BECOMES_PROP2": "TOGGLE_PROP1_BECOMES_PROP2",
     "TOGGLE_PROP1_CHANGES_STATE_TO_PROP2": "TOGGLE_PROP1_CHANGES_STATE_TO_PROP2",
     "TOGGLE_PROP1_REVEALS_PROP2_AS_IT_BECOMES_PROP3" : "TOGGLE_PROP1_REVEALS_PROP2_AS_IT_BECOMES_PROP3"
