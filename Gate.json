@@ -415,6 +415,26 @@
                                         ]
                                     }
                                 }
+                            },
+                            {
+                                "properties": {
+                                    "gate":{
+                                        "const" : "TALK_TO_PROP1_WITH_FLAG1_GETS_INV1",
+                                        "examples" : [
+                                            "eg talk to woman after setting flag"
+                                        ]
+                                    }
+                                }
+                            },
+                            {
+                                "properties": {
+                                    "gate":{
+                                        "const" : "GIVE_INV1_TO_PROP1_SETS_FLAG1",
+                                        "examples" : [
+                                            "eg give gold to king completes game"
+                                        ]
+                                    }
+                                }
                             }
                         ]
                     },
@@ -441,34 +461,35 @@
                 },
                 {
                     "if": {
-                        "properties": {
-                            "gate": {
-                                "const": "FLAG1_SET_BY_USING_PROP1_WITH_PROP2",
-                                "examples": [
-                                    "eg flag set by "
-                                ]
+                        "anyof": [
+                            {
+                                "properties": {
+                                    "gate": {
+                                        "const": "FLAG1_SET_BY_USING_PROP1_WITH_PROP2",
+                                        "examples": [
+                                            "eg flag set by "
+                                        ]
+                                    }
+                                }
+                            },
+                            {
+                                "properties": {
+                                    "gate" : {
+                                        "const" : "PROP1_APPEARS_WHEN_GRAB_PROP2_WITH_FLAG1",
+                                        "examples": [
+                                            "eg taxi appears when phone is used with electricity on"
+                                        ]
+                                    }
+                                }
                             }
-                        }
+                        ]
                     },
                     "then": {
                         "required": [
                             "prop1",
                             "prop2",
                             "flag1"
-                        ],
-                        "not": {
-                            "required": [
-                                "inv2",
-                                "flag2",
-                                "flag3",
-                                "inv1",
-                                "prop3",
-                                "prop4",
-                                "prop5",
-                                "prop6",
-                                "prop7"
-                            ]
-                        }
+                        ]
                     }
                 },
                 {
@@ -478,6 +499,17 @@
                                 "properties": {
                                     "gate": {
                                         "const": "INV1_BECOMES_INV2_BY_KEEPING_PROP",
+                                        "examples": [
+                                            "eg manuscript b edited via typewriter by keeping prop"
+                                        ]
+                                    }
+                                }
+                            }
+                            ,
+                            {
+                                "properties":{
+                                    "gate" : {
+                                        "const" : "GIVE_INV1_TO_PROP1_GETS_INV2",
                                         "examples": [
                                             "eg manuscript b edited via typewriter by keeping prop"
                                         ]
@@ -647,6 +679,8 @@
                 "FLAG1_SET_BY_USING_INV1_WITH_PROP1_LOSE_PROPS",
                 "FLAG1_SET_BY_USING_INV1_WITH_PROP1_NEED_FLAG2",
                 "FLAG1_SET_BY_USING_PROP1_WITH_PROP2",
+                "GIVE_INV1_TO_PROP1_GETS_INV2",
+                "GIVE_INV1_TO_PROP1_SETS_FLAG1",
                 "INV1_AND_INV2_FORM_INV3",
                 "INV1_AND_INV2_GENERATE_INV3",
                 "INV1_BECOMES_INV2_BY_KEEPING_INV3",
@@ -654,6 +688,7 @@
                 "INV1_BECOMES_INV2_BY_LOSING_INV3",
                 "INV1_WITH_PROP1_REVEALS_PROP2_KEPT_ALL",
                 "OBTAIN_INV1_BY_PROP1_WITH_PROP2_LOSE_PROPS",
+                "PROP1_APPEARS_WHEN_GRAB_PROP2_WITH_FLAG1",
                 "PROP1_BECOMES_PROP2_AS_INV1_BECOMES_INV2",
                 "PROP1_BECOMES_PROP2_BY_KEEPING_INV1",
                 "PROP1_BECOMES_PROP2_BY_KEEPING_PROP3",
@@ -664,6 +699,7 @@
                 "PROP1_GOES_WHEN_GRAB_INV1",
                 "PROP1_STAYS_WHEN_GRAB_INV1",
                 "TALK_TO_PROP1_GETS_INV1",
+                "TALK_TO_PROP1_WITH_FLAG1_GETS_INV1",
                 "TOGGLE_PROP1_BECOMES_PROP2",
                 "TOGGLE_PROP1_CHANGES_STATE_TO_PROP2",
                 "TOGGLE_PROP1_REVEALS_PROP2_AS_IT_BECOMES_PROP3"
@@ -680,6 +716,8 @@
     "FLAG1_SET_BY_USING_INV1_WITH_PROP1_LOSE_PROPS" :"FLAG1_SET_BY_USING_INV1_WITH_PROP1_LOSE_PROPS",
     "FLAG1_SET_BY_USING_INV1_WITH_PROP1_NEED_FLAG2": "FLAG1_SET_BY_USING_INV1_WITH_PROP1_NEED_FLAG2",
     "FLAG1_SET_BY_USING_PROP1_WITH_PROP2": "FLAG1_SET_BY_USING_PROP1_WITH_PROP2",
+    "GIVE_INV1_TO_PROP1_GETS_INV2" : "GIVE_INV1_TO_PROP1_GETS_INV2",
+    "GIVE_INV1_TO_PROP1_SETS_FLAG1" : "GIVE_INV1_TO_PROP1_SETS_FLAG1",
     "INV1_AND_INV2_FORM_INV3": "INV1_AND_INV2_FORM_INV3",
     "INV1_AND_INV2_GENERATE_INV3": "INV1_AND_INV2_GENERATE_INV3",
     "INV1_BECOMES_INV2_BY_KEEPING_INV3": "INV1_BECOMES_INV2_BY_KEEPING_INV3",
@@ -687,6 +725,7 @@
     "INV1_BECOMES_INV2_BY_LOSING_INV3": "INV1_BECOMES_INV2_BY_LOSING_INV3",
     "INV1_WITH_PROP1_REVEALS_PROP2_KEPT_ALL": "INV1_WITH_PROP1_REVEALS_PROP2_KEPT_ALL",
     "OBTAIN_INV1_BY_PROP1_WITH_PROP2_LOSE_PROPS": "OBTAIN_INV1_BY_PROP1_WITH_PROP2_LOSE_PROPS",
+    "PROP1_APPEARS_WHEN_GRAB_PROP2_WITH_FLAG1" : "PROP1_APPEARS_WHEN_GRAB_PROP2_WITH_FLAG1",
     "PROP1_BECOMES_PROP2_AS_INV1_BECOMES_INV2" :  "PROP1_BECOMES_PROP2_AS_INV1_BECOMES_INV2",
     "PROP1_BECOMES_PROP2_BY_KEEPING_INV1": "PROP1_BECOMES_PROP2_BY_KEEPING_INV1",
     "PROP1_BECOMES_PROP2_BY_KEEPING_PROP3": "PROP1_BECOMES_PROP2_BY_KEEPING_PROP3",
@@ -697,6 +736,7 @@
     "PROP1_GOES_WHEN_GRAB_INV1": "PROP1_GOES_WHEN_GRAB_INV1",
     "PROP1_STAYS_WHEN_GRAB_INV1": "PROP1_STAYS_WHEN_GRAB_INV1",
     "TALK_TO_PROP1_GETS_INV1" : "TALK_TO_PROP1_GETS_INV1",
+    "TALK_TO_PROP1_WITH_FLAG1_GETS_INV1" : "TALK_TO_PROP1_WITH_FLAG1_GETS_INV1",
     "TOGGLE_PROP1_BECOMES_PROP2": "TOGGLE_PROP1_BECOMES_PROP2",
     "TOGGLE_PROP1_CHANGES_STATE_TO_PROP2": "TOGGLE_PROP1_CHANGES_STATE_TO_PROP2",
     "TOGGLE_PROP1_REVEALS_PROP2_AS_IT_BECOMES_PROP3" : "TOGGLE_PROP1_REVEALS_PROP2_AS_IT_BECOMES_PROP3"
