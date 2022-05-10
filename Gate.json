@@ -489,20 +489,7 @@
                             "prop1",
                             "prop2",
                             "flag1"
-                        ],
-                        "not": {
-                            "required": [
-                                "inv2",
-                                "flag2",
-                                "flag3",
-                                "inv1",
-                                "prop3",
-                                "prop4",
-                                "prop5",
-                                "prop6",
-                                "prop7"
-                            ]
-                        }
+                        ]
                     }
                 },
                 {
