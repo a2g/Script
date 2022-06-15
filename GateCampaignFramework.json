@@ -35,6 +35,7 @@
         },
         "condition_type": {
             "enum": [
+                "noPrerequisites",
                 "allOfThem",
                 "oneOrMore",
                 "twoOrMore",
