@@ -398,16 +398,6 @@
                             {
                                 "properties": {
                                     "gate": {
-                                        "const": "FLAG1_SET_BY_USING_INV1_WITH_PROP1",
-                                        "examples": [
-                                            "eg use sword with baddie wins game"
-                                        ]
-                                    }
-                                }
-                            },
-                            {
-                                "properties": {
-                                    "gate": {
                                         "const": "FLAG1_SET_BY_USING_INV1_WITH_PROP1_LOSE_PROPS",
                                         "examples": [
                                             "eg toggle on to off",
@@ -437,6 +427,38 @@
                                 }
                             }
                         ]
+                    },
+                    "then": {
+                        "required": [
+                            "inv1",
+                            "prop1",
+                            "flag1"
+                        ],
+                        "not": {
+                            "required": [
+                                "inv2",
+                                "flag2",
+                                "flag3",
+                                "prop2",
+                                "prop3",
+                                "prop4",
+                                "prop5",
+                                "prop6",
+                                "prop7"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "if": {
+                        "properties": {
+                            "gate": {
+                                "const": "FLAG1_SET_BY_USING_INV1_WITH_PROP1",
+                                "examples": [
+                                    "eg use sword with baddie wins game"
+                                ]
+                            }
+                        }
                     },
                     "then": {
                         "required": [
