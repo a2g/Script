@@ -329,6 +329,30 @@
                     }
                 },
                 {
+                  "if": {
+                      "properties": {
+                          "gate": {
+                              "const": "AUTO_FLAG1_SET_BY_INVS",
+                              "examples": [
+                                  "eg flag_lit_torch set by inv_lit_torch"
+                              ]
+                          }
+                      }
+                  },
+                  "then": {
+                      "required": [
+                          "flag1"
+                      ],
+                      "not": {
+                          "required": [
+                              "prop1",
+                              "prop2",
+                              "prop3"
+                          ]
+                      }
+                  }
+              },
+                {
                     "if": {
                         "properties": {
                             "gate": {
@@ -671,6 +695,7 @@
             "enum": [
                 "AUTO_FLAG1_CAUSES_IMPORT_OF_JSON",
                 "AUTO_FLAG1_SET_BY_FLAG2",
+                "AUTO_FLAG1_SET_BY_INVS",
                 "AUTO_FLAG1_SET_BY_PROPS",
                 "AUTO_PROP1_BECOMES_PROP2_BY_PROPS",
                 "FLAG1_SET_BY_LOSING_INV1_USED_WITH_PROP1_AND_PROPS",
@@ -708,6 +733,7 @@
     },
     "AUTO_FLAG1_CAUSES_IMPORT_OF_JSON": "AUTO_FLAG1_CAUSES_IMPORT_OF_JSON",
     "AUTO_FLAG1_SET_BY_FLAG2": "AUTO_FLAG1_SET_BY_FLAG2",
+    "AUTO_FLAG1_SET_BY_INVS" :"AUTO_FLAG1_SET_BY_INVS",
     "AUTO_FLAG1_SET_BY_PROPS": "AUTO_FLAG1_SET_BY_PROPS",
     "AUTO_PROP1_BECOMES_PROP2_BY_PROPS": "AUTO_PROP1_BECOMES_PROP2_BY_PROPS",
     "FLAG1_SET_BY_LOSING_INV1_USED_WITH_PROP1_AND_PROPS": "FLAG1_SET_BY_LOSING_INV1_USED_WITH_PROP1_AND_PROPS",
