@@ -519,27 +519,46 @@
                 {
                     "if": {
                         "anyOf": [
-                            {
-                                "properties": {
-                                    "gate": {
-                                        "const": "INV1_BECOMES_INV2_BY_KEEPING_PROP",
-                                        "examples": [
-                                            "eg manuscript b edited via typewriter by keeping prop"
-                                        ]
-                                    }
-                                }
+                          {
+                            "properties": {
+                              "gate": {
+                                "const": "THROW_INV1_AT_PROP1_GETS_INV2_LOSE_BOTH",
+                                "examples": [
+                                  "eg key throw rock at apple in tree, obtains apple (lose rock and apple in tree)"
+                                ]
+                              }
                             }
-                            ,
-                            {
-                                "properties":{
-                                    "gate" : {
-                                        "const" : "GIVE_INV1_TO_PROP1_GETS_INV2",
-                                        "examples": [
-                                            "eg manuscript b edited via typewriter by keeping prop"
-                                        ]
-                                    }
-                                }
+                          },
+                          {
+                            "properties": {
+                              "gate": {
+                                "const": "OBTAIN_INV1_BY_INV2_WITH_PROP1_LOSE_BOTH",
+                                "examples": [
+                                  "eg key throw rock at apple in tree, obtains apple (lose rock and apple in tree)"
+                                ]
+                              }
                             }
+                          },
+                          {
+                            "properties": {
+                              "gate": {
+                                "const": "INV1_BECOMES_INV2_BY_KEEPING_PROP",
+                                "examples": [
+                                  "eg manuscript b edited via typewriter by keeping prop"
+                                ]
+                              }
+                            }
+                          },
+                          {
+                            "properties": {
+                              "gate": {
+                                "const": "GIVE_INV1_TO_PROP1_GETS_INV2",
+                                "examples": [
+                                  "eg manuscript b edited via typewriter by keeping prop"
+                                ]
+                              }
+                            }
+                          }
                         ],
                         "then": {
                             "required": [
@@ -713,6 +732,7 @@
                 "INV1_BECOMES_INV2_BY_LOSING_INV3",
                 "INV1_WITH_PROP1_REVEALS_PROP2_KEPT_ALL",
                 "OBTAIN_INV1_BY_PROP1_WITH_PROP2_LOSE_PROPS",
+                "OBTAIN_INV1_BY_INV2_WITH_PROP1_LOSE_BOTH",
                 "PROP1_APPEARS_WHEN_GRAB_PROP2_WITH_FLAG1",
                 "PROP1_BECOMES_PROP2_AS_INV1_BECOMES_INV2",
                 "PROP1_BECOMES_PROP2_BY_KEEPING_INV1",
@@ -725,6 +745,7 @@
                 "PROP1_STAYS_WHEN_GRAB_INV1",
                 "TALK_TO_PROP1_GETS_INV1",
                 "TALK_TO_PROP1_WITH_FLAG1_GETS_INV1",
+                "THROW_INV1_AT_PROP1_GETS_INV2_LOSE_BOTH",
                 "TOGGLE_PROP1_BECOMES_PROP2",
                 "TOGGLE_PROP1_CHANGES_STATE_TO_PROP2",
                 "TOGGLE_PROP1_REVEALS_PROP2_AS_IT_BECOMES_PROP3"
@@ -751,6 +772,7 @@
     "INV1_BECOMES_INV2_BY_LOSING_INV3": "INV1_BECOMES_INV2_BY_LOSING_INV3",
     "INV1_WITH_PROP1_REVEALS_PROP2_KEPT_ALL": "INV1_WITH_PROP1_REVEALS_PROP2_KEPT_ALL",
     "OBTAIN_INV1_BY_PROP1_WITH_PROP2_LOSE_PROPS": "OBTAIN_INV1_BY_PROP1_WITH_PROP2_LOSE_PROPS",
+    "OBTAIN_INV1_BY_INV2_WITH_PROP1_LOSE_BOTH" : "OBTAIN_INV1_BY_PROP1_WITH_PROP2_LOSE_BOTH",
     "PROP1_APPEARS_WHEN_GRAB_PROP2_WITH_FLAG1" : "PROP1_APPEARS_WHEN_GRAB_PROP2_WITH_FLAG1",
     "PROP1_BECOMES_PROP2_AS_INV1_BECOMES_INV2" :  "PROP1_BECOMES_PROP2_AS_INV1_BECOMES_INV2",
     "PROP1_BECOMES_PROP2_BY_KEEPING_INV1": "PROP1_BECOMES_PROP2_BY_KEEPING_INV1",
@@ -763,6 +785,7 @@
     "PROP1_STAYS_WHEN_GRAB_INV1": "PROP1_STAYS_WHEN_GRAB_INV1",
     "TALK_TO_PROP1_GETS_INV1" : "TALK_TO_PROP1_GETS_INV1",
     "TALK_TO_PROP1_WITH_FLAG1_GETS_INV1" : "TALK_TO_PROP1_WITH_FLAG1_GETS_INV1",
+    "THROW_INV1_AT_PROP1_GETS_INV2_LOSE_BOTH" : "THROW_INV1_AT_PROP1_GETS_INV2_LOSE_BOTH",
     "TOGGLE_PROP1_BECOMES_PROP2": "TOGGLE_PROP1_BECOMES_PROP2",
     "TOGGLE_PROP1_CHANGES_STATE_TO_PROP2": "TOGGLE_PROP1_CHANGES_STATE_TO_PROP2",
     "TOGGLE_PROP1_REVEALS_PROP2_AS_IT_BECOMES_PROP3" : "TOGGLE_PROP1_REVEALS_PROP2_AS_IT_BECOMES_PROP3"
