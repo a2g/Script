@@ -25,7 +25,7 @@
               {
                 "properties": {
                   "gate": {
-                    "const": "INV1_AND_INV2_GENERATE_INV3",
+                    "const": "INV1_AND_INV2_GENERATE_AN_INV3",
                     "examples": [
                       "eg none yet"
                     ]
@@ -35,7 +35,7 @@
               {
                 "properties": {
                   "gate": {
-                    "const": "INV1_AND_INV2_FORM_INV3",
+                    "const": "INV1_AND_INV2_COMBINE_TO_FORM_INV3",
                     "examples": [
                       "not quite the amp fixing - but close"
                     ]
@@ -179,6 +179,16 @@
               {
                 "properties": {
                   "gate": {
+                    "const": "PROP1_APPEARS_WHEN_USE_INV1_WITH_PROP2",
+                    "examples": [
+                      "eg prop_crank appears when use use handle with well"
+                    ]
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "gate": {
                     "const": "PROP1_BECOMES_PROP2_BY_LOSING_PROP3",
                     "examples": [
                       "eg none yet"
@@ -242,6 +252,16 @@
                     "const": "TALK_TO_PROP1_GETS_INV1",
                     "examples": [
                       "eg talk to woman"
+                    ]
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "gate": {
+                    "const": "EXAMINE_PROP1_YIELDS_INV1",
+                    "examples": [
+                      "eg I thought this happened in DD but I read the solution wrong"
                     ]
                   }
                 }
@@ -443,6 +463,16 @@
               {
                 "properties": {
                   "gate": {
+                    "const": "FLAG1_SET_BY_LOSING_INV1_WHEN_USED_WITH_PROP1",
+                    "examples": [
+                      "eg flag is set when use cogs to fix dumbwaiter"
+                    ]
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "gate": {
                     "const": "GIVE_INV1_TO_PROP1_SETS_FLAG1",
                     "examples": [
                       "eg give gold to king completes game"
@@ -564,6 +594,16 @@
               {
                 "properties": {
                   "gate": {
+                    "const": "OBTAIN_INV1_BY_INV2_WITH_PROP1_LOSE_NONE",
+                    "examples": [
+                      "eg no example, but might need it"
+                    ]
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "gate": {
                     "const": "INV1_BECOMES_INV2_BY_KEEPING_PROP",
                     "examples": [
                       "eg manuscript b edited via typewriter by keeping prop"
@@ -577,6 +617,26 @@
                     "const": "GIVE_INV1_TO_PROP1_GETS_INV2",
                     "examples": [
                       "eg manuscript b edited via typewriter by keeping prop"
+                    ]
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "gate": {
+                    "const": "INPUT_INV1_PROP1_BECOMES_PROP2",
+                    "examples": [
+                      "eg this is a generic one"
+                    ]
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "gate": {
+                    "const": "OBTAIN_INV1_BY_LOSING_INV2_WITH_PROP1",
+                    "examples": [
+                      "eg obtain cogs when losing key in clock"
                     ]
                   }
                 }
@@ -738,6 +798,8 @@
         "AUTO_FLAG1_SET_BY_INVS",
         "AUTO_FLAG1_SET_BY_PROPS",
         "AUTO_PROP1_BECOMES_PROP2_BY_PROPS",
+        "EXAMINE_PROP1_YIELDS_INV1",
+        "FLAG1_SET_BY_LOSING_INV1_WHEN_USED_WITH_PROP1",
         "FLAG1_SET_BY_LOSING_INV1_USED_WITH_PROP1_AND_PROPS",
         "FLAG1_SET_BY_USING_INV1_WITH_INV2",
         "FLAG1_SET_BY_USING_INV1_WITH_PROP1",
@@ -746,15 +808,19 @@
         "FLAG1_SET_BY_USING_PROP1_WITH_PROP2",
         "GIVE_INV1_TO_PROP1_GETS_INV2",
         "GIVE_INV1_TO_PROP1_SETS_FLAG1",
-        "INV1_AND_INV2_FORM_INV3",
-        "INV1_AND_INV2_GENERATE_INV3",
+        "INPUT_INV1_PROP1_BECOMES_PROP2",
+        "INV1_AND_INV2_COMBINE_TO_FORM_INV3",
+        "INV1_AND_INV2_GENERATE_AN_INV3",
         "INV1_BECOMES_INV2_BY_KEEPING_INV3",
         "INV1_BECOMES_INV2_BY_KEEPING_PROP1",
         "INV1_BECOMES_INV2_BY_LOSING_INV3",
         "INV1_WITH_PROP1_REVEALS_PROP2_KEPT_ALL",
         "OBTAIN_INV1_BY_PROP1_WITH_PROP2_LOSE_PROPS",
         "OBTAIN_INV1_BY_INV2_WITH_PROP1_LOSE_BOTH",
+        "OBTAIN_INV1_BY_INV2_WITH_PROP1_LOSE_NONE",
+        "OBTAIN_INV1_BY_LOSING_INV2_WITH_PROP1",
         "PROP1_APPEARS_WHEN_GRAB_PROP2_WITH_FLAG1",
+        "PROP1_APPEARS_WHEN_USE_INV1_WITH_PROP2",
         "PROP1_BECOMES_PROP2_AS_INV1_BECOMES_INV2",
         "PROP1_BECOMES_PROP2_BY_KEEPING_INV1",
         "PROP1_BECOMES_PROP2_BY_KEEPING_PROP3",
@@ -778,6 +844,8 @@
   "AUTO_FLAG1_SET_BY_INVS": "AUTO_FLAG1_SET_BY_INVS",
   "AUTO_FLAG1_SET_BY_PROPS": "AUTO_FLAG1_SET_BY_PROPS",
   "AUTO_PROP1_BECOMES_PROP2_BY_PROPS": "AUTO_PROP1_BECOMES_PROP2_BY_PROPS",
+  "EXAMINE_PROP1_YIELDS_INV1": "EXAMINE_PROP1_YIELDS_INV1",
+  "FLAG1_SET_BY_LOSING_INV1_WHEN_USED_WITH_PROP1": "FLAG1_SET_BY_LOSING_INV1_WHEN_USED_WITH_PROP1",
   "FLAG1_SET_BY_LOSING_INV1_USED_WITH_PROP1_AND_PROPS": "FLAG1_SET_BY_LOSING_INV1_USED_WITH_PROP1_AND_PROPS",
   "FLAG1_SET_BY_USING_INV1_WITH_INV2": "FLAG1_SET_BY_USING_INV1_WITH_INV2",
   "FLAG1_SET_BY_USING_INV1_WITH_PROP1": "FLAG1_SET_BY_USING_INV1_WITH_PROP1",
@@ -786,15 +854,19 @@
   "FLAG1_SET_BY_USING_PROP1_WITH_PROP2": "FLAG1_SET_BY_USING_PROP1_WITH_PROP2",
   "GIVE_INV1_TO_PROP1_GETS_INV2": "GIVE_INV1_TO_PROP1_GETS_INV2",
   "GIVE_INV1_TO_PROP1_SETS_FLAG1": "GIVE_INV1_TO_PROP1_SETS_FLAG1",
-  "INV1_AND_INV2_FORM_INV3": "INV1_AND_INV2_FORM_INV3",
-  "INV1_AND_INV2_GENERATE_INV3": "INV1_AND_INV2_GENERATE_INV3",
+  "INPUT_INV1_PROP1_BECOMES_PROP2": "INPUT_INV1_PROP1_BECOMES_PROP2",
+  "INV1_AND_INV2_COMBINE_TO_FORM_INV3": "INV1_AND_INV2_COMBINE_TO_FORM_INV3",
+  "INV1_AND_INV2_GENERATE_AN_INV3": "INV1_AND_INV2_GENERATE_AN_INV3",
   "INV1_BECOMES_INV2_BY_KEEPING_INV3": "INV1_BECOMES_INV2_BY_KEEPING_INV3",
   "INV1_BECOMES_INV2_BY_KEEPING_PROP1": "INV1_BECOMES_INV2_BY_KEEPING_PROP1",
   "INV1_BECOMES_INV2_BY_LOSING_INV3": "INV1_BECOMES_INV2_BY_LOSING_INV3",
   "INV1_WITH_PROP1_REVEALS_PROP2_KEPT_ALL": "INV1_WITH_PROP1_REVEALS_PROP2_KEPT_ALL",
   "OBTAIN_INV1_BY_PROP1_WITH_PROP2_LOSE_PROPS": "OBTAIN_INV1_BY_PROP1_WITH_PROP2_LOSE_PROPS",
   "OBTAIN_INV1_BY_INV2_WITH_PROP1_LOSE_BOTH": "OBTAIN_INV1_BY_PROP1_WITH_PROP2_LOSE_BOTH",
+  "OBTAIN_INV1_BY_INV2_WITH_PROP1_LOSE_NONE": "OBTAIN_INV1_BY_PROP1_WITH_PROP2_LOSE_NONE",
+  "OBTAIN_INV1_BY_LOSING_INV2_WITH_PROP1": "OBTAIN_INV1_BY_LOSING_INV2_WITH_PROP1",
   "PROP1_APPEARS_WHEN_GRAB_PROP2_WITH_FLAG1": "PROP1_APPEARS_WHEN_GRAB_PROP2_WITH_FLAG1",
+  "PROP1_APPEARS_WHEN_USE_INV1_WITH_PROP2": "PROP1_APPEARS_WHEN_USE_INV1_WITH_PROP2",
   "PROP1_BECOMES_PROP2_AS_INV1_BECOMES_INV2": "PROP1_BECOMES_PROP2_AS_INV1_BECOMES_INV2",
   "PROP1_BECOMES_PROP2_BY_KEEPING_INV1": "PROP1_BECOMES_PROP2_BY_KEEPING_INV1",
   "PROP1_BECOMES_PROP2_BY_KEEPING_PROP3": "PROP1_BECOMES_PROP2_BY_KEEPING_PROP3",
