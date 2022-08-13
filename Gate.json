@@ -438,7 +438,7 @@
         },
         {
           "if": {
-            "anyof": [
+            "anyOf": [
               {
                 "properties": {
                   "gate": {
