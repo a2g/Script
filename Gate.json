@@ -72,14 +72,7 @@
               "inv1",
               "inv2",
               "inv3"
-            ],
-            "not": {
-              "required": [
-                "prop1",
-                "prop2",
-                "prop3"
-              ]
-            }
+            ]
           }
         },
         {
@@ -156,14 +149,7 @@
               "inv1",
               "prop1",
               "prop2"
-            ],
-            "not": {
-              "required": [
-                "inv2",
-                "inv3",
-                "prop3"
-              ]
-            }
+            ]
           }
         },
         {
@@ -216,14 +202,7 @@
               "prop1",
               "prop2",
               "prop3"
-            ],
-            "not": {
-              "required": [
-                "inv1",
-                "inv2",
-                "inv3"
-              ]
-            }
+            ]
           }
         },
         {
@@ -275,15 +254,7 @@
             "required": [
               "prop1",
               "inv1"
-            ],
-            "not": {
-              "required": [
-                "prop2",
-                "prop3",
-                "inv2",
-                "inv3"
-              ]
-            }
+            ]
           }
         },
         {
@@ -316,15 +287,7 @@
             "required": [
               "prop1",
               "prop2"
-            ],
-            "not": {
-              "required": [
-                "prop3",
-                "inv1",
-                "inv2",
-                "inv3"
-              ]
-            }
+            ]
           }
         },
         {
@@ -341,14 +304,7 @@
           "then": {
             "required": [
               "flag1"
-            ],
-            "not": {
-              "required": [
-                "inv1",
-                "inv2",
-                "inv3"
-              ]
-            }
+            ]
           }
         },
         {
@@ -365,14 +321,7 @@
           "then": {
             "required": [
               "flag1"
-            ],
-            "not": {
-              "required": [
-                "prop1",
-                "prop2",
-                "prop3"
-              ]
-            }
+            ]
           }
         },
         {
@@ -391,20 +340,7 @@
               "inv1",
               "inv2",
               "flag1"
-            ],
-            "not": {
-              "required": [
-                "prop1",
-                "flag2",
-                "flag3",
-                "prop2",
-                "prop3",
-                "prop4",
-                "prop5",
-                "prop6",
-                "prop7"
-              ]
-            }
+            ]
           }
         },
         {
@@ -424,19 +360,7 @@
               "prop1",
               "flag1",
               "flag2"
-            ],
-            "not": {
-              "required": [
-                "inv2",
-                "flag3",
-                "prop2",
-                "prop3",
-                "prop4",
-                "prop5",
-                "prop6",
-                "prop7"
-              ]
-            }
+            ]
           }
         },
         {
@@ -490,20 +414,7 @@
               "inv1",
               "prop1",
               "flag1"
-            ],
-            "not": {
-              "required": [
-                "inv2",
-                "flag2",
-                "flag3",
-                "prop2",
-                "prop3",
-                "prop4",
-                "prop5",
-                "prop6",
-                "prop7"
-              ]
-            }
+            ]
           }
         },
         {
@@ -522,20 +433,7 @@
               "inv1",
               "prop1",
               "flag1"
-            ],
-            "not": {
-              "required": [
-                "inv2",
-                "flag2",
-                "flag3",
-                "prop2",
-                "prop3",
-                "prop4",
-                "prop5",
-                "prop6",
-                "prop7"
-              ]
-            }
+            ]
           }
         },
         {
@@ -670,42 +568,6 @@
                 "inv1",
                 "inv2",
                 "prop1"
-              ],
-              "not": {
-                "required": [
-                  "inv3",
-                  "prop2",
-                  "prop3",
-                  "prop4",
-                  "prop5",
-                  "prop6",
-                  "prop7"
-                ]
-              }
-            }
-          }
-        },
-        {
-          "if": {
-            "properties": {
-              "gate": {
-                "const": "AUTO_FLAG1_SET_BY_FLAG2"
-              }
-            }
-          },
-          "then": {
-            "required": [
-              "flag1",
-              "flag2"
-            ],
-            "not": {
-              "required": [
-                "prop1",
-                "prop2",
-                "prop3",
-                "inv1",
-                "inv2",
-                "inv3"
               ]
             }
           }
@@ -722,18 +584,22 @@
             "required": [
               "flag1",
               "flag2"
-            ],
-            "not": {
-              "required": [
-                "flag3",
-                "prop1",
-                "prop2",
-                "prop3",
-                "inv1",
-                "inv2",
-                "inv3"
-              ]
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "gate": {
+                "const": "AUTO_FLAG1_SET_BY_FLAG2"
+              }
             }
+          },
+          "then": {
+            "required": [
+              "flag1",
+              "flag2"
+            ]
           }
         },
         {
@@ -751,13 +617,7 @@
               "prop1",
               "prop2",
               "prop3"
-            ],
-            "not": {
-              "required": [
-                "inv2",
-                "inv3"
-              ]
-            }
+            ]
           }
         },
         {
@@ -772,18 +632,7 @@
             "required": [
               "flag1",
               "fileToMerge"
-            ],
-            "not": {
-              "required": [
-                "flag2",
-                "inv1",
-                "inv2",
-                "inv3",
-                "prop1",
-                "prop2",
-                "prop3"
-              ]
-            }
+            ]
           }
         },
         {
@@ -800,16 +649,7 @@
               "prop2",
               "inv1",
               "inv2"
-            ],
-            "not": {
-              "required": [
-                "flag1",
-                "flag2",
-                "inv3",
-                "prop3",
-                "fileToMerge"
-              ]
-            }
+            ]
           }
         }
       ]
