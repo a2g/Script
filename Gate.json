@@ -406,27 +406,38 @@
                     ]
                   }
                 }
+              },
+              {
+                "properties": {
+                  "gate": {
+                    "const": "FLAG1_SET_BY_USING_INV1_WITH_PROP1",
+                    "examples": [
+                      "eg use sword with baddie wins game"
+                    ]
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "gate": {
+                    "const": "PROP1_STAYS_WHEN_GRAB_INV1_WITH_FLAG1",
+                    "examples": [
+                      "eg grab pile of tyres, with flag set"
+                    ]
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "gate": {
+                    "const": "PROP1_GOES_WHEN_GRAB_INV1_WITH_FLAG1",
+                    "examples": [
+                      "eg grab single tire, if flag set"
+                    ]
+                  }
+                }
               }
             ]
-          },
-          "then": {
-            "required": [
-              "inv1",
-              "prop1",
-              "flag1"
-            ]
-          }
-        },
-        {
-          "if": {
-            "properties": {
-              "gate": {
-                "const": "FLAG1_SET_BY_USING_INV1_WITH_PROP1",
-                "examples": [
-                  "eg use sword with baddie wins game"
-                ]
-              }
-            }
           },
           "then": {
             "required": [
@@ -526,6 +537,16 @@
                 "properties": {
                   "gate": {
                     "const": "INPUT_INV1_PROP1_BECOMES_PROP2",
+                    "examples": [
+                      "eg generic"
+                    ]
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "gate": {
+                    "const": "INPUT_PROP1_INV1_REVEALS_PROP2",
                     "examples": [
                       "eg generic"
                     ]
@@ -673,6 +694,7 @@
         "GIVE_INV1_TO_PROP1_SETS_FLAG1",
         "INPUT_INV1_PROP1_BECOMES_PROP2",
         "INPUT_PROP1_INV1_BECOMES_INV2",
+        "INPUT_PROP1_INV1_REVEALS_PROP2",
         "INV1_AND_INV2_COMBINE_TO_FORM_INV3",
         "INV1_AND_INV2_GENERATE_AN_INV3",
         "INV1_BECOMES_INV2_BY_KEEPING_INV3",
@@ -695,6 +717,8 @@
         "PROP1_CHANGES_STATE_TO_PROP2_BY_KEEPING_INV1",
         "PROP1_GOES_WHEN_GRAB_INV1",
         "PROP1_STAYS_WHEN_GRAB_INV1",
+        "PROP1_GOES_WHEN_GRAB_INV1_WITH_FLAG1",
+        "PROP1_STAYS_WHEN_GRAB_INV1_WITH_FLAG1",
         "TALK_TO_PROP1_GETS_INV1",
         "TALK_TO_PROP1_WITH_FLAG1_GETS_INV1",
         "THROW_INV1_AT_PROP1_GETS_INV2_LOSE_BOTH",
@@ -709,6 +733,7 @@
   "AUTO_FLAG1_SET_BY_INVS": "AUTO_FLAG1_SET_BY_INVS",
   "AUTO_FLAG1_SET_BY_PROPS": "AUTO_FLAG1_SET_BY_PROPS",
   "AUTO_PROP1_BECOMES_PROP2_BY_PROPS": "AUTO_PROP1_BECOMES_PROP2_BY_PROPS",
+  "AUTOEX_FLAG1_UNSET_BY_ANY_OF_PROPS": "AUTOEX_FLAG1_UNSET_BY_ANY_OF_PROPS",
   "EXAMINE_PROP1_YIELDS_INV1": "EXAMINE_PROP1_YIELDS_INV1",
   "FLAG1_SET_BY_LOSING_INV1_WHEN_USED_WITH_PROP1": "FLAG1_SET_BY_LOSING_INV1_WHEN_USED_WITH_PROP1",
   "FLAG1_SET_BY_LOSING_INV1_USED_WITH_PROP1_AND_PROPS": "FLAG1_SET_BY_LOSING_INV1_USED_WITH_PROP1_AND_PROPS",
@@ -721,6 +746,7 @@
   "GIVE_INV1_TO_PROP1_SETS_FLAG1": "GIVE_INV1_TO_PROP1_SETS_FLAG1",
   "INPUT_INV1_PROP1_BECOMES_PROP2": "INPUT_INV1_PROP1_BECOMES_PROP2",
   "INPUT_PROP1_INV1_BECOMES_INV2": "INPUT_PROP1_INV1_BECOMES_INV2",
+  "INPUT_PROP1_INV1_REVEALS_PROP2": "INPUT_PROP1_INV1_REVEALS_PROP2",
   "INV1_AND_INV2_COMBINE_TO_FORM_INV3": "INV1_AND_INV2_COMBINE_TO_FORM_INV3",
   "INV1_AND_INV2_GENERATE_AN_INV3": "INV1_AND_INV2_GENERATE_AN_INV3",
   "INV1_BECOMES_INV2_BY_KEEPING_INV3": "INV1_BECOMES_INV2_BY_KEEPING_INV3",
@@ -743,6 +769,8 @@
   "PROP1_CHANGES_STATE_TO_PROP2_BY_KEEPING_INV1": "PROP1_CHANGES_STATE_TO_PROP2_BY_KEEPING_INV1",
   "PROP1_GOES_WHEN_GRAB_INV1": "PROP1_GOES_WHEN_GRAB_INV1",
   "PROP1_STAYS_WHEN_GRAB_INV1": "PROP1_STAYS_WHEN_GRAB_INV1",
+  "PROP1_GOES_WHEN_GRAB_INV1_WITH_FLAG1": "PROP1_GOES_WHEN_GRAB_INV1_WITH_FLAG1",
+  "PROP1_STAYS_WHEN_GRAB_INV1_WITH_FLAG1": "PROP1_STAYS_WHEN_GRAB_INV1_WITH_FLAG1",
   "TALK_TO_PROP1_GETS_INV1": "TALK_TO_PROP1_GETS_INV1",
   "TALK_TO_PROP1_WITH_FLAG1_GETS_INV1": "TALK_TO_PROP1_WITH_FLAG1_GETS_INV1",
   "THROW_INV1_AT_PROP1_GETS_INV2_LOSE_BOTH": "THROW_INV1_AT_PROP1_GETS_INV2_LOSE_BOTH",
