@@ -1,0 +1,69 @@
+{
+  "$id": "https://raw.githubusercontent.com/a2g/adv/main/Objects.json",
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "description": "a list of specific objects that gets references from mansion.gates.schema.json",
+  "type": "object",
+  "definitions": {
+    "char_type": {
+      "enum": [
+        "char1",
+        "char2",
+        "char3",
+        "char4"
+      ]
+    },
+    "inv_type": {
+      "enum": [
+        "inv_final_catalyst",
+        "inv_tube_carrier",
+        "inv_box_of_items",
+        "inv_char1_toy",
+        "inv_char2_toy",
+        "inv_char3_toy",
+        "inv_char4_toy",
+        "inv_shared_toy"
+      ]
+    },
+    "prop_type": {
+      "enum": [
+        "prop_accelerated_EasyTube™",
+        "prop_switch1",
+        "prop_rigging_place1",
+        "prop_attached_item1",
+        "prop_rigged_item1",
+        "prop_switched_on_item1",
+        "prop_switch2",
+        "prop_rigging_place2",
+        "prop_attached_item2",
+        "prop_rigged_item2",
+        "prop_switched_on_item2",
+        "prop_switch3",
+        "prop_rigging_place3",
+        "prop_attached_item3",
+        "prop_rigged_item3",
+        "prop_switched_on_item3",
+        "prop_switch4",
+        "prop_rigging_place4",
+        "prop_attached_item4",
+        "prop_rigged_item4",
+        "prop_switched_on_item4",
+        "prop_switch5",
+        "prop_rigging_place5",
+        "prop_attached_item5",
+        "prop_rigged_item5",
+        "prop_switched_on_item5",
+        "prop_stage",
+        "prop_stageA",
+        "prop_stageB",
+        "prop_stageC",
+        "prop_stageD",
+        "prop_stageE"
+      ]
+    },
+    "flag_type": {
+      "enum": [
+        "flag_win"
+      ]
+    }
+  }
+}
