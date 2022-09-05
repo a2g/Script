@@ -1,7 +1,7 @@
 // Typescript Unit test
 import assert = require('assert')
-import { SolverViaRootNode } from '../../jigsaw/src/SolverViaRootNode'
-import { ReadOnlyJsonSingle } from '../../jigsaw/src/ReadOnlyJsonSingle'
+import { SolverViaRootNode } from '../src/SolverViaRootNode'
+import { ReadOnlyJsonSingle } from '../src/ReadOnlyJsonSingle'
 
 describe('Solution', () => {
   /*

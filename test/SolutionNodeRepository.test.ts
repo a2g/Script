@@ -1,6 +1,6 @@
 import assert = require('assert')
-import { SolutionNodeRepository } from '../../jigsaw/src/SolutionNodeRepository'
-import { SolutionNode } from '../../jigsaw/src/SolutionNode'
+import { SolutionNodeRepository } from '../src/SolutionNodeRepository'
+import { SolutionNode } from '../src/SolutionNode'
 
 describe('ReactionMap', () => {
   it('test AddToMap works', () => {

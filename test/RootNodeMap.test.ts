@@ -1,8 +1,8 @@
 // Typescript Unit test
 import assert = require('assert')
-import { RootNodeMap } from '../../jigsaw/src/RootNodeMap'
-import { SolutionNode } from '../../jigsaw/src/SolutionNode'
-import { SpecialNodes } from '../../jigsaw/src/SpecialNodes'
+import { RootNodeMap } from '../src/RootNodeMap'
+import { SolutionNode } from '../src/SolutionNode'
+import { SpecialNodes } from '../src/SpecialNodes'
 
 describe('GenerateMapOfLeaves', () => {
   it('EnsureARootNodeThatIsAVerifiedLeafGetsAdded', () => {

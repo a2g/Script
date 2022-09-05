@@ -4,7 +4,7 @@ import { Happenings } from './Happenings'
 import { Mix } from './Mix'
 import { ReadOnlyJsonInterface } from './ReadOnlyJsonInterface'
 import { ReadOnlyJsonSingle } from './ReadOnlyJsonSingle'
-import { SingleBigSwitch } from '../../jigsaw/src/SingleBigSwitch'
+import { SingleBigSwitch } from './SingleBigSwitch'
 
 /**
  * So the most important part of this class is that the data
@@ -24,7 +24,7 @@ export class ReadOnlyViaArrayOfJsons implements ReadOnlyJsonInterface {
   readonly allScenes: ReadOnlyJsonSingle[]
   readonly mapOfBags: Map<string, ReadOnlyJsonSingle>
 
-  constructor (jsons: ReadOnlyJsonSingle[]) {
+  constructor(jsons: ReadOnlyJsonSingle[]) {
     this.allScenes = jsons
 
     // create sets for the 3 member and 4 indirect sets
@@ -68,27 +68,27 @@ export class ReadOnlyViaArrayOfJsons implements ReadOnlyJsonInterface {
     this.allChars = Array.from(setChars.values())
   }
 
-  GetArrayOfProps (): string[] {
+  GetArrayOfProps(): string[] {
     return this.allProps
   }
 
-  GetArrayOfInvs (): string[] {
+  GetArrayOfInvs(): string[] {
     return this.allInvs
   }
 
-  GetArrayOfFlags (): string[] {
+  GetArrayOfFlags(): string[] {
     return this.allFlags
   }
 
-  GetArrayOfSingleObjectVerbs (): string[] {
+  GetArrayOfSingleObjectVerbs(): string[] {
     return ['grab', 'toggle']
   }
 
-  GetArrayOfInitialStatesOfSingleObjectVerbs (): boolean[] {
+  GetArrayOfInitialStatesOfSingleObjectVerbs(): boolean[] {
     return [true, true]
   }
 
-  GetArrayOfInitialStatesOfFlags (): number[] {
+  GetArrayOfInitialStatesOfFlags(): number[] {
     const array = new Array<number>()
     for (const flag of this.allFlags) {
       array.push(flag.length > 0 ? 0 : 0)// I used value.length>0 to get rid of the unused variable warnin
@@ -96,19 +96,19 @@ export class ReadOnlyViaArrayOfJsons implements ReadOnlyJsonInterface {
     return array
   }
 
-  GetSetOfStartingProps (): Set<string> {
+  GetSetOfStartingProps(): Set<string> {
     return this.startingPropSet
   }
 
-  GetSetOfStartingInvs (): Set<string> {
+  GetSetOfStartingInvs(): Set<string> {
     return this.startingInvSet
   }
 
-  GetMapOfAllStartingThings (): Map<string, Set<string>> {
+  GetMapOfAllStartingThings(): Map<string, Set<string>> {
     return this.mapOfStartingThingsWithChars
   }
 
-  GetStartingThingsForCharacter (charName: string): Set<string> {
+  GetStartingThingsForCharacter(charName: string): Set<string> {
     const startingThingSet = new Set<string>()
     this.mapOfStartingThingsWithChars.forEach((value: Set<string>, thing: string) => {
       for (const item of value) {
@@ -122,7 +122,7 @@ export class ReadOnlyViaArrayOfJsons implements ReadOnlyJsonInterface {
     return startingThingSet
   }
 
-  GetArrayOfInitialStatesOfProps (): boolean[] {
+  GetArrayOfInitialStatesOfProps(): boolean[] {
     // construct array of booleans in exact same order as ArrayOfProps - so they can be correlated
     const startingSet = this.GetSetOfStartingProps()
     const visibilities = new Array<boolean>()
@@ -134,7 +134,7 @@ export class ReadOnlyViaArrayOfJsons implements ReadOnlyJsonInterface {
     return visibilities
   }
 
-  GetArrayOfInitialStatesOfInvs (): boolean[] {
+  GetArrayOfInitialStatesOfInvs(): boolean[] {
     // construct array of booleans in exact same order as ArrayOfProps - so they can be correlated
     const startingSet = this.GetSetOfStartingInvs()
     const visibilities = new Array<boolean>()
@@ -146,11 +146,11 @@ export class ReadOnlyViaArrayOfJsons implements ReadOnlyJsonInterface {
     return visibilities
   }
 
-  GetArrayOfCharacters (): string[] {
+  GetArrayOfCharacters(): string[] {
     return this.allChars
   }
 
-  GenerateSolutionNodesMappedByInput (): SolutionNodeRepository {
+  GenerateSolutionNodesMappedByInput(): SolutionNodeRepository {
     const solutionNodesMappedByInput = new SolutionNodeRepository(null)
 
     for (const json of this.allScenes) {
@@ -160,7 +160,7 @@ export class ReadOnlyViaArrayOfJsons implements ReadOnlyJsonInterface {
     return solutionNodesMappedByInput
   }
 
-  FindHappeningsIfAny (objects: MixedObjectsAndVerb): Happenings | null {
+  FindHappeningsIfAny(objects: MixedObjectsAndVerb): Happenings | null {
     for (const json of this.allScenes) {
       const result = SingleBigSwitch(json.GetFilename(), null, objects) as unknown as Happenings | null
       if (result != null) { return result }
@@ -168,7 +168,7 @@ export class ReadOnlyViaArrayOfJsons implements ReadOnlyJsonInterface {
     return null
   }
 
-  GetMapOfBags (): Map<string, ReadOnlyJsonSingle> {
+  GetMapOfBags(): Map<string, ReadOnlyJsonSingle> {
     return this.mapOfBags
   }
 }

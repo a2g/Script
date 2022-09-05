@@ -4,9 +4,9 @@ import { Happenings } from './Happenings'
 import { Mix } from './Mix'
 import { ReadOnlyJsonInterface } from './ReadOnlyJsonInterface'
 import { ReadOnlyJsonSingle } from './ReadOnlyJsonSingle'
-import { SingleBigSwitch } from '../../jigsaw/src/SingleBigSwitch'
+import { SingleBigSwitch } from './SingleBigSwitch'
 
-function CollectAllJsonRecursively (json: ReadOnlyJsonSingle, map: Map<string, ReadOnlyJsonSingle>): void {
+function CollectAllJsonRecursively(json: ReadOnlyJsonSingle, map: Map<string, ReadOnlyJsonSingle>): void {
   for (const bag of json.GetMapOfBags()) {
     const node: ReadOnlyJsonSingle = bag[1]
     map.set(bag[0], node)
@@ -30,7 +30,7 @@ export class ReadOnlyJsonMultipleFilenames implements ReadOnlyJsonInterface {
   readonly allScenes: Map<string, ReadOnlyJsonSingle>
   readonly mapOfBags: Map<string, ReadOnlyJsonSingle>
 
-  constructor (rootJson: ReadOnlyJsonSingle) {
+  constructor(rootJson: ReadOnlyJsonSingle) {
     this.allScenes = new Map<string, ReadOnlyJsonSingle>()
     CollectAllJsonRecursively(rootJson, this.allScenes)
 
@@ -75,27 +75,27 @@ export class ReadOnlyJsonMultipleFilenames implements ReadOnlyJsonInterface {
     this.allChars = Array.from(setChars.values())
   }
 
-  GetArrayOfProps (): string[] {
+  GetArrayOfProps(): string[] {
     return this.allProps
   }
 
-  GetArrayOfInvs (): string[] {
+  GetArrayOfInvs(): string[] {
     return this.allInvs
   }
 
-  GetArrayOfFlags (): string[] {
+  GetArrayOfFlags(): string[] {
     return this.allFlags
   }
 
-  GetArrayOfSingleObjectVerbs (): string[] {
+  GetArrayOfSingleObjectVerbs(): string[] {
     return ['grab', 'toggle']
   }
 
-  GetArrayOfInitialStatesOfSingleObjectVerbs (): boolean[] {
+  GetArrayOfInitialStatesOfSingleObjectVerbs(): boolean[] {
     return [true, true]
   }
 
-  GetArrayOfInitialStatesOfFlags (): number[] {
+  GetArrayOfInitialStatesOfFlags(): number[] {
     const array = new Array<number>()
     for (const flag of this.allFlags) {
       array.push(flag.length > 0 ? 0 : 0)// I used value.length>0 to get rid of the unused variable warnin
@@ -103,19 +103,19 @@ export class ReadOnlyJsonMultipleFilenames implements ReadOnlyJsonInterface {
     return array
   }
 
-  GetSetOfStartingProps (): Set<string> {
+  GetSetOfStartingProps(): Set<string> {
     return this.startingPropSet
   }
 
-  GetSetOfStartingInvs (): Set<string> {
+  GetSetOfStartingInvs(): Set<string> {
     return this.startingInvSet
   }
 
-  GetMapOfAllStartingThings (): Map<string, Set<string>> {
+  GetMapOfAllStartingThings(): Map<string, Set<string>> {
     return this.mapOfStartingThingsWithChars
   }
 
-  GetStartingThingsForCharacter (charName: string): Set<string> {
+  GetStartingThingsForCharacter(charName: string): Set<string> {
     const startingThingSet = new Set<string>()
     this.mapOfStartingThingsWithChars.forEach((value: Set<string>, thing: string) => {
       for (const item of value) {
@@ -129,7 +129,7 @@ export class ReadOnlyJsonMultipleFilenames implements ReadOnlyJsonInterface {
     return startingThingSet
   }
 
-  GetArrayOfInitialStatesOfProps (): boolean[] {
+  GetArrayOfInitialStatesOfProps(): boolean[] {
     // construct array of booleans in exact same order as ArrayOfProps - so they can be correlated
     const startingSet = this.GetSetOfStartingProps()
     const visibilities = new Array<boolean>()
@@ -141,7 +141,7 @@ export class ReadOnlyJsonMultipleFilenames implements ReadOnlyJsonInterface {
     return visibilities
   }
 
-  GetArrayOfInitialStatesOfInvs (): boolean[] {
+  GetArrayOfInitialStatesOfInvs(): boolean[] {
     // construct array of booleans in exact same order as ArrayOfProps - so they can be correlated
     const startingSet = this.GetSetOfStartingInvs()
     const visibilities = new Array<boolean>()
@@ -153,11 +153,11 @@ export class ReadOnlyJsonMultipleFilenames implements ReadOnlyJsonInterface {
     return visibilities
   }
 
-  GetArrayOfCharacters (): string[] {
+  GetArrayOfCharacters(): string[] {
     return this.allChars
   }
 
-  GenerateSolutionNodesMappedByInput (): SolutionNodeRepository {
+  GenerateSolutionNodesMappedByInput(): SolutionNodeRepository {
     const solutionNodesMappedByInput = new SolutionNodeRepository(null)
 
     for (const filename of this.allScenes.keys()) {
@@ -167,7 +167,7 @@ export class ReadOnlyJsonMultipleFilenames implements ReadOnlyJsonInterface {
     return solutionNodesMappedByInput
   }
 
-  FindHappeningsIfAny (objects: MixedObjectsAndVerb): Happenings | null {
+  FindHappeningsIfAny(objects: MixedObjectsAndVerb): Happenings | null {
     for (const filename of this.allScenes.keys()) {
       const result = SingleBigSwitch(filename, null, objects) as unknown as Happenings | null
       if (result != null) { return result }
@@ -175,7 +175,7 @@ export class ReadOnlyJsonMultipleFilenames implements ReadOnlyJsonInterface {
     return null
   }
 
-  GetMapOfBags (): Map<string, ReadOnlyJsonSingle> {
+  GetMapOfBags(): Map<string, ReadOnlyJsonSingle> {
     return this.mapOfBags
   }
 }
