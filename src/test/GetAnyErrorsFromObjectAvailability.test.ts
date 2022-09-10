@@ -1,6 +1,6 @@
 import assert = require('assert')
 import { GetAnyErrorsFromObjectAvailability } from '../src/GetAnyErrorsFromObjectAvailability'
-import { Mix } from '../src/Mix'
+import { Mix } from '../../src/main/Mix'
 import { MixedObjectsAndVerb } from '../src/MixedObjectsAndVerb'
 
 describe('GetAnyErrorsFromObjectAvailability', () => {

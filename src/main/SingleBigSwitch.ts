@@ -1,12 +1,8 @@
-import { Happenings } from './Happenings'
-import { MixedObjectsAndVerb } from './MixedObjectsAndVerb'
-import { SolutionNodeRepository } from './SolutionNodeRepository'
+
 import * as fs from 'fs'
-import _ from '../Gate.json'
-import { Happen } from './Happen'
-import { Happening } from './Happening'
-import { SolutionNode } from './SolutionNode'
-import { AlleviateBrackets } from './AlleviateBrackets'
+import _ from '../../Gate.json'
+import { Happenings } from './Happenings'
+
 
 function isNullOrUndefined (something: any): boolean {
   return (typeof something === 'undefined' || something === null)
@@ -24,9 +20,11 @@ export function SingleBigSwitch (filename: string, solutionNodesMappedByInput: S
 
   for (let gate of scenario.gates) {
     const isConjoint = !isNullOrUndefined(gate.conjoint)
-    let id1 = globalId++
-    let id2 = isConjoint ? globalId++ : 0
-    for (let i = 0; i < (isConjoint ? 2 : 1); i++) {
+    let id1 = globalId
+    globalId+=1 
+    let id2 = isConjoint ? globalId : 0
+    globalId+=1 
+    for (let i = 0; i < (isConjoint ? 2 : 1); i+=1) {
       if (i === 1 && isConjoint) {
         gate.conjoint.text = gate.text// share the text string for both
         gate = gate.conjoint// overwrite gate with the conjoint
