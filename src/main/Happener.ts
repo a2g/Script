@@ -1,9 +1,9 @@
-import { PlayerAI } from 'main/PlayerAI'
-import { HappenerCallbacksInterface } from 'main/HappenerCallbacksInterface'
-import { MixedObjectsAndVerb } from 'main/MixedObjectsAndVerb'
-import { Happen } from 'main/Happen'
-import { ReadOnlyJsonInterfaceHappener } from 'main/ReadOnlyJsonInterfaceHappener'
-import { ReadOnlyJsonSingle } from 'main/ReadOnlyJsonSingle'
+import { PlayerAI } from 'jigsaw/PlayerAI'
+import { HappenerCallbacksInterface } from 'jigsaw/HappenerCallbacksInterface'
+import { MixedObjectsAndVerb } from 'jigsaw/MixedObjectsAndVerb'
+import { Happen } from 'jigsaw/Happen'
+import { ReadOnlyJsonInterfaceHappener } from 'jigsaw/ReadOnlyJsonInterfaceHappener'
+import { ReadOnlyJsonSingle } from 'jigsaw/ReadOnlyJsonSingle'
 import { assert } from 'console'
 
 // April 2021
@@ -21,7 +21,7 @@ import { assert } from 'console'
 //
 
 export class Happener {
-  constructor (json: ReadOnlyJsonInterfaceHappener) {
+  constructor(json: ReadOnlyJsonInterfaceHappener) {
     // yes, all of these need to be initialized to harmless values due to PlayerAI below
     this.arrayOfInvNames = new Array<string>()
     this.arrayOfFlagNames = new Array<string>()
@@ -48,28 +48,28 @@ export class Happener {
     this.arrayOfFlagValues = json.GetArrayOfInitialStatesOfFlags()
   }
 
-  SetFlagValue (flag: string, value: number): void {
+  SetFlagValue(flag: string, value: number): void {
     const index = this.GetIndexOfFlag(flag)
     this.arrayOfFlagValues[index] = value
   }
 
-  GetFlagValue (flag: string): Number {
+  GetFlagValue(flag: string): Number {
     const index = this.GetIndexOfFlag(flag)
     const toReturn: Number = this.arrayOfFlagValues[index]
     return toReturn
   }
 
-  SetInvVisible (inv: string, value: boolean): void {
+  SetInvVisible(inv: string, value: boolean): void {
     const index = this.GetIndexOfInv(inv)
     this.arrayOfInventoryVisibilities[index] = value
   }
 
-  SetPropVisible (prop: string, value: boolean): void {
+  SetPropVisible(prop: string, value: boolean): void {
     const index = this.GetIndexOfProp(prop)
     this.arrayOfPropVisibilities[index] = value
   }
 
-  ExecuteCommand (objects: MixedObjectsAndVerb): void {
+  ExecuteCommand(objects: MixedObjectsAndVerb): void {
     const happenings = this.json.FindHappeningsIfAny(objects)
     if (happenings != null) {
       console.log(happenings.text)
@@ -121,51 +121,51 @@ export class Happener {
     }
   }
 
-  GetIndexOfVerb (verb: string): number {
+  GetIndexOfVerb(verb: string): number {
     const indexOfVerb: number = this.arrayOfVerbNames.indexOf(verb)
     return indexOfVerb
   }
 
-  GetIndexOfInv (item: string): number {
+  GetIndexOfInv(item: string): number {
     const indexOfInv: number = this.arrayOfInvNames.indexOf(item)
     return indexOfInv
   }
 
-  GetIndexOfFlag (item: string): number {
+  GetIndexOfFlag(item: string): number {
     const indexOfFlag: number = this.arrayOfFlagNames.indexOf(item)
     return indexOfFlag
   }
 
-  GetIndexOfProp (item: string): number {
+  GetIndexOfProp(item: string): number {
     const indexOfProp: number = this.arrayOfPropNames.indexOf(item)
     return indexOfProp
   }
 
-  GetVerb (i: number): string {
+  GetVerb(i: number): string {
     const name: string = i >= 0 ? this.GetVerbsExcludingUse()[i][0] : 'use'
     return name
   }
 
-  GetInv (i: number): string {
+  GetInv(i: number): string {
     const name: string = i >= 0 ? this.GetEntireInvSuite()[i][0] : '-1 lookup in GetInv'
     return name
   }
 
-  GetProp (i: number): string {
+  GetProp(i: number): string {
     const name: string = i >= 0 ? this.GetEntirePropSuite()[i][0] : '-1 lookup in GetProp'
     return name
   }
 
-  GetFlag (i: number): string {
+  GetFlag(i: number): string {
     const name: string = i >= 0 ? this.GetEntireFlagSuite()[i][0] : '-1 lookup for GetFlag'
     return name
   }
 
-  SubscribeToCallbacks (callbacks: HappenerCallbacksInterface): void {
+  SubscribeToCallbacks(callbacks: HappenerCallbacksInterface): void {
     this.callbacks = callbacks
   }
 
-  GetVerbsExcludingUse (): Array<[string, boolean]> {
+  GetVerbsExcludingUse(): Array<[string, boolean]> {
     const toReturn = new Array<[string, boolean]>()
     this.arrayOfVerbNames.forEach(function (Verb) {
       toReturn.push([Verb, true])
@@ -173,7 +173,7 @@ export class Happener {
     return toReturn
   }
 
-  GetEntireFlagSuite (): Array<[string, Number]> {
+  GetEntireFlagSuite(): Array<[string, Number]> {
     const toReturn = new Array<[string, Number]>()
     for (let i = 0; i < this.arrayOfPropNames.length; i++) { // classic forloop useful because shared index
       toReturn.push([this.arrayOfFlagNames[i], this.arrayOfFlagValues[i]])
@@ -181,7 +181,7 @@ export class Happener {
     return toReturn
   }
 
-  GetEntirePropSuite (): Array<[string, boolean]> {
+  GetEntirePropSuite(): Array<[string, boolean]> {
     const toReturn = new Array<[string, boolean]>()
     for (let i = 0; i < this.arrayOfPropNames.length; i++) { // classic forloop useful because shared index
       toReturn.push([this.arrayOfPropNames[i], this.arrayOfPropVisibilities[i]])
@@ -189,7 +189,7 @@ export class Happener {
     return toReturn
   }
 
-  GetEntireInvSuite (): Array<[string, boolean]> {
+  GetEntireInvSuite(): Array<[string, boolean]> {
     const toReturn = new Array<[string, boolean]>()
     for (let i = 0; i < this.arrayOfInvNames.length; i++) { // classic forloop useful because shared index
       toReturn.push([this.arrayOfInvNames[i], this.arrayOfInventoryVisibilities[i]])
@@ -197,7 +197,7 @@ export class Happener {
     return toReturn
   }
 
-  GetCurrentVisibleInventory (): string[] {
+  GetCurrentVisibleInventory(): string[] {
     const toReturn = new Array<string>()
     for (let i = 0; i < this.arrayOfInvNames.length; i++) { // classic forloop useful because shared index
       if (this.arrayOfInventoryVisibilities[i]) { toReturn.push(this.arrayOfInvNames[i]) }
@@ -205,7 +205,7 @@ export class Happener {
     return toReturn
   }
 
-  GetCurrentVisibleProps (): string[] {
+  GetCurrentVisibleProps(): string[] {
     const toReturn = new Array<string>()
     for (let i = 0; i < this.arrayOfPropNames.length; i++) { // classic forloop useful because shared index
       if (this.arrayOfPropVisibilities[i]) { toReturn.push(this.arrayOfPropNames[i]) }
@@ -213,7 +213,7 @@ export class Happener {
     return toReturn
   }
 
-  GetCurrentlyTrueFlags (): string[] {
+  GetCurrentlyTrueFlags(): string[] {
     const toReturn = new Array<string>()
     for (let i = 0; i < this.arrayOfFlagNames.length; i++) { // classic forloop useful because shared index
       if (this.arrayOfFlagValues[i] > 0) { toReturn.push(this.arrayOfFlagNames[i]) }
@@ -221,15 +221,15 @@ export class Happener {
     return toReturn
   }
 
-  GetArrayOfInvs (): string[] {
+  GetArrayOfInvs(): string[] {
     return this.arrayOfInvNames
   }
 
-  GetArrayOfProps (): string[] {
+  GetArrayOfProps(): string[] {
     return this.arrayOfPropNames
   }
 
-  MergeNewThingsFromScene (json: ReadOnlyJsonSingle): void {
+  MergeNewThingsFromScene(json: ReadOnlyJsonSingle): void {
     const invs = json.GetArrayOfInvs()
     for (const inv of invs) {
       if (!this.arrayOfInvNames.includes(inv)) {

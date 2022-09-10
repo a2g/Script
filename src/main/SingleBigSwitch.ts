@@ -1,16 +1,16 @@
 
 import * as fs from 'fs'
 
-import { Happenings } from 'main/Happenings'
-import { SolutionNode } from 'main/SolutionNode'
-import { AlleviateBrackets } from 'main/AlleviateBrackets'
-import { Happen } from 'main/Happen'
-import { Happening } from 'main/Happening'
-import { MixedObjectsAndVerb } from 'main/MixedObjectsAndVerb'
-import { SolutionNodeRepository } from 'main/SolutionNodeRepository'
+import { Happenings } from 'jigsaw/Happenings'
+import { SolutionNode } from 'jigsaw/SolutionNode'
+import { AlleviateBrackets } from 'jigsaw/AlleviateBrackets'
+import { Happen } from 'jigsaw/Happen'
+import { Happening } from 'jigsaw/Happening'
+import { MixedObjectsAndVerb } from 'jigsaw/MixedObjectsAndVerb'
+import { SolutionNodeRepository } from 'jigsaw/SolutionNodeRepository'
 import _ from '../../Gate.json'
 
-function isNullOrUndefined (something: any): boolean {
+function isNullOrUndefined(something: any): boolean {
   return (typeof something === 'undefined' || something === null)
 }
 
@@ -20,17 +20,17 @@ function isNullOrUndefined (something: any): boolean {
  */
 let globalId = 1
 
-export function SingleBigSwitch (filename: string, solutionNodesMappedByInput: SolutionNodeRepository | null, objects: MixedObjectsAndVerb): Happenings | null {
-  const text = fs.readFileSync(filename, { encoding: 'UTF-8' })
+export function SingleBigSwitch(filename: string, solutionNodesMappedByInput: SolutionNodeRepository | null, objects: MixedObjectsAndVerb): Happenings | null {
+  const text = fs.readFileSync(filename, 'utf-8')
   const scenario = JSON.parse(text)
 
   for (let gate of scenario.gates) {
     const isConjoint = !isNullOrUndefined(gate.conjoint)
     let id1 = globalId
-    globalId+=1 
+    globalId += 1
     let id2 = isConjoint ? globalId : 0
-    globalId+=1 
-    for (let i = 0; i < (isConjoint ? 2 : 1); i+=1) {
+    globalId += 1
+    for (let i = 0; i < (isConjoint ? 2 : 1); i += 1) {
       if (i === 1 && isConjoint) {
         gate.conjoint.text = gate.text// share the text string for both
         gate = gate.conjoint// overwrite gate with the conjoint
@@ -61,7 +61,7 @@ export function SingleBigSwitch (filename: string, solutionNodesMappedByInput: S
       const inv2 = JSON.stringify(gate.inv2)
       const inv3 = JSON.stringify(gate.inv3)
       const happs = new Happenings()
-      const {restrictions} = gate
+      const { restrictions } = gate
       switch (gateType) {
         case _.AUTO_FLAG1_CAUSES_IMPORT_OF_JSON:
           if (solutionNodesMappedByInput != null) {

@@ -1,11 +1,11 @@
-import { SolutionNodeRepository } from 'main/SolutionNodeRepository'
-import { MixedObjectsAndVerb } from 'main/MixedObjectsAndVerb'
-import { Happenings } from 'main/Happenings'
-import { Mix } from 'main/Mix'
-import { ReadOnlyJsonInterface } from 'main/ReadOnlyJsonInterface'
+import { SolutionNodeRepository } from 'jigsaw/SolutionNodeRepository'
+import { MixedObjectsAndVerb } from 'jigsaw/MixedObjectsAndVerb'
+import { Happenings } from 'jigsaw/Happenings'
+import { Mix } from 'jigsaw/Mix'
+import { ReadOnlyJsonInterface } from 'jigsaw/ReadOnlyJsonInterface'
 import * as fs from 'fs'
-import { ReadOnlyJsonInterfaceCollator } from 'main/ReadOnlyJsonInterfaceCollator'
-import { SingleBigSwitch } from 'main/SingleBigSwitch'
+import { ReadOnlyJsonInterfaceCollator } from 'jigsaw/ReadOnlyJsonInterfaceCollator'
+import { SingleBigSwitch } from 'jigsaw/SingleBigSwitch'
 import { assert } from 'console'
 
 /**
@@ -18,20 +18,29 @@ import { assert } from 'console'
 export class ReadOnlyJsonSingle implements ReadOnlyJsonInterface,
   ReadOnlyJsonInterfaceCollator {
   readonly allProps: string[]
+
   readonly allFlags: string[]
+
   readonly allInvs: string[]
+
   readonly allChars: string[]
+
   readonly mapOfStartingThings: Map<string, Set<string>>
+
   readonly startingInvSet: Set<string>
+
   readonly startingPropSet: Set<string>
+
   readonly startingFlagSet: Set<string>
+
   readonly filename: string
+
   readonly mapOfBags: Map<string, ReadOnlyJsonSingle>
 
   constructor(filename: string) {
     this.filename = filename
     assert(fs.existsSync(filename))
-    const text = fs.readFileSync(filename, { encoding: 'UTF-8' })
+    const text = fs.readFileSync('file.txt', 'utf8')
 
     const scenario = JSON.parse(text)
 
@@ -117,7 +126,7 @@ export class ReadOnlyJsonSingle implements ReadOnlyJsonInterface,
           this.mapOfStartingThings.set(item.thing, new Set<string>())
         }
         if (item.character !== undefined && item.character !== null) {
-          const character = item.character
+          const { character } = item
           const array = this.mapOfStartingThings.get(item.thing)
           if (character.length > 0 && array != null) {
             array.add(character)
@@ -143,7 +152,7 @@ export class ReadOnlyJsonSingle implements ReadOnlyJsonInterface,
   }
 
   GetArrayOfJsonsRecursively(): ReadOnlyJsonSingle[] {
-    let array = new Array<ReadOnlyJsonSingle>()
+    let array: Array<ReadOnlyJsonSingle> = []
     array.push(this)
     for (const bag of this.mapOfBags.values()) {
       const childBag = bag.GetArrayOfJsonsRecursively()
@@ -218,18 +227,27 @@ export class ReadOnlyJsonSingle implements ReadOnlyJsonInterface,
     return this.allFlags
   }
 
-  GetArrayOfSingleObjectVerbs(): string[] {
+
+  static GetArrayOfSingleObjectVerbs(): string[] {
     return ['grab', 'toggle']
   }
 
-  GetArrayOfInitialStatesOfSingleObjectVerbs(): boolean[] {
+  GetArrayOfSingleObjectVerbs(): string[] {
+    return this.GetArrayOfSingleObjectVerbs()
+  }
+
+  static GetArrayOfInitialStatesOfSingleObjectVerbs(): boolean[] {
     return [true, true]
+  }
+
+  GetArrayOfInitialStatesOfSingleObjectVerbs(): boolean[] {
+    return this.GetArrayOfInitialStatesOfSingleObjectVerbs()
   }
 
   GetArrayOfInitialStatesOfFlags(): number[] {
     // construct array of booleans in exact same order as ArrayOfProps - so they can be correlated
     const startingSet = this.GetSetOfStartingFlags()
-    const initialStates = new Array<number>()
+    const initialStates: Array<number> = []
     for (const flag of this.allFlags) {
       const isNonZero = startingSet.has(flag)
       initialStates.push(isNonZero ? 1 : 0)
@@ -270,7 +288,7 @@ export class ReadOnlyJsonSingle implements ReadOnlyJsonInterface,
   GetArrayOfInitialStatesOfProps(): boolean[] {
     // construct array of booleans in exact same order as ArrayOfProps - so they can be correlated
     const startingSet = this.GetSetOfStartingProps()
-    const visibilities = new Array<boolean>()
+    const visibilities: Array<boolean> = []
     for (const prop of this.allProps) {
       const isVisible = startingSet.has(prop)
       visibilities.push(isVisible)
@@ -282,7 +300,7 @@ export class ReadOnlyJsonSingle implements ReadOnlyJsonInterface,
   GetArrayOfInitialStatesOfInvs(): boolean[] {
     // construct array of booleans in exact same order as ArrayOfProps - so they can be correlated
     const startingSet = this.GetSetOfStartingInvs()
-    const visibilities = new Array<boolean>()
+    const visibilities: Array<boolean> = []
     for (const inv of this.allInvs) {
       const isVisible = startingSet.has(inv)
       visibilities.push(isVisible)
@@ -322,7 +340,7 @@ export class ReadOnlyJsonSingle implements ReadOnlyJsonInterface,
   }
 
   public GetDirectlyAccessibleGoals(): string[] {
-    const array = new Array<string>()
+    const array: Array<string> = []
     for (const key of this.mapOfBags.keys()) {
       array.push(key)
     }

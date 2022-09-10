@@ -1,6 +1,6 @@
 // Typescript Unit test
-import assert = require('assert')
-import { LogicGrid } from 'main/LogicGrid'
+import { expect } from '@open-wc/testing';
+import { LogicGrid } from '../main/LogicGrid'
 
 describe('LogicGrid', () => {
   it('FindMostNearlyCompleteRowOrColumnCombined', () => {
@@ -14,14 +14,14 @@ describe('LogicGrid', () => {
     t.SetColumnRow(2, 2)
     {
       const r1 = t.FindMostNearlyCompleteRowOrColumnCombined()
-      assert.equal(r1, t.ColumnsStartHere + 2)
+      expect(r1).to.equal(LogicGrid.ColumnsStartHere + 2)
     }
 
     // fill the column completely and test that the column doesn't get picked
     t.SetColumnRow(2, 3)
     {
       const r2 = t.FindMostNearlyCompleteRowOrColumnCombined()
-      assert.notEqual(r2, t.ColumnsStartHere + 2)
+      expect(r2).to.not.equal(LogicGrid.ColumnsStartHere + 2)
     }
 
     // nearly fill the 2 row, and test it gets picked
@@ -29,14 +29,14 @@ describe('LogicGrid', () => {
     t.SetColumnRow(1, 2)
     {
       const r3 = t.FindMostNearlyCompleteRowOrColumnCombined()
-      assert.equal(r3, 2)
+      expect(r3).to.equal(2)
     }
 
     // fill the column completely and test that the column doesn't get picked
     t.SetColumnRow(3, 2)
     {
       const r4 = t.FindMostNearlyCompleteRowOrColumnCombined()
-      assert.notEqual(r4, 2)
+      expect(r4).to.not.equal(2)
     }
   })
 })
@@ -56,54 +56,54 @@ export function TestBestColumnOrRow() {
         t.SetColumnRow(2, 2);// defintely 2,2
         const c1 = t.FindMostNearlyCompleteColumn();
         const r1 = t.FindMostNearlyCompleteRow();
-        assert.equal(2, c1);
-        assert.equal(2, r1);
+        expect(2, c1);
+        expect(2, r1);
     }
     {
         t.SetColumnRow(1, 1);// tie and tie
         const c2 = t.FindMostNearlyCompleteColumn();
         const r2 = t.FindMostNearlyCompleteRow();
-        //assert.equal(2, c2);
-        //assert.equal(0, r1); could be either
+        //expect(2, c2);
+        //expect(0, r1); could be either
     }
     {
         t.SetColumnRow(2, 1);// definitely 2 and 1
         const c3 = t.FindMostNearlyCompleteColumn();
         const r3 = t.FindMostNearlyCompleteRow();
-        assert.equal(2, c3);
-        assert.equal(1, r3);
+        expect(2, c3);
+        expect(1, r3);
     }
 
     {
         t.SetColumnRow(1, 0);// tie and 1
         const c4 = t.FindMostNearlyCompleteColumn();
         const r4 = t.FindMostNearlyCompleteRow();
-        assert.equal(1, r4);
+        expect(1, r4);
     }
     {
         t.SetColumnRow(0, 0);// tie and tie
         const c5 = t.FindMostNearlyCompleteColumn();
         const r5 = t.FindMostNearlyCompleteRow();
-        //assert.equal(1, c5);
-        //assert.equal(0, r5);
+        //expect(1, c5);
+        //expect(0, r5);
     }
     {
         t.SetColumnRow(2, 0);// definitely (2) and (0)
         const c6 = t.FindMostNearlyCompleteColumn();
         const r6 = t.FindMostNearlyCompleteRow();
-        assert.equal(2, c6);
-        assert.equal(0, r6);
+        expect(2, c6);
+        expect(0, r6);
     }
     // ok so far we haven't completed any sets, so now we start
     {
         t.SetColumnRow(3, 0);// this should make 0 fully complete, leaving 1 the "MostNearlyComplete" row
         const nextRow = t.FindMostNearlyCompleteRow();
-        assert.equal(1, nextRow);
+        expect(1, nextRow);
     }
     {
         t.SetColumnRow(2, 3);// this should make col2 fully complete, leaving 1 the "MostNearlyComplete" col
         const nextColumn = t.FindMostNearlyCompleteColumn();
-        assert.equal(1, nextColumn);
+        expect(1, nextColumn);
     }
     // now lets set everything, to test returning of -1
     {
@@ -122,7 +122,7 @@ export function TestBestColumnOrRow() {
         {
             const nextColumn = t.FindMostNearlyCompleteColumn();
             const nextRow = t.FindMostNearlyCompleteRow();
-            assert.equal(3, nextColumn);
+            expect(3, nextColumn);
         }
         t.SetColumnRow(3, 0);
         t.SetColumnRow(3, 1);
@@ -130,16 +130,16 @@ export function TestBestColumnOrRow() {
         {
             const nextColumn = t.FindMostNearlyCompleteColumn();
             const nextRow = t.FindMostNearlyCompleteRow();
-            assert.equal(3, nextColumn);
-            assert.equal(3, nextRow);
+            expect(3, nextColumn);
+            expect(3, nextRow);
         }
 
         t.SetColumnRow(3, 3);
         {
             const nextColumn = t.FindMostNearlyCompleteColumn();
             const nextRow = t.FindMostNearlyCompleteRow();
-            assert.equal(-1, nextColumn);
-            assert.equal(-1, nextRow);
+            expect(-1, nextColumn);
+            expect(-1, nextRow);
         }
     }
 }

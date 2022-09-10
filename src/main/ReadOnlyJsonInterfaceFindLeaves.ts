@@ -1,4 +1,4 @@
-import { SolutionNodeRepository } from 'main/SolutionNodeRepository'
+import { SolutionNodeRepository } from 'jigsaw/SolutionNodeRepository'
 
 export interface ReadOnlyJsonInterfaceFindLeaves {
   GenerateSolutionNodesMappedByInput: () => SolutionNodeRepository

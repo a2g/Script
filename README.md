@@ -1,30 +1,76 @@
-<p align="center">
-  <img width="200" src="https://open-wc.org/hero.png"></img>
-</p>
+# \<jigsaw-w>
 
-## Open-wc Starter App
+This webcomponent follows the [open-wc](https://github.com/open-wc/open-wc) recommendation.
 
-[![Built with open-wc recommendations](https://img.shields.io/badge/built%20with-open--wc-blue.svg)](https://github.com/open-wc)
+## Installation
 
-## Quickstart
-
-To get started:
-
-```sh
-npm init @open-wc
-# requires node 10 & npm 6 or higher
+```bash
+npm i jigsaw-w
 ```
 
-## Scripts
+## Usage
 
-- `start` runs your app for development, reloading on file changes
-- `start:build` runs your app after it has been built using the build command
-- `build` builds your app and outputs it in your `dist` directory
-- `test` runs your test suite with Web Test Runner
-- `lint` runs the linter for your project
+```html
+<script type="module">
+  import 'jigsaw-w/jigsaw-w.js';
+</script>
+
+<jigsaw-w></jigsaw-w>
+```
+
+## Linting and formatting
+
+To scan the project for linting and formatting errors, run
+
+```bash
+npm run lint
+```
+
+To automatically fix linting and formatting errors, run
+
+```bash
+npm run format
+```
+
+## Testing with Web Test Runner
+
+To execute a single test run:
+
+```bash
+npm run test
+```
+
+To run the tests in interactive watch mode run:
+
+```bash
+npm run test:watch
+```
+
+## Demoing with Storybook
+
+To run a local instance of Storybook for your component, run
+
+```bash
+npm run storybook
+```
+
+To build a production version of Storybook, run
+
+```bash
+npm run storybook:build
+```
+
 
 ## Tooling configs
 
 For most of the tools, the configuration is in the `package.json` to reduce the amount of files in your project.
 
 If you customize the configuration a lot, you can consider moving them to individual files.
+
+## Local Demo with `web-dev-server`
+
+```bash
+npm start
+```
+
+To run a local development server that serves the basic demo located in `demo/index.html`

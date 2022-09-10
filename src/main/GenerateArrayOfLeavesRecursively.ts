@@ -1,12 +1,12 @@
-import { SolutionNode } from 'main/SolutionNode'
+import { SolutionNode } from 'jigsaw/SolutionNode'
 
-export function GenerateArrayOfLeavesRecursively (node: SolutionNode/*, path: string */): SolutionNode[] {
-  let array = new Array<SolutionNode>()
+export function GenerateArrayOfLeavesRecursively(node: SolutionNode): SolutionNode[] {
+  let array: Array<SolutionNode> = []
   let isNoInputs = true
   for (const input of node.inputs) {
     if (input != null) {
       isNoInputs = false
-      const tempArray = GenerateArrayOfLeavesRecursively(input/*, path + node.inputHints[i] */)
+      const tempArray = GenerateArrayOfLeavesRecursively(input)
       array = array.concat(tempArray)
     }
   }

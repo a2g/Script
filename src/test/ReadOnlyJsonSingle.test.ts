@@ -1,6 +1,6 @@
 // Typescript Unit test
 import assert = require('assert')
-import { ReadOnlyJsonSingle } from 'main/ReadOnlyJsonSingle'
+import { ReadOnlyJsonSingle } from 'jigsaw/ReadOnlyJsonSingle'
 
 describe('SceneSingle', () => {
   it('Test GetMapOfAllStartingThings', () => {

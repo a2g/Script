@@ -1,6 +1,6 @@
-import { MixedObjectsAndVerb } from 'main/MixedObjectsAndVerb'
-import { SolutionNodeRepository } from 'main/SolutionNodeRepository'
-import { Happenings } from 'main/Happenings'
+import { MixedObjectsAndVerb } from 'jigsaw/MixedObjectsAndVerb'
+import { SolutionNodeRepository } from 'jigsaw/SolutionNodeRepository'
+import { Happenings } from 'jigsaw/Happenings'
 
 export interface ReadOnlyJsonInterfacePlayThru {
 

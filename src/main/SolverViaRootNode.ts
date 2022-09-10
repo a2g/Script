@@ -1,11 +1,11 @@
-import { Solution } from 'main/Solution'
-import { GetDisplayName } from 'main/GetDisplayName'
-import { Colors } from 'main/Colors'
-import { AddBrackets } from 'main/AddBrackets'
-import { SolutionNodeRepository } from 'main/SolutionNodeRepository'
+import { Solution } from 'jigsaw/Solution'
+import { GetDisplayName } from 'jigsaw/GetDisplayName'
+import { Colors } from 'jigsaw/Colors'
+import { AddBrackets } from 'jigsaw/AddBrackets'
+import { SolutionNodeRepository } from 'jigsaw/SolutionNodeRepository'
 
 export class SolverViaRootNode {
-  constructor (mapOfStartingThingsAndWhoCanHaveThem: Map<string, Set<string>>) {
+  constructor(mapOfStartingThingsAndWhoCanHaveThem: Map<string, Set<string>>) {
     this.solutions = new Array<Solution>()
     this.mapOfStartingThingsAndWhoCanHaveThem = new Map<string, Set<string>>()
     mapOfStartingThingsAndWhoCanHaveThem.forEach((value: Set<string>, key: string) => {
@@ -17,13 +17,13 @@ export class SolverViaRootNode {
     })
   }
 
-  InitializeByCopyingThese (solutionNodesMappedByInput: SolutionNodeRepository, mapOfStartingThingsAndWhoCanHaveThem: Map<string, Set<string>>): void {
+  InitializeByCopyingThese(solutionNodesMappedByInput: SolutionNodeRepository, mapOfStartingThingsAndWhoCanHaveThem: Map<string, Set<string>>): void {
     const solution = new Solution(null, solutionNodesMappedByInput, mapOfStartingThingsAndWhoCanHaveThem)
     this.solutions.push(solution)
     solution.FindTheFlagWinAndPutItInRootNodeMap()// <-- do I need to call this?
   }
 
-  IsAnyNodesUnprocessed (): boolean {
+  IsAnyNodesUnprocessed(): boolean {
     let isAnyNodesUnprocessed = false
     this.solutions.forEach((solution: Solution) => {
       if (solution.IsAnyNodesUnprocessed()) { isAnyNodesUnprocessed = true }
@@ -31,7 +31,7 @@ export class SolverViaRootNode {
     return isAnyNodesUnprocessed
   }
 
-  SolvePartiallyUntilCloning (): boolean {
+  SolvePartiallyUntilCloning(): boolean {
     let hasACloneJustBeenCreated = false
     this.solutions.forEach((solution: Solution) => {
       if (solution.IsAnyNodesUnprocessed()) {
@@ -45,7 +45,7 @@ export class SolverViaRootNode {
     return hasACloneJustBeenCreated
   }
 
-  SolveUntilZeroUnprocessedNodes (): void {
+  SolveUntilZeroUnprocessedNodes(): void {
     do {
       this.SolvePartiallyUntilCloning()
     } while (this.IsAnyNodesUnprocessed())
@@ -53,7 +53,7 @@ export class SolverViaRootNode {
     this.GenerateSolutionNamesAndPush(this.mapOfStartingThingsAndWhoCanHaveThem)
   }
 
-  ProcessChaptersToEndAndUpdateList (): void {
+  ProcessChaptersToEndAndUpdateList(): void {
     // this needs to be a member function because we are overwriting this.solutions
     const newList = new Array<Solution>()
     for (const oldSolution of this.solutions) {
@@ -62,7 +62,7 @@ export class SolverViaRootNode {
     this.solutions = newList
   }
 
-  GenerateSolutionNamesAndPush (mapOfStartingThingsAndWhoHasThem: Map<string, Set<string>>): void {
+  GenerateSolutionNamesAndPush(mapOfStartingThingsAndWhoHasThem: Map<string, Set<string>>): void {
     for (let i = 0; i < this.solutions.length; i++) {
       // now lets find out the amount leafNode name exists in all the other solutions
       const mapForCounting = new Map<string, number>()
@@ -114,7 +114,7 @@ export class SolverViaRootNode {
     }
   }
 
-  GetSolutions (): Solution[] {
+  GetSolutions(): Solution[] {
     return this.solutions
   }
 

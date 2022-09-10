@@ -4,6 +4,85 @@
   "modules": [
     {
       "kind": "javascript-module",
+      "path": "src/JigsawW.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "JigsawW",
+          "members": [
+            {
+              "kind": "field",
+              "name": "title",
+              "type": {
+                "text": "string"
+              },
+              "default": "'Hey there'"
+            },
+            {
+              "kind": "field",
+              "name": "counter",
+              "type": {
+                "text": "number"
+              },
+              "default": "5"
+            },
+            {
+              "kind": "method",
+              "name": "__increment"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "jigsaw-w",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "JigsawW",
+          "declaration": {
+            "name": "JigsawW",
+            "module": "src/JigsawW.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "JigsawW",
+          "declaration": {
+            "name": "JigsawW",
+            "module": "./JigsawW.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/jigsaw-w.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "jigsaw-w",
+          "declaration": {
+            "name": "JigsawW",
+            "module": "/src/JigsawW.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "stories/jigsaw-w.stories.ts",
       "declarations": [
         {
@@ -28,6 +107,30 @@
           }
         }
       ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "coverage/lcov-report/block-navigation.js",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "coverage/lcov-report/prettify.js",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "coverage/lcov-report/sorter.js",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/test/SolutionNodeTest.ts",
+      "declarations": [],
+      "exports": []
     },
     {
       "kind": "javascript-module",
@@ -922,7 +1025,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "Logic grid (aka Elimination Grid)\n\nUusing these as a solver in an adventure game is useful\nbecause - if an object has a use at all - and you've used it\nwith some things already, then its use lies with one of the\nthings you've not used it with. This process of elimination\nis helped using a logic grid (aka elimination grid.\n https://en.wikipedia.org/wiki/Logic_puzzle#Logic_grid_puzzles",
+          "description": "Logic grid (aka Elimination Grid)\n\nUsing these as a solver in an adventure game is useful\nbecause - if an object has a use at all - and you've used it\nwith some things already, then its use lies with one of the\nthings you've not used it with. This process of elimination\nis helped using a logic grid (aka elimination grid.\n https://en.wikipedia.org/wiki/Logic_puzzle#Logic_grid_puzzles",
           "name": "LogicGrid",
           "members": [
             {
@@ -932,7 +1035,7 @@
                 "text": "boolean[][]"
               },
               "privacy": "private",
-              "default": "new Array<boolean[]>()"
+              "default": "[]"
             },
             {
               "kind": "field",
@@ -985,7 +1088,18 @@
               "type": {
                 "text": "number"
               },
+              "privacy": "public",
+              "static": true,
               "default": "1000"
+            },
+            {
+              "kind": "field",
+              "name": "lastDebugString",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "private",
+              "default": "''"
             },
             {
               "kind": "method",
@@ -1118,6 +1232,24 @@
                   "name": "pair",
                   "type": {
                     "text": "[number, SingleFileData]"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "IsColumn",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
                   }
                 }
               ]
@@ -1842,9 +1974,29 @@
             {
               "kind": "method",
               "name": "GetArrayOfSingleObjectVerbs",
+              "static": true,
               "return": {
                 "type": {
                   "text": "string[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GetArrayOfSingleObjectVerbs",
+              "return": {
+                "type": {
+                  "text": "string[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GetArrayOfInitialStatesOfSingleObjectVerbs",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "boolean[]"
                 }
               }
             },
@@ -2263,9 +2415,29 @@
             {
               "kind": "method",
               "name": "GetArrayOfSingleObjectVerbs",
+              "static": true,
               "return": {
                 "type": {
                   "text": "string[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GetArrayOfSingleObjectVerbs",
+              "return": {
+                "type": {
+                  "text": "string[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GetArrayOfInitialStatesOfSingleObjectVerbs",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "boolean[]"
                 }
               }
             },
@@ -2567,9 +2739,29 @@
             {
               "kind": "method",
               "name": "GetArrayOfSingleObjectVerbs",
+              "static": true,
               "return": {
                 "type": {
                   "text": "string[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GetArrayOfSingleObjectVerbs",
+              "return": {
+                "type": {
+                  "text": "string[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GetArrayOfInitialStatesOfSingleObjectVerbs",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "boolean[]"
                 }
               }
             },
@@ -2727,7 +2919,7 @@
                 "text": "SolutionNode[]"
               },
               "privacy": "private",
-              "default": "new Array<SolutionNode>()"
+              "default": "[]"
             },
             {
               "kind": "field",
@@ -2736,7 +2928,7 @@
                 "text": "string[]"
               },
               "privacy": "private",
-              "default": "new Array<string>()"
+              "default": "[]"
             },
             {
               "kind": "method",
@@ -3985,12 +4177,6 @@
     {
       "kind": "javascript-module",
       "path": "src/main/SpecialNodes.ts",
-      "declarations": [],
-      "exports": []
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/test/SolutionNodeTest.ts",
       "declarations": [],
       "exports": []
     }

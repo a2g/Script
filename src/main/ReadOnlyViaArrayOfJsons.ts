@@ -1,10 +1,10 @@
-import { SolutionNodeRepository } from 'main/SolutionNodeRepository'
-import { MixedObjectsAndVerb } from 'main/MixedObjectsAndVerb'
-import { Happenings } from 'main/Happenings'
-import { Mix } from 'main/Mix'
-import { ReadOnlyJsonInterface } from 'main/ReadOnlyJsonInterface'
-import { ReadOnlyJsonSingle } from 'main/ReadOnlyJsonSingle'
-import { SingleBigSwitch } from 'main/SingleBigSwitch'
+import { SolutionNodeRepository } from 'jigsaw/SolutionNodeRepository'
+import { MixedObjectsAndVerb } from 'jigsaw/MixedObjectsAndVerb'
+import { Happenings } from 'jigsaw/Happenings'
+import { Mix } from 'jigsaw/Mix'
+import { ReadOnlyJsonInterface } from 'jigsaw/ReadOnlyJsonInterface'
+import { ReadOnlyJsonSingle } from 'jigsaw/ReadOnlyJsonSingle'
+import { SingleBigSwitch } from 'jigsaw/SingleBigSwitch'
 
 /**
  * So the most important part of this class is that the data
@@ -14,14 +14,23 @@ import { SingleBigSwitch } from 'main/SingleBigSwitch'
  * */
 export class ReadOnlyViaArrayOfJsons implements ReadOnlyJsonInterface {
   readonly allProps: string[]
+
   readonly allFlags: string[]
+
   readonly allInvs: string[]
+
   readonly allChars: string[]
+
   readonly mapOfStartingThingsWithChars: Map<string, Set<string>>
+
   readonly startingInvSet: Set<string>
+
   readonly startingPropSet: Set<string>
+
   readonly startingFlagSet: Set<string>
+
   readonly allScenes: ReadOnlyJsonSingle[]
+
   readonly mapOfBags: Map<string, ReadOnlyJsonSingle>
 
   constructor(jsons: ReadOnlyJsonSingle[]) {
@@ -80,16 +89,25 @@ export class ReadOnlyViaArrayOfJsons implements ReadOnlyJsonInterface {
     return this.allFlags
   }
 
-  GetArrayOfSingleObjectVerbs(): string[] {
+
+  static GetArrayOfSingleObjectVerbs(): string[] {
     return ['grab', 'toggle']
   }
 
-  GetArrayOfInitialStatesOfSingleObjectVerbs(): boolean[] {
+  GetArrayOfSingleObjectVerbs(): string[] {
+    return this.GetArrayOfSingleObjectVerbs()
+  }
+
+  static GetArrayOfInitialStatesOfSingleObjectVerbs(): boolean[] {
     return [true, true]
   }
 
+  GetArrayOfInitialStatesOfSingleObjectVerbs(): boolean[] {
+    return this.GetArrayOfInitialStatesOfSingleObjectVerbs()
+  }
+
   GetArrayOfInitialStatesOfFlags(): number[] {
-    const array = new Array<number>()
+    const array: Array<number> = []
     for (const flag of this.allFlags) {
       array.push(flag.length > 0 ? 0 : 0)// I used value.length>0 to get rid of the unused variable warnin
     };
@@ -125,7 +143,7 @@ export class ReadOnlyViaArrayOfJsons implements ReadOnlyJsonInterface {
   GetArrayOfInitialStatesOfProps(): boolean[] {
     // construct array of booleans in exact same order as ArrayOfProps - so they can be correlated
     const startingSet = this.GetSetOfStartingProps()
-    const visibilities = new Array<boolean>()
+    const visibilities: Array<boolean> = []
     for (const prop of this.allProps) {
       const isVisible = startingSet.has(prop)
       visibilities.push(isVisible)
@@ -137,11 +155,11 @@ export class ReadOnlyViaArrayOfJsons implements ReadOnlyJsonInterface {
   GetArrayOfInitialStatesOfInvs(): boolean[] {
     // construct array of booleans in exact same order as ArrayOfProps - so they can be correlated
     const startingSet = this.GetSetOfStartingInvs()
-    const visibilities = new Array<boolean>()
+    const visibilities: Array<boolean> = []
     for (const inv of this.allInvs) {
       const isVisible = startingSet.has(inv)
       visibilities.push(isVisible)
-    };
+    }
 
     return visibilities
   }

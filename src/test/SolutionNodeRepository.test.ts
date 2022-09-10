@@ -1,29 +1,28 @@
-import assert = require('assert')
-import { SolutionNodeRepository } from 'main/SolutionNodeRepository'
-import { SolutionNode } from 'main/SolutionNode'
-
+import { expect } from '@open-wc/testing';
+import { SolutionNode } from '../main/SolutionNode';
+import { SolutionNodeRepository } from '../main/SolutionNodeRepository';
 describe('ReactionMap', () => {
   it('test AddToMap works', () => {
     const blah = new SolutionNodeRepository(null)
 
     // test that it is indeed null before
     const arrayBefore = blah.Get('outputA')
-    assert.ok(arrayBefore === undefined)
+    expect(arrayBefore).to.equal(undefined)
 
     // do it!
     blah.AddToMap(new SolutionNode(0, 0, 'outputA', 'type', 1, null, null, 'A', 'B'))
 
     // test that it adds an array if the array is not yet null.
     const arrayAfter = blah.Get('outputA')
-    assert.notEqual(arrayAfter, null)
+    expect(arrayAfter).to.equal(null)
 
     const countAfterAdding = (arrayAfter != null) ? arrayAfter.size : 0
-    assert.strictEqual(countAfterAdding, 1)
+    expect(countAfterAdding).to.equal(1)
   })
 
   it('test RemoveNode works', () => {
     const blah = new SolutionNodeRepository(null)
-    for (let i = 0; i < 3; i+=1) {
+    for (let i = 0; i < 3; i += 1) {
       blah.AddToMap(new SolutionNode(0, 0, 'outputA', 'piffle', 1, null, null, 'A', 'B'))
     }
     const theOneToRemove = new SolutionNode(0, 0, 'outputA', 'piffle', 1, null, null, 'A', 'B')
@@ -31,7 +30,7 @@ describe('ReactionMap', () => {
     {
       const arrayBefore = blah.Get('outputA')
       const countBeforeRemoval = (arrayBefore != null) ? arrayBefore.size : 0
-      assert.strictEqual(countBeforeRemoval, 4)
+      expect(countBeforeRemoval).to.equal(4)
     }
 
     blah.RemoveNode(theOneToRemove)
@@ -39,7 +38,7 @@ describe('ReactionMap', () => {
     {
       const arrayAfter = blah.Get('outputA')
       const countAfterRemoval = (arrayAfter != null) ? arrayAfter.size : 0
-      assert.strictEqual(countAfterRemoval, 3)
+      expect(countAfterRemoval).to.equal(3)
     }
   })
 
@@ -69,8 +68,8 @@ describe('ReactionMap', () => {
     }
 
     // check the originals are still the same
-    assert.strictEqual(array[0].inputHints[0], 'a')
-    assert.strictEqual(array[1].inputHints[0], 'b')
-    assert.strictEqual(array[2].inputHints[0], 'c')
+    expect(array[0].inputHints[0]).to.equal('a')
+    expect(array[1].inputHints[0]).to.equal('b')
+    expect(array[2].inputHints[0]).to.equal('v')
   })
 })

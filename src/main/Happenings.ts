@@ -1,11 +1,11 @@
-import { Happening } from 'main/Happening'
+import { Happening } from 'jigsaw/Happening'
 
 export class Happenings {
   verb: string
   text: string
   array: Happening[]
 
-  constructor () {
+  constructor() {
     this.verb = ''
     this.text = ''
     this.array = new Array<Happening>()

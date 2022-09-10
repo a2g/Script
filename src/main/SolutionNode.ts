@@ -1,8 +1,8 @@
-import { SolverViaRootNode } from 'main/SolverViaRootNode'
-import { SpecialNodes } from 'main/SpecialNodes'
-import { Solution } from 'main/Solution'
-import { Happenings } from 'main/Happenings'
-import { Happen } from 'main/Happen'
+import { SolverViaRootNode } from 'jigsaw/SolverViaRootNode'
+import { SpecialNodes } from 'jigsaw/SpecialNodes'
+import { Solution } from 'jigsaw/Solution'
+import { Happenings } from 'jigsaw/Happenings'
+import { Happen } from 'jigsaw/Happen'
 
 export class SolutionNode {
   id: number
@@ -16,7 +16,7 @@ export class SolutionNode {
   characterRestrictions: string[]
   happenings: Happenings | null
 
-  constructor (
+  constructor(
     id: number,
     conjoint: number,
     output: string,
@@ -73,7 +73,7 @@ export class SolutionNode {
     }
   }
 
-  CloneNodeAndEntireTree (incompleteNodeSet: Set<SolutionNode>): SolutionNode {
+  CloneNodeAndEntireTree(incompleteNodeSet: Set<SolutionNode>): SolutionNode {
     const clone = new SolutionNode(0, 0, this.output, '')
     clone.id = this.id
     clone.conjoint = this.conjoint
@@ -108,7 +108,7 @@ export class SolutionNode {
     return clone
   }
 
-  FindAnyNodeMatchingIdRecursively (id: number): SolutionNode | null {
+  FindAnyNodeMatchingIdRecursively(id: number): SolutionNode | null {
     if (this.id === id) { return this }
     for (const input of this.inputs) {
       const result = (input != null) ? input.FindAnyNodeMatchingIdRecursively(id) : null
@@ -117,7 +117,7 @@ export class SolutionNode {
     return null
   }
 
-  ProcessUntilCloning (solution: Solution, solutions: SolverViaRootNode, path: string): boolean {
+  ProcessUntilCloning(solution: Solution, solutions: SolverViaRootNode, path: string): boolean {
     path += this.output + '/'
     if (this.type === SpecialNodes.VerifiedLeaf) { return false }// false just means keep processing.
 
@@ -249,19 +249,19 @@ export class SolutionNode {
     return false
   }
 
-  SetParent (parent: SolutionNode | null): void {
+  SetParent(parent: SolutionNode | null): void {
     this.parent = parent
   }
 
-  GetParent (): SolutionNode | null {
+  GetParent(): SolutionNode | null {
     return this.parent
   }
 
-  getRestrictions (): string[] {
+  getRestrictions(): string[] {
     return this.characterRestrictions
   }
 
-  UpdateMapWithOutcomes (visibleNodes: Map<string, Set<string>>): void {
+  UpdateMapWithOutcomes(visibleNodes: Map<string, Set<string>>): void {
     if (this.happenings != null) {
       for (const happ of this.happenings.array) {
         switch (happ.happen) {
