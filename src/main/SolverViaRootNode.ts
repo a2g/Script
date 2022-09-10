@@ -1,8 +1,8 @@
-import { Solution } from './Solution'
-import { GetDisplayName } from './GetDisplayName'
-import { Colors } from './Colors'
-import { AddBrackets } from './AddBrackets'
-import { SolutionNodeRepository } from './SolutionNodeRepository'
+import { Solution } from 'main/Solution'
+import { GetDisplayName } from 'main/GetDisplayName'
+import { Colors } from 'main/Colors'
+import { AddBrackets } from 'main/AddBrackets'
+import { SolutionNodeRepository } from 'main/SolutionNodeRepository'
 
 export class SolverViaRootNode {
   constructor (mapOfStartingThingsAndWhoCanHaveThem: Map<string, Set<string>>) {

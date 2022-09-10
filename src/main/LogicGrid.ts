@@ -1,4 +1,4 @@
-import { SingleFileData } from './SingleFileData'
+import { SingleFileData } from 'main/SingleFileData'
 
 /**
  * Logic grid (aka Elimination Grid)

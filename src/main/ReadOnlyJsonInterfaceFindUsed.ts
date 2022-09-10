@@ -1,4 +1,4 @@
-import { SolutionNodeRepository } from './SolutionNodeRepository'
+import { SolutionNodeRepository } from 'main/SolutionNodeRepository'
 
 export interface ReadOnlyJsonInterfaceFindUsed {
   GetArrayOfProps: () => string[]

@@ -1,5 +1,5 @@
-import { Colors } from './Colors'
-import { AddBrackets } from './AddBrackets'
+import { Colors } from 'main/Colors'
+import { AddBrackets } from 'main/AddBrackets'
 
 export function GetDisplayName (input: string | string[], isParenthesisNeeded = false): string {
   // format arrays in to a lovely comma-separated list

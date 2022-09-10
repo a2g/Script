@@ -1,6 +1,6 @@
 // Typescript Unit test
 import assert = require('assert')
-import { LogicGrid } from '../src/LogicGrid'
+import { LogicGrid } from 'main/LogicGrid'
 
 describe('LogicGrid', () => {
   it('FindMostNearlyCompleteRowOrColumnCombined', () => {

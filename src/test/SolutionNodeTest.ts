@@ -1,6 +1,8 @@
 // Typescript Unit test
-import { SolutionNode } from '../main/SolutionNode'
-import { SpecialNodes } from '../main/SpecialNodes'
+
+import { SolutionNode } from "main/SolutionNode"
+import { SpecialNodes } from "main/SpecialNodes"
+
 
 describe('Solution', () => {
   /*

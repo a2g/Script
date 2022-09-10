@@ -1,7 +1,7 @@
 import assert = require('assert')
-import { GetAnyErrorsFromObjectAvailability } from '../src/GetAnyErrorsFromObjectAvailability'
-import { Mix } from '../../src/main/Mix'
-import { MixedObjectsAndVerb } from '../src/MixedObjectsAndVerb'
+import { GetAnyErrorsFromObjectAvailability } from 'main/GetAnyErrorsFromObjectAvailability'
+import { Mix } from 'main/Mix'
+import { MixedObjectsAndVerb } from 'main/MixedObjectsAndVerb'
 
 describe('GetAnyErrorsFromObjectAvailability', () => {
   it('SingleVsInv', () => {

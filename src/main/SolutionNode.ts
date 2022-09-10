@@ -1,8 +1,8 @@
-import { SolverViaRootNode } from './SolverViaRootNode'
-import { SpecialNodes } from './SpecialNodes'
-import { Solution } from './Solution'
-import { Happenings } from './Happenings'
-import { Happen } from './Happen'
+import { SolverViaRootNode } from 'main/SolverViaRootNode'
+import { SpecialNodes } from 'main/SpecialNodes'
+import { Solution } from 'main/Solution'
+import { Happenings } from 'main/Happenings'
+import { Happen } from 'main/Happen'
 
 export class SolutionNode {
   id: number

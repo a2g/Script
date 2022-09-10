@@ -1,6 +1,6 @@
-import { Raw } from './Raw'
-import { FormatText } from './FormatText'
-import { AddBrackets } from './AddBrackets'
+import { Raw } from 'main/Raw'
+import { FormatText } from 'main/FormatText'
+import { AddBrackets } from 'main/AddBrackets'
 
 export class RawObjectsAndVerb {
   type: Raw

@@ -1,5 +1,5 @@
-import { Colors } from './Colors'
-import { AddBrackets } from './AddBrackets'
+import { Colors } from 'main/Colors'
+import { AddBrackets } from 'main/AddBrackets'
 
 export function FormatText (input: string | string[], isParenthesisNeeded = false): string {
   if (Array.isArray(input)) {

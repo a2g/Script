@@ -1,8 +1,14 @@
 
 import * as fs from 'fs'
-import _ from '../../Gate.json'
-import { Happenings } from './Happenings'
 
+import { Happenings } from 'main/Happenings'
+import { SolutionNode } from 'main/SolutionNode'
+import { AlleviateBrackets } from 'main/AlleviateBrackets'
+import { Happen } from 'main/Happen'
+import { Happening } from 'main/Happening'
+import { MixedObjectsAndVerb } from 'main/MixedObjectsAndVerb'
+import { SolutionNodeRepository } from 'main/SolutionNodeRepository'
+import _ from '../../Gate.json'
 
 function isNullOrUndefined (something: any): boolean {
   return (typeof something === 'undefined' || something === null)
@@ -55,7 +61,7 @@ export function SingleBigSwitch (filename: string, solutionNodesMappedByInput: S
       const inv2 = JSON.stringify(gate.inv2)
       const inv3 = JSON.stringify(gate.inv3)
       const happs = new Happenings()
-      const restrictions = gate.restrictions
+      const {restrictions} = gate
       switch (gateType) {
         case _.AUTO_FLAG1_CAUSES_IMPORT_OF_JSON:
           if (solutionNodesMappedByInput != null) {
@@ -106,7 +112,7 @@ export function SingleBigSwitch (filename: string, solutionNodesMappedByInput: S
           }
           break
         case _.EXAMINE_PROP1_YIELDS_INV1:
-          happs.text = 'You examine the ' + prop1 + ' and find a ' + inv1
+          happs.text = `You examine the ${prop1} and find a ${inv1}`
           // ly don't mention what happen to the prop you clicked on.  "\n You now have a" + inv1;
           happs.array.push(new Happening(Happen.InvAppears, inv1))
           if (solutionNodesMappedByInput != null) {
@@ -118,7 +124,7 @@ export function SingleBigSwitch (filename: string, solutionNodesMappedByInput: S
           }
           break
         case _.FLAG1_SET_BY_LOSING_INV1_WHEN_USED_WITH_PROP1:
-          happs.text = 'You use the' + inv1 + ' with the ' + prop1 + ' and something good happens...'
+          happs.text = `You use the ${inv1} with the ${prop1} and something good happens...`
           happs.array.push(new Happening(Happen.FlagIsSet, flag1))
           happs.array.push(new Happening(Happen.InvGoes, inv1))
           happs.array.push(new Happening(Happen.PropStays, prop1))
@@ -133,7 +139,7 @@ export function SingleBigSwitch (filename: string, solutionNodesMappedByInput: S
           }
           break
         case _.FLAG1_SET_BY_LOSING_INV1_USED_WITH_PROP1_AND_PROPS:
-          happs.text = 'With everything set up correctly, you use the' + inv1 + ' with the ' + prop1 + ' and something good happens...'
+          happs.text = `With everything set up correctly, you use the ${inv1} with the ${prop1} and something good happens...`
           happs.array.push(new Happening(Happen.FlagIsSet, flag1))
           happs.array.push(new Happening(Happen.InvGoes, inv1))
           happs.array.push(new Happening(Happen.PropStays, prop1))
@@ -152,7 +158,7 @@ export function SingleBigSwitch (filename: string, solutionNodesMappedByInput: S
           break
 
         case _.FLAG1_SET_BY_USING_INV1_WITH_INV2:
-          happs.text = 'You use the ' + inv1 + ' with the  ' + inv2 + ' and something good happens...'
+          happs.text = `You use the ${inv1} with the ${inv2} and something good happens...`
           happs.array.push(new Happening(Happen.InvStays, inv1))
           happs.array.push(new Happening(Happen.InvStays, inv2))
           happs.array.push(new Happening(Happen.FlagIsSet, flag1))
@@ -167,7 +173,7 @@ export function SingleBigSwitch (filename: string, solutionNodesMappedByInput: S
           break
 
         case _.FLAG1_SET_BY_USING_INV1_WITH_PROP1:
-          happs.text = 'You use the ' + inv1 + ' with the  ' + prop1 + ' and something good happens...'
+          happs.text = `You use the ${inv1} with the ${prop1} and something good happens...`
           happs.array.push(new Happening(Happen.InvStays, inv1))
           happs.array.push(new Happening(Happen.PropStays, prop1))
           happs.array.push(new Happening(Happen.FlagIsSet, flag1))
@@ -181,7 +187,7 @@ export function SingleBigSwitch (filename: string, solutionNodesMappedByInput: S
           }
           break
         case _.FLAG1_SET_BY_USING_INV1_WITH_PROP1_LOSE_PROPS:
-          happs.text = 'You use the ' + inv1 + ' with the  ' + prop1 + ' and something good happens...'
+          happs.text = `You use the ${inv1} with the  ${prop1} and something good happens...`
           happs.array.push(new Happening(Happen.InvStays, inv1))
           happs.array.push(new Happening(Happen.PropGoes, prop1))
           happs.array.push(new Happening(Happen.FlagIsSet, flag1))
@@ -195,7 +201,7 @@ export function SingleBigSwitch (filename: string, solutionNodesMappedByInput: S
           }
           break
         case _.FLAG1_SET_BY_USING_INV1_WITH_PROP1_NEED_FLAGS:
-          happs.text = 'You use the ' + inv1 + ' with the  ' + prop1 + ' and something good happens...'
+          happs.text = `You use the ${inv1} with the  ${prop1} and something good happens...`
           happs.array.push(new Happening(Happen.InvStays, inv1))
           happs.array.push(new Happening(Happen.PropStays, prop1))
           happs.array.push(new Happening(Happen.FlagIsSet, flag1))
@@ -213,7 +219,7 @@ export function SingleBigSwitch (filename: string, solutionNodesMappedByInput: S
           }
           break
         case _.FLAG1_SET_BY_USING_PROP1_WITH_PROP2:
-          happs.text = 'You use the ' + prop1 + ' with the  ' + prop2 + ' and something good happens...'
+          happs.text = `You use the ${prop1} with the ${prop2} and something good happens...`
           happs.array.push(new Happening(Happen.PropStays, prop1))
           happs.array.push(new Happening(Happen.PropStays, prop2))
           happs.array.push(new Happening(Happen.FlagIsSet, flag1))
@@ -227,7 +233,7 @@ export function SingleBigSwitch (filename: string, solutionNodesMappedByInput: S
           }
           break
         case _.GIVE_INV1_TO_PROP1_GETS_INV2:
-          happs.text = 'You give the ' + inv1 + ' to the ' + prop1 + ' and you get the ' + inv2 + ' in return'
+          happs.text = `You give the ${inv1} to the ${prop1} and you get the ${inv2} in return`
           happs.array.push(new Happening(Happen.InvGoes, inv1))
           happs.array.push(new Happening(Happen.InvAppears, inv2))
           happs.array.push(new Happening(Happen.PropStays, prop1))
@@ -242,7 +248,7 @@ export function SingleBigSwitch (filename: string, solutionNodesMappedByInput: S
           }
           break
         case _.GIVE_INV1_TO_PROP1_SETS_FLAG1:
-          happs.text = 'Flag is set' + flag1
+          happs.text = `Flag is set ${flag1}`
           happs.array.push(new Happening(Happen.InvGoes, inv1))
           happs.array.push(new Happening(Happen.FlagIsSet, flag1))
           if (solutionNodesMappedByInput != null) {
@@ -294,7 +300,7 @@ export function SingleBigSwitch (filename: string, solutionNodesMappedByInput: S
           }
           break
         case _.INV1_AND_INV2_COMBINE_TO_FORM_INV3:
-          happs.text = 'The ' + inv1 + ' and the ' + inv2 + ' combine to form an' + inv3
+          happs.text = `The ${inv1} and the ${inv2} combine to form an ${inv3}`
           happs.array.push(new Happening(Happen.InvGoes, inv1))
           happs.array.push(new Happening(Happen.InvGoes, inv2))
           happs.array.push(new Happening(Happen.InvAppears, inv3))
@@ -309,7 +315,7 @@ export function SingleBigSwitch (filename: string, solutionNodesMappedByInput: S
           }
           break
         case _.INV1_AND_INV2_GENERATE_AN_INV3:
-          happs.text = 'The ' + inv1 + ' and the ' + inv2 + ' has generated an' + inv3
+          happs.text = `The ${inv1} and the ${inv2} has generated an ${inv3}`
           happs.array.push(new Happening(Happen.InvStays, inv1))
           happs.array.push(new Happening(Happen.InvStays, inv2))
           happs.array.push(new Happening(Happen.InvAppears, inv3))
@@ -324,7 +330,7 @@ export function SingleBigSwitch (filename: string, solutionNodesMappedByInput: S
           }
           break
         case _.INV1_BECOMES_INV2_BY_KEEPING_INV3:
-          happs.text = 'Your ' + inv1 + ' has become a ' + inv2
+          happs.text = `Your ${inv1} has become a ${inv2}`
           happs.array.push(new Happening(Happen.InvGoes, inv1))
           happs.array.push(new Happening(Happen.InvAppears, inv2))
           happs.array.push(new Happening(Happen.InvStays, inv3))
@@ -339,7 +345,7 @@ export function SingleBigSwitch (filename: string, solutionNodesMappedByInput: S
           }
           break
         case _.INV1_BECOMES_INV2_BY_KEEPING_PROP1:
-          happs.text = 'Your ' + inv1 + ' has become a  ' + inv2
+          happs.text = `Your ${inv1} has become a ${inv2}`
           happs.array.push(new Happening(Happen.InvGoes, inv1))
           happs.array.push(new Happening(Happen.InvAppears, inv2))
           happs.array.push(new Happening(Happen.PropStays, prop1))
@@ -354,7 +360,7 @@ export function SingleBigSwitch (filename: string, solutionNodesMappedByInput: S
           }
           break
         case _.INV1_BECOMES_INV2_BY_LOSING_INV3:
-          happs.text = 'The ' + inv1 + ' has become a  ' + inv2
+          happs.text = `The ${inv1} has become a  ${inv2}`
           happs.array.push(new Happening(Happen.InvGoes, inv1))
           happs.array.push(new Happening(Happen.InvAppears, inv2))
           happs.array.push(new Happening(Happen.InvGoes, inv3))
@@ -369,7 +375,7 @@ export function SingleBigSwitch (filename: string, solutionNodesMappedByInput: S
           }
           break
         case _.INV1_WITH_PROP1_REVEALS_PROP2_KEPT_ALL:
-          happs.text = 'Using the ' + inv1 + ' with the  ' + prop1 + ' has revealed a ' + prop2
+          happs.text = `Using the ${inv1} with the ${prop1} has revealed a ${prop2}`
           happs.array.push(new Happening(Happen.InvGoes, inv1))
           happs.array.push(new Happening(Happen.PropStays, prop1))
           happs.array.push(new Happening(Happen.PropAppears, prop2))
@@ -384,7 +390,7 @@ export function SingleBigSwitch (filename: string, solutionNodesMappedByInput: S
           break
 
         case _.OBTAIN_INV1_BY_INV2_WITH_PROP1_LOSE_BOTH:
-          happs.text = 'By using the ' + inv2 + ' with the ' + prop1 + ' you have obtained the ' + inv1 + '.'
+          happs.text = `By using the ${inv1} with the ${prop1} you have obtained the ${inv1}.`
           happs.array.push(new Happening(Happen.InvAppears, inv1))
           happs.array.push(new Happening(Happen.InvGoes, inv2))
           happs.array.push(new Happening(Happen.PropGoes, prop1))
@@ -398,7 +404,7 @@ export function SingleBigSwitch (filename: string, solutionNodesMappedByInput: S
           }
           break
         case _.OBTAIN_INV1_BY_INV2_WITH_PROP1_LOSE_NONE:
-          happs.text = 'By using the ' + inv2 + ' with the ' + prop1 + ' you have obtained the ' + inv1 + '.'
+          happs.text = `By using the ${inv2} with the ${prop1} you have obtained the ${inv1}.`
           happs.array.push(new Happening(Happen.InvAppears, inv1))
           happs.array.push(new Happening(Happen.InvStays, inv2))
           happs.array.push(new Happening(Happen.PropStays, prop1))
@@ -412,7 +418,7 @@ export function SingleBigSwitch (filename: string, solutionNodesMappedByInput: S
           }
           break
         case _.OBTAIN_INV1_BY_LOSING_INV2_KEEPING_PROP1:
-          happs.text = 'By using the ' + inv2 + ' with the ' + prop1 + ' you have obtained the ' + inv1 + '.'
+          happs.text = `By using the ${inv2} with the ${prop1} you have obtained the ${inv1}.`
           happs.array.push(new Happening(Happen.InvAppears, inv1))
           happs.array.push(new Happening(Happen.InvGoes, inv2))
           happs.array.push(new Happening(Happen.PropStays, prop1))
@@ -426,7 +432,7 @@ export function SingleBigSwitch (filename: string, solutionNodesMappedByInput: S
           }
           break
         case _.OBTAIN_INV1_BY_LOSING_PROP1_KEEPING_INV2:
-          happs.text = 'By using the ' + inv2 + ' with the ' + prop1 + ' you have obtained the ' + inv1 + '.'
+          happs.text = `By using the ${inv2} with the ${prop1} you have obtained the ${inv1}.`
           happs.array.push(new Happening(Happen.InvAppears, inv1))
           happs.array.push(new Happening(Happen.InvStays, inv2))
           happs.array.push(new Happening(Happen.PropGoes, prop1))
@@ -442,7 +448,7 @@ export function SingleBigSwitch (filename: string, solutionNodesMappedByInput: S
         case _.OBTAIN_INV1_BY_PROP1_WITH_PROP2_LOSE_PROPS:
           // eg obtain inv_meteor via radiation suit with the meteor.
           // ^^ this is nearly a two in one, but the radiation suit never becomes inventory: you wear it.
-          happs.text = 'You use the ' + prop1 + ' with the ' + prop2 + ' and obtain the ' + inv1
+          happs.text = `You use the ${prop1} with the ${prop2} and obtain the ${inv1}`
           happs.array.push(new Happening(Happen.InvAppears, inv1))
           happs.array.push(new Happening(Happen.PropGoes, prop1))
           happs.array.push(new Happening(Happen.PropGoes, prop2))
@@ -457,7 +463,7 @@ export function SingleBigSwitch (filename: string, solutionNodesMappedByInput: S
           break
 
         case _.PROP1_APPEARS_WHEN_GRAB_PROP2_WITH_FLAG1:
-          happs.text = 'You use the ' + prop2 + ' and, somewhere, a ' + prop1 + ' appears'
+          happs.text = `You use the ${prop2} and, somewhere, a ${prop1} appears`
           happs.array.push(new Happening(Happen.PropAppears, prop1))
           if (solutionNodesMappedByInput != null) {
             const output = prop1
@@ -472,7 +478,7 @@ export function SingleBigSwitch (filename: string, solutionNodesMappedByInput: S
           }
           break
         case _.PROP1_APPEARS_WHEN_USE_INV1_WITH_PROP2:
-          happs.text = 'You use the ' + inv1 + ' with the ' + prop2 + ' and the ' + prop1 + ' appears'
+          happs.text = `You use the ${inv1} with the ${prop2} and the ${prop2} appears`
           happs.array.push(new Happening(Happen.PropAppears, prop1))
           happs.array.push(new Happening(Happen.InvStays, inv1))
           happs.array.push(new Happening(Happen.PropStays, prop2))
@@ -489,7 +495,7 @@ export function SingleBigSwitch (filename: string, solutionNodesMappedByInput: S
           }
           break
         case _.PROP1_BECOMES_PROP2_AS_INV1_BECOMES_INV2:
-          happs.text = 'The ' + prop1 + 'has become a ' + prop2 + '. And your ' + inv1 + ' has become a ' + inv2 + '.'
+          happs.text = `The ${prop1} has become a ${prop2}. And your ${inv1} has become a ${inv2}.`
           // ly don't mention what happen to the prop you clicked on.  "\n You notice the " + prop1 + " has now become a " + prop2;
           happs.array.push(new Happening(Happen.PropGoes, prop1))
           happs.array.push(new Happening(Happen.PropAppears, prop2))
@@ -508,7 +514,7 @@ export function SingleBigSwitch (filename: string, solutionNodesMappedByInput: S
           }
           break
         case _.PROP1_BECOMES_PROP2_BY_KEEPING_INV1:
-          happs.text = 'You use the ' + inv1 + ', and the ' + prop1 + ' becomes a ' + inv2
+          happs.text = `You use the ${inv1}, and the ${prop1} becomes a ${inv2}`
           happs.array.push(new Happening(Happen.PropGoes, prop1))
           happs.array.push(new Happening(Happen.PropAppears, prop2))
           happs.array.push(new Happening(Happen.InvStays, inv1))
@@ -522,7 +528,7 @@ export function SingleBigSwitch (filename: string, solutionNodesMappedByInput: S
           }
           break
         case _.PROP1_BECOMES_PROP2_BY_KEEPING_PROP3:
-          happs.text = 'You use the ' + prop3 + ', and the ' + prop1 + ' becomes a ' + prop2
+          happs.text = `You use the ${prop3}, and the ${prop1} becomes a ${prop2}`
           happs.array.push(new Happening(Happen.PropGoes, prop1))
           happs.array.push(new Happening(Happen.PropAppears, prop2))
           if (solutionNodesMappedByInput != null) {
@@ -535,7 +541,7 @@ export function SingleBigSwitch (filename: string, solutionNodesMappedByInput: S
           }
           break
         case _.PROP1_BECOMES_PROP2_BY_LOSING_INV1:
-          happs.text = 'You use the ' + inv1 + ', and the ' + prop1 + ' becomes a ' + inv1
+          happs.text = `You use the ${inv1}, and the ${prop1} becomes a ${prop2}}`
           happs.array.push(new Happening(Happen.PropGoes, prop1))
           happs.array.push(new Happening(Happen.PropAppears, prop2))
           happs.array.push(new Happening(Happen.InvGoes, inv1))
@@ -549,7 +555,7 @@ export function SingleBigSwitch (filename: string, solutionNodesMappedByInput: S
           }
           break
         case _.PROP1_BECOMES_PROP2_BY_LOSING_PROP3:
-          happs.text = 'You use the ' + prop3 + ', and the ' + prop1 + ' becomes a ' + prop2
+          happs.text = `You use the ${prop3}, and the ${prop1} becomes a ${prop2}`
           happs.array.push(new Happening(Happen.PropGoes, prop1))
           happs.array.push(new Happening(Happen.PropAppears, prop2))
           happs.array.push(new Happening(Happen.PropGoes, prop3))
@@ -563,7 +569,7 @@ export function SingleBigSwitch (filename: string, solutionNodesMappedByInput: S
           }
           break
         case _.PROP1_BECOMES_PROP2_WHEN_GRAB_INV1:
-          happs.text = 'You now have a ' + inv1
+          happs.text = `You now have a ${inv1}`
           // ly don't mention what happen to the prop you clicked on.  "\n You notice the " + prop1 + " has now become a " + prop2;
           happs.array.push(new Happening(Happen.PropGoes, prop1))
           happs.array.push(new Happening(Happen.PropAppears, prop2))
@@ -581,7 +587,7 @@ export function SingleBigSwitch (filename: string, solutionNodesMappedByInput: S
           break
 
         case _.PROP1_CHANGES_STATE_TO_PROP2_BY_KEEPING_INV1:
-          happs.text = 'You use the ' + inv1 + ', and the ' + prop1 + ' is now ' + AlleviateBrackets(prop2)
+          happs.text = `You use the ${inv1}, and the ${prop1} is now ${AlleviateBrackets(prop2)}`
           happs.array.push(new Happening(Happen.PropGoes, prop1))
           happs.array.push(new Happening(Happen.PropAppears, prop2))
           happs.array.push(new Happening(Happen.InvStays, inv1))
@@ -595,7 +601,7 @@ export function SingleBigSwitch (filename: string, solutionNodesMappedByInput: S
           }
           break
         case _.PROP1_GOES_WHEN_GRAB_INV1:
-          happs.text = 'You now have a ' + inv1
+          happs.text = `You now have a ${inv1}`
           // ly don't mention what happen to the prop you clicked on.  "\n You notice the " + prop1 + " has now become a " + prop2;
           happs.array.push(new Happening(Happen.PropGoes, prop1))
           happs.array.push(new Happening(Happen.InvAppears, inv1))
@@ -608,7 +614,7 @@ export function SingleBigSwitch (filename: string, solutionNodesMappedByInput: S
           }
           break
         case _.PROP1_STAYS_WHEN_GRAB_INV1:
-          happs.text = 'You now have a ' + inv1
+          happs.text = `You now have a ${inv1}`
           // ly don't mention what happen to the prop you clicked on.  "\n You now have a" + inv1;
           happs.array.push(new Happening(Happen.InvAppears, inv1))
           if (solutionNodesMappedByInput != null) {
@@ -620,7 +626,7 @@ export function SingleBigSwitch (filename: string, solutionNodesMappedByInput: S
           }
           break
         case _.PROP1_GOES_WHEN_GRAB_INV1_WITH_FLAG1:
-          happs.text = 'You now have a ' + inv1
+          happs.text = `You now have a ${inv1}`
           // ly don't mention what happen to the prop you clicked on.  "\n You notice the " + prop1 + " has now become a " + prop2;
           happs.array.push(new Happening(Happen.PropGoes, prop1))
           happs.array.push(new Happening(Happen.InvAppears, inv1))
@@ -634,7 +640,7 @@ export function SingleBigSwitch (filename: string, solutionNodesMappedByInput: S
           }
           break
         case _.PROP1_STAYS_WHEN_GRAB_INV1_WITH_FLAG1:
-          happs.text = 'You now have a ' + inv1
+          happs.text = `You now have a ${inv1}`
           // ly don't mention what happen to the prop you clicked on.  "\n You now have a" + inv1;
           happs.array.push(new Happening(Happen.InvAppears, inv1))
           if (solutionNodesMappedByInput != null) {
@@ -647,7 +653,7 @@ export function SingleBigSwitch (filename: string, solutionNodesMappedByInput: S
           }
           break
         case _.TALK_TO_PROP1_GETS_INV1:
-          happs.text = 'You now have a ' + inv1
+          happs.text = `You now have a ${inv1}`
           happs.array.push(new Happening(Happen.InvAppears, inv1))
           if (solutionNodesMappedByInput != null) {
             const output = inv1
@@ -658,7 +664,7 @@ export function SingleBigSwitch (filename: string, solutionNodesMappedByInput: S
           }
           break
         case _.TALK_TO_PROP1_WITH_FLAG1_GETS_INV1:
-          happs.text = 'You talked with flag and now have a ' + inv1
+          happs.text = `You talked with flag and now have a ${inv1}`
           happs.array.push(new Happening(Happen.InvAppears, inv1))
           if (solutionNodesMappedByInput != null) {
             const output = inv1
@@ -670,7 +676,7 @@ export function SingleBigSwitch (filename: string, solutionNodesMappedByInput: S
           }
           break
         case _.THROW_INV1_AT_PROP1_GETS_INV2_LOSE_BOTH:
-          happs.text = 'Throw the ' + inv1 + ' at the ' + prop1 + ' gets you the ' + inv2 + '.'
+          happs.text = `Throw the ${inv1} at the ${prop1} gets you the ${inv2}.`
           happs.array.push(new Happening(Happen.InvGoes, inv1))
           happs.array.push(new Happening(Happen.PropGoes, prop1))
           happs.array.push(new Happening(Happen.InvAppears, inv2))
@@ -684,7 +690,7 @@ export function SingleBigSwitch (filename: string, solutionNodesMappedByInput: S
           }
           break
         case _.TOGGLE_PROP1_BECOMES_PROP2:
-          happs.text = 'The ' + prop1 + ' has become a ' + prop2
+          happs.text = `The ${prop1} has become a ${prop2}`
           happs.array.push(new Happening(Happen.PropGoes, prop1))
           happs.array.push(new Happening(Happen.PropAppears, prop2))
           if (solutionNodesMappedByInput != null) {
@@ -696,7 +702,7 @@ export function SingleBigSwitch (filename: string, solutionNodesMappedByInput: S
           }
           break
         case _.TOGGLE_PROP1_CHANGES_STATE_TO_PROP2:
-          happs.text = 'The ' + prop1 + ' is now ' + AlleviateBrackets(prop2)
+          happs.text = `The ${prop1} is now ${AlleviateBrackets(prop2)}`
           happs.array.push(new Happening(Happen.PropGoes, prop1))
           happs.array.push(new Happening(Happen.PropAppears, prop2))
           if (solutionNodesMappedByInput != null) {
@@ -708,7 +714,7 @@ export function SingleBigSwitch (filename: string, solutionNodesMappedByInput: S
           }
           break
         case _.TOGGLE_PROP1_REVEALS_PROP2_AS_IT_BECOMES_PROP3:
-          happs.text = 'The ' + prop1 + ' becomes ' + prop3 + ' and reveals ' + prop2
+          happs.text = `The ${prop1} becomes ${prop3} and reveals ${prop4}`
           happs.array.push(new Happening(Happen.PropGoes, prop1))
           happs.array.push(new Happening(Happen.PropAppears, prop2))
           happs.array.push(new Happening(Happen.PropAppears, prop3))
@@ -721,7 +727,7 @@ export function SingleBigSwitch (filename: string, solutionNodesMappedByInput: S
           }
           break
         default:
-          console.log('We didn"t handle a gateType that we"re supposed to. Check to see if constant names are the same as their values in the schema. ' + gateType)
+          console.log(`We did not handle a gateType that we"re supposed to. Check to see if constant names are the same as their values in the schema. ${gateType}`)
       }
     }
   }

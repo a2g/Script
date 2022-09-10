@@ -1,4 +1,4 @@
-import { Mix } from './Mix'
+import { Mix } from 'main/Mix'
 
 export class MixedObjectsAndVerb {
   type: Mix

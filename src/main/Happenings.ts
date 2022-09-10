@@ -1,4 +1,4 @@
-import { Happening } from './Happening'
+import { Happening } from 'main/Happening'
 
 export class Happenings {
   verb: string

@@ -1,9 +1,9 @@
-import { PlayerAI } from './PlayerAI'
-import { HappenerCallbacksInterface } from './HappenerCallbacksInterface'
-import { MixedObjectsAndVerb } from './MixedObjectsAndVerb'
-import { Happen } from './Happen'
-import { ReadOnlyJsonInterfaceHappener } from './ReadOnlyJsonInterfaceHappener'
-import { ReadOnlyJsonSingle } from './ReadOnlyJsonSingle'
+import { PlayerAI } from 'main/PlayerAI'
+import { HappenerCallbacksInterface } from 'main/HappenerCallbacksInterface'
+import { MixedObjectsAndVerb } from 'main/MixedObjectsAndVerb'
+import { Happen } from 'main/Happen'
+import { ReadOnlyJsonInterfaceHappener } from 'main/ReadOnlyJsonInterfaceHappener'
+import { ReadOnlyJsonSingle } from 'main/ReadOnlyJsonSingle'
 import { assert } from 'console'
 
 // April 2021

@@ -1,5 +1,5 @@
-import { ReadOnlyJsonSingle } from './ReadOnlyJsonSingle'
-import { SolutionNode } from './SolutionNode'
+import { ReadOnlyJsonSingle } from 'main/ReadOnlyJsonSingle'
+import { SolutionNode } from 'main/SolutionNode'
 /**
  * Yes, the only data here is the map.
  *

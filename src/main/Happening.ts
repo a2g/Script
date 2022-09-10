@@ -1,5 +1,5 @@
 import { assert } from 'console'
-import { Happen } from './Happen'
+import { Happen } from 'main/Happen'
 
 export class Happening {
   item: string

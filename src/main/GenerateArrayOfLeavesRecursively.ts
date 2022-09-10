@@ -1,4 +1,4 @@
-import { SolutionNode } from './SolutionNode'
+import { SolutionNode } from 'main/SolutionNode'
 
 export function GenerateArrayOfLeavesRecursively (node: SolutionNode/*, path: string */): SolutionNode[] {
   let array = new Array<SolutionNode>()

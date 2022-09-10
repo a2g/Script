@@ -1,10 +1,10 @@
-import { SolutionNodeRepository } from './SolutionNodeRepository'
-import { MixedObjectsAndVerb } from './MixedObjectsAndVerb'
-import { Happenings } from './Happenings'
-import { Mix } from './Mix'
-import { ReadOnlyJsonInterface } from './ReadOnlyJsonInterface'
-import { ReadOnlyJsonSingle } from './ReadOnlyJsonSingle'
-import { SingleBigSwitch } from './SingleBigSwitch'
+import { SolutionNodeRepository } from 'main/SolutionNodeRepository'
+import { MixedObjectsAndVerb } from 'main/MixedObjectsAndVerb'
+import { Happenings } from 'main/Happenings'
+import { Mix } from 'main/Mix'
+import { ReadOnlyJsonInterface } from 'main/ReadOnlyJsonInterface'
+import { ReadOnlyJsonSingle } from 'main/ReadOnlyJsonSingle'
+import { SingleBigSwitch } from 'main/SingleBigSwitch'
 
 function CollectAllJsonRecursively(json: ReadOnlyJsonSingle, map: Map<string, ReadOnlyJsonSingle>): void {
   for (const bag of json.GetMapOfBags()) {

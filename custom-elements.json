@@ -4,58 +4,6 @@
   "modules": [
     {
       "kind": "javascript-module",
-      "path": "src/JigsawW.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "JigsawW",
-          "members": [
-            {
-              "kind": "field",
-              "name": "title",
-              "type": {
-                "text": "string"
-              },
-              "default": "'My app'"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "jigsaw-w",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "JigsawW",
-          "declaration": {
-            "name": "JigsawW",
-            "module": "src/JigsawW.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/jigsaw-w.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "name": "jigsaw-w",
-          "declaration": {
-            "name": "JigsawW",
-            "module": "/src/JigsawW.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "stories/jigsaw-w.stories.ts",
       "declarations": [
         {
@@ -80,6 +28,3971 @@
           }
         }
       ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/main/AddBrackets.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "AddBrackets",
+          "return": {
+            "type": {
+              "text": ""
+            }
+          },
+          "parameters": [
+            {
+              "name": "input",
+              "type": {
+                "text": "string"
+              },
+              "description": "the string that may get wrapped in brackets"
+            },
+            {
+              "name": "isParenthesisNeeded",
+              "default": "true",
+              "description": "decides whether or not it does"
+            }
+          ],
+          "description": "At the time, this was the most convenient way\nof conditionarlly addding brackets to a string."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "AddBrackets",
+          "declaration": {
+            "name": "AddBrackets",
+            "module": "src/main/AddBrackets.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/main/AlleviateBrackets.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "AlleviateBrackets",
+          "return": {
+            "type": {
+              "text": ""
+            }
+          },
+          "parameters": [
+            {
+              "name": "name",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "the string whose brackets should be removed"
+            }
+          ],
+          "description": "This removes the brackets from a string.\nThe 'string|undefined' makes it useful for parsing Json."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "AlleviateBrackets",
+          "declaration": {
+            "name": "AlleviateBrackets",
+            "module": "src/main/AlleviateBrackets.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/main/Colors.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/main/FormatText.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "FormatText",
+          "return": {
+            "type": {
+              "text": "string"
+            }
+          },
+          "parameters": [
+            {
+              "name": "input",
+              "type": {
+                "text": "string | string[]"
+              }
+            },
+            {
+              "name": "isParenthesisNeeded",
+              "default": "false"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "FormatText",
+          "declaration": {
+            "name": "FormatText",
+            "module": "src/main/FormatText.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/main/GenerateArrayOfLeavesRecursively.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "GenerateArrayOfLeavesRecursively",
+          "return": {
+            "type": {
+              "text": "SolutionNode[]"
+            }
+          },
+          "parameters": [
+            {
+              "name": "node",
+              "type": {
+                "text": "SolutionNode"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "GenerateArrayOfLeavesRecursively",
+          "declaration": {
+            "name": "GenerateArrayOfLeavesRecursively",
+            "module": "src/main/GenerateArrayOfLeavesRecursively.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/main/GenerateMapOfLeavesRecursively.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "GenerateMapOfLeavesRecursively",
+          "return": {
+            "type": {
+              "text": "void"
+            }
+          },
+          "parameters": [
+            {
+              "name": "node",
+              "type": {
+                "text": "SolutionNode"
+              }
+            },
+            {
+              "name": "path",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "name": "map",
+              "type": {
+                "text": "Map<string, SolutionNode>"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "GenerateMapOfLeavesRecursively",
+          "declaration": {
+            "name": "GenerateMapOfLeavesRecursively",
+            "module": "src/main/GenerateMapOfLeavesRecursively.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/main/GetAnyErrorsFromObjectAvailability.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "GetAnyErrorsFromObjectAvailability",
+          "return": {
+            "type": {
+              "text": "string"
+            }
+          },
+          "parameters": [
+            {
+              "name": "objects",
+              "type": {
+                "text": "MixedObjectsAndVerb"
+              }
+            },
+            {
+              "name": "visibleProps",
+              "type": {
+                "text": "string[]"
+              }
+            },
+            {
+              "name": "visibleInvs",
+              "type": {
+                "text": "string[]"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "GetAnyErrorsFromObjectAvailability",
+          "declaration": {
+            "name": "GetAnyErrorsFromObjectAvailability",
+            "module": "src/main/GetAnyErrorsFromObjectAvailability.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/main/GetDisplayName.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "GetDisplayName",
+          "return": {
+            "type": {
+              "text": "string"
+            }
+          },
+          "parameters": [
+            {
+              "name": "input",
+              "type": {
+                "text": "string | string[]"
+              }
+            },
+            {
+              "name": "isParenthesisNeeded",
+              "default": "false"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "GetDisplayName",
+          "declaration": {
+            "name": "GetDisplayName",
+            "module": "src/main/GetDisplayName.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/main/GetThreeStringsFromInput.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "GetThreeStringsFromInput",
+          "return": {
+            "type": {
+              "text": ""
+            }
+          },
+          "parameters": [
+            {
+              "name": "input",
+              "type": {
+                "text": "string"
+              },
+              "description": "the single input string"
+            }
+          ],
+          "description": "This gets retrieves a single command of adventure game input\nThis game has a maximum of three items per command.\neg Use X Y  // where 'with' is implied\nMost commands use two commands\neg Toggle X\neg Grab X etc..."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "GetThreeStringsFromInput",
+          "declaration": {
+            "name": "GetThreeStringsFromInput",
+            "module": "src/main/GetThreeStringsFromInput.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/main/Happen.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/main/Happener.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "Happener",
+          "members": [
+            {
+              "kind": "method",
+              "name": "SetFlagValue",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "flag",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "value",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "GetFlagValue",
+              "return": {
+                "type": {
+                  "text": "Number"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "flag",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "SetInvVisible",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "inv",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "value",
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "SetPropVisible",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "prop",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "value",
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "ExecuteCommand",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "objects",
+                  "type": {
+                    "text": "MixedObjectsAndVerb"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "GetIndexOfVerb",
+              "return": {
+                "type": {
+                  "text": "number"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "verb",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "GetIndexOfInv",
+              "return": {
+                "type": {
+                  "text": "number"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "GetIndexOfFlag",
+              "return": {
+                "type": {
+                  "text": "number"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "GetIndexOfProp",
+              "return": {
+                "type": {
+                  "text": "number"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "GetVerb",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "i",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "GetInv",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "i",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "GetProp",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "i",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "GetFlag",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "i",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "SubscribeToCallbacks",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "callbacks",
+                  "type": {
+                    "text": "HappenerCallbacksInterface"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "GetVerbsExcludingUse",
+              "return": {
+                "type": {
+                  "text": "Array<[string, boolean]>"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GetEntireFlagSuite",
+              "return": {
+                "type": {
+                  "text": "Array<[string, Number]>"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GetEntirePropSuite",
+              "return": {
+                "type": {
+                  "text": "Array<[string, boolean]>"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GetEntireInvSuite",
+              "return": {
+                "type": {
+                  "text": "Array<[string, boolean]>"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GetCurrentVisibleInventory",
+              "return": {
+                "type": {
+                  "text": "string[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GetCurrentVisibleProps",
+              "return": {
+                "type": {
+                  "text": "string[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GetCurrentlyTrueFlags",
+              "return": {
+                "type": {
+                  "text": "string[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GetArrayOfInvs",
+              "return": {
+                "type": {
+                  "text": "string[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GetArrayOfProps",
+              "return": {
+                "type": {
+                  "text": "string[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "MergeNewThingsFromScene",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "json",
+                  "type": {
+                    "text": "ReadOnlyJsonSingle"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "arrayOfInvNames",
+              "type": {
+                "text": "string[]"
+              },
+              "privacy": "private",
+              "default": "new Array<string>()"
+            },
+            {
+              "kind": "field",
+              "name": "arrayOfInventoryVisibilities",
+              "type": {
+                "text": "boolean[]"
+              },
+              "privacy": "private",
+              "default": "new Array<boolean>()"
+            },
+            {
+              "kind": "field",
+              "name": "arrayOfPropNames",
+              "type": {
+                "text": "string[]"
+              },
+              "privacy": "private",
+              "default": "new Array<string>()"
+            },
+            {
+              "kind": "field",
+              "name": "arrayOfPropVisibilities",
+              "type": {
+                "text": "boolean[]"
+              },
+              "privacy": "private",
+              "default": "new Array<boolean>()"
+            },
+            {
+              "kind": "field",
+              "name": "arrayOfVerbNames",
+              "type": {
+                "text": "string[]"
+              },
+              "privacy": "private",
+              "default": "new Array<string>()"
+            },
+            {
+              "kind": "field",
+              "name": "arrayOfVerbVisibilities",
+              "type": {
+                "text": "boolean[]"
+              },
+              "privacy": "private",
+              "default": "new Array<boolean>()"
+            },
+            {
+              "kind": "field",
+              "name": "arrayOfFlagNames",
+              "type": {
+                "text": "string[]"
+              },
+              "privacy": "private",
+              "default": "new Array<string>()"
+            },
+            {
+              "kind": "field",
+              "name": "arrayOfFlagValues",
+              "type": {
+                "text": "number[]"
+              },
+              "privacy": "private",
+              "default": "new Array<number>()"
+            },
+            {
+              "kind": "field",
+              "name": "json",
+              "type": {
+                "text": "ReadOnlyJsonInterfaceHappener"
+              },
+              "privacy": "private",
+              "default": "json"
+            },
+            {
+              "kind": "field",
+              "name": "Examine",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "public",
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "callbacks",
+              "type": {
+                "text": "HappenerCallbacksInterface"
+              },
+              "privacy": "private",
+              "default": "new PlayerAI(this, 0)"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Happener",
+          "declaration": {
+            "name": "Happener",
+            "module": "src/main/Happener.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/main/HappenerCallbacksInterface.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/main/Happening.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "Happening",
+          "members": [
+            {
+              "kind": "field",
+              "name": "item",
+              "type": {
+                "text": "string"
+              },
+              "default": "item"
+            },
+            {
+              "kind": "field",
+              "name": "happen",
+              "type": {
+                "text": "Happen"
+              },
+              "default": "play"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Happening",
+          "declaration": {
+            "name": "Happening",
+            "module": "src/main/Happening.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/main/Happenings.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "Happenings",
+          "members": [
+            {
+              "kind": "field",
+              "name": "verb",
+              "type": {
+                "text": "string"
+              },
+              "default": "''"
+            },
+            {
+              "kind": "field",
+              "name": "text",
+              "type": {
+                "text": "string"
+              },
+              "default": "''"
+            },
+            {
+              "kind": "field",
+              "name": "array",
+              "type": {
+                "text": "Happening[]"
+              },
+              "default": "new Array<Happening>()"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Happenings",
+          "declaration": {
+            "name": "Happenings",
+            "module": "src/main/Happenings.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/main/LogicGrid.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Logic grid (aka Elimination Grid)\n\nUusing these as a solver in an adventure game is useful\nbecause - if an object has a use at all - and you've used it\nwith some things already, then its use lies with one of the\nthings you've not used it with. This process of elimination\nis helped using a logic grid (aka elimination grid.\n https://en.wikipedia.org/wiki/Logic_puzzle#Logic_grid_puzzles",
+          "name": "LogicGrid",
+          "members": [
+            {
+              "kind": "field",
+              "name": "theActualTicks",
+              "type": {
+                "text": "boolean[][]"
+              },
+              "privacy": "private",
+              "default": "new Array<boolean[]>()"
+            },
+            {
+              "kind": "field",
+              "name": "rowAndColumnDetailsCombined",
+              "type": {
+                "text": "Map<number, SingleFileData>"
+              },
+              "privacy": "private",
+              "default": "new Map<number, SingleFileData>()"
+            },
+            {
+              "kind": "field",
+              "name": "numberOfCellsInARow",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "numberOfRows"
+            },
+            {
+              "kind": "field",
+              "name": "numberOfCellsInAColumn",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "numberOfColumns"
+            },
+            {
+              "kind": "field",
+              "name": "numberOfVisibleRows",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "numberOfVisibleColumns",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "ColumnsStartHere",
+              "type": {
+                "text": "number"
+              },
+              "default": "1000"
+            },
+            {
+              "kind": "method",
+              "name": "SetColumnRow",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "x",
+                  "type": {
+                    "text": "number"
+                  }
+                },
+                {
+                  "name": "y",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "GetNumberOfCellsInARow",
+              "return": {
+                "type": {
+                  "text": "number"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GetNumberOfCellsInAColumn",
+              "return": {
+                "type": {
+                  "text": "number"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "IsRowFullyChecked",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "row",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "IsColumnFullyChecked",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "column",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "GetVisibilitiesForColumnOrRow",
+              "return": {
+                "type": {
+                  "text": "boolean[]"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "file",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "GetTickArrayForColumnOrRow",
+              "return": {
+                "type": {
+                  "text": "boolean[]"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "file",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "GetNextGuess",
+              "return": {
+                "type": {
+                  "text": "[number, number]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GetNumberOfCellsNeededToCompleteFile",
+              "return": {
+                "type": {
+                  "text": "number"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "pair",
+                  "type": {
+                    "text": "[number, SingleFileData]"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "IsColumn",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "FindMostNearlyCompleteRowOrColumnCombined",
+              "return": {
+                "type": {
+                  "text": "number"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "SetVisibilityOfRow",
+              "privacy": "public",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "number",
+                  "type": {
+                    "text": "number"
+                  }
+                },
+                {
+                  "name": "visibility",
+                  "type": {
+                    "text": "boolean"
+                  }
+                },
+                {
+                  "name": "nameForDebugging",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "SetVisibilityOfColumn",
+              "privacy": "public",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "number",
+                  "type": {
+                    "text": "number"
+                  }
+                },
+                {
+                  "name": "visibility",
+                  "type": {
+                    "text": "boolean"
+                  }
+                },
+                {
+                  "name": "nameForDebugging",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "SetRowOrColumnVisibility",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
+                  }
+                },
+                {
+                  "name": "isVisible",
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "GetNumberOfVisibleCellsInARow",
+              "privacy": "public",
+              "return": {
+                "type": {
+                  "text": "number"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GetNumberOfVisibleCellsInAColumn",
+              "privacy": "public",
+              "return": {
+                "type": {
+                  "text": "number"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "type": {
+                "text": "number"
+              },
+              "default": "0"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "LogicGrid",
+          "declaration": {
+            "name": "LogicGrid",
+            "module": "src/main/LogicGrid.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/main/Mix.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/main/MixedObjectsAndVerb.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "MixedObjectsAndVerb",
+          "members": [
+            {
+              "kind": "field",
+              "name": "type",
+              "type": {
+                "text": "Mix"
+              },
+              "default": "type"
+            },
+            {
+              "kind": "field",
+              "name": "verb",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "object1",
+              "type": {
+                "text": "string"
+              },
+              "default": "object1"
+            },
+            {
+              "kind": "field",
+              "name": "object2",
+              "type": {
+                "text": "string"
+              },
+              "default": "object2"
+            },
+            {
+              "kind": "field",
+              "name": "error",
+              "type": {
+                "text": "string"
+              },
+              "default": "error"
+            },
+            {
+              "kind": "method",
+              "name": "Match",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "verb",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "object1",
+                  "type": {
+                    "text": "string | undefined"
+                  }
+                },
+                {
+                  "name": "object2",
+                  "type": {
+                    "text": "string | undefined"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "MixedObjectsAndVerb",
+          "declaration": {
+            "name": "MixedObjectsAndVerb",
+            "module": "src/main/MixedObjectsAndVerb.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/main/PlayerAI.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "PlayerAI",
+          "members": [
+            {
+              "kind": "field",
+              "name": "invVsInv",
+              "type": {
+                "text": "LogicGrid"
+              },
+              "default": "new LogicGrid(invs, invs)"
+            },
+            {
+              "kind": "field",
+              "name": "invVsVerb",
+              "type": {
+                "text": "LogicGrid"
+              },
+              "default": "new LogicGrid(invs, verbs)"
+            },
+            {
+              "kind": "field",
+              "name": "invVsProp",
+              "type": {
+                "text": "LogicGrid"
+              },
+              "default": "new LogicGrid(invs, props)"
+            },
+            {
+              "kind": "field",
+              "name": "propVsVerb",
+              "type": {
+                "text": "LogicGrid"
+              },
+              "default": "new LogicGrid(props, verbs)"
+            },
+            {
+              "kind": "field",
+              "name": "propVsProp",
+              "type": {
+                "text": "LogicGrid"
+              },
+              "default": "new LogicGrid(props, props)"
+            },
+            {
+              "kind": "field",
+              "name": "game",
+              "type": {
+                "text": "Happener"
+              },
+              "default": "game"
+            },
+            {
+              "kind": "field",
+              "name": "autoCount",
+              "type": {
+                "text": "number"
+              },
+              "default": "numberOfAutopilotTurns"
+            },
+            {
+              "kind": "method",
+              "name": "GetNextCommand",
+              "return": {
+                "type": {
+                  "text": "string[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "OnInvVisbilityChange",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "number",
+                  "type": {
+                    "text": "number"
+                  }
+                },
+                {
+                  "name": "newValue",
+                  "type": {
+                    "text": "boolean"
+                  }
+                },
+                {
+                  "name": "nameForDebugging",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "OnPropVisbilityChange",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "number",
+                  "type": {
+                    "text": "number"
+                  }
+                },
+                {
+                  "name": "newValue",
+                  "type": {
+                    "text": "boolean"
+                  }
+                },
+                {
+                  "name": "nameForDebugging",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "OnFlagValueChange",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "number",
+                  "type": {
+                    "text": "number"
+                  }
+                },
+                {
+                  "name": "newValue",
+                  "type": {
+                    "text": "number"
+                  }
+                },
+                {
+                  "name": "nameForDebugging",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "PlayerAI",
+          "declaration": {
+            "name": "PlayerAI",
+            "module": "src/main/PlayerAI.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/main/Raw.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/main/RawObjectsAndVerb.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "RawObjectsAndVerb",
+          "members": [
+            {
+              "kind": "field",
+              "name": "type",
+              "type": {
+                "text": "Raw"
+              },
+              "default": "type"
+            },
+            {
+              "kind": "field",
+              "name": "objectA",
+              "type": {
+                "text": "string"
+              },
+              "default": "objectA"
+            },
+            {
+              "kind": "field",
+              "name": "objectB",
+              "type": {
+                "text": "string"
+              },
+              "default": "objectB"
+            },
+            {
+              "kind": "field",
+              "name": "startingCharacterForA",
+              "type": {
+                "text": "string"
+              },
+              "default": "''"
+            },
+            {
+              "kind": "field",
+              "name": "startingCharacterForB",
+              "type": {
+                "text": "string"
+              },
+              "default": "''"
+            },
+            {
+              "kind": "field",
+              "name": "restrictions",
+              "type": {
+                "text": "string[]"
+              },
+              "default": "restrictions"
+            },
+            {
+              "kind": "field",
+              "name": "typeJustForDebugging",
+              "type": {
+                "text": "string"
+              },
+              "default": "typeJustForDebugging"
+            },
+            {
+              "kind": "method",
+              "name": "WriteToConsole",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "appendStartingCharacterForA",
+              "privacy": "public",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "startingCharacterForA",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "appendStartingCharacterForB",
+              "privacy": "public",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "startingCharacterForB",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "dumpRaw",
+              "privacy": "public",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "RawObjectsAndVerb",
+          "declaration": {
+            "name": "RawObjectsAndVerb",
+            "module": "src/main/RawObjectsAndVerb.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/main/ReadOnlyJsonInterface.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/main/ReadOnlyJsonInterfaceCollator.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/main/ReadOnlyJsonInterfaceConcoct.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/main/ReadOnlyJsonInterfaceFindLeaves.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/main/ReadOnlyJsonInterfaceFindUsed.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/main/ReadOnlyJsonInterfaceHappener.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/main/ReadOnlyJsonInterfacePlayThru.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/main/ReadOnlyJsonMultipleFilenames.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "So the most important part of this class is that the data\nin it is read only. So I've put that in the name.\nI wanted to convey the idea that it represents  *.json files,\nin this case multiple, so that goes in there too.",
+          "name": "ReadOnlyJsonMultipleFilenames",
+          "members": [
+            {
+              "kind": "field",
+              "name": "allProps",
+              "type": {
+                "text": "string[]"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "allFlags",
+              "type": {
+                "text": "string[]"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "allInvs",
+              "type": {
+                "text": "string[]"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "allChars",
+              "type": {
+                "text": "string[]"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "mapOfStartingThingsWithChars",
+              "type": {
+                "text": "Map<string, Set<string>>"
+              },
+              "default": "new Map<string, Set<string>>()"
+            },
+            {
+              "kind": "field",
+              "name": "startingInvSet",
+              "type": {
+                "text": "Set<string>"
+              },
+              "default": "new Set<string>()"
+            },
+            {
+              "kind": "field",
+              "name": "startingPropSet",
+              "type": {
+                "text": "Set<string>"
+              },
+              "default": "new Set<string>()"
+            },
+            {
+              "kind": "field",
+              "name": "startingFlagSet",
+              "type": {
+                "text": "Set<string>"
+              },
+              "default": "new Set<string>()"
+            },
+            {
+              "kind": "field",
+              "name": "allScenes",
+              "type": {
+                "text": "Map<string, ReadOnlyJsonSingle>"
+              },
+              "default": "new Map<string, ReadOnlyJsonSingle>()"
+            },
+            {
+              "kind": "field",
+              "name": "mapOfBags",
+              "type": {
+                "text": "Map<string, ReadOnlyJsonSingle>"
+              },
+              "default": "new Map<string, ReadOnlyJsonSingle>()"
+            },
+            {
+              "kind": "method",
+              "name": "GetArrayOfProps",
+              "return": {
+                "type": {
+                  "text": "string[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GetArrayOfInvs",
+              "return": {
+                "type": {
+                  "text": "string[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GetArrayOfFlags",
+              "return": {
+                "type": {
+                  "text": "string[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GetArrayOfSingleObjectVerbs",
+              "return": {
+                "type": {
+                  "text": "string[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GetArrayOfInitialStatesOfSingleObjectVerbs",
+              "return": {
+                "type": {
+                  "text": "boolean[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GetArrayOfInitialStatesOfFlags",
+              "return": {
+                "type": {
+                  "text": "number[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GetSetOfStartingProps",
+              "return": {
+                "type": {
+                  "text": "Set<string>"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GetSetOfStartingInvs",
+              "return": {
+                "type": {
+                  "text": "Set<string>"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GetMapOfAllStartingThings",
+              "return": {
+                "type": {
+                  "text": "Map<string, Set<string>>"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GetStartingThingsForCharacter",
+              "return": {
+                "type": {
+                  "text": "Set<string>"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "charName",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "GetArrayOfInitialStatesOfProps",
+              "return": {
+                "type": {
+                  "text": "boolean[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GetArrayOfInitialStatesOfInvs",
+              "return": {
+                "type": {
+                  "text": "boolean[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GetArrayOfCharacters",
+              "return": {
+                "type": {
+                  "text": "string[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GenerateSolutionNodesMappedByInput",
+              "return": {
+                "type": {
+                  "text": "SolutionNodeRepository"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "FindHappeningsIfAny",
+              "return": {
+                "type": {
+                  "text": "Happenings | null"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "objects",
+                  "type": {
+                    "text": "MixedObjectsAndVerb"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "GetMapOfBags",
+              "return": {
+                "type": {
+                  "text": "Map<string, ReadOnlyJsonSingle>"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ReadOnlyJsonMultipleFilenames",
+          "declaration": {
+            "name": "ReadOnlyJsonMultipleFilenames",
+            "module": "src/main/ReadOnlyJsonMultipleFilenames.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/main/ReadOnlyJsonSingle.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "So the most important part of this class is that the data\nin it is read only. So I've put that in the name.\nI wanted to convey the idea that it represents one *.json file\nso that's in there too.",
+          "name": "ReadOnlyJsonSingle",
+          "members": [
+            {
+              "kind": "field",
+              "name": "allProps",
+              "type": {
+                "text": "string[]"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "allFlags",
+              "type": {
+                "text": "string[]"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "allInvs",
+              "type": {
+                "text": "string[]"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "allChars",
+              "type": {
+                "text": "string[]"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "mapOfStartingThings",
+              "type": {
+                "text": "Map<string, Set<string>>"
+              },
+              "default": "new Map<string, Set<string>>()"
+            },
+            {
+              "kind": "field",
+              "name": "startingInvSet",
+              "type": {
+                "text": "Set<string>"
+              },
+              "default": "new Set<string>()"
+            },
+            {
+              "kind": "field",
+              "name": "startingPropSet",
+              "type": {
+                "text": "Set<string>"
+              },
+              "default": "new Set<string>()"
+            },
+            {
+              "kind": "field",
+              "name": "startingFlagSet",
+              "type": {
+                "text": "Set<string>"
+              },
+              "default": "new Set<string>()"
+            },
+            {
+              "kind": "field",
+              "name": "filename",
+              "type": {
+                "text": "string"
+              },
+              "default": "filename"
+            },
+            {
+              "kind": "field",
+              "name": "mapOfBags",
+              "type": {
+                "text": "Map<string, ReadOnlyJsonSingle>"
+              },
+              "default": "new Map<string, ReadOnlyJsonSingle>()"
+            },
+            {
+              "kind": "method",
+              "name": "GetArrayOfJsonsRecursively",
+              "return": {
+                "type": {
+                  "text": "ReadOnlyJsonSingle[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "AddStartingPropsToGivenSet",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "givenSet",
+                  "type": {
+                    "text": "Set<string>"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "AddStartingFlagsToGivenSet",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "givenSet",
+                  "type": {
+                    "text": "Set<string>"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "AddStartingInvsToGivenSet",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "givenSet",
+                  "type": {
+                    "text": "Set<string>"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "AddStartingThingCharsToGivenMap",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "givenMap",
+                  "type": {
+                    "text": "Map<string, Set<string>>"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "AddBagsToGivenMap",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "givenMap",
+                  "type": {
+                    "text": "Map<string, ReadOnlyJsonSingle>"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "AddPropsToGivenSet",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "givenSet",
+                  "type": {
+                    "text": "Set<string>"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "AddFlagsToGivenSet",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "givenSet",
+                  "type": {
+                    "text": "Set<string>"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "AddInvsToGivenSet",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "givenSet",
+                  "type": {
+                    "text": "Set<string>"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "AddCharsToGivenSet",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "givenSet",
+                  "type": {
+                    "text": "Set<string>"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "GetArrayOfProps",
+              "return": {
+                "type": {
+                  "text": "string[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GetArrayOfInvs",
+              "return": {
+                "type": {
+                  "text": "string[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GetArrayOfFlags",
+              "return": {
+                "type": {
+                  "text": "string[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GetArrayOfSingleObjectVerbs",
+              "return": {
+                "type": {
+                  "text": "string[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GetArrayOfInitialStatesOfSingleObjectVerbs",
+              "return": {
+                "type": {
+                  "text": "boolean[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GetArrayOfInitialStatesOfFlags",
+              "return": {
+                "type": {
+                  "text": "number[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GetSetOfStartingFlags",
+              "return": {
+                "type": {
+                  "text": "Set<string>"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GetSetOfStartingProps",
+              "return": {
+                "type": {
+                  "text": "Set<string>"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GetSetOfStartingInvs",
+              "return": {
+                "type": {
+                  "text": "Set<string>"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GetMapOfAllStartingThings",
+              "return": {
+                "type": {
+                  "text": "Map<string, Set<string>>"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GetStartingThingsForCharacter",
+              "return": {
+                "type": {
+                  "text": "Set<string>"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "charName",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "GetArrayOfInitialStatesOfProps",
+              "return": {
+                "type": {
+                  "text": "boolean[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GetArrayOfInitialStatesOfInvs",
+              "return": {
+                "type": {
+                  "text": "boolean[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GetArrayOfCharacters",
+              "return": {
+                "type": {
+                  "text": "string[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GetMapOfBags",
+              "return": {
+                "type": {
+                  "text": "Map<string, ReadOnlyJsonSingle>"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GenerateSolutionNodesMappedByInput",
+              "return": {
+                "type": {
+                  "text": "SolutionNodeRepository"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "AddAllSolutionNodesToGivenMap",
+              "return": {
+                "type": {
+                  "text": "SolutionNodeRepository"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "givenMap",
+                  "type": {
+                    "text": "SolutionNodeRepository"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "FindHappeningsIfAny",
+              "return": {
+                "type": {
+                  "text": "Happenings | null"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "objects",
+                  "type": {
+                    "text": "MixedObjectsAndVerb"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "GetFilename",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GetDirectlyAccessibleGoals",
+              "privacy": "public",
+              "return": {
+                "type": {
+                  "text": "string[]"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ReadOnlyJsonSingle",
+          "declaration": {
+            "name": "ReadOnlyJsonSingle",
+            "module": "src/main/ReadOnlyJsonSingle.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/main/ReadOnlyViaArrayOfJsons.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "So the most important part of this class is that the data\nin it is read only. So I've put that in the name.\nI wanted to convey the idea that it represents  *.json files,\nin this case multiple, so that goes in there too.",
+          "name": "ReadOnlyViaArrayOfJsons",
+          "members": [
+            {
+              "kind": "field",
+              "name": "allProps",
+              "type": {
+                "text": "string[]"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "allFlags",
+              "type": {
+                "text": "string[]"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "allInvs",
+              "type": {
+                "text": "string[]"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "allChars",
+              "type": {
+                "text": "string[]"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "mapOfStartingThingsWithChars",
+              "type": {
+                "text": "Map<string, Set<string>>"
+              },
+              "default": "new Map<string, Set<string>>()"
+            },
+            {
+              "kind": "field",
+              "name": "startingInvSet",
+              "type": {
+                "text": "Set<string>"
+              },
+              "default": "new Set<string>()"
+            },
+            {
+              "kind": "field",
+              "name": "startingPropSet",
+              "type": {
+                "text": "Set<string>"
+              },
+              "default": "new Set<string>()"
+            },
+            {
+              "kind": "field",
+              "name": "startingFlagSet",
+              "type": {
+                "text": "Set<string>"
+              },
+              "default": "new Set<string>()"
+            },
+            {
+              "kind": "field",
+              "name": "allScenes",
+              "type": {
+                "text": "ReadOnlyJsonSingle[]"
+              },
+              "default": "jsons"
+            },
+            {
+              "kind": "field",
+              "name": "mapOfBags",
+              "type": {
+                "text": "Map<string, ReadOnlyJsonSingle>"
+              },
+              "default": "new Map<string, ReadOnlyJsonSingle>()"
+            },
+            {
+              "kind": "method",
+              "name": "GetArrayOfProps",
+              "return": {
+                "type": {
+                  "text": "string[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GetArrayOfInvs",
+              "return": {
+                "type": {
+                  "text": "string[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GetArrayOfFlags",
+              "return": {
+                "type": {
+                  "text": "string[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GetArrayOfSingleObjectVerbs",
+              "return": {
+                "type": {
+                  "text": "string[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GetArrayOfInitialStatesOfSingleObjectVerbs",
+              "return": {
+                "type": {
+                  "text": "boolean[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GetArrayOfInitialStatesOfFlags",
+              "return": {
+                "type": {
+                  "text": "number[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GetSetOfStartingProps",
+              "return": {
+                "type": {
+                  "text": "Set<string>"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GetSetOfStartingInvs",
+              "return": {
+                "type": {
+                  "text": "Set<string>"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GetMapOfAllStartingThings",
+              "return": {
+                "type": {
+                  "text": "Map<string, Set<string>>"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GetStartingThingsForCharacter",
+              "return": {
+                "type": {
+                  "text": "Set<string>"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "charName",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "GetArrayOfInitialStatesOfProps",
+              "return": {
+                "type": {
+                  "text": "boolean[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GetArrayOfInitialStatesOfInvs",
+              "return": {
+                "type": {
+                  "text": "boolean[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GetArrayOfCharacters",
+              "return": {
+                "type": {
+                  "text": "string[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GenerateSolutionNodesMappedByInput",
+              "return": {
+                "type": {
+                  "text": "SolutionNodeRepository"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "FindHappeningsIfAny",
+              "return": {
+                "type": {
+                  "text": "Happenings | null"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "objects",
+                  "type": {
+                    "text": "MixedObjectsAndVerb"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "GetMapOfBags",
+              "return": {
+                "type": {
+                  "text": "Map<string, ReadOnlyJsonSingle>"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ReadOnlyViaArrayOfJsons",
+          "declaration": {
+            "name": "ReadOnlyViaArrayOfJsons",
+            "module": "src/main/ReadOnlyViaArrayOfJsons.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/main/RootNodeMap.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Yes, the only data here is the map.\n\nThis is the source repository of the solution nodes",
+          "name": "RootNodeMap",
+          "members": [
+            {
+              "kind": "field",
+              "name": "goals",
+              "type": {
+                "text": "SolutionNode[]"
+              },
+              "privacy": "private",
+              "default": "new Array<SolutionNode>()"
+            },
+            {
+              "kind": "field",
+              "name": "names",
+              "type": {
+                "text": "string[]"
+              },
+              "privacy": "private",
+              "default": "new Array<string>()"
+            },
+            {
+              "kind": "method",
+              "name": "CloneAllRootNodesAndTheirTrees",
+              "return": {
+                "type": {
+                  "text": "RootNodeMap"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "incompleteNodes",
+                  "type": {
+                    "text": "Set<SolutionNode>"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "Has",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "goalToObtain",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "Get",
+              "return": {
+                "type": {
+                  "text": "SolutionNode | null"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "goalToObtain",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "GetKeys",
+              "return": {
+                "type": {
+                  "text": "string[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "AddRootNode",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "t",
+                  "type": {
+                    "text": "SolutionNode"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "Size",
+              "return": {
+                "type": {
+                  "text": "number"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GetRootNodeByName",
+              "return": {
+                "type": {
+                  "text": "SolutionNode"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "GetValues",
+              "return": {
+                "type": {
+                  "text": "SolutionNode[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GetAt",
+              "return": {
+                "type": {
+                  "text": "SolutionNode"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "GenerateMapOfLeaves",
+              "privacy": "public",
+              "return": {
+                "type": {
+                  "text": "Map<string, SolutionNode>"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "RootNodeMap",
+          "declaration": {
+            "name": "RootNodeMap",
+            "module": "src/main/RootNodeMap.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/main/SingleBigSwitch.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "SingleBigSwitch",
+          "return": {
+            "type": {
+              "text": "Happenings | null"
+            }
+          },
+          "parameters": [
+            {
+              "name": "filename",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "name": "solutionNodesMappedByInput",
+              "type": {
+                "text": "SolutionNodeRepository | null"
+              }
+            },
+            {
+              "name": "objects",
+              "type": {
+                "text": "MixedObjectsAndVerb"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "SingleBigSwitch",
+          "declaration": {
+            "name": "SingleBigSwitch",
+            "module": "src/main/SingleBigSwitch.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/main/SingleFileData.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "SingleFileData",
+          "members": [
+            {
+              "kind": "field",
+              "name": "name",
+              "type": {
+                "text": "string"
+              },
+              "default": "name"
+            },
+            {
+              "kind": "field",
+              "name": "tickCount",
+              "type": {
+                "text": "number"
+              },
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "isVisible",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "isVisible"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "SingleFileData",
+          "declaration": {
+            "name": "SingleFileData",
+            "module": "src/main/SingleFileData.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/main/Solution.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Solution needs to be cloned.",
+          "name": "Solution",
+          "members": [
+            {
+              "kind": "field",
+              "name": "solutionNames",
+              "type": {
+                "text": "string[]"
+              },
+              "privacy": "private",
+              "default": "[]"
+            },
+            {
+              "kind": "field",
+              "name": "goals",
+              "type": {
+                "text": "RootNodeMap"
+              },
+              "default": "new RootNodeMap(rootNodeMapToCopy, this.unprocessedLeaves)"
+            },
+            {
+              "kind": "field",
+              "name": "remainingNodesRepo",
+              "type": {
+                "text": "SolutionNodeRepository"
+              },
+              "default": "new SolutionNodeRepository(copyThisMapOfPieces)"
+            },
+            {
+              "kind": "field",
+              "name": "isArchived",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "unprocessedLeaves",
+              "type": {
+                "text": "Set<SolutionNode>"
+              },
+              "default": "new Set<SolutionNode>()"
+            },
+            {
+              "kind": "field",
+              "name": "startingThings",
+              "type": {
+                "text": "ReadonlyMap<string, Set<string>>"
+              },
+              "default": "startingThingsPassedIn"
+            },
+            {
+              "kind": "field",
+              "name": "restrictionsEncounteredDuringSolving",
+              "type": {
+                "text": "Set<string>"
+              },
+              "default": "new Set<string>()"
+            },
+            {
+              "kind": "method",
+              "name": "AddRootNode",
+              "privacy": "public",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "rootNode",
+                  "type": {
+                    "text": "SolutionNode"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "FindTheFlagWinAndPutItInRootNodeMap",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "Clone",
+              "return": {
+                "type": {
+                  "text": "Solution"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "SetNodeIncomplete",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "node",
+                  "type": {
+                    "text": "SolutionNode | null"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "MarkNodeAsCompleted",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "node",
+                  "type": {
+                    "text": "SolutionNode | null"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "SetIncompleteNodes",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "set",
+                  "type": {
+                    "text": "Set<SolutionNode>"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "IsAnyNodesUnprocessed",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "ProcessUntilCloning",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "solutions",
+                  "type": {
+                    "text": "SolverViaRootNode"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "GetUnprocessedLeaves",
+              "return": {
+                "type": {
+                  "text": "Set<SolutionNode>"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GetFlagWin",
+              "return": {
+                "type": {
+                  "text": "SolutionNode"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "HasAnyNodesThatOutputObject",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "objectToObtain",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "GetNodesThatOutputObject",
+              "return": {
+                "type": {
+                  "text": "SolutionNode[] | undefined"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "objectToObtain",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "RemoveNode",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "node",
+                  "type": {
+                    "text": "SolutionNode"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "PushNameSegment",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "solutionName",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "GetDisplayNamesConcatenated",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "AddRestrictions",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "restrictions",
+                  "type": {
+                    "text": "string[]"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "GetAccumulatedRestrictions",
+              "return": {
+                "type": {
+                  "text": "Set<string>"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GetRepoOfRemainingNodes",
+              "return": {
+                "type": {
+                  "text": "SolutionNodeRepository"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "MergeInNodesForChapterCompletion",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "goalFlag",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "GetMapOfVisibleThings",
+              "return": {
+                "type": {
+                  "text": "ReadonlyMap<string, Set<string>>"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "SetAsArchived",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "IsArchived",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GetLastDisplayNameSegment",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "CopyNameToVirginSolution",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "virginSolution",
+                  "type": {
+                    "text": "Solution"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "FindNodeWithSomeInputForConjointToAttachTo",
+              "return": {
+                "type": {
+                  "text": "SolutionNode | null"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "theConjoint",
+                  "type": {
+                    "text": "SolutionNode | null"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "FindFirstAttachmentLeafForConjointRecursively",
+              "return": {
+                "type": {
+                  "text": "SolutionNode | null"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "theConjoint",
+                  "type": {
+                    "text": "SolutionNode | null"
+                  }
+                },
+                {
+                  "name": "nodeToSearch",
+                  "type": {
+                    "text": "SolutionNode | null"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "FindAnyNodeMatchingIdRecursively",
+              "return": {
+                "type": {
+                  "text": "SolutionNode | null"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "GetRootNodeMap",
+              "privacy": "public",
+              "return": {
+                "type": {
+                  "text": "RootNodeMap"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Solution",
+          "declaration": {
+            "name": "Solution",
+            "module": "src/main/Solution.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/main/SolutionNode.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "SolutionNode",
+          "members": [
+            {
+              "kind": "field",
+              "name": "id",
+              "type": {
+                "text": "number"
+              },
+              "default": "id"
+            },
+            {
+              "kind": "field",
+              "name": "conjoint",
+              "type": {
+                "text": "number"
+              },
+              "default": "conjoint"
+            },
+            {
+              "kind": "field",
+              "name": "type",
+              "type": {
+                "text": "string"
+              },
+              "default": "type"
+            },
+            {
+              "kind": "field",
+              "name": "output",
+              "type": {
+                "text": "string"
+              },
+              "default": "output"
+            },
+            {
+              "kind": "field",
+              "name": "inputs",
+              "type": {
+                "text": "Array<SolutionNode | null>"
+              },
+              "default": "new Array<SolutionNode>()"
+            },
+            {
+              "kind": "field",
+              "name": "inputHints",
+              "type": {
+                "text": "string[]"
+              },
+              "default": "new Array<string>()"
+            },
+            {
+              "kind": "field",
+              "name": "parent",
+              "type": {
+                "text": "SolutionNode | null"
+              },
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "count",
+              "type": {
+                "text": "number"
+              },
+              "default": "count"
+            },
+            {
+              "kind": "field",
+              "name": "characterRestrictions",
+              "type": {
+                "text": "string[]"
+              },
+              "default": "new Array<string>()"
+            },
+            {
+              "kind": "field",
+              "name": "happenings",
+              "type": {
+                "text": "Happenings | null"
+              },
+              "default": "happenings"
+            },
+            {
+              "kind": "method",
+              "name": "CloneNodeAndEntireTree",
+              "return": {
+                "type": {
+                  "text": "SolutionNode"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "incompleteNodeSet",
+                  "type": {
+                    "text": "Set<SolutionNode>"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "FindAnyNodeMatchingIdRecursively",
+              "return": {
+                "type": {
+                  "text": "SolutionNode | null"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "ProcessUntilCloning",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "solution",
+                  "type": {
+                    "text": "Solution"
+                  }
+                },
+                {
+                  "name": "solutions",
+                  "type": {
+                    "text": "SolverViaRootNode"
+                  }
+                },
+                {
+                  "name": "path",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "SetParent",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "parent",
+                  "type": {
+                    "text": "SolutionNode | null"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "GetParent",
+              "return": {
+                "type": {
+                  "text": "SolutionNode | null"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "getRestrictions",
+              "return": {
+                "type": {
+                  "text": "string[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "UpdateMapWithOutcomes",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "visibleNodes",
+                  "type": {
+                    "text": "Map<string, Set<string>>"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "SolutionNode",
+          "declaration": {
+            "name": "SolutionNode",
+            "module": "src/main/SolutionNode.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/main/SolutionNodeRepository.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Yes, the only data here is the map.\n\nThis is the source repository of the solution nodes",
+          "name": "SolutionNodeRepository",
+          "members": [
+            {
+              "kind": "field",
+              "name": "solutionNodeMap",
+              "type": {
+                "text": "Map<string, Set<SolutionNode>>"
+              },
+              "privacy": "private",
+              "default": "new Map<string, Set<SolutionNode>>()"
+            },
+            {
+              "kind": "method",
+              "name": "GetAutos",
+              "return": {
+                "type": {
+                  "text": "SolutionNode[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "HasAnyNodesThatOutputObject",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "objectToObtain",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "GetNodesThatOutputObject",
+              "return": {
+                "type": {
+                  "text": "Set<SolutionNode> | undefined"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "objectToObtain",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "Has",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "objectToObtain",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "Get",
+              "return": {
+                "type": {
+                  "text": "Set<SolutionNode> | undefined"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "objectToObtain",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "GetValues",
+              "return": {
+                "type": {
+                  "text": "IterableIterator<Set<SolutionNode>>"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "AddToMap",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "t",
+                  "type": {
+                    "text": "SolutionNode"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "RemoveNode",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "node",
+                  "type": {
+                    "text": "SolutionNode"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "Size",
+              "return": {
+                "type": {
+                  "text": "number"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "MergeInNodesFromScene",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "json",
+                  "type": {
+                    "text": "ReadOnlyJsonSingle"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "ContainsId",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "idToMatch",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "SolutionNodeRepository",
+          "declaration": {
+            "name": "SolutionNodeRepository",
+            "module": "src/main/SolutionNodeRepository.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/main/SolverViaRootNode.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "SolverViaRootNode",
+          "members": [
+            {
+              "kind": "method",
+              "name": "InitializeByCopyingThese",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "solutionNodesMappedByInput",
+                  "type": {
+                    "text": "SolutionNodeRepository"
+                  }
+                },
+                {
+                  "name": "mapOfStartingThingsAndWhoCanHaveThem",
+                  "type": {
+                    "text": "Map<string, Set<string>>"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "IsAnyNodesUnprocessed",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "SolvePartiallyUntilCloning",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "SolveUntilZeroUnprocessedNodes",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "ProcessChaptersToEndAndUpdateList",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "GenerateSolutionNamesAndPush",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "mapOfStartingThingsAndWhoHasThem",
+                  "type": {
+                    "text": "Map<string, Set<string>>"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "GetSolutions",
+              "return": {
+                "type": {
+                  "text": "Solution[]"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "solutions",
+              "type": {
+                "text": "Solution[]"
+              },
+              "privacy": "private",
+              "default": "new Array<Solution>()"
+            },
+            {
+              "kind": "field",
+              "name": "mapOfStartingThingsAndWhoCanHaveThem",
+              "type": {
+                "text": "Map<string, Set<string>>"
+              },
+              "privacy": "private",
+              "default": "new Map<string, Set<string>>()"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "SolverViaRootNode",
+          "declaration": {
+            "name": "SolverViaRootNode",
+            "module": "src/main/SolverViaRootNode.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/main/SpecialNodes.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/test/SolutionNodeTest.ts",
+      "declarations": [],
+      "exports": []
     }
   ]
 }

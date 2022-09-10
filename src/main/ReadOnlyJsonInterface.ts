@@ -1,8 +1,8 @@
-import { ReadOnlyJsonInterfaceFindLeaves } from './ReadOnlyJsonInterfaceFindLeaves'
-import { ReadOnlyJsonInterfaceConcoct } from './ReadOnlyJsonInterfaceConcoct'
-import { ReadOnlyJsonInterfaceFindUsed } from './ReadOnlyJsonInterfaceFindUsed'
-import { ReadOnlyJsonInterfacePlayThru } from './ReadOnlyJsonInterfacePlayThru'
-import { ReadOnlyJsonInterfaceHappener } from './ReadOnlyJsonInterfaceHappener'
+import { ReadOnlyJsonInterfaceFindLeaves } from 'main/ReadOnlyJsonInterfaceFindLeaves'
+import { ReadOnlyJsonInterfaceConcoct } from 'main/ReadOnlyJsonInterfaceConcoct'
+import { ReadOnlyJsonInterfaceFindUsed } from 'main/ReadOnlyJsonInterfaceFindUsed'
+import { ReadOnlyJsonInterfacePlayThru } from 'main/ReadOnlyJsonInterfacePlayThru'
+import { ReadOnlyJsonInterfaceHappener } from 'main/ReadOnlyJsonInterfaceHappener'
 
 export interface ReadOnlyJsonInterface
   extends ReadOnlyJsonInterfacePlayThru,

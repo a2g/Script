@@ -1,7 +1,7 @@
-import { LogicGrid } from './LogicGrid'
-import { Happener } from './Happener'
-import { HappenerCallbacksInterface } from './HappenerCallbacksInterface'
-import { GetThreeStringsFromInput } from './GetThreeStringsFromInput'
+import { LogicGrid } from 'main/LogicGrid'
+import { Happener } from 'main/Happener'
+import { HappenerCallbacksInterface } from 'main/HappenerCallbacksInterface'
+import { GetThreeStringsFromInput } from 'main/GetThreeStringsFromInput'
 import promptSync from 'prompt-sync' // const prompt = require('prompt-sync')({ sigint: true });
 const prompt = promptSync()
 

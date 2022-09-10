@@ -1,11 +1,11 @@
-import { SolutionNodeRepository } from './SolutionNodeRepository'
-import { MixedObjectsAndVerb } from './MixedObjectsAndVerb'
-import { Happenings } from './Happenings'
-import { Mix } from './Mix'
-import { ReadOnlyJsonInterface } from './ReadOnlyJsonInterface'
+import { SolutionNodeRepository } from 'main/SolutionNodeRepository'
+import { MixedObjectsAndVerb } from 'main/MixedObjectsAndVerb'
+import { Happenings } from 'main/Happenings'
+import { Mix } from 'main/Mix'
+import { ReadOnlyJsonInterface } from 'main/ReadOnlyJsonInterface'
 import * as fs from 'fs'
-import { ReadOnlyJsonInterfaceCollator } from './ReadOnlyJsonInterfaceCollator'
-import { SingleBigSwitch } from './SingleBigSwitch'
+import { ReadOnlyJsonInterfaceCollator } from 'main/ReadOnlyJsonInterfaceCollator'
+import { SingleBigSwitch } from 'main/SingleBigSwitch'
 import { assert } from 'console'
 
 /**

@@ -1,6 +1,6 @@
 import assert = require('assert')
-import { SolutionNodeRepository } from '../src/SolutionNodeRepository'
-import { SolutionNode } from '../src/SolutionNode'
+import { SolutionNodeRepository } from 'main/SolutionNodeRepository'
+import { SolutionNode } from 'main/SolutionNode'
 
 describe('ReactionMap', () => {
   it('test AddToMap works', () => {
@@ -23,7 +23,7 @@ describe('ReactionMap', () => {
 
   it('test RemoveNode works', () => {
     const blah = new SolutionNodeRepository(null)
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 3; i+=1) {
       blah.AddToMap(new SolutionNode(0, 0, 'outputA', 'piffle', 1, null, null, 'A', 'B'))
     }
     const theOneToRemove = new SolutionNode(0, 0, 'outputA', 'piffle', 1, null, null, 'A', 'B')
@@ -45,7 +45,7 @@ describe('ReactionMap', () => {
 
   it('test Clone works', () => {
     // create original entries
-    const array = new Array<SolutionNode>()
+    const array = []
     array.push(new SolutionNode(0, 0, 'blah', 'outputA', 1, null, null, 'a', 'a'))
     array.push(new SolutionNode(0, 0, 'blah', 'outputA', 1, null, null, 'b', 'b'))
     array.push(new SolutionNode(0, 0, 'blah', 'outputA', 1, null, null, 'c', 'c'))

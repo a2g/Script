@@ -1,5 +1,5 @@
-import { GenerateMapOfLeavesRecursively } from './GenerateMapOfLeavesRecursively'
-import { SolutionNode } from './SolutionNode'
+import { GenerateMapOfLeavesRecursively } from 'main/GenerateMapOfLeavesRecursively'
+import { SolutionNode } from 'main/SolutionNode'
 /**
  * Yes, the only data here is the map.
  *
