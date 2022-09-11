@@ -1,5 +1,5 @@
 import { expect } from '@open-wc/testing';
-import { GetAnyErrorsFromObjectAvailability } from 'jigsaw/GetAnyErrorsFromObjectAvailability'
+import { GetAnyErrorsFromObjectAvailability } from '../main/GetAnyErrorsFromObjectAvailability'
 import { Mix } from './../main/Mix'
 import { MixedObjectsAndVerb } from './../main/MixedObjectsAndVerb'
 

@@ -1,7 +1,7 @@
-import { LogicGrid } from 'jigsaw/LogicGrid'
-import { Happener } from 'jigsaw/Happener'
-import { HappenerCallbacksInterface } from 'jigsaw/HappenerCallbacksInterface'
-import { GetThreeStringsFromInput } from 'jigsaw/GetThreeStringsFromInput'
+import { LogicGrid } from '../main/LogicGrid'
+import { Happener } from '../main/Happener'
+import { HappenerCallbacksInterface } from '../main/HappenerCallbacksInterface'
+import { GetThreeStringsFromInput } from '../main/GetThreeStringsFromInput'
 import promptSync from 'prompt-sync' // const prompt = require('prompt-sync')({ sigint: true });
 const prompt = promptSync()
 

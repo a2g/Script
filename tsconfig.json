@@ -1,11 +1,11 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "module": "CommonJS",
+    "target": "es2018",
+    "module": "esnext",
     "moduleResolution": "node",
     "noEmitOnError": true,
     "lib": ["es2017", "dom"],
-   // "strict": true,
+    "strict": true,
     "esModuleInterop": false,
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
@@ -13,29 +13,10 @@
     "outDir": "dist",
     "sourceMap": true,
     "inlineSources": true,
-
+    "rootDir": "./",
     "declaration": true,
     "incremental": true,
-
-
-    "rootDir": "./",
-    "baseUrl": "./",
-    "paths": { // A series of entries which re-map imports to lookup locations relative to the 'baseUrl'.
-      "jigsaw/*": [
-        "./src/main/*"
-      ],
-      "schema/*": [
-        "./schema/*"
-      ],
-      "thirdparty/*": [
-        "../node_modules/*"
-      ],
-      "test/*": [
-        "./src/test/*"
-      ],
-    },
-    "downlevelIteration": true, // allows for-of loops
-    "resolveJsonModule" : true // allows importation of json
+    "resolveJsonModule" : true
   },
-  "include": ["**/*.ts"],
+  "include": ["**/*.ts"]
 }

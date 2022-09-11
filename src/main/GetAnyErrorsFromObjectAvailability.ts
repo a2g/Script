@@ -1,5 +1,5 @@
-import { Mix } from 'jigsaw/Mix'
-import { MixedObjectsAndVerb } from 'jigsaw/MixedObjectsAndVerb'
+import { Mix } from '../main/Mix'
+import { MixedObjectsAndVerb } from '../main/MixedObjectsAndVerb'
 
 export function GetAnyErrorsFromObjectAvailability(objects: MixedObjectsAndVerb, visibleProps: string[], visibleInvs: string[]): string {
   const isObject1InVisibleInvs = visibleInvs.includes(objects.object1)

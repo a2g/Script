@@ -1,5 +1,5 @@
-import { SolutionNode } from 'jigsaw/SolutionNode'
-import { SpecialNodes } from 'jigsaw/SpecialNodes'
+import { SolutionNode } from '../main/SolutionNode'
+import { SpecialNodes } from '../main/SpecialNodes'
 
 export function GenerateMapOfLeavesRecursively(node: SolutionNode, path: string, map: Map<string, SolutionNode>): void {
   for (let i = 0; i < node.inputs.length; i += 1) {

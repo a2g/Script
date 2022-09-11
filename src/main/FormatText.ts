@@ -1,5 +1,5 @@
-import { Colors } from 'jigsaw/Colors'
-import { AddBrackets } from 'jigsaw/AddBrackets'
+import { Colors } from './Colors.js'
+import { AddBrackets } from './AddBrackets.js'
 
 export function FormatText(input: string | string[], isParenthesisNeeded = false): string {
   if (Array.isArray(input)) {

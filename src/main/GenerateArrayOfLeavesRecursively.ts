@@ -1,4 +1,4 @@
-import { SolutionNode } from 'jigsaw/SolutionNode'
+import { SolutionNode } from '../main/SolutionNode'
 
 export function GenerateArrayOfLeavesRecursively(node: SolutionNode): SolutionNode[] {
   let array: Array<SolutionNode> = []

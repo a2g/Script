@@ -1,6 +1,7 @@
 // Typescript Unit test
-import assert = require('assert')
-import { ReadOnlyJsonSingle } from 'jigsaw/ReadOnlyJsonSingle'
+import { expect } from '@open-wc/testing';
+import chai from 'chai';
+import { ReadOnlyJsonSingle } from '../main/ReadOnlyJsonSingle'
 
 describe('SceneSingle', () => {
   it('Test GetMapOfAllStartingThings', () => {
@@ -9,16 +10,15 @@ describe('SceneSingle', () => {
     // this failed recently
     const map = json.GetMapOfAllStartingThings()
     // assert.strictEqual(collection.length, 1);
-    assert.ok(true)
-    assert.strictEqual(map.size, 14)
-    assert.ok(map.has('inv_shared_toy'))
+    expect(map.size).to.equal(14)
+    expect(map.has('inv_shared_toy'))
     const set = map.get('inv_shared_toy')
     if (set != null) {
-      assert.strictEqual(set.size, 4)
-      assert.ok(set.has('char1'))
-      assert.ok(set.has('char2'))
-      assert.ok(set.has('char3'))
-      assert.ok(set.has('char4'))
+      chai.assert.equal(set.size, 4)
+      chai.expect(set).to.have.keys('char1')
+      chai.expect(set).to.have.keys('char2')
+      chai.expect(set).to.have.keys('char3')
+      chai.expect(set).to.have.keys('char4')
     }
   })
 })

@@ -1,6 +1,6 @@
-import { Raw } from 'jigsaw/Raw'
-import { FormatText } from 'jigsaw/FormatText'
-import { AddBrackets } from 'jigsaw/AddBrackets'
+import { Raw } from '../main/Raw'
+import { FormatText } from '../main/FormatText'
+import { AddBrackets } from '../main/AddBrackets'
 
 export class RawObjectsAndVerb {
   type: Raw

@@ -1,10 +1,10 @@
-import { SolutionNodeRepository } from 'jigsaw/SolutionNodeRepository'
-import { MixedObjectsAndVerb } from 'jigsaw/MixedObjectsAndVerb'
-import { Happenings } from 'jigsaw/Happenings'
-import { Mix } from 'jigsaw/Mix'
-import { ReadOnlyJsonInterface } from 'jigsaw/ReadOnlyJsonInterface'
-import { ReadOnlyJsonSingle } from 'jigsaw/ReadOnlyJsonSingle'
-import { SingleBigSwitch } from 'jigsaw/SingleBigSwitch'
+import { SolutionNodeRepository } from '../main/SolutionNodeRepository.js'
+import { MixedObjectsAndVerb } from '../main/MixedObjectsAndVerb.js'
+import { Happenings } from '../main/Happenings.js'
+import { Mix } from '../main/Mix.js'
+import { ReadOnlyJsonInterface } from '../main/ReadOnlyJsonInterface.js'
+import { ReadOnlyJsonSingle } from '../main/ReadOnlyJsonSingle.js'
+import { SingleBigSwitch } from '../main/SingleBigSwitch.js'
 
 /**
  * So the most important part of this class is that the data

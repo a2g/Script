@@ -1,9 +1,9 @@
-import { PlayerAI } from 'jigsaw/PlayerAI'
-import { HappenerCallbacksInterface } from 'jigsaw/HappenerCallbacksInterface'
-import { MixedObjectsAndVerb } from 'jigsaw/MixedObjectsAndVerb'
-import { Happen } from 'jigsaw/Happen'
-import { ReadOnlyJsonInterfaceHappener } from 'jigsaw/ReadOnlyJsonInterfaceHappener'
-import { ReadOnlyJsonSingle } from 'jigsaw/ReadOnlyJsonSingle'
+import { PlayerAI } from '../main/PlayerAI'
+import { HappenerCallbacksInterface } from '../main/HappenerCallbacksInterface'
+import { MixedObjectsAndVerb } from '../main/MixedObjectsAndVerb'
+import { Happen } from '../main/Happen'
+import { ReadOnlyJsonInterfaceHappener } from '../main/ReadOnlyJsonInterfaceHappener'
+import { ReadOnlyJsonSingle } from '../main/ReadOnlyJsonSingle'
 import { assert } from 'console'
 
 // April 2021

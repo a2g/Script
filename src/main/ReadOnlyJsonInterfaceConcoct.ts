@@ -1,5 +1,5 @@
-import { ReadOnlyJsonSingle } from 'jigsaw/ReadOnlyJsonSingle'
-import { SolutionNodeRepository } from 'jigsaw/SolutionNodeRepository'
+import { ReadOnlyJsonSingle } from '../main/ReadOnlyJsonSingle'
+import { SolutionNodeRepository } from '../main/SolutionNodeRepository'
 
 export interface ReadOnlyJsonInterfaceConcoct {
   GetSetOfStartingProps: () => Set<string>

@@ -1,13 +1,13 @@
 
 import * as fs from 'fs'
 
-import { Happenings } from 'jigsaw/Happenings'
-import { SolutionNode } from 'jigsaw/SolutionNode'
-import { AlleviateBrackets } from 'jigsaw/AlleviateBrackets'
-import { Happen } from 'jigsaw/Happen'
-import { Happening } from 'jigsaw/Happening'
-import { MixedObjectsAndVerb } from 'jigsaw/MixedObjectsAndVerb'
-import { SolutionNodeRepository } from 'jigsaw/SolutionNodeRepository'
+import { Happenings } from '../main/Happenings.js'
+import { SolutionNode } from '../main/SolutionNode.js'
+import { AlleviateBrackets } from '../main/AlleviateBrackets.js'
+import { Happen } from '../main/Happen.js'
+import { Happening } from '../main/Happening.js'
+import { MixedObjectsAndVerb } from '../main/MixedObjectsAndVerb.js'
+import { SolutionNodeRepository } from '../main/SolutionNodeRepository.js'
 import _ from '../../Gate.json'
 
 function isNullOrUndefined(something: any): boolean {

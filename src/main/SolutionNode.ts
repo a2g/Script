@@ -1,8 +1,8 @@
-import { SolverViaRootNode } from 'jigsaw/SolverViaRootNode'
-import { SpecialNodes } from 'jigsaw/SpecialNodes'
-import { Solution } from 'jigsaw/Solution'
-import { Happenings } from 'jigsaw/Happenings'
-import { Happen } from 'jigsaw/Happen'
+import { SolverViaRootNode } from '../main/SolverViaRootNode'
+import { SpecialNodes } from '../main/SpecialNodes'
+import { Solution } from '../main/Solution'
+import { Happenings } from '../main/Happenings'
+import { Happen } from '../main/Happen'
 
 export class SolutionNode {
   id: number

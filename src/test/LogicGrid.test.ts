@@ -1,6 +1,6 @@
 // Typescript Unit test
 import { expect } from '@open-wc/testing';
-import { LogicGrid } from '../main/LogicGrid'
+import { LogicGrid } from '../main/LogicGrid.js'
 
 describe('LogicGrid', () => {
   it('FindMostNearlyCompleteRowOrColumnCombined', () => {

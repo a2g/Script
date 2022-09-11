@@ -1,8 +1,8 @@
 // Typescript Unit test
-import assert = require('assert')
-import { RootNodeMap } from 'jigsaw/RootNodeMap'
-import { SolutionNode } from 'jigsaw/SolutionNode'
-import { SpecialNodes } from 'jigsaw/SpecialNodes'
+import { RootNodeMap } from '../main/RootNodeMap.js'
+import { SolutionNode } from '../main/SolutionNode.js'
+import { SpecialNodes } from '../main/SpecialNodes.js'
+import chai from 'chai';
 
 describe('GenerateMapOfLeaves', () => {
   it('EnsureARootNodeThatIsAVerifiedLeafGetsAdded', () => {
@@ -12,6 +12,6 @@ describe('GenerateMapOfLeaves', () => {
     rootNodeMap.AddRootNode(node)
 
     const result = rootNodeMap.GenerateMapOfLeaves()
-    assert.equal(1, result.size)
+    chai.assert.equal(result.size, 1)
   })
 })

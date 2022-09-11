@@ -1,4 +1,4 @@
-import { SingleFileData } from 'jigsaw/SingleFileData'
+import { SingleFileData } from '../main/SingleFileData'
 
 /**
  * Logic grid (aka Elimination Grid)

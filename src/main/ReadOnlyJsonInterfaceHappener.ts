@@ -1,6 +1,6 @@
-import { SolutionNodeRepository } from 'jigsaw/SolutionNodeRepository'
-import { MixedObjectsAndVerb } from 'jigsaw/MixedObjectsAndVerb'
-import { Happenings } from 'jigsaw/Happenings'
+import { SolutionNodeRepository } from '../main/SolutionNodeRepository'
+import { MixedObjectsAndVerb } from '../main/MixedObjectsAndVerb'
+import { Happenings } from '../main/Happenings'
 
 export interface ReadOnlyJsonInterfaceHappener {
   GetArrayOfProps: () => string[]

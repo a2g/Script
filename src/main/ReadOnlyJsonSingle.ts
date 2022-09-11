@@ -1,11 +1,11 @@
-import { SolutionNodeRepository } from 'jigsaw/SolutionNodeRepository'
-import { MixedObjectsAndVerb } from 'jigsaw/MixedObjectsAndVerb'
-import { Happenings } from 'jigsaw/Happenings'
-import { Mix } from 'jigsaw/Mix'
-import { ReadOnlyJsonInterface } from 'jigsaw/ReadOnlyJsonInterface'
+import { SolutionNodeRepository } from '../main/SolutionNodeRepository.js'
+import { MixedObjectsAndVerb } from '../main/MixedObjectsAndVerb.js'
+import { Happenings } from '../main/Happenings.js'
+import { Mix } from '../main/Mix.js'
+import { ReadOnlyJsonInterface } from '../main/ReadOnlyJsonInterface.js'
 import * as fs from 'fs'
-import { ReadOnlyJsonInterfaceCollator } from 'jigsaw/ReadOnlyJsonInterfaceCollator'
-import { SingleBigSwitch } from 'jigsaw/SingleBigSwitch'
+import { ReadOnlyJsonInterfaceCollator } from '../main/ReadOnlyJsonInterfaceCollator.js'
+import { SingleBigSwitch } from '../main/SingleBigSwitch.js'
 import { assert } from 'console'
 
 /**

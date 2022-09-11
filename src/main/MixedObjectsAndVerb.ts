@@ -1,4 +1,4 @@
-import { Mix } from 'jigsaw/Mix'
+import { Mix } from '../main/Mix'
 
 export class MixedObjectsAndVerb {
   type: Mix

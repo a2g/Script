@@ -1,11 +1,11 @@
-import { SolverViaRootNode } from 'jigsaw/SolverViaRootNode'
-import { SolutionNode } from 'jigsaw/SolutionNode'
-import { SpecialNodes } from 'jigsaw/SpecialNodes'
-import { SolutionNodeRepository } from 'jigsaw/SolutionNodeRepository'
+import { SolverViaRootNode } from '../main/SolverViaRootNode.js'
+import { SolutionNode } from '../main/SolutionNode.js'
+import { SpecialNodes } from '../main/SpecialNodes.js'
+import { SolutionNodeRepository } from '../main/SolutionNodeRepository.js'
 import * as fs from 'fs'
-import { ReadOnlyJsonSingle } from 'jigsaw/ReadOnlyJsonSingle'
-import { FormatText } from 'jigsaw/FormatText'
-import { RootNodeMap } from 'jigsaw/RootNodeMap'
+import { ReadOnlyJsonSingle } from '../main/ReadOnlyJsonSingle.js'
+import { FormatText } from '../main/FormatText.js'
+import { RootNodeMap } from '../main/RootNodeMap.js'
 import _ from '../../Gate.json'
 
 /**
@@ -137,7 +137,7 @@ export class Solution {
   GetNodesThatOutputObject(objectToObtain: string): SolutionNode[] | undefined {
     // since the remainingNodes are a map index by output node
     // then a remainingNodes.Get will retrieve all matching nodes.
-    const result: Set<SolutionNode> = this.remainingNodesRepo.Get(objectToObtain)
+    const result: Set<SolutionNode> | undefined = this.remainingNodesRepo.Get(objectToObtain)
     if (result != null) {
       const blah: Array<SolutionNode> = []
       for (const item of result) {
@@ -158,7 +158,7 @@ export class Solution {
       }
       return blah
     }
-    return Array.from(result)
+    return []
   }
 
   RemoveNode(node: SolutionNode): void {
