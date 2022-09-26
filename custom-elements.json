@@ -17,7 +17,8 @@
               "type": {
                 "text": "string"
               },
-              "default": "'Hey there'"
+              "default": "'Hey there'",
+              "attribute": "title"
             },
             {
               "kind": "field",
@@ -25,11 +26,30 @@
               "type": {
                 "text": "number"
               },
-              "default": "5"
+              "default": "5",
+              "attribute": "counter"
             },
             {
               "kind": "method",
               "name": "__increment"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "title",
+              "type": {
+                "text": "string"
+              },
+              "default": "'Hey there'",
+              "fieldName": "title"
+            },
+            {
+              "name": "counter",
+              "type": {
+                "text": "number"
+              },
+              "default": "5",
+              "fieldName": "counter"
             }
           ],
           "superclass": {
@@ -123,6 +143,12 @@
     {
       "kind": "javascript-module",
       "path": "coverage/lcov-report/sorter.js",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/test/SolutionNodeTest.ts",
       "declarations": [],
       "exports": []
     },
@@ -4052,6 +4078,24 @@
           "name": "SolverViaRootNode",
           "members": [
             {
+              "kind": "field",
+              "name": "solutions",
+              "type": {
+                "text": "Solution[]"
+              },
+              "privacy": "private",
+              "default": "[]"
+            },
+            {
+              "kind": "field",
+              "name": "mapOfStartingThingsAndWhoCanHaveThem",
+              "type": {
+                "text": "Map<string, Set<string>>"
+              },
+              "privacy": "private",
+              "default": "new Map<string, Set<string>>()"
+            },
+            {
               "kind": "method",
               "name": "InitializeByCopyingThese",
               "return": {
@@ -4135,24 +4179,6 @@
                   "text": "Solution[]"
                 }
               }
-            },
-            {
-              "kind": "field",
-              "name": "solutions",
-              "type": {
-                "text": "Solution[]"
-              },
-              "privacy": "private",
-              "default": "new Array<Solution>()"
-            },
-            {
-              "kind": "field",
-              "name": "mapOfStartingThingsAndWhoCanHaveThem",
-              "type": {
-                "text": "Map<string, Set<string>>"
-              },
-              "privacy": "private",
-              "default": "new Map<string, Set<string>>()"
             }
           ]
         }
@@ -4171,12 +4197,6 @@
     {
       "kind": "javascript-module",
       "path": "src/main/SpecialNodes.ts",
-      "declarations": [],
-      "exports": []
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/test/SolutionNodeTest.ts",
       "declarations": [],
       "exports": []
     }
