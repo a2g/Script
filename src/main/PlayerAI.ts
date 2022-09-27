@@ -1,7 +1,8 @@
-import { LogicGrid } from '../main/LogicGrid'
-import { Happener } from '../main/Happener'
-import { HappenerCallbacksInterface } from '../main/HappenerCallbacksInterface'
-import { GetThreeStringsFromInput } from '../main/GetThreeStringsFromInput'
+import { LogicGrid } from '../main/LogicGrid.js'
+import { Happener } from '../main/Happener.js'
+import { HappenerCallbacksInterface } from '../main/HappenerCallbacksInterface.js'
+import { GetThreeStringsFromInput } from '../main/GetThreeStringsFromInput.js'
+
 const prompt = require('prompt-sync')();
 
 // April 2021

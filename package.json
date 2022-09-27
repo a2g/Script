@@ -23,7 +23,8 @@
     "storybook:build": "tsc && npm run analyze -- --exclude dist && build-storybook"
   },
   "dependencies": {
-    "lit": "^2.0.2"
+    "lit": "^2.0.2",
+    "prompt-sync": "^4.2.0"
   },
   "devDependencies": {
     "@custom-elements-manifest/analyzer": "^0.4.17",
