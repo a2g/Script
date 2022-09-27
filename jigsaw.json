@@ -4,7 +4,7 @@
   "description": "A puzzle dependency graph defined in json schema. This Gate.json includes an enum of types of Gate nodes that describe an adventure game puzzle, and some jscon schema contraints for each nodes",
   "type": "object",
   "definitions": {
-    "gate_type": {
+    "piece_type": {
       "properties": {
         "gate": {
           "$ref": "#/definitions/the_enum"
@@ -15,12 +15,10 @@
           "maximum": 100
         },
         "conjoint": {
-          "$ref": "#/definitions/gate_type"
+          "$ref": "#/definitions/piece_type"
         }
       },
-      "required": [
-        "gate"
-      ],
+      "required": ["gate"],
       "allOf": [
         {
           "if": {
@@ -29,9 +27,7 @@
                 "properties": {
                   "gate": {
                     "const": "INV1_AND_INV2_GENERATE_AN_INV3",
-                    "examples": [
-                      "eg none yet"
-                    ]
+                    "examples": ["eg none yet"]
                   }
                 }
               },
@@ -39,9 +35,7 @@
                 "properties": {
                   "gate": {
                     "const": "INV1_AND_INV2_COMBINE_TO_FORM_INV3",
-                    "examples": [
-                      "not quite the amp fixing - but close"
-                    ]
+                    "examples": ["not quite the amp fixing - but close"]
                   }
                 }
               },
@@ -68,11 +62,7 @@
             ]
           },
           "then": {
-            "required": [
-              "inv1",
-              "inv2",
-              "inv3"
-            ]
+            "required": ["inv1", "inv2", "inv3"]
           }
         },
         {
@@ -82,9 +72,7 @@
                 "properties": {
                   "gate": {
                     "const": "INV1_WITH_PROP1_REVEALS_PROP2_KEPT_ALL",
-                    "examples": [
-                      "eg use ball with backboard generate prop"
-                    ]
+                    "examples": ["eg use ball with backboard generate prop"]
                   }
                 }
               },
@@ -136,20 +124,14 @@
                   "gate": {
                     "const": "PROP1_CHANGES_STATE_TO_PROP2_BY_KEEPING_INV1",
                     "description": "By using the A with B you are able to obtain the INV",
-                    "examples": [
-                      "eg use radiation suit with the meteor"
-                    ]
+                    "examples": ["eg use radiation suit with the meteor"]
                   }
                 }
               }
             ]
           },
           "then": {
-            "required": [
-              "inv1",
-              "prop1",
-              "prop2"
-            ]
+            "required": ["inv1", "prop1", "prop2"]
           }
         },
         {
@@ -179,9 +161,7 @@
                 "properties": {
                   "gate": {
                     "const": "PROP1_BECOMES_PROP2_BY_LOSING_PROP3",
-                    "examples": [
-                      "eg none yet"
-                    ]
+                    "examples": ["eg none yet"]
                   }
                 }
               },
@@ -189,20 +169,14 @@
                 "properties": {
                   "gate": {
                     "const": "AUTO_PROP1_BECOMES_PROP2_BY_PROPS",
-                    "examples": [
-                      "eg none yet"
-                    ]
+                    "examples": ["eg none yet"]
                   }
                 }
               }
             ]
           },
           "then": {
-            "required": [
-              "prop1",
-              "prop2",
-              "prop3"
-            ]
+            "required": ["prop1", "prop2", "prop3"]
           }
         },
         {
@@ -212,9 +186,7 @@
                 "properties": {
                   "gate": {
                     "const": "PROP1_GOES_WHEN_GRAB_INV1",
-                    "examples": [
-                      "eg grab coconut"
-                    ]
+                    "examples": ["eg grab coconut"]
                   }
                 }
               },
@@ -222,9 +194,7 @@
                 "properties": {
                   "gate": {
                     "const": "PROP1_STAYS_WHEN_GRAB_INV1",
-                    "examples": [
-                      "eg grab pile of coconuts"
-                    ]
+                    "examples": ["eg grab pile of coconuts"]
                   }
                 }
               },
@@ -232,9 +202,7 @@
                 "properties": {
                   "gate": {
                     "const": "TALK_TO_PROP1_GETS_INV1",
-                    "examples": [
-                      "eg talk to woman"
-                    ]
+                    "examples": ["eg talk to woman"]
                   }
                 }
               },
@@ -251,10 +219,7 @@
             ]
           },
           "then": {
-            "required": [
-              "prop1",
-              "inv1"
-            ]
+            "required": ["prop1", "inv1"]
           }
         },
         {
@@ -264,9 +229,7 @@
                 "properties": {
                   "gate": {
                     "const": "TOGGLE_PROP1_BECOMES_PROP2",
-                    "examples": [
-                      "toggle magged up vacuum tubes"
-                    ]
+                    "examples": ["toggle magged up vacuum tubes"]
                   }
                 }
               },
@@ -284,10 +247,7 @@
             ]
           },
           "then": {
-            "required": [
-              "prop1",
-              "prop2"
-            ]
+            "required": ["prop1", "prop2"]
           }
         },
         {
@@ -302,9 +262,7 @@
             }
           },
           "then": {
-            "required": [
-              "flag1"
-            ]
+            "required": ["flag1"]
           }
         },
         {
@@ -312,16 +270,12 @@
             "properties": {
               "gate": {
                 "const": "AUTO_FLAG1_SET_BY_INVS",
-                "examples": [
-                  "eg flag_lit_torch set by inv_lit_torch"
-                ]
+                "examples": ["eg flag_lit_torch set by inv_lit_torch"]
               }
             }
           },
           "then": {
-            "required": [
-              "flag1"
-            ]
+            "required": ["flag1"]
           }
         },
         {
@@ -329,18 +283,12 @@
             "properties": {
               "gate": {
                 "const": "FLAG1_SET_BY_USING_INV1_WITH_INV2",
-                "examples": [
-                  "eg use two invs together wins game"
-                ]
+                "examples": ["eg use two invs together wins game"]
               }
             }
           },
           "then": {
-            "required": [
-              "inv1",
-              "inv2",
-              "flag1"
-            ]
+            "required": ["inv1", "inv2", "flag1"]
           }
         },
         {
@@ -355,12 +303,7 @@
             }
           },
           "then": {
-            "required": [
-              "inv1",
-              "prop1",
-              "flag1",
-              "flag2"
-            ]
+            "required": ["inv1", "prop1", "flag1", "flag2"]
           }
         },
         {
@@ -381,9 +324,7 @@
                 "properties": {
                   "gate": {
                     "const": "TALK_TO_PROP1_WITH_FLAG1_GETS_INV1",
-                    "examples": [
-                      "eg talk to woman after setting flag"
-                    ]
+                    "examples": ["eg talk to woman after setting flag"]
                   }
                 }
               },
@@ -401,9 +342,7 @@
                 "properties": {
                   "gate": {
                     "const": "GIVE_INV1_TO_PROP1_SETS_FLAG1",
-                    "examples": [
-                      "eg give gold to king completes game"
-                    ]
+                    "examples": ["eg give gold to king completes game"]
                   }
                 }
               },
@@ -411,9 +350,7 @@
                 "properties": {
                   "gate": {
                     "const": "FLAG1_SET_BY_USING_INV1_WITH_PROP1",
-                    "examples": [
-                      "eg use sword with baddie wins game"
-                    ]
+                    "examples": ["eg use sword with baddie wins game"]
                   }
                 }
               },
@@ -421,9 +358,7 @@
                 "properties": {
                   "gate": {
                     "const": "PROP1_STAYS_WHEN_GRAB_INV1_WITH_FLAG1",
-                    "examples": [
-                      "eg grab pile of tyres, with flag set"
-                    ]
+                    "examples": ["eg grab pile of tyres, with flag set"]
                   }
                 }
               },
@@ -431,20 +366,14 @@
                 "properties": {
                   "gate": {
                     "const": "PROP1_GOES_WHEN_GRAB_INV1_WITH_FLAG1",
-                    "examples": [
-                      "eg grab single tire, if flag set"
-                    ]
+                    "examples": ["eg grab single tire, if flag set"]
                   }
                 }
               }
             ]
           },
           "then": {
-            "required": [
-              "inv1",
-              "prop1",
-              "flag1"
-            ]
+            "required": ["inv1", "prop1", "flag1"]
           }
         },
         {
@@ -454,9 +383,7 @@
                 "properties": {
                   "gate": {
                     "const": "FLAG1_SET_BY_USING_PROP1_WITH_PROP2",
-                    "examples": [
-                      "eg flag set by "
-                    ]
+                    "examples": ["eg flag set by "]
                   }
                 }
               },
@@ -473,11 +400,7 @@
             ]
           },
           "then": {
-            "required": [
-              "prop1",
-              "prop2",
-              "flag1"
-            ]
+            "required": ["prop1", "prop2", "flag1"]
           }
         },
         {
@@ -507,9 +430,7 @@
                 "properties": {
                   "gate": {
                     "const": "OBTAIN_INV1_BY_INV2_WITH_PROP1_LOSE_NONE",
-                    "examples": [
-                      "eg no example, but might need it"
-                    ]
+                    "examples": ["eg no example, but might need it"]
                   }
                 }
               },
@@ -537,9 +458,7 @@
                 "properties": {
                   "gate": {
                     "const": "INPUT_INV1_PROP1_BECOMES_PROP2",
-                    "examples": [
-                      "eg generic"
-                    ]
+                    "examples": ["eg generic"]
                   }
                 }
               },
@@ -547,9 +466,7 @@
                 "properties": {
                   "gate": {
                     "const": "INPUT_PROP1_INV1_REVEALS_PROP2",
-                    "examples": [
-                      "eg generic"
-                    ]
+                    "examples": ["eg generic"]
                   }
                 }
               },
@@ -557,9 +474,7 @@
                 "properties": {
                   "gate": {
                     "const": "INPUT_PROP1_INV1_BECOMES_INV2",
-                    "examples": [
-                      "eg generic"
-                    ]
+                    "examples": ["eg generic"]
                   }
                 }
               },
@@ -567,9 +482,7 @@
                 "properties": {
                   "gate": {
                     "const": "OBTAIN_INV1_BY_LOSING_INV2_KEEPING_PROP1",
-                    "examples": [
-                      "eg obtain cogs when losing key in clock"
-                    ]
+                    "examples": ["eg obtain cogs when losing key in clock"]
                   }
                 }
               },
@@ -585,11 +498,7 @@
               }
             ],
             "then": {
-              "required": [
-                "inv1",
-                "inv2",
-                "prop1"
-              ]
+              "required": ["inv1", "inv2", "prop1"]
             }
           }
         },
@@ -602,10 +511,7 @@
             }
           },
           "then": {
-            "required": [
-              "flag1",
-              "flag2"
-            ]
+            "required": ["flag1", "flag2"]
           }
         },
         {
@@ -617,10 +523,7 @@
             }
           },
           "then": {
-            "required": [
-              "flag1",
-              "flag2"
-            ]
+            "required": ["flag1", "flag2"]
           }
         },
         {
@@ -632,13 +535,7 @@
             }
           },
           "then": {
-            "required": [
-              "flag1",
-              "inv1",
-              "prop1",
-              "prop2",
-              "prop3"
-            ]
+            "required": ["flag1", "inv1", "prop1", "prop2", "prop3"]
           }
         },
         {
@@ -650,10 +547,7 @@
             }
           },
           "then": {
-            "required": [
-              "flag1",
-              "fileToMerge"
-            ]
+            "required": ["flag1", "fileToMerge"]
           }
         },
         {
@@ -665,12 +559,7 @@
             }
           },
           "then": {
-            "required": [
-              "prop1",
-              "prop2",
-              "inv1",
-              "inv2"
-            ]
+            "required": ["prop1", "prop2", "inv1", "inv2"]
           }
         }
       ]

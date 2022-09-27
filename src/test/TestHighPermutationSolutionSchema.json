@@ -3,11 +3,11 @@
   "description": "This is the schema for the main Scenario file for the game. It basically a skeleton, pulling in other more substantial types from other files. It could be split up, but for now its easier managing three files Scenario, Schema and Objects",
   "type": "object",
   "definitions": {
-    "gate_type": {
+    "piece_type": {
       "type": "object",
       "allOf": [
         {
-          "$ref": "../../Gate.json#/definitions/gate_type"
+          "$ref": "../../Gate.json#/definitions/piece_type"
         }
       ],
       "properties": {
@@ -58,9 +58,7 @@
     },
     "char_wrapper_type": {
       "type": "object",
-      "required": [
-        "character"
-      ],
+      "required": ["character"],
       "properties": {
         "character": {
           "$ref": "TestHighPermutationSolutionObjects.json#/definitions/char_type"
@@ -69,9 +67,7 @@
     },
     "prop_wrapper_type": {
       "type": "object",
-      "required": [
-        "prop"
-      ],
+      "required": ["prop"],
       "properties": {
         "prop": {
           "$ref": "TestHighPermutationSolutionObjects.json#/definitions/prop_type"
@@ -116,7 +112,7 @@
       "type": "array",
       "minItems": 1,
       "items": {
-        "$ref": "#/definitions/gate_type"
+        "$ref": "#/definitions/piece_type"
       }
     }
   }
