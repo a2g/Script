@@ -15,8 +15,7 @@ import { SingleBigSwitch } from '../main/SingleBigSwitch.js';
  * */
 
 export class ReadOnlyJsonSingle
-  implements ReadOnlyJsonInterface, ReadOnlyJsonInterfaceCollator
-{
+  implements ReadOnlyJsonInterface, ReadOnlyJsonInterfaceCollator {
   readonly allProps: string[];
 
   readonly allFlags: string[];
@@ -40,7 +39,7 @@ export class ReadOnlyJsonSingle
   constructor(filename: string) {
     this.filename = filename;
     assert(existsSync(filename));
-    const text = readFileSync('file.txt', 'utf8');
+    const text = readFileSync(filename, 'utf8');
 
     const scenario = JSON.parse(text);
 
