@@ -21,12 +21,17 @@ const prompt = require('prompt-sync')();
 
 export class PlayerAI implements HappenerCallbacksInterface {
   invVsInv: LogicGrid
+
   invVsVerb: LogicGrid
+
   invVsProp: LogicGrid
+
   propVsVerb: LogicGrid
+
   propVsProp: LogicGrid
 
   game: Happener
+
   autoCount: number
 
   constructor(game: Happener, numberOfAutopilotTurns: number) {
@@ -44,11 +49,11 @@ export class PlayerAI implements HappenerCallbacksInterface {
     this.game.SubscribeToCallbacks(this)
 
     // since use same with same is illegal move, we block these out
-    for (let i = 0; i < invs.length; i++) { // classic forloop useful because shared index
+    for (let i = 0; i < invs.length; i += 1) { // classic forloop useful because shared index
       this.invVsInv.SetColumnRow(i, i)
     }
     // since use same with same is illegal move, we block these out
-    for (let i = 0; i < props.length; i++) { // classic forloop useful because shared index
+    for (let i = 0; i < props.length; i += 1) { // classic forloop useful because shared index
       this.propVsProp.SetColumnRow(i, i)
     }
   }
@@ -56,7 +61,7 @@ export class PlayerAI implements HappenerCallbacksInterface {
   GetNextCommand(): string[] {
     for (; ;) {
       if (this.autoCount > 0) {
-        this.autoCount--
+        this.autoCount -= 1
 
         // 1. Check the invs vs invs ? this is the lowest hanging fruit
         const useInvOnInv = this.invVsInv.GetNextGuess()
@@ -137,6 +142,7 @@ export class PlayerAI implements HappenerCallbacksInterface {
     this.propVsProp.SetVisibilityOfColumn(number, newValue, nameForDebugging)
   }
 
+  /*
   OnFlagValueChange(number: number, newValue: number, nameForDebugging: string): void {
     // the convention for the array is x then y, or column then row.
     // so Set..Column sets the first t
@@ -144,5 +150,5 @@ export class PlayerAI implements HappenerCallbacksInterface {
     // this.invVsProp.SetVisibilityOfRow(number, newValue, nameForDebugging);
     // this.propVsProp.SetVisibilityOfRow(number, newValue, nameForDebugging);
     // this.propVsProp.SetVisibilityOfColumn(number, newValue, nameForDebugging);
-  }
+  } */
 }
