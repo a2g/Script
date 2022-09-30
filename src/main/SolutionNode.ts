@@ -242,7 +242,7 @@ export class SolutionNode {
         if (hasACloneJustBeenCreated) { return true }
       } else {
         // assert(inputNode && "Input node=" + inputNode + " <-If this fails there is something wrong with the loop in first half of this method");
-        console.log('Input node=' + JSON.stringify(inputNode) + ' <-If this fails there is something wrong with the loop in first half of this method')
+        console.log(`Input node= ${inputNode} <-If this fails there is something wrong with the loop in first half of this method`)
       }
     }
 
