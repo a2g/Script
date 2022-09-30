@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es2018",
+    "target": "es6",
     "module": "commonjs",
     "moduleResolution": "node",
     "noEmitOnError": true,
@@ -9,22 +9,31 @@
       "dom"
     ],
     "strict": true,
-    "esModuleInterop": false,
+    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "importHelpers": true,
     "outDir": "dist",
-    "sourceMap": true,
+    "declaration": true, /* Required for Mocha breakpoints Generates corresponding '.d.ts' file. */
+    "declarationMap": true, /* Required for Mocha breakpoints  - Generates a sourcemap for each corresponding '.d.ts' file. */
+    "sourceMap": true, /* Generates corresponding '.map' file. */
     "inlineSources": true,
     "rootDir": "./",
     "declaration": true,
     "incremental": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "skipLibCheck": true, /* Skip type checking of declaration files. */
+    "forceConsistentCasingInFileNames": true, /* Disallow inconsistently-cased references to the same file. */
+    "types": [
+      "mocha",
+      "node"
+    ], /* Type declaration files to be included in compilation. */
   },
   "include": [
     "**/*.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "dist"
   ]
 }

@@ -23,3 +23,5 @@
 storybook-static
 custom-elements.json
 custom-elements.json
+core/tsconfig.tsbuildinfo
+custom-elements.json
