@@ -48,27 +48,27 @@ export function SingleBigSwitch(
         count = gate.count;
       }
 
-      const prop1 = JSON.stringify(gate.prop1);
-      const prop2 = JSON.stringify(gate.prop2);
-      const prop3 = JSON.stringify(gate.prop3);
-      const prop4 = JSON.stringify(gate.prop4);
-      const prop5 = JSON.stringify(gate.prop5);
-      const prop6 = JSON.stringify(gate.prop6);
-      const prop7 = JSON.stringify(gate.prop7);
-      const flag1 = JSON.stringify(gate.flag1);
-      const flag2 = JSON.stringify(gate.flag2);
-      const flag3 = JSON.stringify(gate.flag3);
-      const flag4 = JSON.stringify(gate.flag4);
-      const flag5 = JSON.stringify(gate.flag5);
-      const inv1 = JSON.stringify(gate.inv1);
-      const inv2 = JSON.stringify(gate.inv2);
-      const inv3 = JSON.stringify(gate.inv3);
+      const prop1 = `${gate.prop1}`;
+      const prop2 = `${gate.prop2}`;
+      const prop3 = `${gate.prop3}`;
+      const prop4 = `${gate.prop4}`;
+      const prop5 = `${gate.prop5}`;
+      const prop6 = `${gate.prop6}`;
+      const prop7 = `${gate.prop7}`;
+      const flag1 = `${gate.flag1}`;
+      const flag2 = `${gate.flag2}`;
+      const flag3 = `${gate.flag3}`;
+      const flag4 = `${gate.flag4}`;
+      const flag5 = `${gate.flag5}`;
+      const inv1 = `${gate.inv1}`;
+      const inv2 = `${gate.inv2}`;
+      const inv3 = `${gate.inv3}`;
       const happs = new Happenings();
       const { restrictions } = gate;
       switch (gateType) {
         case _.AUTO_FLAG1_CAUSES_IMPORT_OF_JSON:
           if (solutionNodesMappedByInput != null) {
-            const output = JSON.stringify(gate.fileToMerge);
+            const output = `${gate.fileToMerge}`;
             const input = flag1;
             solutionNodesMappedByInput.AddToMap(
               new SolutionNode(

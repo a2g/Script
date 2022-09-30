@@ -15,7 +15,8 @@ import { SingleBigSwitch } from '../main/SingleBigSwitch.js';
  * */
 
 export class ReadOnlyJsonSingle
-  implements ReadOnlyJsonInterface, ReadOnlyJsonInterfaceCollator {
+  implements ReadOnlyJsonInterface, ReadOnlyJsonInterfaceCollator
+{
   readonly allProps: string[];
 
   readonly allFlags: string[];
@@ -52,32 +53,32 @@ export class ReadOnlyJsonSingle
     // possible object names. ie basically all the enums
     // but without needing the enum file
     for (const gate of scenario.gates) {
-      setInvs.add(JSON.stringify(gate.inv1));
-      setInvs.add(JSON.stringify(gate.inv2));
-      setInvs.add(JSON.stringify(gate.inv3));
-      setFlags.add(JSON.stringify(gate.flag1));
-      setFlags.add(JSON.stringify(gate.flag2));
-      setProps.add(JSON.stringify(gate.prop1));
-      setProps.add(JSON.stringify(gate.prop2));
-      setProps.add(JSON.stringify(gate.prop3));
-      setProps.add(JSON.stringify(gate.prop4));
-      setProps.add(JSON.stringify(gate.prop5));
-      setProps.add(JSON.stringify(gate.prop6));
-      setProps.add(JSON.stringify(gate.prop7));
+      setInvs.add(`${gate.inv1}`);
+      setInvs.add(`${gate.inv2}`);
+      setInvs.add(`${gate.inv3}`);
+      setFlags.add(`${gate.flag1}`);
+      setFlags.add(`${gate.flag2}`);
+      setProps.add(`${gate.prop1}`);
+      setProps.add(`${gate.prop2}`);
+      setProps.add(`${gate.prop3}`);
+      setProps.add(`${gate.prop4}`);
+      setProps.add(`${gate.prop5}`);
+      setProps.add(`${gate.prop6}`);
+      setProps.add(`${gate.prop7}`);
 
-      if (gate.conjoint !== null) {
-        setInvs.add(JSON.stringify(gate.conjoint.inv1));
-        setInvs.add(JSON.stringify(gate.conjoint.inv2));
-        setInvs.add(JSON.stringify(gate.conjoint.inv3));
-        setFlags.add(JSON.stringify(gate.conjoint.flag1));
-        setFlags.add(JSON.stringify(gate.conjoint.flag2));
-        setProps.add(JSON.stringify(gate.conjoint.prop1));
-        setProps.add(JSON.stringify(gate.conjoint.prop2));
-        setProps.add(JSON.stringify(gate.conjoint.prop3));
-        setProps.add(JSON.stringify(gate.conjoint.prop4));
-        setProps.add(JSON.stringify(gate.conjoint.prop5));
-        setProps.add(JSON.stringify(gate.conjoint.prop6));
-        setProps.add(JSON.stringify(gate.conjoint.prop7));
+      if (gate.conjoint != null) {
+        setInvs.add(`${gate.conjoint.inv1}`);
+        setInvs.add(`${gate.conjoint.inv2}`);
+        setInvs.add(`${gate.conjoint.inv3}`);
+        setFlags.add(`${gate.conjoint.flag1}`);
+        setFlags.add(`${gate.conjoint.flag2}`);
+        setProps.add(`${gate.conjoint.prop1}`);
+        setProps.add(`${gate.conjoint.prop2}`);
+        setProps.add(`${gate.conjoint.prop3}`);
+        setProps.add(`${gate.conjoint.prop4}`);
+        setProps.add(`${gate.conjoint.prop5}`);
+        setProps.add(`${gate.conjoint.prop6}`);
+        setProps.add(`${gate.conjoint.prop7}`);
       }
     }
 
@@ -120,7 +121,7 @@ export class ReadOnlyJsonSingle
       scenario.startingThings !== null
     ) {
       for (const thing of scenario.startingThings) {
-        const theThing = JSON.stringify(thing.thing);
+        const theThing = `${thing.thing}`;
         if (theThing.startsWith('inv')) {
           this.startingInvSet.add(theThing);
         }
