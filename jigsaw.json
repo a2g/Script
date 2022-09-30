@@ -1,7 +1,7 @@
 {
-  "$id": "https://raw.githubusercontent.com/a2g/Gate/main/Gate.json",
+  "$id": "https://raw.githubusercontent.com/a2g/jigsaw/main/jigsaw.json",
   "$schema": "http://json-schema.org/draft-07/schema",
-  "description": "A puzzle dependency graph defined in json schema. This Gate.json includes an enum of types of Gate nodes that describe an adventure game puzzle, and some jscon schema contraints for each nodes",
+  "description": "A puzzle dependency graph defined in json schema. This jigsaw.json includes an enum of types of Gate nodes that describe an adventure game puzzle, and some jscon schema contraints for each nodes",
   "type": "object",
   "definitions": {
     "piece_type": {

@@ -7,7 +7,7 @@ import { Happening } from '../main/Happening.js';
 import { MixedObjectsAndVerb } from '../main/MixedObjectsAndVerb.js';
 import { SolutionNodeRepository } from '../main/SolutionNodeRepository.js';
 
-import _ from '../../Gate.json';
+import _ from '../../jigsaw.json';
 
 function isNullOrUndefined(something: any): boolean {
   return typeof something === 'undefined' || something === null;

@@ -97,30 +97,26 @@ export class PlayerAI implements HappenerCallbacksInterface {
           return ['use', this.game.GetProp(usePropOnProp[0]), this.game.GetProp(usePropOnProp[1])]
         }
 
-        continue
+      } else {
+
+        const input = prompt('Enter a command with two or three terms (b)ack: ')
+        if (input !== null) {
+          if (input === 'b') { return ['b'] }
+          const items: string[] = GetThreeStringsFromInput(input)
+
+          if (items.length === 2 && items[0].toUpperCase() === 'DO' && Number(items[1]) > 0) {
+            this.autoCount = Number(items[1])
+            console.log(`Autocount has been given ${this.autoCount} operations.`)
+          }
+          else if (items.length !== 3) {
+            console.log(`Please enter 3 words (not ${items.length} )`)
+          } else {
+            return items
+          }
+        } else {
+          console.log('At least enter something')
+        }
       }
-
-      const input = prompt('Enter a command with two or three terms (b)ack: ')
-      if (input === null) {
-        console.log('At least enter something')
-        continue
-      }
-      if (input === 'b') { return ['b'] }
-
-      const items: string[] = GetThreeStringsFromInput(input)
-
-      if (items.length === 2 && items[0].toUpperCase() === 'DO' && Number(items[1]) > 0) {
-        this.autoCount = Number(items[1])
-        console.log(`Autocount has been given ${this.autoCount} operations.`)
-        continue
-      }
-
-      if (items.length !== 3) {
-        console.log(`Please enter 3 words (not ${items.length} )`)
-        continue
-      }
-
-      return items
     }
   }
 
@@ -142,13 +138,12 @@ export class PlayerAI implements HappenerCallbacksInterface {
     this.propVsProp.SetVisibilityOfColumn(number, newValue, nameForDebugging)
   }
 
-  /*
   OnFlagValueChange(number: number, newValue: number, nameForDebugging: string): void {
     // the convention for the array is x then y, or column then row.
     // so Set..Column sets the first t
-    // this.propVsVerb.SetVisibilityOfColumn(number, newValue, nameForDebugging);
-    // this.invVsProp.SetVisibilityOfRow(number, newValue, nameForDebugging);
-    // this.propVsProp.SetVisibilityOfRow(number, newValue, nameForDebugging);
-    // this.propVsProp.SetVisibilityOfColumn(number, newValue, nameForDebugging);
-  } */
+    this.propVsVerb.SetVisibilityOfColumn(number, newValue > 0, nameForDebugging);
+    this.invVsProp.SetVisibilityOfRow(number, newValue > 0, nameForDebugging);
+    this.propVsProp.SetVisibilityOfRow(number, newValue > 0, nameForDebugging);
+    this.propVsProp.SetVisibilityOfColumn(number, newValue > 0, nameForDebugging);
+  }
 }

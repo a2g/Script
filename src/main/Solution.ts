@@ -6,7 +6,7 @@ import { SolutionNodeRepository } from '../main/SolutionNodeRepository.js';
 import { ReadOnlyJsonSingle } from '../main/ReadOnlyJsonSingle.js';
 import { FormatText } from '../main/FormatText.js';
 import { RootNodeMap } from '../main/RootNodeMap.js';
-import _ from '../../Gate.json';
+import _ from '../../jigsaw.json';
 
 /**
  * Solution needs to be cloned.
