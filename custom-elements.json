@@ -78,10 +78,306 @@
       "exports": [
         {
           "kind": "js",
-          "name": "JigsawW",
+          "name": "AddBrackets",
           "declaration": {
-            "name": "JigsawW",
-            "module": "./JigsawW.js"
+            "name": "AddBrackets",
+            "module": "./main/AddBrackets.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "AlleviateBrackets",
+          "declaration": {
+            "name": "AlleviateBrackets",
+            "module": "./main/AlleviateBrackets.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Colors",
+          "declaration": {
+            "name": "Colors",
+            "module": "./main/Colors.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "FormatText",
+          "declaration": {
+            "name": "FormatText",
+            "module": "./main/FormatText.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "GenerateArrayOfLeavesRecursively",
+          "declaration": {
+            "name": "GenerateArrayOfLeavesRecursively",
+            "module": "./main/GenerateArrayOfLeavesRecursively.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "GenerateMapOfLeavesRecursively",
+          "declaration": {
+            "name": "GenerateMapOfLeavesRecursively",
+            "module": "./main/GenerateMapOfLeavesRecursively.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "GetAnyErrorsFromObjectAvailability",
+          "declaration": {
+            "name": "GetAnyErrorsFromObjectAvailability",
+            "module": "./main/GetAnyErrorsFromObjectAvailability.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "GetDisplayName",
+          "declaration": {
+            "name": "GetDisplayName",
+            "module": "./main/GetDisplayName.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "GetThreeStringsFromInput",
+          "declaration": {
+            "name": "GetThreeStringsFromInput",
+            "module": "./main/GetThreeStringsFromInput.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Happen",
+          "declaration": {
+            "name": "Happen",
+            "module": "./main/Happen.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Happener",
+          "declaration": {
+            "name": "Happener",
+            "module": "./main/Happener.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "HappenerCallbacksInterface",
+          "declaration": {
+            "name": "HappenerCallbacksInterface",
+            "module": "./main/HappenerCallbacksInterface.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Happening",
+          "declaration": {
+            "name": "Happening",
+            "module": "./main/Happening.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Happenings",
+          "declaration": {
+            "name": "Happenings",
+            "module": "./main/Happenings.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "LogicGrid",
+          "declaration": {
+            "name": "LogicGrid",
+            "module": "./main/LogicGrid.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Mix",
+          "declaration": {
+            "name": "Mix",
+            "module": "./main/Mix.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "MixedObjectsAndVerb",
+          "declaration": {
+            "name": "MixedObjectsAndVerb",
+            "module": "./main/MixedObjectsAndVerb.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "PlayerAI",
+          "declaration": {
+            "name": "PlayerAI",
+            "module": "./main/PlayerAI.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Raw",
+          "declaration": {
+            "name": "Raw",
+            "module": "./main/Raw.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "RawObjectsAndVerb",
+          "declaration": {
+            "name": "RawObjectsAndVerb",
+            "module": "./main/RawObjectsAndVerb.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "ReadOnlyJsonInterface",
+          "declaration": {
+            "name": "ReadOnlyJsonInterface",
+            "module": "./main/ReadOnlyJsonInterface.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "ReadOnlyJsonInterfaceCollator",
+          "declaration": {
+            "name": "ReadOnlyJsonInterfaceCollator",
+            "module": "./main/ReadOnlyJsonInterfaceCollator.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "ReadOnlyJsonInterfaceConcoct",
+          "declaration": {
+            "name": "ReadOnlyJsonInterfaceConcoct",
+            "module": "./main/ReadOnlyJsonInterfaceConcoct.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "ReadOnlyJsonInterfaceFindLeaves",
+          "declaration": {
+            "name": "ReadOnlyJsonInterfaceFindLeaves",
+            "module": "./main/ReadOnlyJsonInterfaceFindLeaves.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "ReadOnlyJsonInterfaceFindUsed",
+          "declaration": {
+            "name": "ReadOnlyJsonInterfaceFindUsed",
+            "module": "./main/ReadOnlyJsonInterfaceFindUsed.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "ReadOnlyJsonInterfaceHappener",
+          "declaration": {
+            "name": "ReadOnlyJsonInterfaceHappener",
+            "module": "./main/ReadOnlyJsonInterfaceHappener.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "ReadOnlyJsonInterfacePlayThru",
+          "declaration": {
+            "name": "ReadOnlyJsonInterfacePlayThru",
+            "module": "./main/ReadOnlyJsonInterfacePlayThru.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "ReadOnlyJsonMultipleFilenames",
+          "declaration": {
+            "name": "ReadOnlyJsonMultipleFilenames",
+            "module": "./main/ReadOnlyJsonMultipleFilenames.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "ReadOnlyJsonSingle",
+          "declaration": {
+            "name": "ReadOnlyJsonSingle",
+            "module": "./main/ReadOnlyJsonSingle.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "ReadOnlyViaArrayOfJson",
+          "declaration": {
+            "name": "ReadOnlyViaArrayOfJson",
+            "module": "./main/ReadOnlyViaArrayOfJson.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "RootNodeMap",
+          "declaration": {
+            "name": "RootNodeMap",
+            "module": "./main/RootNodeMap.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "SingleBigSwitch",
+          "declaration": {
+            "name": "SingleBigSwitch",
+            "module": "./main/SingleBigSwitch.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "SingleFileData",
+          "declaration": {
+            "name": "SingleFileData",
+            "module": "./main/SingleFileData.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Solution",
+          "declaration": {
+            "name": "Solution",
+            "module": "./main/Solution.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "SolutionNode",
+          "declaration": {
+            "name": "SolutionNode",
+            "module": "./main/SolutionNode.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "SolutionNodeRepository",
+          "declaration": {
+            "name": "SolutionNodeRepository",
+            "module": "./main/SolutionNodeRepository.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "SolverViaRootNode",
+          "declaration": {
+            "name": "SolverViaRootNode",
+            "module": "./main/SolverViaRootNode.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "SpecialNodes",
+          "declaration": {
+            "name": "SpecialNodes",
+            "module": "./main/SpecialNodes.js"
           }
         }
       ]
@@ -2245,7 +2541,7 @@
             },
             {
               "kind": "method",
-              "name": "GetArrayOfJsonsRecursively",
+              "name": "GetArrayOfJsonRecursively",
               "return": {
                 "type": {
                   "text": "ReadOnlyJsonSingle[]"
@@ -2646,12 +2942,12 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/main/ReadOnlyViaArrayOfJsons.ts",
+      "path": "src/main/ReadOnlyViaArrayOfJson.ts",
       "declarations": [
         {
           "kind": "class",
           "description": "So the most important part of this class is that the data\nin it is read only. So I've put that in the name.\nI wanted to convey the idea that it represents  *.json files,\nin this case multiple, so that goes in there too.",
-          "name": "ReadOnlyViaArrayOfJsons",
+          "name": "ReadOnlyViaArrayOfJson",
           "members": [
             {
               "kind": "field",
@@ -2915,10 +3211,10 @@
       "exports": [
         {
           "kind": "js",
-          "name": "ReadOnlyViaArrayOfJsons",
+          "name": "ReadOnlyViaArrayOfJson",
           "declaration": {
-            "name": "ReadOnlyViaArrayOfJsons",
-            "module": "src/main/ReadOnlyViaArrayOfJsons.ts"
+            "name": "ReadOnlyViaArrayOfJson",
+            "module": "src/main/ReadOnlyViaArrayOfJson.ts"
           }
         }
       ]
@@ -4090,7 +4386,7 @@
               "kind": "field",
               "name": "mapOfStartingThingsAndWhoCanHaveThem",
               "type": {
-                "text": "Map<string, Set<string>>"
+                "text": "Map<\n    string,\n    Set<string>\n  >"
               },
               "privacy": "private",
               "default": "new Map<string, Set<string>>()"

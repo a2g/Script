@@ -1,12 +1,12 @@
-import { assert } from 'console';
-import { existsSync, readFileSync } from 'fs';
-import { SolutionNodeRepository } from '../main/SolutionNodeRepository.js';
-import { MixedObjectsAndVerb } from '../main/MixedObjectsAndVerb.js';
-import { Happenings } from '../main/Happenings.js';
-import { Mix } from '../main/Mix.js';
-import { ReadOnlyJsonInterface } from '../main/ReadOnlyJsonInterface.js';
-import { ReadOnlyJsonInterfaceCollator } from '../main/ReadOnlyJsonInterfaceCollator.js';
-import { SingleBigSwitch } from '../main/SingleBigSwitch.js';
+import { assert } from 'console'
+import { existsSync, readFileSync } from 'fs'
+import { SolutionNodeRepository } from '../main/SolutionNodeRepository.js'
+import { MixedObjectsAndVerb } from '../main/MixedObjectsAndVerb.js'
+import { Happenings } from '../main/Happenings.js'
+import { Mix } from '../main/Mix.js'
+import { ReadOnlyJsonInterface } from '../main/ReadOnlyJsonInterface.js'
+import { ReadOnlyJsonInterfaceCollator } from '../main/ReadOnlyJsonInterfaceCollator.js'
+import { SingleBigSwitch } from '../main/SingleBigSwitch.js'
 /**
  * So the most important part of this class is that the data
  * in it is read only. So I've put that in the name.
@@ -15,70 +15,69 @@ import { SingleBigSwitch } from '../main/SingleBigSwitch.js';
  * */
 
 export class ReadOnlyJsonSingle
-  implements ReadOnlyJsonInterface, ReadOnlyJsonInterfaceCollator
-{
-  readonly allProps: string[];
+implements ReadOnlyJsonInterface, ReadOnlyJsonInterfaceCollator {
+  readonly allProps: string[]
 
-  readonly allFlags: string[];
+  readonly allFlags: string[]
 
-  readonly allInvs: string[];
+  readonly allInvs: string[]
 
-  readonly allChars: string[];
+  readonly allChars: string[]
 
-  readonly mapOfStartingThings: Map<string, Set<string>>;
+  readonly mapOfStartingThings: Map<string, Set<string>>
 
-  readonly startingInvSet: Set<string>;
+  readonly startingInvSet: Set<string>
 
-  readonly startingPropSet: Set<string>;
+  readonly startingPropSet: Set<string>
 
-  readonly startingFlagSet: Set<string>;
+  readonly startingFlagSet: Set<string>
 
-  readonly filename: string;
+  readonly filename: string
 
-  readonly mapOfBags: Map<string, ReadOnlyJsonSingle>;
+  readonly mapOfBags: Map<string, ReadOnlyJsonSingle>
 
-  constructor(filename: string) {
-    this.filename = filename;
-    assert(existsSync(filename));
-    const text = readFileSync(filename, 'utf8');
+  constructor (filename: string) {
+    this.filename = filename
+    assert(existsSync(filename))
+    const text = readFileSync(filename, 'utf8')
 
-    const scenario = JSON.parse(text);
+    const scenario = JSON.parse(text)
 
-    const setProps = new Set<string>();
-    const setFlags = new Set<string>();
-    const setInvs = new Set<string>();
-    const setChars = new Set<string>();
+    const setProps = new Set<string>()
+    const setFlags = new Set<string>()
+    const setInvs = new Set<string>()
+    const setChars = new Set<string>()
 
     // this loop is only to ascertain all the different
     // possible object names. ie basically all the enums
     // but without needing the enum file
     for (const gate of scenario.gates) {
-      setInvs.add(`${gate.inv1}`);
-      setInvs.add(`${gate.inv2}`);
-      setInvs.add(`${gate.inv3}`);
-      setFlags.add(`${gate.flag1}`);
-      setFlags.add(`${gate.flag2}`);
-      setProps.add(`${gate.prop1}`);
-      setProps.add(`${gate.prop2}`);
-      setProps.add(`${gate.prop3}`);
-      setProps.add(`${gate.prop4}`);
-      setProps.add(`${gate.prop5}`);
-      setProps.add(`${gate.prop6}`);
-      setProps.add(`${gate.prop7}`);
+      setInvs.add(`${gate.inv1}`)
+      setInvs.add(`${gate.inv2}`)
+      setInvs.add(`${gate.inv3}`)
+      setFlags.add(`${gate.flag1}`)
+      setFlags.add(`${gate.flag2}`)
+      setProps.add(`${gate.prop1}`)
+      setProps.add(`${gate.prop2}`)
+      setProps.add(`${gate.prop3}`)
+      setProps.add(`${gate.prop4}`)
+      setProps.add(`${gate.prop5}`)
+      setProps.add(`${gate.prop6}`)
+      setProps.add(`${gate.prop7}`)
 
       if (gate.conjoint != null) {
-        setInvs.add(`${gate.conjoint.inv1}`);
-        setInvs.add(`${gate.conjoint.inv2}`);
-        setInvs.add(`${gate.conjoint.inv3}`);
-        setFlags.add(`${gate.conjoint.flag1}`);
-        setFlags.add(`${gate.conjoint.flag2}`);
-        setProps.add(`${gate.conjoint.prop1}`);
-        setProps.add(`${gate.conjoint.prop2}`);
-        setProps.add(`${gate.conjoint.prop3}`);
-        setProps.add(`${gate.conjoint.prop4}`);
-        setProps.add(`${gate.conjoint.prop5}`);
-        setProps.add(`${gate.conjoint.prop6}`);
-        setProps.add(`${gate.conjoint.prop7}`);
+        setInvs.add(`${gate.conjoint.inv1}`)
+        setInvs.add(`${gate.conjoint.inv2}`)
+        setInvs.add(`${gate.conjoint.inv3}`)
+        setFlags.add(`${gate.conjoint.flag1}`)
+        setFlags.add(`${gate.conjoint.flag2}`)
+        setProps.add(`${gate.conjoint.prop1}`)
+        setProps.add(`${gate.conjoint.prop2}`)
+        setProps.add(`${gate.conjoint.prop3}`)
+        setProps.add(`${gate.conjoint.prop4}`)
+        setProps.add(`${gate.conjoint.prop5}`)
+        setProps.add(`${gate.conjoint.prop6}`)
+        setProps.add(`${gate.conjoint.prop7}`)
       }
     }
 
@@ -89,31 +88,31 @@ export class ReadOnlyJsonSingle
     ) {
       for (const thing of scenario.startingThings) {
         if (thing.character !== undefined && thing.character !== null) {
-          setChars.add(thing.character);
+          setChars.add(thing.character)
         }
       }
     }
 
-    setChars.delete('');
-    setChars.delete('undefined');
-    setProps.delete('');
-    setProps.delete('undefined');
-    setFlags.delete('');
-    setFlags.delete('undefined');
-    setInvs.delete('');
-    setInvs.delete('undefined');
+    setChars.delete('')
+    setChars.delete('undefined')
+    setProps.delete('')
+    setProps.delete('undefined')
+    setFlags.delete('')
+    setFlags.delete('undefined')
+    setInvs.delete('')
+    setInvs.delete('undefined')
 
-    this.allProps = Array.from(setProps.values());
-    this.allFlags = Array.from(setFlags.values());
-    this.allInvs = Array.from(setInvs.values());
-    this.allChars = Array.from(setChars.values());
+    this.allProps = Array.from(setProps.values())
+    this.allFlags = Array.from(setFlags.values())
+    this.allInvs = Array.from(setInvs.values())
+    this.allChars = Array.from(setChars.values())
 
     // preen starting invs from the startingThings
-    this.startingInvSet = new Set<string>();
-    this.startingFlagSet = new Set<string>();
-    this.startingPropSet = new Set<string>();
-    this.mapOfStartingThings = new Map<string, Set<string>>();
-    this.mapOfBags = new Map<string, ReadOnlyJsonSingle>();
+    this.startingInvSet = new Set<string>()
+    this.startingFlagSet = new Set<string>()
+    this.startingPropSet = new Set<string>()
+    this.mapOfStartingThings = new Map<string, Set<string>>()
+    this.mapOfBags = new Map<string, ReadOnlyJsonSingle>()
 
     // starting things is optional in the json
     if (
@@ -121,27 +120,27 @@ export class ReadOnlyJsonSingle
       scenario.startingThings !== null
     ) {
       for (const thing of scenario.startingThings) {
-        const theThing = `${thing.thing}`;
+        const theThing = `${thing.thing}`
         if (theThing.startsWith('inv')) {
-          this.startingInvSet.add(theThing);
+          this.startingInvSet.add(theThing)
         }
         if (theThing.startsWith('flag')) {
-          this.startingFlagSet.add(theThing);
+          this.startingFlagSet.add(theThing)
         }
         if (theThing.startsWith('prop')) {
-          this.startingPropSet.add(theThing);
+          this.startingPropSet.add(theThing)
         }
       }
 
       for (const item of scenario.startingThings) {
         if (!this.mapOfStartingThings.has(item.thing)) {
-          this.mapOfStartingThings.set(item.thing, new Set<string>());
+          this.mapOfStartingThings.set(item.thing, new Set<string>())
         }
         if (item.character !== undefined && item.character !== null) {
-          const { character } = item;
-          const array = this.mapOfStartingThings.get(item.thing);
+          const { character } = item
+          const array = this.mapOfStartingThings.get(item.thing)
           if (character.length > 0 && array != null) {
-            array.add(character);
+            array.add(character)
           }
         }
       }
@@ -153,195 +152,195 @@ export class ReadOnlyJsonSingle
       for (const thing of scenario.bags) {
         if (thing.flag !== undefined && thing.flag !== null) {
           if (thing.fileToMerge !== undefined && thing.fileToMerge !== null) {
-            const json = new ReadOnlyJsonSingle(thing.fileToMerge);
+            const json = new ReadOnlyJsonSingle(thing.fileToMerge)
 
             // add to this
-            this.mapOfBags.set(thing.flag, json);
+            this.mapOfBags.set(thing.flag, json)
           }
         }
       }
     }
   }
 
-  GetArrayOfJsonsRecursively(): ReadOnlyJsonSingle[] {
-    let array: Array<ReadOnlyJsonSingle> = [];
-    array.push(this);
+  GetArrayOfJsonRecursively (): ReadOnlyJsonSingle[] {
+    let array: ReadOnlyJsonSingle[] = []
+    array.push(this)
     for (const bag of this.mapOfBags.values()) {
-      const childBag = bag.GetArrayOfJsonsRecursively();
-      array = array.concat(childBag);
+      const childBag = bag.GetArrayOfJsonRecursively()
+      array = array.concat(childBag)
     }
-    return array;
+    return array
   }
 
-  AddStartingPropsToGivenSet(givenSet: Set<string>): void {
+  AddStartingPropsToGivenSet (givenSet: Set<string>): void {
     for (const prop of this.startingPropSet) {
-      givenSet.add(prop);
+      givenSet.add(prop)
     }
   }
 
-  AddStartingFlagsToGivenSet(givenSet: Set<string>): void {
+  AddStartingFlagsToGivenSet (givenSet: Set<string>): void {
     for (const flag of this.startingFlagSet) {
-      givenSet.add(flag);
+      givenSet.add(flag)
     }
   }
 
-  AddStartingInvsToGivenSet(givenSet: Set<string>): void {
+  AddStartingInvsToGivenSet (givenSet: Set<string>): void {
     for (const inv of this.startingInvSet) {
-      givenSet.add(inv);
+      givenSet.add(inv)
     }
   }
 
-  AddStartingThingCharsToGivenMap(givenMap: Map<string, Set<string>>): void {
+  AddStartingThingCharsToGivenMap (givenMap: Map<string, Set<string>>): void {
     this.mapOfStartingThings.forEach((value: Set<string>, key: string) => {
-      givenMap.set(key, value);
-    });
+      givenMap.set(key, value)
+    })
   }
 
-  AddBagsToGivenMap(givenMap: Map<string, ReadOnlyJsonSingle>): void {
+  AddBagsToGivenMap (givenMap: Map<string, ReadOnlyJsonSingle>): void {
     this.mapOfBags.forEach((value: ReadOnlyJsonSingle, key: string) => {
-      givenMap.set(key, value);
-    });
+      givenMap.set(key, value)
+    })
   }
 
-  AddPropsToGivenSet(givenSet: Set<string>): void {
+  AddPropsToGivenSet (givenSet: Set<string>): void {
     for (const prop of this.allProps) {
-      givenSet.add(prop);
+      givenSet.add(prop)
     }
   }
 
-  AddFlagsToGivenSet(givenSet: Set<string>): void {
+  AddFlagsToGivenSet (givenSet: Set<string>): void {
     for (const flag of this.allFlags) {
-      givenSet.add(flag);
+      givenSet.add(flag)
     }
   }
 
-  AddInvsToGivenSet(givenSet: Set<string>): void {
+  AddInvsToGivenSet (givenSet: Set<string>): void {
     for (const inv of this.allInvs) {
-      givenSet.add(inv);
+      givenSet.add(inv)
     }
   }
 
-  AddCharsToGivenSet(givenSet: Set<string>): void {
+  AddCharsToGivenSet (givenSet: Set<string>): void {
     for (const character of this.allChars) {
-      givenSet.add(character);
+      givenSet.add(character)
     }
   }
 
-  GetArrayOfProps(): string[] {
-    return this.allProps;
+  GetArrayOfProps (): string[] {
+    return this.allProps
   }
 
-  GetArrayOfInvs(): string[] {
-    return this.allInvs;
+  GetArrayOfInvs (): string[] {
+    return this.allInvs
   }
 
-  GetArrayOfFlags(): string[] {
-    return this.allFlags;
+  GetArrayOfFlags (): string[] {
+    return this.allFlags
   }
 
-  static GetArrayOfSingleObjectVerbs(): string[] {
-    return ['grab', 'toggle'];
+  static GetArrayOfSingleObjectVerbs (): string[] {
+    return ['grab', 'toggle']
   }
 
-  GetArrayOfSingleObjectVerbs(): string[] {
-    return this.GetArrayOfSingleObjectVerbs();
+  GetArrayOfSingleObjectVerbs (): string[] {
+    return this.GetArrayOfSingleObjectVerbs()
   }
 
-  static GetArrayOfInitialStatesOfSingleObjectVerbs(): boolean[] {
-    return [true, true];
+  static GetArrayOfInitialStatesOfSingleObjectVerbs (): boolean[] {
+    return [true, true]
   }
 
-  GetArrayOfInitialStatesOfSingleObjectVerbs(): boolean[] {
-    return this.GetArrayOfInitialStatesOfSingleObjectVerbs();
+  GetArrayOfInitialStatesOfSingleObjectVerbs (): boolean[] {
+    return this.GetArrayOfInitialStatesOfSingleObjectVerbs()
   }
 
-  GetArrayOfInitialStatesOfFlags(): number[] {
+  GetArrayOfInitialStatesOfFlags (): number[] {
     // construct array of booleans in exact same order as ArrayOfProps - so they can be correlated
-    const startingSet = this.GetSetOfStartingFlags();
-    const initialStates: Array<number> = [];
+    const startingSet = this.GetSetOfStartingFlags()
+    const initialStates: number[] = []
     for (const flag of this.allFlags) {
-      const isNonZero = startingSet.has(flag);
-      initialStates.push(isNonZero ? 1 : 0);
+      const isNonZero = startingSet.has(flag)
+      initialStates.push(isNonZero ? 1 : 0)
     }
-    return initialStates;
+    return initialStates
   }
 
-  GetSetOfStartingFlags(): Set<string> {
-    return this.startingFlagSet;
+  GetSetOfStartingFlags (): Set<string> {
+    return this.startingFlagSet
   }
 
-  GetSetOfStartingProps(): Set<string> {
-    return this.startingPropSet;
+  GetSetOfStartingProps (): Set<string> {
+    return this.startingPropSet
   }
 
-  GetSetOfStartingInvs(): Set<string> {
-    return this.startingInvSet;
+  GetSetOfStartingInvs (): Set<string> {
+    return this.startingInvSet
   }
 
-  GetMapOfAllStartingThings(): Map<string, Set<string>> {
-    return this.mapOfStartingThings;
+  GetMapOfAllStartingThings (): Map<string, Set<string>> {
+    return this.mapOfStartingThings
   }
 
-  GetStartingThingsForCharacter(charName: string): Set<string> {
-    const startingThingSet = new Set<string>();
+  GetStartingThingsForCharacter (charName: string): Set<string> {
+    const startingThingSet = new Set<string>()
     this.mapOfStartingThings.forEach((value: Set<string>, thing: string) => {
       for (const item of value) {
         if (item === charName) {
-          startingThingSet.add(thing);
-          break;
+          startingThingSet.add(thing)
+          break
         }
       }
-    });
+    })
 
-    return startingThingSet;
+    return startingThingSet
   }
 
-  GetArrayOfInitialStatesOfProps(): boolean[] {
+  GetArrayOfInitialStatesOfProps (): boolean[] {
     // construct array of booleans in exact same order as ArrayOfProps - so they can be correlated
-    const startingSet = this.GetSetOfStartingProps();
-    const visibilities: Array<boolean> = [];
+    const startingSet = this.GetSetOfStartingProps()
+    const visibilities: boolean[] = []
     for (const prop of this.allProps) {
-      const isVisible = startingSet.has(prop);
-      visibilities.push(isVisible);
+      const isVisible = startingSet.has(prop)
+      visibilities.push(isVisible)
     }
 
-    return visibilities;
+    return visibilities
   }
 
-  GetArrayOfInitialStatesOfInvs(): boolean[] {
+  GetArrayOfInitialStatesOfInvs (): boolean[] {
     // construct array of booleans in exact same order as ArrayOfProps - so they can be correlated
-    const startingSet = this.GetSetOfStartingInvs();
-    const visibilities: Array<boolean> = [];
+    const startingSet = this.GetSetOfStartingInvs()
+    const visibilities: boolean[] = []
     for (const inv of this.allInvs) {
-      const isVisible = startingSet.has(inv);
-      visibilities.push(isVisible);
+      const isVisible = startingSet.has(inv)
+      visibilities.push(isVisible)
     }
 
-    return visibilities;
+    return visibilities
   }
 
-  GetArrayOfCharacters(): string[] {
-    return this.allChars;
+  GetArrayOfCharacters (): string[] {
+    return this.allChars
   }
 
-  GetMapOfBags(): Map<string, ReadOnlyJsonSingle> {
-    return this.mapOfBags;
+  GetMapOfBags (): Map<string, ReadOnlyJsonSingle> {
+    return this.mapOfBags
   }
 
-  GenerateSolutionNodesMappedByInput(): SolutionNodeRepository {
-    const result = new SolutionNodeRepository(null);
+  GenerateSolutionNodesMappedByInput (): SolutionNodeRepository {
+    const result = new SolutionNodeRepository(null)
     const notUsed = new MixedObjectsAndVerb(
       Mix.ErrorVerbNotIdentified,
       '',
       '',
       '',
       ''
-    );
-    SingleBigSwitch(this.filename, result, notUsed);
-    return result;
+    )
+    SingleBigSwitch(this.filename, result, notUsed)
+    return result
   }
 
-  AddAllSolutionNodesToGivenMap(
+  AddAllSolutionNodesToGivenMap (
     givenMap: SolutionNodeRepository
   ): SolutionNodeRepository {
     const notUsed = new MixedObjectsAndVerb(
@@ -350,29 +349,29 @@ export class ReadOnlyJsonSingle
       '',
       '',
       ''
-    );
-    SingleBigSwitch(this.filename, givenMap, notUsed);
-    return givenMap;
+    )
+    SingleBigSwitch(this.filename, givenMap, notUsed)
+    return givenMap
   }
 
-  FindHappeningsIfAny(objects: MixedObjectsAndVerb): Happenings | null {
+  FindHappeningsIfAny (objects: MixedObjectsAndVerb): Happenings | null {
     const result = SingleBigSwitch(
       this.filename,
       null,
       objects
-    ) as unknown as Happenings | null;
-    return result;
+    ) as unknown as Happenings | null
+    return result
   }
 
-  GetFilename(): string {
-    return this.filename;
+  GetFilename (): string {
+    return this.filename
   }
 
-  public GetDirectlyAccessibleGoals(): string[] {
-    const array: Array<string> = [];
+  public GetDirectlyAccessibleGoals (): string[] {
+    const array: string[] = []
     for (const key of this.mapOfBags.keys()) {
-      array.push(key);
+      array.push(key)
     }
-    return array;
+    return array
   }
 }

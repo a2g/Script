@@ -6,10 +6,15 @@ import { Happen } from '../main/Happen'
 
 export class SolutionNode {
   id: number
+
   conjoint: number
+
   type: string
+
   output: string
+
   inputs: Array<SolutionNode | null>
+
   inputHints: string[]
   parent: SolutionNode | null// this is not needed for leaf finding - but *is* needed for command finding.
   count: number
@@ -272,6 +277,7 @@ export class SolutionNode {
             break
           case Happen.InvGoes:
           case Happen.PropGoes:
+          default:
             visibleNodes.delete(happ.item)
             break
         }
