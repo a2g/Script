@@ -192,7 +192,9 @@ export class SolutionNode {
           let theNode = null
           for (const rootNode of theSolution.goals.GetValues()) {
             theNode = rootNode.FindAnyNodeMatchingIdRecursively(this.id)
-            if (theNode != null) { break }
+            if (theNode != null) {
+              break
+            }
           }
 
           if (theNode != null) {
