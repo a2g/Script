@@ -96,7 +96,7 @@ describe('Solution', () => {
     // that the multiple solutions are the same thing.
     expect(collection.GetSolutions().length).to.equal(1)
     const solution0 = collection.GetSolutions()[0]
-    expect(solution0.GetRootNodeMap().GenerateMapOfLeaves().size).to.equal(27)
+    expect(solution0.GetMapOfRootPieces().GenerateMapOfLeaves().size).to.equal(27)
     expect(solution0.GetUnprocessedLeaves().size).to.equal(0)
 
     // process the rest of the nodes
@@ -105,7 +105,7 @@ describe('Solution', () => {
     } while (collection.IsAnyNodesUnprocessed())
 
     {
-      const leaves = solution0.GetRootNodeMap().GenerateMapOfLeaves()
+      const leaves = solution0.GetMapOfRootPieces().GenerateMapOfLeaves()
       expect(leaves.size).to.equal(27)
       expect(leaves).has('/root comment 1/flag_win/inv_final_catalyst/')
       /*

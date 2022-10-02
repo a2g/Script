@@ -28,7 +28,7 @@ export class Solution {
 
   readonly restrictionsEncounteredDuringSolving: Set<string>
 
-  constructor (
+  constructor(
     rootNodeMapToCopy: RootNodeMap | null,
     copyThisMapOfPieces: SolutionNodeRepository,
     startingThingsPassedIn: ReadonlyMap<string, Set<string>>,
@@ -61,12 +61,12 @@ export class Solution {
     this.startingThings = startingThingsPassedIn
   }
 
-  public AddRootNode (rootNode: SolutionNode): void {
+  public AddRootNode(rootNode: SolutionNode): void {
     this.goals.AddRootNode(rootNode)
     this.unprocessedLeaves.add(rootNode)
   }
 
-  FindTheFlagWinAndPutItInRootNodeMap (): void {
+  FindTheFlagWinAndPutItInRootNodeMap(): void {
     const flagWinSet = this.remainingNodesRepo.Get('flag_win')
     if (flagWinSet === undefined) {
       throw new Error('flag_win was undefined')
@@ -79,7 +79,7 @@ export class Solution {
     }
   }
 
-  Clone (): Solution {
+  Clone(): Solution {
     // the weird order of this is because Solution constructor is used
     // primarily to construct, so passing in root node is needed..
     // so we clone the whole tree and pass it in
@@ -99,7 +99,7 @@ export class Solution {
     return clonedSolution
   }
 
-  SetNodeIncomplete (node: SolutionNode | null): void {
+  SetNodeIncomplete(node: SolutionNode | null): void {
     if (node != null) {
       if (node.type !== SpecialNodes.VerifiedLeaf) {
         this.unprocessedLeaves.add(node)
@@ -107,7 +107,7 @@ export class Solution {
     }
   }
 
-  MarkNodeAsCompleted (node: SolutionNode | null): void {
+  MarkNodeAsCompleted(node: SolutionNode | null): void {
     if (node != null) {
       if (this.unprocessedLeaves.has(node)) {
         this.unprocessedLeaves.delete(node)
@@ -115,7 +115,7 @@ export class Solution {
     }
   }
 
-  SetIncompleteNodes (set: Set<SolutionNode>): void {
+  SetIncompleteNodes(set: Set<SolutionNode>): void {
     // safer to copy this - just being cautious
     this.unprocessedLeaves = new Set<SolutionNode>()
     for (const node of set) {
@@ -123,11 +123,11 @@ export class Solution {
     }
   }
 
-  IsAnyNodesUnprocessed (): boolean {
+  IsAnyNodesUnprocessed(): boolean {
     return this.unprocessedLeaves.size > 0
   }
 
-  ProcessUntilCloning (solutions: SolverViaRootNode): boolean {
+  ProcessUntilCloning(solutions: SolverViaRootNode): boolean {
     let isBreakingDueToSolutionCloning = false
     let max = this.goals.Size()
     for (let i = 0; i < max; i += 1) {
@@ -146,19 +146,19 @@ export class Solution {
     return isBreakingDueToSolutionCloning
   }
 
-  GetUnprocessedLeaves (): Set<SolutionNode> {
+  GetUnprocessedLeaves(): Set<SolutionNode> {
     return this.unprocessedLeaves
   }
 
-  GetFlagWin (): SolutionNode {
+  GetFlagWin(): SolutionNode {
     return this.goals.GetRootNodeByName('flag_win')
   }
 
-  HasAnyNodesThatOutputObject (objectToObtain: string): boolean {
+  HasAnyNodesThatOutputObject(objectToObtain: string): boolean {
     return this.remainingNodesRepo.Has(objectToObtain)
   }
 
-  GetNodesThatOutputObject (objectToObtain: string): SolutionNode[] | undefined {
+  GetNodesThatOutputObject(objectToObtain: string): SolutionNode[] | undefined {
     // since the remainingNodes are a map index by output node
     // then a remainingNodes.Get will retrieve all matching nodes.
     const result: Set<SolutionNode> | undefined =
@@ -186,15 +186,15 @@ export class Solution {
     return []
   }
 
-  RemoveNode (node: SolutionNode): void {
+  RemoveNode(node: SolutionNode): void {
     this.remainingNodesRepo.RemoveNode(node)
   }
 
-  PushNameSegment (solutionName: string): void {
+  PushNameSegment(solutionName: string): void {
     this.solutionNames.push(solutionName)
   }
 
-  GetDisplayNamesConcatenated (): string {
+  GetDisplayNamesConcatenated(): string {
     let result = ''
     for (let i = 0; i < this.solutionNames.length; i += 1) {
       const symbol = i === 0 ? '' : '/'
@@ -203,23 +203,23 @@ export class Solution {
     return result
   }
 
-  AddRestrictions (restrictions: string[]): void {
+  AddRestrictions(restrictions: string[]): void {
     for (const restriction of restrictions) {
       this.restrictionsEncounteredDuringSolving.add(restriction)
     }
   }
 
-  GetAccumulatedRestrictions (): Set<string> {
+  GetAccumulatedRestrictions(): Set<string> {
     return this.restrictionsEncounteredDuringSolving
   }
 
-  GetRepoOfRemainingNodes (): SolutionNodeRepository {
+  GetRepoOfRemainingNodes(): SolutionNodeRepository {
     // we already remove nodes from this when we use them up
     // so returning the current node map is ok
     return this.remainingNodesRepo
   }
 
-  MergeInNodesForChapterCompletion (goalFlag: string): void {
+  MergeInNodesForChapterCompletion(goalFlag: string): void {
     const autos = this.remainingNodesRepo.GetAutos()
     for (const node of autos) {
       // find the auto that imports json
@@ -234,29 +234,29 @@ export class Solution {
     }
   }
 
-  GetMapOfVisibleThings (): ReadonlyMap<string, Set<string>> {
+  GetMapOfVisibleThings(): ReadonlyMap<string, Set<string>> {
     return this.startingThings
   }
 
-  SetAsArchived (): void {
+  SetAsArchived(): void {
     this.isArchived = true
   }
 
-  IsArchived (): boolean {
+  IsArchived(): boolean {
     return this.isArchived
   }
 
-  GetLastDisplayNameSegment (): string {
+  GetLastDisplayNameSegment(): string {
     return this.solutionNames[this.solutionNames.length - 1]
   }
 
-  CopyNameToVirginSolution (virginSolution: Solution): void {
+  CopyNameToVirginSolution(virginSolution: Solution): void {
     for (const nameSegment of this.solutionNames) {
       virginSolution.PushNameSegment(nameSegment)
     }
   }
 
-  FindNodeWithSomeInputForConjointToAttachTo (
+  FindNodeWithSomeInputForConjointToAttachTo(
     theConjoint: SolutionNode | null
   ): SolutionNode | null {
     for (const rootNode of this.goals.GetValues()) {
@@ -271,7 +271,7 @@ export class Solution {
     return null
   }
 
-  FindFirstAttachmentLeafForConjointRecursively (
+  FindFirstAttachmentLeafForConjointRecursively(
     theConjoint: SolutionNode | null,
     nodeToSearch: SolutionNode | null
   ): SolutionNode | null {
@@ -296,7 +296,7 @@ export class Solution {
     return null
   }
 
-  FindAnyNodeMatchingIdRecursively (id: number): SolutionNode | null {
+  FindAnyNodeMatchingIdRecursively(id: number): SolutionNode | null {
     for (const goal of this.goals.GetValues()) {
       const result = goal.FindAnyNodeMatchingIdRecursively(id)
       if (result != null) {
@@ -306,7 +306,7 @@ export class Solution {
     return null
   }
 
-  public GetRootNodeMap (): RootNodeMap {
+  public GetMapOfRootPieces(): RootNodeMap {
     return this.goals
   }
 }
