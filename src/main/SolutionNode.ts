@@ -288,17 +288,17 @@ export class SolutionNode {
 
   UpdateMapWithOutcomes (visibleNodes: Map<string, Set<string>>): void {
     if (this.happenings != null) {
-      for (const happ of this.happenings.array) {
-        switch (happ.happen) {
+      for (const happening of this.happenings.array) {
+        switch (happening.happen) {
           case Happen.FlagIsSet:
           case Happen.InvAppears:
           case Happen.PropAppears:
-            visibleNodes.set(happ.item, new Set<string>())
+            visibleNodes.set(happening.item, new Set<string>())
             break
           case Happen.InvGoes:
           case Happen.PropGoes:
           default:
-            visibleNodes.delete(happ.item)
+            visibleNodes.delete(happening.item)
             break
         }
       }
