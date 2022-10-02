@@ -21,7 +21,7 @@ export class SolutionNode {
   characterRestrictions: string[]
   happenings: Happenings | null
 
-  constructor(
+  constructor (
     id: number,
     conjoint: number,
     output: string,
@@ -78,7 +78,7 @@ export class SolutionNode {
     }
   }
 
-  CloneNodeAndEntireTree(incompleteNodeSet: Set<SolutionNode>): SolutionNode {
+  CloneNodeAndEntireTree (incompleteNodeSet: Set<SolutionNode>): SolutionNode {
     const clone = new SolutionNode(0, 0, this.output, '')
     clone.id = this.id
     clone.conjoint = this.conjoint
@@ -113,7 +113,7 @@ export class SolutionNode {
     return clone
   }
 
-  FindAnyNodeMatchingIdRecursively(id: number): SolutionNode | null {
+  FindAnyNodeMatchingIdRecursively (id: number): SolutionNode | null {
     if (this.id === id) { return this }
     for (const input of this.inputs) {
       const result = (input != null) ? input.FindAnyNodeMatchingIdRecursively(id) : null
@@ -122,10 +122,7 @@ export class SolutionNode {
     return null
   }
 
-  ProcessUntilCloning(solution: Solution, solutions: SolverViaRootNode, path: string): boolean {
-    path += this.output + '/'
-    if (this.type === SpecialNodes.VerifiedLeaf) { return false }// false just means keep processing.
-
+  private InternalLoopOfProcessUntilCloning (solution: Solution, solutions: SolverViaRootNode): boolean {
     for (let k = 0; k < this.inputs.length; k++) { // classic forloop useful because shared index on cloned node
       // without this following line, any clones will attempt to reclone themselves
       // and Solution.ProcessUntilCompletion will continue forever
@@ -234,39 +231,62 @@ export class SolutionNode {
         if (hasACloneJustBeenCreated) { return true }// yes is incomplete
       }
     }
+    return false
+  }
+
+  ProcessUntilCloning (solution: Solution, solutions: SolverViaRootNode, path: string): boolean {
+    path += this.output + '/'
+    if (this.type === SpecialNodes.VerifiedLeaf) { return false }// false just means keep processing.
 
     // this is the point we set it as completed
     solution.MarkNodeAsCompleted(this)
 
+    if (this.InternalLoopOfProcessUntilCloning(solution, solutions)) {
+      return true
+    }
+
     // now to process each of those nodes that have been filled out
-    for (const input of this.inputs) {
-      const inputNode = input
+    for (const inputNode of this.inputs) {
       if (inputNode != null) {
         if (inputNode.type === SpecialNodes.VerifiedLeaf) { continue }// this means its already been searched for in the map, without success.
         const hasACloneJustBeenCreated = inputNode.ProcessUntilCloning(solution, solutions, path)
         if (hasACloneJustBeenCreated) { return true }
       } else {
-        // assert(inputNode && "Input node=" + inputNode + " <-If this fails there is something wrong with the loop in first half of this method");
-        console.log(`Input node= ${inputNode} <-If this fails there is something wrong with the loop in first half of this method`)
+
+        // this case used to indicate something wrong with InternalLoopOfProcessUntilCloning
+        // because in the old days a solution just had one tree in it that was traversed in order
+        // With the multi-tree setup, the order can jump from one tree to another
+        // to another, so the order isn't clear. So instead we iterate multiple times
+        // to solve it.
+        //
+        // In the old days it said process until cloning. But it really meant
+        // process until cloning or finished - and we used some metric to determine
+        // whether the traversing was complete - if it wasn't, then we knew it was
+        // cloned.
+        //
+        // With this way, I think we need to choose something else....
+
+        // assert(inputNode && "Input node=" + inputNode + " <-If this fails there is something wrong with InternalLoopOfProcessUntilCloning");
+        // console.log('Input node= null <-If this fails there is something wrong with InternalLoopOfProcessUntilCloning')
       }
     }
 
     return false
   }
 
-  SetParent(parent: SolutionNode | null): void {
+  SetParent (parent: SolutionNode | null): void {
     this.parent = parent
   }
 
-  GetParent(): SolutionNode | null {
+  GetParent (): SolutionNode | null {
     return this.parent
   }
 
-  getRestrictions(): string[] {
+  getRestrictions (): string[] {
     return this.characterRestrictions
   }
 
-  UpdateMapWithOutcomes(visibleNodes: Map<string, Set<string>>): void {
+  UpdateMapWithOutcomes (visibleNodes: Map<string, Set<string>>): void {
     if (this.happenings != null) {
       for (const happ of this.happenings.array) {
         switch (happ.happen) {

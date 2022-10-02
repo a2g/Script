@@ -1,10 +1,10 @@
-import { SolutionNodeRepository } from '../main/SolutionNodeRepository.js';
-import { MixedObjectsAndVerb } from '../main/MixedObjectsAndVerb.js';
-import { Happenings } from '../main/Happenings.js';
-import { Mix } from '../main/Mix.js';
-import { ReadOnlyJsonInterface } from '../main/ReadOnlyJsonInterface.js';
-import { ReadOnlyJsonSingle } from '../main/ReadOnlyJsonSingle.js';
-import { SingleBigSwitch } from '../main/SingleBigSwitch.js';
+import { SolutionNodeRepository } from '../main/SolutionNodeRepository.js'
+import { MixedObjectsAndVerb } from '../main/MixedObjectsAndVerb.js'
+import { Happenings } from '../main/Happenings.js'
+import { Mix } from '../main/Mix.js'
+import { ReadOnlyJsonInterface } from '../main/ReadOnlyJsonInterface.js'
+import { ReadOnlyJsonSingle } from '../main/ReadOnlyJsonSingle.js'
+import { SingleBigSwitch } from '../main/SingleBigSwitch.js'
 
 /**
  * So the most important part of this class is that the data
@@ -13,164 +13,164 @@ import { SingleBigSwitch } from '../main/SingleBigSwitch.js';
  * in this case multiple, so that goes in there too.
  * */
 export class ReadOnlyViaArrayOfJson implements ReadOnlyJsonInterface {
-  readonly allProps: string[];
+  readonly allProps: string[]
 
-  readonly allFlags: string[];
+  readonly allFlags: string[]
 
-  readonly allInvs: string[];
+  readonly allInvs: string[]
 
-  readonly allChars: string[];
+  readonly allChars: string[]
 
-  readonly mapOfStartingThingsWithChars: Map<string, Set<string>>;
+  readonly mapOfStartingThingsWithChars: Map<string, Set<string>>
 
-  readonly startingInvSet: Set<string>;
+  readonly startingInvSet: Set<string>
 
-  readonly startingPropSet: Set<string>;
+  readonly startingPropSet: Set<string>
 
-  readonly startingFlagSet: Set<string>;
+  readonly startingFlagSet: Set<string>
 
-  readonly allScenes: ReadOnlyJsonSingle[];
+  readonly allScenes: ReadOnlyJsonSingle[]
 
-  readonly mapOfBags: Map<string, ReadOnlyJsonSingle>;
+  readonly mapOfBags: Map<string, ReadOnlyJsonSingle>
 
-  constructor(jsons: ReadOnlyJsonSingle[]) {
-    this.allScenes = jsons;
+  constructor (jsons: ReadOnlyJsonSingle[]) {
+    this.allScenes = jsons
 
     // create sets for the 3 member and 4 indirect sets
-    this.mapOfStartingThingsWithChars = new Map<string, Set<string>>();
-    this.mapOfBags = new Map<string, ReadOnlyJsonSingle>();
-    this.startingPropSet = new Set<string>();
-    this.startingInvSet = new Set<string>();
-    this.startingFlagSet = new Set<string>();
-    const setProps = new Set<string>();
-    const setFlags = new Set<string>();
-    const setInvs = new Set<string>();
-    const setChars = new Set<string>();
+    this.mapOfStartingThingsWithChars = new Map<string, Set<string>>()
+    this.mapOfBags = new Map<string, ReadOnlyJsonSingle>()
+    this.startingPropSet = new Set<string>()
+    this.startingInvSet = new Set<string>()
+    this.startingFlagSet = new Set<string>()
+    const setProps = new Set<string>()
+    const setFlags = new Set<string>()
+    const setInvs = new Set<string>()
+    const setChars = new Set<string>()
 
     // collate the 3 member and 4 indirect sets
     for (const json of this.allScenes.values()) {
-      json.AddStartingThingCharsToGivenMap(this.mapOfStartingThingsWithChars);
-      json.AddBagsToGivenMap(this.mapOfBags);
-      json.AddStartingPropsToGivenSet(this.startingPropSet);
-      json.AddStartingInvsToGivenSet(this.startingInvSet);
-      json.AddStartingFlagsToGivenSet(this.startingFlagSet);
-      json.AddPropsToGivenSet(setProps);
-      json.AddFlagsToGivenSet(setFlags);
-      json.AddInvsToGivenSet(setInvs);
-      json.AddCharsToGivenSet(setChars);
+      json.AddStartingThingCharsToGivenMap(this.mapOfStartingThingsWithChars)
+      json.AddBagsToGivenMap(this.mapOfBags)
+      json.AddStartingPropsToGivenSet(this.startingPropSet)
+      json.AddStartingInvsToGivenSet(this.startingInvSet)
+      json.AddStartingFlagsToGivenSet(this.startingFlagSet)
+      json.AddPropsToGivenSet(setProps)
+      json.AddFlagsToGivenSet(setFlags)
+      json.AddInvsToGivenSet(setInvs)
+      json.AddCharsToGivenSet(setChars)
     }
 
     // clean 3 member and 4 indirect sets
-    this.startingPropSet.delete('');
-    this.startingInvSet.delete('');
-    this.mapOfStartingThingsWithChars.delete('');
-    this.startingFlagSet.delete('');
-    setChars.delete('');
-    setProps.delete('');
-    setFlags.delete('');
-    setInvs.delete('');
+    this.startingPropSet.delete('')
+    this.startingInvSet.delete('')
+    this.mapOfStartingThingsWithChars.delete('')
+    this.startingFlagSet.delete('')
+    setChars.delete('')
+    setProps.delete('')
+    setFlags.delete('')
+    setInvs.delete('')
 
     // finally set arrays for the four
-    this.allProps = Array.from(setProps.values());
-    this.allFlags = Array.from(setFlags.values());
-    this.allInvs = Array.from(setInvs.values());
-    this.allChars = Array.from(setChars.values());
+    this.allProps = Array.from(setProps.values())
+    this.allFlags = Array.from(setFlags.values())
+    this.allInvs = Array.from(setInvs.values())
+    this.allChars = Array.from(setChars.values())
   }
 
-  GetArrayOfProps(): string[] {
-    return this.allProps;
+  GetArrayOfProps (): string[] {
+    return this.allProps
   }
 
-  GetArrayOfInvs(): string[] {
-    return this.allInvs;
+  GetArrayOfInvs (): string[] {
+    return this.allInvs
   }
 
-  GetArrayOfFlags(): string[] {
-    return this.allFlags;
+  GetArrayOfFlags (): string[] {
+    return this.allFlags
   }
 
-  static GetArrayOfSingleObjectVerbs(): string[] {
-    return ['grab', 'toggle'];
+  static GetArrayOfSingleObjectVerbs (): string[] {
+    return ['grab', 'toggle']
   }
 
-  GetArrayOfSingleObjectVerbs(): string[] {
-    return this.GetArrayOfSingleObjectVerbs();
+  GetArrayOfSingleObjectVerbs (): string[] {
+    return this.GetArrayOfSingleObjectVerbs()
   }
 
-  static GetArrayOfInitialStatesOfSingleObjectVerbs(): boolean[] {
-    return [true, true];
+  static GetArrayOfInitialStatesOfSingleObjectVerbs (): boolean[] {
+    return [true, true]
   }
 
-  GetArrayOfInitialStatesOfSingleObjectVerbs(): boolean[] {
-    return this.GetArrayOfInitialStatesOfSingleObjectVerbs();
+  GetArrayOfInitialStatesOfSingleObjectVerbs (): boolean[] {
+    return this.GetArrayOfInitialStatesOfSingleObjectVerbs()
   }
 
-  GetArrayOfInitialStatesOfFlags(): number[] {
-    const array: Array<number> = [];
+  GetArrayOfInitialStatesOfFlags (): number[] {
+    const array: number[] = []
     for (const flag of this.allFlags) {
-      array.push(flag.length > 0 ? 0 : 0); // I used value.length>0 to get rid of the unused variable warnin
+      array.push(flag.length > 0 ? 0 : 0) // I used value.length>0 to get rid of the unused variable warnin
     }
-    return array;
+    return array
   }
 
-  GetSetOfStartingProps(): Set<string> {
-    return this.startingPropSet;
+  GetSetOfStartingProps (): Set<string> {
+    return this.startingPropSet
   }
 
-  GetSetOfStartingInvs(): Set<string> {
-    return this.startingInvSet;
+  GetSetOfStartingInvs (): Set<string> {
+    return this.startingInvSet
   }
 
-  GetMapOfAllStartingThings(): Map<string, Set<string>> {
-    return this.mapOfStartingThingsWithChars;
+  GetMapOfAllStartingThings (): Map<string, Set<string>> {
+    return this.mapOfStartingThingsWithChars
   }
 
-  GetStartingThingsForCharacter(charName: string): Set<string> {
-    const startingThingSet = new Set<string>();
+  GetStartingThingsForCharacter (charName: string): Set<string> {
+    const startingThingSet = new Set<string>()
     this.mapOfStartingThingsWithChars.forEach(
       (value: Set<string>, thing: string) => {
         for (const item of value) {
           if (item === charName) {
-            startingThingSet.add(thing);
-            break;
+            startingThingSet.add(thing)
+            break
           }
         }
       }
-    );
+    )
 
-    return startingThingSet;
+    return startingThingSet
   }
 
-  GetArrayOfInitialStatesOfProps(): boolean[] {
+  GetArrayOfInitialStatesOfProps (): boolean[] {
     // construct array of booleans in exact same order as ArrayOfProps - so they can be correlated
-    const startingSet = this.GetSetOfStartingProps();
-    const visibilities: Array<boolean> = [];
+    const startingSet = this.GetSetOfStartingProps()
+    const visibilities: boolean[] = []
     for (const prop of this.allProps) {
-      const isVisible = startingSet.has(prop);
-      visibilities.push(isVisible);
+      const isVisible = startingSet.has(prop)
+      visibilities.push(isVisible)
     }
 
-    return visibilities;
+    return visibilities
   }
 
-  GetArrayOfInitialStatesOfInvs(): boolean[] {
+  GetArrayOfInitialStatesOfInvs (): boolean[] {
     // construct array of booleans in exact same order as ArrayOfProps - so they can be correlated
-    const startingSet = this.GetSetOfStartingInvs();
-    const visibilities: Array<boolean> = [];
+    const startingSet = this.GetSetOfStartingInvs()
+    const visibilities: boolean[] = []
     for (const inv of this.allInvs) {
-      const isVisible = startingSet.has(inv);
-      visibilities.push(isVisible);
+      const isVisible = startingSet.has(inv)
+      visibilities.push(isVisible)
     }
 
-    return visibilities;
+    return visibilities
   }
 
-  GetArrayOfCharacters(): string[] {
-    return this.allChars;
+  GetArrayOfCharacters (): string[] {
+    return this.allChars
   }
 
-  GenerateSolutionNodesMappedByInput(): SolutionNodeRepository {
-    const solutionNodesMappedByInput = new SolutionNodeRepository(null);
+  GenerateSolutionNodesMappedByInput (): SolutionNodeRepository {
+    const solutionNodesMappedByInput = new SolutionNodeRepository(null)
 
     for (const json of this.allScenes) {
       const notUsed = new MixedObjectsAndVerb(
@@ -179,27 +179,27 @@ export class ReadOnlyViaArrayOfJson implements ReadOnlyJsonInterface {
         '',
         '',
         'ScenePreAggregator'
-      );
-      SingleBigSwitch(json.GetFilename(), solutionNodesMappedByInput, notUsed);
+      )
+      SingleBigSwitch(json.GetFilename(), solutionNodesMappedByInput, notUsed)
     }
-    return solutionNodesMappedByInput;
+    return solutionNodesMappedByInput
   }
 
-  FindHappeningsIfAny(objects: MixedObjectsAndVerb): Happenings | null {
+  FindHappeningsIfAny (objects: MixedObjectsAndVerb): Happenings | null {
     for (const json of this.allScenes) {
       const result = SingleBigSwitch(
         json.GetFilename(),
         null,
         objects
-      ) as unknown as Happenings | null;
+      ) as unknown as Happenings | null
       if (result != null) {
-        return result;
+        return result
       }
     }
-    return null;
+    return null
   }
 
-  GetMapOfBags(): Map<string, ReadOnlyJsonSingle> {
-    return this.mapOfBags;
+  GetMapOfBags (): Map<string, ReadOnlyJsonSingle> {
+    return this.mapOfBags
   }
 }

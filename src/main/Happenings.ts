@@ -5,7 +5,7 @@ export class Happenings {
   text: string
   array: Happening[]
 
-  constructor() {
+  constructor () {
     this.verb = ''
     this.text = ''
     this.array = new Array<Happening>()
