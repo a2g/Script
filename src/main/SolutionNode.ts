@@ -114,7 +114,9 @@ export class SolutionNode {
   }
 
   FindAnyNodeMatchingIdRecursively (id: number): SolutionNode | null {
-    if (this.id === id) { return this }
+    if (this.id === id) {
+      return this
+    }
     for (const input of this.inputs) {
       const result = (input != null) ? input.FindAnyNodeMatchingIdRecursively(id) : null
       if (result != null) { return result }
@@ -217,6 +219,7 @@ export class SolutionNode {
                   }
                 } else {
                   console.log('theConjoinNode is null - so we are cloning wrong')
+                  theSolution.FindAnyNodeMatchingIdRecursively(this.id)
                 }
               } else {
                 console.log('theConjoinNode is null - so we are cloning wrong')
