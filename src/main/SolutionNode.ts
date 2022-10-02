@@ -186,7 +186,9 @@ export class SolutionNode {
           // ^^ this might need to recursively ask for parent, since there are no
           // many rout nodes
 
-          if (isCloneBeingUsed) { solutions.GetSolutions().push(theSolution) }
+          if (isCloneBeingUsed) {
+            solutions.GetSolutions().push(theSolution)
+          }
 
           // rediscover the current node in theSolution - again because we might be cloned
           let theNode = null
@@ -205,6 +207,7 @@ export class SolutionNode {
             theSolution.SetNodeIncomplete(theMatchingNode)
             theSolution.AddRestrictions(theMatchingNode.getRestrictions())
 
+            /*
             if (theNode.conjoint > 0) {
               const theConjoinNode = theSolution.FindAnyNodeMatchingIdRecursively(this.id)
               if (theConjoinNode != null) {
@@ -226,7 +229,7 @@ export class SolutionNode {
               } else {
                 console.log('theConjoinNode is null - so we are cloning wrong')
               }
-            }
+            } */
           } else {
             console.log('node is null - so we are cloning wrong')
           }
