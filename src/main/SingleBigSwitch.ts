@@ -8,6 +8,7 @@ import { MixedObjectsAndVerb } from '../main/MixedObjectsAndVerb.js'
 import { SolutionNodeRepository } from '../main/SolutionNodeRepository.js'
 
 import _ from '../../jigsaw.json'
+import { Stringify } from './Stringify.js'
 
 function isNullOrUndefined (something: any): boolean {
   return typeof something === 'undefined' || something === null
@@ -48,27 +49,27 @@ export function SingleBigSwitch (
         count = gate.count
       }
 
-      const prop1 = `${gate.prop1}`
-      const prop2 = `${gate.prop2}`
-      const prop3 = `${gate.prop3}`
-      const prop4 = `${gate.prop4}`
-      const prop5 = `${gate.prop5}`
-      const prop6 = `${gate.prop6}`
-      const prop7 = `${gate.prop7}`
-      const flag1 = `${gate.flag1}`
-      const flag2 = `${gate.flag2}`
-      const flag3 = `${gate.flag3}`
-      const flag4 = `${gate.flag4}`
-      const flag5 = `${gate.flag5}`
-      const inv1 = `${gate.inv1}`
-      const inv2 = `${gate.inv2}`
-      const inv3 = `${gate.inv3}`
+      const prop1 = Stringify(gate.prop1)
+      const prop2 = Stringify(gate.prop2)
+      const prop3 = Stringify(gate.prop3)
+      const prop4 = Stringify(gate.prop4)
+      const prop5 = Stringify(gate.prop5)
+      const prop6 = Stringify(gate.prop6)
+      const prop7 = Stringify(gate.prop7)
+      const flag1 = Stringify(gate.flag1)
+      const flag2 = Stringify(gate.flag2)
+      const flag3 = Stringify(gate.flag3)
+      const flag4 = Stringify(gate.flag4)
+      const flag5 = Stringify(gate.flag5)
+      const inv1 = Stringify(gate.inv1)
+      const inv2 = Stringify(gate.inv2)
+      const inv3 = Stringify(gate.inv3)
       const happs = new Happenings()
       const { restrictions } = gate
       switch (gateType) {
         case _.AUTO_FLAG1_CAUSES_IMPORT_OF_JSON:
           if (solutionNodesMappedByInput != null) {
-            const output = `${gate.fileToMerge}`
+            const output = Stringify(gate.fileToMerge)
             const input = flag1
             solutionNodesMappedByInput.AddToMap(
               new SolutionNode(

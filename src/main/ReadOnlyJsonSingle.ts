@@ -7,6 +7,7 @@ import { Mix } from '../main/Mix.js'
 import { ReadOnlyJsonInterface } from '../main/ReadOnlyJsonInterface.js'
 import { ReadOnlyJsonInterfaceCollator } from '../main/ReadOnlyJsonInterfaceCollator.js'
 import { SingleBigSwitch } from '../main/SingleBigSwitch.js'
+import { Stringify } from './Stringify.js'
 /**
  * So the most important part of this class is that the data
  * in it is read only. So I've put that in the name.
@@ -52,32 +53,32 @@ implements ReadOnlyJsonInterface, ReadOnlyJsonInterfaceCollator {
     // possible object names. ie basically all the enums
     // but without needing the enum file
     for (const gate of scenario.gates) {
-      setInvs.add(`${gate.inv1}`)
-      setInvs.add(`${gate.inv2}`)
-      setInvs.add(`${gate.inv3}`)
-      setFlags.add(`${gate.flag1}`)
-      setFlags.add(`${gate.flag2}`)
-      setProps.add(`${gate.prop1}`)
-      setProps.add(`${gate.prop2}`)
-      setProps.add(`${gate.prop3}`)
-      setProps.add(`${gate.prop4}`)
-      setProps.add(`${gate.prop5}`)
-      setProps.add(`${gate.prop6}`)
-      setProps.add(`${gate.prop7}`)
+      setInvs.add(Stringify(gate.inv1))
+      setInvs.add(Stringify(gate.inv2))
+      setInvs.add(Stringify(gate.inv3))
+      setFlags.add(Stringify(gate.flag1))
+      setFlags.add(Stringify(gate.flag2))
+      setProps.add(Stringify(gate.prop1))
+      setProps.add(Stringify(gate.prop2))
+      setProps.add(Stringify(gate.prop3))
+      setProps.add(Stringify(gate.prop4))
+      setProps.add(Stringify(gate.prop5))
+      setProps.add(Stringify(gate.prop6))
+      setProps.add(Stringify(gate.prop7))
 
       if (gate.conjoint != null) {
-        setInvs.add(`${gate.conjoint.inv1}`)
-        setInvs.add(`${gate.conjoint.inv2}`)
-        setInvs.add(`${gate.conjoint.inv3}`)
-        setFlags.add(`${gate.conjoint.flag1}`)
-        setFlags.add(`${gate.conjoint.flag2}`)
-        setProps.add(`${gate.conjoint.prop1}`)
-        setProps.add(`${gate.conjoint.prop2}`)
-        setProps.add(`${gate.conjoint.prop3}`)
-        setProps.add(`${gate.conjoint.prop4}`)
-        setProps.add(`${gate.conjoint.prop5}`)
-        setProps.add(`${gate.conjoint.prop6}`)
-        setProps.add(`${gate.conjoint.prop7}`)
+        setInvs.add(Stringify(gate.conjoint.inv1))
+        setInvs.add(Stringify(gate.conjoint.inv2))
+        setInvs.add(Stringify(gate.conjoint.inv3))
+        setFlags.add(Stringify(gate.conjoint.flag1))
+        setFlags.add(Stringify(gate.conjoint.flag2))
+        setProps.add(Stringify(gate.conjoint.prop1))
+        setProps.add(Stringify(gate.conjoint.prop2))
+        setProps.add(Stringify(gate.conjoint.prop3))
+        setProps.add(Stringify(gate.conjoint.prop4))
+        setProps.add(Stringify(gate.conjoint.prop5))
+        setProps.add(Stringify(gate.conjoint.prop6))
+        setProps.add(Stringify(gate.conjoint.prop7))
       }
     }
 
@@ -120,7 +121,7 @@ implements ReadOnlyJsonInterface, ReadOnlyJsonInterfaceCollator {
       scenario.startingThings !== null
     ) {
       for (const thing of scenario.startingThings) {
-        const theThing = `${thing.thing}`
+        const theThing = Stringify(thing.thing)
         if (theThing.startsWith('inv')) {
           this.startingInvSet.add(theThing)
         }
@@ -367,7 +368,7 @@ implements ReadOnlyJsonInterface, ReadOnlyJsonInterfaceCollator {
     return this.filename
   }
 
-  public GetDirectlyAccessibleGoals (): string[] {
+  public GetNamesOfPiecesStuckToSubBoxes (): string[] {
     const array: string[] = []
     for (const key of this.mapOfBags.keys()) {
       array.push(key)

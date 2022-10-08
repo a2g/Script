@@ -7,12 +7,9 @@ import { SolutionNodeRepository } from '../main/SolutionNodeRepository.js'
 export class SolverViaRootNode {
   private solutions: Solution[]
 
-  private readonly mapOfStartingThingsAndWhoCanHaveThem: Map<
-    string,
-    Set<string>
-  >
+  private readonly mapOfStartingThingsAndWhoCanHaveThem: Map<string, Set<string>>
 
-  constructor(mapOfStartingThingsAndWhoCanHaveThem: Map<string, Set<string>>) {
+  constructor (mapOfStartingThingsAndWhoCanHaveThem: Map<string, Set<string>>) {
     this.solutions = []
     this.mapOfStartingThingsAndWhoCanHaveThem = new Map<string, Set<string>>()
     mapOfStartingThingsAndWhoCanHaveThem.forEach(
@@ -26,7 +23,7 @@ export class SolverViaRootNode {
     )
   }
 
-  InitializeByCopyingThese(
+  InitializeByCopyingThese (
     solutionNodesMappedByInput: SolutionNodeRepository,
     mapOfStartingThingsAndWhoCanHaveThem: Map<string, Set<string>>
   ): void {
@@ -36,10 +33,11 @@ export class SolverViaRootNode {
       mapOfStartingThingsAndWhoCanHaveThem
     )
     this.solutions.push(solution)
+
     solution.FindTheFlagWinAndPutItInRootNodeMap() // <-- do I need to call this?
   }
 
-  IsAnyNodesUnprocessed(): boolean {
+  IsAnyNodesUnprocessed (): boolean {
     let isAnyNodesUnprocessed = false
     this.solutions.forEach((solution: Solution) => {
       if (solution.IsAnyNodesUnprocessed()) {
@@ -49,7 +47,7 @@ export class SolverViaRootNode {
     return isAnyNodesUnprocessed
   }
 
-  SolvePartiallyUntilCloning(): boolean {
+  SolvePartiallyUntilCloning (): boolean {
     let hasACloneJustBeenCreated = false
     this.solutions.forEach((solution: Solution) => {
       if (solution.IsAnyNodesUnprocessed()) {
@@ -63,7 +61,7 @@ export class SolverViaRootNode {
     return hasACloneJustBeenCreated
   }
 
-  SolveUntilZeroUnprocessedNodes(): void {
+  SolveUntilZeroUnprocessedNodes (): void {
     do {
       this.SolvePartiallyUntilCloning()
     } while (this.IsAnyNodesUnprocessed())
@@ -73,7 +71,7 @@ export class SolverViaRootNode {
     )
   }
 
-  ProcessChaptersToEndAndUpdateList(): void {
+  ProcessChaptersToEndAndUpdateList (): void {
     // this needs to be a member function because we are overwriting this.solutions
     const newList = []
     for (const oldSolution of this.solutions) {
@@ -82,7 +80,7 @@ export class SolverViaRootNode {
     this.solutions = newList
   }
 
-  GenerateSolutionNamesAndPush(
+  GenerateSolutionNamesAndPush (
     mapOfStartingThingsAndWhoHasThem: Map<string, Set<string>>
   ): void {
     for (let i = 0; i < this.solutions.length; i += 1) {
@@ -148,7 +146,7 @@ export class SolverViaRootNode {
     }
   }
 
-  GetSolutions(): Solution[] {
+  GetSolutions (): Solution[] {
     return this.solutions
   }
 }

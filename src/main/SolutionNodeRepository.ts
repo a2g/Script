@@ -8,7 +8,7 @@ import { SolutionNode } from '../main/SolutionNode'
 export class SolutionNodeRepository {
   private readonly solutionNodeMap: Map<string, Set<SolutionNode>>
 
-  constructor(cloneFromMe: SolutionNodeRepository | null) {
+  constructor (cloneFromMe: SolutionNodeRepository | null) {
     this.solutionNodeMap = new Map<string, Set<SolutionNode>>()
     if (cloneFromMe != null) {
       for (const set of cloneFromMe.solutionNodeMap.values()) {
@@ -27,7 +27,7 @@ export class SolutionNodeRepository {
     }
   }
 
-  GetAutos(): SolutionNode[] {
+  GetAutos (): SolutionNode[] {
     const toReturn = new Array<SolutionNode>()
     this.solutionNodeMap.forEach((value: Set<SolutionNode>) => {
       value.forEach((node: SolutionNode) => {
@@ -39,27 +39,27 @@ export class SolutionNodeRepository {
     return toReturn
   }
 
-  HasAnyNodesThatOutputObject(objectToObtain: string): boolean {
+  HasAnyNodesThatOutputObject (objectToObtain: string): boolean {
     return this.solutionNodeMap.has(objectToObtain)
   }
 
-  GetNodesThatOutputObject(objectToObtain: string): Set<SolutionNode> | undefined {
+  GetNodesThatOutputObject (objectToObtain: string): Set<SolutionNode> | undefined {
     return this.solutionNodeMap.get(objectToObtain)
   }
 
-  Has(objectToObtain: string): boolean {
+  Has (objectToObtain: string): boolean {
     return this.solutionNodeMap.has(objectToObtain)
   }
 
-  Get(objectToObtain: string): Set<SolutionNode> | undefined {
+  Get (objectToObtain: string): Set<SolutionNode> | undefined {
     return this.solutionNodeMap.get(objectToObtain)
   }
 
-  GetValues(): IterableIterator<Set<SolutionNode>> {
+  GetValues (): IterableIterator<Set<SolutionNode>> {
     return this.solutionNodeMap.values()
   }
 
-  AddToMap(t: SolutionNode): void {
+  AddToMap (t: SolutionNode): void {
     // initiatize array, if it hasn't yet been
     if (!this.solutionNodeMap.has(t.output)) {
       this.solutionNodeMap.set(t.output, new Set<SolutionNode>())
@@ -68,7 +68,7 @@ export class SolutionNodeRepository {
     this.solutionNodeMap.get(t.output)?.add(t)
   }
 
-  RemoveNode(node: SolutionNode): void {
+  RemoveNode (node: SolutionNode): void {
     if (node.count - 1 <= 0) {
       const key = node.output
       if (this.solutionNodeMap.has(key)) {
@@ -85,7 +85,7 @@ export class SolutionNodeRepository {
     }
   }
 
-  Size(): number {
+  Size (): number {
     let count = 0
     for (const set of this.solutionNodeMap.values()) {
       count += set.size
@@ -93,11 +93,11 @@ export class SolutionNodeRepository {
     return count
   }
 
-  MergeInNodesFromScene(json: ReadOnlyJsonSingle): void {
+  MergeInNodesFromScene (json: ReadOnlyJsonSingle): void {
     json.AddAllSolutionNodesToGivenMap(this)
   }
 
-  ContainsId(idToMatch: number): boolean {
+  ContainsId (idToMatch: number): boolean {
     for (const set of this.solutionNodeMap.values()) {
       for (const node of set) {
         if (node.id === idToMatch) { return true }
