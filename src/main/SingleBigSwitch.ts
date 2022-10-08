@@ -22,7 +22,7 @@ let globalId = 1
 
 export function SingleBigSwitch (
   filename: string,
-  solutionNodesMappedByInput: SolutionNodeRepository | null,
+  piecesMappedByOutput: SolutionNodeRepository | null,
   objects: MixedObjectsAndVerb
 ): Happenings | null {
   const text = readFileSync(filename, 'utf-8')
@@ -68,10 +68,10 @@ export function SingleBigSwitch (
       const { restrictions } = gate
       switch (gateType) {
         case _.AUTO_FLAG1_CAUSES_IMPORT_OF_JSON:
-          if (solutionNodesMappedByInput != null) {
+          if (piecesMappedByOutput != null) {
             const output = Stringify(gate.fileToMerge)
             const input = flag1
-            solutionNodesMappedByInput.AddToMap(
+            piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
               new SolutionNode(
                 id1,
                 id2,
@@ -86,7 +86,7 @@ export function SingleBigSwitch (
           }
           break
         case _.AUTO_PROP1_BECOMES_PROP2_BY_PROPS:
-          if (solutionNodesMappedByInput != null) {
+          if (piecesMappedByOutput != null) {
             const input1 = prop1
             const output = prop2
             const input2 = prop3
@@ -94,7 +94,7 @@ export function SingleBigSwitch (
             const input4 = prop5
             const input5 = prop6
             const input6 = prop7
-            solutionNodesMappedByInput.AddToMap(
+            piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
               new SolutionNode(
                 id1,
                 id2,
@@ -115,10 +115,10 @@ export function SingleBigSwitch (
           break
 
         case _.AUTO_FLAG1_SET_BY_FLAG2:
-          if (solutionNodesMappedByInput != null) {
+          if (piecesMappedByOutput != null) {
             const output = flag1
             const input = flag2
-            solutionNodesMappedByInput.AddToMap(
+            piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
               new SolutionNode(
                 id1,
                 id2,
@@ -133,7 +133,7 @@ export function SingleBigSwitch (
           }
           break
         case _.AUTO_FLAG1_SET_BY_PROPS:
-          if (solutionNodesMappedByInput != null) {
+          if (piecesMappedByOutput != null) {
             const output = flag1
             const input1 = prop1
             const input2 = prop2
@@ -141,7 +141,7 @@ export function SingleBigSwitch (
             const input4 = prop4
             const input5 = prop5
             const input6 = prop6
-            solutionNodesMappedByInput.AddToMap(
+            piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
               new SolutionNode(
                 id1,
                 id2,
@@ -161,12 +161,12 @@ export function SingleBigSwitch (
           }
           break
         case _.AUTO_FLAG1_SET_BY_INVS:
-          if (solutionNodesMappedByInput != null) {
+          if (piecesMappedByOutput != null) {
             const output = flag1
             const input1 = inv1
             const input2 = inv2
             const input3 = inv3
-            solutionNodesMappedByInput.AddToMap(
+            piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
               new SolutionNode(
                 id1,
                 id2,
@@ -186,10 +186,10 @@ export function SingleBigSwitch (
           happs.text = `You examine the ${prop1} and find a ${inv1}`
           // ly don't mention what happen to the prop you clicked on.  "\n You now have a" + inv1;
           happs.array.push(new Happening(Happen.InvAppears, inv1))
-          if (solutionNodesMappedByInput != null) {
+          if (piecesMappedByOutput != null) {
             const output = inv1
             const inputA = prop1
-            solutionNodesMappedByInput.AddToMap(
+            piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
               new SolutionNode(
                 id1,
                 id2,
@@ -211,11 +211,11 @@ export function SingleBigSwitch (
           happs.array.push(new Happening(Happen.InvGoes, inv1))
           happs.array.push(new Happening(Happen.PropStays, prop1))
 
-          if (solutionNodesMappedByInput != null) {
+          if (piecesMappedByOutput != null) {
             const output = flag1
             const inputA = inv1
             const inputB = prop1
-            solutionNodesMappedByInput.AddToMap(
+            piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
               new SolutionNode(
                 id1,
                 id2,
@@ -243,13 +243,13 @@ export function SingleBigSwitch (
           if (prop3.length > 0) {
             happs.array.push(new Happening(Happen.PropStays, prop3))
           }
-          if (solutionNodesMappedByInput != null) {
+          if (piecesMappedByOutput != null) {
             const output = flag1
             const inputA = inv1
             const inputB = prop1
             const inputC = prop2
             const inputD = prop3
-            solutionNodesMappedByInput.AddToMap(
+            piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
               new SolutionNode(
                 id1,
                 id2,
@@ -274,11 +274,11 @@ export function SingleBigSwitch (
           happs.array.push(new Happening(Happen.InvStays, inv1))
           happs.array.push(new Happening(Happen.InvStays, inv2))
           happs.array.push(new Happening(Happen.FlagIsSet, flag1))
-          if (solutionNodesMappedByInput != null) {
+          if (piecesMappedByOutput != null) {
             const inputA = inv1
             const inputB = inv2
             const output = flag1
-            solutionNodesMappedByInput.AddToMap(
+            piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
               new SolutionNode(
                 id1,
                 id2,
@@ -301,11 +301,11 @@ export function SingleBigSwitch (
           happs.array.push(new Happening(Happen.InvStays, inv1))
           happs.array.push(new Happening(Happen.PropStays, prop1))
           happs.array.push(new Happening(Happen.FlagIsSet, flag1))
-          if (solutionNodesMappedByInput != null) {
+          if (piecesMappedByOutput != null) {
             const inputA = inv1
             const inputB = prop1
             const output = flag1
-            solutionNodesMappedByInput.AddToMap(
+            piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
               new SolutionNode(
                 id1,
                 id2,
@@ -327,11 +327,11 @@ export function SingleBigSwitch (
           happs.array.push(new Happening(Happen.InvStays, inv1))
           happs.array.push(new Happening(Happen.PropGoes, prop1))
           happs.array.push(new Happening(Happen.FlagIsSet, flag1))
-          if (solutionNodesMappedByInput != null) {
+          if (piecesMappedByOutput != null) {
             const inputA = inv1
             const inputB = prop1
             const output = flag1
-            solutionNodesMappedByInput.AddToMap(
+            piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
               new SolutionNode(
                 id1,
                 id2,
@@ -353,7 +353,7 @@ export function SingleBigSwitch (
           happs.array.push(new Happening(Happen.InvStays, inv1))
           happs.array.push(new Happening(Happen.PropStays, prop1))
           happs.array.push(new Happening(Happen.FlagIsSet, flag1))
-          if (solutionNodesMappedByInput != null) {
+          if (piecesMappedByOutput != null) {
             const output = flag1
             const inputA = inv1
             const inputB = prop1
@@ -361,7 +361,7 @@ export function SingleBigSwitch (
             const inputD = flag3
             const inputE = flag4
             const inputF = flag5
-            solutionNodesMappedByInput.AddToMap(
+            piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
               new SolutionNode(
                 id1,
                 id2,
@@ -387,11 +387,11 @@ export function SingleBigSwitch (
           happs.array.push(new Happening(Happen.PropStays, prop1))
           happs.array.push(new Happening(Happen.PropStays, prop2))
           happs.array.push(new Happening(Happen.FlagIsSet, flag1))
-          if (solutionNodesMappedByInput != null) {
+          if (piecesMappedByOutput != null) {
             const inputA = prop1
             const inputB = prop2
             const output = flag1
-            solutionNodesMappedByInput.AddToMap(
+            piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
               new SolutionNode(
                 id1,
                 id2,
@@ -413,12 +413,12 @@ export function SingleBigSwitch (
           happs.array.push(new Happening(Happen.InvGoes, inv1))
           happs.array.push(new Happening(Happen.InvAppears, inv2))
           happs.array.push(new Happening(Happen.PropStays, prop1))
-          if (solutionNodesMappedByInput != null) {
+          if (piecesMappedByOutput != null) {
             // keeping prop1
             const inputA = inv1
             const inputB = prop1
             const output = inv2
-            solutionNodesMappedByInput.AddToMap(
+            piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
               new SolutionNode(
                 id1,
                 id2,
@@ -439,11 +439,11 @@ export function SingleBigSwitch (
           happs.text = `Flag is set ${flag1}`
           happs.array.push(new Happening(Happen.InvGoes, inv1))
           happs.array.push(new Happening(Happen.FlagIsSet, flag1))
-          if (solutionNodesMappedByInput != null) {
+          if (piecesMappedByOutput != null) {
             const inputA = inv1
             const inputB = prop1
             const output = flag1
-            solutionNodesMappedByInput.AddToMap(
+            piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
               new SolutionNode(
                 id1,
                 id2,
@@ -464,11 +464,11 @@ export function SingleBigSwitch (
           happs.text = gate.text
           happs.array.push(new Happening(Happen.PropGoes, prop1))
           happs.array.push(new Happening(Happen.PropAppears, prop2))
-          if (solutionNodesMappedByInput != null) {
+          if (piecesMappedByOutput != null) {
             const inputA = inv1
             const inputB = prop1
             const output = prop2
-            solutionNodesMappedByInput.AddToMap(
+            piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
               new SolutionNode(
                 id1,
                 id2,
@@ -489,11 +489,11 @@ export function SingleBigSwitch (
           happs.text = gate.text
           happs.array.push(new Happening(Happen.InvGoes, inv1))
           happs.array.push(new Happening(Happen.InvAppears, inv2))
-          if (solutionNodesMappedByInput != null) {
+          if (piecesMappedByOutput != null) {
             const inputA = prop1
             const inputB = inv1
             const output = inv2
-            solutionNodesMappedByInput.AddToMap(
+            piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
               new SolutionNode(
                 id1,
                 id2,
@@ -514,11 +514,11 @@ export function SingleBigSwitch (
           happs.text = gate.text
           happs.array.push(new Happening(Happen.InvGoes, inv1))
           happs.array.push(new Happening(Happen.PropAppears, prop2))
-          if (solutionNodesMappedByInput != null) {
+          if (piecesMappedByOutput != null) {
             const inputA = prop1
             const inputB = inv1
             const output = prop2
-            solutionNodesMappedByInput.AddToMap(
+            piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
               new SolutionNode(
                 id1,
                 id2,
@@ -540,12 +540,12 @@ export function SingleBigSwitch (
           happs.array.push(new Happening(Happen.InvGoes, inv1))
           happs.array.push(new Happening(Happen.InvGoes, inv2))
           happs.array.push(new Happening(Happen.InvAppears, inv3))
-          if (solutionNodesMappedByInput != null) {
+          if (piecesMappedByOutput != null) {
             // losing all
             const inputA = inv1
             const inputB = inv2
             const output = inv3
-            solutionNodesMappedByInput.AddToMap(
+            piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
               new SolutionNode(
                 id1,
                 id2,
@@ -567,12 +567,12 @@ export function SingleBigSwitch (
           happs.array.push(new Happening(Happen.InvStays, inv1))
           happs.array.push(new Happening(Happen.InvStays, inv2))
           happs.array.push(new Happening(Happen.InvAppears, inv3))
-          if (solutionNodesMappedByInput != null) {
+          if (piecesMappedByOutput != null) {
             // losing none
             const inputA = inv1
             const inputB = inv2
             const output = inv3
-            solutionNodesMappedByInput.AddToMap(
+            piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
               new SolutionNode(
                 id1,
                 id2,
@@ -594,12 +594,12 @@ export function SingleBigSwitch (
           happs.array.push(new Happening(Happen.InvGoes, inv1))
           happs.array.push(new Happening(Happen.InvAppears, inv2))
           happs.array.push(new Happening(Happen.InvStays, inv3))
-          if (solutionNodesMappedByInput != null) {
+          if (piecesMappedByOutput != null) {
             // losing inv
             const inputA = inv1
             const output = inv2
             const inputB = inv3
-            solutionNodesMappedByInput.AddToMap(
+            piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
               new SolutionNode(
                 id1,
                 id2,
@@ -621,12 +621,12 @@ export function SingleBigSwitch (
           happs.array.push(new Happening(Happen.InvGoes, inv1))
           happs.array.push(new Happening(Happen.InvAppears, inv2))
           happs.array.push(new Happening(Happen.PropStays, prop1))
-          if (solutionNodesMappedByInput != null) {
+          if (piecesMappedByOutput != null) {
             // keeping prop1
             const inputA = inv1
             const output = inv2
             const inputB = prop1
-            solutionNodesMappedByInput.AddToMap(
+            piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
               new SolutionNode(
                 id1,
                 id2,
@@ -648,12 +648,12 @@ export function SingleBigSwitch (
           happs.array.push(new Happening(Happen.InvGoes, inv1))
           happs.array.push(new Happening(Happen.InvAppears, inv2))
           happs.array.push(new Happening(Happen.InvGoes, inv3))
-          if (solutionNodesMappedByInput != null) {
+          if (piecesMappedByOutput != null) {
             // losing inv
             const inputA = inv1
             const output = inv2
             const inputB = inv3
-            solutionNodesMappedByInput.AddToMap(
+            piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
               new SolutionNode(
                 id1,
                 id2,
@@ -675,11 +675,11 @@ export function SingleBigSwitch (
           happs.array.push(new Happening(Happen.InvGoes, inv1))
           happs.array.push(new Happening(Happen.PropStays, prop1))
           happs.array.push(new Happening(Happen.PropAppears, prop2))
-          if (solutionNodesMappedByInput != null) {
+          if (piecesMappedByOutput != null) {
             const inputA = inv1
             const inputB = prop1
             const output = prop2
-            solutionNodesMappedByInput.AddToMap(
+            piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
               new SolutionNode(
                 id1,
                 id2,
@@ -702,11 +702,11 @@ export function SingleBigSwitch (
           happs.array.push(new Happening(Happen.InvAppears, inv1))
           happs.array.push(new Happening(Happen.InvGoes, inv2))
           happs.array.push(new Happening(Happen.PropGoes, prop1))
-          if (solutionNodesMappedByInput != null) {
+          if (piecesMappedByOutput != null) {
             const output = inv1
             const inputA = inv2
             const inputB = prop1
-            solutionNodesMappedByInput.AddToMap(
+            piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
               new SolutionNode(
                 id1,
                 id2,
@@ -728,11 +728,11 @@ export function SingleBigSwitch (
           happs.array.push(new Happening(Happen.InvAppears, inv1))
           happs.array.push(new Happening(Happen.InvStays, inv2))
           happs.array.push(new Happening(Happen.PropStays, prop1))
-          if (solutionNodesMappedByInput != null) {
+          if (piecesMappedByOutput != null) {
             const output = inv1
             const inputA = inv2
             const inputB = prop1
-            solutionNodesMappedByInput.AddToMap(
+            piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
               new SolutionNode(
                 id1,
                 id2,
@@ -754,11 +754,11 @@ export function SingleBigSwitch (
           happs.array.push(new Happening(Happen.InvAppears, inv1))
           happs.array.push(new Happening(Happen.InvGoes, inv2))
           happs.array.push(new Happening(Happen.PropStays, prop1))
-          if (solutionNodesMappedByInput != null) {
+          if (piecesMappedByOutput != null) {
             const output = inv1
             const inputA = inv2
             const inputB = prop1
-            solutionNodesMappedByInput.AddToMap(
+            piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
               new SolutionNode(
                 id1,
                 id2,
@@ -780,11 +780,11 @@ export function SingleBigSwitch (
           happs.array.push(new Happening(Happen.InvAppears, inv1))
           happs.array.push(new Happening(Happen.InvStays, inv2))
           happs.array.push(new Happening(Happen.PropGoes, prop1))
-          if (solutionNodesMappedByInput != null) {
+          if (piecesMappedByOutput != null) {
             const output = inv1
             const inputA = inv2
             const inputB = prop1
-            solutionNodesMappedByInput.AddToMap(
+            piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
               new SolutionNode(
                 id1,
                 id2,
@@ -808,11 +808,11 @@ export function SingleBigSwitch (
           happs.array.push(new Happening(Happen.InvAppears, inv1))
           happs.array.push(new Happening(Happen.PropGoes, prop1))
           happs.array.push(new Happening(Happen.PropGoes, prop2))
-          if (solutionNodesMappedByInput != null) {
+          if (piecesMappedByOutput != null) {
             const output = inv1
             const inputA = prop1
             const inputB = prop2
-            solutionNodesMappedByInput.AddToMap(
+            piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
               new SolutionNode(
                 id1,
                 id2,
@@ -833,14 +833,14 @@ export function SingleBigSwitch (
         case _.PROP1_APPEARS_WHEN_GRAB_PROP2_WITH_FLAG1:
           happs.text = `You use the ${prop2} and, somewhere, a ${prop1} appears`
           happs.array.push(new Happening(Happen.PropAppears, prop1))
-          if (solutionNodesMappedByInput != null) {
+          if (piecesMappedByOutput != null) {
             const output = prop1
             // the prop you grab (ie phone) must be input A - the solution creator
             // always constructs the solution as "grab inputA"
             // so it needs to be input A
             const inputA = prop2
             const inputB = flag1
-            solutionNodesMappedByInput.AddToMap(
+            piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
               new SolutionNode(
                 id1,
                 id2,
@@ -862,14 +862,14 @@ export function SingleBigSwitch (
           happs.array.push(new Happening(Happen.PropAppears, prop1))
           happs.array.push(new Happening(Happen.InvStays, inv1))
           happs.array.push(new Happening(Happen.PropStays, prop2))
-          if (solutionNodesMappedByInput != null) {
+          if (piecesMappedByOutput != null) {
             const output = prop1
             // the prop you grab (ie phone) must be input A - the solution creator
             // always constructs the solution as "grab inputA"
             // so it needs to be input A
             const inputA = prop2
             const inputB = inv1
-            solutionNodesMappedByInput.AddToMap(
+            piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
               new SolutionNode(
                 id1,
                 id2,
@@ -893,14 +893,14 @@ export function SingleBigSwitch (
           happs.array.push(new Happening(Happen.PropAppears, prop2))
           happs.array.push(new Happening(Happen.InvGoes, inv1))
           happs.array.push(new Happening(Happen.InvAppears, inv2))
-          if (solutionNodesMappedByInput != null) {
+          if (piecesMappedByOutput != null) {
             // Another weird one, with two outputs - but only one output slot in the graph
             // We fill the graph with the main output of the puzzle, otherwise
             // the won't puzzle won't get solved.
             const output = prop1
             const inputA = prop2
             const inputB = inv1
-            solutionNodesMappedByInput.AddToMap(
+            piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
               new SolutionNode(
                 id1,
                 id2,
@@ -922,11 +922,11 @@ export function SingleBigSwitch (
           happs.array.push(new Happening(Happen.PropGoes, prop1))
           happs.array.push(new Happening(Happen.PropAppears, prop2))
           happs.array.push(new Happening(Happen.InvStays, inv1))
-          if (solutionNodesMappedByInput != null) {
+          if (piecesMappedByOutput != null) {
             const inputA = prop1
             const output = prop2
             const inputB = inv1
-            solutionNodesMappedByInput.AddToMap(
+            piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
               new SolutionNode(
                 id1,
                 id2,
@@ -947,11 +947,11 @@ export function SingleBigSwitch (
           happs.text = `You use the ${prop3}, and the ${prop1} becomes a ${prop2}`
           happs.array.push(new Happening(Happen.PropGoes, prop1))
           happs.array.push(new Happening(Happen.PropAppears, prop2))
-          if (solutionNodesMappedByInput != null) {
+          if (piecesMappedByOutput != null) {
             const inputA = prop1
             const output = prop2
             const inputB = prop3
-            solutionNodesMappedByInput.AddToMap(
+            piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
               new SolutionNode(
                 id1,
                 id2,
@@ -973,11 +973,11 @@ export function SingleBigSwitch (
           happs.array.push(new Happening(Happen.PropGoes, prop1))
           happs.array.push(new Happening(Happen.PropAppears, prop2))
           happs.array.push(new Happening(Happen.InvGoes, inv1))
-          if (solutionNodesMappedByInput != null) {
+          if (piecesMappedByOutput != null) {
             const inputA = prop1
             const output = prop2
             const inputB = inv1
-            solutionNodesMappedByInput.AddToMap(
+            piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
               new SolutionNode(
                 id1,
                 id2,
@@ -999,11 +999,11 @@ export function SingleBigSwitch (
           happs.array.push(new Happening(Happen.PropGoes, prop1))
           happs.array.push(new Happening(Happen.PropAppears, prop2))
           happs.array.push(new Happening(Happen.PropGoes, prop3))
-          if (solutionNodesMappedByInput != null) {
+          if (piecesMappedByOutput != null) {
             const inputA = prop1
             const output = prop2
             const inputB = prop3
-            solutionNodesMappedByInput.AddToMap(
+            piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
               new SolutionNode(
                 id1,
                 id2,
@@ -1026,13 +1026,13 @@ export function SingleBigSwitch (
           happs.array.push(new Happening(Happen.PropGoes, prop1))
           happs.array.push(new Happening(Happen.PropAppears, prop2))
           happs.array.push(new Happening(Happen.InvAppears, inv1))
-          if (solutionNodesMappedByInput != null) {
+          if (piecesMappedByOutput != null) {
             // This is a weird one, because there are two real-life outputs
             // but only one puzzle output. I forget how I was going to deal with this.
             const inputA = prop1
             // const inputB, count = "" + reactionsFile.gates[i].prop2;
             const output = inv1
-            solutionNodesMappedByInput.AddToMap(
+            piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
               new SolutionNode(
                 id1,
                 id2,
@@ -1056,11 +1056,11 @@ export function SingleBigSwitch (
           happs.array.push(new Happening(Happen.PropGoes, prop1))
           happs.array.push(new Happening(Happen.PropAppears, prop2))
           happs.array.push(new Happening(Happen.InvStays, inv1))
-          if (solutionNodesMappedByInput != null) {
+          if (piecesMappedByOutput != null) {
             const inputA = prop1
             const output = prop2
             const inputB = inv1
-            solutionNodesMappedByInput.AddToMap(
+            piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
               new SolutionNode(
                 id1,
                 id2,
@@ -1082,10 +1082,10 @@ export function SingleBigSwitch (
           // ly don't mention what happen to the prop you clicked on.  "\n You notice the " + prop1 + " has now become a " + prop2;
           happs.array.push(new Happening(Happen.PropGoes, prop1))
           happs.array.push(new Happening(Happen.InvAppears, inv1))
-          if (solutionNodesMappedByInput != null) {
+          if (piecesMappedByOutput != null) {
             const output = inv1
             const inputA = prop1
-            solutionNodesMappedByInput.AddToMap(
+            piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
               new SolutionNode(
                 id1,
                 id2,
@@ -1105,10 +1105,10 @@ export function SingleBigSwitch (
           happs.text = `You now have a ${inv1}`
           // ly don't mention what happen to the prop you clicked on.  "\n You now have a" + inv1;
           happs.array.push(new Happening(Happen.InvAppears, inv1))
-          if (solutionNodesMappedByInput != null) {
+          if (piecesMappedByOutput != null) {
             const output = inv1
             const inputA = prop1
-            solutionNodesMappedByInput.AddToMap(
+            piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
               new SolutionNode(
                 id1,
                 id2,
@@ -1129,11 +1129,11 @@ export function SingleBigSwitch (
           // ly don't mention what happen to the prop you clicked on.  "\n You notice the " + prop1 + " has now become a " + prop2;
           happs.array.push(new Happening(Happen.PropGoes, prop1))
           happs.array.push(new Happening(Happen.InvAppears, inv1))
-          if (solutionNodesMappedByInput != null) {
+          if (piecesMappedByOutput != null) {
             const output = inv1
             const inputA = prop1
             const inputB = flag1
-            solutionNodesMappedByInput.AddToMap(
+            piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
               new SolutionNode(
                 id1,
                 id2,
@@ -1154,11 +1154,11 @@ export function SingleBigSwitch (
           happs.text = `You now have a ${inv1}`
           // ly don't mention what happen to the prop you clicked on.  "\n You now have a" + inv1;
           happs.array.push(new Happening(Happen.InvAppears, inv1))
-          if (solutionNodesMappedByInput != null) {
+          if (piecesMappedByOutput != null) {
             const output = inv1
             const inputA = prop1
             const inputB = flag1
-            solutionNodesMappedByInput.AddToMap(
+            piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
               new SolutionNode(
                 id1,
                 id2,
@@ -1178,10 +1178,10 @@ export function SingleBigSwitch (
         case _.TALK_TO_PROP1_GETS_INV1:
           happs.text = `You now have a ${inv1}`
           happs.array.push(new Happening(Happen.InvAppears, inv1))
-          if (solutionNodesMappedByInput != null) {
+          if (piecesMappedByOutput != null) {
             const output = inv1
             const inputA = prop1
-            solutionNodesMappedByInput.AddToMap(
+            piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
               new SolutionNode(
                 id1,
                 id2,
@@ -1200,11 +1200,11 @@ export function SingleBigSwitch (
         case _.TALK_TO_PROP1_WITH_FLAG1_GETS_INV1:
           happs.text = `You talked with flag and now have a ${inv1}`
           happs.array.push(new Happening(Happen.InvAppears, inv1))
-          if (solutionNodesMappedByInput != null) {
+          if (piecesMappedByOutput != null) {
             const output = inv1
             const inputA = prop1
             const inputB = flag1
-            solutionNodesMappedByInput.AddToMap(
+            piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
               new SolutionNode(
                 id1,
                 id2,
@@ -1226,11 +1226,11 @@ export function SingleBigSwitch (
           happs.array.push(new Happening(Happen.InvGoes, inv1))
           happs.array.push(new Happening(Happen.PropGoes, prop1))
           happs.array.push(new Happening(Happen.InvAppears, inv2))
-          if (solutionNodesMappedByInput != null) {
+          if (piecesMappedByOutput != null) {
             const output = inv2
             const inputA = prop1
             const inputB = inv1
-            solutionNodesMappedByInput.AddToMap(
+            piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
               new SolutionNode(
                 id1,
                 id2,
@@ -1251,10 +1251,10 @@ export function SingleBigSwitch (
           happs.text = `The ${prop1} has become a ${prop2}`
           happs.array.push(new Happening(Happen.PropGoes, prop1))
           happs.array.push(new Happening(Happen.PropAppears, prop2))
-          if (solutionNodesMappedByInput != null) {
+          if (piecesMappedByOutput != null) {
             const output = prop2
             const inputA = prop1
-            solutionNodesMappedByInput.AddToMap(
+            piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
               new SolutionNode(
                 id1,
                 id2,
@@ -1274,10 +1274,10 @@ export function SingleBigSwitch (
           happs.text = `The ${prop1} is now ${AlleviateBrackets(prop2)}`
           happs.array.push(new Happening(Happen.PropGoes, prop1))
           happs.array.push(new Happening(Happen.PropAppears, prop2))
-          if (solutionNodesMappedByInput != null) {
+          if (piecesMappedByOutput != null) {
             const input = prop1
             const output = prop2
-            solutionNodesMappedByInput.AddToMap(
+            piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
               new SolutionNode(
                 id1,
                 id2,
@@ -1298,10 +1298,10 @@ export function SingleBigSwitch (
           happs.array.push(new Happening(Happen.PropGoes, prop1))
           happs.array.push(new Happening(Happen.PropAppears, prop2))
           happs.array.push(new Happening(Happen.PropAppears, prop3))
-          if (solutionNodesMappedByInput != null) {
+          if (piecesMappedByOutput != null) {
             const input = prop1
             const output = prop2
-            solutionNodesMappedByInput.AddToMap(
+            piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
               new SolutionNode(
                 id1,
                 id2,

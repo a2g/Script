@@ -2,7 +2,6 @@ import { SolutionNodeRepository } from '../main/SolutionNodeRepository.js'
 import { MixedObjectsAndVerb } from '../main/MixedObjectsAndVerb.js'
 import { Happenings } from '../main/Happenings.js'
 import { Mix } from '../main/Mix.js'
-import { ReadOnlyJsonInterface } from '../main/ReadOnlyJsonInterface.js'
 import { ReadOnlyJsonSingle } from '../main/ReadOnlyJsonSingle.js'
 import { SingleBigSwitch } from '../main/SingleBigSwitch.js'
 
@@ -12,7 +11,7 @@ import { SingleBigSwitch } from '../main/SingleBigSwitch.js'
  * I wanted to convey the idea that it represents  *.json files,
  * in this case multiple, so that goes in there too.
  * */
-export class ReadOnlyViaArrayOfJson implements ReadOnlyJsonInterface {
+export class ReadOnlyViaArrayOfJson {
   readonly allProps: string[]
 
   readonly allFlags: string[]
@@ -169,7 +168,7 @@ export class ReadOnlyViaArrayOfJson implements ReadOnlyJsonInterface {
     return this.allChars
   }
 
-  GenerateSolutionNodesMappedByInput (): SolutionNodeRepository {
+  GeneratePiecesMappedByOutput (): SolutionNodeRepository {
     const solutionNodesMappedByInput = new SolutionNodeRepository(null)
 
     for (const json of this.allScenes) {

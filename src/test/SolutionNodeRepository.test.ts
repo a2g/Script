@@ -1,6 +1,6 @@
-import { expect } from '@open-wc/testing';
-import { SolutionNode } from '../main/SolutionNode';
-import { SolutionNodeRepository } from '../main/SolutionNodeRepository';
+import { expect } from '@open-wc/testing'
+import { SolutionNode } from '../main/SolutionNode'
+import { SolutionNodeRepository } from '../main/SolutionNodeRepository'
 describe('ReactionMap', () => {
   it('test AddToMap works', () => {
     const blah = new SolutionNodeRepository(null)
@@ -10,7 +10,7 @@ describe('ReactionMap', () => {
     expect(arrayBefore).to.equal(undefined)
 
     // do it!
-    blah.AddToMap(new SolutionNode(0, 0, 'outputA', 'type', 1, null, null, 'A', 'B'))
+    blah.AddMapEntryUsingOutputAsKey(new SolutionNode(0, 0, 'outputA', 'type', 1, null, null, 'A', 'B'))
 
     // test that it adds an array if the array is not yet null.
     const arrayAfter = blah.Get('outputA')
@@ -23,10 +23,10 @@ describe('ReactionMap', () => {
   it('test RemoveNode works', () => {
     const blah = new SolutionNodeRepository(null)
     for (let i = 0; i < 3; i += 1) {
-      blah.AddToMap(new SolutionNode(0, 0, 'outputA', 'piffle', 1, null, null, 'A', 'B'))
+      blah.AddMapEntryUsingOutputAsKey(new SolutionNode(0, 0, 'outputA', 'piffle', 1, null, null, 'A', 'B'))
     }
     const theOneToRemove = new SolutionNode(0, 0, 'outputA', 'piffle', 1, null, null, 'A', 'B')
-    blah.AddToMap(theOneToRemove)
+    blah.AddMapEntryUsingOutputAsKey(theOneToRemove)
     {
       const arrayBefore = blah.Get('outputA')
       const countBeforeRemoval = (arrayBefore != null) ? arrayBefore.size : 0
@@ -52,7 +52,7 @@ describe('ReactionMap', () => {
     // put them in a map
     const tmap = new SolutionNodeRepository(null)
     array.forEach((t: SolutionNode) => {
-      tmap.AddToMap(t)
+      tmap.AddMapEntryUsingOutputAsKey(t)
     })
 
     // cloned the map, and modify it.

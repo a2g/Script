@@ -4,8 +4,6 @@ import { SolutionNodeRepository } from '../main/SolutionNodeRepository.js'
 import { MixedObjectsAndVerb } from '../main/MixedObjectsAndVerb.js'
 import { Happenings } from '../main/Happenings.js'
 import { Mix } from '../main/Mix.js'
-import { ReadOnlyJsonInterface } from '../main/ReadOnlyJsonInterface.js'
-import { ReadOnlyJsonInterfaceCollator } from '../main/ReadOnlyJsonInterfaceCollator.js'
 import { SingleBigSwitch } from '../main/SingleBigSwitch.js'
 import { Stringify } from './Stringify.js'
 /**
@@ -15,8 +13,7 @@ import { Stringify } from './Stringify.js'
  * so that's in there too.
  * */
 
-export class ReadOnlyJsonSingle
-implements ReadOnlyJsonInterface, ReadOnlyJsonInterfaceCollator {
+export class ReadOnlyJsonSingle {
   readonly allProps: string[]
 
   readonly allFlags: string[]
@@ -328,7 +325,7 @@ implements ReadOnlyJsonInterface, ReadOnlyJsonInterfaceCollator {
     return this.mapOfBags
   }
 
-  GenerateSolutionNodesMappedByInput (): SolutionNodeRepository {
+  GeneratePiecesMappedByOutput (): SolutionNodeRepository {
     const result = new SolutionNodeRepository(null)
     const notUsed = new MixedObjectsAndVerb(
       Mix.ErrorVerbNotIdentified,

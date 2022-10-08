@@ -2,11 +2,10 @@ import { SolutionNodeRepository } from '../main/SolutionNodeRepository.js'
 import { MixedObjectsAndVerb } from '../main/MixedObjectsAndVerb.js'
 import { Happenings } from '../main/Happenings.js'
 import { Mix } from '../main/Mix.js'
-import { ReadOnlyJsonInterface } from '../main/ReadOnlyJsonInterface.js'
 import { ReadOnlyJsonSingle } from '../main/ReadOnlyJsonSingle.js'
 import { SingleBigSwitch } from '../main/SingleBigSwitch.js'
 
-function CollectAllJsonRecursively(json: ReadOnlyJsonSingle, map: Map<string, ReadOnlyJsonSingle>): void {
+function CollectAllJsonRecursively (json: ReadOnlyJsonSingle, map: Map<string, ReadOnlyJsonSingle>): void {
   for (const bag of json.GetMapOfBags()) {
     const node: ReadOnlyJsonSingle = bag[1]
     map.set(bag[0], node)
@@ -18,7 +17,7 @@ function CollectAllJsonRecursively(json: ReadOnlyJsonSingle, map: Map<string, Re
  * I wanted to convey the idea that it represents  *.json files,
  * in this case multiple, so that goes in there too.
  * */
-export class ReadOnlyJsonMultipleFilenames implements ReadOnlyJsonInterface {
+export class ReadOnlyJsonMultipleFilenames {
   readonly allProps: string[]
 
   readonly allFlags: string[]
@@ -39,7 +38,7 @@ export class ReadOnlyJsonMultipleFilenames implements ReadOnlyJsonInterface {
 
   readonly mapOfBags: Map<string, ReadOnlyJsonSingle>
 
-  constructor(rootJson: ReadOnlyJsonSingle) {
+  constructor (rootJson: ReadOnlyJsonSingle) {
     this.allScenes = new Map<string, ReadOnlyJsonSingle>()
     CollectAllJsonRecursively(rootJson, this.allScenes)
 
@@ -84,56 +83,55 @@ export class ReadOnlyJsonMultipleFilenames implements ReadOnlyJsonInterface {
     this.allChars = Array.from(setChars.values())
   }
 
-  GetArrayOfProps(): string[] {
+  GetArrayOfProps (): string[] {
     return this.allProps
   }
 
-  GetArrayOfInvs(): string[] {
+  GetArrayOfInvs (): string[] {
     return this.allInvs
   }
 
-  GetArrayOfFlags(): string[] {
+  GetArrayOfFlags (): string[] {
     return this.allFlags
   }
 
-
-  static GetArrayOfSingleObjectVerbs(): string[] {
+  static GetArrayOfSingleObjectVerbs (): string[] {
     return ['grab', 'toggle']
   }
 
-  GetArrayOfSingleObjectVerbs(): string[] {
+  GetArrayOfSingleObjectVerbs (): string[] {
     return this.GetArrayOfSingleObjectVerbs()
   }
 
-  static GetArrayOfInitialStatesOfSingleObjectVerbs(): boolean[] {
+  static GetArrayOfInitialStatesOfSingleObjectVerbs (): boolean[] {
     return [true, true]
   }
 
-  GetArrayOfInitialStatesOfSingleObjectVerbs(): boolean[] {
+  GetArrayOfInitialStatesOfSingleObjectVerbs (): boolean[] {
     return this.GetArrayOfInitialStatesOfSingleObjectVerbs()
   }
 
-  GetArrayOfInitialStatesOfFlags(): number[] {
-    const array: Array<number> = []
+  GetArrayOfInitialStatesOfFlags (): number[] {
+    const array: number[] = []
     for (const flag of this.allFlags) {
       array.push(flag.length > 0 ? 0 : 0)// I used value.length>0 to get rid of the unused variable warnin
     };
     return array
   }
 
-  GetSetOfStartingProps(): Set<string> {
+  GetSetOfStartingProps (): Set<string> {
     return this.startingPropSet
   }
 
-  GetSetOfStartingInvs(): Set<string> {
+  GetSetOfStartingInvs (): Set<string> {
     return this.startingInvSet
   }
 
-  GetMapOfAllStartingThings(): Map<string, Set<string>> {
+  GetMapOfAllStartingThings (): Map<string, Set<string>> {
     return this.mapOfStartingThingsWithChars
   }
 
-  GetStartingThingsForCharacter(charName: string): Set<string> {
+  GetStartingThingsForCharacter (charName: string): Set<string> {
     const startingThingSet = new Set<string>()
     this.mapOfStartingThingsWithChars.forEach((value: Set<string>, thing: string) => {
       for (const item of value) {
@@ -147,10 +145,10 @@ export class ReadOnlyJsonMultipleFilenames implements ReadOnlyJsonInterface {
     return startingThingSet
   }
 
-  GetArrayOfInitialStatesOfProps(): boolean[] {
+  GetArrayOfInitialStatesOfProps (): boolean[] {
     // construct array of booleans in exact same order as ArrayOfProps - so they can be correlated
     const startingSet = this.GetSetOfStartingProps()
-    const visibilities: Array<boolean> = []
+    const visibilities: boolean[] = []
     for (const prop of this.allProps) {
       const isVisible = startingSet.has(prop)
       visibilities.push(isVisible)
@@ -159,10 +157,10 @@ export class ReadOnlyJsonMultipleFilenames implements ReadOnlyJsonInterface {
     return visibilities
   }
 
-  GetArrayOfInitialStatesOfInvs(): boolean[] {
+  GetArrayOfInitialStatesOfInvs (): boolean[] {
     // construct array of booleans in exact same order as ArrayOfProps - so they can be correlated
     const startingSet = this.GetSetOfStartingInvs()
-    const visibilities: Array<boolean> = []
+    const visibilities: boolean[] = []
     for (const inv of this.allInvs) {
       const isVisible = startingSet.has(inv)
       visibilities.push(isVisible)
@@ -171,11 +169,11 @@ export class ReadOnlyJsonMultipleFilenames implements ReadOnlyJsonInterface {
     return visibilities
   }
 
-  GetArrayOfCharacters(): string[] {
+  GetArrayOfCharacters (): string[] {
     return this.allChars
   }
 
-  GenerateSolutionNodesMappedByInput(): SolutionNodeRepository {
+  GenerateSolutionNodesMappedByInput (): SolutionNodeRepository {
     const solutionNodesMappedByInput = new SolutionNodeRepository(null)
 
     for (const filename of this.allScenes.keys()) {
@@ -185,7 +183,7 @@ export class ReadOnlyJsonMultipleFilenames implements ReadOnlyJsonInterface {
     return solutionNodesMappedByInput
   }
 
-  FindHappeningsIfAny(objects: MixedObjectsAndVerb): Happenings | null {
+  FindHappeningsIfAny (objects: MixedObjectsAndVerb): Happenings | null {
     for (const filename of this.allScenes.keys()) {
       const result = SingleBigSwitch(filename, null, objects) as unknown as Happenings | null
       if (result != null) { return result }
@@ -193,7 +191,7 @@ export class ReadOnlyJsonMultipleFilenames implements ReadOnlyJsonInterface {
     return null
   }
 
-  GetMapOfBags(): Map<string, ReadOnlyJsonSingle> {
+  GetMapOfBags (): Map<string, ReadOnlyJsonSingle> {
     return this.mapOfBags
   }
 }

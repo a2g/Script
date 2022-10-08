@@ -59,13 +59,13 @@ export class SolutionNodeRepository {
     return this.solutionNodeMap.values()
   }
 
-  AddToMap (t: SolutionNode): void {
-    // initiatize array, if it hasn't yet been
-    if (!this.solutionNodeMap.has(t.output)) {
-      this.solutionNodeMap.set(t.output, new Set<SolutionNode>())
+  AddMapEntryUsingOutputAsKey (piece: SolutionNode): void {
+    // initialize array, if it hasn't yet been
+    if (!this.solutionNodeMap.has(piece.output)) {
+      this.solutionNodeMap.set(piece.output, new Set<SolutionNode>())
     }
     // always add to list
-    this.solutionNodeMap.get(t.output)?.add(t)
+    this.solutionNodeMap.get(piece.output)?.add(piece)
   }
 
   RemoveNode (node: SolutionNode): void {
