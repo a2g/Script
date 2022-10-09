@@ -5,12 +5,12 @@ import { AlleviateBrackets } from '../main/AlleviateBrackets.js'
 import { Happen } from '../main/Happen.js'
 import { Happening } from '../main/Happening.js'
 import { MixedObjectsAndVerb } from '../main/MixedObjectsAndVerb.js'
-import { SolutionNodeRepository } from '../main/SolutionNodeRepository.js'
+import { PileOfPieces } from './PileOfPieces.js'
 
 import _ from '../../jigsaw.json'
 import { Stringify } from './Stringify.js'
 
-function isNullOrUndefined (something: any): boolean {
+function isNullOrUndefined(something: any): boolean {
   return typeof something === 'undefined' || something === null
 }
 
@@ -20,9 +20,9 @@ function isNullOrUndefined (something: any): boolean {
  */
 let globalId = 1
 
-export function SingleBigSwitch (
+export function SingleBigSwitch(
   filename: string,
-  piecesMappedByOutput: SolutionNodeRepository | null,
+  piecesMappedByOutput: PileOfPieces | null,
   objects: MixedObjectsAndVerb
 ): Happenings | null {
   const text = readFileSync(filename, 'utf-8')

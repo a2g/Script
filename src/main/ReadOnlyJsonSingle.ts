@@ -1,11 +1,12 @@
 import { assert } from 'console'
 import { existsSync, readFileSync } from 'fs'
-import { SolutionNodeRepository } from '../main/SolutionNodeRepository.js'
+import { PileOfPieces } from './PileOfPieces.js'
 import { MixedObjectsAndVerb } from '../main/MixedObjectsAndVerb.js'
 import { Happenings } from '../main/Happenings.js'
 import { Mix } from '../main/Mix.js'
 import { SingleBigSwitch } from '../main/SingleBigSwitch.js'
 import { Stringify } from './Stringify.js'
+import { PileOfPiecesReadOnly } from '../index.js'
 /**
  * So the most important part of this class is that the data
  * in it is read only. So I've put that in the name.
@@ -325,8 +326,8 @@ export class ReadOnlyJsonSingle {
     return this.mapOfBags
   }
 
-  GeneratePiecesMappedByOutput (): SolutionNodeRepository {
-    const result = new SolutionNodeRepository(null)
+  GeneratePiecesMappedByOutput (): PileOfPiecesReadOnly {
+    const result = new PileOfPieces(null)
     const notUsed = new MixedObjectsAndVerb(
       Mix.ErrorVerbNotIdentified,
       '',
@@ -339,8 +340,8 @@ export class ReadOnlyJsonSingle {
   }
 
   AddAllSolutionNodesToGivenMap (
-    givenMap: SolutionNodeRepository
-  ): SolutionNodeRepository {
+    givenMap: PileOfPieces
+  ): PileOfPieces {
     const notUsed = new MixedObjectsAndVerb(
       Mix.ErrorVerbNotIdentified,
       '',

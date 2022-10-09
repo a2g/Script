@@ -2,11 +2,12 @@ import { existsSync } from 'fs'
 import { SolverViaRootNode } from '../main/SolverViaRootNode.js'
 import { SolutionNode } from '../main/SolutionNode.js'
 import { SpecialNodes } from '../main/SpecialNodes.js'
-import { SolutionNodeRepository } from '../main/SolutionNodeRepository.js'
+import { PileOfPieces } from './PileOfPieces.js'
 import { ReadOnlyJsonSingle } from '../main/ReadOnlyJsonSingle.js'
 import { FormatText } from '../main/FormatText.js'
 import { RootNodeMap } from '../main/RootNodeMap.js'
 import _ from '../../jigsaw.json'
+import { PileOfPiecesReadOnly } from './PileOfPiecesReadOnly.js'
 
 /**
  * Solution needs to be cloned.
@@ -17,7 +18,7 @@ export class Solution {
 
   goals: RootNodeMap
 
-  remainingNodesRepo: SolutionNodeRepository
+  remainingNodesRepo: PileOfPieces
 
   isArchived: boolean
 
@@ -30,7 +31,7 @@ export class Solution {
 
   constructor (
     rootNodeMapToCopy: RootNodeMap | null,
-    copyThisMapOfPieces: SolutionNodeRepository,
+    copyThisMapOfPieces: PileOfPiecesReadOnly,
     startingThingsPassedIn: ReadonlyMap<string, Set<string>>,
     restrictions: Set<string> | null = null,
     nameSegments: string[] | null = null
@@ -38,7 +39,7 @@ export class Solution {
     this.unprocessedLeaves = new Set<SolutionNode>()
     this.goals = new RootNodeMap(rootNodeMapToCopy, this.unprocessedLeaves)
 
-    this.remainingNodesRepo = new SolutionNodeRepository(copyThisMapOfPieces)
+    this.remainingNodesRepo = new PileOfPieces(copyThisMapOfPieces)
     this.isArchived = false
 
     // if it is passed in, we deep copy it
@@ -213,7 +214,7 @@ export class Solution {
     return this.restrictionsEncounteredDuringSolving
   }
 
-  GetRepoOfRemainingNodes (): SolutionNodeRepository {
+  GetRepoOfRemainingNodes (): PileOfPieces {
     // we already remove nodes from this when we use them up
     // so returning the current node map is ok
     return this.remainingNodesRepo

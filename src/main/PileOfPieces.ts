@@ -1,17 +1,18 @@
-import { ReadOnlyJsonSingle } from '../main/ReadOnlyJsonSingle'
-import { SolutionNode } from '../main/SolutionNode'
+import { PileOfPiecesReadOnly } from '..'
+import { ReadOnlyJsonSingle } from './ReadOnlyJsonSingle'
+import { SolutionNode } from './SolutionNode'
 /**
  * Yes, the only data here is the map.
  *
  * This is the source repository of the solution nodes
  */
-export class SolutionNodeRepository {
+export class PileOfPieces implements PileOfPiecesReadOnly {
   private readonly solutionNodeMap: Map<string, Set<SolutionNode>>
 
-  constructor (cloneFromMe: SolutionNodeRepository | null) {
+  constructor (cloneFromMe: PileOfPiecesReadOnly | null) {
     this.solutionNodeMap = new Map<string, Set<SolutionNode>>()
     if (cloneFromMe != null) {
-      for (const set of cloneFromMe.solutionNodeMap.values()) {
+      for (const set of cloneFromMe.GetValues()) {
         if (set.size > 0) {
           const clonedSet = new Set<SolutionNode>()
           const throwawaySet = new Set<SolutionNode>()
@@ -59,6 +60,28 @@ export class SolutionNodeRepository {
     return this.solutionNodeMap.values()
   }
 
+  Size (): number {
+    let count = 0
+    for (const set of this.solutionNodeMap.values()) {
+      count += set.size
+    }
+    return count
+  }
+
+  ContainsId (idToMatch: number): boolean {
+    for (const set of this.solutionNodeMap.values()) {
+      for (const node of set) {
+        if (node.id === idToMatch) { return true }
+      }
+    }
+    return false
+  }
+
+  // methods for mutating
+  MergeInNodesFromScene (json: ReadOnlyJsonSingle): void {
+    json.AddAllSolutionNodesToGivenMap(this)
+  }
+
   AddMapEntryUsingOutputAsKey (piece: SolutionNode): void {
     // initialize array, if it hasn't yet been
     if (!this.solutionNodeMap.has(piece.output)) {
@@ -83,26 +106,5 @@ export class SolutionNodeRepository {
         console.log(`trans.count is now ${node.count}`)
       }
     }
-  }
-
-  Size (): number {
-    let count = 0
-    for (const set of this.solutionNodeMap.values()) {
-      count += set.size
-    }
-    return count
-  }
-
-  MergeInNodesFromScene (json: ReadOnlyJsonSingle): void {
-    json.AddAllSolutionNodesToGivenMap(this)
-  }
-
-  ContainsId (idToMatch: number): boolean {
-    for (const set of this.solutionNodeMap.values()) {
-      for (const node of set) {
-        if (node.id === idToMatch) { return true }
-      }
-    }
-    return false
   }
 }

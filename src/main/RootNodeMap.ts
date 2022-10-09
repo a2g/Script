@@ -10,7 +10,7 @@ export class RootNodeMap {
 
   private readonly names: string[]
 
-  constructor(deepCopyFromMe: RootNodeMap | null, incompleteNodes: Set<SolutionNode>) {
+  constructor (deepCopyFromMe: RootNodeMap | null, incompleteNodes: Set<SolutionNode>) {
     this.goals = []
     this.names = []
     if (deepCopyFromMe != null) {
@@ -21,11 +21,11 @@ export class RootNodeMap {
     }
   }
 
-  CloneAllRootNodesAndTheirTrees(incompleteNodes: Set<SolutionNode>): RootNodeMap {
+  CloneAllRootNodesAndTheirTrees (incompleteNodes: Set<SolutionNode>): RootNodeMap {
     return new RootNodeMap(this, incompleteNodes)
   }
 
-  Has(goalToObtain: string): boolean {
+  Has (goalToObtain: string): boolean {
     for (const goal of this.goals) {
       if (goal.output === goalToObtain) { return true }
     }
@@ -33,42 +33,42 @@ export class RootNodeMap {
     return false
   }
 
-  Get(goalToObtain: string): SolutionNode | null {
+  Get (goalToObtain: string): SolutionNode | null {
     for (const goal of this.goals) {
       if (goal.output === goalToObtain) { return goal }
     }
     return null
   }
 
-  GetKeys(): string[] {
+  GetKeys (): string[] {
     return this.names
   }
 
-  AddRootNode(t: SolutionNode): void {
+  AddRootNode (t: SolutionNode): void {
     // always add to list
     this.goals.push(t)
     this.names.push(t.output)
   }
 
-  Size(): number {
+  Size (): number {
     return this.goals.length
   }
 
-  GetRootNodeByName(name: string): SolutionNode {
+  GetRootNodeByName (name: string): SolutionNode {
     const root = this.Get(name)
     if (typeof root === 'undefined' || root === null) { throw new Error("rootNode of that name doesn't exist") }
     return root
   }
 
-  GetValues(): SolutionNode[] {
+  GetValues (): SolutionNode[] {
     return this.goals
   }
 
-  GetAt(index: number): SolutionNode {
+  GetAt (index: number): SolutionNode {
     return this.goals[index]
   }
 
-  public GenerateMapOfLeaves(): Map<string, SolutionNode> {
+  public GenerateMapOfLeaves (): Map<string, SolutionNode> {
     const map = new Map<string, SolutionNode>()
 
     for (const rootNode of this.GetValues()) {

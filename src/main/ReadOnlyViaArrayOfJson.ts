@@ -1,4 +1,4 @@
-import { SolutionNodeRepository } from '../main/SolutionNodeRepository.js'
+import { PileOfPieces } from './PileOfPieces.js'
 import { MixedObjectsAndVerb } from '../main/MixedObjectsAndVerb.js'
 import { Happenings } from '../main/Happenings.js'
 import { Mix } from '../main/Mix.js'
@@ -168,8 +168,8 @@ export class ReadOnlyViaArrayOfJson {
     return this.allChars
   }
 
-  GeneratePiecesMappedByOutput (): SolutionNodeRepository {
-    const solutionNodesMappedByInput = new SolutionNodeRepository(null)
+  GeneratePiecesMappedByOutput (): PileOfPieces {
+    const solutionNodesMappedByInput = new PileOfPieces(null)
 
     for (const json of this.allScenes) {
       const notUsed = new MixedObjectsAndVerb(

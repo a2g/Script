@@ -2,7 +2,7 @@ import { Solution } from '../main/Solution.js'
 import { GetDisplayName } from '../main/GetDisplayName.js'
 import { Colors } from '../main/Colors.js'
 import { AddBrackets } from '../main/AddBrackets.js'
-import { SolutionNodeRepository } from '../main/SolutionNodeRepository.js'
+import { PileOfPiecesReadOnly } from './PileOfPiecesReadOnly.js'
 
 export class SolverViaRootNode {
   private solutions: Solution[]
@@ -24,7 +24,7 @@ export class SolverViaRootNode {
   }
 
   InitializeByCopyingThese (
-    solutionNodesMappedByInput: SolutionNodeRepository,
+    solutionNodesMappedByInput: PileOfPiecesReadOnly,
     mapOfStartingThingsAndWhoCanHaveThem: Map<string, Set<string>>
   ): void {
     const solution = new Solution(

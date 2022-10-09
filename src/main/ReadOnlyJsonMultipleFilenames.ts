@@ -1,4 +1,4 @@
-import { SolutionNodeRepository } from '../main/SolutionNodeRepository.js'
+import { PileOfPieces } from './PileOfPieces.js'
 import { MixedObjectsAndVerb } from '../main/MixedObjectsAndVerb.js'
 import { Happenings } from '../main/Happenings.js'
 import { Mix } from '../main/Mix.js'
@@ -173,8 +173,8 @@ export class ReadOnlyJsonMultipleFilenames {
     return this.allChars
   }
 
-  GenerateSolutionNodesMappedByInput (): SolutionNodeRepository {
-    const solutionNodesMappedByInput = new SolutionNodeRepository(null)
+  GenerateSolutionNodesMappedByInput (): PileOfPieces {
+    const solutionNodesMappedByInput = new PileOfPieces(null)
 
     for (const filename of this.allScenes.keys()) {
       const notUsed = new MixedObjectsAndVerb(Mix.ErrorVerbNotIdentified, '', '', '', 'ScenePreAggregator')

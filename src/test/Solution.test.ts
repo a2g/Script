@@ -1,5 +1,5 @@
 // Typescript Unit test
-import { expect } from '@open-wc/testing';
+import { expect } from '@open-wc/testing'
 import { SolverViaRootNode } from '../main/SolverViaRootNode'
 import { ReadOnlyJsonSingle } from '../main/ReadOnlyJsonSingle'
 

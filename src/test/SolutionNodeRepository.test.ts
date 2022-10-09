@@ -1,9 +1,9 @@
 import { expect } from '@open-wc/testing'
 import { SolutionNode } from '../main/SolutionNode'
-import { SolutionNodeRepository } from '../main/SolutionNodeRepository'
+import { PileOfPieces } from '../main/PileOfPieces'
 describe('ReactionMap', () => {
   it('test AddToMap works', () => {
-    const blah = new SolutionNodeRepository(null)
+    const blah = new PileOfPieces(null)
 
     // test that it is indeed null before
     const arrayBefore = blah.Get('outputA')
@@ -21,7 +21,7 @@ describe('ReactionMap', () => {
   })
 
   it('test RemoveNode works', () => {
-    const blah = new SolutionNodeRepository(null)
+    const blah = new PileOfPieces(null)
     for (let i = 0; i < 3; i += 1) {
       blah.AddMapEntryUsingOutputAsKey(new SolutionNode(0, 0, 'outputA', 'piffle', 1, null, null, 'A', 'B'))
     }
@@ -50,14 +50,14 @@ describe('ReactionMap', () => {
     array.push(new SolutionNode(0, 0, 'blah', 'outputA', 1, null, null, 'c', 'c'))
 
     // put them in a map
-    const tmap = new SolutionNodeRepository(null)
+    const tmap = new PileOfPieces(null)
     array.forEach((t: SolutionNode) => {
       tmap.AddMapEntryUsingOutputAsKey(t)
     })
 
     // cloned the map, and modify it.
     {
-      const cloned = new SolutionNodeRepository(tmap)
+      const cloned = new PileOfPieces(tmap)
       const clonedOutputA = cloned.Get('outputA')
 
       if (clonedOutputA != null) {
