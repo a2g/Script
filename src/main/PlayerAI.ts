@@ -3,7 +3,7 @@ import { Happener } from '../main/Happener.js'
 import { HappenerCallbacksInterface } from '../main/HappenerCallbacksInterface.js'
 import { GetThreeStringsFromInput } from '../main/GetThreeStringsFromInput.js'
 
-const prompt = require('prompt-sync')();
+const prompt = require('prompt-sync')()
 
 // April 2021
 // The blind / location - agnostic way to find solutions is to have an inv vs props table, and inv vs inv table, and a verb vs props table, and a verb vs invs table, then
@@ -21,17 +21,11 @@ const prompt = require('prompt-sync')();
 
 export class PlayerAI implements HappenerCallbacksInterface {
   invVsInv: LogicGrid
-
   invVsVerb: LogicGrid
-
   invVsProp: LogicGrid
-
   propVsVerb: LogicGrid
-
   propVsProp: LogicGrid
-
   game: Happener
-
   autoCount: number
 
   constructor(game: Happener, numberOfAutopilotTurns: number) {
@@ -96,9 +90,7 @@ export class PlayerAI implements HappenerCallbacksInterface {
           this.propVsProp.SetColumnRow(usePropOnProp[1], usePropOnProp[0])
           return ['use', this.game.GetProp(usePropOnProp[0]), this.game.GetProp(usePropOnProp[1])]
         }
-
       } else {
-
         const input = prompt('Enter a command with two or three terms (b)ack: ')
         if (input !== null) {
           if (input === 'b') { return ['b'] }
@@ -106,9 +98,8 @@ export class PlayerAI implements HappenerCallbacksInterface {
 
           if (items.length === 2 && items[0].toUpperCase() === 'DO' && Number(items[1]) > 0) {
             this.autoCount = Number(items[1])
-            console.log(`Autocount has been given ${this.autoCount} operations.`)
-          }
-          else if (items.length !== 3) {
+            console.log(`Auto count has been given ${this.autoCount} operations.`)
+          } else if (items.length !== 3) {
             console.log(`Please enter 3 words (not ${items.length} )`)
           } else {
             return items
@@ -141,9 +132,9 @@ export class PlayerAI implements HappenerCallbacksInterface {
   OnFlagValueChange(number: number, newValue: number, nameForDebugging: string): void {
     // the convention for the array is x then y, or column then row.
     // so Set..Column sets the first t
-    this.propVsVerb.SetVisibilityOfColumn(number, newValue > 0, nameForDebugging);
-    this.invVsProp.SetVisibilityOfRow(number, newValue > 0, nameForDebugging);
-    this.propVsProp.SetVisibilityOfRow(number, newValue > 0, nameForDebugging);
-    this.propVsProp.SetVisibilityOfColumn(number, newValue > 0, nameForDebugging);
+    this.propVsVerb.SetVisibilityOfColumn(number, newValue > 0, nameForDebugging)
+    this.invVsProp.SetVisibilityOfRow(number, newValue > 0, nameForDebugging)
+    this.propVsProp.SetVisibilityOfRow(number, newValue > 0, nameForDebugging)
+    this.propVsProp.SetVisibilityOfColumn(number, newValue > 0, nameForDebugging)
   }
 }
