@@ -1,12 +1,12 @@
-import { SolutionNode } from './SolutionNode'
+import { Piece } from './Piece'
 
 export interface PileOfPiecesReadOnly {
-  GetAutos: () => SolutionNode[]
+  GetAutos: () => Piece[]
   HasAnyNodesThatOutputObject: (objectToObtain: string) => boolean
-  GetNodesThatOutputObject: (objectToObtain: string) => Set<SolutionNode> | undefined
+  GetNodesThatOutputObject: (objectToObtain: string) => Set<Piece> | undefined
   Has: (objectToObtain: string) => boolean
-  Get: (objectToObtain: string) => Set<SolutionNode> | undefined
-  GetValues: () => IterableIterator<Set<SolutionNode>>
+  Get: (objectToObtain: string) => Set<Piece> | undefined
+  GetValues: () => IterableIterator<Set<Piece>>
   Size: () => number
   ContainsId: (idToMatch: number) => boolean
 }

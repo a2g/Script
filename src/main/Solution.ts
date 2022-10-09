@@ -1,6 +1,6 @@
 import { existsSync } from 'fs'
 import { SolverViaRootNode } from '../main/SolverViaRootNode.js'
-import { SolutionNode } from '../main/SolutionNode.js'
+import { Piece } from './Piece.js'
 import { SpecialNodes } from '../main/SpecialNodes.js'
 import { PileOfPieces } from './PileOfPieces.js'
 import { ReadOnlyJsonSingle } from '../main/ReadOnlyJsonSingle.js'
@@ -23,7 +23,7 @@ export class Solution {
   isArchived: boolean
 
   // aggregates
-  unprocessedLeaves: Set<SolutionNode>
+  unprocessedLeaves: Set<Piece>
 
   startingThings: ReadonlyMap<string, Set<string>> // this is updated dynamically in GetNextDoableCommandAndDesconstructTree
 
@@ -36,7 +36,7 @@ export class Solution {
     restrictions: Set<string> | null = null,
     nameSegments: string[] | null = null
   ) {
-    this.unprocessedLeaves = new Set<SolutionNode>()
+    this.unprocessedLeaves = new Set<Piece>()
     this.goals = new RootNodeMap(rootNodeMapToCopy, this.unprocessedLeaves)
 
     this.remainingNodesRepo = new PileOfPieces(copyThisMapOfPieces)
@@ -62,7 +62,7 @@ export class Solution {
     this.startingThings = startingThingsPassedIn
   }
 
-  public AddRootNode (rootNode: SolutionNode): void {
+  public AddRootNode (rootNode: Piece): void {
     this.goals.AddRootNode(rootNode)
     this.unprocessedLeaves.add(rootNode)
   }
@@ -84,7 +84,7 @@ export class Solution {
     // the weird order of this is because Solution constructor is used
     // primarily to construct, so passing in root node is needed..
     // so we clone the whole tree and pass it in
-    const incompleteNodes = new Set<SolutionNode>()
+    const incompleteNodes = new Set<Piece>()
     const clonedRootNodeMap =
       this.goals.CloneAllRootNodesAndTheirTrees(incompleteNodes)
     this.goals.GetRootNodeByName('flag_win').id =
@@ -100,7 +100,7 @@ export class Solution {
     return clonedSolution
   }
 
-  SetNodeIncomplete (node: SolutionNode | null): void {
+  SetNodeIncomplete (node: Piece | null): void {
     if (node != null) {
       if (node.type !== SpecialNodes.VerifiedLeaf) {
         this.unprocessedLeaves.add(node)
@@ -108,7 +108,7 @@ export class Solution {
     }
   }
 
-  MarkNodeAsCompleted (node: SolutionNode | null): void {
+  MarkNodeAsCompleted (node: Piece | null): void {
     if (node != null) {
       if (this.unprocessedLeaves.has(node)) {
         this.unprocessedLeaves.delete(node)
@@ -116,9 +116,9 @@ export class Solution {
     }
   }
 
-  SetIncompleteNodes (set: Set<SolutionNode>): void {
+  SetIncompleteNodes (set: Set<Piece>): void {
     // safer to copy this - just being cautious
-    this.unprocessedLeaves = new Set<SolutionNode>()
+    this.unprocessedLeaves = new Set<Piece>()
     for (const node of set) {
       this.unprocessedLeaves.add(node)
     }
@@ -147,11 +147,11 @@ export class Solution {
     return isBreakingDueToSolutionCloning
   }
 
-  GetUnprocessedLeaves (): Set<SolutionNode> {
+  GetUnprocessedLeaves (): Set<Piece> {
     return this.unprocessedLeaves
   }
 
-  GetFlagWin (): SolutionNode {
+  GetFlagWin (): Piece {
     return this.goals.GetRootNodeByName('flag_win')
   }
 
@@ -159,13 +159,13 @@ export class Solution {
     return this.remainingNodesRepo.Has(objectToObtain)
   }
 
-  GetNodesThatOutputObject (objectToObtain: string): SolutionNode[] | undefined {
+  GetNodesThatOutputObject (objectToObtain: string): Piece[] | undefined {
     // since the remainingNodes are a map index by output node
     // then a remainingNodes.Get will retrieve all matching nodes.
-    const result: Set<SolutionNode> | undefined =
+    const result: Set<Piece> | undefined =
       this.remainingNodesRepo.Get(objectToObtain)
     if (result != null) {
-      const blah: SolutionNode[] = []
+      const blah: Piece[] = []
       for (const item of result) {
         if (item.count >= 1) {
           const twin = item.conjoint
@@ -187,7 +187,7 @@ export class Solution {
     return []
   }
 
-  RemoveNode (node: SolutionNode): void {
+  RemoveNode (node: Piece): void {
     this.remainingNodesRepo.RemoveNode(node)
   }
 
@@ -258,8 +258,8 @@ export class Solution {
   }
 
   FindNodeWithSomeInputForConjointToAttachTo (
-    theConjoint: SolutionNode | null
-  ): SolutionNode | null {
+    theConjoint: Piece | null
+  ): Piece | null {
     for (const rootNode of this.goals.GetValues()) {
       const node = this.FindFirstAttachmentLeafForConjointRecursively(
         theConjoint,
@@ -273,9 +273,9 @@ export class Solution {
   }
 
   FindFirstAttachmentLeafForConjointRecursively (
-    theConjoint: SolutionNode | null,
-    nodeToSearch: SolutionNode | null
-  ): SolutionNode | null {
+    theConjoint: Piece | null,
+    nodeToSearch: Piece | null
+  ): Piece | null {
     // isn't kept up to date, so we traverse, depth first.
     if (theConjoint != null && nodeToSearch != null) {
       for (let i = 0; i < nodeToSearch.inputs.length; i += 1) {
@@ -297,7 +297,7 @@ export class Solution {
     return null
   }
 
-  FindAnyNodeMatchingIdRecursively (id: number): SolutionNode | null {
+  FindAnyNodeMatchingIdRecursively (id: number): Piece | null {
     for (const goal of this.goals.GetValues()) {
       const result = goal.FindAnyNodeMatchingIdRecursively(id)
       if (result != null) {

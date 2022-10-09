@@ -4,9 +4,7 @@
 */
 export class SingleFileData {
   name: string
-
   tickCount: number
-
   isVisible: boolean
 
   constructor (name: string, isVisible: boolean) {

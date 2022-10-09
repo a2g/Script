@@ -1,8 +1,7 @@
 // Typescript Unit test
 
-import { SolutionNode } from '../main/SolutionNode'
+import { Piece } from '../main/Piece'
 import { SpecialNodes } from '../main/SpecialNodes'
-
 
 describe('Solution', () => {
   /*
@@ -83,11 +82,11 @@ describe('Solution', () => {
 */
 
   it('Test cloning with High Permutation scene2', () => {
-    const root = new SolutionNode(0, 0, 'root', '', 1, null, null, 'A')
-    const segA = new SolutionNode(0, 0, 'A', '', 1, null, null, 'B')
-    const segB = new SolutionNode(0, 0, 'B', '', 1, null, null, 'C')
-    const segC = new SolutionNode(0, 0, 'C', '', 1, null, null, 'D')
-    const segD = new SolutionNode(0, 0, 'D', SpecialNodes.VerifiedLeaf, 1, null, null, 'E')
+    const root = new Piece(0, 0, 'root', '', 1, null, null, 'A')
+    const segA = new Piece(0, 0, 'A', '', 1, null, null, 'B')
+    const segB = new Piece(0, 0, 'B', '', 1, null, null, 'C')
+    const segC = new Piece(0, 0, 'C', '', 1, null, null, 'D')
+    const segD = new Piece(0, 0, 'D', SpecialNodes.VerifiedLeaf, 1, null, null, 'E')
     root.inputs.push(segA)
     segA.inputs.push(segB)
     segB.inputs.push(segC)

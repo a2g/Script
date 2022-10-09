@@ -1,22 +1,17 @@
-import { SolverViaRootNode } from '../main/SolverViaRootNode'
-import { SpecialNodes } from '../main/SpecialNodes'
-import { Solution } from '../main/Solution'
-import { Happenings } from '../main/Happenings'
-import { Happen } from '../main/Happen'
+import { SolverViaRootNode } from './SolverViaRootNode'
+import { SpecialNodes } from './SpecialNodes'
+import { Solution } from './Solution'
+import { Happenings } from './Happenings'
+import { Happen } from './Happen'
 
-export class SolutionNode {
+export class Piece {
   id: number
-
   conjoint: number
-
   type: string
-
   output: string
-
-  inputs: Array<SolutionNode | null>
-
+  inputs: Array<Piece | null>
   inputHints: string[]
-  parent: SolutionNode | null// this is not needed for leaf finding - but *is* needed for command finding.
+  parent: Piece | null// this is not needed for leaf finding - but *is* needed for command finding.
   count: number
   characterRestrictions: string[]
   happenings: Happenings | null
@@ -50,7 +45,7 @@ export class SolutionNode {
         this.characterRestrictions.push(restriction.character)
       }
     }
-    this.inputs = new Array<SolutionNode>()
+    this.inputs = new Array<Piece>()
     this.inputHints = new Array<string>()
     if (inputA !== 'undefined' && inputA !== undefined) {
       this.inputHints.push(inputA)
@@ -78,8 +73,8 @@ export class SolutionNode {
     }
   }
 
-  CloneNodeAndEntireTree (incompleteNodeSet: Set<SolutionNode>): SolutionNode {
-    const clone = new SolutionNode(0, 0, this.output, '')
+  CloneNodeAndEntireTree (incompleteNodeSet: Set<Piece>): Piece {
+    const clone = new Piece(0, 0, this.output, '')
     clone.id = this.id
     clone.conjoint = this.conjoint
     clone.type = this.type
@@ -113,7 +108,7 @@ export class SolutionNode {
     return clone
   }
 
-  FindAnyNodeMatchingIdRecursively (id: number): SolutionNode | null {
+  FindAnyNodeMatchingIdRecursively (id: number): Piece | null {
     if (this.id === id) {
       return this
     }
@@ -134,7 +129,7 @@ export class SolutionNode {
       // otherwise Toggle pieces will toggle until the count is zero.
       const objectToObtain = this.inputHints[k]
       if (solution.startingThings.has(objectToObtain)) {
-        const newLeaf = new SolutionNode(0, 0, objectToObtain, SpecialNodes.VerifiedLeaf)
+        const newLeaf = new Piece(0, 0, objectToObtain, SpecialNodes.VerifiedLeaf)
         newLeaf.parent = this
         this.inputs[k] = newLeaf
         // solution.AddLeafForReverseTraversal(path + this.inputHints[k] + "/", newLeaf);
@@ -153,7 +148,7 @@ export class SolutionNode {
       // and if there is more than one, then we clone
       const matchingNodes = solution.GetNodesThatOutputObject(objectToObtain)
       if ((matchingNodes === undefined) || matchingNodes.length === 0) {
-        const newLeaf = new SolutionNode(0, 0, this.inputHints[k], SpecialNodes.VerifiedLeaf)
+        const newLeaf = new Piece(0, 0, this.inputHints[k], SpecialNodes.VerifiedLeaf)
         newLeaf.parent = this
         this.inputs[k] = newLeaf
         // solution.AddLeafForReverseTraversal(path + this.inputHints[k] + "/", newLeaf);
@@ -282,11 +277,11 @@ export class SolutionNode {
     return false
   }
 
-  SetParent (parent: SolutionNode | null): void {
+  SetParent (parent: Piece | null): void {
     this.parent = parent
   }
 
-  GetParent (): SolutionNode | null {
+  GetParent (): Piece | null {
     return this.parent
   }
 

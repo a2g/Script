@@ -16,23 +16,14 @@ import { PileOfPiecesReadOnly } from '../index.js'
 
 export class ReadOnlyJsonSingle {
   readonly allProps: string[]
-
   readonly allFlags: string[]
-
   readonly allInvs: string[]
-
   readonly allChars: string[]
-
   readonly mapOfStartingThings: Map<string, Set<string>>
-
   readonly startingInvSet: Set<string>
-
   readonly startingPropSet: Set<string>
-
   readonly startingFlagSet: Set<string>
-
   readonly filename: string
-
   readonly mapOfBags: Map<string, ReadOnlyJsonSingle>
 
   constructor (filename: string) {

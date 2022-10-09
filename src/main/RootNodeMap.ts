@@ -1,16 +1,15 @@
 import { GenerateMapOfLeavesRecursively } from '../main/GenerateMapOfLeavesRecursively'
-import { SolutionNode } from '../main/SolutionNode'
+import { Piece } from './Piece'
 /**
  * Yes, the only data here is the map.
  *
  * This is the source repository of the solution nodes
  */
 export class RootNodeMap {
-  private readonly goals: SolutionNode[]
-
+  private readonly goals: Piece[]
   private readonly names: string[]
 
-  constructor (deepCopyFromMe: RootNodeMap | null, incompleteNodes: Set<SolutionNode>) {
+  constructor (deepCopyFromMe: RootNodeMap | null, incompleteNodes: Set<Piece>) {
     this.goals = []
     this.names = []
     if (deepCopyFromMe != null) {
@@ -21,7 +20,7 @@ export class RootNodeMap {
     }
   }
 
-  CloneAllRootNodesAndTheirTrees (incompleteNodes: Set<SolutionNode>): RootNodeMap {
+  CloneAllRootNodesAndTheirTrees (incompleteNodes: Set<Piece>): RootNodeMap {
     return new RootNodeMap(this, incompleteNodes)
   }
 
@@ -33,7 +32,7 @@ export class RootNodeMap {
     return false
   }
 
-  Get (goalToObtain: string): SolutionNode | null {
+  Get (goalToObtain: string): Piece | null {
     for (const goal of this.goals) {
       if (goal.output === goalToObtain) { return goal }
     }
@@ -44,7 +43,7 @@ export class RootNodeMap {
     return this.names
   }
 
-  AddRootNode (t: SolutionNode): void {
+  AddRootNode (t: Piece): void {
     // always add to list
     this.goals.push(t)
     this.names.push(t.output)
@@ -54,22 +53,22 @@ export class RootNodeMap {
     return this.goals.length
   }
 
-  GetRootNodeByName (name: string): SolutionNode {
+  GetRootNodeByName (name: string): Piece {
     const root = this.Get(name)
     if (typeof root === 'undefined' || root === null) { throw new Error("rootNode of that name doesn't exist") }
     return root
   }
 
-  GetValues (): SolutionNode[] {
+  GetValues (): Piece[] {
     return this.goals
   }
 
-  GetAt (index: number): SolutionNode {
+  GetAt (index: number): Piece {
     return this.goals[index]
   }
 
-  public GenerateMapOfLeaves (): Map<string, SolutionNode> {
-    const map = new Map<string, SolutionNode>()
+  public GenerateMapOfLeaves (): Map<string, Piece> {
+    const map = new Map<string, Piece>()
 
     for (const rootNode of this.GetValues()) {
       GenerateMapOfLeavesRecursively(rootNode, rootNode.output, map)

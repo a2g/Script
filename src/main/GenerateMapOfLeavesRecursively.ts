@@ -1,7 +1,7 @@
-import { SolutionNode } from '../main/SolutionNode'
+import { Piece } from './Piece'
 import { SpecialNodes } from '../main/SpecialNodes'
 
-export function GenerateMapOfLeavesRecursively(node: SolutionNode, path: string, map: Map<string, SolutionNode>): void {
+export function GenerateMapOfLeavesRecursively(node: Piece, path: string, map: Map<string, Piece>): void {
   for (let i = 0; i < node.inputs.length; i += 1) {
     const input = node.inputs[i]
     if (input != null) {

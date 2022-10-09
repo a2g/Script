@@ -19,23 +19,14 @@ function CollectAllJsonRecursively (json: ReadOnlyJsonSingle, map: Map<string, R
  * */
 export class ReadOnlyJsonMultipleFilenames {
   readonly allProps: string[]
-
   readonly allFlags: string[]
-
   readonly allInvs: string[]
-
   readonly allChars: string[]
-
   readonly mapOfStartingThingsWithChars: Map<string, Set<string>>
-
   readonly startingInvSet: Set<string>
-
   readonly startingPropSet: Set<string>
-
   readonly startingFlagSet: Set<string>
-
   readonly allScenes: Map<string, ReadOnlyJsonSingle>
-
   readonly mapOfBags: Map<string, ReadOnlyJsonSingle>
 
   constructor (rootJson: ReadOnlyJsonSingle) {

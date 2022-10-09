@@ -1,6 +1,6 @@
 import { readFileSync } from 'fs'
 import { Happenings } from '../main/Happenings.js'
-import { SolutionNode } from '../main/SolutionNode.js'
+import { Piece } from './Piece.js'
 import { AlleviateBrackets } from '../main/AlleviateBrackets.js'
 import { Happen } from '../main/Happen.js'
 import { Happening } from '../main/Happening.js'
@@ -10,7 +10,7 @@ import { PileOfPieces } from './PileOfPieces.js'
 import _ from '../../jigsaw.json'
 import { Stringify } from './Stringify.js'
 
-function isNullOrUndefined(something: any): boolean {
+function isNullOrUndefined (something: any): boolean {
   return typeof something === 'undefined' || something === null
 }
 
@@ -20,7 +20,7 @@ function isNullOrUndefined(something: any): boolean {
  */
 let globalId = 1
 
-export function SingleBigSwitch(
+export function SingleBigSwitch (
   filename: string,
   piecesMappedByOutput: PileOfPieces | null,
   objects: MixedObjectsAndVerb
@@ -72,7 +72,7 @@ export function SingleBigSwitch(
             const output = Stringify(gate.fileToMerge)
             const input = flag1
             piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
-              new SolutionNode(
+              new Piece(
                 id1,
                 id2,
                 output,
@@ -95,7 +95,7 @@ export function SingleBigSwitch(
             const input5 = prop6
             const input6 = prop7
             piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
-              new SolutionNode(
+              new Piece(
                 id1,
                 id2,
                 output,
@@ -119,7 +119,7 @@ export function SingleBigSwitch(
             const output = flag1
             const input = flag2
             piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
-              new SolutionNode(
+              new Piece(
                 id1,
                 id2,
                 output,
@@ -142,7 +142,7 @@ export function SingleBigSwitch(
             const input5 = prop5
             const input6 = prop6
             piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
-              new SolutionNode(
+              new Piece(
                 id1,
                 id2,
                 output,
@@ -167,7 +167,7 @@ export function SingleBigSwitch(
             const input2 = inv2
             const input3 = inv3
             piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
-              new SolutionNode(
+              new Piece(
                 id1,
                 id2,
                 output,
@@ -190,7 +190,7 @@ export function SingleBigSwitch(
             const output = inv1
             const inputA = prop1
             piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
-              new SolutionNode(
+              new Piece(
                 id1,
                 id2,
                 output,
@@ -216,7 +216,7 @@ export function SingleBigSwitch(
             const inputA = inv1
             const inputB = prop1
             piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
-              new SolutionNode(
+              new Piece(
                 id1,
                 id2,
                 output,
@@ -250,7 +250,7 @@ export function SingleBigSwitch(
             const inputC = prop2
             const inputD = prop3
             piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
-              new SolutionNode(
+              new Piece(
                 id1,
                 id2,
                 output,
@@ -279,7 +279,7 @@ export function SingleBigSwitch(
             const inputB = inv2
             const output = flag1
             piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
-              new SolutionNode(
+              new Piece(
                 id1,
                 id2,
                 output,
@@ -306,7 +306,7 @@ export function SingleBigSwitch(
             const inputB = prop1
             const output = flag1
             piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
-              new SolutionNode(
+              new Piece(
                 id1,
                 id2,
                 output,
@@ -332,7 +332,7 @@ export function SingleBigSwitch(
             const inputB = prop1
             const output = flag1
             piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
-              new SolutionNode(
+              new Piece(
                 id1,
                 id2,
                 output,
@@ -362,7 +362,7 @@ export function SingleBigSwitch(
             const inputE = flag4
             const inputF = flag5
             piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
-              new SolutionNode(
+              new Piece(
                 id1,
                 id2,
                 output,
@@ -392,7 +392,7 @@ export function SingleBigSwitch(
             const inputB = prop2
             const output = flag1
             piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
-              new SolutionNode(
+              new Piece(
                 id1,
                 id2,
                 output,
@@ -419,7 +419,7 @@ export function SingleBigSwitch(
             const inputB = prop1
             const output = inv2
             piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
-              new SolutionNode(
+              new Piece(
                 id1,
                 id2,
                 output,
@@ -444,7 +444,7 @@ export function SingleBigSwitch(
             const inputB = prop1
             const output = flag1
             piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
-              new SolutionNode(
+              new Piece(
                 id1,
                 id2,
                 output,
@@ -469,7 +469,7 @@ export function SingleBigSwitch(
             const inputB = prop1
             const output = prop2
             piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
-              new SolutionNode(
+              new Piece(
                 id1,
                 id2,
                 output,
@@ -494,7 +494,7 @@ export function SingleBigSwitch(
             const inputB = inv1
             const output = inv2
             piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
-              new SolutionNode(
+              new Piece(
                 id1,
                 id2,
                 output,
@@ -519,7 +519,7 @@ export function SingleBigSwitch(
             const inputB = inv1
             const output = prop2
             piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
-              new SolutionNode(
+              new Piece(
                 id1,
                 id2,
                 output,
@@ -546,7 +546,7 @@ export function SingleBigSwitch(
             const inputB = inv2
             const output = inv3
             piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
-              new SolutionNode(
+              new Piece(
                 id1,
                 id2,
                 output,
@@ -573,7 +573,7 @@ export function SingleBigSwitch(
             const inputB = inv2
             const output = inv3
             piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
-              new SolutionNode(
+              new Piece(
                 id1,
                 id2,
                 output,
@@ -600,7 +600,7 @@ export function SingleBigSwitch(
             const output = inv2
             const inputB = inv3
             piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
-              new SolutionNode(
+              new Piece(
                 id1,
                 id2,
                 output,
@@ -627,7 +627,7 @@ export function SingleBigSwitch(
             const output = inv2
             const inputB = prop1
             piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
-              new SolutionNode(
+              new Piece(
                 id1,
                 id2,
                 output,
@@ -654,7 +654,7 @@ export function SingleBigSwitch(
             const output = inv2
             const inputB = inv3
             piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
-              new SolutionNode(
+              new Piece(
                 id1,
                 id2,
                 output,
@@ -680,7 +680,7 @@ export function SingleBigSwitch(
             const inputB = prop1
             const output = prop2
             piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
-              new SolutionNode(
+              new Piece(
                 id1,
                 id2,
                 output,
@@ -707,7 +707,7 @@ export function SingleBigSwitch(
             const inputA = inv2
             const inputB = prop1
             piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
-              new SolutionNode(
+              new Piece(
                 id1,
                 id2,
                 output,
@@ -733,7 +733,7 @@ export function SingleBigSwitch(
             const inputA = inv2
             const inputB = prop1
             piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
-              new SolutionNode(
+              new Piece(
                 id1,
                 id2,
                 output,
@@ -759,7 +759,7 @@ export function SingleBigSwitch(
             const inputA = inv2
             const inputB = prop1
             piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
-              new SolutionNode(
+              new Piece(
                 id1,
                 id2,
                 output,
@@ -785,7 +785,7 @@ export function SingleBigSwitch(
             const inputA = inv2
             const inputB = prop1
             piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
-              new SolutionNode(
+              new Piece(
                 id1,
                 id2,
                 output,
@@ -813,7 +813,7 @@ export function SingleBigSwitch(
             const inputA = prop1
             const inputB = prop2
             piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
-              new SolutionNode(
+              new Piece(
                 id1,
                 id2,
                 output,
@@ -841,7 +841,7 @@ export function SingleBigSwitch(
             const inputA = prop2
             const inputB = flag1
             piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
-              new SolutionNode(
+              new Piece(
                 id1,
                 id2,
                 output,
@@ -870,7 +870,7 @@ export function SingleBigSwitch(
             const inputA = prop2
             const inputB = inv1
             piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
-              new SolutionNode(
+              new Piece(
                 id1,
                 id2,
                 output,
@@ -901,7 +901,7 @@ export function SingleBigSwitch(
             const inputA = prop2
             const inputB = inv1
             piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
-              new SolutionNode(
+              new Piece(
                 id1,
                 id2,
                 output,
@@ -927,7 +927,7 @@ export function SingleBigSwitch(
             const output = prop2
             const inputB = inv1
             piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
-              new SolutionNode(
+              new Piece(
                 id1,
                 id2,
                 output,
@@ -952,7 +952,7 @@ export function SingleBigSwitch(
             const output = prop2
             const inputB = prop3
             piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
-              new SolutionNode(
+              new Piece(
                 id1,
                 id2,
                 output,
@@ -978,7 +978,7 @@ export function SingleBigSwitch(
             const output = prop2
             const inputB = inv1
             piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
-              new SolutionNode(
+              new Piece(
                 id1,
                 id2,
                 output,
@@ -1004,7 +1004,7 @@ export function SingleBigSwitch(
             const output = prop2
             const inputB = prop3
             piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
-              new SolutionNode(
+              new Piece(
                 id1,
                 id2,
                 output,
@@ -1033,7 +1033,7 @@ export function SingleBigSwitch(
             // const inputB, count = "" + reactionsFile.gates[i].prop2;
             const output = inv1
             piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
-              new SolutionNode(
+              new Piece(
                 id1,
                 id2,
                 output,
@@ -1061,7 +1061,7 @@ export function SingleBigSwitch(
             const output = prop2
             const inputB = inv1
             piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
-              new SolutionNode(
+              new Piece(
                 id1,
                 id2,
                 output,
@@ -1086,7 +1086,7 @@ export function SingleBigSwitch(
             const output = inv1
             const inputA = prop1
             piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
-              new SolutionNode(
+              new Piece(
                 id1,
                 id2,
                 output,
@@ -1109,7 +1109,7 @@ export function SingleBigSwitch(
             const output = inv1
             const inputA = prop1
             piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
-              new SolutionNode(
+              new Piece(
                 id1,
                 id2,
                 output,
@@ -1134,7 +1134,7 @@ export function SingleBigSwitch(
             const inputA = prop1
             const inputB = flag1
             piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
-              new SolutionNode(
+              new Piece(
                 id1,
                 id2,
                 output,
@@ -1159,7 +1159,7 @@ export function SingleBigSwitch(
             const inputA = prop1
             const inputB = flag1
             piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
-              new SolutionNode(
+              new Piece(
                 id1,
                 id2,
                 output,
@@ -1182,7 +1182,7 @@ export function SingleBigSwitch(
             const output = inv1
             const inputA = prop1
             piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
-              new SolutionNode(
+              new Piece(
                 id1,
                 id2,
                 output,
@@ -1205,7 +1205,7 @@ export function SingleBigSwitch(
             const inputA = prop1
             const inputB = flag1
             piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
-              new SolutionNode(
+              new Piece(
                 id1,
                 id2,
                 output,
@@ -1231,7 +1231,7 @@ export function SingleBigSwitch(
             const inputA = prop1
             const inputB = inv1
             piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
-              new SolutionNode(
+              new Piece(
                 id1,
                 id2,
                 output,
@@ -1255,7 +1255,7 @@ export function SingleBigSwitch(
             const output = prop2
             const inputA = prop1
             piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
-              new SolutionNode(
+              new Piece(
                 id1,
                 id2,
                 output,
@@ -1278,7 +1278,7 @@ export function SingleBigSwitch(
             const input = prop1
             const output = prop2
             piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
-              new SolutionNode(
+              new Piece(
                 id1,
                 id2,
                 output,
@@ -1302,7 +1302,7 @@ export function SingleBigSwitch(
             const input = prop1
             const output = prop2
             piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
-              new SolutionNode(
+              new Piece(
                 id1,
                 id2,
                 output,

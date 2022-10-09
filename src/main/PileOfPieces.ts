@@ -1,21 +1,21 @@
 import { PileOfPiecesReadOnly } from '..'
 import { ReadOnlyJsonSingle } from './ReadOnlyJsonSingle'
-import { SolutionNode } from './SolutionNode'
+import { Piece } from './Piece'
 /**
  * Yes, the only data here is the map.
  *
  * This is the source repository of the solution nodes
  */
 export class PileOfPieces implements PileOfPiecesReadOnly {
-  private readonly solutionNodeMap: Map<string, Set<SolutionNode>>
+  private readonly solutionNodeMap: Map<string, Set<Piece>>
 
   constructor (cloneFromMe: PileOfPiecesReadOnly | null) {
-    this.solutionNodeMap = new Map<string, Set<SolutionNode>>()
+    this.solutionNodeMap = new Map<string, Set<Piece>>()
     if (cloneFromMe != null) {
       for (const set of cloneFromMe.GetValues()) {
         if (set.size > 0) {
-          const clonedSet = new Set<SolutionNode>()
-          const throwawaySet = new Set<SolutionNode>()
+          const clonedSet = new Set<Piece>()
+          const throwawaySet = new Set<Piece>()
           let outputName = ''
           for (const node of set) {
             const clonedNode = node.CloneNodeAndEntireTree(throwawaySet)
@@ -28,10 +28,10 @@ export class PileOfPieces implements PileOfPiecesReadOnly {
     }
   }
 
-  GetAutos (): SolutionNode[] {
-    const toReturn = new Array<SolutionNode>()
-    this.solutionNodeMap.forEach((value: Set<SolutionNode>) => {
-      value.forEach((node: SolutionNode) => {
+  GetAutos (): Piece[] {
+    const toReturn = new Array<Piece>()
+    this.solutionNodeMap.forEach((value: Set<Piece>) => {
+      value.forEach((node: Piece) => {
         if (node.type.startsWith('AUTO')) {
           toReturn.push(node)
         }
@@ -44,7 +44,7 @@ export class PileOfPieces implements PileOfPiecesReadOnly {
     return this.solutionNodeMap.has(objectToObtain)
   }
 
-  GetNodesThatOutputObject (objectToObtain: string): Set<SolutionNode> | undefined {
+  GetNodesThatOutputObject (objectToObtain: string): Set<Piece> | undefined {
     return this.solutionNodeMap.get(objectToObtain)
   }
 
@@ -52,11 +52,11 @@ export class PileOfPieces implements PileOfPiecesReadOnly {
     return this.solutionNodeMap.has(objectToObtain)
   }
 
-  Get (objectToObtain: string): Set<SolutionNode> | undefined {
+  Get (objectToObtain: string): Set<Piece> | undefined {
     return this.solutionNodeMap.get(objectToObtain)
   }
 
-  GetValues (): IterableIterator<Set<SolutionNode>> {
+  GetValues (): IterableIterator<Set<Piece>> {
     return this.solutionNodeMap.values()
   }
 
@@ -82,16 +82,16 @@ export class PileOfPieces implements PileOfPiecesReadOnly {
     json.AddAllSolutionNodesToGivenMap(this)
   }
 
-  AddMapEntryUsingOutputAsKey (piece: SolutionNode): void {
+  AddMapEntryUsingOutputAsKey (piece: Piece): void {
     // initialize array, if it hasn't yet been
     if (!this.solutionNodeMap.has(piece.output)) {
-      this.solutionNodeMap.set(piece.output, new Set<SolutionNode>())
+      this.solutionNodeMap.set(piece.output, new Set<Piece>())
     }
     // always add to list
     this.solutionNodeMap.get(piece.output)?.add(piece)
   }
 
-  RemoveNode (node: SolutionNode): void {
+  RemoveNode (node: Piece): void {
     if (node.count - 1 <= 0) {
       const key = node.output
       if (this.solutionNodeMap.has(key)) {
