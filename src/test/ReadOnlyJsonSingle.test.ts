@@ -1,6 +1,6 @@
 // Typescript Unit test
-import { expect } from '@open-wc/testing';
-import chai from 'chai';
+import { expect } from '@open-wc/testing'
+import chai from 'chai'
 import { ReadOnlyJsonSingle } from '../main/ReadOnlyJsonSingle'
 
 describe('SceneSingle', () => {

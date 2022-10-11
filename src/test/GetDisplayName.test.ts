@@ -1,4 +1,4 @@
-import { expect } from '@open-wc/testing';
+import { expect } from '@open-wc/testing'
 import { GetDisplayName } from './../main/GetDisplayName'
 
 describe('JigsawW', () => {
@@ -8,4 +8,4 @@ describe('JigsawW', () => {
     const displayName = GetDisplayName('prop_broken_radio')
     expect(displayName).to.equal('[36mbroken_radio[0m')
   })
-});
+})
