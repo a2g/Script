@@ -1,10 +1,10 @@
-import { Solution } from '../main/Solution.js'
-import { GetDisplayName } from '../main/GetDisplayName.js'
-import { Colors } from '../main/Colors.js'
-import { AddBrackets } from '../main/AddBrackets.js'
+import { Solution } from './Solution.js'
+import { GetDisplayName } from './GetDisplayName.js'
+import { Colors } from './Colors.js'
+import { AddBrackets } from './AddBrackets.js'
 import { PileOfPiecesReadOnly } from './PileOfPiecesReadOnly.js'
 
-export class SolverViaRootNode {
+export class SolverViaRootPiece {
   private solutions: Solution[]
 
   private readonly mapOfStartingThingsAndWhoCanHaveThem: Map<string, Set<string>>

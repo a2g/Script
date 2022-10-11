@@ -1,11 +1,11 @@
 import { existsSync } from 'fs'
-import { SolverViaRootNode } from '../main/SolverViaRootNode.js'
+import { SolverViaRootPiece } from './SolverViaRootPiece.js'
 import { Piece } from './Piece.js'
-import { SpecialNodes } from '../main/SpecialNodes.js'
+import { SpecialTypes } from './SpecialTypes.js'
 import { PileOfPieces } from './PileOfPieces.js'
 import { ReadOnlyJsonSingle } from '../main/ReadOnlyJsonSingle.js'
 import { FormatText } from '../main/FormatText.js'
-import { RootNodeMap } from '../main/RootNodeMap.js'
+import { RootPieceMap } from './RootPieceMap.js'
 import _ from '../../jigsaw.json'
 import { PileOfPiecesReadOnly } from './PileOfPiecesReadOnly.js'
 
@@ -16,7 +16,7 @@ export class Solution {
   // non aggregates
   private readonly solutionNames: string[]
 
-  goals: RootNodeMap
+  goals: RootPieceMap
 
   remainingNodesRepo: PileOfPieces
 
@@ -30,14 +30,14 @@ export class Solution {
   readonly restrictionsEncounteredDuringSolving: Set<string>
 
   constructor (
-    rootNodeMapToCopy: RootNodeMap | null,
+    rootNodeMapToCopy: RootPieceMap | null,
     copyThisMapOfPieces: PileOfPiecesReadOnly,
     startingThingsPassedIn: ReadonlyMap<string, Set<string>>,
     restrictions: Set<string> | null = null,
     nameSegments: string[] | null = null
   ) {
     this.unprocessedLeaves = new Set<Piece>()
-    this.goals = new RootNodeMap(rootNodeMapToCopy, this.unprocessedLeaves)
+    this.goals = new RootPieceMap(rootNodeMapToCopy, this.unprocessedLeaves)
 
     this.remainingNodesRepo = new PileOfPieces(copyThisMapOfPieces)
     this.isArchived = false
@@ -102,7 +102,7 @@ export class Solution {
 
   SetNodeIncomplete (node: Piece | null): void {
     if (node != null) {
-      if (node.type !== SpecialNodes.VerifiedLeaf) {
+      if (node.type !== SpecialTypes.VerifiedLeaf) {
         this.unprocessedLeaves.add(node)
       }
     }
@@ -128,7 +128,7 @@ export class Solution {
     return this.unprocessedLeaves.size > 0
   }
 
-  ProcessUntilCloning (solutions: SolverViaRootNode): boolean {
+  ProcessUntilCloning (solutions: SolverViaRootPiece): boolean {
     let isBreakingDueToSolutionCloning = false
     let max = this.goals.Size()
     for (let i = 0; i < max; i += 1) {
@@ -307,7 +307,7 @@ export class Solution {
     return null
   }
 
-  public GetMapOfRootPieces (): RootNodeMap {
+  public GetMapOfRootPieces (): RootPieceMap {
     return this.goals
   }
 }

@@ -1,5 +1,5 @@
-import { SolverViaRootNode } from './SolverViaRootNode'
-import { SpecialNodes } from './SpecialNodes'
+import { SolverViaRootPiece } from './SolverViaRootPiece'
+import { SpecialTypes } from './SpecialTypes'
 import { Solution } from './Solution'
 import { Happenings } from './Happenings'
 import { Happen } from './Happen'
@@ -16,7 +16,7 @@ export class Piece {
   characterRestrictions: string[]
   happenings: Happenings | null
 
-  constructor (
+  constructor(
     id: number,
     conjoint: number,
     output: string,
@@ -73,7 +73,7 @@ export class Piece {
     }
   }
 
-  CloneNodeAndEntireTree (incompleteNodeSet: Set<Piece>): Piece {
+  CloneNodeAndEntireTree(incompleteNodeSet: Set<Piece>): Piece {
     const clone = new Piece(0, 0, this.output, '')
     clone.id = this.id
     clone.conjoint = this.conjoint
@@ -108,7 +108,7 @@ export class Piece {
     return clone
   }
 
-  FindAnyNodeMatchingIdRecursively (id: number): Piece | null {
+  FindAnyNodeMatchingIdRecursively(id: number): Piece | null {
     if (this.id === id) {
       return this
     }
@@ -119,7 +119,7 @@ export class Piece {
     return null
   }
 
-  private InternalLoopOfProcessUntilCloning (solution: Solution, solutions: SolverViaRootNode): boolean {
+  private InternalLoopOfProcessUntilCloning(solution: Solution, solutions: SolverViaRootPiece): boolean {
     for (let k = 0; k < this.inputs.length; k++) { // classic forloop useful because shared index on cloned node
       // without this following line, any clones will attempt to reclone themselves
       // and Solution.ProcessUntilCompletion will continue forever
@@ -129,7 +129,7 @@ export class Piece {
       // otherwise Toggle pieces will toggle until the count is zero.
       const objectToObtain = this.inputHints[k]
       if (solution.startingThings.has(objectToObtain)) {
-        const newLeaf = new Piece(0, 0, objectToObtain, SpecialNodes.VerifiedLeaf)
+        const newLeaf = new Piece(0, 0, objectToObtain, SpecialTypes.VerifiedLeaf)
         newLeaf.parent = this
         this.inputs[k] = newLeaf
         // solution.AddLeafForReverseTraversal(path + this.inputHints[k] + "/", newLeaf);
@@ -148,7 +148,7 @@ export class Piece {
       // and if there is more than one, then we clone
       const matchingNodes = solution.GetNodesThatOutputObject(objectToObtain)
       if ((matchingNodes === undefined) || matchingNodes.length === 0) {
-        const newLeaf = new Piece(0, 0, this.inputHints[k], SpecialNodes.VerifiedLeaf)
+        const newLeaf = new Piece(0, 0, this.inputHints[k], SpecialTypes.VerifiedLeaf)
         newLeaf.parent = this
         this.inputs[k] = newLeaf
         // solution.AddLeafForReverseTraversal(path + this.inputHints[k] + "/", newLeaf);
@@ -237,9 +237,9 @@ export class Piece {
     return false
   }
 
-  ProcessUntilCloning (solution: Solution, solutions: SolverViaRootNode, path: string): boolean {
+  ProcessUntilCloning(solution: Solution, solutions: SolverViaRootPiece, path: string): boolean {
     path += this.output + '/'
-    if (this.type === SpecialNodes.VerifiedLeaf) { return false }// false just means keep processing.
+    if (this.type === SpecialTypes.VerifiedLeaf) { return false }// false just means keep processing.
 
     // this is the point we set it as completed
     solution.MarkNodeAsCompleted(this)
@@ -251,7 +251,7 @@ export class Piece {
     // now to process each of those nodes that have been filled out
     for (const inputNode of this.inputs) {
       if (inputNode != null) {
-        if (inputNode.type === SpecialNodes.VerifiedLeaf) { continue }// this means its already been searched for in the map, without success.
+        if (inputNode.type === SpecialTypes.VerifiedLeaf) { continue }// this means its already been searched for in the map, without success.
         const hasACloneJustBeenCreated = inputNode.ProcessUntilCloning(solution, solutions, path)
         if (hasACloneJustBeenCreated) { return true }
       } else {
@@ -277,19 +277,19 @@ export class Piece {
     return false
   }
 
-  SetParent (parent: Piece | null): void {
+  SetParent(parent: Piece | null): void {
     this.parent = parent
   }
 
-  GetParent (): Piece | null {
+  GetParent(): Piece | null {
     return this.parent
   }
 
-  getRestrictions (): string[] {
+  getRestrictions(): string[] {
     return this.characterRestrictions
   }
 
-  UpdateMapWithOutcomes (visibleNodes: Map<string, Set<string>>): void {
+  UpdateMapWithOutcomes(visibleNodes: Map<string, Set<string>>): void {
     if (this.happenings != null) {
       for (const happening of this.happenings.array) {
         switch (happening.happen) {

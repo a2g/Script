@@ -1,4 +1,4 @@
 
-export enum SpecialNodes {
+export enum SpecialTypes {
   VerifiedLeaf = 'VerifiedLeaf'
 }
