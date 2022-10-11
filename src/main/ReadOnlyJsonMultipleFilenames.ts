@@ -7,8 +7,8 @@ import { SingleBigSwitch } from '../main/SingleBigSwitch.js'
 
 function CollectAllJsonRecursively (json: ReadOnlyJsonSingle, map: Map<string, ReadOnlyJsonSingle>): void {
   for (const bag of json.GetMapOfBags()) {
-    const node: ReadOnlyJsonSingle = bag[1]
-    map.set(bag[0], node)
+    const piece: ReadOnlyJsonSingle = bag[1]
+    map.set(bag[0], piece)
   }
 }
 /**
@@ -164,14 +164,14 @@ export class ReadOnlyJsonMultipleFilenames {
     return this.allChars
   }
 
-  GenerateSolutionNodesMappedByInput (): PileOfPieces {
-    const solutionNodesMappedByInput = new PileOfPieces(null)
+  GenerateSolutionPiecesMappedByInput (): PileOfPieces {
+    const solutionPiecesMappedByInput = new PileOfPieces(null)
 
     for (const filename of this.allScenes.keys()) {
       const notUsed = new MixedObjectsAndVerb(Mix.ErrorVerbNotIdentified, '', '', '', 'ScenePreAggregator')
-      SingleBigSwitch(filename, solutionNodesMappedByInput, notUsed)
+      SingleBigSwitch(filename, solutionPiecesMappedByInput, notUsed)
     }
-    return solutionNodesMappedByInput
+    return solutionPiecesMappedByInput
   }
 
   FindHappeningsIfAny (objects: MixedObjectsAndVerb): Happenings | null {

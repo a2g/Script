@@ -169,7 +169,7 @@ export class ReadOnlyViaArrayOfJson {
   }
 
   GeneratePiecesMappedByOutput (): PileOfPieces {
-    const solutionNodesMappedByInput = new PileOfPieces(null)
+    const solutionPiecesMappedByInput = new PileOfPieces(null)
 
     for (const json of this.allScenes) {
       const notUsed = new MixedObjectsAndVerb(
@@ -179,9 +179,9 @@ export class ReadOnlyViaArrayOfJson {
         '',
         'ScenePreAggregator'
       )
-      SingleBigSwitch(json.GetFilename(), solutionNodesMappedByInput, notUsed)
+      SingleBigSwitch(json.GetFilename(), solutionPiecesMappedByInput, notUsed)
     }
-    return solutionNodesMappedByInput
+    return solutionPiecesMappedByInput
   }
 
   FindHappeningsIfAny (objects: MixedObjectsAndVerb): Happenings | null {

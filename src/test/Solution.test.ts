@@ -10,18 +10,18 @@ describe('Solution', () => {
       const map = json.GeneratePiecesMappedByOutput();
       const objective = "inv_screwdriver";
       const collection = new SolutionCollection();
-      const solution = new Solution(new SolutionNode("", "", objective))
+      const solution = new Solution(new SolutionPiece("", "", objective))
       collection.push(solution, map);
-      solution.FindTheFlagWinAndPutItInRootNodeMap()
+      solution.FindTheFlagWinAndPutItInRootPieceMap()
       const wasCloneEncountered = collection.SolvePartiallyUntilCloning();
 
       assert.strictEqual(false, wasCloneEncountered);
       assert.strictEqual(1, collection.length);
       const solution0 = collection[0];
-      assert.strictEqual(0, solution0.GetIncompleteNodes().size);
-      const leafNodes = solution0.GetLeafNodes();
-      assert.ok(leafNodes.has("prop_screwdriver"));
-      assert.strictEqual(1, leafNodes.size);
+      assert.strictEqual(0, solution0.GetIncompletePieces().size);
+      const leafPieces = solution0.GetLeafPieces();
+      assert.ok(leafPieces.has("prop_screwdriver"));
+      assert.strictEqual(1, leafPieces.size);
   });
 
   it("Test of a non cloning five step", () => {
@@ -29,27 +29,27 @@ describe('Solution', () => {
       const map = json.GeneratePiecesMappedByOutput();
       const objective = "prop_death_by_guitar";
       const collection = new SolutionCollection();
-      const solution = new Solution(new SolutionNode("", "", objective), map)
+      const solution = new Solution(new SolutionPiece("", "", objective), map)
       collection.push(solution);
-      solution.FindTheFlagWinAndPutItInRootNodeMap()
-      // process the rest of the nodes
+      solution.FindTheFlagWinAndPutItInRootPieceMap()
+      // process the rest of the Pieces
       do {
           collection.SolvePartiallyUntilCloning();
-      } while (collection.IsNodesRemaining());
+      } while (collection.IsPiecesRemaining());
 
       const solution0 = collection[0];;
-      assert.strictEqual(0, solution0.GetLeafNodes().size);
-      assert.strictEqual(1, solution0.GetIncompleteNodes().size);
+      assert.strictEqual(0, solution0.GetLeafPieces().size);
+      assert.strictEqual(1, solution0.GetIncompletePieces().size);
 
       {
-          const leafNodeMap = solution0.GetLeafNodes();
-          assert.strictEqual(5, leafNodeMap.size);
+          const leafPieceMap = solution0.GetLeafPieces();
+          assert.strictEqual(5, leafPieceMap.size);
           // commenting out the things below, because they will change
-          //assert.ok(leafNodeMap.has("inv_deflated_ball"));
-          //assert.ok(leafNodeMap.has("inv_pump_with_bike_adapter"));
-          //assert.ok(leafNodeMap.has("inv_needle"));
-          //assert.ok(leafNodeMap.has("prop_raised_backboard"));
-          //assert.ok(leafNodeMap.has("inv_pole_hook"));
+          //assert.ok(leafPieceMap.has("inv_deflated_ball"));
+          //assert.ok(leafPieceMap.has("inv_pump_with_bike_adapter"));
+          //assert.ok(leafPieceMap.has("inv_needle"));
+          //assert.ok(leafPieceMap.has("prop_raised_backboard"));
+          //assert.ok(leafPieceMap.has("inv_pole_hook"));
       }
   });
 
@@ -58,27 +58,27 @@ describe('Solution', () => {
       const map = json.GeneratePiecesMappedByOutput();
       const objective = "prop_death_by_slamdunk";
       const collection = new SolutionCollection();
-      const solution = new Solution(new SolutionNode("", "", objective), map);
+      const solution = new Solution(new SolutionPiece("", "", objective), map);
       collection.push(solution);
-      solution.FindTheFlagWinAndPutItInRootNodeMap()
-      // process the rest of the nodes
+      solution.FindTheFlagWinAndPutItInRootPieceMap()
+      // process the rest of the Pieces
       do {
           collection.SolvePartiallyUntilCloning();
-      } while (collection.IsNodesRemaining());
+      } while (collection.IsPiecesRemaining());
 
       const solution0 = collection[0];;
-      assert.strictEqual(0, solution0.GetLeafNodes().size);
-      assert.strictEqual(1, solution0.GetIncompleteNodes().size);
+      assert.strictEqual(0, solution0.GetLeafPieces().size);
+      assert.strictEqual(1, solution0.GetIncompletePieces().size);
 
       {
-          const leafNodeMap = solution0.GetLeafNodes();
-          assert.strictEqual(5, leafNodeMap.size);
+          const leafPieceMap = solution0.GetLeafPieces();
+          assert.strictEqual(5, leafPieceMap.size);
           // commenting out the things below, because they will change
-          //assert.ok(leafNodeMap.has("inv_deflated_ball"));
-          //assert.ok(leafNodeMap.has("inv_pump_with_bike_adapter"));
-          //assert.ok(leafNodeMap.has("inv_needle"));
-          //assert.ok(leafNodeMap.has("prop_raised_backboard"));
-          //assert.ok(leafNodeMap.has("inv_pole_hook"));
+          //assert.ok(leafPieceMap.has("inv_deflated_ball"));
+          //assert.ok(leafPieceMap.has("inv_pump_with_bike_adapter"));
+          //assert.ok(leafPieceMap.has("inv_needle"));
+          //assert.ok(leafPieceMap.has("prop_raised_backboard"));
+          //assert.ok(leafPieceMap.has("inv_pole_hook"));
       }
   });
 */
@@ -99,10 +99,10 @@ describe('Solution', () => {
     expect(solution0.GetMapOfRootPieces().GenerateMapOfLeaves().size).to.equal(27)
     expect(solution0.GetUnprocessedLeaves().size).to.equal(0)
 
-    // process the rest of the nodes
+    // process the rest of the Pieces
     do {
       collection.SolvePartiallyUntilCloning()
-    } while (collection.IsAnyNodesUnprocessed())
+    } while (collection.IsAnyPiecesUnprocessed())
 
     {
       const leaves = solution0.GetMapOfRootPieces().GenerateMapOfLeaves()

@@ -16,9 +16,9 @@ export class Solution {
   // non aggregates
   private readonly solutionNames: string[]
 
-  goals: RootPieceMap
+  rootPieces: RootPieceMap
 
-  remainingNodesRepo: PileOfPieces
+  remainingPiecesRepo: PileOfPieces
 
   isArchived: boolean
 
@@ -30,16 +30,16 @@ export class Solution {
   readonly restrictionsEncounteredDuringSolving: Set<string>
 
   constructor (
-    rootNodeMapToCopy: RootPieceMap | null,
+    rootPieceMapToCopy: RootPieceMap | null,
     copyThisMapOfPieces: PileOfPiecesReadOnly,
     startingThingsPassedIn: ReadonlyMap<string, Set<string>>,
     restrictions: Set<string> | null = null,
     nameSegments: string[] | null = null
   ) {
     this.unprocessedLeaves = new Set<Piece>()
-    this.goals = new RootPieceMap(rootNodeMapToCopy, this.unprocessedLeaves)
+    this.rootPieces = new RootPieceMap(rootPieceMapToCopy, this.unprocessedLeaves)
 
-    this.remainingNodesRepo = new PileOfPieces(copyThisMapOfPieces)
+    this.remainingPiecesRepo = new PileOfPieces(copyThisMapOfPieces)
     this.isArchived = false
 
     // if it is passed in, we deep copy it
@@ -62,13 +62,13 @@ export class Solution {
     this.startingThings = startingThingsPassedIn
   }
 
-  public AddRootNode (rootNode: Piece): void {
-    this.goals.AddRootNode(rootNode)
-    this.unprocessedLeaves.add(rootNode)
+  public AddRootPiece (rootPiece: Piece): void {
+    this.rootPieces.AddRootPiece(rootPiece)
+    this.unprocessedLeaves.add(rootPiece)
   }
 
-  FindTheFlagWinAndPutItInRootNodeMap (): void {
-    const flagWinSet = this.remainingNodesRepo.Get('flag_win')
+  FindTheFlagWinAndPutItInRootPieceMap (): void {
+    const flagWinSet = this.remainingPiecesRepo.Get('flag_win')
     if (flagWinSet === undefined) {
       throw new Error('flag_win was undefined')
     }
@@ -76,72 +76,72 @@ export class Solution {
       throw new Error('flag_win was not equal to 1')
     }
     for (const flagWin of flagWinSet) {
-      this.AddRootNode(flagWin)
+      this.AddRootPiece(flagWin)
     }
   }
 
   Clone (): Solution {
     // the weird order of this is because Solution constructor is used
-    // primarily to construct, so passing in root node is needed..
+    // primarily to construct, so passing in root piece is needed..
     // so we clone the whole tree and pass it in
-    const incompleteNodes = new Set<Piece>()
-    const clonedRootNodeMap =
-      this.goals.CloneAllRootNodesAndTheirTrees(incompleteNodes)
-    this.goals.GetRootNodeByName('flag_win').id =
-      this.goals.GetRootNodeByName('flag_win').id // not sure why do this, but looks crucial!
+    const incompletePieces = new Set<Piece>()
+    const clonedRootPieceMap =
+      this.rootPieces.CloneAllRootPiecesAndTheirTrees(incompletePieces)
+    this.rootPieces.GetRootPieceByName('flag_win').id =
+      this.rootPieces.GetRootPieceByName('flag_win').id // not sure why do this, but looks crucial!
     const clonedSolution = new Solution(
-      clonedRootNodeMap,
-      this.remainingNodesRepo,
+      clonedRootPieceMap,
+      this.remainingPiecesRepo,
       this.startingThings,
       this.restrictionsEncounteredDuringSolving,
       this.solutionNames
     )
-    clonedSolution.SetIncompleteNodes(incompleteNodes)
+    clonedSolution.SetIncompletePieces(incompletePieces)
     return clonedSolution
   }
 
-  SetNodeIncomplete (node: Piece | null): void {
-    if (node != null) {
-      if (node.type !== SpecialTypes.VerifiedLeaf) {
-        this.unprocessedLeaves.add(node)
+  SetPieceIncomplete (piece: Piece | null): void {
+    if (piece != null) {
+      if (piece.type !== SpecialTypes.VerifiedLeaf) {
+        this.unprocessedLeaves.add(piece)
       }
     }
   }
 
-  MarkNodeAsCompleted (node: Piece | null): void {
-    if (node != null) {
-      if (this.unprocessedLeaves.has(node)) {
-        this.unprocessedLeaves.delete(node)
+  MarkPieceAsCompleted (piece: Piece | null): void {
+    if (piece != null) {
+      if (this.unprocessedLeaves.has(piece)) {
+        this.unprocessedLeaves.delete(piece)
       }
     }
   }
 
-  SetIncompleteNodes (set: Set<Piece>): void {
+  SetIncompletePieces (set: Set<Piece>): void {
     // safer to copy this - just being cautious
     this.unprocessedLeaves = new Set<Piece>()
-    for (const node of set) {
-      this.unprocessedLeaves.add(node)
+    for (const piece of set) {
+      this.unprocessedLeaves.add(piece)
     }
   }
 
-  IsAnyNodesUnprocessed (): boolean {
+  IsAnyPiecesUnprocessed (): boolean {
     return this.unprocessedLeaves.size > 0
   }
 
   ProcessUntilCloning (solutions: SolverViaRootPiece): boolean {
     let isBreakingDueToSolutionCloning = false
-    let max = this.goals.Size()
+    let max = this.rootPieces.Size()
     for (let i = 0; i < max; i += 1) {
-      const goal = this.goals.GetAt(i)
+      const goal = this.rootPieces.GetAt(i)
       if (goal.ProcessUntilCloning(this, solutions, '/')) {
         isBreakingDueToSolutionCloning = true
         break
       }
-      max = this.goals.Size()
+      max = this.rootPieces.Size()
     }
 
     if (!isBreakingDueToSolutionCloning) {
-      // then this means the root node has rolled to completion
+      // then this means the root piece has rolled to completion
       this.unprocessedLeaves.clear()
     }
     return isBreakingDueToSolutionCloning
@@ -152,18 +152,18 @@ export class Solution {
   }
 
   GetFlagWin (): Piece {
-    return this.goals.GetRootNodeByName('flag_win')
+    return this.rootPieces.GetRootPieceByName('flag_win')
   }
 
-  HasAnyNodesThatOutputObject (objectToObtain: string): boolean {
-    return this.remainingNodesRepo.Has(objectToObtain)
+  HasAnyPiecesThatOutputObject (objectToObtain: string): boolean {
+    return this.remainingPiecesRepo.Has(objectToObtain)
   }
 
-  GetNodesThatOutputObject (objectToObtain: string): Piece[] | undefined {
-    // since the remainingNodes are a map index by output node
-    // then a remainingNodes.Get will retrieve all matching nodes.
+  GetPiecesThatOutputObject (objectToObtain: string): Piece[] | undefined {
+    // since the remainingPieces are a map index by output piece
+    // then a remainingPieces.Get will retrieve all matching pieces.
     const result: Set<Piece> | undefined =
-      this.remainingNodesRepo.Get(objectToObtain)
+      this.remainingPiecesRepo.Get(objectToObtain)
     if (result != null) {
       const blah: Piece[] = []
       for (const item of result) {
@@ -177,7 +177,7 @@ export class Solution {
           // TODO: fix the above
           if (twin === 0) {
             blah.push(item)
-          } else if (this.remainingNodesRepo.ContainsId(twin)) {
+          } else if (this.remainingPiecesRepo.ContainsId(twin)) {
             blah.push(item)
           }
         }
@@ -187,8 +187,8 @@ export class Solution {
     return []
   }
 
-  RemoveNode (node: Piece): void {
-    this.remainingNodesRepo.RemoveNode(node)
+  RemovePiece (piece: Piece): void {
+    this.remainingPiecesRepo.RemovePiece(piece)
   }
 
   PushNameSegment (solutionName: string): void {
@@ -214,21 +214,21 @@ export class Solution {
     return this.restrictionsEncounteredDuringSolving
   }
 
-  GetRepoOfRemainingNodes (): PileOfPieces {
-    // we already remove nodes from this when we use them up
-    // so returning the current node map is ok
-    return this.remainingNodesRepo
+  GetRepoOfRemainingPieces (): PileOfPieces {
+    // we already remove pieces from this when we use them up
+    // so returning the current piece map is ok
+    return this.remainingPiecesRepo
   }
 
-  MergeInNodesForChapterCompletion (goalFlag: string): void {
-    const autos = this.remainingNodesRepo.GetAutos()
-    for (const node of autos) {
+  MergeInPiecesForChapterCompletion (goalFlag: string): void {
+    const autos = this.remainingPiecesRepo.GetAutos()
+    for (const piece of autos) {
       // find the auto that imports json
-      if (node.inputHints[0] === goalFlag) {
-        if (node.type === _.AUTO_FLAG1_CAUSES_IMPORT_OF_JSON) {
-          if (existsSync(node.output)) {
-            const json = new ReadOnlyJsonSingle(node.output)
-            this.remainingNodesRepo.MergeInNodesFromScene(json)
+      if (piece.inputHints[0] === goalFlag) {
+        if (piece.type === _.AUTO_FLAG1_CAUSES_IMPORT_OF_JSON) {
+          if (existsSync(piece.output)) {
+            const json = new ReadOnlyJsonSingle(piece.output)
+            this.remainingPiecesRepo.MergeInPiecesFromScene(json)
           }
         }
       }
@@ -257,16 +257,16 @@ export class Solution {
     }
   }
 
-  FindNodeWithSomeInputForConjointToAttachTo (
+  FindPieceWithSomeInputForConjointToAttachTo (
     theConjoint: Piece | null
   ): Piece | null {
-    for (const rootNode of this.goals.GetValues()) {
-      const node = this.FindFirstAttachmentLeafForConjointRecursively(
+    for (const rootPiece of this.rootPieces.GetValues()) {
+      const piece = this.FindFirstAttachmentLeafForConjointRecursively(
         theConjoint,
-        rootNode
+        rootPiece
       )
-      if (node !== null) {
-        return node
+      if (piece !== null) {
+        return piece
       }
     }
     return null
@@ -274,21 +274,21 @@ export class Solution {
 
   FindFirstAttachmentLeafForConjointRecursively (
     theConjoint: Piece | null,
-    nodeToSearch: Piece | null
+    pieceToSearch: Piece | null
   ): Piece | null {
     // isn't kept up to date, so we traverse, depth first.
-    if (theConjoint != null && nodeToSearch != null) {
-      for (let i = 0; i < nodeToSearch.inputs.length; i += 1) {
+    if (theConjoint != null && pieceToSearch != null) {
+      for (let i = 0; i < pieceToSearch.inputs.length; i += 1) {
         // if its non null, then we can't attach the conjoint there...but we can recurse
-        if (nodeToSearch.inputs[i] != null) {
+        if (pieceToSearch.inputs[i] != null) {
           // check if we can attach the conjoint there
-          if (nodeToSearch.inputHints[i] === theConjoint.output) {
-            return nodeToSearch
+          if (pieceToSearch.inputHints[i] === theConjoint.output) {
+            return pieceToSearch
           }
           // else search inside
           return this.FindFirstAttachmentLeafForConjointRecursively(
             theConjoint,
-            nodeToSearch.inputs[i]
+            pieceToSearch.inputs[i]
           )
         }
       }
@@ -297,9 +297,9 @@ export class Solution {
     return null
   }
 
-  FindAnyNodeMatchingIdRecursively (id: number): Piece | null {
-    for (const goal of this.goals.GetValues()) {
-      const result = goal.FindAnyNodeMatchingIdRecursively(id)
+  FindAnyPieceMatchingIdRecursively (id: number): Piece | null {
+    for (const goal of this.rootPieces.GetValues()) {
+      const result = goal.FindAnyPieceMatchingIdRecursively(id)
       if (result != null) {
         return result
       }
@@ -308,6 +308,6 @@ export class Solution {
   }
 
   public GetMapOfRootPieces (): RootPieceMap {
-    return this.goals
+    return this.rootPieces
   }
 }

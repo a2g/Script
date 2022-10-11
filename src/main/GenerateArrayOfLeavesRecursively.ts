@@ -1,9 +1,9 @@
 import { Piece } from './Piece'
 
-export function GenerateArrayOfLeavesRecursively(node: Piece): Piece[] {
+export function GenerateArrayOfLeavesRecursively (piece: Piece): Piece[] {
   let array: Piece[] = []
   let isNoInputs = true
-  for (const input of node.inputs) {
+  for (const input of piece.inputs) {
     if (input != null) {
       isNoInputs = false
       const tempArray = GenerateArrayOfLeavesRecursively(input)
@@ -12,7 +12,7 @@ export function GenerateArrayOfLeavesRecursively(node: Piece): Piece[] {
   }
 
   if (isNoInputs) {
-    array.push(node)
+    array.push(piece)
   }
 
   return array

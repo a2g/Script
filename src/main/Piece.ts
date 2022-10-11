@@ -16,7 +16,7 @@ export class Piece {
   characterRestrictions: string[]
   happenings: Happenings | null
 
-  constructor(
+  constructor (
     id: number,
     conjoint: number,
     output: string,
@@ -73,7 +73,7 @@ export class Piece {
     }
   }
 
-  CloneNodeAndEntireTree(incompleteNodeSet: Set<Piece>): Piece {
+  ClonePieceAndEntireTree (incompletePieceSet: Set<Piece>): Piece {
     const clone = new Piece(0, 0, this.output, '')
     clone.id = this.id
     clone.conjoint = this.conjoint
@@ -86,11 +86,11 @@ export class Piece {
       clone.inputHints.push(inputHint)
     }
 
-    // the nodes
+    // the pieces
     let isIncomplete = false
     for (const input of this.inputs) {
       if (input != null) {
-        const child = input.CloneNodeAndEntireTree(incompleteNodeSet)
+        const child = input.ClonePieceAndEntireTree(incompletePieceSet)
         child.SetParent(clone)
         clone.inputs.push(child)
       } else {
@@ -99,7 +99,7 @@ export class Piece {
       }
     }
 
-    if (isIncomplete) { incompleteNodeSet.add(this) }
+    if (isIncomplete) { incompletePieceSet.add(this) }
 
     for (const restriction of this.characterRestrictions) {
       clone.characterRestrictions.push(restriction)
@@ -108,19 +108,19 @@ export class Piece {
     return clone
   }
 
-  FindAnyNodeMatchingIdRecursively(id: number): Piece | null {
+  FindAnyPieceMatchingIdRecursively (id: number): Piece | null {
     if (this.id === id) {
       return this
     }
     for (const input of this.inputs) {
-      const result = (input != null) ? input.FindAnyNodeMatchingIdRecursively(id) : null
+      const result = (input != null) ? input.FindAnyPieceMatchingIdRecursively(id) : null
       if (result != null) { return result }
     };
     return null
   }
 
-  private InternalLoopOfProcessUntilCloning(solution: Solution, solutions: SolverViaRootPiece): boolean {
-    for (let k = 0; k < this.inputs.length; k++) { // classic forloop useful because shared index on cloned node
+  private InternalLoopOfProcessUntilCloning (solution: Solution, solutions: SolverViaRootPiece): boolean {
+    for (let k = 0; k < this.inputs.length; k++) { // classic forloop useful because shared index on cloned piece
       // without this following line, any clones will attempt to reclone themselves
       // and Solution.ProcessUntilCompletion will continue forever
       if (this.inputs[k] != null) { continue }
@@ -140,119 +140,118 @@ export class Piece {
       // then we will eventually come to process the other entry in goals
       // so we can skip on to the next one..I think...
       //
-      if (solution.goals.Has(objectToObtain)) {
+      if (solution.rootPieces.Has(objectToObtain)) {
         continue
       }
 
       // This is where we get all the pieces that fit
       // and if there is more than one, then we clone
-      const matchingNodes = solution.GetNodesThatOutputObject(objectToObtain)
-      if ((matchingNodes === undefined) || matchingNodes.length === 0) {
+      const matchingPieces = solution.GetPiecesThatOutputObject(objectToObtain)
+      if ((matchingPieces === undefined) || matchingPieces.length === 0) {
         const newLeaf = new Piece(0, 0, this.inputHints[k], SpecialTypes.VerifiedLeaf)
         newLeaf.parent = this
         this.inputs[k] = newLeaf
         // solution.AddLeafForReverseTraversal(path + this.inputHints[k] + "/", newLeaf);
-      } else if (objectToObtain.startsWith('flag_') && matchingNodes.length === 1) {
-        // add the node with the flag output to the goal map
-        // since matchingNodes[0] has output of "flag_..." (it must be equal to input)
+      } else if (objectToObtain.startsWith('flag_') && matchingPieces.length === 1) {
+        // add the piece with the flag output to the goal map
+        // since matchingPieces[0] has output of "flag_..." (it must be equal to input)
         // and since AddToMap uses output as the key in the map
         // then the goals map will now have another entry with a key equal to "flag_..."
         // which is what we want.
-        solution.goals.AddRootNode(matchingNodes[0])
-        solution.SetNodeIncomplete(matchingNodes[0])
-      } else if (matchingNodes.length > 0) {
+        solution.rootPieces.AddRootPiece(matchingPieces[0])
+        solution.SetPieceIncomplete(matchingPieces[0])
+      } else if (matchingPieces.length > 0) {
         // In our array the currentSolution, is at index zero
         // so we start at the highest index in the list
         // we when we finish the loop, we are with
-        for (let i = matchingNodes.length - 1; i >= 0; i--) { // need reverse iterator
-          const theMatchingNode = matchingNodes[i]
+        for (let i = matchingPieces.length - 1; i >= 0; i--) { // need reverse iterator
+          const theMatchingPiece = matchingPieces[i]
 
           // Clone - if needed!
           const isCloneBeingUsed = i > 0
           const theSolution = isCloneBeingUsed ? solution.Clone() : solution
 
           // This is the earliest possible point we can remove the
-          // matching node: i.e. after the cloning has occurred
-          theSolution.RemoveNode(theMatchingNode)
+          // matching piece: i.e. after the cloning has occurred
+          theSolution.RemovePiece(theMatchingPiece)
 
           // this is only here to make the unit tests make sense
-          // something like to fix a bug where cloning doesn't mark node as complete
-          theSolution.MarkNodeAsCompleted(theSolution.GetFlagWin())
+          // something like to fix a bug where cloning doesn't mark piece as complete
+          theSolution.MarkPieceAsCompleted(theSolution.GetFlagWin())
           // ^^ this might need to recursively ask for parent, since there are no
-          // many rout nodes
+          // many root pieces
 
           if (isCloneBeingUsed) {
             solutions.GetSolutions().push(theSolution)
           }
 
-          // rediscover the current node in theSolution - again because we might be cloned
-          let theNode = null
-          for (const rootNode of theSolution.goals.GetValues()) {
-            theNode = rootNode.FindAnyNodeMatchingIdRecursively(this.id)
-            if (theNode != null) {
+          // rediscover the current piece in theSolution - again because we might be cloned
+          let thePiece = null
+          for (const rootPiece of theSolution.rootPieces.GetValues()) {
+            thePiece = rootPiece.FindAnyPieceMatchingIdRecursively(this.id)
+            if (thePiece != null) {
               break
             }
           }
 
-          if (theNode != null) {
-            theMatchingNode.parent = theNode
-            theNode.inputs[k] = theMatchingNode
+          if (thePiece != null) {
+            theMatchingPiece.parent = thePiece
+            thePiece.inputs[k] = theMatchingPiece
 
             // all gates are incomplete when they are *just* added
-            theSolution.SetNodeIncomplete(theMatchingNode)
-            theSolution.AddRestrictions(theMatchingNode.getRestrictions())
+            theSolution.SetPieceIncomplete(theMatchingPiece)
+            theSolution.AddRestrictions(theMatchingPiece.getRestrictions())
 
-            /*
-            if (theNode.conjoint > 0) {
-              const theConjoinNode = theSolution.FindAnyNodeMatchingIdRecursively(this.id)
-              if (theConjoinNode != null) {
-                const theLeafToAttachTo = theSolution.FindNodeWithSomeInputForConjointToAttachTo(theConjoinNode)
+            /* if (thePiece.conjoint > 0) {
+              const theConjointPiece = theSolution.FindAnyPieceMatchingIdRecursively(this.id)
+              if (theConjointPiece != null) {
+                const theLeafToAttachTo = theSolution.FindPieceWithSomeInputForConjointToAttachTo(theConjointPiece)
                 if (theLeafToAttachTo != null) {
                   for (let j = 0; j < theLeafToAttachTo.inputHints.length; j++) {
-                    if (theLeafToAttachTo.inputHints[j] === theConjoinNode.output) {
-                      theSolution.RemoveNode(theConjoinNode)
-                      theSolution.SetNodeIncomplete(theConjoinNode)
-                      theSolution.AddRestrictions(theConjoinNode.getRestrictions())
-                      theLeafToAttachTo.inputs[j] = theConjoinNode
-                      theConjoinNode.parent = theLeafToAttachTo
+                    if (theLeafToAttachTo.inputHints[j] === theConjointPiece.output) {
+                      theSolution.RemovePiece(theConjointPiece)
+                      theSolution.SetPieceIncomplete(theConjointPiece)
+                      theSolution.AddRestrictions(theConjointPiece.getRestrictions())
+                      theLeafToAttachTo.inputs[j] = theConjointPiece
+                      theConjointPiece.parent = theLeafToAttachTo
                     }
                   }
                 } else {
-                  console.log('theConjoinNode is null - so we are cloning wrong')
-                  theSolution.FindAnyNodeMatchingIdRecursively(this.id)
+                  console.log('theConjoinPiece is null - so we are cloning wrong')
+                  theSolution.FindAnyPieceMatchingIdRecursively(this.id)
                 }
               } else {
-                console.log('theConjoinNode is null - so we are cloning wrong')
+                console.log('theConjoinPiece is null - so we are cloning wrong')
               }
             } */
           } else {
-            console.log('node is null - so we are cloning wrong')
+            console.log('piece is null - so we are cloning wrong')
           }
         }
 
-        const hasACloneJustBeenCreated = matchingNodes.length > 1
+        const hasACloneJustBeenCreated = matchingPieces.length > 1
         if (hasACloneJustBeenCreated) { return true }// yes is incomplete
       }
     }
     return false
   }
 
-  ProcessUntilCloning(solution: Solution, solutions: SolverViaRootPiece, path: string): boolean {
+  ProcessUntilCloning (solution: Solution, solutions: SolverViaRootPiece, path: string): boolean {
     path += this.output + '/'
     if (this.type === SpecialTypes.VerifiedLeaf) { return false }// false just means keep processing.
 
     // this is the point we set it as completed
-    solution.MarkNodeAsCompleted(this)
+    solution.MarkPieceAsCompleted(this)
 
     if (this.InternalLoopOfProcessUntilCloning(solution, solutions)) {
       return true
     }
 
-    // now to process each of those nodes that have been filled out
-    for (const inputNode of this.inputs) {
-      if (inputNode != null) {
-        if (inputNode.type === SpecialTypes.VerifiedLeaf) { continue }// this means its already been searched for in the map, without success.
-        const hasACloneJustBeenCreated = inputNode.ProcessUntilCloning(solution, solutions, path)
+    // now to process each of those pieces that have been filled out
+    for (const inputPiece of this.inputs) {
+      if (inputPiece != null) {
+        if (inputPiece.type === SpecialTypes.VerifiedLeaf) { continue }// this means its already been searched for in the map, without success.
+        const hasACloneJustBeenCreated = inputPiece.ProcessUntilCloning(solution, solutions, path)
         if (hasACloneJustBeenCreated) { return true }
       } else {
 
@@ -269,39 +268,39 @@ export class Piece {
         //
         // With this way, I think we need to choose something else....
 
-        // assert(inputNode && "Input node=" + inputNode + " <-If this fails there is something wrong with InternalLoopOfProcessUntilCloning");
-        // console.log('Input node= null <-If this fails there is something wrong with InternalLoopOfProcessUntilCloning')
+        // assert(inputPiece && "Input piece=" + inputPiece + " <-If this fails there is something wrong with InternalLoopOfProcessUntilCloning");
+        // console.log('Input piece= null <-If this fails there is something wrong with InternalLoopOfProcessUntilCloning')
       }
     }
 
     return false
   }
 
-  SetParent(parent: Piece | null): void {
+  SetParent (parent: Piece | null): void {
     this.parent = parent
   }
 
-  GetParent(): Piece | null {
+  GetParent (): Piece | null {
     return this.parent
   }
 
-  getRestrictions(): string[] {
+  getRestrictions (): string[] {
     return this.characterRestrictions
   }
 
-  UpdateMapWithOutcomes(visibleNodes: Map<string, Set<string>>): void {
+  UpdateMapWithOutcomes (visiblePieces: Map<string, Set<string>>): void {
     if (this.happenings != null) {
       for (const happening of this.happenings.array) {
         switch (happening.happen) {
           case Happen.FlagIsSet:
           case Happen.InvAppears:
           case Happen.PropAppears:
-            visibleNodes.set(happening.item, new Set<string>())
+            visiblePieces.set(happening.item, new Set<string>())
             break
           case Happen.InvGoes:
           case Happen.PropGoes:
           default:
-            visibleNodes.delete(happening.item)
+            visiblePieces.delete(happening.item)
             break
         }
       }

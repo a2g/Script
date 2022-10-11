@@ -5,13 +5,13 @@ import { SpecialTypes } from '../main/SpecialTypes.js'
 import chai from 'chai'
 
 describe('GenerateMapOfLeaves', () => {
-  it('EnsureARootNodeThatIsAVerifiedLeafGetsAdded', () => {
+  it('EnsureARootPieceThatIsAVerifiedLeafGetsAdded', () => {
     const throwaway = new Set<Piece>()
-    const rootNodeMap = new RootPieceMap(null, throwaway)
-    const node = new Piece(0, 0, 'blah', SpecialTypes.VerifiedLeaf, 1, null, null, 'c', 'c')
-    rootNodeMap.AddRootNode(node)
+    const rootPieceMap = new RootPieceMap(null, throwaway)
+    const piece = new Piece(0, 0, 'blah', SpecialTypes.VerifiedLeaf, 1, null, null, 'c', 'c')
+    rootPieceMap.AddRootPiece(piece)
 
-    const result = rootNodeMap.GenerateMapOfLeaves()
+    const result = rootPieceMap.GenerateMapOfLeaves()
     chai.assert.equal(result.size, 1)
   })
 })

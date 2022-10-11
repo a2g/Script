@@ -3,25 +3,25 @@ import { Piece } from './Piece'
 /**
  * Yes, the only data here is the map.
  *
- * This is the source repository of the solution nodes
+ * This is the source repository of the solution pieces
  */
 export class RootPieceMap {
   private readonly goals: Piece[]
   private readonly names: string[]
 
-  constructor (deepCopyFromMe: RootPieceMap | null, incompleteNodes: Set<Piece>) {
+  constructor (deepCopyFromMe: RootPieceMap | null, incompletePieces: Set<Piece>) {
     this.goals = []
     this.names = []
     if (deepCopyFromMe != null) {
-      for (const node of deepCopyFromMe.goals.values()) {
-        const clonedTree = node.CloneNodeAndEntireTree(incompleteNodes)
+      for (const piece of deepCopyFromMe.goals.values()) {
+        const clonedTree = piece.ClonePieceAndEntireTree(incompletePieces)
         this.goals.push(clonedTree)
       }
     }
   }
 
-  CloneAllRootNodesAndTheirTrees (incompleteNodes: Set<Piece>): RootPieceMap {
-    return new RootPieceMap(this, incompleteNodes)
+  CloneAllRootPiecesAndTheirTrees (incompletePieces: Set<Piece>): RootPieceMap {
+    return new RootPieceMap(this, incompletePieces)
   }
 
   Has (goalToObtain: string): boolean {
@@ -43,7 +43,7 @@ export class RootPieceMap {
     return this.names
   }
 
-  AddRootNode (t: Piece): void {
+  AddRootPiece (t: Piece): void {
     // always add to list
     this.goals.push(t)
     this.names.push(t.output)
@@ -53,9 +53,9 @@ export class RootPieceMap {
     return this.goals.length
   }
 
-  GetRootNodeByName (name: string): Piece {
+  GetRootPieceByName (name: string): Piece {
     const root = this.Get(name)
-    if (typeof root === 'undefined' || root === null) { throw new Error("rootNode of that name doesn't exist") }
+    if (typeof root === 'undefined' || root === null) { throw new Error("rootPiece of that name doesn't exist") }
     return root
   }
 

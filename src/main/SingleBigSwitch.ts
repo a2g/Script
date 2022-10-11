@@ -16,7 +16,7 @@ function isNullOrUndefined (something: any): boolean {
 
 /**
  * Yup, this is the one location of these
- * And when the nodes are cloned, these ids get cloned too
+ * And when the pieces are cloned, these ids get cloned too
  */
 let globalId = 1
 

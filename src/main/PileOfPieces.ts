@@ -4,25 +4,25 @@ import { Piece } from './Piece'
 /**
  * Yes, the only data here is the map.
  *
- * This is the source repository of the solution nodes
+ * This is the source repository of the solution pieces
  */
 export class PileOfPieces implements PileOfPiecesReadOnly {
-  private readonly solutionNodeMap: Map<string, Set<Piece>>
+  private readonly solutionPieceMap: Map<string, Set<Piece>>
 
   constructor (cloneFromMe: PileOfPiecesReadOnly | null) {
-    this.solutionNodeMap = new Map<string, Set<Piece>>()
+    this.solutionPieceMap = new Map<string, Set<Piece>>()
     if (cloneFromMe != null) {
       for (const set of cloneFromMe.GetValues()) {
         if (set.size > 0) {
           const clonedSet = new Set<Piece>()
           const throwawaySet = new Set<Piece>()
           let outputName = ''
-          for (const node of set) {
-            const clonedNode = node.CloneNodeAndEntireTree(throwawaySet)
-            clonedSet.add(clonedNode)
-            outputName = clonedNode.output
+          for (const piece of set) {
+            const clonedPiece = piece.ClonePieceAndEntireTree(throwawaySet)
+            clonedSet.add(clonedPiece)
+            outputName = clonedPiece.output
           }
-          this.solutionNodeMap.set(outputName, clonedSet)
+          this.solutionPieceMap.set(outputName, clonedSet)
         }
       }
     }
@@ -30,80 +30,80 @@ export class PileOfPieces implements PileOfPiecesReadOnly {
 
   GetAutos (): Piece[] {
     const toReturn = new Array<Piece>()
-    this.solutionNodeMap.forEach((value: Set<Piece>) => {
-      value.forEach((node: Piece) => {
-        if (node.type.startsWith('AUTO')) {
-          toReturn.push(node)
+    this.solutionPieceMap.forEach((value: Set<Piece>) => {
+      value.forEach((piece: Piece) => {
+        if (piece.type.startsWith('AUTO')) {
+          toReturn.push(piece)
         }
       })
     })
     return toReturn
   }
 
-  HasAnyNodesThatOutputObject (objectToObtain: string): boolean {
-    return this.solutionNodeMap.has(objectToObtain)
+  HasAnyPiecesThatOutputObject (objectToObtain: string): boolean {
+    return this.solutionPieceMap.has(objectToObtain)
   }
 
-  GetNodesThatOutputObject (objectToObtain: string): Set<Piece> | undefined {
-    return this.solutionNodeMap.get(objectToObtain)
+  GetPiecesThatOutputObject (objectToObtain: string): Set<Piece> | undefined {
+    return this.solutionPieceMap.get(objectToObtain)
   }
 
   Has (objectToObtain: string): boolean {
-    return this.solutionNodeMap.has(objectToObtain)
+    return this.solutionPieceMap.has(objectToObtain)
   }
 
   Get (objectToObtain: string): Set<Piece> | undefined {
-    return this.solutionNodeMap.get(objectToObtain)
+    return this.solutionPieceMap.get(objectToObtain)
   }
 
   GetValues (): IterableIterator<Set<Piece>> {
-    return this.solutionNodeMap.values()
+    return this.solutionPieceMap.values()
   }
 
   Size (): number {
     let count = 0
-    for (const set of this.solutionNodeMap.values()) {
+    for (const set of this.solutionPieceMap.values()) {
       count += set.size
     }
     return count
   }
 
   ContainsId (idToMatch: number): boolean {
-    for (const set of this.solutionNodeMap.values()) {
-      for (const node of set) {
-        if (node.id === idToMatch) { return true }
+    for (const set of this.solutionPieceMap.values()) {
+      for (const piece of set) {
+        if (piece.id === idToMatch) { return true }
       }
     }
     return false
   }
 
   // methods for mutating
-  MergeInNodesFromScene (json: ReadOnlyJsonSingle): void {
-    json.AddAllSolutionNodesToGivenMap(this)
+  MergeInPiecesFromScene (json: ReadOnlyJsonSingle): void {
+    json.AddAllSolutionPiecesToGivenMap(this)
   }
 
   AddMapEntryUsingOutputAsKey (piece: Piece): void {
     // initialize array, if it hasn't yet been
-    if (!this.solutionNodeMap.has(piece.output)) {
-      this.solutionNodeMap.set(piece.output, new Set<Piece>())
+    if (!this.solutionPieceMap.has(piece.output)) {
+      this.solutionPieceMap.set(piece.output, new Set<Piece>())
     }
     // always add to list
-    this.solutionNodeMap.get(piece.output)?.add(piece)
+    this.solutionPieceMap.get(piece.output)?.add(piece)
   }
 
-  RemoveNode (node: Piece): void {
-    if (node.count - 1 <= 0) {
-      const key = node.output
-      if (this.solutionNodeMap.has(key)) {
-        const oldSet = this.solutionNodeMap.get(key)
+  RemovePiece (piece: Piece): void {
+    if (piece.count - 1 <= 0) {
+      const key = piece.output
+      if (this.solutionPieceMap.has(key)) {
+        const oldSet = this.solutionPieceMap.get(key)
         if (oldSet != null) {
           // console.log(" old size = "+oldSet.size);
-          oldSet.delete(node)
+          oldSet.delete(piece)
           // console.log(" newSize = "+oldSet.size);
         }
       } else {
-        node.count--
-        console.log(`trans.count is now ${node.count}`)
+        piece.count--
+        console.log(`trans.count is now ${piece.count}`)
       }
     }
   }
