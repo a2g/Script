@@ -1,4 +1,4 @@
-import { expect } from '@open-wc/testing';
+import { expect } from '@open-wc/testing'
 import { GetAnyErrorsFromObjectAvailability } from '../main/GetAnyErrorsFromObjectAvailability'
 import { Mix } from './../main/Mix'
 import { MixedObjectsAndVerb } from './../main/MixedObjectsAndVerb'

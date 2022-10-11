@@ -9,7 +9,7 @@ export class RootPieceMap {
   private readonly goals: Piece[]
   private readonly names: string[]
 
-  constructor(deepCopyFromMe: RootPieceMap | null, incompleteNodes: Set<Piece>) {
+  constructor (deepCopyFromMe: RootPieceMap | null, incompleteNodes: Set<Piece>) {
     this.goals = []
     this.names = []
     if (deepCopyFromMe != null) {
@@ -20,11 +20,11 @@ export class RootPieceMap {
     }
   }
 
-  CloneAllRootNodesAndTheirTrees(incompleteNodes: Set<Piece>): RootPieceMap {
+  CloneAllRootNodesAndTheirTrees (incompleteNodes: Set<Piece>): RootPieceMap {
     return new RootPieceMap(this, incompleteNodes)
   }
 
-  Has(goalToObtain: string): boolean {
+  Has (goalToObtain: string): boolean {
     for (const goal of this.goals) {
       if (goal.output === goalToObtain) { return true }
     }
@@ -32,42 +32,42 @@ export class RootPieceMap {
     return false
   }
 
-  Get(goalToObtain: string): Piece | null {
+  Get (goalToObtain: string): Piece | null {
     for (const goal of this.goals) {
       if (goal.output === goalToObtain) { return goal }
     }
     return null
   }
 
-  GetKeys(): string[] {
+  GetKeys (): string[] {
     return this.names
   }
 
-  AddRootNode(t: Piece): void {
+  AddRootNode (t: Piece): void {
     // always add to list
     this.goals.push(t)
     this.names.push(t.output)
   }
 
-  Size(): number {
+  Size (): number {
     return this.goals.length
   }
 
-  GetRootNodeByName(name: string): Piece {
+  GetRootNodeByName (name: string): Piece {
     const root = this.Get(name)
     if (typeof root === 'undefined' || root === null) { throw new Error("rootNode of that name doesn't exist") }
     return root
   }
 
-  GetValues(): Piece[] {
+  GetValues (): Piece[] {
     return this.goals
   }
 
-  GetAt(index: number): Piece {
+  GetAt (index: number): Piece {
     return this.goals[index]
   }
 
-  public GenerateMapOfLeaves(): Map<string, Piece> {
+  public GenerateMapOfLeaves (): Map<string, Piece> {
     const map = new Map<string, Piece>()
 
     for (const rootPiece of this.GetValues()) {
