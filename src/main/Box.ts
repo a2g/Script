@@ -139,9 +139,9 @@ export class Box implements BoxReadOnlyWithFileMethods {
     }
 
     // starting things is optional in the json
-    // do the bags
-    if (scenario.bags !== undefined && scenario.bags !== null) {
-      for (const thing of scenario.bags) {
+    // do the boxs
+    if (scenario.boxs !== undefined && scenario.boxs !== null) {
+      for (const thing of scenario.boxs) {
         if (thing.flag !== undefined && thing.flag !== null) {
           if (thing.fileToMerge !== undefined && thing.fileToMerge !== null) {
             const box = new Box(thing.fileToMerge)
@@ -157,8 +157,8 @@ export class Box implements BoxReadOnlyWithFileMethods {
   GetArrayOfSubBoxesRecursively (): BoxReadOnlyWithFileMethods[] {
     let array: BoxReadOnlyWithFileMethods[] = []
     array.push(this)
-    for (const bag of this.directSubBoxes.values()) {
-      const arrayOfSubBoxes = bag.GetArrayOfSubBoxesRecursively()
+    for (const box of this.directSubBoxes.values()) {
+      const arrayOfSubBoxes = box.GetArrayOfSubBoxesRecursively()
       array = array.concat(arrayOfSubBoxes)
     }
     return array

@@ -14,7 +14,7 @@ import _ from '../../jigsaw.json'
  */
 export class Solution {
   // non aggregates
-  public static FLAG_WIN (): string { return 'flag_win' }
+
   private readonly solutionNames: string[]
 
   rootPieces: RootPieceMap
@@ -69,7 +69,7 @@ export class Solution {
   }
 
   FindTheFlagWinAndPutItInRootPieceMap (): void {
-    const flagWinSet = this.remainingPiecesRepo.Get(Solution.FLAG_WIN())
+    const flagWinSet = this.remainingPiecesRepo.Get(this.GetFLAG_WIN())
     if (flagWinSet === undefined) {
       throw new Error('flag_win was undefined')
     }
@@ -88,8 +88,8 @@ export class Solution {
     const incompletePieces = new Set<Piece>()
     const clonedRootPieceMap =
       this.rootPieces.CloneAllRootPiecesAndTheirTrees(incompletePieces)
-    this.rootPieces.GetRootPieceByName(Solution.FLAG_WIN()).id =
-      this.rootPieces.GetRootPieceByName(Solution.FLAG_WIN()).id // not sure why do this, but looks crucial!
+    this.rootPieces.GetRootPieceByName(this.GetFLAG_WIN()).id =
+      this.rootPieces.GetRootPieceByName(this.GetFLAG_WIN()).id // not sure why do this, but looks crucial!
     const clonedSolution = new Solution(
       clonedRootPieceMap,
       this.remainingPiecesRepo,
@@ -153,7 +153,11 @@ export class Solution {
   }
 
   GetFlagWin (): Piece {
-    return this.rootPieces.GetRootPieceByName(Solution.FLAG_WIN())
+    return this.rootPieces.GetRootPieceByName(this.GetFLAG_WIN())
+  }
+
+  GetFLAG_WIN (): string {
+    return 'flag_win'
   }
 
   HasAnyPiecesThatOutputObject (objectToObtain: string): boolean {

@@ -7,9 +7,9 @@ import { BoxReadOnly } from './BoxReadOnly.js'
 import { BoxReadOnlyWithFileMethods } from './BoxReadOnlyWithFileMethods.js'
 
 function CollectAllBoxesRecursively (box: BoxReadOnlyWithFileMethods, map: Map<string, BoxReadOnly>): void {
-  for (const bag of box.GetMapOfSubBoxes()) {
-    const piece: BoxReadOnly = bag[1]
-    map.set(bag[0], piece)
+  for (const keyValuePair of box.GetMapOfSubBoxes()) {
+    const box: BoxReadOnly = keyValuePair[1]
+    map.set(keyValuePair[0], box)
   }
 }
 /**
