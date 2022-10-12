@@ -46,16 +46,16 @@ export class BigBoxViaTraversingSubBoxes implements BoxReadOnly {
     const setChars = new Set<string>()
 
     // collate the 3 member and 4 indirect sets
-    for (const json of this.boxesGatheredViaTraversal.values()) {
-      json.CopyStartingThingCharsToGivenMap(this.mapOfStartingThingsWithChars)
-      json.CopySubBoxesToGivenMap(this.directSubBoxesMappedByKey)
-      json.CopyStartingPropsToGivenSet(this.startingPropSet)
-      json.CopyStartingInvsToGivenSet(this.startingInvSet)
-      json.CopyStartingFlagsToGivenSet(this.startingFlagSet)
-      json.CopyPropsToGivenSet(setProps)
-      json.CopyFlagsToGivenSet(setFlags)
-      json.CopyInvsToGivenSet(setInvs)
-      json.CopyCharsToGivenSet(setChars)
+    for (const box of this.boxesGatheredViaTraversal.values()) {
+      box.CopyStartingThingCharsToGivenMap(this.mapOfStartingThingsWithChars)
+      box.CopySubBoxesToGivenMap(this.directSubBoxesMappedByKey)
+      box.CopyStartingPropsToGivenSet(this.startingPropSet)
+      box.CopyStartingInvsToGivenSet(this.startingInvSet)
+      box.CopyStartingFlagsToGivenSet(this.startingFlagSet)
+      box.CopyPropsToGivenSet(setProps)
+      box.CopyFlagsToGivenSet(setFlags)
+      box.CopyInvsToGivenSet(setInvs)
+      box.CopyCharsToGivenSet(setChars)
     }
 
     // clean 3 member and 4 indirect sets

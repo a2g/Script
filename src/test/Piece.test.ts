@@ -6,7 +6,7 @@ import { SpecialTypes } from '../main/SpecialTypes'
 describe('Solution', () => {
   /*
   it("Test of a none clone piece", () => {
-      const json = new SceneSingle("20210415JsonPrivate/HospScene.json");
+      const box = new SceneSingle("20210415JsonPrivate/HospScene.json");
       const map = json.GeneratePiecesMappedByOutput();
       const objective = "inv_screwdriver";
       const collection = new SolutionCollection();
@@ -25,7 +25,7 @@ describe('Solution', () => {
   });
 
   it("Test of a non cloning five step", () => {
-      const json = new SceneSingle("20210415JsonPrivate/HospScene.json");
+      const box = new SceneSingle("20210415JsonPrivate/HospScene.json");
       const map = json.GeneratePiecesMappedByOutput();
       const objective = "prop_death_by_guitar";
       const collection = new SolutionCollection();
@@ -54,7 +54,7 @@ describe('Solution', () => {
   });
 
   it("Test of another non-cloning 5 step", () => {
-      const json = new SceneSingle("20210415JsonPrivate/HospScene.json");
+      const box = new SceneSingle("20210415JsonPrivate/HospScene.json");
       const map = json.GeneratePiecesMappedByOutput();
       const objective = "prop_death_by_slamdunk";
       const collection = new SolutionCollection();

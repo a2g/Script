@@ -29,7 +29,7 @@ export class Happener {
   private readonly arrayOfVerbVisibilities: boolean[]
   private readonly arrayOfFlagNames: string[]
   private arrayOfFlagValues: number[]
-  private readonly json: BoxReadOnly
+  private readonly box: BoxReadOnly
   public readonly Examine = 0
   private callbacks: HappenerCallbacksInterface
 
@@ -43,7 +43,7 @@ export class Happener {
     this.arrayOfPropVisibilities = new Array<boolean>()
     this.arrayOfVerbVisibilities = new Array<boolean>()
     this.arrayOfFlagValues = new Array<number>()
-    this.json = box
+    this.box = box
     // PlayerAI needs to be initialized last, because for
     // the first parameter it passes this - and the PlayerAI
     // constructor expects a fully constructed item to be
@@ -82,7 +82,7 @@ export class Happener {
   }
 
   ExecuteCommand (objects: MixedObjectsAndVerb): void {
-    const happenings = this.json.FindHappeningsIfAny(objects)
+    const happenings = this.box.FindHappeningsIfAny(objects)
     if (happenings != null) {
       console.log(happenings.text)
       for (const happening of happenings.array) {
@@ -241,8 +241,8 @@ export class Happener {
     return this.arrayOfPropNames
   }
 
-  MergeNewThingsFromScene (json: BoxReadOnlyWithFileMethods): void {
-    const invs = json.GetArrayOfInvs()
+  MergeNewThingsFromScene (box: BoxReadOnlyWithFileMethods): void {
+    const invs = box.GetArrayOfInvs()
     for (const inv of invs) {
       if (!this.arrayOfInvNames.includes(inv)) {
         // new inventories come in as false
@@ -250,8 +250,8 @@ export class Happener {
         this.arrayOfInventoryVisibilities.push(false)
       }
     }
-    const props = json.GetArrayOfProps()
-    const startingProps = json.GetSetOfStartingProps()
+    const props = box.GetArrayOfProps()
+    const startingProps = box.GetSetOfStartingProps()
     for (const prop of props) {
       if (!this.arrayOfPropNames.includes(prop)) {
         // new inventories come in as false
@@ -260,8 +260,8 @@ export class Happener {
       }
     }
 
-    const flags = json.GetArrayOfFlags()
-    const startingFlags = json.GetSetOfStartingFlags()
+    const flags = box.GetArrayOfFlags()
+    const startingFlags = box.GetSetOfStartingFlags()
     for (const flag of flags) {
       if (!this.arrayOfFlagNames.includes(flag)) {
         // new inventories come in as false

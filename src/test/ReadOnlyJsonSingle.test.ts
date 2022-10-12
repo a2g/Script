@@ -5,10 +5,10 @@ import { Box } from '../main/Box'
 
 describe('SceneSingle', () => {
   it('Test GetMapOfAllStartingThings', () => {
-    const json = new Box('./tests/TestHighPermutationSolution.json')
+    const box = new Box('./tests/TestHighPermutationSolution.json')
 
     // this failed recently
-    const map = json.GetMapOfAllStartingThings()
+    const map = box.GetMapOfAllStartingThings()
     // assert.strictEqual(collection.length, 1);
     expect(map.size).to.equal(14)
     expect(map.has('inv_shared_toy'))

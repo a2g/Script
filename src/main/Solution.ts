@@ -232,8 +232,8 @@ export class Solution {
       if (piece.inputHints[0] === goalFlag) {
         if (piece.type === _.AUTO_FLAG1_CAUSES_IMPORT_OF_JSON) {
           if (existsSync(piece.output)) {
-            const json = new Box(piece.output)
-            this.remainingPiecesRepo.MergeInPiecesFromScene(json)
+            const box = new Box(piece.output)
+            this.remainingPiecesRepo.MergeInPiecesFromScene(box)
           }
         }
       }

@@ -24,7 +24,7 @@ export class BigBoxViaArrayOfBoxes implements BoxReadOnly {
   readonly originalBoxes: BoxReadOnlyWithFileMethods[]
   readonly directSubBoxesMappedByKeyPiece: Map<string, BoxReadOnlyWithFileMethods>
 
-  constructor (arrayOfBoxes: BoxReadOnlyWithFileMethods[]) {
+  constructor(arrayOfBoxes: BoxReadOnlyWithFileMethods[]) {
     // we keep the original boxes, because we need to call
     // Big Switch on them numerous times
     this.originalBoxes = arrayOfBoxes
@@ -70,35 +70,35 @@ export class BigBoxViaArrayOfBoxes implements BoxReadOnly {
     this.allChars = Array.from(setChars.values())
   }
 
-  GetArrayOfProps (): string[] {
+  GetArrayOfProps(): string[] {
     return this.allProps
   }
 
-  GetArrayOfInvs (): string[] {
+  GetArrayOfInvs(): string[] {
     return this.allInvs
   }
 
-  GetArrayOfFlags (): string[] {
+  GetArrayOfFlags(): string[] {
     return this.allFlags
   }
 
-  static GetArrayOfSingleObjectVerbs (): string[] {
+  static GetArrayOfSingleObjectVerbs(): string[] {
     return ['grab', 'toggle']
   }
 
-  GetArrayOfSingleObjectVerbs (): string[] {
+  GetArrayOfSingleObjectVerbs(): string[] {
     return this.GetArrayOfSingleObjectVerbs()
   }
 
-  static GetArrayOfInitialStatesOfSingleObjectVerbs (): boolean[] {
+  static GetArrayOfInitialStatesOfSingleObjectVerbs(): boolean[] {
     return [true, true]
   }
 
-  GetArrayOfInitialStatesOfSingleObjectVerbs (): boolean[] {
+  GetArrayOfInitialStatesOfSingleObjectVerbs(): boolean[] {
     return this.GetArrayOfInitialStatesOfSingleObjectVerbs()
   }
 
-  GetArrayOfInitialStatesOfFlags (): number[] {
+  GetArrayOfInitialStatesOfFlags(): number[] {
     const array: number[] = []
     for (const flag of this.allFlags) {
       array.push(flag.length > 0 ? 0 : 0) // I used value.length>0 to get rid of the unused variable warnin
@@ -106,23 +106,23 @@ export class BigBoxViaArrayOfBoxes implements BoxReadOnly {
     return array
   }
 
-  GetSetOfStartingFlags (): Set<string> {
+  GetSetOfStartingFlags(): Set<string> {
     return this.startingFlagSet
   }
 
-  GetSetOfStartingProps (): Set<string> {
+  GetSetOfStartingProps(): Set<string> {
     return this.startingPropSet
   }
 
-  GetSetOfStartingInvs (): Set<string> {
+  GetSetOfStartingInvs(): Set<string> {
     return this.startingInvSet
   }
 
-  GetMapOfAllStartingThings (): Map<string, Set<string>> {
+  GetMapOfAllStartingThings(): Map<string, Set<string>> {
     return this.mapOfStartingThingsWithChars
   }
 
-  GetStartingThingsForCharacter (charName: string): Set<string> {
+  GetStartingThingsForCharacter(charName: string): Set<string> {
     const startingThingSet = new Set<string>()
     this.mapOfStartingThingsWithChars.forEach(
       (value: Set<string>, thing: string) => {
@@ -138,7 +138,7 @@ export class BigBoxViaArrayOfBoxes implements BoxReadOnly {
     return startingThingSet
   }
 
-  GetArrayOfInitialStatesOfProps (): boolean[] {
+  GetArrayOfInitialStatesOfProps(): boolean[] {
     // construct array of booleans in exact same order as ArrayOfProps - so they can be correlated
     const startingSet = this.GetSetOfStartingProps()
     const visibilities: boolean[] = []
@@ -150,7 +150,7 @@ export class BigBoxViaArrayOfBoxes implements BoxReadOnly {
     return visibilities
   }
 
-  GetArrayOfInitialStatesOfInvs (): boolean[] {
+  GetArrayOfInitialStatesOfInvs(): boolean[] {
     // construct array of booleans in exact same order as ArrayOfProps - so they can be correlated
     const startingSet = this.GetSetOfStartingInvs()
     const visibilities: boolean[] = []
@@ -162,14 +162,14 @@ export class BigBoxViaArrayOfBoxes implements BoxReadOnly {
     return visibilities
   }
 
-  GetArrayOfCharacters (): string[] {
+  GetArrayOfCharacters(): string[] {
     return this.allChars
   }
 
-  GeneratePiecesMappedByOutput (): PileOfPieces {
+  GeneratePiecesMappedByOutput(): PileOfPieces {
     const solutionPiecesMappedByInput = new PileOfPieces(null)
 
-    for (const json of this.originalBoxes) {
+    for (const box of this.originalBoxes) {
       const notUsed = new MixedObjectsAndVerb(
         Mix.ErrorVerbNotIdentified,
         '',
@@ -177,15 +177,15 @@ export class BigBoxViaArrayOfBoxes implements BoxReadOnly {
         '',
         'ScenePreAggregator'
       )
-      SingleBigSwitch(json.GetFilename(), solutionPiecesMappedByInput, notUsed)
+      SingleBigSwitch(box.GetFilename(), solutionPiecesMappedByInput, notUsed)
     }
     return solutionPiecesMappedByInput
   }
 
-  FindHappeningsIfAny (objects: MixedObjectsAndVerb): Happenings | null {
-    for (const json of this.originalBoxes) {
+  FindHappeningsIfAny(objects: MixedObjectsAndVerb): Happenings | null {
+    for (const box of this.originalBoxes) {
       const result = SingleBigSwitch(
-        json.GetFilename(),
+        box.GetFilename(),
         null,
         objects
       ) as unknown as Happenings | null
@@ -196,7 +196,7 @@ export class BigBoxViaArrayOfBoxes implements BoxReadOnly {
     return null
   }
 
-  GetMapOfSubBoxes (): Map<string, BoxReadOnlyWithFileMethods> {
+  GetMapOfSubBoxes(): Map<string, BoxReadOnlyWithFileMethods> {
     return this.directSubBoxesMappedByKeyPiece
   }
 }

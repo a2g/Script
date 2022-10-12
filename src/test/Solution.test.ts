@@ -6,7 +6,7 @@ import { Box } from '../main/Box'
 describe('Solution', () => {
   /*
   it("Test of a none clone solution", () => {
-      const json = new SceneSingle("20210415JsonPrivate/HospScene.json");
+      const box = new SceneSingle("20210415JsonPrivate/HospScene.json");
       const map = json.GeneratePiecesMappedByOutput();
       const objective = "inv_screwdriver";
       const collection = new SolutionCollection();
@@ -25,7 +25,7 @@ describe('Solution', () => {
   });
 
   it("Test of a non cloning five step", () => {
-      const json = new SceneSingle("20210415JsonPrivate/HospScene.json");
+      const box = new SceneSingle("20210415JsonPrivate/HospScene.json");
       const map = json.GeneratePiecesMappedByOutput();
       const objective = "prop_death_by_guitar";
       const collection = new SolutionCollection();
@@ -54,7 +54,7 @@ describe('Solution', () => {
   });
 
   it("Test of another non-cloning 5 step", () => {
-      const json = new SceneSingle("20210415JsonPrivate/HospScene.json");
+      const box = new SceneSingle("20210415JsonPrivate/HospScene.json");
       const map = json.GeneratePiecesMappedByOutput();
       const objective = "prop_death_by_slamdunk";
       const collection = new SolutionCollection();
@@ -84,10 +84,10 @@ describe('Solution', () => {
 */
 
   it('Solution test cloning with High Permutation scene2', () => {
-    const json = new Box('./tests/TestHighPermutationSolution.json')
-    const startingThings = json.GetMapOfAllStartingThings()
+    const box = new Box('./tests/TestHighPermutationSolution.json')
+    const startingThings = box.GetMapOfAllStartingThings()
     const collection = new SolverViaRootPiece(startingThings)
-    collection.InitializeByCopyingThese(json.GeneratePiecesMappedByOutput(), startingThings)
+    collection.InitializeByCopyingThese(box.GeneratePiecesMappedByOutput(), startingThings)
     const wasCloneEncountered = collection.SolvePartiallyUntilCloning()
     expect(wasCloneEncountered).to.equal(false)
 
