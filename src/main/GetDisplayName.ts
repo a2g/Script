@@ -1,7 +1,7 @@
-import { Colors } from '../main/Colors'
-import { AddBrackets } from '../main/AddBrackets'
+import { Colors } from './Colors'
+import { AddBrackets } from './AddBrackets'
 
-export function GetDisplayName(input: string | string[], isParenthesisNeeded = false): string {
+export function GetDisplayName (input: string | string[], isParenthesisNeeded = false): string {
   // format arrays in to a lovely comma-separated list
   if (Array.isArray(input)) {
     let toReturn = ''

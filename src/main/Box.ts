@@ -1,12 +1,14 @@
 import { assert } from 'console'
 import { existsSync, readFileSync } from 'fs'
 import { PileOfPieces } from './PileOfPieces.js'
-import { MixedObjectsAndVerb } from '../main/MixedObjectsAndVerb.js'
-import { Happenings } from '../main/Happenings.js'
-import { Mix } from '../main/Mix.js'
-import { SingleBigSwitch } from '../main/SingleBigSwitch.js'
+import { MixedObjectsAndVerb } from './MixedObjectsAndVerb.js'
+import { Happenings } from './Happenings.js'
+import { Mix } from './Mix.js'
+import { SingleBigSwitch } from './SingleBigSwitch.js'
 import { Stringify } from './Stringify.js'
-import { PileOfPiecesReadOnly } from '../index.js'
+import { BoxReadOnlyWithFileMethods } from './BoxReadOnlyWithFileMethods.js'
+import { PileOfPiecesReadOnly } from './PileOfPiecesReadOnly.js'
+
 /**
  * So the most important part of this class is that the data
  * in it is read only. So I've put that in the name.
@@ -14,19 +16,19 @@ import { PileOfPiecesReadOnly } from '../index.js'
  * so that's in there too.
  * */
 
-export class ReadOnlyJsonSingle {
-  readonly allProps: string[]
-  readonly allFlags: string[]
-  readonly allInvs: string[]
-  readonly allChars: string[]
-  readonly mapOfStartingThings: Map<string, Set<string>>
-  readonly startingInvSet: Set<string>
-  readonly startingPropSet: Set<string>
-  readonly startingFlagSet: Set<string>
-  readonly filename: string
-  readonly mapOfBags: Map<string, ReadOnlyJsonSingle>
+export class Box implements BoxReadOnlyWithFileMethods {
+  private readonly allProps: string[]
+  private readonly allFlags: string[]
+  private readonly allInvs: string[]
+  private readonly allChars: string[]
+  private readonly mapOfStartingThings: Map<string, Set<string>>
+  private readonly startingInvSet: Set<string>
+  private readonly startingPropSet: Set<string>
+  private readonly startingFlagSet: Set<string>
+  private readonly filename: string
+  private readonly directSubBoxes: Map<string, BoxReadOnlyWithFileMethods>
 
-  constructor(filename: string) {
+  constructor (filename: string) {
     this.filename = filename
     assert(existsSync(filename))
     const text = readFileSync(filename, 'utf8')
@@ -102,7 +104,7 @@ export class ReadOnlyJsonSingle {
     this.startingFlagSet = new Set<string>()
     this.startingPropSet = new Set<string>()
     this.mapOfStartingThings = new Map<string, Set<string>>()
-    this.mapOfBags = new Map<string, ReadOnlyJsonSingle>()
+    this.directSubBoxes = new Map<string, BoxReadOnlyWithFileMethods>()
 
     // starting things is optional in the json
     if (
@@ -142,109 +144,109 @@ export class ReadOnlyJsonSingle {
       for (const thing of scenario.bags) {
         if (thing.flag !== undefined && thing.flag !== null) {
           if (thing.fileToMerge !== undefined && thing.fileToMerge !== null) {
-            const json = new ReadOnlyJsonSingle(thing.fileToMerge)
+            const box = new Box(thing.fileToMerge)
 
             // add to this
-            this.mapOfBags.set(thing.flag, json)
+            this.directSubBoxes.set(thing.flag, box)
           }
         }
       }
     }
   }
 
-  GetArrayOfJsonRecursively(): ReadOnlyJsonSingle[] {
-    let array: ReadOnlyJsonSingle[] = []
+  GetArrayOfSubBoxesRecursively (): BoxReadOnlyWithFileMethods[] {
+    let array: BoxReadOnlyWithFileMethods[] = []
     array.push(this)
-    for (const bag of this.mapOfBags.values()) {
-      const childBag = bag.GetArrayOfJsonRecursively()
-      array = array.concat(childBag)
+    for (const bag of this.directSubBoxes.values()) {
+      const arrayOfSubBoxes = bag.GetArrayOfSubBoxesRecursively()
+      array = array.concat(arrayOfSubBoxes)
     }
     return array
   }
 
-  AddStartingPropsToGivenSet(givenSet: Set<string>): void {
+  CopyStartingPropsToGivenSet (givenSet: Set<string>): void {
     for (const prop of this.startingPropSet) {
       givenSet.add(prop)
     }
   }
 
-  AddStartingFlagsToGivenSet(givenSet: Set<string>): void {
+  CopyStartingFlagsToGivenSet (givenSet: Set<string>): void {
     for (const flag of this.startingFlagSet) {
       givenSet.add(flag)
     }
   }
 
-  AddStartingInvsToGivenSet(givenSet: Set<string>): void {
+  CopyStartingInvsToGivenSet (givenSet: Set<string>): void {
     for (const inv of this.startingInvSet) {
       givenSet.add(inv)
     }
   }
 
-  AddStartingThingCharsToGivenMap(givenMap: Map<string, Set<string>>): void {
+  CopyStartingThingCharsToGivenMap (givenMap: Map<string, Set<string>>): void {
     this.mapOfStartingThings.forEach((value: Set<string>, key: string) => {
       givenMap.set(key, value)
     })
   }
 
-  AddBagsToGivenMap(givenMap: Map<string, ReadOnlyJsonSingle>): void {
-    this.mapOfBags.forEach((value: ReadOnlyJsonSingle, key: string) => {
+  CopySubBoxesToGivenMap (givenMap: Map<string, BoxReadOnlyWithFileMethods>): void {
+    this.directSubBoxes.forEach((value: BoxReadOnlyWithFileMethods, key: string) => {
       givenMap.set(key, value)
     })
   }
 
-  AddPropsToGivenSet(givenSet: Set<string>): void {
+  CopyPropsToGivenSet (givenSet: Set<string>): void {
     for (const prop of this.allProps) {
       givenSet.add(prop)
     }
   }
 
-  AddFlagsToGivenSet(givenSet: Set<string>): void {
+  CopyFlagsToGivenSet (givenSet: Set<string>): void {
     for (const flag of this.allFlags) {
       givenSet.add(flag)
     }
   }
 
-  AddInvsToGivenSet(givenSet: Set<string>): void {
+  CopyInvsToGivenSet (givenSet: Set<string>): void {
     for (const inv of this.allInvs) {
       givenSet.add(inv)
     }
   }
 
-  AddCharsToGivenSet(givenSet: Set<string>): void {
+  CopyCharsToGivenSet (givenSet: Set<string>): void {
     for (const character of this.allChars) {
       givenSet.add(character)
     }
   }
 
-  GetArrayOfProps(): string[] {
+  GetArrayOfProps (): string[] {
     return this.allProps
   }
 
-  GetArrayOfInvs(): string[] {
+  GetArrayOfInvs (): string[] {
     return this.allInvs
   }
 
-  GetArrayOfFlags(): string[] {
+  GetArrayOfFlags (): string[] {
     return this.allFlags
   }
 
-  static GetArrayOfSingleObjectVerbs(): string[] {
+  static GetArrayOfSingleObjectVerbs (): string[] {
     return ['grab', 'toggle']
   }
 
-  GetArrayOfSingleObjectVerbs(): string[] {
+  GetArrayOfSingleObjectVerbs (): string[] {
     return this.GetArrayOfSingleObjectVerbs()
   }
 
-  static GetArrayOfInitialStatesOfSingleObjectVerbs(): boolean[] {
+  static GetArrayOfInitialStatesOfSingleObjectVerbs (): boolean[] {
     return [true, true]
   }
 
-  GetArrayOfInitialStatesOfSingleObjectVerbs(): boolean[] {
+  GetArrayOfInitialStatesOfSingleObjectVerbs (): boolean[] {
     return this.GetArrayOfInitialStatesOfSingleObjectVerbs()
   }
 
-  GetArrayOfInitialStatesOfFlags(): number[] {
+  GetArrayOfInitialStatesOfFlags (): number[] {
     // construct array of booleans in exact same order as ArrayOfProps - so they can be correlated
     const startingSet = this.GetSetOfStartingFlags()
     const initialStates: number[] = []
@@ -255,23 +257,23 @@ export class ReadOnlyJsonSingle {
     return initialStates
   }
 
-  GetSetOfStartingFlags(): Set<string> {
+  GetSetOfStartingFlags (): Set<string> {
     return this.startingFlagSet
   }
 
-  GetSetOfStartingProps(): Set<string> {
+  GetSetOfStartingProps (): Set<string> {
     return this.startingPropSet
   }
 
-  GetSetOfStartingInvs(): Set<string> {
+  GetSetOfStartingInvs (): Set<string> {
     return this.startingInvSet
   }
 
-  GetMapOfAllStartingThings(): Map<string, Set<string>> {
+  GetMapOfAllStartingThings (): Map<string, Set<string>> {
     return this.mapOfStartingThings
   }
 
-  GetStartingThingsForCharacter(charName: string): Set<string> {
+  GetStartingThingsForCharacter (charName: string): Set<string> {
     const startingThingSet = new Set<string>()
     this.mapOfStartingThings.forEach((value: Set<string>, thing: string) => {
       for (const item of value) {
@@ -285,7 +287,7 @@ export class ReadOnlyJsonSingle {
     return startingThingSet
   }
 
-  GetArrayOfInitialStatesOfProps(): boolean[] {
+  GetArrayOfInitialStatesOfProps (): boolean[] {
     // construct array of booleans in exact same order as ArrayOfProps - so they can be correlated
     const startingSet = this.GetSetOfStartingProps()
     const visibilities: boolean[] = []
@@ -297,7 +299,7 @@ export class ReadOnlyJsonSingle {
     return visibilities
   }
 
-  GetArrayOfInitialStatesOfInvs(): boolean[] {
+  GetArrayOfInitialStatesOfInvs (): boolean[] {
     // construct array of booleans in exact same order as ArrayOfProps - so they can be correlated
     const startingSet = this.GetSetOfStartingInvs()
     const visibilities: boolean[] = []
@@ -309,15 +311,15 @@ export class ReadOnlyJsonSingle {
     return visibilities
   }
 
-  GetArrayOfCharacters(): string[] {
+  GetArrayOfCharacters (): string[] {
     return this.allChars
   }
 
-  GetMapOfBags(): Map<string, ReadOnlyJsonSingle> {
-    return this.mapOfBags
+  GetMapOfSubBoxes (): Map<string, BoxReadOnlyWithFileMethods> {
+    return this.directSubBoxes
   }
 
-  GeneratePiecesMappedByOutput(): PileOfPiecesReadOnly {
+  GeneratePiecesMappedByOutput (): PileOfPiecesReadOnly {
     const result = new PileOfPieces(null)
     const notUsed = new MixedObjectsAndVerb(
       Mix.ErrorVerbNotIdentified,
@@ -330,7 +332,7 @@ export class ReadOnlyJsonSingle {
     return result
   }
 
-  AddAllSolutionPiecesToGivenMap(
+  CopyAllPiecesToGivenMap (
     givenMap: PileOfPieces
   ): PileOfPieces {
     const notUsed = new MixedObjectsAndVerb(
@@ -344,7 +346,7 @@ export class ReadOnlyJsonSingle {
     return givenMap
   }
 
-  FindHappeningsIfAny(objects: MixedObjectsAndVerb): Happenings | null {
+  FindHappeningsIfAny (objects: MixedObjectsAndVerb): Happenings | null {
     const result = SingleBigSwitch(
       this.filename,
       null,
@@ -353,13 +355,13 @@ export class ReadOnlyJsonSingle {
     return result
   }
 
-  GetFilename(): string {
+  GetFilename (): string {
     return this.filename
   }
 
-  public GetNamesOfPiecesStuckToSubBoxes(): string[] {
+  public GetNamesOfPiecesStuckToSubBoxes (): string[] {
     const array: string[] = []
-    for (const key of this.mapOfBags.keys()) {
+    for (const key of this.directSubBoxes.keys()) {
       array.push(key)
     }
     return array

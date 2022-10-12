@@ -1,11 +1,11 @@
 // Typescript Unit test
 import { expect } from '@open-wc/testing'
 import chai from 'chai'
-import { ReadOnlyJsonSingle } from '../main/ReadOnlyJsonSingle'
+import { Box } from '../main/Box'
 
 describe('SceneSingle', () => {
   it('Test GetMapOfAllStartingThings', () => {
-    const json = new ReadOnlyJsonSingle('./tests/TestHighPermutationSolution.json')
+    const json = new Box('./tests/TestHighPermutationSolution.json')
 
     // this failed recently
     const map = json.GetMapOfAllStartingThings()

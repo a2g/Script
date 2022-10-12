@@ -1,9 +1,10 @@
-import { PlayerAI } from '../main/PlayerAI'
-import { HappenerCallbacksInterface } from '../main/HappenerCallbacksInterface'
-import { MixedObjectsAndVerb } from '../main/MixedObjectsAndVerb'
-import { Happen } from '../main/Happen'
-import { ReadOnlyJsonSingle } from '../main/ReadOnlyJsonSingle'
+import { PlayerAI } from './PlayerAI'
+import { HappenerCallbacksInterface } from './HappenerCallbacksInterface'
+import { MixedObjectsAndVerb } from './MixedObjectsAndVerb'
+import { Happen } from './Happen'
 import { assert } from 'console'
+import { BoxReadOnly } from './BoxReadOnly'
+import { BoxReadOnlyWithFileMethods } from './BoxReadOnlyWithFileMethods'
 
 // April 2021
 // The blind / location - agnostic way to find solutions is to have an inv vs props table, and inv vs inv table, and a verb vs props table, and a verb vs invs table, then
@@ -20,7 +21,19 @@ import { assert } from 'console'
 //
 
 export class Happener {
-  constructor (json: ReadOnlyJsonSingle) {
+  private readonly arrayOfInvNames: string[]
+  private arrayOfInventoryVisibilities: boolean[]
+  private readonly arrayOfPropNames: string[]
+  private arrayOfPropVisibilities: boolean[]
+  private readonly arrayOfVerbNames: string[]
+  private readonly arrayOfVerbVisibilities: boolean[]
+  private readonly arrayOfFlagNames: string[]
+  private arrayOfFlagValues: number[]
+  private readonly json: BoxReadOnly
+  public readonly Examine = 0
+  private callbacks: HappenerCallbacksInterface
+
+  constructor (box: BoxReadOnly) {
     // yes, all of these need to be initialized to harmless values due to PlayerAI below
     this.arrayOfInvNames = new Array<string>()
     this.arrayOfFlagNames = new Array<string>()
@@ -30,21 +43,21 @@ export class Happener {
     this.arrayOfPropVisibilities = new Array<boolean>()
     this.arrayOfVerbVisibilities = new Array<boolean>()
     this.arrayOfFlagValues = new Array<number>()
-    this.json = json
+    this.json = box
     // PlayerAI needs to be initialized last, because for
     // the first parameter it passes this - and the PlayerAI
     // constructor expects a fully constructed item to be
     // passed to it.
     this.callbacks = new PlayerAI(this, 0)
 
-    this.arrayOfInvNames = json.GetArrayOfInvs()
-    this.arrayOfFlagNames = json.GetArrayOfFlags()
-    this.arrayOfPropNames = json.GetArrayOfProps()
-    this.arrayOfVerbNames = json.GetArrayOfSingleObjectVerbs()
-    this.arrayOfInventoryVisibilities = json.GetArrayOfInitialStatesOfInvs()
-    this.arrayOfPropVisibilities = json.GetArrayOfInitialStatesOfProps()
-    this.arrayOfVerbVisibilities = json.GetArrayOfInitialStatesOfSingleObjectVerbs()
-    this.arrayOfFlagValues = json.GetArrayOfInitialStatesOfFlags()
+    this.arrayOfInvNames = box.GetArrayOfInvs()
+    this.arrayOfFlagNames = box.GetArrayOfFlags()
+    this.arrayOfPropNames = box.GetArrayOfProps()
+    this.arrayOfVerbNames = box.GetArrayOfSingleObjectVerbs()
+    this.arrayOfInventoryVisibilities = box.GetArrayOfInitialStatesOfInvs()
+    this.arrayOfPropVisibilities = box.GetArrayOfInitialStatesOfProps()
+    this.arrayOfVerbVisibilities = box.GetArrayOfInitialStatesOfSingleObjectVerbs()
+    this.arrayOfFlagValues = box.GetArrayOfInitialStatesOfFlags()
   }
 
   SetFlagValue (flag: string, value: number): void {
@@ -228,7 +241,7 @@ export class Happener {
     return this.arrayOfPropNames
   }
 
-  MergeNewThingsFromScene (json: ReadOnlyJsonSingle): void {
+  MergeNewThingsFromScene (json: BoxReadOnlyWithFileMethods): void {
     const invs = json.GetArrayOfInvs()
     for (const inv of invs) {
       if (!this.arrayOfInvNames.includes(inv)) {
@@ -253,24 +266,9 @@ export class Happener {
       if (!this.arrayOfFlagNames.includes(flag)) {
         // new inventories come in as false
         this.arrayOfFlagNames.push(flag)
-        this.arrayOfFlagValues.push(startingFlags.has(flag) ? 1 : 0)
+        const hasFlag: boolean = startingFlags.has(flag)
+        this.arrayOfFlagValues.push(hasFlag ? 1 : 0)
       }
     }
   }
-
-  private readonly arrayOfInvNames: string[]
-  private arrayOfInventoryVisibilities: boolean[]
-
-  private readonly arrayOfPropNames: string[]
-  private arrayOfPropVisibilities: boolean[]
-
-  private readonly arrayOfVerbNames: string[]
-  private readonly arrayOfVerbVisibilities: boolean[]
-
-  private readonly arrayOfFlagNames: string[]
-  private arrayOfFlagValues: number[]
-
-  private readonly json: ReadOnlyJsonSingle
-  public readonly Examine = 0
-  private callbacks: HappenerCallbacksInterface
 }

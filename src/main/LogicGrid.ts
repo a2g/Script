@@ -1,4 +1,4 @@
-import { SingleFileData } from '../main/SingleFileData'
+import { SingleFileData } from './SingleFileData'
 import { Stringify } from './Stringify'
 
 /**
@@ -28,7 +28,7 @@ export class LogicGrid {
 
   private lastDebugString: string
 
-  constructor (colNamesAndInitialVisibilities: Array<[string, boolean]>, rowNamesAndInitialVisibilities: Array<[string, boolean]>) {
+  constructor(colNamesAndInitialVisibilities: Array<[string, boolean]>, rowNamesAndInitialVisibilities: Array<[string, boolean]>) {
     this.lastDebugString = ''
     const numberOfColumns = colNamesAndInitialVisibilities.length
     const numberOfRows = rowNamesAndInitialVisibilities.length
@@ -71,7 +71,7 @@ export class LogicGrid {
     })
   }
 
-  SetColumnRow (x: number, y: number): void {
+  SetColumnRow(x: number, y: number): void {
     if (!this.theActualTicks[x][y]) {
       this.theActualTicks[x][y] = true
       const columnObject = this.rowAndColumnDetailsCombined.get(x + LogicGrid.ColumnsStartHere)
@@ -83,23 +83,23 @@ export class LogicGrid {
     }
   }
 
-  GetNumberOfCellsInARow (): number { return this.numberOfCellsInARow }
+  GetNumberOfCellsInARow(): number { return this.numberOfCellsInARow }
 
-  GetNumberOfCellsInAColumn (): number { return this.numberOfCellsInAColumn }
+  GetNumberOfCellsInAColumn(): number { return this.numberOfCellsInAColumn }
 
-  IsRowFullyChecked (row: number): boolean {
+  IsRowFullyChecked(row: number): boolean {
     const rowObject = this.rowAndColumnDetailsCombined.get(row)
     if (rowObject == null) { throw RangeError(Stringify(row)) }
     return rowObject.tickCount === this.GetNumberOfCellsInARow()
   }
 
-  IsColumnFullyChecked (column: number): boolean {
+  IsColumnFullyChecked(column: number): boolean {
     const col = this.rowAndColumnDetailsCombined.get(column + LogicGrid.ColumnsStartHere)
     if (col == null) { throw RangeError(`${column} + ${LogicGrid.ColumnsStartHere}`) }
     return col.tickCount === this.GetNumberOfCellsInAColumn()
   }
 
-  GetVisibilitiesForColumnOrRow (file: number): boolean[] {
+  GetVisibilitiesForColumnOrRow(file: number): boolean[] {
     const array: boolean[] = []
     if (file >= LogicGrid.ColumnsStartHere) {
       for (let row = 0; row < this.GetNumberOfCellsInARow(); row += 1) { // classic for because shared
@@ -118,7 +118,7 @@ export class LogicGrid {
     return array
   }
 
-  GetTickArrayForColumnOrRow (file: number): boolean[] {
+  GetTickArrayForColumnOrRow(file: number): boolean[] {
     const array: boolean[] = []
     if (file >= LogicGrid.ColumnsStartHere) {
       const col = file - LogicGrid.ColumnsStartHere
@@ -135,7 +135,7 @@ export class LogicGrid {
     return array
   }
 
-  GetNextGuess (): [number, number] { // an x and a y
+  GetNextGuess(): [number, number] { // an x and a y
     const NotFound: [number, number] = [-1, -1]
     const file = this.FindMostNearlyCompleteRowOrColumnCombined()
     if (file === -1) { return NotFound }
@@ -168,21 +168,21 @@ export class LogicGrid {
     return NotFound
   }
 
-  GetNumberOfCellsNeededToCompleteFile (pair: [number, SingleFileData]): number {
+  GetNumberOfCellsNeededToCompleteFile(pair: [number, SingleFileData]): number {
     const upperLimit: number = (pair[0] < LogicGrid.ColumnsStartHere) ? this.GetNumberOfVisibleCellsInARow() : this.GetNumberOfVisibleCellsInAColumn()
     return pair[1].tickCount - upperLimit
   }
 
-  static IsColumn (index: number): boolean {
+  static IsColumn(index: number): boolean {
     const isColumn: boolean = index >= LogicGrid.ColumnsStartHere
     return isColumn
   }
 
-  IsColumn (index: number): boolean {
+  IsColumn(index: number): boolean {
     return this.IsColumn(index)
   }
 
-  FindMostNearlyCompleteRowOrColumnCombined (): number {
+  FindMostNearlyCompleteRowOrColumnCombined(): number {
     const listOfPairs = Array.from(this.rowAndColumnDetailsCombined.entries())
     for (let i = 0; i < listOfPairs.length; i += 1) { // classic forloop (shared)
       const pair = listOfPairs[i]
@@ -234,17 +234,17 @@ export class LogicGrid {
     return -1// -e means all are completed
   }
 
-  public SetVisibilityOfRow (number: number, visibility: boolean, nameForDebugging: string): void {
+  public SetVisibilityOfRow(number: number, visibility: boolean, nameForDebugging: string): void {
     this.lastDebugString = nameForDebugging
     this.SetRowOrColumnVisibility(number, visibility)
   }
 
-  public SetVisibilityOfColumn (number: number, visibility: boolean, nameForDebugging: string): void {
+  public SetVisibilityOfColumn(number: number, visibility: boolean, nameForDebugging: string): void {
     this.lastDebugString = nameForDebugging
     this.SetRowOrColumnVisibility(number + LogicGrid.ColumnsStartHere, visibility)
   }
 
-  private SetRowOrColumnVisibility (index: number, isVisible: boolean): void {
+  private SetRowOrColumnVisibility(index: number, isVisible: boolean): void {
     const rowOrColumn = this.rowAndColumnDetailsCombined.get(index)
     if (rowOrColumn == null) { throw RangeError(Stringify(index)) }
     if (rowOrColumn != null && rowOrColumn.isVisible !== isVisible) {
@@ -258,11 +258,11 @@ export class LogicGrid {
     }
   }
 
-  public GetNumberOfVisibleCellsInARow (): number {
+  public GetNumberOfVisibleCellsInARow(): number {
     return this.numberOfVisibleColumns
   }
 
-  public GetNumberOfVisibleCellsInAColumn (): number {
+  public GetNumberOfVisibleCellsInAColumn(): number {
     return this.numberOfVisibleRows
   }
 }

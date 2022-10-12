@@ -1,6 +1,6 @@
-import { Raw } from '../main/Raw'
-import { FormatText } from '../main/FormatText'
-import { AddBrackets } from '../main/AddBrackets'
+import { Raw } from './Raw'
+import { FormatText } from './FormatText'
+import { AddBrackets } from './AddBrackets'
 
 export class RawObjectsAndVerb {
   type: Raw
@@ -11,7 +11,7 @@ export class RawObjectsAndVerb {
   restrictions: string[]
   typeJustForDebugging: string
 
-  constructor(type: Raw, objectA: string, objectB: string, restrictions: string[], typeJustForDebugging: string) {
+  constructor (type: Raw, objectA: string, objectB: string, restrictions: string[], typeJustForDebugging: string) {
     this.type = type
     this.objectA = objectA
     this.objectB = objectB
@@ -21,7 +21,7 @@ export class RawObjectsAndVerb {
     this.typeJustForDebugging = typeJustForDebugging
   }
 
-  WriteToConsole(): void {
+  WriteToConsole (): void {
     const enumAsInt = parseInt(this.type.toString(), 10)
     if (enumAsInt >= 0) {
       const verb = FormatText(Raw[enumAsInt])
@@ -44,15 +44,15 @@ export class RawObjectsAndVerb {
     }
   }
 
-  public appendStartingCharacterForA(startingCharacterForA: string): void {
+  public appendStartingCharacterForA (startingCharacterForA: string): void {
     if (this.startingCharacterForA.length > 0) { this.startingCharacterForA += ', ' + startingCharacterForA } else { this.startingCharacterForA = startingCharacterForA }
   }
 
-  public appendStartingCharacterForB(startingCharacterForB: string): void {
+  public appendStartingCharacterForB (startingCharacterForB: string): void {
     if (this.startingCharacterForB.length > 0) { this.startingCharacterForB += ', ' + startingCharacterForB } else { this.startingCharacterForB = startingCharacterForB }
   }
 
-  public dumpRaw(): void {
+  public dumpRaw (): void {
     console.log('Dumping instance of RawObjectsAndVerb')
     console.log(Raw[this.type])
     console.log(this.objectA)

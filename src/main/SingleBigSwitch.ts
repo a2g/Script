@@ -1,18 +1,13 @@
 import { readFileSync } from 'fs'
-import { Happenings } from '../main/Happenings.js'
+import { Happenings } from './Happenings.js'
 import { Piece } from './Piece.js'
-import { AlleviateBrackets } from '../main/AlleviateBrackets.js'
-import { Happen } from '../main/Happen.js'
-import { Happening } from '../main/Happening.js'
-import { MixedObjectsAndVerb } from '../main/MixedObjectsAndVerb.js'
+import { AlleviateBrackets } from './AlleviateBrackets.js'
+import { Happen } from './Happen.js'
+import { Happening } from './Happening.js'
+import { MixedObjectsAndVerb } from './MixedObjectsAndVerb.js'
 import { PileOfPieces } from './PileOfPieces.js'
-
-import _ from '../../jigsaw.json'
 import { Stringify } from './Stringify.js'
-
-function isNullOrUndefined (something: any): boolean {
-  return typeof something === 'undefined' || something === null
-}
+import _ from '../../jigsaw.json'
 
 /**
  * Yup, this is the one location of these
@@ -29,7 +24,7 @@ export function SingleBigSwitch (
   const scenario = JSON.parse(text)
 
   for (let gate of scenario.gates) {
-    const isConjoint = !isNullOrUndefined(gate.conjoint)
+    const isConjoint = (gate.conjoint != null)
     let id1 = globalId
     globalId += 1
     let id2 = isConjoint ? globalId : 0

@@ -1,7 +1,7 @@
 import { Colors } from './Colors.js'
 import { AddBrackets } from './AddBrackets.js'
 
-export function FormatText(input: string | string[], isParenthesisNeeded = false): string {
+export function FormatText (input: string | string[], isParenthesisNeeded = false): string {
   if (Array.isArray(input)) {
     // format arrays in to a lovely comma-separated list
     let toReturn = ''

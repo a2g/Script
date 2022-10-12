@@ -3,17 +3,18 @@ import { SolverViaRootPiece } from './SolverViaRootPiece.js'
 import { Piece } from './Piece.js'
 import { SpecialTypes } from './SpecialTypes.js'
 import { PileOfPieces } from './PileOfPieces.js'
-import { ReadOnlyJsonSingle } from '../main/ReadOnlyJsonSingle.js'
-import { FormatText } from '../main/FormatText.js'
+import { FormatText } from './FormatText.js'
 import { RootPieceMap } from './RootPieceMap.js'
-import _ from '../../jigsaw.json'
 import { PileOfPiecesReadOnly } from './PileOfPiecesReadOnly.js'
+import { Box } from './Box.js'
+import _ from '../../jigsaw.json'
 
 /**
  * Solution needs to be cloned.
  */
 export class Solution {
   // non aggregates
+  public static FLAG_WIN (): string { return 'flag_win' }
   private readonly solutionNames: string[]
 
   rootPieces: RootPieceMap
@@ -68,7 +69,7 @@ export class Solution {
   }
 
   FindTheFlagWinAndPutItInRootPieceMap (): void {
-    const flagWinSet = this.remainingPiecesRepo.Get('flag_win')
+    const flagWinSet = this.remainingPiecesRepo.Get(Solution.FLAG_WIN())
     if (flagWinSet === undefined) {
       throw new Error('flag_win was undefined')
     }
@@ -87,8 +88,8 @@ export class Solution {
     const incompletePieces = new Set<Piece>()
     const clonedRootPieceMap =
       this.rootPieces.CloneAllRootPiecesAndTheirTrees(incompletePieces)
-    this.rootPieces.GetRootPieceByName('flag_win').id =
-      this.rootPieces.GetRootPieceByName('flag_win').id // not sure why do this, but looks crucial!
+    this.rootPieces.GetRootPieceByName(Solution.FLAG_WIN()).id =
+      this.rootPieces.GetRootPieceByName(Solution.FLAG_WIN()).id // not sure why do this, but looks crucial!
     const clonedSolution = new Solution(
       clonedRootPieceMap,
       this.remainingPiecesRepo,
@@ -152,7 +153,7 @@ export class Solution {
   }
 
   GetFlagWin (): Piece {
-    return this.rootPieces.GetRootPieceByName('flag_win')
+    return this.rootPieces.GetRootPieceByName(Solution.FLAG_WIN())
   }
 
   HasAnyPiecesThatOutputObject (objectToObtain: string): boolean {
@@ -227,7 +228,7 @@ export class Solution {
       if (piece.inputHints[0] === goalFlag) {
         if (piece.type === _.AUTO_FLAG1_CAUSES_IMPORT_OF_JSON) {
           if (existsSync(piece.output)) {
-            const json = new ReadOnlyJsonSingle(piece.output)
+            const json = new Box(piece.output)
             this.remainingPiecesRepo.MergeInPiecesFromScene(json)
           }
         }

@@ -1,8 +1,8 @@
-import { LogicGrid } from '../main/LogicGrid.js'
-import { Happener } from '../main/Happener.js'
-import { HappenerCallbacksInterface } from '../main/HappenerCallbacksInterface.js'
-import { GetThreeStringsFromInput } from '../main/GetThreeStringsFromInput.js'
-const prompt = require('prompt-sync')()
+import { LogicGrid } from './LogicGrid.js'
+import { Happener } from './Happener.js'
+import { HappenerCallbacksInterface } from './HappenerCallbacksInterface.js'
+import { GetThreeStringsFromInput } from './GetThreeStringsFromInput.js'
+const prompt = require('prompt-sync')()// this needs to be factored out - since jigsaw is set up not to allow file or cli input, so karma runs ok
 
 // April 2021
 // The blind / location - agnostic way to find solutions is to have an inv vs props table, and inv vs inv table, and a verb vs props table, and a verb vs invs table, then

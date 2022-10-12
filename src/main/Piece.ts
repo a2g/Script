@@ -288,6 +288,10 @@ export class Piece {
     return this.characterRestrictions
   }
 
+  public GetOutput (): string {
+    return this.output
+  }
+
   UpdateMapWithOutcomes (visiblePieces: Map<string, Set<string>>): void {
     if (this.happenings != null) {
       for (const happening of this.happenings.array) {

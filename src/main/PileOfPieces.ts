@@ -1,6 +1,6 @@
-import { PileOfPiecesReadOnly } from '..'
-import { ReadOnlyJsonSingle } from './ReadOnlyJsonSingle'
+import { BoxReadOnlyWithFileMethods } from './BoxReadOnlyWithFileMethods'
 import { Piece } from './Piece'
+import { PileOfPiecesReadOnly } from './PileOfPiecesReadOnly'
 /**
  * Yes, the only data here is the map.
  *
@@ -9,10 +9,10 @@ import { Piece } from './Piece'
 export class PileOfPieces implements PileOfPiecesReadOnly {
   private readonly solutionPieceMap: Map<string, Set<Piece>>
 
-  constructor (cloneFromMe: PileOfPiecesReadOnly | null) {
+  constructor(cloneFromMe: PileOfPiecesReadOnly | null) {
     this.solutionPieceMap = new Map<string, Set<Piece>>()
     if (cloneFromMe != null) {
-      for (const set of cloneFromMe.GetValues()) {
+      for (const set of cloneFromMe.GetIterator()) {
         if (set.size > 0) {
           const clonedSet = new Set<Piece>()
           const throwawaySet = new Set<Piece>()
@@ -28,7 +28,7 @@ export class PileOfPieces implements PileOfPiecesReadOnly {
     }
   }
 
-  GetAutos (): Piece[] {
+  GetAutos(): Piece[] {
     const toReturn = new Array<Piece>()
     this.solutionPieceMap.forEach((value: Set<Piece>) => {
       value.forEach((piece: Piece) => {
@@ -40,27 +40,27 @@ export class PileOfPieces implements PileOfPiecesReadOnly {
     return toReturn
   }
 
-  HasAnyPiecesThatOutputObject (objectToObtain: string): boolean {
+  HasAnyPiecesThatOutputObject(objectToObtain: string): boolean {
     return this.solutionPieceMap.has(objectToObtain)
   }
 
-  GetPiecesThatOutputObject (objectToObtain: string): Set<Piece> | undefined {
+  GetPiecesThatOutputObject(objectToObtain: string): Set<Piece> | undefined {
     return this.solutionPieceMap.get(objectToObtain)
   }
 
-  Has (objectToObtain: string): boolean {
+  Has(objectToObtain: string): boolean {
     return this.solutionPieceMap.has(objectToObtain)
   }
 
-  Get (objectToObtain: string): Set<Piece> | undefined {
+  Get(objectToObtain: string): Set<Piece> | undefined {
     return this.solutionPieceMap.get(objectToObtain)
   }
 
-  GetValues (): IterableIterator<Set<Piece>> {
+  GetIterator(): IterableIterator<Set<Piece>> {
     return this.solutionPieceMap.values()
   }
 
-  Size (): number {
+  Size(): number {
     let count = 0
     for (const set of this.solutionPieceMap.values()) {
       count += set.size
@@ -68,7 +68,7 @@ export class PileOfPieces implements PileOfPiecesReadOnly {
     return count
   }
 
-  ContainsId (idToMatch: number): boolean {
+  ContainsId(idToMatch: number): boolean {
     for (const set of this.solutionPieceMap.values()) {
       for (const piece of set) {
         if (piece.id === idToMatch) { return true }
@@ -78,11 +78,11 @@ export class PileOfPieces implements PileOfPiecesReadOnly {
   }
 
   // methods for mutating
-  MergeInPiecesFromScene (json: ReadOnlyJsonSingle): void {
-    json.AddAllSolutionPiecesToGivenMap(this)
+  MergeInPiecesFromScene(box: BoxReadOnlyWithFileMethods): void {
+    box.CopyAllPiecesToGivenMap(this)
   }
 
-  AddMapEntryUsingOutputAsKey (piece: Piece): void {
+  AddMapEntryUsingOutputAsKey(piece: Piece): void {
     // initialize array, if it hasn't yet been
     if (!this.solutionPieceMap.has(piece.output)) {
       this.solutionPieceMap.set(piece.output, new Set<Piece>())
@@ -91,7 +91,7 @@ export class PileOfPieces implements PileOfPiecesReadOnly {
     this.solutionPieceMap.get(piece.output)?.add(piece)
   }
 
-  RemovePiece (piece: Piece): void {
+  RemovePiece(piece: Piece): void {
     if (piece.count - 1 <= 0) {
       const key = piece.output
       if (this.solutionPieceMap.has(key)) {

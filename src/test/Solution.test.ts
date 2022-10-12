@@ -1,7 +1,7 @@
 // Typescript Unit test
 import { expect } from '@open-wc/testing'
 import { SolverViaRootPiece } from '../main/SolverViaRootPiece'
-import { ReadOnlyJsonSingle } from '../main/ReadOnlyJsonSingle'
+import { Box } from '../main/Box'
 
 describe('Solution', () => {
   /*
@@ -84,7 +84,7 @@ describe('Solution', () => {
 */
 
   it('Solution test cloning with High Permutation scene2', () => {
-    const json = new ReadOnlyJsonSingle('./tests/TestHighPermutationSolution.json')
+    const json = new Box('./tests/TestHighPermutationSolution.json')
     const startingThings = json.GetMapOfAllStartingThings()
     const collection = new SolverViaRootPiece(startingThings)
     collection.InitializeByCopyingThese(json.GeneratePiecesMappedByOutput(), startingThings)

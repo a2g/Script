@@ -1,23 +1,18 @@
 import { PileOfPieces } from './PileOfPieces.js'
-import { MixedObjectsAndVerb } from '../main/MixedObjectsAndVerb.js'
-import { Happenings } from '../main/Happenings.js'
-import { Mix } from '../main/Mix.js'
-import { ReadOnlyJsonSingle } from '../main/ReadOnlyJsonSingle.js'
-import { SingleBigSwitch } from '../main/SingleBigSwitch.js'
+import { MixedObjectsAndVerb } from './MixedObjectsAndVerb.js'
+import { Happenings } from './Happenings.js'
+import { Mix } from './Mix.js'
+import { SingleBigSwitch } from './SingleBigSwitch.js'
+import { BoxReadOnlyWithFileMethods } from './BoxReadOnlyWithFileMethods.js'
+import { BoxReadOnly } from './BoxReadOnly.js'
 
-function CollectAllJsonRecursively (json: ReadOnlyJsonSingle, map: Map<string, ReadOnlyJsonSingle>): void {
-  for (const bag of json.GetMapOfBags()) {
-    const piece: ReadOnlyJsonSingle = bag[1]
-    map.set(bag[0], piece)
-  }
-}
 /**
  * So the most important part of this class is that the data
  * in it is read only. So I've put that in the name.
  * I wanted to convey the idea that it represents  *.json files,
  * in this case multiple, so that goes in there too.
  * */
-export class ReadOnlyJsonMultipleFilenames {
+export class BigBoxViaArrayOfBoxes implements BoxReadOnly {
   readonly allProps: string[]
   readonly allFlags: string[]
   readonly allInvs: string[]
@@ -26,16 +21,17 @@ export class ReadOnlyJsonMultipleFilenames {
   readonly startingInvSet: Set<string>
   readonly startingPropSet: Set<string>
   readonly startingFlagSet: Set<string>
-  readonly allScenes: Map<string, ReadOnlyJsonSingle>
-  readonly mapOfBags: Map<string, ReadOnlyJsonSingle>
+  readonly originalBoxes: BoxReadOnlyWithFileMethods[]
+  readonly directSubBoxesMappedByKeyPiece: Map<string, BoxReadOnlyWithFileMethods>
 
-  constructor (rootJson: ReadOnlyJsonSingle) {
-    this.allScenes = new Map<string, ReadOnlyJsonSingle>()
-    CollectAllJsonRecursively(rootJson, this.allScenes)
+  constructor (arrayOfBoxes: BoxReadOnlyWithFileMethods[]) {
+    // we keep the original boxes, because we need to call
+    // Big Switch on them numerous times
+    this.originalBoxes = arrayOfBoxes
 
     // create sets for the 3 member and 4 indirect sets
     this.mapOfStartingThingsWithChars = new Map<string, Set<string>>()
-    this.mapOfBags = new Map<string, ReadOnlyJsonSingle>()
+    this.directSubBoxesMappedByKeyPiece = new Map<string, BoxReadOnlyWithFileMethods>()
     this.startingPropSet = new Set<string>()
     this.startingInvSet = new Set<string>()
     this.startingFlagSet = new Set<string>()
@@ -45,16 +41,16 @@ export class ReadOnlyJsonMultipleFilenames {
     const setChars = new Set<string>()
 
     // collate the 3 member and 4 indirect sets
-    for (const json of this.allScenes.values()) {
-      json.AddStartingThingCharsToGivenMap(this.mapOfStartingThingsWithChars)
-      json.AddBagsToGivenMap(this.mapOfBags)
-      json.AddStartingPropsToGivenSet(this.startingPropSet)
-      json.AddStartingInvsToGivenSet(this.startingInvSet)
-      json.AddStartingFlagsToGivenSet(this.startingFlagSet)
-      json.AddPropsToGivenSet(setProps)
-      json.AddFlagsToGivenSet(setFlags)
-      json.AddInvsToGivenSet(setInvs)
-      json.AddCharsToGivenSet(setChars)
+    for (const box of this.originalBoxes.values()) {
+      box.CopyStartingThingCharsToGivenMap(this.mapOfStartingThingsWithChars)
+      box.CopySubBoxesToGivenMap(this.directSubBoxesMappedByKeyPiece)
+      box.CopyStartingPropsToGivenSet(this.startingPropSet)
+      box.CopyStartingInvsToGivenSet(this.startingInvSet)
+      box.CopyStartingFlagsToGivenSet(this.startingFlagSet)
+      box.CopyPropsToGivenSet(setProps)
+      box.CopyFlagsToGivenSet(setFlags)
+      box.CopyInvsToGivenSet(setInvs)
+      box.CopyCharsToGivenSet(setChars)
     }
 
     // clean 3 member and 4 indirect sets
@@ -105,9 +101,13 @@ export class ReadOnlyJsonMultipleFilenames {
   GetArrayOfInitialStatesOfFlags (): number[] {
     const array: number[] = []
     for (const flag of this.allFlags) {
-      array.push(flag.length > 0 ? 0 : 0)// I used value.length>0 to get rid of the unused variable warnin
-    };
+      array.push(flag.length > 0 ? 0 : 0) // I used value.length>0 to get rid of the unused variable warnin
+    }
     return array
+  }
+
+  GetSetOfStartingFlags (): Set<string> {
+    return this.startingFlagSet
   }
 
   GetSetOfStartingProps (): Set<string> {
@@ -124,14 +124,16 @@ export class ReadOnlyJsonMultipleFilenames {
 
   GetStartingThingsForCharacter (charName: string): Set<string> {
     const startingThingSet = new Set<string>()
-    this.mapOfStartingThingsWithChars.forEach((value: Set<string>, thing: string) => {
-      for (const item of value) {
-        if (item === charName) {
-          startingThingSet.add(thing)
-          break
+    this.mapOfStartingThingsWithChars.forEach(
+      (value: Set<string>, thing: string) => {
+        for (const item of value) {
+          if (item === charName) {
+            startingThingSet.add(thing)
+            break
+          }
         }
       }
-    })
+    )
 
     return startingThingSet
   }
@@ -143,7 +145,7 @@ export class ReadOnlyJsonMultipleFilenames {
     for (const prop of this.allProps) {
       const isVisible = startingSet.has(prop)
       visibilities.push(isVisible)
-    };
+    }
 
     return visibilities
   }
@@ -155,7 +157,7 @@ export class ReadOnlyJsonMultipleFilenames {
     for (const inv of this.allInvs) {
       const isVisible = startingSet.has(inv)
       visibilities.push(isVisible)
-    };
+    }
 
     return visibilities
   }
@@ -164,25 +166,37 @@ export class ReadOnlyJsonMultipleFilenames {
     return this.allChars
   }
 
-  GenerateSolutionPiecesMappedByInput (): PileOfPieces {
+  GeneratePiecesMappedByOutput (): PileOfPieces {
     const solutionPiecesMappedByInput = new PileOfPieces(null)
 
-    for (const filename of this.allScenes.keys()) {
-      const notUsed = new MixedObjectsAndVerb(Mix.ErrorVerbNotIdentified, '', '', '', 'ScenePreAggregator')
-      SingleBigSwitch(filename, solutionPiecesMappedByInput, notUsed)
+    for (const json of this.originalBoxes) {
+      const notUsed = new MixedObjectsAndVerb(
+        Mix.ErrorVerbNotIdentified,
+        '',
+        '',
+        '',
+        'ScenePreAggregator'
+      )
+      SingleBigSwitch(json.GetFilename(), solutionPiecesMappedByInput, notUsed)
     }
     return solutionPiecesMappedByInput
   }
 
   FindHappeningsIfAny (objects: MixedObjectsAndVerb): Happenings | null {
-    for (const filename of this.allScenes.keys()) {
-      const result = SingleBigSwitch(filename, null, objects) as unknown as Happenings | null
-      if (result != null) { return result }
+    for (const json of this.originalBoxes) {
+      const result = SingleBigSwitch(
+        json.GetFilename(),
+        null,
+        objects
+      ) as unknown as Happenings | null
+      if (result != null) {
+        return result
+      }
     }
     return null
   }
 
-  GetMapOfBags (): Map<string, ReadOnlyJsonSingle> {
-    return this.mapOfBags
+  GetMapOfSubBoxes (): Map<string, BoxReadOnlyWithFileMethods> {
+    return this.directSubBoxesMappedByKeyPiece
   }
 }
