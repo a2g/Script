@@ -7,7 +7,8 @@ describe('Solution', () => {
   /*
   it("Test of a none clone piece", () => {
       const box = new SceneSingle("20210415JsonPrivate/HospScene.json");
-      const map = json.GeneratePiecesMappedByOutput();
+      const pile:PileOfPieces = new PileOfPieces();
+      json.CopyPiecesFromBoxInToPile(pile);
       const objective = "inv_screwdriver";
       const collection = new SolutionCollection();
       const solution = new Solution(new SolutionPiece("", "", objective), map)
@@ -26,7 +27,8 @@ describe('Solution', () => {
 
   it("Test of a non cloning five step", () => {
       const box = new SceneSingle("20210415JsonPrivate/HospScene.json");
-      const map = json.GeneratePiecesMappedByOutput();
+            const pile:PileOfPieces = new PileOfPieces();
+      json.CopyPiecesFromBoxInToPile(pile);
       const objective = "prop_death_by_guitar";
       const collection = new SolutionCollection();
       const solution = new Solution(new SolutionPiece("", "", objective), map);
@@ -55,7 +57,7 @@ describe('Solution', () => {
 
   it("Test of another non-cloning 5 step", () => {
       const box = new SceneSingle("20210415JsonPrivate/HospScene.json");
-      const map = json.GeneratePiecesMappedByOutput();
+      const map = json.CopyPiecesFromBoxInToPile();
       const objective = "prop_death_by_slamdunk";
       const collection = new SolutionCollection();
       collection.push(new Solution(new SolutionPiece("", "", objective), map));
@@ -80,6 +82,12 @@ describe('Solution', () => {
       }
   });
 */
+
+  /*
+  remember that time when I used one of the TYPES with many params, and
+  it was importing inputs as blank "". A length check was added to fix it ie
+  if (inputF !== 'undefined' && inputF !== undefined && inputF.length > 0) {
+       A test could be added for this too.  */
 
   it('Test cloning with High Permutation scene2', () => {
     const root = new Piece(0, 0, 'root', '', 1, null, null, 'A')

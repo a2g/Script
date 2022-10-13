@@ -2,12 +2,14 @@
 import { expect } from '@open-wc/testing'
 import { SolverViaRootPiece } from '../main/SolverViaRootPiece'
 import { Box } from '../main/Box'
+import { PileOfPieces } from '../main/PileOfPieces'
 
 describe('Solution', () => {
   /*
   it("Test of a none clone solution", () => {
       const box = new SceneSingle("20210415JsonPrivate/HospScene.json");
-      const map = json.GeneratePiecesMappedByOutput();
+      const pile:PileOfPieces = new PileOfPieces();
+      json.CopyPiecesFromBoxInToPile(pile);
       const objective = "inv_screwdriver";
       const collection = new SolutionCollection();
       const solution = new Solution(new SolutionPiece("", "", objective))
@@ -26,7 +28,8 @@ describe('Solution', () => {
 
   it("Test of a non cloning five step", () => {
       const box = new SceneSingle("20210415JsonPrivate/HospScene.json");
-      const map = json.GeneratePiecesMappedByOutput();
+      const pile:PileOfPieces = new PileOfPieces();
+      json.CopyPiecesFromBoxInToPile(pile);
       const objective = "prop_death_by_guitar";
       const collection = new SolutionCollection();
       const solution = new Solution(new SolutionPiece("", "", objective), map)
@@ -55,7 +58,9 @@ describe('Solution', () => {
 
   it("Test of another non-cloning 5 step", () => {
       const box = new SceneSingle("20210415JsonPrivate/HospScene.json");
-      const map = json.GeneratePiecesMappedByOutput();
+      const pile:PileOfPieces = new PileOfPieces();
+      const pile:PileOfPieces = new PileOfPieces();
+      json.CopyPiecesFromBoxInToPile(pile);
       const objective = "prop_death_by_slamdunk";
       const collection = new SolutionCollection();
       const solution = new Solution(new SolutionPiece("", "", objective), map);
@@ -87,7 +92,9 @@ describe('Solution', () => {
     const box = new Box('./tests/TestHighPermutationSolution.json')
     const startingThings = box.GetMapOfAllStartingThings()
     const collection = new SolverViaRootPiece(startingThings)
-    collection.InitializeByCopyingThese(box.GeneratePiecesMappedByOutput(), startingThings)
+    const pile = new PileOfPieces(null)
+    box.CopyPiecesFromBoxInToPile(pile)
+    collection.InitializeByCopyingThese(pile, startingThings)
     const wasCloneEncountered = collection.SolvePartiallyUntilCloning()
     expect(wasCloneEncountered).to.equal(false)
 
@@ -96,7 +103,7 @@ describe('Solution', () => {
     // that the multiple solutions are the same thing.
     expect(collection.GetSolutions().length).to.equal(1)
     const solution0 = collection.GetSolutions()[0]
-    expect(solution0.GetMapOfRootPieces().GenerateMapOfLeaves().size).to.equal(27)
+    expect(solution0.GetRootPieceMap().GenerateMapOfLeaves().size).to.equal(27)
     expect(solution0.GetUnprocessedLeaves().size).to.equal(0)
 
     // process the rest of the Pieces
@@ -105,7 +112,7 @@ describe('Solution', () => {
     } while (collection.IsAnyPiecesUnprocessed())
 
     {
-      const leaves = solution0.GetMapOfRootPieces().GenerateMapOfLeaves()
+      const leaves = solution0.GetRootPieceMap().GenerateMapOfLeaves()
       expect(leaves.size).to.equal(27)
       expect(leaves).has('/root comment 1/flag_win/inv_final_catalyst/')
       /*

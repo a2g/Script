@@ -187,6 +187,19 @@ export class BigBoxViaTraversingSubBoxes implements BoxReadOnly {
     return null
   }
 
+  CopyPiecesFromBoxInToPile (pile: PileOfPieces): void {
+    const notUsed = new MixedObjectsAndVerb(
+      Mix.ErrorVerbNotIdentified,
+      '',
+      '',
+      '',
+      ''
+    )
+    for (const filename of this.boxesGatheredViaTraversal.keys()) {
+      SingleBigSwitch(filename, pile, notUsed)
+    }
+  }
+
   GetMapOfSubBoxes (): Map<string, BoxReadOnlyWithFileMethods> {
     return this.directSubBoxesMappedByKey
   }

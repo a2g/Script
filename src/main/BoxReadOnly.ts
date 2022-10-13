@@ -1,5 +1,6 @@
 import { MixedObjectsAndVerb } from './MixedObjectsAndVerb.js'
 import { Happenings } from './Happenings.js'
+import { PileOfPieces } from './PileOfPieces.js'
 
 /**
 * This is needed because there are all these analysis steps that are performed on a single box
@@ -31,6 +32,6 @@ export interface BoxReadOnly {
   GetMapOfSubBoxes: () => Map<string, BoxReadOnly>
 
   // original-json-traversers
-
   FindHappeningsIfAny: (objects: MixedObjectsAndVerb) => Happenings | null
+  CopyPiecesFromBoxInToPile: (pile: PileOfPieces) => void // its possible for this to be done on aggregate
 }

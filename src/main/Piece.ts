@@ -47,27 +47,27 @@ export class Piece {
     }
     this.inputs = new Array<Piece>()
     this.inputHints = new Array<string>()
-    if (inputA !== 'undefined' && inputA !== undefined) {
+    if (inputA !== 'undefined' && inputA !== undefined && inputA.length > 0) {
       this.inputHints.push(inputA)
       this.inputs.push(null)
     }
-    if (inputB !== 'undefined' && inputB !== undefined) {
+    if (inputB !== 'undefined' && inputB !== undefined && inputB.length > 0) {
       this.inputHints.push(inputB)
       this.inputs.push(null)
     }
-    if (inputC !== 'undefined' && inputC !== undefined) {
+    if (inputC !== 'undefined' && inputC !== undefined && inputC.length > 0) {
       this.inputHints.push(inputC)
       this.inputs.push(null)
     }
-    if (inputD !== 'undefined' && inputD !== undefined) {
+    if (inputD !== 'undefined' && inputD !== undefined && inputD.length > 0) {
       this.inputHints.push(inputD)
       this.inputs.push(null)
     }
-    if (inputE !== 'undefined' && inputE !== undefined) {
+    if (inputE !== 'undefined' && inputE !== undefined && inputE.length > 0) {
       this.inputHints.push(inputE)
       this.inputs.push(null)
     }
-    if (inputF !== 'undefined' && inputF !== undefined) {
+    if (inputF !== 'undefined' && inputF !== undefined && inputF.length > 0) {
       this.inputHints.push(inputF)
       this.inputs.push(null)
     }
@@ -128,7 +128,7 @@ export class Piece {
       // we check our starting set first!
       // otherwise Toggle pieces will toggle until the count is zero.
       const objectToObtain = this.inputHints[k]
-      if (solution.startingThings.has(objectToObtain)) {
+      if (solution.GetStartingThings().has(objectToObtain)) {
         const newLeaf = new Piece(0, 0, objectToObtain, SpecialTypes.VerifiedLeaf)
         newLeaf.parent = this
         this.inputs[k] = newLeaf
@@ -140,7 +140,7 @@ export class Piece {
       // then we will eventually come to process the other entry in goals
       // so we can skip on to the next one..I think...
       //
-      if (solution.rootPieces.Has(objectToObtain)) {
+      if (solution.GetRootPieceMap().Has(objectToObtain)) {
         continue
       }
 
@@ -158,7 +158,7 @@ export class Piece {
         // and since AddToMap uses output as the key in the map
         // then the goals map will now have another entry with a key equal to "flag_..."
         // which is what we want.
-        solution.rootPieces.AddRootPiece(matchingPieces[0])
+        solution.GetRootPieceMap().AddRootPiece(matchingPieces[0])
         solution.SetPieceIncomplete(matchingPieces[0])
       } else if (matchingPieces.length > 0) {
         // In our array the currentSolution, is at index zero
@@ -187,7 +187,7 @@ export class Piece {
 
           // rediscover the current piece in theSolution - again because we might be cloned
           let thePiece = null
-          for (const rootPiece of theSolution.rootPieces.GetValues()) {
+          for (const rootPiece of theSolution.GetRootPieceMap().GetValues()) {
             thePiece = rootPiece.FindAnyPieceMatchingIdRecursively(this.id)
             if (thePiece != null) {
               break

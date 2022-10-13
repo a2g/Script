@@ -11,24 +11,30 @@ import _ from '../../jigsaw.json'
 
 /**
  * Solution needs to be cloned.
+ * Where do you solve your jigsaws? Do you use the dinner table, or
+ * do you have a special wooden board, so you can move it off the table when
+ * you want to have dinner? That's what this its a dedicated surface for
+ * storing the root pieces, which are your targets for adding pieces to,
+ * and the pile of pieces you take the pieces from.
+ *
+ * Unlike your dining table, this SolvingBoard has the ability to clone
+ * itself whenever we encounter something that you don't encounter with
+ * a tabletop jigsaw:
+ * when the knobs (output) of TWO pieces can fit into a given 'hole' (input)'.
+ * This really breaks the puzzle solving analogy.
  */
 export class Solution {
-  // non aggregates
+  // important ones
+  private readonly rootPieces: RootPieceMap
+  private readonly remainingPiecesRepo: PileOfPieces
 
-  private readonly solutionNames: string[]
+  // less important
+  private readonly unprocessedLeaves: Set<Piece>
+  private readonly restrictionsEncounteredDuringSolving: Set<string>// yup these are added to
+  private readonly solutionNameSegments: string[] // these get assigned by SolverViaRootPiece.GenerateNames
+  private readonly startingThings: ReadonlyMap<string, Set<string>> // once, this was updated dynamically in GetNextDoableCommandAndDesconstructTree
 
-  rootPieces: RootPieceMap
-
-  remainingPiecesRepo: PileOfPieces
-
-  isArchived: boolean
-
-  // aggregates
-  unprocessedLeaves: Set<Piece>
-
-  startingThings: ReadonlyMap<string, Set<string>> // this is updated dynamically in GetNextDoableCommandAndDesconstructTree
-
-  readonly restrictionsEncounteredDuringSolving: Set<string>
+  private isArchived: boolean
 
   constructor (
     rootPieceMapToCopy: RootPieceMap | null,
@@ -44,10 +50,10 @@ export class Solution {
     this.isArchived = false
 
     // if it is passed in, we deep copy it
-    this.solutionNames = []
+    this.solutionNameSegments = []
     if (nameSegments != null) {
       for (const segment of nameSegments) {
-        this.solutionNames.push(segment)
+        this.solutionNameSegments.push(segment)
       }
     }
 
@@ -95,7 +101,7 @@ export class Solution {
       this.remainingPiecesRepo,
       this.startingThings,
       this.restrictionsEncounteredDuringSolving,
-      this.solutionNames
+      this.solutionNameSegments
     )
     clonedSolution.SetIncompletePieces(incompletePieces)
     return clonedSolution
@@ -119,7 +125,7 @@ export class Solution {
 
   SetIncompletePieces (set: Set<Piece>): void {
     // safer to copy this - just being cautious
-    this.unprocessedLeaves = new Set<Piece>()
+    this.unprocessedLeaves.clear()
     for (const piece of set) {
       this.unprocessedLeaves.add(piece)
     }
@@ -197,14 +203,14 @@ export class Solution {
   }
 
   PushNameSegment (solutionName: string): void {
-    this.solutionNames.push(solutionName)
+    this.solutionNameSegments.push(solutionName)
   }
 
   GetDisplayNamesConcatenated (): string {
     let result = ''
-    for (let i = 0; i < this.solutionNames.length; i += 1) {
+    for (let i = 0; i < this.solutionNameSegments.length; i += 1) {
       const symbol = i === 0 ? '' : '/'
-      result += symbol + FormatText(this.solutionNames[i])
+      result += symbol + FormatText(this.solutionNameSegments[i])
     }
     return result
   }
@@ -253,11 +259,11 @@ export class Solution {
   }
 
   GetLastDisplayNameSegment (): string {
-    return this.solutionNames[this.solutionNames.length - 1]
+    return this.solutionNameSegments[this.solutionNameSegments.length - 1]
   }
 
   CopyNameToVirginSolution (virginSolution: Solution): void {
-    for (const nameSegment of this.solutionNames) {
+    for (const nameSegment of this.solutionNameSegments) {
       virginSolution.PushNameSegment(nameSegment)
     }
   }
@@ -312,7 +318,11 @@ export class Solution {
     return null
   }
 
-  public GetMapOfRootPieces (): RootPieceMap {
+  public GetRootPieceMap (): RootPieceMap {
     return this.rootPieces
+  }
+
+  GetStartingThings (): ReadonlyMap<string, Set<string>> {
+    return this.startingThings
   }
 }

@@ -90,7 +90,7 @@ export class SolverViaRootPiece {
         if (i !== j) {
           const otherSolution = this.solutions[j]
           const otherLeafs = otherSolution
-            .GetMapOfRootPieces()
+            .GetRootPieceMap()
             .GenerateMapOfLeaves()
           for (const leafPiece of otherLeafs.values()) {
             const otherLeafPieceName = leafPiece.output
@@ -107,12 +107,12 @@ export class SolverViaRootPiece {
       // find least popular leaf in solution i
       const currSolution = this.solutions[i]
       let minLeafPieceNameCount = 1000 // something high
-      let minLeafPieceName = 'not found'
+      let minLeafPieceName = ' not found'
 
       // get the restrictions accumulated from all the solution pieces
       const accumulatedRestrictions = currSolution.GetAccumulatedRestrictions()
 
-      const currLeaves = currSolution.GetMapOfRootPieces().GenerateMapOfLeaves()
+      const currLeaves = currSolution.GetRootPieceMap().GenerateMapOfLeaves()
       for (const leafPieces of currLeaves.values()) {
         const result = mapForCounting.get(leafPieces.output)
         if (result !== undefined && result < minLeafPieceNameCount) {
