@@ -6,7 +6,7 @@
   "definitions": {
     "piece_type": {
       "properties": {
-        "gate": {
+        "piece": {
           "$ref": "#/definitions/the_enum"
         },
         "count": {
@@ -18,14 +18,14 @@
           "$ref": "#/definitions/piece_type"
         }
       },
-      "required": ["gate"],
+      "required": ["piece"],
       "allOf": [
         {
           "if": {
             "anyOf": [
               {
                 "properties": {
-                  "gate": {
+                  "piece": {
                     "const": "INV1_AND_INV2_GENERATE_AN_INV3",
                     "examples": ["eg none yet"]
                   }
@@ -33,7 +33,7 @@
               },
               {
                 "properties": {
-                  "gate": {
+                  "piece": {
                     "const": "INV1_AND_INV2_COMBINE_TO_FORM_INV3",
                     "examples": ["not quite the amp fixing - but close"]
                   }
@@ -41,7 +41,7 @@
               },
               {
                 "properties": {
-                  "gate": {
+                  "piece": {
                     "const": "INV1_BECOMES_INV2_BY_KEEPING_INV3",
                     "examples": [
                       "eg FLAT BALL becomes INFLATED BALL via keeping PUMP"
@@ -51,7 +51,7 @@
               },
               {
                 "properties": {
-                  "gate": {
+                  "piece": {
                     "const": "INV1_BECOMES_INV2_BY_LOSING_INV3",
                     "examples": [
                       "eg broken amp becomes FIXED AMP via losing RADIO_TUBE"
@@ -70,7 +70,7 @@
             "anyOf": [
               {
                 "properties": {
-                  "gate": {
+                  "piece": {
                     "const": "INV1_WITH_PROP1_REVEALS_PROP2_KEPT_ALL",
                     "examples": ["eg use ball with backboard generate prop"]
                   }
@@ -78,7 +78,7 @@
               },
               {
                 "properties": {
-                  "gate": {
+                  "piece": {
                     "const": "PROP1_BECOMES_PROP2_BY_LOSING_INV1",
                     "examples": [
                       "powerpoint -> plugged-in-amp via losing INV_FIXEDAMP"
@@ -88,7 +88,7 @@
               },
               {
                 "properties": {
-                  "gate": {
+                  "piece": {
                     "const": "PROP1_BECOMES_PROP2_BY_KEEPING_INV1",
                     "examples": [
                       "eg RAISEDBACKBOARD becomes LOWEREDBACKBOARD vie keeping POLEHOOK",
@@ -99,7 +99,7 @@
               },
               {
                 "properties": {
-                  "gate": {
+                  "piece": {
                     "const": "OBTAIN_INV1_BY_PROP1_WITH_PROP2_LOSE_PROPS",
                     "description": "By using the A with B you are able to obtain the INV",
                     "examples": [
@@ -111,7 +111,7 @@
               },
               {
                 "properties": {
-                  "gate": {
+                  "piece": {
                     "const": "PROP1_BECOMES_PROP2_WHEN_GRAB_INV1",
                     "examples": [
                       "eg opened raio with radiotube becomes merely OPENED RADIO when you grab RADIOTUBE"
@@ -121,7 +121,7 @@
               },
               {
                 "properties": {
-                  "gate": {
+                  "piece": {
                     "const": "PROP1_CHANGES_STATE_TO_PROP2_BY_KEEPING_INV1",
                     "description": "By using the A with B you are able to obtain the INV",
                     "examples": ["eg use radiation suit with the meteor"]
@@ -139,7 +139,7 @@
             "anyOf": [
               {
                 "properties": {
-                  "gate": {
+                  "piece": {
                     "const": "TOGGLE_PROP1_REVEALS_PROP2_AS_IT_BECOMES_PROP3",
                     "examples": [
                       "eg open fridge, open window, open blind, open window"
@@ -149,7 +149,7 @@
               },
               {
                 "properties": {
-                  "gate": {
+                  "piece": {
                     "const": "PROP1_APPEARS_WHEN_USE_INV1_WITH_PROP2",
                     "examples": [
                       "eg prop_crank appears when use use handle with well"
@@ -159,7 +159,7 @@
               },
               {
                 "properties": {
-                  "gate": {
+                  "piece": {
                     "const": "PROP1_BECOMES_PROP2_BY_LOSING_PROP3",
                     "examples": ["eg none yet"]
                   }
@@ -167,7 +167,7 @@
               },
               {
                 "properties": {
-                  "gate": {
+                  "piece": {
                     "const": "AUTO_PROP1_BECOMES_PROP2_BY_PROPS",
                     "examples": ["eg none yet"]
                   }
@@ -184,7 +184,7 @@
             "anyOf": [
               {
                 "properties": {
-                  "gate": {
+                  "piece": {
                     "const": "PROP1_GOES_WHEN_GRAB_INV1",
                     "examples": ["eg grab coconut"]
                   }
@@ -192,7 +192,7 @@
               },
               {
                 "properties": {
-                  "gate": {
+                  "piece": {
                     "const": "PROP1_STAYS_WHEN_GRAB_INV1",
                     "examples": ["eg grab pile of coconuts"]
                   }
@@ -200,7 +200,7 @@
               },
               {
                 "properties": {
-                  "gate": {
+                  "piece": {
                     "const": "TALK_TO_PROP1_GETS_INV1",
                     "examples": ["eg talk to woman"]
                   }
@@ -208,7 +208,7 @@
               },
               {
                 "properties": {
-                  "gate": {
+                  "piece": {
                     "const": "EXAMINE_PROP1_YIELDS_INV1",
                     "examples": [
                       "eg I thought this happened in DD but I read the solution wrong"
@@ -227,7 +227,7 @@
             "anyOf": [
               {
                 "properties": {
-                  "gate": {
+                  "piece": {
                     "const": "TOGGLE_PROP1_BECOMES_PROP2",
                     "examples": ["toggle magged up vacuum tubes"]
                   }
@@ -235,7 +235,7 @@
               },
               {
                 "properties": {
-                  "gate": {
+                  "piece": {
                     "const": "TOGGLE_PROP1_CHANGES_STATE_TO_PROP2",
                     "examples": [
                       "eg toggle on to off",
@@ -253,7 +253,7 @@
         {
           "if": {
             "properties": {
-              "gate": {
+              "piece": {
                 "const": "AUTO_FLAG1_SET_BY_PROPS",
                 "examples": [
                   "eg flag_wall_has_been_graffitied set by graffitied_wall"
@@ -268,7 +268,7 @@
         {
           "if": {
             "properties": {
-              "gate": {
+              "piece": {
                 "const": "AUTO_FLAG1_SET_BY_INVS",
                 "examples": ["eg flag_lit_torch set by inv_lit_torch"]
               }
@@ -281,7 +281,7 @@
         {
           "if": {
             "properties": {
-              "gate": {
+              "piece": {
                 "const": "FLAG1_SET_BY_USING_INV1_WITH_INV2",
                 "examples": ["eg use two invs together wins game"]
               }
@@ -294,7 +294,7 @@
         {
           "if": {
             "properties": {
-              "gate": {
+              "piece": {
                 "const": "FLAG1_SET_BY_USING_INV1_WITH_PROP1_NEED_FLAGS",
                 "examples": [
                   "eg win game using use silver with werewolf during lunar eclipse"
@@ -311,7 +311,7 @@
             "anyOf": [
               {
                 "properties": {
-                  "gate": {
+                  "piece": {
                     "const": "FLAG1_SET_BY_USING_INV1_WITH_PROP1_LOSE_PROPS",
                     "examples": [
                       "eg toggle on to off",
@@ -322,7 +322,7 @@
               },
               {
                 "properties": {
-                  "gate": {
+                  "piece": {
                     "const": "TALK_TO_PROP1_WITH_FLAG1_GETS_INV1",
                     "examples": ["eg talk to woman after setting flag"]
                   }
@@ -330,7 +330,7 @@
               },
               {
                 "properties": {
-                  "gate": {
+                  "piece": {
                     "const": "FLAG1_SET_BY_LOSING_INV1_WHEN_USED_WITH_PROP1",
                     "examples": [
                       "eg flag is set when use cogs to fix dumbwaiter"
@@ -340,7 +340,7 @@
               },
               {
                 "properties": {
-                  "gate": {
+                  "piece": {
                     "const": "GIVE_INV1_TO_PROP1_SETS_FLAG1",
                     "examples": ["eg give gold to king completes game"]
                   }
@@ -348,7 +348,7 @@
               },
               {
                 "properties": {
-                  "gate": {
+                  "piece": {
                     "const": "FLAG1_SET_BY_USING_INV1_WITH_PROP1",
                     "examples": ["eg use sword with baddie wins game"]
                   }
@@ -356,7 +356,7 @@
               },
               {
                 "properties": {
-                  "gate": {
+                  "piece": {
                     "const": "PROP1_STAYS_WHEN_GRAB_INV1_WITH_FLAG1",
                     "examples": ["eg grab pile of tyres, with flag set"]
                   }
@@ -364,7 +364,7 @@
               },
               {
                 "properties": {
-                  "gate": {
+                  "piece": {
                     "const": "PROP1_GOES_WHEN_GRAB_INV1_WITH_FLAG1",
                     "examples": ["eg grab single tire, if flag set"]
                   }
@@ -381,7 +381,7 @@
             "anyOf": [
               {
                 "properties": {
-                  "gate": {
+                  "piece": {
                     "const": "FLAG1_SET_BY_USING_PROP1_WITH_PROP2",
                     "examples": ["eg flag set by "]
                   }
@@ -389,7 +389,7 @@
               },
               {
                 "properties": {
-                  "gate": {
+                  "piece": {
                     "const": "PROP1_APPEARS_WHEN_GRAB_PROP2_WITH_FLAG1",
                     "examples": [
                       "eg taxi appears when phone is used with electricity on"
@@ -408,7 +408,7 @@
             "anyOf": [
               {
                 "properties": {
-                  "gate": {
+                  "piece": {
                     "const": "THROW_INV1_AT_PROP1_GETS_INV2_LOSE_BOTH",
                     "examples": [
                       "eg key throw rock at apple in tree, obtains apple (lose rock and apple in tree)"
@@ -418,7 +418,7 @@
               },
               {
                 "properties": {
-                  "gate": {
+                  "piece": {
                     "const": "OBTAIN_INV1_BY_INV2_WITH_PROP1_LOSE_BOTH",
                     "examples": [
                       "eg key throw rock at apple in tree, obtains apple (lose rock and apple in tree)"
@@ -428,7 +428,7 @@
               },
               {
                 "properties": {
-                  "gate": {
+                  "piece": {
                     "const": "OBTAIN_INV1_BY_INV2_WITH_PROP1_LOSE_NONE",
                     "examples": ["eg no example, but might need it"]
                   }
@@ -436,7 +436,7 @@
               },
               {
                 "properties": {
-                  "gate": {
+                  "piece": {
                     "const": "INV1_BECOMES_INV2_BY_KEEPING_PROP",
                     "examples": [
                       "eg manuscript b edited via typewriter by keeping prop"
@@ -446,7 +446,7 @@
               },
               {
                 "properties": {
-                  "gate": {
+                  "piece": {
                     "const": "GIVE_INV1_TO_PROP1_GETS_INV2",
                     "examples": [
                       "eg manuscript b edited via typewriter by keeping prop"
@@ -456,7 +456,7 @@
               },
               {
                 "properties": {
-                  "gate": {
+                  "piece": {
                     "const": "INPUT_INV1_PROP1_BECOMES_PROP2",
                     "examples": ["eg generic"]
                   }
@@ -464,7 +464,7 @@
               },
               {
                 "properties": {
-                  "gate": {
+                  "piece": {
                     "const": "INPUT_PROP1_INV1_REVEALS_PROP2",
                     "examples": ["eg generic"]
                   }
@@ -472,7 +472,7 @@
               },
               {
                 "properties": {
-                  "gate": {
+                  "piece": {
                     "const": "INPUT_PROP1_INV1_BECOMES_INV2",
                     "examples": ["eg generic"]
                   }
@@ -480,7 +480,7 @@
               },
               {
                 "properties": {
-                  "gate": {
+                  "piece": {
                     "const": "OBTAIN_INV1_BY_LOSING_INV2_KEEPING_PROP1",
                     "examples": ["eg obtain cogs when losing key in clock"]
                   }
@@ -488,7 +488,7 @@
               },
               {
                 "properties": {
-                  "gate": {
+                  "piece": {
                     "const": "OBTAIN_INV1_BY_LOSING_PROP1_KEEPING_INV2",
                     "examples": [
                       "eg obtain crank when use hurl to knock it off the well"
@@ -505,7 +505,7 @@
         {
           "if": {
             "properties": {
-              "gate": {
+              "piece": {
                 "const": "AUTO_FLAG1_SET_BY_FLAG2"
               }
             }
@@ -517,7 +517,7 @@
         {
           "if": {
             "properties": {
-              "gate": {
+              "piece": {
                 "const": "AUTO_FLAG1_SET_BY_FLAG2"
               }
             }
@@ -529,7 +529,7 @@
         {
           "if": {
             "properties": {
-              "gate": {
+              "piece": {
                 "const": "FLAG1_SET_BY_LOSING_INV1_USED_WITH_PROP1_AND_PROPS"
               }
             }
@@ -541,7 +541,7 @@
         {
           "if": {
             "properties": {
-              "gate": {
+              "piece": {
                 "const": "AUTO_FLAG1_CAUSES_IMPORT_OF_JSON"
               }
             }
@@ -553,7 +553,7 @@
         {
           "if": {
             "properties": {
-              "gate": {
+              "piece": {
                 "const": "PROP1_BECOMES_PROP2_AS_INV1_BECOMES_INV2"
               }
             }

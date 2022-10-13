@@ -108,7 +108,7 @@
         }
       }
     },
-    "gates": {
+    "pieces": {
       "type": "array",
       "minItems": 1,
       "items": {

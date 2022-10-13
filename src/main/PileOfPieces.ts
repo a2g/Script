@@ -79,7 +79,7 @@ export class PileOfPieces implements PileOfPiecesReadOnly {
 
   // methods for mutating
   MergeInPiecesFromScene (box: BoxReadOnlyWithFileMethods): void {
-    box.CopyAllPiecesToGivenMap(this)
+    box.CopyPiecesFromBoxInToPile(this)
   }
 
   AddMapEntryUsingOutputAsKey (piece: Piece): void {

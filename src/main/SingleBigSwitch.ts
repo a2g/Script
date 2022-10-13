@@ -23,55 +23,55 @@ export function SingleBigSwitch (
   const text = readFileSync(filename, 'utf-8')
   const scenario = JSON.parse(text)
 
-  for (let gate of scenario.gates) {
-    const isConjoint = (gate.conjoint != null)
+  for (let piece of scenario.pieces) {
+    const isConjoint = (piece.conjoint != null)
     let id1 = globalId
     globalId += 1
     let id2 = isConjoint ? globalId : 0
     globalId += 1
     for (let i = 0; i < (isConjoint ? 2 : 1); i += 1) {
       if (i === 1 && isConjoint) {
-        gate.conjoint.text = gate.text // share the text string for both
-        gate = gate.conjoint // overwrite gate with the conjoint
+        piece.conjoint.text = piece.text // share the text string for both
+        piece = piece.conjoint // overwrite piece with the conjoint
         const temp = id2
         id2 = id1
         id1 = temp
       }
 
-      const gateType: string = gate.gate
+      const pieceType: string = piece.piece
       let count = 1
-      if (gate.count !== undefined) {
-        count = gate.count
+      if (piece.count !== undefined) {
+        count = piece.count
       }
 
-      const prop1 = Stringify(gate.prop1)
-      const prop2 = Stringify(gate.prop2)
-      const prop3 = Stringify(gate.prop3)
-      const prop4 = Stringify(gate.prop4)
-      const prop5 = Stringify(gate.prop5)
-      const prop6 = Stringify(gate.prop6)
-      const prop7 = Stringify(gate.prop7)
-      const flag1 = Stringify(gate.flag1)
-      const flag2 = Stringify(gate.flag2)
-      const flag3 = Stringify(gate.flag3)
-      const flag4 = Stringify(gate.flag4)
-      const flag5 = Stringify(gate.flag5)
-      const inv1 = Stringify(gate.inv1)
-      const inv2 = Stringify(gate.inv2)
-      const inv3 = Stringify(gate.inv3)
+      const prop1 = Stringify(piece.prop1)
+      const prop2 = Stringify(piece.prop2)
+      const prop3 = Stringify(piece.prop3)
+      const prop4 = Stringify(piece.prop4)
+      const prop5 = Stringify(piece.prop5)
+      const prop6 = Stringify(piece.prop6)
+      const prop7 = Stringify(piece.prop7)
+      const flag1 = Stringify(piece.flag1)
+      const flag2 = Stringify(piece.flag2)
+      const flag3 = Stringify(piece.flag3)
+      const flag4 = Stringify(piece.flag4)
+      const flag5 = Stringify(piece.flag5)
+      const inv1 = Stringify(piece.inv1)
+      const inv2 = Stringify(piece.inv2)
+      const inv3 = Stringify(piece.inv3)
       const happs = new Happenings()
-      const { restrictions } = gate
-      switch (gateType) {
+      const { restrictions } = piece
+      switch (pieceType) {
         case _.AUTO_FLAG1_CAUSES_IMPORT_OF_JSON:
           if (piecesMappedByOutput != null) {
-            const output = Stringify(gate.fileToMerge)
+            const output = Stringify(piece.fileToMerge)
             const input = flag1
             piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
               new Piece(
                 id1,
                 id2,
                 output,
-                gateType,
+                pieceType,
                 count,
                 happs,
                 restrictions,
@@ -94,7 +94,7 @@ export function SingleBigSwitch (
                 id1,
                 id2,
                 output,
-                gateType,
+                pieceType,
                 count,
                 happs,
                 restrictions,
@@ -118,7 +118,7 @@ export function SingleBigSwitch (
                 id1,
                 id2,
                 output,
-                gateType,
+                pieceType,
                 count,
                 happs,
                 restrictions,
@@ -141,7 +141,7 @@ export function SingleBigSwitch (
                 id1,
                 id2,
                 output,
-                gateType,
+                pieceType,
                 count,
                 happs,
                 restrictions,
@@ -166,7 +166,7 @@ export function SingleBigSwitch (
                 id1,
                 id2,
                 output,
-                gateType,
+                pieceType,
                 count,
                 happs,
                 restrictions,
@@ -189,7 +189,7 @@ export function SingleBigSwitch (
                 id1,
                 id2,
                 output,
-                gateType,
+                pieceType,
                 count,
                 happs,
                 restrictions,
@@ -215,7 +215,7 @@ export function SingleBigSwitch (
                 id1,
                 id2,
                 output,
-                gateType,
+                pieceType,
                 count,
                 happs,
                 restrictions,
@@ -249,7 +249,7 @@ export function SingleBigSwitch (
                 id1,
                 id2,
                 output,
-                gateType,
+                pieceType,
                 count,
                 happs,
                 restrictions,
@@ -278,7 +278,7 @@ export function SingleBigSwitch (
                 id1,
                 id2,
                 output,
-                gateType,
+                pieceType,
                 count,
                 happs,
                 restrictions,
@@ -305,7 +305,7 @@ export function SingleBigSwitch (
                 id1,
                 id2,
                 output,
-                gateType,
+                pieceType,
                 count,
                 happs,
                 restrictions,
@@ -331,7 +331,7 @@ export function SingleBigSwitch (
                 id1,
                 id2,
                 output,
-                gateType,
+                pieceType,
                 count,
                 happs,
                 restrictions,
@@ -361,7 +361,7 @@ export function SingleBigSwitch (
                 id1,
                 id2,
                 output,
-                gateType,
+                pieceType,
                 count,
                 happs,
                 restrictions,
@@ -391,7 +391,7 @@ export function SingleBigSwitch (
                 id1,
                 id2,
                 output,
-                gateType,
+                pieceType,
                 count,
                 happs,
                 restrictions,
@@ -418,7 +418,7 @@ export function SingleBigSwitch (
                 id1,
                 id2,
                 output,
-                gateType,
+                pieceType,
                 count,
                 happs,
                 restrictions,
@@ -443,7 +443,7 @@ export function SingleBigSwitch (
                 id1,
                 id2,
                 output,
-                gateType,
+                pieceType,
                 count,
                 happs,
                 restrictions,
@@ -456,7 +456,7 @@ export function SingleBigSwitch (
           }
           break
         case _.INPUT_INV1_PROP1_BECOMES_PROP2:
-          happs.text = gate.text
+          happs.text = piece.text
           happs.array.push(new Happening(Happen.PropGoes, prop1))
           happs.array.push(new Happening(Happen.PropAppears, prop2))
           if (piecesMappedByOutput != null) {
@@ -468,7 +468,7 @@ export function SingleBigSwitch (
                 id1,
                 id2,
                 output,
-                gateType,
+                pieceType,
                 count,
                 happs,
                 restrictions,
@@ -481,7 +481,7 @@ export function SingleBigSwitch (
           }
           break
         case _.INPUT_PROP1_INV1_BECOMES_INV2:
-          happs.text = gate.text
+          happs.text = piece.text
           happs.array.push(new Happening(Happen.InvGoes, inv1))
           happs.array.push(new Happening(Happen.InvAppears, inv2))
           if (piecesMappedByOutput != null) {
@@ -493,7 +493,7 @@ export function SingleBigSwitch (
                 id1,
                 id2,
                 output,
-                gateType,
+                pieceType,
                 count,
                 happs,
                 restrictions,
@@ -506,7 +506,7 @@ export function SingleBigSwitch (
           }
           break
         case _.INPUT_PROP1_INV1_REVEALS_PROP2:
-          happs.text = gate.text
+          happs.text = piece.text
           happs.array.push(new Happening(Happen.InvGoes, inv1))
           happs.array.push(new Happening(Happen.PropAppears, prop2))
           if (piecesMappedByOutput != null) {
@@ -518,7 +518,7 @@ export function SingleBigSwitch (
                 id1,
                 id2,
                 output,
-                gateType,
+                pieceType,
                 count,
                 happs,
                 restrictions,
@@ -545,7 +545,7 @@ export function SingleBigSwitch (
                 id1,
                 id2,
                 output,
-                gateType,
+                pieceType,
                 count,
                 happs,
                 restrictions,
@@ -572,7 +572,7 @@ export function SingleBigSwitch (
                 id1,
                 id2,
                 output,
-                gateType,
+                pieceType,
                 count,
                 happs,
                 restrictions,
@@ -599,7 +599,7 @@ export function SingleBigSwitch (
                 id1,
                 id2,
                 output,
-                gateType,
+                pieceType,
                 count,
                 happs,
                 restrictions,
@@ -626,7 +626,7 @@ export function SingleBigSwitch (
                 id1,
                 id2,
                 output,
-                gateType,
+                pieceType,
                 count,
                 happs,
                 restrictions,
@@ -653,7 +653,7 @@ export function SingleBigSwitch (
                 id1,
                 id2,
                 output,
-                gateType,
+                pieceType,
                 count,
                 happs,
                 restrictions,
@@ -679,7 +679,7 @@ export function SingleBigSwitch (
                 id1,
                 id2,
                 output,
-                gateType,
+                pieceType,
                 count,
                 happs,
                 restrictions,
@@ -706,7 +706,7 @@ export function SingleBigSwitch (
                 id1,
                 id2,
                 output,
-                gateType,
+                pieceType,
                 count,
                 happs,
                 restrictions,
@@ -732,7 +732,7 @@ export function SingleBigSwitch (
                 id1,
                 id2,
                 output,
-                gateType,
+                pieceType,
                 count,
                 happs,
                 restrictions,
@@ -758,7 +758,7 @@ export function SingleBigSwitch (
                 id1,
                 id2,
                 output,
-                gateType,
+                pieceType,
                 count,
                 happs,
                 restrictions,
@@ -784,7 +784,7 @@ export function SingleBigSwitch (
                 id1,
                 id2,
                 output,
-                gateType,
+                pieceType,
                 count,
                 happs,
                 restrictions,
@@ -812,7 +812,7 @@ export function SingleBigSwitch (
                 id1,
                 id2,
                 output,
-                gateType,
+                pieceType,
                 count,
                 happs,
                 restrictions,
@@ -840,7 +840,7 @@ export function SingleBigSwitch (
                 id1,
                 id2,
                 output,
-                gateType,
+                pieceType,
                 count,
                 happs,
                 restrictions,
@@ -869,7 +869,7 @@ export function SingleBigSwitch (
                 id1,
                 id2,
                 output,
-                gateType,
+                pieceType,
                 count,
                 happs,
                 restrictions,
@@ -900,7 +900,7 @@ export function SingleBigSwitch (
                 id1,
                 id2,
                 output,
-                gateType,
+                pieceType,
                 count,
                 happs,
                 restrictions,
@@ -926,7 +926,7 @@ export function SingleBigSwitch (
                 id1,
                 id2,
                 output,
-                gateType,
+                pieceType,
                 count,
                 happs,
                 restrictions,
@@ -951,7 +951,7 @@ export function SingleBigSwitch (
                 id1,
                 id2,
                 output,
-                gateType,
+                pieceType,
                 count,
                 happs,
                 restrictions,
@@ -977,7 +977,7 @@ export function SingleBigSwitch (
                 id1,
                 id2,
                 output,
-                gateType,
+                pieceType,
                 count,
                 happs,
                 restrictions,
@@ -1003,7 +1003,7 @@ export function SingleBigSwitch (
                 id1,
                 id2,
                 output,
-                gateType,
+                pieceType,
                 count,
                 happs,
                 restrictions,
@@ -1025,14 +1025,14 @@ export function SingleBigSwitch (
             // This is a weird one, because there are two real-life outputs
             // but only one puzzle output. I forget how I was going to deal with this.
             const inputA = prop1
-            // const inputB, count = "" + reactionsFile.gates[i].prop2;
+            // const inputB, count = "" + reactionsFile.pieces[i].prop2;
             const output = inv1
             piecesMappedByOutput.AddMapEntryUsingOutputAsKey(
               new Piece(
                 id1,
                 id2,
                 output,
-                gateType,
+                pieceType,
                 count,
                 happs,
                 restrictions,
@@ -1060,7 +1060,7 @@ export function SingleBigSwitch (
                 id1,
                 id2,
                 output,
-                gateType,
+                pieceType,
                 count,
                 happs,
                 restrictions,
@@ -1085,7 +1085,7 @@ export function SingleBigSwitch (
                 id1,
                 id2,
                 output,
-                gateType,
+                pieceType,
                 count,
                 happs,
                 restrictions,
@@ -1108,7 +1108,7 @@ export function SingleBigSwitch (
                 id1,
                 id2,
                 output,
-                gateType,
+                pieceType,
                 count,
                 happs,
                 restrictions,
@@ -1133,7 +1133,7 @@ export function SingleBigSwitch (
                 id1,
                 id2,
                 output,
-                gateType,
+                pieceType,
                 count,
                 happs,
                 restrictions,
@@ -1158,7 +1158,7 @@ export function SingleBigSwitch (
                 id1,
                 id2,
                 output,
-                gateType,
+                pieceType,
                 count,
                 happs,
                 restrictions,
@@ -1181,7 +1181,7 @@ export function SingleBigSwitch (
                 id1,
                 id2,
                 output,
-                gateType,
+                pieceType,
                 count,
                 happs,
                 restrictions,
@@ -1204,7 +1204,7 @@ export function SingleBigSwitch (
                 id1,
                 id2,
                 output,
-                gateType,
+                pieceType,
                 count,
                 happs,
                 restrictions,
@@ -1230,7 +1230,7 @@ export function SingleBigSwitch (
                 id1,
                 id2,
                 output,
-                gateType,
+                pieceType,
                 count,
                 happs,
                 restrictions,
@@ -1254,7 +1254,7 @@ export function SingleBigSwitch (
                 id1,
                 id2,
                 output,
-                gateType,
+                pieceType,
                 count,
                 happs,
                 restrictions,
@@ -1277,7 +1277,7 @@ export function SingleBigSwitch (
                 id1,
                 id2,
                 output,
-                gateType,
+                pieceType,
                 count,
                 happs,
                 restrictions,
@@ -1301,7 +1301,7 @@ export function SingleBigSwitch (
                 id1,
                 id2,
                 output,
-                gateType,
+                pieceType,
                 count,
                 happs,
                 restrictions,
@@ -1314,7 +1314,7 @@ export function SingleBigSwitch (
           break
         default:
           console.log(
-            `We did not handle a gateType that we"re supposed to. Check to see if constant names are the same as their values in the schema. ${gateType}`
+            `We did not handle a pieceType that we"re supposed to. Check to see if constant names are the same as their values in the schema. ${pieceType}`
           )
       }
     }

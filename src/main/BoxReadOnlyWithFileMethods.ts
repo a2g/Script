@@ -1,5 +1,4 @@
 import { BoxReadOnly } from './BoxReadOnly.js'
-import { PileOfPieces } from './PileOfPieces.js'
 
 /**
 * This is needed, because we want to give assurance that the original state isn't being changed.
@@ -24,5 +23,4 @@ export interface BoxReadOnlyWithFileMethods extends BoxReadOnly {
   CopyFlagsToGivenSet: (givenSet: Set<string>) => void
   CopyInvsToGivenSet: (givenSet: Set<string>) => void
   CopyCharsToGivenSet: (givenSet: Set<string>) => void
-  CopyAllPiecesToGivenMap: (givenMap: PileOfPieces) => PileOfPieces
 }

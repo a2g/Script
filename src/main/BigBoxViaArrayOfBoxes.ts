@@ -23,7 +23,6 @@ export class BigBoxViaArrayOfBoxes implements BoxReadOnly {
   readonly startingFlagSet: Set<string>
   readonly originalBoxes: BoxReadOnlyWithFileMethods[]
   readonly directSubBoxesMappedByKeyPiece: Map<string, BoxReadOnlyWithFileMethods>
-  readonly pileOfPieces: PileOfPieces
 
   constructor (arrayOfBoxes: BoxReadOnlyWithFileMethods[]) {
     // we keep the original boxes, because we need to call
@@ -36,7 +35,6 @@ export class BigBoxViaArrayOfBoxes implements BoxReadOnly {
     this.startingPropSet = new Set<string>()
     this.startingInvSet = new Set<string>()
     this.startingFlagSet = new Set<string>()
-    this.pileOfPieces = new PileOfPieces(null)
     const setProps = new Set<string>()
     const setFlags = new Set<string>()
     const setInvs = new Set<string>()
@@ -53,7 +51,6 @@ export class BigBoxViaArrayOfBoxes implements BoxReadOnly {
       box.CopyFlagsToGivenSet(setFlags)
       box.CopyInvsToGivenSet(setInvs)
       box.CopyCharsToGivenSet(setChars)
-      box.CopyAllPiecesToGivenMap(this.pileOfPieces)
     }
 
     // clean 3 member and 4 indirect sets

@@ -239,7 +239,7 @@ export class Solution {
         if (piece.type === _.AUTO_FLAG1_CAUSES_IMPORT_OF_JSON) {
           if (existsSync(piece.output)) {
             const box = new Box(piece.output)
-            this.remainingPiecesRepo.MergeInPiecesFromScene(box)
+            box.CopyPiecesFromBoxInToPile(this.remainingPiecesRepo)
           }
         }
       }

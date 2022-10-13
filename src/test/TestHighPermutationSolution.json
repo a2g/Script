@@ -1,99 +1,99 @@
 {
   "$schema": "./TestHighPermutationSolutionSchema.json",
-  "gates": [
+  "pieces": [
     {
-      "gate": "FLAG1_SET_BY_USING_INV1_WITH_PROP1",
+      "piece": "FLAG1_SET_BY_USING_INV1_WITH_PROP1",
       "inv1": "inv_final_catalyst",
       "prop1": "prop_stageE",
       "flag1": "flag_win"
     },
     {
-      "gate": "TOGGLE_PROP1_BECOMES_PROP2",
+      "piece": "TOGGLE_PROP1_BECOMES_PROP2",
       "prop1": "prop_rigged_item1",
       "prop2": "prop_switched_on_item1"
     },
     {
-      "gate": "TOGGLE_PROP1_BECOMES_PROP2",
+      "piece": "TOGGLE_PROP1_BECOMES_PROP2",
       "prop1": "prop_rigged_item2",
       "prop2": "prop_switched_on_item2"
     },
     {
-      "gate": "TOGGLE_PROP1_BECOMES_PROP2",
+      "piece": "TOGGLE_PROP1_BECOMES_PROP2",
       "prop1": "prop_rigged_item3",
       "prop2": "prop_switched_on_item3"
     },
     {
-      "gate": "TOGGLE_PROP1_BECOMES_PROP2",
+      "piece": "TOGGLE_PROP1_BECOMES_PROP2",
       "prop1": "prop_rigged_item4",
       "prop2": "prop_switched_on_item4"
     },
     {
-      "gate": "TOGGLE_PROP1_BECOMES_PROP2",
+      "piece": "TOGGLE_PROP1_BECOMES_PROP2",
       "prop1": "prop_rigged_item5",
       "prop2": "prop_switched_on_item5"
     },
     {
-      "gate": "PROP1_BECOMES_PROP2_BY_LOSING_INV1",
+      "piece": "PROP1_BECOMES_PROP2_BY_LOSING_INV1",
       "prop1": "prop_rigging_place1",
       "prop2": "prop_attached_item1",
       "inv1": "inv_box_of_items"
     },
     {
-      "gate": "PROP1_BECOMES_PROP2_BY_LOSING_INV1",
+      "piece": "PROP1_BECOMES_PROP2_BY_LOSING_INV1",
       "prop1": "prop_rigging_place2",
       "prop2": "prop_attached_item2",
       "inv1": "inv_box_of_items"
     },
     {
-      "gate": "PROP1_BECOMES_PROP2_BY_LOSING_INV1",
+      "piece": "PROP1_BECOMES_PROP2_BY_LOSING_INV1",
       "prop1": "prop_rigging_place3",
       "prop2": "prop_attached_item3",
       "inv1": "inv_box_of_items"
     },
     {
-      "gate": "PROP1_BECOMES_PROP2_BY_LOSING_INV1",
+      "piece": "PROP1_BECOMES_PROP2_BY_LOSING_INV1",
       "prop1": "prop_rigging_place4",
       "prop2": "prop_attached_item4",
       "inv1": "inv_box_of_items"
     },
     {
-      "gate": "PROP1_BECOMES_PROP2_BY_LOSING_INV1",
+      "piece": "PROP1_BECOMES_PROP2_BY_LOSING_INV1",
       "prop1": "prop_rigging_place5",
       "prop2": "prop_attached_item5",
       "inv1": "inv_box_of_items"
     },
     {
-      "gate": "PROP1_BECOMES_PROP2_BY_LOSING_PROP3",
+      "piece": "PROP1_BECOMES_PROP2_BY_LOSING_PROP3",
       "prop1": "prop_attached_item1",
       "prop2": "prop_rigged_item1",
       "prop3": "prop_switch1"
     },
     {
-      "gate": "PROP1_BECOMES_PROP2_BY_LOSING_PROP3",
+      "piece": "PROP1_BECOMES_PROP2_BY_LOSING_PROP3",
       "prop1": "prop_attached_item2",
       "prop2": "prop_rigged_item2",
       "prop3": "prop_switch2"
     },
     {
-      "gate": "PROP1_BECOMES_PROP2_BY_LOSING_PROP3",
+      "piece": "PROP1_BECOMES_PROP2_BY_LOSING_PROP3",
       "prop1": "prop_attached_item3",
       "prop2": "prop_rigged_item3",
       "prop3": "prop_switch3"
     },
     {
-      "gate": "PROP1_BECOMES_PROP2_BY_LOSING_PROP3",
+      "piece": "PROP1_BECOMES_PROP2_BY_LOSING_PROP3",
       "prop1": "prop_attached_item4",
       "prop2": "prop_rigged_item4",
       "prop3": "prop_switch4"
     },
     {
-      "gate": "PROP1_BECOMES_PROP2_BY_LOSING_PROP3",
+      "piece": "PROP1_BECOMES_PROP2_BY_LOSING_PROP3",
       "prop1": "prop_attached_item5",
       "prop2": "prop_rigged_item5",
       "prop3": "prop_switch5"
     },
     {
-      "gate": "AUTO_PROP1_BECOMES_PROP2_BY_PROPS",
+      "piece": "AUTO_PROP1_BECOMES_PROP2_BY_PROPS",
       "prop1": "prop_stageD",
       "prop2": "prop_stageE",
       "prop3": "prop_switched_on_item1",
@@ -103,7 +103,7 @@
       "prop7": "prop_switched_on_item5"
     },
     {
-      "gate": "AUTO_PROP1_BECOMES_PROP2_BY_PROPS",
+      "piece": "AUTO_PROP1_BECOMES_PROP2_BY_PROPS",
       "prop1": "prop_stageC",
       "prop2": "prop_stageD",
       "prop3": "prop_switched_on_item1",
@@ -112,7 +112,7 @@
       "prop6": "prop_switched_on_item4"
     },
     {
-      "gate": "AUTO_PROP1_BECOMES_PROP2_BY_PROPS",
+      "piece": "AUTO_PROP1_BECOMES_PROP2_BY_PROPS",
       "prop1": "prop_stageB",
       "prop2": "prop_stageC",
       "prop3": "prop_switched_on_item1",
@@ -120,14 +120,14 @@
       "prop5": "prop_switched_on_item3"
     },
     {
-      "gate": "AUTO_PROP1_BECOMES_PROP2_BY_PROPS",
+      "piece": "AUTO_PROP1_BECOMES_PROP2_BY_PROPS",
       "prop1": "prop_stageA",
       "prop2": "prop_stageB",
       "prop3": "prop_switched_on_item1",
       "prop4": "prop_switched_on_item2"
     },
     {
-      "gate": "AUTO_PROP1_BECOMES_PROP2_BY_PROPS",
+      "piece": "AUTO_PROP1_BECOMES_PROP2_BY_PROPS",
       "prop1": "prop_dispatcher",
       "prop2": "prop_stageA",
       "prop3": "prop_switched_on_item1"

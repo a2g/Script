@@ -4,7 +4,6 @@ import { MixedObjectsAndVerb } from './MixedObjectsAndVerb'
 import { Happen } from './Happen'
 import { assert } from 'console'
 import { BoxReadOnly } from './BoxReadOnly'
-import { BoxReadOnlyWithFileMethods } from './BoxReadOnlyWithFileMethods'
 
 // April 2021
 // The blind / location - agnostic way to find solutions is to have an inv vs props table, and inv vs inv table, and a verb vs props table, and a verb vs invs table, then
@@ -241,7 +240,7 @@ export class Happener {
     return this.arrayOfPropNames
   }
 
-  MergeNewThingsFromScene (box: BoxReadOnlyWithFileMethods): void {
+  MergeNewThingsFromScene (box: BoxReadOnly): void {
     const invs = box.GetArrayOfInvs()
     for (const inv of invs) {
       if (!this.arrayOfInvNames.includes(inv)) {
