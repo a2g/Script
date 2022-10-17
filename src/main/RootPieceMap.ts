@@ -1,21 +1,20 @@
 import { GenerateMapOfLeavesRecursively } from './GenerateMapOfLeavesRecursively'
 import { Piece } from './Piece'
+import { PileOrRootPieceMap } from './PileOrRootPieceMap'
 /**
  * Yes, the only data here is the map.
  *
  * This is the source repository of the solution pieces
  */
-export class RootPieceMap {
-  private readonly goals: Piece[]
-  private readonly names: string[]
+export class RootPieceMap implements PileOrRootPieceMap {
+  private readonly roots: Piece[]
 
   constructor (deepCopyFromMe: RootPieceMap | null, incompletePieces: Set<Piece>) {
-    this.goals = []
-    this.names = []
+    this.roots = []
     if (deepCopyFromMe != null) {
-      for (const piece of deepCopyFromMe.goals.values()) {
+      for (const piece of deepCopyFromMe.roots.values()) {
         const clonedTree = piece.ClonePieceAndEntireTree(incompletePieces)
-        this.goals.push(clonedTree)
+        this.roots.push(clonedTree)
       }
     }
   }
@@ -25,52 +24,58 @@ export class RootPieceMap {
   }
 
   Has (goalToObtain: string): boolean {
-    for (const goal of this.goals) {
+    for (const goal of this.roots) {
       if (goal.output === goalToObtain) { return true }
     }
-
     return false
   }
 
-  Get (goalToObtain: string): Piece | null {
-    for (const goal of this.goals) {
-      if (goal.output === goalToObtain) { return goal }
+  GetRootPieceByNameNoThrow (goalToObtain: string): Piece | null {
+    for (let i = 0; i < this.roots.length; i++) {
+      const root = this.roots[i].inputHints[0]
+      if (root === goalToObtain) {
+        return this.roots[i].inputs[0]
+      }
     }
     return null
   }
 
-  GetKeys (): string[] {
-    return this.names
-  }
-
-  AddRootPiece (t: Piece): void {
-    // always add to list
-    this.goals.push(t)
-    this.names.push(t.output)
-  }
-
-  Size (): number {
-    return this.goals.length
-  }
-
   GetRootPieceByName (name: string): Piece {
-    const root = this.Get(name)
+    const root = this.GetRootPieceByNameNoThrow(name)
     if (typeof root === 'undefined' || root === null) { throw new Error("rootPiece of that name doesn't exist") }
     return root
   }
 
+  CalculateListOfKeys (): String[] {
+    const array = []
+    for (let i = 0; i < this.roots.length; i++) {
+      const root = this.roots[i].inputHints[0]
+      array.push(root)
+    }
+    return array
+  }
+
+  AddPiece (piece: Piece): void {
+    // always add to list
+    this.roots.push(piece)
+  }
+
+  Size (): number {
+    return this.roots.length
+  }
+
   GetValues (): Piece[] {
-    return this.goals
+    return this.roots
   }
 
   GetAt (index: number): Piece {
-    return this.goals[index]
+    return this.roots[index]
   }
 
   public GenerateMapOfLeaves (): Map<string, Piece> {
     const map = new Map<string, Piece>()
 
-    for (const rootPiece of this.GetValues()) {
+    for (const rootPiece of this.roots.values()) {
       GenerateMapOfLeavesRecursively(rootPiece, rootPiece.output, map)
     }
 

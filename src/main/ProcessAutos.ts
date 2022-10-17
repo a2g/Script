@@ -12,7 +12,7 @@ export function ProcessAutos (happener: Happener, solutionPieceMap: PileOfPieces
   for (const piece of autos) {
     if (piece.type === _.AUTO_FLAG1_CAUSES_IMPORT_OF_JSON) {
       const box = new Box(piece.output)
-      box.CopyPiecesFromBoxInToPile(solutionPieceMap)
+      box.CopyPiecesFromBoxToPile(solutionPieceMap)
       happener.MergeNewThingsFromScene(box)
       continue
     }

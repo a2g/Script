@@ -110,7 +110,7 @@ export class BigBoxViaTraversingSubBoxes implements BoxReadOnly {
   GetArrayOfInitialStatesOfFlags (): number[] {
     const array: number[] = []
     for (const flag of this.allFlags) {
-      array.push(flag.length > 0 ? 0 : 0)// I used value.length>0 to get rid of the unused variable warnin
+      array.push(flag.length > 0 ? 0 : 0)// I used value.length>0 to get rid of the unused variable warning
     };
     return array
   }
@@ -174,20 +174,20 @@ export class BigBoxViaTraversingSubBoxes implements BoxReadOnly {
 
     for (const filename of this.boxesGatheredViaTraversal.keys()) {
       const notUsed = new MixedObjectsAndVerb(Mix.ErrorVerbNotIdentified, '', '', '', 'ScenePreAggregator')
-      SingleBigSwitch(filename, solutionPiecesMappedByInput, notUsed)
+      SingleBigSwitch(filename, notUsed, false, solutionPiecesMappedByInput)
     }
     return solutionPiecesMappedByInput
   }
 
   FindHappeningsIfAny (objects: MixedObjectsAndVerb): Happenings | null {
     for (const filename of this.boxesGatheredViaTraversal.keys()) {
-      const result = SingleBigSwitch(filename, null, objects) as unknown as Happenings | null
+      const result = SingleBigSwitch(filename, objects, false, null) as unknown as Happenings | null
       if (result != null) { return result }
     }
     return null
   }
 
-  CopyPiecesFromBoxInToPile (pile: PileOfPieces): void {
+  CopyPiecesFromBoxToPile (pile: PileOfPieces): void {
     const notUsed = new MixedObjectsAndVerb(
       Mix.ErrorVerbNotIdentified,
       '',
@@ -196,7 +196,7 @@ export class BigBoxViaTraversingSubBoxes implements BoxReadOnly {
       ''
     )
     for (const filename of this.boxesGatheredViaTraversal.keys()) {
-      SingleBigSwitch(filename, pile, notUsed)
+      SingleBigSwitch(filename, notUsed, false, pile)
     }
   }
 

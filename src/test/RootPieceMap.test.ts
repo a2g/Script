@@ -9,7 +9,7 @@ describe('GenerateMapOfLeaves', () => {
     const throwaway = new Set<Piece>()
     const rootPieceMap = new RootPieceMap(null, throwaway)
     const piece = new Piece(0, 0, 'blah', SpecialTypes.VerifiedLeaf, 1, null, null, 'c', 'c')
-    rootPieceMap.AddRootPiece(piece)
+    rootPieceMap.AddPiece(piece)
 
     const result = rootPieceMap.GenerateMapOfLeaves()
     chai.assert.equal(result.size, 1)

@@ -158,7 +158,9 @@ export class Piece {
         // and since AddToMap uses output as the key in the map
         // then the goals map will now have another entry with a key equal to "flag_..."
         // which is what we want.
-        solution.GetRootPieceMap().AddRootPiece(matchingPieces[0])
+        //
+        // we don't do this anymore, since all pieces are put in root piece map
+        // solution.GetRootPieceMap().AddRootPiece(matchingPieces[0])
         solution.SetPieceIncomplete(matchingPieces[0])
       } else if (matchingPieces.length > 0) {
         // In our array the currentSolution, is at index zero

@@ -24,7 +24,6 @@
     "storybook:build": "tsc && npm run analyze -- --exclude dist && build-storybook"
   },
   "dependencies": {
-    "lit": "^2.0.2",
     "prompt-sync": "^4.2.0",
     "rifraf": "^2.0.3"
   },

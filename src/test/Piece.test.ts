@@ -8,7 +8,7 @@ describe('Solution', () => {
   it("Test of a none clone piece", () => {
       const box = new SceneSingle("20210415JsonPrivate/HospScene.json");
       const pile:PileOfPieces = new PileOfPieces();
-      json.CopyPiecesFromBoxInToPile(pile);
+      json.CopyPiecesFromBoxToPile(pile);
       const objective = "inv_screwdriver";
       const collection = new SolutionCollection();
       const solution = new Solution(new SolutionPiece("", "", objective), map)
@@ -28,7 +28,7 @@ describe('Solution', () => {
   it("Test of a non cloning five step", () => {
       const box = new SceneSingle("20210415JsonPrivate/HospScene.json");
             const pile:PileOfPieces = new PileOfPieces();
-      json.CopyPiecesFromBoxInToPile(pile);
+      json.CopyPiecesFromBoxToPile(pile);
       const objective = "prop_death_by_guitar";
       const collection = new SolutionCollection();
       const solution = new Solution(new SolutionPiece("", "", objective), map);
@@ -57,7 +57,7 @@ describe('Solution', () => {
 
   it("Test of another non-cloning 5 step", () => {
       const box = new SceneSingle("20210415JsonPrivate/HospScene.json");
-      const map = json.CopyPiecesFromBoxInToPile();
+      const map = json.CopyPiecesFromBoxToPile();
       const objective = "prop_death_by_slamdunk";
       const collection = new SolutionCollection();
       collection.push(new Solution(new SolutionPiece("", "", objective), map));

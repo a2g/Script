@@ -153,7 +153,7 @@ export class Box implements BoxReadOnlyWithFileMethods {
     }
   }
 
-  public CopyPiecesFromBoxInToPile (pile: PileOfPieces): void {
+  public CopyPiecesFromBoxToPile (pile: PileOfPieces): void {
     const notUsed = new MixedObjectsAndVerb(
       Mix.ErrorVerbNotIdentified,
       '',
@@ -161,14 +161,15 @@ export class Box implements BoxReadOnlyWithFileMethods {
       '',
       ''
     )
-    SingleBigSwitch(this.filename, pile, notUsed)
+    SingleBigSwitch(this.filename, notUsed, false, pile)
   }
 
-  FindHappeningsIfAny (objects: MixedObjectsAndVerb): Happenings | null {
+  public FindHappeningsIfAny (objects: MixedObjectsAndVerb): Happenings | null {
     const result = SingleBigSwitch(
       this.filename,
-      null,
-      objects
+      objects,
+      false,
+      null
     ) as unknown as Happenings | null
     return result
   }

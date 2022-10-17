@@ -33,5 +33,5 @@ export interface BoxReadOnly {
 
   // original-json-traversers
   FindHappeningsIfAny: (objects: MixedObjectsAndVerb) => Happenings | null
-  CopyPiecesFromBoxInToPile: (pile: PileOfPieces) => void // its possible for this to be done on aggregate
+  CopyPiecesFromBoxToPile: (pile: PileOfPieces) => void // its possible for this to be done on aggregate
 }

@@ -166,7 +166,7 @@ export class BigBoxViaArrayOfBoxes implements BoxReadOnly {
     return this.allChars
   }
 
-  CopyPiecesFromBoxInToPile (pile: PileOfPieces): void {
+  CopyPiecesFromBoxToPile (pile: PileOfPieces): void {
     for (const box of this.originalBoxes) {
       const notUsed = new MixedObjectsAndVerb(
         Mix.ErrorVerbNotIdentified,
@@ -175,7 +175,7 @@ export class BigBoxViaArrayOfBoxes implements BoxReadOnly {
         '',
         'ScenePreAggregator'
       )
-      SingleBigSwitch(box.GetFilename(), pile, notUsed)
+      SingleBigSwitch(box.GetFilename(), notUsed, false, pile)
     }
   }
 
@@ -183,8 +183,7 @@ export class BigBoxViaArrayOfBoxes implements BoxReadOnly {
     for (const box of this.originalBoxes) {
       const result = SingleBigSwitch(
         box.GetFilename(),
-        null,
-        command
+        command, false, null
       ) as unknown as Happenings | null
       if (result != null) {
         return result

@@ -1,6 +1,7 @@
 import { BoxReadOnlyWithFileMethods } from './BoxReadOnlyWithFileMethods'
 import { Piece } from './Piece'
 import { PileOfPiecesReadOnly } from './PileOfPiecesReadOnly'
+import { RootPieceMap } from './RootPieceMap'
 /**
  * Yes, the only data here is the map.
  *
@@ -78,11 +79,11 @@ export class PileOfPieces implements PileOfPiecesReadOnly {
   }
 
   // methods for mutating
-  MergeInPiecesFromScene (box: BoxReadOnlyWithFileMethods): void {
-    box.CopyPiecesFromBoxInToPile(this)
+  MergeInPiecesFromScene (box: BoxReadOnlyWithFileMethods, rootPieceMap: RootPieceMap): void {
+    box.CopyPiecesFromBoxToPile(this)
   }
 
-  AddMapEntryUsingOutputAsKey (piece: Piece): void {
+  AddPiece (piece: Piece): void {
     // initialize array, if it hasn't yet been
     if (!this.piecesMappedByOutput.has(piece.output)) {
       this.piecesMappedByOutput.set(piece.output, new Set<Piece>())
