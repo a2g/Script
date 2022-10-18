@@ -1,22 +1,15 @@
-# \<jigsaw-w>
+# \<jigsaw>
 
 This webcomponent follows the [open-wc](https://github.com/open-wc/open-wc) recommendation.
 
 ## Installation
 
 ```bash
-npm i jigsaw-w
+npm i jigsaw
 ```
 
 ## Usage
 
-```html
-<script type="module">
-  import 'jigsaw-w/jigsaw-w.js';
-</script>
-
-<jigsaw-w></jigsaw-w>
-```
 
 ## Linting and formatting
 
@@ -72,5 +65,3 @@ If you customize the configuration a lot, you can consider moving them to indivi
 ```bash
 npm start
 ```
-
-To run a local development server that serves the basic demo located in `demo/index.html`

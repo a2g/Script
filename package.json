@@ -1,14 +1,13 @@
 {
   "name": "@a2g/jigsaw",
-  "description": "Web component jigsaw-w following open-wc recommendations",
+  "description": "Web component jigsaw following open-wc recommendations",
   "license": "MIT",
   "author": "anthony",
   "version": "0.0.0",
   "main": "dist/src/index.js",
   "module": "dist/src/index.js",
   "exports": {
-    ".": "./dist/src/index.js",
-    "./LogicGrid.js": "./dist/src/LogicGrid.js"
+    ".": "./dist/src/index.js"
   },
   "scripts": {
     "analyze": "cem analyze --litelement",
