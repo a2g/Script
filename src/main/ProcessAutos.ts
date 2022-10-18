@@ -1,7 +1,5 @@
-import { Box } from './Box.js'
 import { Happener } from './Happener.js'
 import { PileOfPieces } from './PileOfPieces.js'
-import _ from '../../jigsaw.json'
 
 export function ProcessAutos (happener: Happener, solutionPieceMap: PileOfPieces): void {
   const flags = happener.GetCurrentlyTrueFlags()
@@ -10,12 +8,6 @@ export function ProcessAutos (happener: Happener, solutionPieceMap: PileOfPieces
 
   const autos = solutionPieceMap.GetAutos()
   for (const piece of autos) {
-    if (piece.type === _.AUTO_FLAG1_CAUSES_IMPORT_OF_JSON) {
-      const box = new Box(piece.output)
-      box.CopyPiecesFromBoxToPile(solutionPieceMap)
-      happener.MergeNewThingsFromScene(box)
-      continue
-    }
     let numberSatisified = 0
     for (const inputName of piece.inputHints) {
       if (inputName.startsWith('prop_')) {

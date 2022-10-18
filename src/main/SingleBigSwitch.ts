@@ -63,24 +63,6 @@ export function SingleBigSwitch (
       if (pieceType.startsWith('FLAG1_SET') || pieceType.startsWith('AUTO_FLAG1_SET')) {
         if (isFlagRetrieval || piecesMappedByOutput == null) {
           switch (pieceType) {
-            case _.AUTO_FLAG1_CAUSES_IMPORT_OF_JSON:
-              if (piecesMappedByOutput != null) {
-                const output = Stringify(piece.fileToMerge)
-                const input = flag1
-                piecesMappedByOutput.AddPiece(
-                  new Piece(
-                    id1,
-                    id2,
-                    output,
-                    pieceType,
-                    count,
-                    happs,
-                    restrictions,
-                    input
-                  )
-                )
-              }
-              break
             case _.AUTO_FLAG1_SET_BY_FLAG2:
               if (piecesMappedByOutput != null) {
                 const output = flag1
