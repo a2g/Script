@@ -7,7 +7,7 @@ export enum Happen {
   PropStays,
   PropAppears,
 
-  FlagIsSet,
-  FlagIsIncremented,
-  FlagIsDecremented
+  GoalIsSet,
+  GoalIsIncremented,
+  GoalIsDecremented
 }

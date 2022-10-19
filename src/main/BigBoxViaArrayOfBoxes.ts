@@ -5,6 +5,7 @@ import { Mix } from './Mix.js'
 import { SingleBigSwitch } from './SingleBigSwitch.js'
 import { BoxReadOnlyWithFileMethods } from './BoxReadOnlyWithFileMethods.js'
 import { BoxReadOnly } from './BoxReadOnly.js'
+import { RootPieceMap } from './RootPieceMap.js'
 
 /**
  * So the most important part of this class is that the data
@@ -14,13 +15,13 @@ import { BoxReadOnly } from './BoxReadOnly.js'
  * */
 export class BigBoxViaArrayOfBoxes implements BoxReadOnly {
   readonly allProps: string[]
-  readonly allFlags: string[]
+  readonly allGoals: string[]
   readonly allInvs: string[]
   readonly allChars: string[]
   readonly mapOfStartingThingsWithChars: Map<string, Set<string>>
   readonly startingInvSet: Set<string>
   readonly startingPropSet: Set<string>
-  readonly startingFlagSet: Set<string>
+  readonly startingGoalSet: Set<string>
   readonly originalBoxes: BoxReadOnlyWithFileMethods[]
   readonly directSubBoxesMappedByKeyPiece: Map<string, BoxReadOnlyWithFileMethods>
 
@@ -34,9 +35,9 @@ export class BigBoxViaArrayOfBoxes implements BoxReadOnly {
     this.directSubBoxesMappedByKeyPiece = new Map<string, BoxReadOnlyWithFileMethods>()
     this.startingPropSet = new Set<string>()
     this.startingInvSet = new Set<string>()
-    this.startingFlagSet = new Set<string>()
+    this.startingGoalSet = new Set<string>()
     const setProps = new Set<string>()
-    const setFlags = new Set<string>()
+    const setGoals = new Set<string>()
     const setInvs = new Set<string>()
     const setChars = new Set<string>()
 
@@ -46,9 +47,9 @@ export class BigBoxViaArrayOfBoxes implements BoxReadOnly {
       box.CopySubBoxesToGivenMap(this.directSubBoxesMappedByKeyPiece)
       box.CopyStartingPropsToGivenSet(this.startingPropSet)
       box.CopyStartingInvsToGivenSet(this.startingInvSet)
-      box.CopyStartingFlagsToGivenSet(this.startingFlagSet)
+      box.CopyStartingGoalsToGivenSet(this.startingGoalSet)
       box.CopyPropsToGivenSet(setProps)
-      box.CopyFlagsToGivenSet(setFlags)
+      box.CopyGoalsToGivenSet(setGoals)
       box.CopyInvsToGivenSet(setInvs)
       box.CopyCharsToGivenSet(setChars)
     }
@@ -57,15 +58,15 @@ export class BigBoxViaArrayOfBoxes implements BoxReadOnly {
     this.startingPropSet.delete('')
     this.startingInvSet.delete('')
     this.mapOfStartingThingsWithChars.delete('')
-    this.startingFlagSet.delete('')
+    this.startingGoalSet.delete('')
     setChars.delete('')
     setProps.delete('')
-    setFlags.delete('')
+    setGoals.delete('')
     setInvs.delete('')
 
     // finally set arrays for the four
     this.allProps = Array.from(setProps.values())
-    this.allFlags = Array.from(setFlags.values())
+    this.allGoals = Array.from(setGoals.values())
     this.allInvs = Array.from(setInvs.values())
     this.allChars = Array.from(setChars.values())
   }
@@ -78,8 +79,8 @@ export class BigBoxViaArrayOfBoxes implements BoxReadOnly {
     return this.allInvs
   }
 
-  GetArrayOfFlags (): string[] {
-    return this.allFlags
+  GetArrayOfGoals (): string[] {
+    return this.allGoals
   }
 
   static GetArrayOfSingleObjectVerbs (): string[] {
@@ -98,16 +99,16 @@ export class BigBoxViaArrayOfBoxes implements BoxReadOnly {
     return this.GetArrayOfInitialStatesOfSingleObjectVerbs()
   }
 
-  GetArrayOfInitialStatesOfFlags (): number[] {
+  GetArrayOfInitialStatesOfGoals (): number[] {
     const array: number[] = []
-    for (const flag of this.allFlags) {
+    for (const flag of this.allGoals) {
       array.push(flag.length > 0 ? 0 : 0) // I used value.length>0 to get rid of the unused variable warnin
     }
     return array
   }
 
-  GetSetOfStartingFlags (): Set<string> {
-    return this.startingFlagSet
+  GetSetOfStartingGoals (): Set<string> {
+    return this.startingGoalSet
   }
 
   GetSetOfStartingProps (): Set<string> {
@@ -176,6 +177,19 @@ export class BigBoxViaArrayOfBoxes implements BoxReadOnly {
         'ScenePreAggregator'
       )
       SingleBigSwitch(box.GetFilename(), notUsed, false, pile)
+    }
+  }
+
+  CopyGoalPiecesToGoalMapRecursively (map: RootPieceMap): void {
+    for (const box of this.originalBoxes) {
+      const notUsed = new MixedObjectsAndVerb(
+        Mix.ErrorVerbNotIdentified,
+        '',
+        '',
+        '',
+        'ScenePreAggregator'
+      )
+      SingleBigSwitch(box.GetFilename(), notUsed, true, map)
     }
   }
 

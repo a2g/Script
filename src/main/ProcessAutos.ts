@@ -1,8 +1,8 @@
 import { Happener } from './Happener.js'
 import { PileOfPieces } from './PileOfPieces.js'
 
-export function ProcessAutos (happener: Happener, solutionPieceMap: PileOfPieces): void {
-  const flags = happener.GetCurrentlyTrueFlags()
+export function ProcessAutos(happener: Happener, solutionPieceMap: PileOfPieces): void {
+  const flags = happener.GetCurrentlyTrueGoals()
   const invs = happener.GetCurrentVisibleInventory()
   const props = happener.GetCurrentVisibleProps()
 
@@ -30,7 +30,7 @@ export function ProcessAutos (happener: Happener, solutionPieceMap: PileOfPieces
         happener.SetPropVisible(piece.output, true)
       } else if (piece.output.startsWith('flag_')) {
         console.log('Auto: flag set to true ' + piece.output)
-        happener.SetFlagValue(piece.output, 1)
+        happener.SetGoalValue(piece.output, 1)
       } else if (piece.output.startsWith('inv_')) {
         console.log('Auto: inv set to visible ' + piece.output)
         happener.SetInvVisible(piece.output, true)

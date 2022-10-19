@@ -13,7 +13,7 @@ describe('Solution', () => {
       const collection = new SolutionCollection();
       const solution = new Solution(new SolutionPiece("", "", objective), map)
       collection.push(solution);
-      solution.FindTheFlagWinAndPutItInRootPieceMap()
+      solution.FindTheGoalWinAndPutItInRootPieceMap()
       const wasCloneEncountered = collection.SolvePartiallyUntilCloning();
 
       assert.strictEqual(false, wasCloneEncountered);
@@ -33,7 +33,7 @@ describe('Solution', () => {
       const collection = new SolutionCollection();
       const solution = new Solution(new SolutionPiece("", "", objective), map);
       collection.push(solution);
-      solution.FindTheFlagWinAndPutItInRootPieceMap()
+      solution.FindTheGoalWinAndPutItInRootPieceMap()
       // process the rest of the pieces
       do {
           collection.SolvePartiallyUntilCloning();

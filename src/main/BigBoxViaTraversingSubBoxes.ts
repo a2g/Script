@@ -5,6 +5,7 @@ import { Mix } from './Mix.js'
 import { SingleBigSwitch } from './SingleBigSwitch.js'
 import { BoxReadOnly } from './BoxReadOnly.js'
 import { BoxReadOnlyWithFileMethods } from './BoxReadOnlyWithFileMethods.js'
+import { RootPieceMap } from './RootPieceMap.js'
 
 function CollectAllBoxesRecursively (box: BoxReadOnlyWithFileMethods, map: Map<string, BoxReadOnly>): void {
   for (const keyValuePair of box.GetMapOfSubBoxes()) {
@@ -20,13 +21,13 @@ function CollectAllBoxesRecursively (box: BoxReadOnlyWithFileMethods, map: Map<s
  * */
 export class BigBoxViaTraversingSubBoxes implements BoxReadOnly {
   readonly allProps: string[]
-  readonly allFlags: string[]
+  readonly allGoals: string[]
   readonly allInvs: string[]
   readonly allChars: string[]
   readonly mapOfStartingThingsWithChars: Map<string, Set<string>>
   readonly startingInvSet: Set<string>
   readonly startingPropSet: Set<string>
-  readonly startingFlagSet: Set<string>
+  readonly startingGoalSet: Set<string>
   readonly boxesGatheredViaTraversal: Map<string, BoxReadOnlyWithFileMethods>
   readonly directSubBoxesMappedByKey: Map<string, BoxReadOnlyWithFileMethods>
 
@@ -39,9 +40,9 @@ export class BigBoxViaTraversingSubBoxes implements BoxReadOnly {
     this.directSubBoxesMappedByKey = new Map<string, BoxReadOnlyWithFileMethods>()
     this.startingPropSet = new Set<string>()
     this.startingInvSet = new Set<string>()
-    this.startingFlagSet = new Set<string>()
+    this.startingGoalSet = new Set<string>()
     const setProps = new Set<string>()
-    const setFlags = new Set<string>()
+    const setGoals = new Set<string>()
     const setInvs = new Set<string>()
     const setChars = new Set<string>()
 
@@ -51,9 +52,9 @@ export class BigBoxViaTraversingSubBoxes implements BoxReadOnly {
       box.CopySubBoxesToGivenMap(this.directSubBoxesMappedByKey)
       box.CopyStartingPropsToGivenSet(this.startingPropSet)
       box.CopyStartingInvsToGivenSet(this.startingInvSet)
-      box.CopyStartingFlagsToGivenSet(this.startingFlagSet)
+      box.CopyStartingGoalsToGivenSet(this.startingGoalSet)
       box.CopyPropsToGivenSet(setProps)
-      box.CopyFlagsToGivenSet(setFlags)
+      box.CopyGoalsToGivenSet(setGoals)
       box.CopyInvsToGivenSet(setInvs)
       box.CopyCharsToGivenSet(setChars)
     }
@@ -62,20 +63,20 @@ export class BigBoxViaTraversingSubBoxes implements BoxReadOnly {
     this.startingPropSet.delete('')
     this.startingInvSet.delete('')
     this.mapOfStartingThingsWithChars.delete('')
-    this.startingFlagSet.delete('')
+    this.startingGoalSet.delete('')
     setChars.delete('')
     setProps.delete('')
-    setFlags.delete('')
+    setGoals.delete('')
     setInvs.delete('')
 
     // finally set arrays for the four
     this.allProps = Array.from(setProps.values())
-    this.allFlags = Array.from(setFlags.values())
+    this.allGoals = Array.from(setGoals.values())
     this.allInvs = Array.from(setInvs.values())
     this.allChars = Array.from(setChars.values())
   }
 
-  GetSetOfStartingFlags (): Set<string> {
+  GetSetOfStartingGoals (): Set<string> {
     return new Set<string>()
   }
 
@@ -87,8 +88,8 @@ export class BigBoxViaTraversingSubBoxes implements BoxReadOnly {
     return this.allInvs
   }
 
-  GetArrayOfFlags (): string[] {
-    return this.allFlags
+  GetArrayOfGoals (): string[] {
+    return this.allGoals
   }
 
   static GetArrayOfSingleObjectVerbs (): string[] {
@@ -107,9 +108,9 @@ export class BigBoxViaTraversingSubBoxes implements BoxReadOnly {
     return this.GetArrayOfInitialStatesOfSingleObjectVerbs()
   }
 
-  GetArrayOfInitialStatesOfFlags (): number[] {
+  GetArrayOfInitialStatesOfGoals (): number[] {
     const array: number[] = []
-    for (const flag of this.allFlags) {
+    for (const flag of this.allGoals) {
       array.push(flag.length > 0 ? 0 : 0)// I used value.length>0 to get rid of the unused variable warning
     };
     return array
@@ -197,6 +198,19 @@ export class BigBoxViaTraversingSubBoxes implements BoxReadOnly {
     )
     for (const filename of this.boxesGatheredViaTraversal.keys()) {
       SingleBigSwitch(filename, notUsed, false, pile)
+    }
+  }
+
+  CopyGoalPiecesToGoalMapRecursively (map: RootPieceMap): void {
+    const notUsed = new MixedObjectsAndVerb(
+      Mix.ErrorVerbNotIdentified,
+      '',
+      '',
+      '',
+      ''
+    )
+    for (const filename of this.boxesGatheredViaTraversal.keys()) {
+      SingleBigSwitch(filename, notUsed, true, map)
     }
   }
 

@@ -27,7 +27,7 @@ export class PlayerAI implements HappenerCallbacksInterface {
   game: Happener
   autoCount: number
 
-  constructor (game: Happener, numberOfAutopilotTurns: number) {
+  constructor(game: Happener, numberOfAutopilotTurns: number) {
     this.game = game
     this.autoCount = numberOfAutopilotTurns
     const verbs = game.GetVerbsExcludingUse()
@@ -51,7 +51,7 @@ export class PlayerAI implements HappenerCallbacksInterface {
     }
   }
 
-  GetNextCommand (): string[] {
+  GetNextCommand(): string[] {
     for (; ;) {
       if (this.autoCount > 0) {
         this.autoCount -= 1
@@ -110,7 +110,7 @@ export class PlayerAI implements HappenerCallbacksInterface {
     }
   }
 
-  OnInvVisbilityChange (number: number, newValue: boolean, nameForDebugging: string): void {
+  OnInvVisbilityChange(number: number, newValue: boolean, nameForDebugging: string): void {
     // the convention for the array is x then y, or column then row.
     // so Set..Column sets the first t
     this.invVsVerb.SetVisibilityOfColumn(number, newValue, nameForDebugging)
@@ -119,7 +119,7 @@ export class PlayerAI implements HappenerCallbacksInterface {
     this.invVsInv.SetVisibilityOfColumn(number, newValue, nameForDebugging)
   }
 
-  OnPropVisbilityChange (number: number, newValue: boolean, nameForDebugging: string): void {
+  OnPropVisbilityChange(number: number, newValue: boolean, nameForDebugging: string): void {
     // the convention for the array is x then y, or column then row.
     // so Set..Column sets the first t
     this.propVsVerb.SetVisibilityOfColumn(number, newValue, nameForDebugging)
@@ -128,7 +128,7 @@ export class PlayerAI implements HappenerCallbacksInterface {
     this.propVsProp.SetVisibilityOfColumn(number, newValue, nameForDebugging)
   }
 
-  OnFlagValueChange (number: number, newValue: number, nameForDebugging: string): void {
+  OnGoalValueChange(number: number, newValue: number, nameForDebugging: string): void {
     // the convention for the array is x then y, or column then row.
     // so Set..Column sets the first t
     this.propVsVerb.SetVisibilityOfColumn(number, newValue > 0, nameForDebugging)

@@ -9,7 +9,7 @@ export class SolverViaRootPiece {
 
   private readonly mapOfStartingThingsAndWhoCanHaveThem: Map<string, Set<string>>
 
-  constructor(mapOfStartingThingsAndWhoCanHaveThem: Map<string, Set<string>>) {
+  constructor (mapOfStartingThingsAndWhoCanHaveThem: Map<string, Set<string>>) {
     this.solutions = []
     this.mapOfStartingThingsAndWhoCanHaveThem = new Map<string, Set<string>>()
     mapOfStartingThingsAndWhoCanHaveThem.forEach(
@@ -23,7 +23,7 @@ export class SolverViaRootPiece {
     )
   }
 
-  InitializeByCopyingThese(
+  InitializeByCopyingThese (
     solutionPiecesMappedByInput: PileOfPiecesReadOnly,
     mapOfStartingThingsAndWhoCanHaveThem: Map<string, Set<string>>
   ): void {
@@ -34,10 +34,10 @@ export class SolverViaRootPiece {
     )
     this.solutions.push(solution)
 
-    solution.FindTheFlagWinAndPutItInRootPieceMap() // <-- do I need to call this?
+    solution.FindTheGoalWinAndPutItInRootPieceMap() // <-- do I need to call this?
   }
 
-  IsAnyPiecesUnprocessed(): boolean {
+  IsAnyPiecesUnprocessed (): boolean {
     let isAnyPiecesUnprocessed = false
     this.solutions.forEach((solution: Solution) => {
       if (solution.IsAnyPiecesIncomplete()) {
@@ -47,7 +47,7 @@ export class SolverViaRootPiece {
     return isAnyPiecesUnprocessed
   }
 
-  SolvePartiallyUntilCloning(): boolean {
+  SolvePartiallyUntilCloning (): boolean {
     let hasACloneJustBeenCreated = false
     this.solutions.forEach((solution: Solution) => {
       if (solution.IsAnyPiecesIncomplete()) {
@@ -61,7 +61,7 @@ export class SolverViaRootPiece {
     return hasACloneJustBeenCreated
   }
 
-  SolveUntilZeroUnprocessedPieces(): void {
+  SolveUntilZeroUnprocessedPieces (): void {
     do {
       this.SolvePartiallyUntilCloning()
     } while (this.IsAnyPiecesUnprocessed())
@@ -71,7 +71,7 @@ export class SolverViaRootPiece {
     )
   }
 
-  ProcessChaptersToEndAndUpdateList(): void {
+  ProcessChaptersToEndAndUpdateList (): void {
     // this needs to be a member function because we are overwriting this.solutions
     const newList = []
     for (const oldSolution of this.solutions) {
@@ -80,7 +80,7 @@ export class SolverViaRootPiece {
     this.solutions = newList
   }
 
-  GenerateSolutionNamesAndPush(
+  GenerateSolutionNamesAndPush (
     mapOfStartingThingsAndWhoHasThem: Map<string, Set<string>>
   ): void {
     for (let i = 0; i < this.solutions.length; i += 1) {
@@ -145,7 +145,7 @@ export class SolverViaRootPiece {
     }
   }
 
-  GetSolutions(): Solution[] {
+  GetSolutions (): Solution[] {
     return this.solutions
   }
 }

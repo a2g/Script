@@ -254,48 +254,48 @@
           "if": {
             "properties": {
               "piece": {
-                "const": "AUTO_FLAG1_SET_BY_PROPS",
+                "const": "AUTO_GOAL1_SET_BY_PROPS",
                 "examples": [
-                  "eg flag_wall_has_been_graffitied set by graffitied_wall"
+                  "eg goal_wall_has_been_graffitied set by graffitied_wall"
                 ]
               }
             }
           },
           "then": {
-            "required": ["flag1"]
+            "required": ["goal1"]
           }
         },
         {
           "if": {
             "properties": {
               "piece": {
-                "const": "AUTO_FLAG1_SET_BY_INVS",
-                "examples": ["eg flag_lit_torch set by inv_lit_torch"]
+                "const": "AUTO_GOAL1_SET_BY_INVS",
+                "examples": ["eg goal_lit_torch set by inv_lit_torch"]
               }
             }
           },
           "then": {
-            "required": ["flag1"]
+            "required": ["goal1"]
           }
         },
         {
           "if": {
             "properties": {
               "piece": {
-                "const": "FLAG1_SET_BY_USING_INV1_WITH_INV2",
+                "const": "GOAL1_SET_BY_USING_INV1_WITH_INV2",
                 "examples": ["eg use two invs together wins game"]
               }
             }
           },
           "then": {
-            "required": ["inv1", "inv2", "flag1"]
+            "required": ["inv1", "inv2", "goal1"]
           }
         },
         {
           "if": {
             "properties": {
               "piece": {
-                "const": "FLAG1_SET_BY_USING_INV1_WITH_PROP1_NEED_FLAGS",
+                "const": "GOAL1_SET_BY_USING_INV1_WITH_PROP1_NEED_GOALS",
                 "examples": [
                   "eg win game using use silver with werewolf during lunar eclipse"
                 ]
@@ -303,7 +303,7 @@
             }
           },
           "then": {
-            "required": ["inv1", "prop1", "flag1", "flag2"]
+            "required": ["inv1", "prop1", "goal1", "goal2"]
           }
         },
         {
@@ -312,7 +312,7 @@
               {
                 "properties": {
                   "piece": {
-                    "const": "FLAG1_SET_BY_USING_INV1_WITH_PROP1_LOSE_PROPS",
+                    "const": "GOAL1_SET_BY_USING_INV1_WITH_PROP1_LOSE_PROPS",
                     "examples": [
                       "eg toggle on to off",
                       "eg activated to deactivated"
@@ -323,17 +323,17 @@
               {
                 "properties": {
                   "piece": {
-                    "const": "TALK_TO_PROP1_WITH_FLAG1_GETS_INV1",
-                    "examples": ["eg talk to woman after setting flag"]
+                    "const": "TALK_TO_PROP1_WITH_GOAL1_GETS_INV1",
+                    "examples": ["eg talk to woman after setting goal"]
                   }
                 }
               },
               {
                 "properties": {
                   "piece": {
-                    "const": "FLAG1_SET_BY_LOSING_INV1_WHEN_USED_WITH_PROP1",
+                    "const": "GOAL1_SET_BY_LOSING_INV1_WHEN_USED_WITH_PROP1",
                     "examples": [
-                      "eg flag is set when use cogs to fix dumbwaiter"
+                      "eg goal is set when use cogs to fix dumbwaiter"
                     ]
                   }
                 }
@@ -341,7 +341,7 @@
               {
                 "properties": {
                   "piece": {
-                    "const": "GIVE_INV1_TO_PROP1_SETS_FLAG1",
+                    "const": "GIVE_INV1_TO_PROP1_SETS_GOAL1",
                     "examples": ["eg give gold to king completes game"]
                   }
                 }
@@ -349,7 +349,7 @@
               {
                 "properties": {
                   "piece": {
-                    "const": "FLAG1_SET_BY_USING_INV1_WITH_PROP1",
+                    "const": "GOAL1_SET_BY_USING_INV1_WITH_PROP1",
                     "examples": ["eg use sword with baddie wins game"]
                   }
                 }
@@ -357,23 +357,23 @@
               {
                 "properties": {
                   "piece": {
-                    "const": "PROP1_STAYS_WHEN_GRAB_INV1_WITH_FLAG1",
-                    "examples": ["eg grab pile of tyres, with flag set"]
+                    "const": "PROP1_STAYS_WHEN_GRAB_INV1_WITH_GOAL1",
+                    "examples": ["eg grab pile of tyres, with goal set"]
                   }
                 }
               },
               {
                 "properties": {
                   "piece": {
-                    "const": "PROP1_GOES_WHEN_GRAB_INV1_WITH_FLAG1",
-                    "examples": ["eg grab single tire, if flag set"]
+                    "const": "PROP1_GOES_WHEN_GRAB_INV1_WITH_GOAL1",
+                    "examples": ["eg grab single tire, if goal set"]
                   }
                 }
               }
             ]
           },
           "then": {
-            "required": ["inv1", "prop1", "flag1"]
+            "required": ["inv1", "prop1", "goal1"]
           }
         },
         {
@@ -382,15 +382,15 @@
               {
                 "properties": {
                   "piece": {
-                    "const": "FLAG1_SET_BY_USING_PROP1_WITH_PROP2",
-                    "examples": ["eg flag set by "]
+                    "const": "GOAL1_SET_BY_USING_PROP1_WITH_PROP2",
+                    "examples": ["eg goal set by "]
                   }
                 }
               },
               {
                 "properties": {
                   "piece": {
-                    "const": "PROP1_APPEARS_WHEN_GRAB_PROP2_WITH_FLAG1",
+                    "const": "PROP1_APPEARS_WHEN_GRAB_PROP2_WITH_GOAL1",
                     "examples": [
                       "eg taxi appears when phone is used with electricity on"
                     ]
@@ -400,7 +400,7 @@
             ]
           },
           "then": {
-            "required": ["prop1", "prop2", "flag1"]
+            "required": ["prop1", "prop2", "goal1"]
           }
         },
         {
@@ -506,36 +506,36 @@
           "if": {
             "properties": {
               "piece": {
-                "const": "AUTO_FLAG1_SET_BY_FLAG2"
+                "const": "AUTO_GOAL1_SET_BY_GOAL2"
               }
             }
           },
           "then": {
-            "required": ["flag1", "flag2"]
+            "required": ["goal1", "goal2"]
           }
         },
         {
           "if": {
             "properties": {
               "piece": {
-                "const": "AUTO_FLAG1_SET_BY_FLAG2"
+                "const": "AUTO_GOAL1_SET_BY_GOAL2"
               }
             }
           },
           "then": {
-            "required": ["flag1", "flag2"]
+            "required": ["goal1", "goal2"]
           }
         },
         {
           "if": {
             "properties": {
               "piece": {
-                "const": "FLAG1_SET_BY_LOSING_INV1_USED_WITH_PROP1_AND_PROPS"
+                "const": "GOAL1_SET_BY_LOSING_INV1_USED_WITH_PROP1_AND_PROPS"
               }
             }
           },
           "then": {
-            "required": ["flag1", "inv1", "prop1", "prop2", "prop3"]
+            "required": ["goal1", "inv1", "prop1", "prop2", "prop3"]
           }
         },
         {
@@ -554,20 +554,20 @@
     },
     "the_enum": {
       "enum": [
-        "AUTO_FLAG1_SET_BY_FLAG2",
-        "AUTO_FLAG1_SET_BY_INVS",
-        "AUTO_FLAG1_SET_BY_PROPS",
+        "AUTO_GOAL1_SET_BY_GOAL2",
+        "AUTO_GOAL1_SET_BY_INVS",
+        "AUTO_GOAL1_SET_BY_PROPS",
         "AUTO_PROP1_BECOMES_PROP2_BY_PROPS",
         "EXAMINE_PROP1_YIELDS_INV1",
-        "FLAG1_SET_BY_LOSING_INV1_WHEN_USED_WITH_PROP1",
-        "FLAG1_SET_BY_LOSING_INV1_USED_WITH_PROP1_AND_PROPS",
-        "FLAG1_SET_BY_USING_INV1_WITH_INV2",
-        "FLAG1_SET_BY_USING_INV1_WITH_PROP1",
-        "FLAG1_SET_BY_USING_INV1_WITH_PROP1_LOSE_PROPS",
-        "FLAG1_SET_BY_USING_INV1_WITH_PROP1_NEED_FLAGS",
-        "FLAG1_SET_BY_USING_PROP1_WITH_PROP2",
+        "GOAL1_SET_BY_LOSING_INV1_WHEN_USED_WITH_PROP1",
+        "GOAL1_SET_BY_LOSING_INV1_USED_WITH_PROP1_AND_PROPS",
+        "GOAL1_SET_BY_USING_INV1_WITH_INV2",
+        "GOAL1_SET_BY_USING_INV1_WITH_PROP1",
+        "GOAL1_SET_BY_USING_INV1_WITH_PROP1_LOSE_PROPS",
+        "GOAL1_SET_BY_USING_INV1_WITH_PROP1_NEED_GOALS",
+        "GOAL1_SET_BY_USING_PROP1_WITH_PROP2",
         "GIVE_INV1_TO_PROP1_GETS_INV2",
-        "GIVE_INV1_TO_PROP1_SETS_FLAG1",
+        "GIVE_INV1_TO_PROP1_SETS_GOAL1",
         "INPUT_INV1_PROP1_BECOMES_PROP2",
         "INPUT_PROP1_INV1_BECOMES_INV2",
         "INPUT_PROP1_INV1_REVEALS_PROP2",
@@ -582,7 +582,7 @@
         "OBTAIN_INV1_BY_LOSING_INV2_KEEPING_PROP1",
         "OBTAIN_INV1_BY_LOSING_PROP1_KEEPING_INV2",
         "OBTAIN_INV1_BY_PROP1_WITH_PROP2_LOSE_PROPS",
-        "PROP1_APPEARS_WHEN_GRAB_PROP2_WITH_FLAG1",
+        "PROP1_APPEARS_WHEN_GRAB_PROP2_WITH_GOAL1",
         "PROP1_APPEARS_WHEN_USE_INV1_WITH_PROP2",
         "PROP1_BECOMES_PROP2_AS_INV1_BECOMES_INV2",
         "PROP1_BECOMES_PROP2_BY_KEEPING_INV1",
@@ -593,10 +593,10 @@
         "PROP1_CHANGES_STATE_TO_PROP2_BY_KEEPING_INV1",
         "PROP1_GOES_WHEN_GRAB_INV1",
         "PROP1_STAYS_WHEN_GRAB_INV1",
-        "PROP1_GOES_WHEN_GRAB_INV1_WITH_FLAG1",
-        "PROP1_STAYS_WHEN_GRAB_INV1_WITH_FLAG1",
+        "PROP1_GOES_WHEN_GRAB_INV1_WITH_GOAL1",
+        "PROP1_STAYS_WHEN_GRAB_INV1_WITH_GOAL1",
         "TALK_TO_PROP1_GETS_INV1",
-        "TALK_TO_PROP1_WITH_FLAG1_GETS_INV1",
+        "TALK_TO_PROP1_WITH_GOAL1_GETS_INV1",
         "THROW_INV1_AT_PROP1_GETS_INV2_LOSE_BOTH",
         "TOGGLE_PROP1_BECOMES_PROP2",
         "TOGGLE_PROP1_CHANGES_STATE_TO_PROP2",
@@ -604,21 +604,21 @@
       ]
     }
   },
-  "AUTO_FLAG1_SET_BY_FLAG2": "AUTO_FLAG1_SET_BY_FLAG2",
-  "AUTO_FLAG1_SET_BY_INVS": "AUTO_FLAG1_SET_BY_INVS",
-  "AUTO_FLAG1_SET_BY_PROPS": "AUTO_FLAG1_SET_BY_PROPS",
+  "AUTO_GOAL1_SET_BY_GOAL2": "AUTO_GOAL1_SET_BY_GOAL2",
+  "AUTO_GOAL1_SET_BY_INVS": "AUTO_GOAL1_SET_BY_INVS",
+  "AUTO_GOAL1_SET_BY_PROPS": "AUTO_GOAL1_SET_BY_PROPS",
   "AUTO_PROP1_BECOMES_PROP2_BY_PROPS": "AUTO_PROP1_BECOMES_PROP2_BY_PROPS",
-  "AUTOEX_FLAG1_UNSET_BY_ANY_OF_PROPS": "AUTOEX_FLAG1_UNSET_BY_ANY_OF_PROPS",
+  "AUTOEX_GOAL1_UNSET_BY_ANY_OF_PROPS": "AUTOEX_GOAL1_UNSET_BY_ANY_OF_PROPS",
   "EXAMINE_PROP1_YIELDS_INV1": "EXAMINE_PROP1_YIELDS_INV1",
-  "FLAG1_SET_BY_LOSING_INV1_WHEN_USED_WITH_PROP1": "FLAG1_SET_BY_LOSING_INV1_WHEN_USED_WITH_PROP1",
-  "FLAG1_SET_BY_LOSING_INV1_USED_WITH_PROP1_AND_PROPS": "FLAG1_SET_BY_LOSING_INV1_USED_WITH_PROP1_AND_PROPS",
-  "FLAG1_SET_BY_USING_INV1_WITH_INV2": "FLAG1_SET_BY_USING_INV1_WITH_INV2",
-  "FLAG1_SET_BY_USING_INV1_WITH_PROP1": "FLAG1_SET_BY_USING_INV1_WITH_PROP1",
-  "FLAG1_SET_BY_USING_INV1_WITH_PROP1_LOSE_PROPS": "FLAG1_SET_BY_USING_INV1_WITH_PROP1_LOSE_PROPS",
-  "FLAG1_SET_BY_USING_INV1_WITH_PROP1_NEED_FLAGS": "FLAG1_SET_BY_USING_INV1_WITH_PROP1_NEED_FLAGS",
-  "FLAG1_SET_BY_USING_PROP1_WITH_PROP2": "FLAG1_SET_BY_USING_PROP1_WITH_PROP2",
+  "GOAL1_SET_BY_LOSING_INV1_WHEN_USED_WITH_PROP1": "GOAL1_SET_BY_LOSING_INV1_WHEN_USED_WITH_PROP1",
+  "GOAL1_SET_BY_LOSING_INV1_USED_WITH_PROP1_AND_PROPS": "GOAL1_SET_BY_LOSING_INV1_USED_WITH_PROP1_AND_PROPS",
+  "GOAL1_SET_BY_USING_INV1_WITH_INV2": "GOAL1_SET_BY_USING_INV1_WITH_INV2",
+  "GOAL1_SET_BY_USING_INV1_WITH_PROP1": "GOAL1_SET_BY_USING_INV1_WITH_PROP1",
+  "GOAL1_SET_BY_USING_INV1_WITH_PROP1_LOSE_PROPS": "GOAL1_SET_BY_USING_INV1_WITH_PROP1_LOSE_PROPS",
+  "GOAL1_SET_BY_USING_INV1_WITH_PROP1_NEED_GOALS": "GOAL1_SET_BY_USING_INV1_WITH_PROP1_NEED_GOALS",
+  "GOAL1_SET_BY_USING_PROP1_WITH_PROP2": "GOAL1_SET_BY_USING_PROP1_WITH_PROP2",
   "GIVE_INV1_TO_PROP1_GETS_INV2": "GIVE_INV1_TO_PROP1_GETS_INV2",
-  "GIVE_INV1_TO_PROP1_SETS_FLAG1": "GIVE_INV1_TO_PROP1_SETS_FLAG1",
+  "GIVE_INV1_TO_PROP1_SETS_GOAL1": "GIVE_INV1_TO_PROP1_SETS_GOAL1",
   "INPUT_INV1_PROP1_BECOMES_PROP2": "INPUT_INV1_PROP1_BECOMES_PROP2",
   "INPUT_PROP1_INV1_BECOMES_INV2": "INPUT_PROP1_INV1_BECOMES_INV2",
   "INPUT_PROP1_INV1_REVEALS_PROP2": "INPUT_PROP1_INV1_REVEALS_PROP2",
@@ -633,7 +633,7 @@
   "OBTAIN_INV1_BY_LOSING_INV2_KEEPING_PROP1": "OBTAIN_INV1_BY_LOSING_INV2_KEEPING_PROP1",
   "OBTAIN_INV1_BY_LOSING_PROP1_KEEPING_INV2": "OBTAIN_INV1_BY_LOSING_PROP1_KEEPING_INV2",
   "OBTAIN_INV1_BY_PROP1_WITH_PROP2_LOSE_PROPS": "OBTAIN_INV1_BY_PROP1_WITH_PROP2_LOSE_PROPS",
-  "PROP1_APPEARS_WHEN_GRAB_PROP2_WITH_FLAG1": "PROP1_APPEARS_WHEN_GRAB_PROP2_WITH_FLAG1",
+  "PROP1_APPEARS_WHEN_GRAB_PROP2_WITH_GOAL1": "PROP1_APPEARS_WHEN_GRAB_PROP2_WITH_GOAL1",
   "PROP1_APPEARS_WHEN_USE_INV1_WITH_PROP2": "PROP1_APPEARS_WHEN_USE_INV1_WITH_PROP2",
   "PROP1_BECOMES_PROP2_AS_INV1_BECOMES_INV2": "PROP1_BECOMES_PROP2_AS_INV1_BECOMES_INV2",
   "PROP1_BECOMES_PROP2_BY_KEEPING_INV1": "PROP1_BECOMES_PROP2_BY_KEEPING_INV1",
@@ -644,10 +644,10 @@
   "PROP1_CHANGES_STATE_TO_PROP2_BY_KEEPING_INV1": "PROP1_CHANGES_STATE_TO_PROP2_BY_KEEPING_INV1",
   "PROP1_GOES_WHEN_GRAB_INV1": "PROP1_GOES_WHEN_GRAB_INV1",
   "PROP1_STAYS_WHEN_GRAB_INV1": "PROP1_STAYS_WHEN_GRAB_INV1",
-  "PROP1_GOES_WHEN_GRAB_INV1_WITH_FLAG1": "PROP1_GOES_WHEN_GRAB_INV1_WITH_FLAG1",
-  "PROP1_STAYS_WHEN_GRAB_INV1_WITH_FLAG1": "PROP1_STAYS_WHEN_GRAB_INV1_WITH_FLAG1",
+  "PROP1_GOES_WHEN_GRAB_INV1_WITH_GOAL1": "PROP1_GOES_WHEN_GRAB_INV1_WITH_GOAL1",
+  "PROP1_STAYS_WHEN_GRAB_INV1_WITH_GOAL1": "PROP1_STAYS_WHEN_GRAB_INV1_WITH_GOAL1",
   "TALK_TO_PROP1_GETS_INV1": "TALK_TO_PROP1_GETS_INV1",
-  "TALK_TO_PROP1_WITH_FLAG1_GETS_INV1": "TALK_TO_PROP1_WITH_FLAG1_GETS_INV1",
+  "TALK_TO_PROP1_WITH_GOAL1_GETS_INV1": "TALK_TO_PROP1_WITH_GOAL1_GETS_INV1",
   "THROW_INV1_AT_PROP1_GETS_INV2_LOSE_BOTH": "THROW_INV1_AT_PROP1_GETS_INV2_LOSE_BOTH",
   "TOGGLE_PROP1_BECOMES_PROP2": "TOGGLE_PROP1_BECOMES_PROP2",
   "TOGGLE_PROP1_CHANGES_STATE_TO_PROP2": "TOGGLE_PROP1_CHANGES_STATE_TO_PROP2",

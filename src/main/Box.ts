@@ -7,6 +7,7 @@ import { Mix } from './Mix.js'
 import { SingleBigSwitch } from './SingleBigSwitch.js'
 import { Stringify } from './Stringify.js'
 import { BoxReadOnlyWithFileMethods } from './BoxReadOnlyWithFileMethods.js'
+import { RootPieceMap } from './RootPieceMap.js'
 
 /**
  * So the most important part of this class is that the data
@@ -17,13 +18,13 @@ import { BoxReadOnlyWithFileMethods } from './BoxReadOnlyWithFileMethods.js'
 
 export class Box implements BoxReadOnlyWithFileMethods {
   private readonly allProps: string[]
-  private readonly allFlags: string[]
+  private readonly allGoals: string[]
   private readonly allInvs: string[]
   private readonly allChars: string[]
   private readonly mapOfStartingThings: Map<string, Set<string>>
   private readonly startingInvSet: Set<string>
   private readonly startingPropSet: Set<string>
-  private readonly startingFlagSet: Set<string>
+  private readonly startingGoalSet: Set<string>
   private readonly filename: string
   private readonly directSubBoxes: Map<string, BoxReadOnlyWithFileMethods>
 
@@ -35,7 +36,7 @@ export class Box implements BoxReadOnlyWithFileMethods {
     const scenario = JSON.parse(text)
 
     const setProps = new Set<string>()
-    const setFlags = new Set<string>()
+    const setGoals = new Set<string>()
     const setInvs = new Set<string>()
     const setChars = new Set<string>()
 
@@ -46,8 +47,8 @@ export class Box implements BoxReadOnlyWithFileMethods {
       setInvs.add(Stringify(gate.inv1))
       setInvs.add(Stringify(gate.inv2))
       setInvs.add(Stringify(gate.inv3))
-      setFlags.add(Stringify(gate.flag1))
-      setFlags.add(Stringify(gate.flag2))
+      setGoals.add(Stringify(gate.flag1))
+      setGoals.add(Stringify(gate.flag2))
       setProps.add(Stringify(gate.prop1))
       setProps.add(Stringify(gate.prop2))
       setProps.add(Stringify(gate.prop3))
@@ -60,8 +61,8 @@ export class Box implements BoxReadOnlyWithFileMethods {
         setInvs.add(Stringify(gate.conjoint.inv1))
         setInvs.add(Stringify(gate.conjoint.inv2))
         setInvs.add(Stringify(gate.conjoint.inv3))
-        setFlags.add(Stringify(gate.conjoint.flag1))
-        setFlags.add(Stringify(gate.conjoint.flag2))
+        setGoals.add(Stringify(gate.conjoint.flag1))
+        setGoals.add(Stringify(gate.conjoint.flag2))
         setProps.add(Stringify(gate.conjoint.prop1))
         setProps.add(Stringify(gate.conjoint.prop2))
         setProps.add(Stringify(gate.conjoint.prop3))
@@ -88,19 +89,19 @@ export class Box implements BoxReadOnlyWithFileMethods {
     setChars.delete('undefined')
     setProps.delete('')
     setProps.delete('undefined')
-    setFlags.delete('')
-    setFlags.delete('undefined')
+    setGoals.delete('')
+    setGoals.delete('undefined')
     setInvs.delete('')
     setInvs.delete('undefined')
 
     this.allProps = Array.from(setProps.values())
-    this.allFlags = Array.from(setFlags.values())
+    this.allGoals = Array.from(setGoals.values())
     this.allInvs = Array.from(setInvs.values())
     this.allChars = Array.from(setChars.values())
 
     // preen starting invs from the startingThings
     this.startingInvSet = new Set<string>()
-    this.startingFlagSet = new Set<string>()
+    this.startingGoalSet = new Set<string>()
     this.startingPropSet = new Set<string>()
     this.mapOfStartingThings = new Map<string, Set<string>>()
     this.directSubBoxes = new Map<string, BoxReadOnlyWithFileMethods>()
@@ -116,7 +117,7 @@ export class Box implements BoxReadOnlyWithFileMethods {
           this.startingInvSet.add(theThing)
         }
         if (theThing.startsWith('flag')) {
-          this.startingFlagSet.add(theThing)
+          this.startingGoalSet.add(theThing)
         }
         if (theThing.startsWith('prop')) {
           this.startingPropSet.add(theThing)
@@ -190,8 +191,8 @@ export class Box implements BoxReadOnlyWithFileMethods {
     }
   }
 
-  CopyStartingFlagsToGivenSet (givenSet: Set<string>): void {
-    for (const flag of this.startingFlagSet) {
+  CopyStartingGoalsToGivenSet (givenSet: Set<string>): void {
+    for (const flag of this.startingGoalSet) {
       givenSet.add(flag)
     }
   }
@@ -220,8 +221,8 @@ export class Box implements BoxReadOnlyWithFileMethods {
     }
   }
 
-  CopyFlagsToGivenSet (givenSet: Set<string>): void {
-    for (const flag of this.allFlags) {
+  CopyGoalsToGivenSet (givenSet: Set<string>): void {
+    for (const flag of this.allGoals) {
       givenSet.add(flag)
     }
   }
@@ -246,8 +247,8 @@ export class Box implements BoxReadOnlyWithFileMethods {
     return this.allInvs
   }
 
-  GetArrayOfFlags (): string[] {
-    return this.allFlags
+  GetArrayOfGoals (): string[] {
+    return this.allGoals
   }
 
   static GetArrayOfSingleObjectVerbs (): string[] {
@@ -266,19 +267,19 @@ export class Box implements BoxReadOnlyWithFileMethods {
     return this.GetArrayOfInitialStatesOfSingleObjectVerbs()
   }
 
-  GetArrayOfInitialStatesOfFlags (): number[] {
+  GetArrayOfInitialStatesOfGoals (): number[] {
     // construct array of booleans in exact same order as ArrayOfProps - so they can be correlated
-    const startingSet = this.GetSetOfStartingFlags()
+    const startingSet = this.GetSetOfStartingGoals()
     const initialStates: number[] = []
-    for (const flag of this.allFlags) {
+    for (const flag of this.allGoals) {
       const isNonZero = startingSet.has(flag)
       initialStates.push(isNonZero ? 1 : 0)
     }
     return initialStates
   }
 
-  GetSetOfStartingFlags (): Set<string> {
-    return this.startingFlagSet
+  GetSetOfStartingGoals (): Set<string> {
+    return this.startingGoalSet
   }
 
   GetSetOfStartingProps (): Set<string> {
@@ -349,5 +350,20 @@ export class Box implements BoxReadOnlyWithFileMethods {
       array.push(key)
     }
     return array
+  }
+
+  CopyGoalPiecesToGoalMapRecursively (map: RootPieceMap): void {
+    const notUsed = new MixedObjectsAndVerb(
+      Mix.ErrorVerbNotIdentified,
+      '',
+      '',
+      '',
+      ''
+    )
+    SingleBigSwitch(this.filename, notUsed, true, map)
+
+    for (const box of this.directSubBoxes.values()) {
+      box.CopyGoalPiecesToGoalMapRecursively(map)
+    }
   }
 }

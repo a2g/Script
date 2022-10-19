@@ -1,6 +1,7 @@
 import { MixedObjectsAndVerb } from './MixedObjectsAndVerb.js'
 import { Happenings } from './Happenings.js'
 import { PileOfPieces } from './PileOfPieces.js'
+import { RootPieceMap } from './RootPieceMap.js'
 
 /**
 * This is needed because there are all these analysis steps that are performed on a single box
@@ -17,11 +18,11 @@ export interface BoxReadOnly {
   // getters
   GetArrayOfProps: () => string[]
   GetArrayOfInvs: () => string[]
-  GetArrayOfFlags: () => string[]
+  GetArrayOfGoals: () => string[]
   GetArrayOfSingleObjectVerbs: () => string[]
   GetArrayOfInitialStatesOfSingleObjectVerbs: () => boolean[]
-  GetArrayOfInitialStatesOfFlags: () => number[]
-  GetSetOfStartingFlags: () => Set<string>
+  GetArrayOfInitialStatesOfGoals: () => number[]
+  GetSetOfStartingGoals: () => Set<string>
   GetSetOfStartingProps: () => Set<string>
   GetSetOfStartingInvs: () => Set<string>
   GetMapOfAllStartingThings: () => Map<string, Set<string>>
@@ -34,4 +35,5 @@ export interface BoxReadOnly {
   // original-json-traversers
   FindHappeningsIfAny: (objects: MixedObjectsAndVerb) => Happenings | null
   CopyPiecesFromBoxToPile: (pile: PileOfPieces) => void // its possible for this to be done on aggregate
+  CopyGoalPiecesToGoalMapRecursively: (map: RootPieceMap) => void
 }

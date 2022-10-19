@@ -5,9 +5,9 @@ import { AlleviateBrackets } from './AlleviateBrackets.js'
 import { Happen } from './Happen.js'
 import { Happening } from './Happening.js'
 import { MixedObjectsAndVerb } from './MixedObjectsAndVerb.js'
-import { PileOfPieces } from './PileOfPieces.js'
 import { Stringify } from './Stringify.js'
 import _ from '../../jigsaw.json'
+import { PileOrRootPieceMap } from './PileOrRootPieceMap.js'
 
 /**
  * Yup, this is the one location of these
@@ -17,7 +17,7 @@ let globalId = 1
 
 export function SingleBigSwitch (
   filename: string,
-  objects: MixedObjectsAndVerb, isFlagRetrieval: boolean, piecesMappedByOutput: PileOfPieces | null
+  objects: MixedObjectsAndVerb, isGoalRetrieval: boolean, piecesMappedByOutput: PileOrRootPieceMap | null
 ): Happenings | null {
   const text = readFileSync(filename, 'utf-8')
   const scenario = JSON.parse(text)
@@ -60,10 +60,10 @@ export function SingleBigSwitch (
       const inv3 = Stringify(piece.inv3)
       const happs = new Happenings()
       const { restrictions } = piece
-      if (pieceType.startsWith('FLAG1_SET') || pieceType.startsWith('AUTO_FLAG1_SET')) {
-        if (isFlagRetrieval || piecesMappedByOutput == null) {
+      if (pieceType.startsWith('GOAL1_SET') || pieceType.startsWith('AUTO_GOAL1_SET')) {
+        if (isGoalRetrieval || piecesMappedByOutput == null) {
           switch (pieceType) {
-            case _.AUTO_FLAG1_SET_BY_FLAG2:
+            case _.AUTO_GOAL1_SET_BY_GOAL2:
               if (piecesMappedByOutput != null) {
                 const output = flag1
                 const input = flag2
@@ -81,7 +81,7 @@ export function SingleBigSwitch (
                 )
               }
               break
-            case _.AUTO_FLAG1_SET_BY_PROPS:
+            case _.AUTO_GOAL1_SET_BY_PROPS:
               if (piecesMappedByOutput != null) {
                 const output = flag1
                 const input1 = prop1
@@ -109,7 +109,7 @@ export function SingleBigSwitch (
                 )
               }
               break
-            case _.AUTO_FLAG1_SET_BY_INVS:
+            case _.AUTO_GOAL1_SET_BY_INVS:
               if (piecesMappedByOutput != null) {
                 const output = flag1
                 const input1 = inv1
@@ -131,9 +131,9 @@ export function SingleBigSwitch (
                 )
               }
               break
-            case _.FLAG1_SET_BY_LOSING_INV1_WHEN_USED_WITH_PROP1:
+            case _.GOAL1_SET_BY_LOSING_INV1_WHEN_USED_WITH_PROP1:
               happs.text = `You use the ${inv1} with the ${prop1} and something good happens...`
-              happs.array.push(new Happening(Happen.FlagIsSet, flag1))
+              happs.array.push(new Happening(Happen.GoalIsSet, flag1))
               happs.array.push(new Happening(Happen.InvGoes, inv1))
               happs.array.push(new Happening(Happen.PropStays, prop1))
 
@@ -158,9 +158,9 @@ export function SingleBigSwitch (
                 return happs
               }
               break
-            case _.FLAG1_SET_BY_LOSING_INV1_USED_WITH_PROP1_AND_PROPS:
+            case _.GOAL1_SET_BY_LOSING_INV1_USED_WITH_PROP1_AND_PROPS:
               happs.text = `With everything set up correctly, you use the ${inv1} with the ${prop1} and something good happens...`
-              happs.array.push(new Happening(Happen.FlagIsSet, flag1))
+              happs.array.push(new Happening(Happen.GoalIsSet, flag1))
               happs.array.push(new Happening(Happen.InvGoes, inv1))
               happs.array.push(new Happening(Happen.PropStays, prop1))
               if (prop2.length > 0) {
@@ -195,11 +195,11 @@ export function SingleBigSwitch (
               }
               break
 
-            case _.FLAG1_SET_BY_USING_INV1_WITH_INV2:
+            case _.GOAL1_SET_BY_USING_INV1_WITH_INV2:
               happs.text = `You use the ${inv1} with the ${inv2} and something good happens...`
               happs.array.push(new Happening(Happen.InvStays, inv1))
               happs.array.push(new Happening(Happen.InvStays, inv2))
-              happs.array.push(new Happening(Happen.FlagIsSet, flag1))
+              happs.array.push(new Happening(Happen.GoalIsSet, flag1))
               if (piecesMappedByOutput != null) {
                 const inputA = inv1
                 const inputB = inv2
@@ -222,11 +222,11 @@ export function SingleBigSwitch (
               }
               break
 
-            case _.FLAG1_SET_BY_USING_INV1_WITH_PROP1:
+            case _.GOAL1_SET_BY_USING_INV1_WITH_PROP1:
               happs.text = `You use the ${inv1} with the ${prop1} and something good happens...`
               happs.array.push(new Happening(Happen.InvStays, inv1))
               happs.array.push(new Happening(Happen.PropStays, prop1))
-              happs.array.push(new Happening(Happen.FlagIsSet, flag1))
+              happs.array.push(new Happening(Happen.GoalIsSet, flag1))
               if (piecesMappedByOutput != null) {
                 const inputA = inv1
                 const inputB = prop1
@@ -248,11 +248,11 @@ export function SingleBigSwitch (
                 return happs
               }
               break
-            case _.FLAG1_SET_BY_USING_INV1_WITH_PROP1_LOSE_PROPS:
+            case _.GOAL1_SET_BY_USING_INV1_WITH_PROP1_LOSE_PROPS:
               happs.text = `You use the ${inv1} with the  ${prop1} and something good happens...`
               happs.array.push(new Happening(Happen.InvStays, inv1))
               happs.array.push(new Happening(Happen.PropGoes, prop1))
-              happs.array.push(new Happening(Happen.FlagIsSet, flag1))
+              happs.array.push(new Happening(Happen.GoalIsSet, flag1))
               if (piecesMappedByOutput != null) {
                 const inputA = inv1
                 const inputB = prop1
@@ -274,11 +274,11 @@ export function SingleBigSwitch (
                 return happs
               }
               break
-            case _.FLAG1_SET_BY_USING_INV1_WITH_PROP1_NEED_FLAGS:
+            case _.GOAL1_SET_BY_USING_INV1_WITH_PROP1_NEED_GOALS:
               happs.text = `You use the ${inv1} with the  ${prop1} and something good happens...`
               happs.array.push(new Happening(Happen.InvStays, inv1))
               happs.array.push(new Happening(Happen.PropStays, prop1))
-              happs.array.push(new Happening(Happen.FlagIsSet, flag1))
+              happs.array.push(new Happening(Happen.GoalIsSet, flag1))
               if (piecesMappedByOutput != null) {
                 const output = flag1
                 const inputA = inv1
@@ -308,11 +308,11 @@ export function SingleBigSwitch (
                 return happs
               }
               break
-            case _.FLAG1_SET_BY_USING_PROP1_WITH_PROP2:
+            case _.GOAL1_SET_BY_USING_PROP1_WITH_PROP2:
               happs.text = `You use the ${prop1} with the ${prop2} and something good happens...`
               happs.array.push(new Happening(Happen.PropStays, prop1))
               happs.array.push(new Happening(Happen.PropStays, prop2))
-              happs.array.push(new Happening(Happen.FlagIsSet, flag1))
+              happs.array.push(new Happening(Happen.GoalIsSet, flag1))
               if (piecesMappedByOutput != null) {
                 const inputA = prop1
                 const inputB = prop2
@@ -337,7 +337,7 @@ export function SingleBigSwitch (
           }
         }
       } else {
-        if (!isFlagRetrieval || piecesMappedByOutput == null) {
+        if (!isGoalRetrieval || piecesMappedByOutput == null) {
           switch (pieceType) {
             case _.AUTO_PROP1_BECOMES_PROP2_BY_PROPS:
               if (piecesMappedByOutput != null) {
@@ -418,10 +418,10 @@ export function SingleBigSwitch (
                 return happs
               }
               break
-            case _.GIVE_INV1_TO_PROP1_SETS_FLAG1:
-              happs.text = `Flag is set ${flag1}`
+            case _.GIVE_INV1_TO_PROP1_SETS_GOAL1:
+              happs.text = `Goal is set ${flag1}`
               happs.array.push(new Happening(Happen.InvGoes, inv1))
-              happs.array.push(new Happening(Happen.FlagIsSet, flag1))
+              happs.array.push(new Happening(Happen.GoalIsSet, flag1))
               if (piecesMappedByOutput != null) {
                 const inputA = inv1
                 const inputB = prop1
@@ -813,7 +813,7 @@ export function SingleBigSwitch (
               }
               break
 
-            case _.PROP1_APPEARS_WHEN_GRAB_PROP2_WITH_FLAG1:
+            case _.PROP1_APPEARS_WHEN_GRAB_PROP2_WITH_GOAL1:
               happs.text = `You use the ${prop2} and, somewhere, a ${prop1} appears`
               happs.array.push(new Happening(Happen.PropAppears, prop1))
               if (piecesMappedByOutput != null) {
@@ -1107,7 +1107,7 @@ export function SingleBigSwitch (
                 return happs
               }
               break
-            case _.PROP1_GOES_WHEN_GRAB_INV1_WITH_FLAG1:
+            case _.PROP1_GOES_WHEN_GRAB_INV1_WITH_GOAL1:
               happs.text = `You now have a ${inv1}`
               // ly don't mention what happen to the prop you clicked on.  "\n You notice the " + prop1 + " has now become a " + prop2;
               happs.array.push(new Happening(Happen.PropGoes, prop1))
@@ -1133,7 +1133,7 @@ export function SingleBigSwitch (
                 return happs
               }
               break
-            case _.PROP1_STAYS_WHEN_GRAB_INV1_WITH_FLAG1:
+            case _.PROP1_STAYS_WHEN_GRAB_INV1_WITH_GOAL1:
               happs.text = `You now have a ${inv1}`
               // ly don't mention what happen to the prop you clicked on.  "\n You now have a" + inv1;
               happs.array.push(new Happening(Happen.InvAppears, inv1))
@@ -1180,7 +1180,7 @@ export function SingleBigSwitch (
                 return happs
               }
               break
-            case _.TALK_TO_PROP1_WITH_FLAG1_GETS_INV1:
+            case _.TALK_TO_PROP1_WITH_GOAL1_GETS_INV1:
               happs.text = `You talked with flag and now have a ${inv1}`
               happs.array.push(new Happening(Happen.InvAppears, inv1))
               if (piecesMappedByOutput != null) {
