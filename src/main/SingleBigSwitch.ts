@@ -8,6 +8,7 @@ import { MixedObjectsAndVerb } from './MixedObjectsAndVerb.js'
 import { Stringify } from './Stringify.js'
 import _ from '../../jigsaw.json'
 import { PileOrRootPieceMap } from './PileOrRootPieceMap.js'
+import hjson from 'hjson'
 
 /**
  * Yup, this is the one location of these
@@ -20,7 +21,7 @@ export function SingleBigSwitch (
   objects: MixedObjectsAndVerb, isGoalRetrieval: boolean, piecesMappedByOutput: PileOrRootPieceMap | null
 ): Happenings | null {
   const text = readFileSync(filename, 'utf-8')
-  const scenario = JSON.parse(text)
+  const scenario = hjson.parse(text)
 
   for (let piece of scenario.pieces) {
     const isConjoint = (piece.conjoint != null)
