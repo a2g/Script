@@ -8,6 +8,7 @@ import { PileOrRootPieceMap } from './PileOrRootPieceMap'
  */
 export class RootPieceMap implements PileOrRootPieceMap {
   private readonly roots: Piece[]
+  // file names?
 
   constructor (deepCopyFromMe: RootPieceMap | null, incompletePieces: Set<Piece>) {
     this.roots = []
@@ -46,8 +47,8 @@ export class RootPieceMap implements PileOrRootPieceMap {
     return root
   }
 
-  CalculateListOfKeys (): String[] {
-    const array = []
+  CalculateListOfKeys (): string[] {
+    const array: string[] = []
     for (let i = 0; i < this.roots.length; i++) {
       const root = this.roots[i].inputHints[0]
       array.push(root)
