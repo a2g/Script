@@ -28,7 +28,7 @@ export class Box implements BoxReadOnlyWithFileMethods {
   private readonly filename: string
   private readonly directSubBoxes: Map<string, BoxReadOnlyWithFileMethods>
 
-  constructor (filename: string) {
+  constructor(filename: string) {
     this.filename = filename
     assert(existsSync(filename))
     const text = readFileSync(filename, 'utf8')
@@ -47,8 +47,8 @@ export class Box implements BoxReadOnlyWithFileMethods {
       setInvs.add(Stringify(gate.inv1))
       setInvs.add(Stringify(gate.inv2))
       setInvs.add(Stringify(gate.inv3))
-      setGoals.add(Stringify(gate.flag1))
-      setGoals.add(Stringify(gate.flag2))
+      setGoals.add(Stringify(gate.goal1))
+      setGoals.add(Stringify(gate.goal2))
       setProps.add(Stringify(gate.prop1))
       setProps.add(Stringify(gate.prop2))
       setProps.add(Stringify(gate.prop3))
@@ -61,8 +61,8 @@ export class Box implements BoxReadOnlyWithFileMethods {
         setInvs.add(Stringify(gate.conjoint.inv1))
         setInvs.add(Stringify(gate.conjoint.inv2))
         setInvs.add(Stringify(gate.conjoint.inv3))
-        setGoals.add(Stringify(gate.conjoint.flag1))
-        setGoals.add(Stringify(gate.conjoint.flag2))
+        setGoals.add(Stringify(gate.conjoint.goal1))
+        setGoals.add(Stringify(gate.conjoint.goal2))
         setProps.add(Stringify(gate.conjoint.prop1))
         setProps.add(Stringify(gate.conjoint.prop2))
         setProps.add(Stringify(gate.conjoint.prop3))
@@ -116,7 +116,7 @@ export class Box implements BoxReadOnlyWithFileMethods {
         if (theThing.startsWith('inv')) {
           this.startingInvSet.add(theThing)
         }
-        if (theThing.startsWith('flag')) {
+        if (theThing.startsWith('goal')) {
           this.startingGoalSet.add(theThing)
         }
         if (theThing.startsWith('prop')) {
@@ -142,19 +142,19 @@ export class Box implements BoxReadOnlyWithFileMethods {
     // do the boxes
     if (scenario.subBoxes !== undefined && scenario.subBoxes !== null) {
       for (const thing of scenario.subBoxes) {
-        if (thing.flag !== undefined && thing.flag !== null) {
+        if (thing.goal !== undefined && thing.goal !== null) {
           if (thing.fileToMerge !== undefined && thing.fileToMerge !== null) {
             const box = new Box(thing.fileToMerge)
 
             // add to this
-            this.directSubBoxes.set(thing.flag, box)
+            this.directSubBoxes.set(thing.goal, box)
           }
         }
       }
     }
   }
 
-  public CopyPiecesFromBoxToPile (pile: PileOfPieces): void {
+  public CopyPiecesFromBoxToPile(pile: PileOfPieces): void {
     const notUsed = new MixedObjectsAndVerb(
       Mix.ErrorVerbNotIdentified,
       '',
@@ -165,7 +165,7 @@ export class Box implements BoxReadOnlyWithFileMethods {
     SingleBigSwitch(this.filename, notUsed, false, pile)
   }
 
-  public FindHappeningsIfAny (objects: MixedObjectsAndVerb): Happenings | null {
+  public FindHappeningsIfAny(objects: MixedObjectsAndVerb): Happenings | null {
     const result = SingleBigSwitch(
       this.filename,
       objects,
@@ -175,7 +175,7 @@ export class Box implements BoxReadOnlyWithFileMethods {
     return result
   }
 
-  GetArrayOfSubBoxesRecursively (): BoxReadOnlyWithFileMethods[] {
+  GetArrayOfSubBoxesRecursively(): BoxReadOnlyWithFileMethods[] {
     let array: BoxReadOnlyWithFileMethods[] = []
     array.push(this)
     for (const box of this.directSubBoxes.values()) {
@@ -185,116 +185,116 @@ export class Box implements BoxReadOnlyWithFileMethods {
     return array
   }
 
-  CopyStartingPropsToGivenSet (givenSet: Set<string>): void {
+  CopyStartingPropsToGivenSet(givenSet: Set<string>): void {
     for (const prop of this.startingPropSet) {
       givenSet.add(prop)
     }
   }
 
-  CopyStartingGoalsToGivenSet (givenSet: Set<string>): void {
-    for (const flag of this.startingGoalSet) {
-      givenSet.add(flag)
+  CopyStartingGoalsToGivenSet(givenSet: Set<string>): void {
+    for (const goal of this.startingGoalSet) {
+      givenSet.add(goal)
     }
   }
 
-  CopyStartingInvsToGivenSet (givenSet: Set<string>): void {
+  CopyStartingInvsToGivenSet(givenSet: Set<string>): void {
     for (const inv of this.startingInvSet) {
       givenSet.add(inv)
     }
   }
 
-  CopyStartingThingCharsToGivenMap (givenMap: Map<string, Set<string>>): void {
+  CopyStartingThingCharsToGivenMap(givenMap: Map<string, Set<string>>): void {
     this.mapOfStartingThings.forEach((value: Set<string>, key: string) => {
       givenMap.set(key, value)
     })
   }
 
-  CopySubBoxesToGivenMap (givenMap: Map<string, BoxReadOnlyWithFileMethods>): void {
+  CopySubBoxesToGivenMap(givenMap: Map<string, BoxReadOnlyWithFileMethods>): void {
     this.directSubBoxes.forEach((value: BoxReadOnlyWithFileMethods, key: string) => {
       givenMap.set(key, value)
     })
   }
 
-  CopyPropsToGivenSet (givenSet: Set<string>): void {
+  CopyPropsToGivenSet(givenSet: Set<string>): void {
     for (const prop of this.allProps) {
       givenSet.add(prop)
     }
   }
 
-  CopyGoalsToGivenSet (givenSet: Set<string>): void {
-    for (const flag of this.allGoals) {
-      givenSet.add(flag)
+  CopyGoalsToGivenSet(givenSet: Set<string>): void {
+    for (const goal of this.allGoals) {
+      givenSet.add(goal)
     }
   }
 
-  CopyInvsToGivenSet (givenSet: Set<string>): void {
+  CopyInvsToGivenSet(givenSet: Set<string>): void {
     for (const inv of this.allInvs) {
       givenSet.add(inv)
     }
   }
 
-  CopyCharsToGivenSet (givenSet: Set<string>): void {
+  CopyCharsToGivenSet(givenSet: Set<string>): void {
     for (const character of this.allChars) {
       givenSet.add(character)
     }
   }
 
-  GetArrayOfProps (): string[] {
+  GetArrayOfProps(): string[] {
     return this.allProps
   }
 
-  GetArrayOfInvs (): string[] {
+  GetArrayOfInvs(): string[] {
     return this.allInvs
   }
 
-  GetArrayOfGoals (): string[] {
+  GetArrayOfGoals(): string[] {
     return this.allGoals
   }
 
-  static GetArrayOfSingleObjectVerbs (): string[] {
+  static GetArrayOfSingleObjectVerbs(): string[] {
     return ['grab', 'toggle']
   }
 
-  GetArrayOfSingleObjectVerbs (): string[] {
+  GetArrayOfSingleObjectVerbs(): string[] {
     return this.GetArrayOfSingleObjectVerbs()
   }
 
-  static GetArrayOfInitialStatesOfSingleObjectVerbs (): boolean[] {
+  static GetArrayOfInitialStatesOfSingleObjectVerbs(): boolean[] {
     return [true, true]
   }
 
-  GetArrayOfInitialStatesOfSingleObjectVerbs (): boolean[] {
+  GetArrayOfInitialStatesOfSingleObjectVerbs(): boolean[] {
     return this.GetArrayOfInitialStatesOfSingleObjectVerbs()
   }
 
-  GetArrayOfInitialStatesOfGoals (): number[] {
+  GetArrayOfInitialStatesOfGoals(): number[] {
     // construct array of booleans in exact same order as ArrayOfProps - so they can be correlated
     const startingSet = this.GetSetOfStartingGoals()
     const initialStates: number[] = []
-    for (const flag of this.allGoals) {
-      const isNonZero = startingSet.has(flag)
+    for (const goal of this.allGoals) {
+      const isNonZero = startingSet.has(goal)
       initialStates.push(isNonZero ? 1 : 0)
     }
     return initialStates
   }
 
-  GetSetOfStartingGoals (): Set<string> {
+  GetSetOfStartingGoals(): Set<string> {
     return this.startingGoalSet
   }
 
-  GetSetOfStartingProps (): Set<string> {
+  GetSetOfStartingProps(): Set<string> {
     return this.startingPropSet
   }
 
-  GetSetOfStartingInvs (): Set<string> {
+  GetSetOfStartingInvs(): Set<string> {
     return this.startingInvSet
   }
 
-  GetMapOfAllStartingThings (): Map<string, Set<string>> {
+  GetMapOfAllStartingThings(): Map<string, Set<string>> {
     return this.mapOfStartingThings
   }
 
-  GetStartingThingsForCharacter (charName: string): Set<string> {
+  GetStartingThingsForCharacter(charName: string): Set<string> {
     const startingThingSet = new Set<string>()
     this.mapOfStartingThings.forEach((value: Set<string>, thing: string) => {
       for (const item of value) {
@@ -308,7 +308,7 @@ export class Box implements BoxReadOnlyWithFileMethods {
     return startingThingSet
   }
 
-  GetArrayOfInitialStatesOfProps (): boolean[] {
+  GetArrayOfInitialStatesOfProps(): boolean[] {
     // construct array of booleans in exact same order as ArrayOfProps - so they can be correlated
     const startingSet = this.GetSetOfStartingProps()
     const visibilities: boolean[] = []
@@ -320,7 +320,7 @@ export class Box implements BoxReadOnlyWithFileMethods {
     return visibilities
   }
 
-  GetArrayOfInitialStatesOfInvs (): boolean[] {
+  GetArrayOfInitialStatesOfInvs(): boolean[] {
     // construct array of booleans in exact same order as ArrayOfProps - so they can be correlated
     const startingSet = this.GetSetOfStartingInvs()
     const visibilities: boolean[] = []
@@ -332,19 +332,19 @@ export class Box implements BoxReadOnlyWithFileMethods {
     return visibilities
   }
 
-  GetArrayOfCharacters (): string[] {
+  GetArrayOfCharacters(): string[] {
     return this.allChars
   }
 
-  GetMapOfSubBoxes (): Map<string, BoxReadOnlyWithFileMethods> {
+  GetMapOfSubBoxes(): Map<string, BoxReadOnlyWithFileMethods> {
     return this.directSubBoxes
   }
 
-  GetFilename (): string {
+  GetFilename(): string {
     return this.filename
   }
 
-  public GetNamesOfPiecesStuckToSubBoxes (): string[] {
+  public GetNamesOfPiecesStuckToSubBoxes(): string[] {
     const array: string[] = []
     for (const key of this.directSubBoxes.keys()) {
       array.push(key)
@@ -352,7 +352,7 @@ export class Box implements BoxReadOnlyWithFileMethods {
     return array
   }
 
-  CopyGoalPiecesToGoalMapRecursively (map: RootPieceMap): void {
+  CopyGoalPiecesToGoalMapRecursively(map: RootPieceMap): void {
     const notUsed = new MixedObjectsAndVerb(
       Mix.ErrorVerbNotIdentified,
       '',

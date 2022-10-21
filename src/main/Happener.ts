@@ -59,13 +59,13 @@ export class Happener {
     this.arrayOfGoalValues = box.GetArrayOfInitialStatesOfGoals()
   }
 
-  SetGoalValue(flag: string, value: number): void {
-    const index = this.GetIndexOfGoal(flag)
+  SetGoalValue(goal: string, value: number): void {
+    const index = this.GetIndexOfGoal(goal)
     this.arrayOfGoalValues[index] = value
   }
 
-  GetGoalValue(flag: string): Number {
-    const index = this.GetIndexOfGoal(flag)
+  GetGoalValue(goal: string): Number {
+    const index = this.GetIndexOfGoal(goal)
     const toReturn: Number = this.arrayOfGoalValues[index]
     return toReturn
   }
@@ -88,7 +88,7 @@ export class Happener {
         // one of these will be wrong - but we won't use the wrong one :)
         const prop = this.GetIndexOfProp(happening.item)
         const inv = this.GetIndexOfInv(happening.item)
-        const flag = this.GetIndexOfGoal(happening.item)
+        const goal = this.GetIndexOfGoal(happening.item)
         switch (happening.happen) {
           case Happen.InvAppears:
             assert(inv !== -1)
@@ -111,19 +111,19 @@ export class Happener {
             this.callbacks.OnPropVisbilityChange(prop, false, happening.item)
             break
           case Happen.GoalIsDecremented:
-            assert(flag !== -1)
-            this.arrayOfGoalValues[flag] = this.arrayOfGoalValues[flag] - 1
-            this.callbacks.OnGoalValueChange(flag, this.arrayOfGoalValues[flag] - 1, happening.item)
+            assert(goal !== -1)
+            this.arrayOfGoalValues[goal] = this.arrayOfGoalValues[goal] - 1
+            this.callbacks.OnGoalValueChange(goal, this.arrayOfGoalValues[goal] - 1, happening.item)
             break
           case Happen.GoalIsIncremented:
-            assert(flag !== -1)
-            this.arrayOfGoalValues[flag] = this.arrayOfGoalValues[flag] + 1
-            this.callbacks.OnGoalValueChange(flag, this.arrayOfGoalValues[flag] + 1, happening.item)
+            assert(goal !== -1)
+            this.arrayOfGoalValues[goal] = this.arrayOfGoalValues[goal] + 1
+            this.callbacks.OnGoalValueChange(goal, this.arrayOfGoalValues[goal] + 1, happening.item)
             break
           case Happen.GoalIsSet:
-            assert(flag !== -1)
-            this.arrayOfGoalValues[flag] = 1
-            this.callbacks.OnGoalValueChange(flag, 1, happening.item)
+            assert(goal !== -1)
+            this.arrayOfGoalValues[goal] = 1
+            this.callbacks.OnGoalValueChange(goal, 1, happening.item)
             break
         }
       };
@@ -259,13 +259,13 @@ export class Happener {
       }
     }
 
-    const flags = box.GetArrayOfGoals()
+    const goals = box.GetArrayOfGoals()
     const startingGoals = box.GetSetOfStartingGoals()
-    for (const flag of flags) {
-      if (!this.arrayOfGoalNames.includes(flag)) {
+    for (const goal of goals) {
+      if (!this.arrayOfGoalNames.includes(goal)) {
         // new inventories come in as false
-        this.arrayOfGoalNames.push(flag)
-        const hasGoal: boolean = startingGoals.has(flag)
+        this.arrayOfGoalNames.push(goal)
+        const hasGoal: boolean = startingGoals.has(goal)
         this.arrayOfGoalValues.push(hasGoal ? 1 : 0)
       }
     }

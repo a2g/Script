@@ -5,7 +5,7 @@ export class Happening {
   item: string
   happen: Happen
 
-  constructor (play: Happen, item: string) {
+  constructor(play: Happen, item: string) {
     if (item.length === 0) {
       assert(false && 'item needs to be non null')
     }
@@ -27,7 +27,7 @@ export class Happening {
       case Happen.GoalIsDecremented:
       case Happen.GoalIsIncremented:
       case Happen.GoalIsSet:
-        if (!item.startsWith('flag')) { console.log('Mismatch! the item (' + item + ') doesn"t start with "flag"') }
+        if (!item.startsWith('goal')) { console.log('Mismatch! the item (' + item + ') doesn"t start with "goal"') }
         break
     }
   }

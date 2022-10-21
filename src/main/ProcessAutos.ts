@@ -2,7 +2,7 @@ import { Happener } from './Happener.js'
 import { PileOfPieces } from './PileOfPieces.js'
 
 export function ProcessAutos(happener: Happener, solutionPieceMap: PileOfPieces): void {
-  const flags = happener.GetCurrentlyTrueGoals()
+  const goals = happener.GetCurrentlyTrueGoals()
   const invs = happener.GetCurrentVisibleInventory()
   const props = happener.GetCurrentVisibleProps()
 
@@ -18,8 +18,8 @@ export function ProcessAutos(happener: Happener, solutionPieceMap: PileOfPieces)
         if (invs.includes(inputName)) {
           numberSatisified++
         }
-      } else if (inputName.startsWith('flag_')) {
-        if (flags.includes(inputName)) {
+      } else if (inputName.startsWith('goal_')) {
+        if (goals.includes(inputName)) {
           numberSatisified++
         }
       }
@@ -28,8 +28,8 @@ export function ProcessAutos(happener: Happener, solutionPieceMap: PileOfPieces)
       if (piece.output.startsWith('prop_')) {
         console.log('Auto: prop set visible ' + piece.output)
         happener.SetPropVisible(piece.output, true)
-      } else if (piece.output.startsWith('flag_')) {
-        console.log('Auto: flag set to true ' + piece.output)
+      } else if (piece.output.startsWith('goal_')) {
+        console.log('Auto: goal set to true ' + piece.output)
         happener.SetGoalValue(piece.output, 1)
       } else if (piece.output.startsWith('inv_')) {
         console.log('Auto: inv set to visible ' + piece.output)

@@ -136,7 +136,7 @@ export class Piece {
         continue
       }
 
-      // check whether we've found the flag earlier,
+      // check whether we've found the goal earlier,
       // then we will eventually come to process the other entry in goals
       // so we can skip on to the next one..I think...
       //
@@ -152,11 +152,11 @@ export class Piece {
         newLeaf.parent = this
         this.inputs[k] = newLeaf
         // solution.AddLeafForReverseTraversal(path + this.inputHints[k] + "/", newLeaf);
-      } else if (objectToObtain.startsWith('flag_') && matchingPieces.length === 1) {
-        // add the piece with the flag output to the goal map
-        // since matchingPieces[0] has output of "flag_..." (it must be equal to input)
+      } else if (objectToObtain.startsWith('goal_') && matchingPieces.length === 1) {
+        // add the piece with the goal output to the goal map
+        // since matchingPieces[0] has output of "goal_..." (it must be equal to input)
         // and since AddToMap uses output as the key in the map
-        // then the goals map will now have another entry with a key equal to "flag_..."
+        // then the goals map will now have another entry with a key equal to "goal_..."
         // which is what we want.
         //
         // we don't do this anymore, since all pieces are put in root piece map

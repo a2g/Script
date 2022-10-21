@@ -50,11 +50,11 @@ export function SingleBigSwitch (
       const prop5 = Stringify(piece.prop5)
       const prop6 = Stringify(piece.prop6)
       const prop7 = Stringify(piece.prop7)
-      const flag1 = Stringify(piece.flag1)
-      const flag2 = Stringify(piece.flag2)
-      const flag3 = Stringify(piece.flag3)
-      const flag4 = Stringify(piece.flag4)
-      const flag5 = Stringify(piece.flag5)
+      const goal1 = Stringify(piece.goal1)
+      const goal2 = Stringify(piece.goal2)
+      const goal3 = Stringify(piece.goal3)
+      const goal4 = Stringify(piece.goal4)
+      const goal5 = Stringify(piece.goal5)
       const inv1 = Stringify(piece.inv1)
       const inv2 = Stringify(piece.inv2)
       const inv3 = Stringify(piece.inv3)
@@ -65,8 +65,8 @@ export function SingleBigSwitch (
           switch (pieceType) {
             case _.AUTO_GOAL1_SET_BY_GOAL2:
               if (piecesMappedByOutput != null) {
-                const output = flag1
-                const input = flag2
+                const output = goal1
+                const input = goal2
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
@@ -83,7 +83,7 @@ export function SingleBigSwitch (
               break
             case _.AUTO_GOAL1_SET_BY_PROPS:
               if (piecesMappedByOutput != null) {
-                const output = flag1
+                const output = goal1
                 const input1 = prop1
                 const input2 = prop2
                 const input3 = prop3
@@ -111,7 +111,7 @@ export function SingleBigSwitch (
               break
             case _.AUTO_GOAL1_SET_BY_INVS:
               if (piecesMappedByOutput != null) {
-                const output = flag1
+                const output = goal1
                 const input1 = inv1
                 const input2 = inv2
                 const input3 = inv3
@@ -133,12 +133,12 @@ export function SingleBigSwitch (
               break
             case _.GOAL1_SET_BY_LOSING_INV1_WHEN_USED_WITH_PROP1:
               happs.text = `You use the ${inv1} with the ${prop1} and something good happens...`
-              happs.array.push(new Happening(Happen.GoalIsSet, flag1))
+              happs.array.push(new Happening(Happen.GoalIsSet, goal1))
               happs.array.push(new Happening(Happen.InvGoes, inv1))
               happs.array.push(new Happening(Happen.PropStays, prop1))
 
               if (piecesMappedByOutput != null) {
-                const output = flag1
+                const output = goal1
                 const inputA = inv1
                 const inputB = prop1
                 piecesMappedByOutput.AddPiece(
@@ -160,7 +160,7 @@ export function SingleBigSwitch (
               break
             case _.GOAL1_SET_BY_LOSING_INV1_USED_WITH_PROP1_AND_PROPS:
               happs.text = `With everything set up correctly, you use the ${inv1} with the ${prop1} and something good happens...`
-              happs.array.push(new Happening(Happen.GoalIsSet, flag1))
+              happs.array.push(new Happening(Happen.GoalIsSet, goal1))
               happs.array.push(new Happening(Happen.InvGoes, inv1))
               happs.array.push(new Happening(Happen.PropStays, prop1))
               if (prop2.length > 0) {
@@ -170,7 +170,7 @@ export function SingleBigSwitch (
                 happs.array.push(new Happening(Happen.PropStays, prop3))
               }
               if (piecesMappedByOutput != null) {
-                const output = flag1
+                const output = goal1
                 const inputA = inv1
                 const inputB = prop1
                 const inputC = prop2
@@ -199,11 +199,11 @@ export function SingleBigSwitch (
               happs.text = `You use the ${inv1} with the ${inv2} and something good happens...`
               happs.array.push(new Happening(Happen.InvStays, inv1))
               happs.array.push(new Happening(Happen.InvStays, inv2))
-              happs.array.push(new Happening(Happen.GoalIsSet, flag1))
+              happs.array.push(new Happening(Happen.GoalIsSet, goal1))
               if (piecesMappedByOutput != null) {
                 const inputA = inv1
                 const inputB = inv2
-                const output = flag1
+                const output = goal1
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
@@ -226,11 +226,11 @@ export function SingleBigSwitch (
               happs.text = `You use the ${inv1} with the ${prop1} and something good happens...`
               happs.array.push(new Happening(Happen.InvStays, inv1))
               happs.array.push(new Happening(Happen.PropStays, prop1))
-              happs.array.push(new Happening(Happen.GoalIsSet, flag1))
+              happs.array.push(new Happening(Happen.GoalIsSet, goal1))
               if (piecesMappedByOutput != null) {
                 const inputA = inv1
                 const inputB = prop1
-                const output = flag1
+                const output = goal1
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
@@ -252,11 +252,11 @@ export function SingleBigSwitch (
               happs.text = `You use the ${inv1} with the  ${prop1} and something good happens...`
               happs.array.push(new Happening(Happen.InvStays, inv1))
               happs.array.push(new Happening(Happen.PropGoes, prop1))
-              happs.array.push(new Happening(Happen.GoalIsSet, flag1))
+              happs.array.push(new Happening(Happen.GoalIsSet, goal1))
               if (piecesMappedByOutput != null) {
                 const inputA = inv1
                 const inputB = prop1
-                const output = flag1
+                const output = goal1
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
@@ -278,15 +278,15 @@ export function SingleBigSwitch (
               happs.text = `You use the ${inv1} with the  ${prop1} and something good happens...`
               happs.array.push(new Happening(Happen.InvStays, inv1))
               happs.array.push(new Happening(Happen.PropStays, prop1))
-              happs.array.push(new Happening(Happen.GoalIsSet, flag1))
+              happs.array.push(new Happening(Happen.GoalIsSet, goal1))
               if (piecesMappedByOutput != null) {
-                const output = flag1
+                const output = goal1
                 const inputA = inv1
                 const inputB = prop1
-                const inputC = flag2
-                const inputD = flag3
-                const inputE = flag4
-                const inputF = flag5
+                const inputC = goal2
+                const inputD = goal3
+                const inputE = goal4
+                const inputF = goal5
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
@@ -312,11 +312,11 @@ export function SingleBigSwitch (
               happs.text = `You use the ${prop1} with the ${prop2} and something good happens...`
               happs.array.push(new Happening(Happen.PropStays, prop1))
               happs.array.push(new Happening(Happen.PropStays, prop2))
-              happs.array.push(new Happening(Happen.GoalIsSet, flag1))
+              happs.array.push(new Happening(Happen.GoalIsSet, goal1))
               if (piecesMappedByOutput != null) {
                 const inputA = prop1
                 const inputB = prop2
-                const output = flag1
+                const output = goal1
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
@@ -419,13 +419,13 @@ export function SingleBigSwitch (
               }
               break
             case _.GIVE_INV1_TO_PROP1_SETS_GOAL1:
-              happs.text = `Goal is set ${flag1}`
+              happs.text = `Goal is set ${goal1}`
               happs.array.push(new Happening(Happen.InvGoes, inv1))
-              happs.array.push(new Happening(Happen.GoalIsSet, flag1))
+              happs.array.push(new Happening(Happen.GoalIsSet, goal1))
               if (piecesMappedByOutput != null) {
                 const inputA = inv1
                 const inputB = prop1
-                const output = flag1
+                const output = goal1
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
@@ -822,7 +822,7 @@ export function SingleBigSwitch (
                 // always constructs the solution as "grab inputA"
                 // so it needs to be input A
                 const inputA = prop2
-                const inputB = flag1
+                const inputB = goal1
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
@@ -1115,7 +1115,7 @@ export function SingleBigSwitch (
               if (piecesMappedByOutput != null) {
                 const output = inv1
                 const inputA = prop1
-                const inputB = flag1
+                const inputB = goal1
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
@@ -1140,7 +1140,7 @@ export function SingleBigSwitch (
               if (piecesMappedByOutput != null) {
                 const output = inv1
                 const inputA = prop1
-                const inputB = flag1
+                const inputB = goal1
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
@@ -1181,12 +1181,12 @@ export function SingleBigSwitch (
               }
               break
             case _.TALK_TO_PROP1_WITH_GOAL1_GETS_INV1:
-              happs.text = `You talked with flag and now have a ${inv1}`
+              happs.text = `You talked with goal and now have a ${inv1}`
               happs.array.push(new Happening(Happen.InvAppears, inv1))
               if (piecesMappedByOutput != null) {
                 const output = inv1
                 const inputA = prop1
-                const inputB = flag1
+                const inputB = goal1
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
