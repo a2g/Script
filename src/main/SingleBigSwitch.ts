@@ -16,7 +16,7 @@ import hjson from 'hjson'
  */
 let globalId = 1
 
-export function SingleBigSwitch (
+export function SingleBigSwitch(
   filename: string,
   objects: MixedObjectsAndVerb, isGoalRetrieval: boolean, piecesMappedByOutput: PileOrRootPieceMap | null
 ): Happenings | null {
@@ -422,6 +422,7 @@ export function SingleBigSwitch (
             case _.GIVE_INV1_TO_PROP1_SETS_GOAL1:
               happs.text = `Goal is set ${goal1}`
               happs.array.push(new Happening(Happen.InvGoes, inv1))
+              happs.array.push(new Happening(Happen.PropStays, prop1))
               happs.array.push(new Happening(Happen.GoalIsSet, goal1))
               if (piecesMappedByOutput != null) {
                 const inputA = inv1

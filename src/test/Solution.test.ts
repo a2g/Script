@@ -5,6 +5,7 @@ import { Box } from '../main/Box'
 import { PileOfPieces } from '../main/PileOfPieces'
 import { RootPieceMap } from '../main/RootPieceMap'
 import { Piece } from '../main/Piece'
+import { Solution } from '../main/Solution'
 
 describe('Solution', () => {
   /*
@@ -90,18 +91,19 @@ describe('Solution', () => {
   it('Solution test cloning with High Permutation scene2', () => {
     const box = new Box('./tests/TestHighPermutationSolution.json')
     const startingThings = box.GetMapOfAllStartingThings()
-    const collection = new SolverViaRootPiece(startingThings)
+
     const pile = new PileOfPieces(null)
     box.CopyPiecesFromBoxToPile(pile)
 
     const throwaway = new Set<Piece>()
-    const rootPieceMap = new RootPieceMap(null, throwaway)
-    box.CopyGoalPiecesToGoalMapRecursively(rootPieceMap)
+    const rootMap = new RootPieceMap(null, throwaway)
+    box.CopyGoalPiecesToGoalMapRecursively(rootMap)
+    const solution = new Solution(rootMap, pile, startingThings, null, null)
 
-    collection.InitializeByCopyingThese(rootPieceMap, pile, startingThings)
+    const collection = new SolverViaRootPiece(solution)
     const wasCloneEncountered = collection.SolvePartiallyUntilCloning()
-    expect(wasCloneEncountered).to.equal(false)
 
+    expect(wasCloneEncountered).to.equal(false)
     // having this actually result in a single solution is awesome.
     // we don't want too many or it will be hard to understand
     // that the multiple solutions are the same thing.

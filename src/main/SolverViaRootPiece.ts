@@ -2,39 +2,27 @@ import { Solution } from './Solution.js'
 import { GetDisplayName } from './GetDisplayName.js'
 import { Colors } from './Colors.js'
 import { AddBrackets } from './AddBrackets.js'
-import { PileOfPiecesReadOnly } from './PileOfPiecesReadOnly.js'
-import { RootPieceMap } from './RootPieceMap.js'
 
 export class SolverViaRootPiece {
   private solutions: Solution[]
 
   private readonly mapOfStartingThingsAndWhoCanHaveThem: Map<string, Set<string>>
 
-  constructor (mapOfStartingThingsAndWhoCanHaveThem: Map<string, Set<string>>) {
+  constructor (firstSolution: Solution) {
     this.solutions = []
-    this.mapOfStartingThingsAndWhoCanHaveThem = new Map<string, Set<string>>()
-    mapOfStartingThingsAndWhoCanHaveThem.forEach(
-      (value: Set<string>, key: string) => {
-        const newSet = new Set<string>()
-        for (const item of value) {
-          newSet.add(item)
-        }
-        this.mapOfStartingThingsAndWhoCanHaveThem.set(key, newSet)
-      }
-    )
-  }
+    this.solutions.push(firstSolution)
 
-  InitializeByCopyingThese (
-    rootNodeMap: RootPieceMap,
-    solutionPiecesMappedByInput: PileOfPiecesReadOnly,
-    mapOfStartingThingsAndWhoCanHaveThem: Map<string, Set<string>>
-  ): void {
-    const solution = new Solution(
-      rootNodeMap,
-      solutionPiecesMappedByInput,
-      mapOfStartingThingsAndWhoCanHaveThem
-    )
-    this.solutions.push(solution)
+    this.mapOfStartingThingsAndWhoCanHaveThem = new Map<string, Set<string>>()
+    const map: ReadonlyMap<string, Set<string>> = firstSolution.GetStartingThings()
+    for (const thing of map) {
+      const key = thing[0]
+      const items = thing[1]
+      const newSet = new Set<string>()
+      for (const item of items) {
+        newSet.add(item)
+      }
+      this.mapOfStartingThingsAndWhoCanHaveThem.set(key, newSet)
+    }
   }
 
   IsAnyPiecesUnprocessed (): boolean {
