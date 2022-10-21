@@ -3,6 +3,8 @@ import { expect } from '@open-wc/testing'
 import { SolverViaRootPiece } from '../main/SolverViaRootPiece'
 import { Box } from '../main/Box'
 import { PileOfPieces } from '../main/PileOfPieces'
+import { RootPieceMap } from '../main/RootPieceMap'
+import { Piece } from '../main/Piece'
 
 describe('Solution', () => {
   /*
@@ -14,7 +16,6 @@ describe('Solution', () => {
       const collection = new SolutionCollection();
       const solution = new Solution(new SolutionPiece("", "", objective))
       collection.push(solution, map);
-      solution.FindTheGoalWinAndPutItInRootPieceMap()
       const wasCloneEncountered = collection.SolvePartiallyUntilCloning();
 
       assert.strictEqual(false, wasCloneEncountered);
@@ -34,7 +35,6 @@ describe('Solution', () => {
       const collection = new SolutionCollection();
       const solution = new Solution(new SolutionPiece("", "", objective), map)
       collection.push(solution);
-      solution.FindTheGoalWinAndPutItInRootPieceMap()
       // process the rest of the Pieces
       do {
           collection.SolvePartiallyUntilCloning();
@@ -65,7 +65,6 @@ describe('Solution', () => {
       const collection = new SolutionCollection();
       const solution = new Solution(new SolutionPiece("", "", objective), map);
       collection.push(solution);
-      solution.FindTheGoalWinAndPutItInRootPieceMap()
       // process the rest of the Pieces
       do {
           collection.SolvePartiallyUntilCloning();
@@ -94,7 +93,12 @@ describe('Solution', () => {
     const collection = new SolverViaRootPiece(startingThings)
     const pile = new PileOfPieces(null)
     box.CopyPiecesFromBoxToPile(pile)
-    collection.InitializeByCopyingThese(pile, startingThings)
+
+    const throwaway = new Set<Piece>()
+    const rootPieceMap = new RootPieceMap(null, throwaway)
+    box.CopyGoalPiecesToGoalMapRecursively(rootPieceMap)
+
+    collection.InitializeByCopyingThese(rootPieceMap, pile, startingThings)
     const wasCloneEncountered = collection.SolvePartiallyUntilCloning()
     expect(wasCloneEncountered).to.equal(false)
 

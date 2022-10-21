@@ -3,6 +3,7 @@ import { GetDisplayName } from './GetDisplayName.js'
 import { Colors } from './Colors.js'
 import { AddBrackets } from './AddBrackets.js'
 import { PileOfPiecesReadOnly } from './PileOfPiecesReadOnly.js'
+import { RootPieceMap } from './RootPieceMap.js'
 
 export class SolverViaRootPiece {
   private solutions: Solution[]
@@ -24,17 +25,16 @@ export class SolverViaRootPiece {
   }
 
   InitializeByCopyingThese (
+    rootNodeMap: RootPieceMap,
     solutionPiecesMappedByInput: PileOfPiecesReadOnly,
     mapOfStartingThingsAndWhoCanHaveThem: Map<string, Set<string>>
   ): void {
     const solution = new Solution(
-      null,
+      rootNodeMap,
       solutionPiecesMappedByInput,
       mapOfStartingThingsAndWhoCanHaveThem
     )
     this.solutions.push(solution)
-
-    solution.FindTheGoalWinAndPutItInRootPieceMap() // <-- do I need to call this?
   }
 
   IsAnyPiecesUnprocessed (): boolean {
