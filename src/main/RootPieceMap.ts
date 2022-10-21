@@ -32,10 +32,9 @@ export class RootPieceMap implements PileOrRootPieceMap {
   }
 
   GetRootPieceByNameNoThrow (goalToObtain: string): Piece | null {
-    for (let i = 0; i < this.roots.length; i++) {
-      const root = this.roots[i].inputHints[0]
-      if (root === goalToObtain) {
-        return this.roots[i].inputs[0]
+    for (const root of this.roots) {
+      if (root.output === goalToObtain) {
+        return root
       }
     }
     return null
@@ -43,15 +42,16 @@ export class RootPieceMap implements PileOrRootPieceMap {
 
   GetRootPieceByName (name: string): Piece {
     const root = this.GetRootPieceByNameNoThrow(name)
-    if (typeof root === 'undefined' || root === null) { throw new Error("rootPiece of that name doesn't exist") }
+    if (typeof root === 'undefined' || root === null) {
+      throw new Error("rootPiece of that name doesn't exist " + name)
+    }
     return root
   }
 
   CalculateListOfKeys (): string[] {
     const array: string[] = []
-    for (let i = 0; i < this.roots.length; i++) {
-      const root = this.roots[i].inputHints[0]
-      array.push(root)
+    for (const root of this.roots) {
+      array.push(root.output)
     }
     return array
   }

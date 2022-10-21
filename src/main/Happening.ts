@@ -5,7 +5,7 @@ export class Happening {
   item: string
   happen: Happen
 
-  constructor(play: Happen, item: string) {
+  constructor (play: Happen, item: string) {
     if (item.length === 0) {
       assert(false && 'item needs to be non null')
     }
@@ -21,7 +21,7 @@ export class Happening {
       case Happen.PropStays:
       case Happen.PropAppears:
         if (!item.startsWith('prop')) {
-          console.log('Mismatch! the item (' + item + ') doesn"t start with "prop"')
+          console.log('Mismatch! the item (' + item + ') does not start with "prop"')
         }
         break
       case Happen.GoalIsDecremented:

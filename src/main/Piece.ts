@@ -16,7 +16,7 @@ export class Piece {
   characterRestrictions: string[]
   happenings: Happenings | null
 
-  constructor(
+  constructor (
     id: number,
     conjoint: number,
     output: string,
@@ -73,7 +73,7 @@ export class Piece {
     }
   }
 
-  ClonePieceAndEntireTree(incompletePieceSet: Set<Piece>): Piece {
+  ClonePieceAndEntireTree (incompletePieceSet: Set<Piece>): Piece {
     const clone = new Piece(0, 0, this.output, '')
     clone.id = this.id
     clone.conjoint = this.conjoint
@@ -108,7 +108,7 @@ export class Piece {
     return clone
   }
 
-  FindAnyPieceMatchingIdRecursively(id: number): Piece | null {
+  FindAnyPieceMatchingIdRecursively (id: number): Piece | null {
     if (this.id === id) {
       return this
     }
@@ -119,7 +119,7 @@ export class Piece {
     return null
   }
 
-  private InternalLoopOfProcessUntilCloning(solution: Solution, solutions: SolverViaRootPiece): boolean {
+  private InternalLoopOfProcessUntilCloning (solution: Solution, solutions: SolverViaRootPiece): boolean {
     for (let k = 0; k < this.inputs.length; k++) { // classic forloop useful because shared index on cloned piece
       // without this following line, any clones will attempt to reclone themselves
       // and Solution.ProcessUntilCompletion will continue forever
@@ -238,7 +238,7 @@ export class Piece {
     return false
   }
 
-  ProcessUntilCloning(solution: Solution, solutions: SolverViaRootPiece, path: string): boolean {
+  ProcessUntilCloning (solution: Solution, solutions: SolverViaRootPiece, path: string): boolean {
     path += this.output + '/'
     if (this.type === SpecialTypes.VerifiedLeaf) { return false }// false just means keep processing.
 
@@ -278,23 +278,23 @@ export class Piece {
     return false
   }
 
-  SetParent(parent: Piece | null): void {
+  SetParent (parent: Piece | null): void {
     this.parent = parent
   }
 
-  GetParent(): Piece | null {
+  GetParent (): Piece | null {
     return this.parent
   }
 
-  getRestrictions(): string[] {
+  getRestrictions (): string[] {
     return this.characterRestrictions
   }
 
-  public GetOutput(): string {
+  public GetOutput (): string {
     return this.output
   }
 
-  UpdateMapWithOutcomes(visiblePieces: Map<string, Set<string>>): void {
+  UpdateMapWithOutcomes (visiblePieces: Map<string, Set<string>>): void {
     if (this.happenings != null) {
       for (const happening of this.happenings.array) {
         switch (happening.happen) {
