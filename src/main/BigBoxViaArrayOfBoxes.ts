@@ -25,7 +25,7 @@ export class BigBoxViaArrayOfBoxes implements BoxReadOnly {
   readonly originalBoxes: BoxReadOnlyWithFileMethods[]
   readonly directSubBoxesMappedByKeyPiece: Map<string, BoxReadOnlyWithFileMethods>
 
-  constructor(arrayOfBoxes: BoxReadOnlyWithFileMethods[]) {
+  constructor (arrayOfBoxes: BoxReadOnlyWithFileMethods[]) {
     // we keep the original boxes, because we need to call
     // Big Switch on them numerous times
     this.originalBoxes = arrayOfBoxes
@@ -71,35 +71,35 @@ export class BigBoxViaArrayOfBoxes implements BoxReadOnly {
     this.allChars = Array.from(setChars.values())
   }
 
-  GetArrayOfProps(): string[] {
+  GetArrayOfProps (): string[] {
     return this.allProps
   }
 
-  GetArrayOfInvs(): string[] {
+  GetArrayOfInvs (): string[] {
     return this.allInvs
   }
 
-  GetArrayOfGoals(): string[] {
+  GetArrayOfGoals (): string[] {
     return this.allGoals
   }
 
-  static GetArrayOfSingleObjectVerbs(): string[] {
+  static GetArrayOfSingleObjectVerbs (): string[] {
     return ['grab', 'toggle']
   }
 
-  GetArrayOfSingleObjectVerbs(): string[] {
+  GetArrayOfSingleObjectVerbs (): string[] {
     return this.GetArrayOfSingleObjectVerbs()
   }
 
-  static GetArrayOfInitialStatesOfSingleObjectVerbs(): boolean[] {
+  static GetArrayOfInitialStatesOfSingleObjectVerbs (): boolean[] {
     return [true, true]
   }
 
-  GetArrayOfInitialStatesOfSingleObjectVerbs(): boolean[] {
+  GetArrayOfInitialStatesOfSingleObjectVerbs (): boolean[] {
     return this.GetArrayOfInitialStatesOfSingleObjectVerbs()
   }
 
-  GetArrayOfInitialStatesOfGoals(): number[] {
+  GetArrayOfInitialStatesOfGoals (): number[] {
     const array: number[] = []
     for (const goal of this.allGoals) {
       array.push(goal.length > 0 ? 0 : 0) // I used value.length>0 to get rid of the unused variable warnin
@@ -107,23 +107,23 @@ export class BigBoxViaArrayOfBoxes implements BoxReadOnly {
     return array
   }
 
-  GetSetOfStartingGoals(): Set<string> {
+  GetSetOfStartingGoals (): Set<string> {
     return this.startingGoalSet
   }
 
-  GetSetOfStartingProps(): Set<string> {
+  GetSetOfStartingProps (): Set<string> {
     return this.startingPropSet
   }
 
-  GetSetOfStartingInvs(): Set<string> {
+  GetSetOfStartingInvs (): Set<string> {
     return this.startingInvSet
   }
 
-  GetMapOfAllStartingThings(): Map<string, Set<string>> {
+  GetMapOfAllStartingThings (): Map<string, Set<string>> {
     return this.mapOfStartingThingsWithChars
   }
 
-  GetStartingThingsForCharacter(charName: string): Set<string> {
+  GetStartingThingsForCharacter (charName: string): Set<string> {
     const startingThingSet = new Set<string>()
     this.mapOfStartingThingsWithChars.forEach(
       (value: Set<string>, thing: string) => {
@@ -139,7 +139,7 @@ export class BigBoxViaArrayOfBoxes implements BoxReadOnly {
     return startingThingSet
   }
 
-  GetArrayOfInitialStatesOfProps(): boolean[] {
+  GetArrayOfInitialStatesOfProps (): boolean[] {
     // construct array of booleans in exact same order as ArrayOfProps - so they can be correlated
     const startingSet = this.GetSetOfStartingProps()
     const visibilities: boolean[] = []
@@ -151,7 +151,7 @@ export class BigBoxViaArrayOfBoxes implements BoxReadOnly {
     return visibilities
   }
 
-  GetArrayOfInitialStatesOfInvs(): boolean[] {
+  GetArrayOfInitialStatesOfInvs (): boolean[] {
     // construct array of booleans in exact same order as ArrayOfProps - so they can be correlated
     const startingSet = this.GetSetOfStartingInvs()
     const visibilities: boolean[] = []
@@ -163,11 +163,11 @@ export class BigBoxViaArrayOfBoxes implements BoxReadOnly {
     return visibilities
   }
 
-  GetArrayOfCharacters(): string[] {
+  GetArrayOfCharacters (): string[] {
     return this.allChars
   }
 
-  CopyPiecesFromBoxToPile(pile: PileOfPieces): void {
+  CopyPiecesFromBoxToPile (pile: PileOfPieces): void {
     for (const box of this.originalBoxes) {
       const notUsed = new MixedObjectsAndVerb(
         Mix.ErrorVerbNotIdentified,
@@ -180,7 +180,7 @@ export class BigBoxViaArrayOfBoxes implements BoxReadOnly {
     }
   }
 
-  CopyGoalPiecesToGoalMapRecursively(map: RootPieceMap): void {
+  CopyGoalPiecesToGoalMapRecursively (map: RootPieceMap): void {
     for (const box of this.originalBoxes) {
       const notUsed = new MixedObjectsAndVerb(
         Mix.ErrorVerbNotIdentified,
@@ -193,7 +193,7 @@ export class BigBoxViaArrayOfBoxes implements BoxReadOnly {
     }
   }
 
-  FindHappeningsIfAny(command: MixedObjectsAndVerb): Happenings | null {
+  FindHappeningsIfAny (command: MixedObjectsAndVerb): Happenings | null {
     for (const box of this.originalBoxes) {
       const result = SingleBigSwitch(
         box.GetFilename(),
@@ -206,7 +206,7 @@ export class BigBoxViaArrayOfBoxes implements BoxReadOnly {
     return null
   }
 
-  GetMapOfSubBoxes(): Map<string, BoxReadOnlyWithFileMethods> {
+  GetMapOfSubBoxes (): Map<string, BoxReadOnlyWithFileMethods> {
     return this.directSubBoxesMappedByKeyPiece
   }
 }
