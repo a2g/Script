@@ -16,7 +16,7 @@ import hjson from 'hjson'
  */
 let globalId = 1
 
-export function SingleBigSwitch(
+export function SingleBigSwitch (
   filename: string,
   objects: MixedObjectsAndVerb, isGoalRetrieval: boolean, piecesMappedByOutput: PileOrRootPieceMap | null
 ): Happenings | null {
@@ -335,6 +335,32 @@ export function SingleBigSwitch(
                 return happs
               }
               break
+            case _.GOAL1_SET_WHEN_GIVE_INV1_TO_PROP1:
+              happs.text = `Goal is set ${goal1}`
+              happs.array.push(new Happening(Happen.InvGoes, inv1))
+              happs.array.push(new Happening(Happen.PropStays, prop1))
+              happs.array.push(new Happening(Happen.GoalIsSet, goal1))
+              if (piecesMappedByOutput != null) {
+                const inputA = inv1
+                const inputB = prop1
+                const output = goal1
+                piecesMappedByOutput.AddPiece(
+                  new Piece(
+                    id1,
+                    id2,
+                    output,
+                    pieceType,
+                    count,
+                    happs,
+                    restrictions,
+                    inputA,
+                    inputB
+                  )
+                )
+              } else if (objects.Match('Give', inv1, prop1)) {
+                return happs
+              }
+              break
           }
         }
       } else {
@@ -402,32 +428,6 @@ export function SingleBigSwitch(
                 const inputA = inv1
                 const inputB = prop1
                 const output = inv2
-                piecesMappedByOutput.AddPiece(
-                  new Piece(
-                    id1,
-                    id2,
-                    output,
-                    pieceType,
-                    count,
-                    happs,
-                    restrictions,
-                    inputA,
-                    inputB
-                  )
-                )
-              } else if (objects.Match('Give', inv1, prop1)) {
-                return happs
-              }
-              break
-            case _.GIVE_INV1_TO_PROP1_SETS_GOAL1:
-              happs.text = `Goal is set ${goal1}`
-              happs.array.push(new Happening(Happen.InvGoes, inv1))
-              happs.array.push(new Happening(Happen.PropStays, prop1))
-              happs.array.push(new Happening(Happen.GoalIsSet, goal1))
-              if (piecesMappedByOutput != null) {
-                const inputA = inv1
-                const inputB = prop1
-                const output = goal1
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,

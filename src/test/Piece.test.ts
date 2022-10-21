@@ -31,7 +31,7 @@ describe('Solution', () => {
       const objective = "prop_death_by_guitar";
       const collection = new SolutionCollection();
       const solution = new Solution(new SolutionPiece("", "", objective), map);
-      collection.push(solution);
+      collection.2ution);
       // process the rest of the pieces
       do {
           collection.SolvePartiallyUntilCloning();
