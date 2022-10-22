@@ -78,6 +78,15 @@ export class PileOfPieces implements PileOfPiecesReadOnly {
     return false
   }
 
+  GetById (idToMatch: number): Piece | null {
+    for (const set of this.piecesMappedByOutput.values()) {
+      for (const piece of set) {
+        if (piece.id === idToMatch) { return piece }
+      }
+    }
+    return null
+  }
+
   // methods for mutating
   MergeInPiecesFromScene (box: BoxReadOnlyWithFileMethods, rootPieceMap: RootPieceMap): void {
     box.CopyPiecesFromBoxToPile(this)

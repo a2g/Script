@@ -213,7 +213,7 @@ export class Solution {
     return this.restrictionsEncounteredDuringSolving
   }
 
-  GetRepoOfRemainingPieces (): PileOfPieces {
+  GetPile (): PileOfPieces {
     // we already remove pieces from this when we use them up
     // so returning the current piece map is ok
     return this.remainingPiecesRepo
@@ -244,6 +244,7 @@ export class Solution {
   FindPieceWithSomeInputForConjointToAttachTo (
     theConjoint: Piece | null
   ): Piece | null {
+    // we go through every piece, and using the conjoint output
     for (const rootPiece of this.rootPieces.GetValues()) {
       const piece = this.FindFirstAttachmentLeafForConjointRecursively(
         theConjoint,
@@ -291,7 +292,7 @@ export class Solution {
     return null
   }
 
-  public GetRootPieceMap (): RootPieceMap {
+  public GetRootMap (): RootPieceMap {
     return this.rootPieces
   }
 
