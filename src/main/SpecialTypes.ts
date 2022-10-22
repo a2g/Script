@@ -1,5 +1,4 @@
 
 export enum SpecialTypes {
-  VerifiedLeaf = 'VerifiedLeaf',
-  ConjointStub = 'ConjointStub'
+  VerifiedLeaf = 'VerifiedLeaf'
 }

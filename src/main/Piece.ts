@@ -140,13 +140,12 @@ export class Piece {
       // then we will eventually come to process the other entry in goals
       // so we can skip on to the next one..I think...
       //
-      if (solution.GetRootMap().Has(objectToObtain)) {
+      if (solution.GetRootPieceMap().Has(objectToObtain)) {
         continue
       }
 
       // This is where we get all the pieces that fit
       // and if there is more than one, then we clone
-      // const pile = solution.GetPile()
       const matchingPieces = solution.GetPiecesThatOutputObject(objectToObtain)
       if ((matchingPieces === undefined) || matchingPieces.length === 0) {
         const newLeaf = new Piece(0, 0, this.inputHints[k], SpecialTypes.VerifiedLeaf)
@@ -161,7 +160,7 @@ export class Piece {
         // which is what we want.
         //
         // we don't do this anymore, since all pieces are put in root piece map
-        // solution.GetRootMap().AddRootPiece(matchingPieces[0])
+        // solution.GetRootPieceMap().AddRootPiece(matchingPieces[0])
         solution.SetPieceIncomplete(matchingPieces[0])
       } else if (matchingPieces.length > 0) {
         // In our array the currentSolution, is at index zero
@@ -190,7 +189,7 @@ export class Piece {
 
           // rediscover the current piece in theSolution - again because we might be cloned
           let thePiece = null
-          for (const rootPiece of theSolution.GetRootMap().GetValues()) {
+          for (const rootPiece of theSolution.GetRootPieceMap().GetValues()) {
             thePiece = rootPiece.FindAnyPieceMatchingIdRecursively(this.id)
             if (thePiece != null) {
               break
@@ -205,38 +204,28 @@ export class Piece {
             theSolution.SetPieceIncomplete(theMatchingPiece)
             theSolution.AddRestrictions(theMatchingPiece.getRestrictions())
 
-            // conjoint processing
-            if (thePiece.conjoint > 0) {
-              const theConjointPiece = theSolution.GetPile().GetById(thePiece.conjoint)
+            /* if (thePiece.conjoint > 0) {
+              const theConjointPiece = theSolution.FindAnyPieceMatchingIdRecursively(this.id)
               if (theConjointPiece != null) {
-                if (theConjointPiece.HasInputsThatAreASubsetOf(thePiece)) {
-                  for (let i = 0; i < theConjointPiece.inputs.length; i++) {
-                    const inputHintToStub = theConjointPiece.inputHints[i]
-                    theConjointPiece.inputs[i] = new Piece(0, 0, inputHintToStub, SpecialTypes.ConjointStub)
-                  }
-
-                  const theLeafToAttachTo = theSolution.FindPieceWithSomeInputForConjointToAttachTo(theConjointPiece)
-                  if (theLeafToAttachTo != null) {
-                    for (let j = 0; j < theLeafToAttachTo.inputHints.length; j++) {
-                      if (theLeafToAttachTo.inputHints[j] === theConjointPiece.output) {
-                        theSolution.RemovePiece(theConjointPiece)
-                        theSolution.SetPieceIncomplete(theConjointPiece)
-                        theSolution.AddRestrictions(theConjointPiece.getRestrictions())
-                        theLeafToAttachTo.inputs[j] = theConjointPiece
-                        theConjointPiece.parent = theLeafToAttachTo
-                      }
+                const theLeafToAttachTo = theSolution.FindPieceWithSomeInputForConjointToAttachTo(theConjointPiece)
+                if (theLeafToAttachTo != null) {
+                  for (let j = 0; j < theLeafToAttachTo.inputHints.length; j++) {
+                    if (theLeafToAttachTo.inputHints[j] === theConjointPiece.output) {
+                      theSolution.RemovePiece(theConjointPiece)
+                      theSolution.SetPieceIncomplete(theConjointPiece)
+                      theSolution.AddRestrictions(theConjointPiece.getRestrictions())
+                      theLeafToAttachTo.inputs[j] = theConjointPiece
+                      theConjointPiece.parent = theLeafToAttachTo
                     }
-                  } else {
-                    console.log(`We are cloning wrong! Failed to find attachment point this: ${this.id} conjoint: ${thePiece.conjoint}`)
-                    theSolution.FindAnyPieceMatchingIdRecursively(this.id)
                   }
                 } else {
-                  console.log(`We found the conjoint, buts its inputs weren't a subset ${this.id} conjoint: ${thePiece.conjoint}`)
+                  console.log('theConjoinPiece is null - so we are cloning wrong')
+                  theSolution.FindAnyPieceMatchingIdRecursively(this.id)
                 }
               } else {
-                console.log(`We are cloning wrong! Failed to find conjoin piece with id of this ${this.id} conjoint: ${thePiece.conjoint}`)
+                console.log('theConjoinPiece is null - so we are cloning wrong')
               }
-            }
+            } */
           } else {
             console.log('piece is null - so we are cloning wrong')
           }
@@ -322,15 +311,5 @@ export class Piece {
         }
       }
     }
-  }
-
-  HasInputsThatAreASubsetOf (large: Piece): boolean {
-    for (const input of this.inputHints) {
-      const whereInputsMatch = (inputB: string): boolean => inputB === input
-      if (large.inputHints.findIndex(whereInputsMatch) === -1) {
-        return false
-      }
-    }
-    return true// if we got here then all inputHints in this were found in large
   }
 }

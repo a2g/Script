@@ -109,7 +109,7 @@ describe('Solution', () => {
     // that the multiple solutions are the same thing.
     expect(collection.GetSolutions().length).to.equal(1)
     const solution0 = collection.GetSolutions()[0]
-    expect(solution0.GetRootMap().GenerateMapOfLeaves().size).to.equal(27)
+    expect(solution0.GetRootPieceMap().GenerateMapOfLeaves().size).to.equal(27)
     // expect(solution0.GetIncompletePieces().size).to.equal(0)
 
     // process the rest of the Pieces
@@ -118,7 +118,7 @@ describe('Solution', () => {
     } while (collection.IsAnyPiecesUnprocessed())
 
     {
-      const leaves = solution0.GetRootMap().GenerateMapOfLeaves()
+      const leaves = solution0.GetRootPieceMap().GenerateMapOfLeaves()
       expect(leaves.size).to.equal(27)
       expect(leaves).has('/root comment 1/goal_win/inv_final_catalyst/')
       /*
