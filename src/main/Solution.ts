@@ -167,18 +167,7 @@ export class Solution {
       const blah: Piece[] = []
       for (const item of result) {
         if (item.count >= 1) {
-          const twin = item.conjoint
-
-          // I see what I've done here.
-          // In the case of conjoint then there would be two items
-          //  returned that are actually joined.
-          // in this case, we HACK it to return only one. This needs to change.
-          // TODO: fix the above
-          if (twin === 0) {
-            blah.push(item)
-          } else if (this.remainingPiecesRepo.ContainsId(twin)) {
-            blah.push(item)
-          }
+          blah.push(item)
         }
       }
       return blah
@@ -239,46 +228,6 @@ export class Solution {
     for (const nameSegment of this.solutionNameSegments) {
       virginSolution.PushNameSegment(nameSegment)
     }
-  }
-
-  FindPieceWithSomeInputForConjointToAttachTo (
-    theConjoint: Piece | null
-  ): Piece | null {
-    for (const rootPiece of this.rootPieces.GetValues()) {
-      const piece = this.FindFirstAttachmentLeafForConjointRecursively(
-        theConjoint,
-        rootPiece
-      )
-      if (piece !== null) {
-        return piece
-      }
-    }
-    return null
-  }
-
-  FindFirstAttachmentLeafForConjointRecursively (
-    theConjoint: Piece | null,
-    pieceToSearch: Piece | null
-  ): Piece | null {
-    // isn't kept up to date, so we traverse, depth first.
-    if (theConjoint != null && pieceToSearch != null) {
-      for (let i = 0; i < pieceToSearch.inputs.length; i += 1) {
-        // if its non null, then we can't attach the conjoint there...but we can recurse
-        if (pieceToSearch.inputs[i] != null) {
-          // check if we can attach the conjoint there
-          if (pieceToSearch.inputHints[i] === theConjoint.output) {
-            return pieceToSearch
-          }
-          // else search inside
-          return this.FindFirstAttachmentLeafForConjointRecursively(
-            theConjoint,
-            pieceToSearch.inputs[i]
-          )
-        }
-      }
-    }
-
-    return null
   }
 
   FindAnyPieceMatchingIdRecursively (id: number): Piece | null {

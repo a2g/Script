@@ -6,7 +6,6 @@ import { Happen } from './Happen'
 
 export class Piece {
   id: number
-  conjoint: number
   type: string
   output: string
   inputs: Array<Piece | null>
@@ -18,7 +17,6 @@ export class Piece {
 
   constructor (
     id: number,
-    conjoint: number,
     output: string,
     type = 'undefined',
     count = 1, // put it here so all the tests don't need to specify it.
@@ -32,9 +30,7 @@ export class Piece {
     inputF = 'undefined' // no statics in typescript, so this seemed preferable than global let Null = "Null";
   ) {
     this.id = id
-    this.conjoint = conjoint
     this.parent = null
-
     this.count = count
     this.output = output
     this.type = type
@@ -74,9 +70,8 @@ export class Piece {
   }
 
   ClonePieceAndEntireTree (incompletePieceSet: Set<Piece>): Piece {
-    const clone = new Piece(0, 0, this.output, '')
+    const clone = new Piece(0, this.output, '')
     clone.id = this.id
-    clone.conjoint = this.conjoint
     clone.type = this.type
     clone.count = this.count
     clone.output = this.output
@@ -129,7 +124,7 @@ export class Piece {
       // otherwise Toggle pieces will toggle until the count is zero.
       const objectToObtain = this.inputHints[k]
       if (solution.GetStartingThings().has(objectToObtain)) {
-        const newLeaf = new Piece(0, 0, objectToObtain, SpecialTypes.VerifiedLeaf)
+        const newLeaf = new Piece(0, objectToObtain, SpecialTypes.VerifiedLeaf)
         newLeaf.parent = this
         this.inputs[k] = newLeaf
         // solution.AddLeafForReverseTraversal(path + this.inputHints[k] + "/", newLeaf);
@@ -148,7 +143,7 @@ export class Piece {
       // and if there is more than one, then we clone
       const matchingPieces = solution.GetPiecesThatOutputObject(objectToObtain)
       if ((matchingPieces === undefined) || matchingPieces.length === 0) {
-        const newLeaf = new Piece(0, 0, this.inputHints[k], SpecialTypes.VerifiedLeaf)
+        const newLeaf = new Piece(0, this.inputHints[k], SpecialTypes.VerifiedLeaf)
         newLeaf.parent = this
         this.inputs[k] = newLeaf
         // solution.AddLeafForReverseTraversal(path + this.inputHints[k] + "/", newLeaf);
@@ -203,29 +198,6 @@ export class Piece {
             // all gates are incomplete when they are *just* added
             theSolution.SetPieceIncomplete(theMatchingPiece)
             theSolution.AddRestrictions(theMatchingPiece.getRestrictions())
-
-            /* if (thePiece.conjoint > 0) {
-              const theConjointPiece = theSolution.FindAnyPieceMatchingIdRecursively(this.id)
-              if (theConjointPiece != null) {
-                const theLeafToAttachTo = theSolution.FindPieceWithSomeInputForConjointToAttachTo(theConjointPiece)
-                if (theLeafToAttachTo != null) {
-                  for (let j = 0; j < theLeafToAttachTo.inputHints.length; j++) {
-                    if (theLeafToAttachTo.inputHints[j] === theConjointPiece.output) {
-                      theSolution.RemovePiece(theConjointPiece)
-                      theSolution.SetPieceIncomplete(theConjointPiece)
-                      theSolution.AddRestrictions(theConjointPiece.getRestrictions())
-                      theLeafToAttachTo.inputs[j] = theConjointPiece
-                      theConjointPiece.parent = theLeafToAttachTo
-                    }
-                  }
-                } else {
-                  console.log('theConjoinPiece is null - so we are cloning wrong')
-                  theSolution.FindAnyPieceMatchingIdRecursively(this.id)
-                }
-              } else {
-                console.log('theConjoinPiece is null - so we are cloning wrong')
-              }
-            } */
           } else {
             console.log('piece is null - so we are cloning wrong')
           }

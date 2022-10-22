@@ -108,4 +108,13 @@ export class PileOfPieces implements PileOfPiecesReadOnly {
       }
     }
   }
+
+  GetById (idToMatch: number): Piece | null {
+    for (const set of this.piecesMappedByOutput.values()) {
+      for (const piece of set) {
+        if (piece.id === idToMatch) { return piece }
+      }
+    }
+    return null
+  }
 }

@@ -57,21 +57,6 @@ export class Box implements BoxReadOnlyWithFileMethods {
       setProps.add(Stringify(gate.prop5))
       setProps.add(Stringify(gate.prop6))
       setProps.add(Stringify(gate.prop7))
-
-      if (gate.conjoint != null) {
-        setInvs.add(Stringify(gate.conjoint.inv1))
-        setInvs.add(Stringify(gate.conjoint.inv2))
-        setInvs.add(Stringify(gate.conjoint.inv3))
-        setGoals.add(Stringify(gate.conjoint.goal1))
-        setGoals.add(Stringify(gate.conjoint.goal2))
-        setProps.add(Stringify(gate.conjoint.prop1))
-        setProps.add(Stringify(gate.conjoint.prop2))
-        setProps.add(Stringify(gate.conjoint.prop3))
-        setProps.add(Stringify(gate.conjoint.prop4))
-        setProps.add(Stringify(gate.conjoint.prop5))
-        setProps.add(Stringify(gate.conjoint.prop6))
-        setProps.add(Stringify(gate.conjoint.prop7))
-      }
     }
 
     // starting things is optional in the json

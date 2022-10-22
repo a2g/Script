@@ -88,11 +88,11 @@ describe('Solution', () => {
        A test could be added for this too.  */
 
   it('Test cloning with High Permutation scene2', () => {
-    const root = new Piece(0, 0, 'root', '', 1, null, null, 'A')
-    const segA = new Piece(0, 0, 'A', '', 1, null, null, 'B')
-    const segB = new Piece(0, 0, 'B', '', 1, null, null, 'C')
-    const segC = new Piece(0, 0, 'C', '', 1, null, null, 'D')
-    const segD = new Piece(0, 0, 'D', SpecialTypes.VerifiedLeaf, 1, null, null, 'E')
+    const root = new Piece(0, 'root', '', 1, null, null, 'A')
+    const segA = new Piece(0, 'A', '', 1, null, null, 'B')
+    const segB = new Piece(0, 'B', '', 1, null, null, 'C')
+    const segC = new Piece(0, 'C', '', 1, null, null, 'D')
+    const segD = new Piece(0, 'D', SpecialTypes.VerifiedLeaf, 1, null, null, 'E')
     root.inputs.push(segA)
     segA.inputs.push(segB)
     segB.inputs.push(segC)

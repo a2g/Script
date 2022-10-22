@@ -8,7 +8,7 @@ describe('GenerateMapOfLeaves', () => {
   it('EnsureARootPieceThatIsAVerifiedLeafGetsAdded', () => {
     const throwaway = new Set<Piece>()
     const rootPieceMap = new RootPieceMap(null, throwaway)
-    const piece = new Piece(0, 0, 'blah', SpecialTypes.VerifiedLeaf, 1, null, null, 'c', 'c')
+    const piece = new Piece(0, 'blah', SpecialTypes.VerifiedLeaf, 1, null, null, 'c', 'c')
     rootPieceMap.AddPiece(piece)
 
     const result = rootPieceMap.GenerateMapOfLeaves()
