@@ -8,7 +8,7 @@ export class SolverViaRootPiece {
 
   private readonly mapOfStartingThingsAndWhoCanHaveThem: Map<string, Set<string>>
 
-  constructor (firstSolution: Solution) {
+  constructor(firstSolution: Solution) {
     this.solutions = []
     this.solutions.push(firstSolution)
 
@@ -25,7 +25,7 @@ export class SolverViaRootPiece {
     }
   }
 
-  IsAnyPiecesUnprocessed (): boolean {
+  IsAnyPiecesUnprocessed(): boolean {
     let isAnyPiecesUnprocessed = false
     this.solutions.forEach((solution: Solution) => {
       if (solution.IsAnyPiecesIncomplete()) {
@@ -35,7 +35,7 @@ export class SolverViaRootPiece {
     return isAnyPiecesUnprocessed
   }
 
-  SolvePartiallyUntilCloning (): boolean {
+  SolvePartiallyUntilCloning(): boolean {
     let hasACloneJustBeenCreated = false
     this.solutions.forEach((solution: Solution) => {
       if (solution.IsAnyPiecesIncomplete()) {
@@ -49,7 +49,7 @@ export class SolverViaRootPiece {
     return hasACloneJustBeenCreated
   }
 
-  SolveUntilZeroUnprocessedPieces (): void {
+  SolveUntilZeroUnprocessedPieces(): void {
     do {
       this.SolvePartiallyUntilCloning()
     } while (this.IsAnyPiecesUnprocessed())
@@ -59,7 +59,7 @@ export class SolverViaRootPiece {
     )
   }
 
-  ProcessChaptersToEndAndUpdateList (): void {
+  ProcessChaptersToEndAndUpdateList(): void {
     // this needs to be a member function because we are overwriting this.solutions
     const newList = []
     for (const oldSolution of this.solutions) {
@@ -68,7 +68,7 @@ export class SolverViaRootPiece {
     this.solutions = newList
   }
 
-  GenerateSolutionNamesAndPush (
+  GenerateSolutionNamesAndPush(
     mapOfStartingThingsAndWhoHasThem: Map<string, Set<string>>
   ): void {
     for (let i = 0; i < this.solutions.length; i += 1) {
@@ -78,7 +78,7 @@ export class SolverViaRootPiece {
         if (i !== j) {
           const otherSolution = this.solutions[j]
           const otherLeafs = otherSolution
-            .GetRootPieceMap()
+            .GetRootMap()
             .GenerateMapOfLeaves()
           for (const leafPiece of otherLeafs.values()) {
             const otherLeafPieceName = leafPiece.output
@@ -100,7 +100,7 @@ export class SolverViaRootPiece {
       // get the restrictions accumulated from all the solution pieces
       const accumulatedRestrictions = currSolution.GetAccumulatedRestrictions()
 
-      const currLeaves = currSolution.GetRootPieceMap().GenerateMapOfLeaves()
+      const currLeaves = currSolution.GetRootMap().GenerateMapOfLeaves()
       for (const leafPieces of currLeaves.values()) {
         const result = mapForCounting.get(leafPieces.output)
         if (result !== undefined && result < minLeafPieceNameCount) {
@@ -133,7 +133,7 @@ export class SolverViaRootPiece {
     }
   }
 
-  GetSolutions (): Solution[] {
+  GetSolutions(): Solution[] {
     return this.solutions
   }
 }
