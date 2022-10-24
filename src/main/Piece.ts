@@ -139,28 +139,29 @@ export class Piece {
 
       // This is where we get all the pieces that fit
       // and if there is more than one, then we clone
+      const rootMap = solution.GetRootMap()
+      const startingThings = solution.GetStartingThings()
       const matchingPieces = solution.GetPile().GetPiecesThatOutputObject(objectToObtain)
       if ((matchingPieces === undefined) || matchingPieces.length === 0) {
-        this.StubOutInputK(k, SpecialTypes.ZeroMatches)
-        // solution.AddLeafForReverseTraversal(path + this.inputHints[k] + "/", newLeaf);
-      } else if (objectToObtain.startsWith('goal_') && matchingPieces.length === 1) {
-        // add the piece with the goal output to the goal map
-        // since matchingPieces[0] has output of "goal_..." (it must be equal to input)
-        // and since AddToMap uses output as the key in the map
-        // then the goals map will now have another entry with a key equal to "goal_..."
-        // which is what we want.
-        //
-        // we don't do this anymore, since all pieces are put in root piece map
-        // solution.GetRootMap().AddRootPiece(matchingPieces[0])
-        const root = solution.GetRootMap().GetRootPieceByNameNoThrow(objectToObtain)
-        if (root != null) {
+        if (startingThings.has(objectToObtain)) {
+          this.StubOutInputK(k, SpecialTypes.StartingThings)
+        } else if (rootMap.Has(objectToObtain)) {
+          // add the piece with the goal output to the goal map
+          // since matchingPieces[0] has output of "goal_..." (it must be equal to input)
+          // and since AddToMap uses output as the key in the map
+          // then the goals map will now have another entry with a key equal to "goal_..."
+          // which is what we want.
+          //
+          // we don't do this anymore, since all pieces are put in root piece map
+          // solution.GetRootMap().AddRootPiece(matchingPieces[0])
+          const root = solution.GetRootMap().GetRootPieceByName(objectToObtain)
           if (root.isCompleted) {
             this.StubOutInputK(k, SpecialTypes.GoalExistsAndCompleted)
           } else {
-            solution.SetPieceIncompleteIfBlank(matchingPieces[0])
+            this.StubOutInputK(k, SpecialTypes.TempGoalWasntCompleteDontStubThisOut)
           }
         } else {
-          solution.SetPieceIncompleteIfBlank(matchingPieces[0])
+          this.StubOutInputK(k, SpecialTypes.ZeroMatches)
         }
       } else if (matchingPieces.length > 0) {
         // In our array the currentSolution, is at index zero

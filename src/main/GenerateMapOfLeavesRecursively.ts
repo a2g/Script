@@ -8,6 +8,7 @@ export function GenerateMapOfLeavesRecursively (piece: Piece, path: string, map:
       switch (input.type) {
         case SpecialTypes.GoalExistsAndCompleted:
         case SpecialTypes.StartingThings:
+        case SpecialTypes.TempGoalWasntCompleteDontStubThisOut:
         case SpecialTypes.VerifiedLeaf:
         case SpecialTypes.ZeroMatches:
           map.set(path + piece.inputHints[i], input)

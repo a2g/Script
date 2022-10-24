@@ -35,12 +35,12 @@ export class RootPieceMap implements PileOrRootPieceMap {
     return this.roots.get(goalToObtain)
   }
 
-  GetRootPieceByName (name: string): Piece {
+  GetRootPieceByName (name: string): RootPiece {
     const root = this.roots.get(name)
     if (typeof root === 'undefined' || root === null) {
       throw new Error("rootPiece of that name doesn't exist " + name)
     }
-    return root.piece
+    return root
   }
 
   CalculateListOfKeys (): string[] {

@@ -16,7 +16,7 @@ import hjson from 'hjson'
  */
 let globalId = 1
 
-export function SingleBigSwitch (
+export function SingleBigSwitch(
   filename: string,
   objects: MixedObjectsAndVerb, isGoalRetrieval: boolean, piecesMappedByOutput: PileOrRootPieceMap | null
 ): Happenings | null {
@@ -410,7 +410,40 @@ export function SingleBigSwitch (
                 )
               }
               break
-
+            case _.AUTO_PROP1_APPEARS_VIA_GOAL1:
+              if (piecesMappedByOutput != null) {
+                const output = prop1
+                const input1 = goal1
+                piecesMappedByOutput.AddPiece(
+                  new Piece(
+                    id1,
+                    output,
+                    pieceType,
+                    count,
+                    happs,
+                    restrictions,
+                    input1
+                  )
+                )
+              }
+              break
+            case _.AUTO_INV1_OBTAINED_VIA_GOAL1:
+              if (piecesMappedByOutput != null) {
+                const output = inv1
+                const input1 = goal1
+                piecesMappedByOutput.AddPiece(
+                  new Piece(
+                    id1,
+                    output,
+                    pieceType,
+                    count,
+                    happs,
+                    restrictions,
+                    input1
+                  )
+                )
+              }
+              break
             case _.EXAMINE_PROP1_YIELDS_INV1:
               happs.text = `You examine the ${prop1} and find a ${inv1}`
               // ly don't mention what happen to the prop you clicked on.  "\n You now have a" + inv1;
@@ -630,7 +663,6 @@ export function SingleBigSwitch (
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
-
                     output,
                     pieceType,
                     count,

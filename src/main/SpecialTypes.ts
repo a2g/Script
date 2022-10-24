@@ -1,7 +1,8 @@
 
 export enum SpecialTypes {
-  VerifiedLeaf = 'VerifiedLeaf',
   GoalExistsAndCompleted = 'GoalExistsAndCompleted',
   StartingThings = 'StartingThings',
+  TempGoalWasntCompleteDontStubThisOut = 'TempGoalWasntCompleteDontStubThisOut',
+  VerifiedLeaf = 'VerifiedLeaf',
   ZeroMatches = 'ZeroMatches'
 }

@@ -78,8 +78,8 @@ export class Solution {
     const incompletePieces = new Set<Piece>()
     const clonedRootPieceMap =
       this.rootPieces.CloneAllRootPiecesAndTheirTrees(incompletePieces)
-    this.rootPieces.GetRootPieceByName(this.GetFLAG_WIN()).id =
-      this.rootPieces.GetRootPieceByName(this.GetFLAG_WIN()).id // not sure why do this, but looks crucial!
+    this.rootPieces.GetRootPieceByName(this.GetFLAG_WIN()).piece.id =
+      this.rootPieces.GetRootPieceByName(this.GetFLAG_WIN()).piece.id // not sure why do this, but looks crucial!
     const clonedSolution = new Solution(
       clonedRootPieceMap,
       this.remainingPiecesRepo,
@@ -96,6 +96,7 @@ export class Solution {
       switch (piece.type) {
         case SpecialTypes.GoalExistsAndCompleted:
         case SpecialTypes.StartingThings:
+        case SpecialTypes.TempGoalWasntCompleteDontStubThisOut:
         case SpecialTypes.VerifiedLeaf:
         case SpecialTypes.ZeroMatches:
           return
@@ -150,7 +151,7 @@ export class Solution {
   } */
 
   GetGoalWin (): Piece {
-    return this.rootPieces.GetRootPieceByName(this.GetFLAG_WIN())
+    return this.rootPieces.GetRootPieceByName(this.GetFLAG_WIN()).piece
   }
 
   GetFLAG_WIN (): string {

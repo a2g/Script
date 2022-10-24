@@ -588,6 +588,30 @@
           "then": {
             "required": ["goal1", "prop1", "prop2"]
           }
+        },
+        {
+          "if": {
+            "properties": {
+              "piece": {
+                "const": "AUTO_INV1_OBTAINED_VIA_GOAL1"
+              }
+            }
+          },
+          "then": {
+            "required": ["inv1", "goal1"]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "piece": {
+                "const": "AUTO_PROP1_APPEARS_VIA_GOAL1"
+              }
+            }
+          },
+          "then": {
+            "required": ["prop1", "goal1"]
+          }
         }
       ]
     },
@@ -597,6 +621,8 @@
         "AUTO_GOAL1_SET_BY_INVS",
         "AUTO_GOAL1_SET_BY_PROPS",
         "AUTO_INV1_BECOMES_INV2_VIA_GOAL1",
+        "AUTO_INV1_OBTAINED_VIA_GOAL1",
+        "AUTO_PROP1_APPEARS_VIA_GOAL1",
         "AUTO_PROP1_BECOMES_PROP2_BY_PROPS",
         "AUTO_PROP1_BECOMES_PROP2_VIA_GOAL1",
         "EXAMINE_PROP1_YIELDS_INV1",
@@ -649,6 +675,8 @@
   "AUTO_GOAL1_SET_BY_INVS": "AUTO_GOAL1_SET_BY_INVS",
   "AUTO_GOAL1_SET_BY_PROPS": "AUTO_GOAL1_SET_BY_PROPS",
   "AUTO_INV1_BECOMES_INV2_VIA_GOAL1": "AUTO_INV1_BECOMES_INV2_VIA_GOAL1",
+  "AUTO_INV1_OBTAINED_VIA_GOAL1": "AUTO_INV1_OBTAINED_VIA_GOAL1",
+  "AUTO_PROP1_APPEARS_VIA_GOAL1": "AUTO_PROP1_APPEARS_VIA_GOAL1",
   "AUTO_PROP1_BECOMES_PROP2_BY_PROPS": "AUTO_PROP1_BECOMES_PROP2_BY_PROPS",
   "AUTO_PROP1_BECOMES_PROP2_VIA_GOAL1": "AUTO_PROP1_BECOMES_PROP2_VIA_GOAL1",
   "EXAMINE_PROP1_YIELDS_INV1": "EXAMINE_PROP1_YIELDS_INV1",
