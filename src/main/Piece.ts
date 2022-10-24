@@ -15,7 +15,7 @@ export class Piece {
   characterRestrictions: string[]
   happenings: Happenings | null
 
-  constructor (
+  constructor(
     id: number,
     output: string,
     type = 'undefined',
@@ -69,7 +69,7 @@ export class Piece {
     }
   }
 
-  ClonePieceAndEntireTree (incompletePieceSet: Set<Piece>): Piece {
+  ClonePieceAndEntireTree(incompletePieceSet: Set<Piece>): Piece {
     const clone = new Piece(0, this.output, '')
     clone.id = this.id
     clone.type = this.type
@@ -103,7 +103,7 @@ export class Piece {
     return clone
   }
 
-  FindAnyPieceMatchingIdRecursively (id: number): Piece | null {
+  FindAnyPieceMatchingIdRecursively(id: number): Piece | null {
     if (this.id === id) {
       return this
     }
@@ -114,7 +114,7 @@ export class Piece {
     return null
   }
 
-  private InternalLoopOfProcessUntilCloning (solution: Solution, solutions: SolverViaRootPiece): boolean {
+  private InternalLoopOfProcessUntilCloning(solution: Solution, solutions: SolverViaRootPiece): boolean {
     for (let k = 0; k < this.inputs.length; k++) { // classic forloop useful because shared index on cloned piece
       // without this following line, any clones will attempt to reclone themselves
       // and Solution.ProcessUntilCompletion will continue forever
@@ -124,9 +124,7 @@ export class Piece {
       // otherwise Toggle pieces will toggle until the count is zero.
       const objectToObtain = this.inputHints[k]
       if (solution.GetStartingThings().has(objectToObtain)) {
-        const newLeaf = new Piece(0, objectToObtain, SpecialTypes.VerifiedLeaf)
-        newLeaf.parent = this
-        this.inputs[k] = newLeaf
+        this.StubOutInputK(k, SpecialTypes.StartingThings)
         // solution.AddLeafForReverseTraversal(path + this.inputHints[k] + "/", newLeaf);
         continue
       }
@@ -143,9 +141,7 @@ export class Piece {
       // and if there is more than one, then we clone
       const matchingPieces = solution.GetPiecesThatOutputObject(objectToObtain)
       if ((matchingPieces === undefined) || matchingPieces.length === 0) {
-        const newLeaf = new Piece(0, this.inputHints[k], SpecialTypes.VerifiedLeaf)
-        newLeaf.parent = this
-        this.inputs[k] = newLeaf
+        this.StubOutInputK(k, SpecialTypes.ZeroMatches)
         // solution.AddLeafForReverseTraversal(path + this.inputHints[k] + "/", newLeaf);
       } else if (objectToObtain.startsWith('goal_') && matchingPieces.length === 1) {
         // add the piece with the goal output to the goal map
@@ -156,7 +152,16 @@ export class Piece {
         //
         // we don't do this anymore, since all pieces are put in root piece map
         // solution.GetRootMap().AddRootPiece(matchingPieces[0])
-        solution.SetPieceIncomplete(matchingPieces[0])
+        const root = solution.GetRootMap().GetRootPieceByNameNoThrow(objectToObtain)
+        if (root != null) {
+          if (root.isCompleted) {
+            this.StubOutInputK(k, SpecialTypes.GoalExistsAndCompleted)
+          } else {
+            solution.SetPieceIncompleteIfBlank(matchingPieces[0])
+          }
+        } else {
+          solution.SetPieceIncompleteIfBlank(matchingPieces[0])
+        }
       } else if (matchingPieces.length > 0) {
         // In our array the currentSolution, is at index zero
         // so we start at the highest index in the list
@@ -196,7 +201,7 @@ export class Piece {
             thePiece.inputs[k] = theMatchingPiece
 
             // all gates are incomplete when they are *just* added
-            theSolution.SetPieceIncomplete(theMatchingPiece)
+            theSolution.SetPieceIncompleteIfBlank(theMatchingPiece)
             theSolution.AddRestrictions(theMatchingPiece.getRestrictions())
           } else {
             console.log('piece is null - so we are cloning wrong')
@@ -210,7 +215,14 @@ export class Piece {
     return false
   }
 
-  ProcessUntilCloning (solution: Solution, solutions: SolverViaRootPiece, path: string): boolean {
+  StubOutInputK(k: number, type: SpecialTypes): void {
+    const objectToObtain = this.inputHints[k]
+    const newLeaf = new Piece(0, `${type}(${objectToObtain})`, type)
+    newLeaf.parent = this
+    this.inputs[k] = newLeaf
+  }
+
+  ProcessUntilCloning(solution: Solution, solutions: SolverViaRootPiece, path: string): boolean {
     path += this.output + '/'
     if (this.type === SpecialTypes.VerifiedLeaf) { return false }// false just means keep processing.
 
@@ -250,23 +262,23 @@ export class Piece {
     return false
   }
 
-  SetParent (parent: Piece | null): void {
+  SetParent(parent: Piece | null): void {
     this.parent = parent
   }
 
-  GetParent (): Piece | null {
+  GetParent(): Piece | null {
     return this.parent
   }
 
-  getRestrictions (): string[] {
+  getRestrictions(): string[] {
     return this.characterRestrictions
   }
 
-  public GetOutput (): string {
+  public GetOutput(): string {
     return this.output
   }
 
-  UpdateMapWithOutcomes (visiblePieces: Map<string, Set<string>>): void {
+  UpdateMapWithOutcomes(visiblePieces: Map<string, Set<string>>): void {
     if (this.happenings != null) {
       for (const happening of this.happenings.array) {
         switch (happening.happen) {

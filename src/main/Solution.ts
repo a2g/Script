@@ -91,10 +91,16 @@ export class Solution {
     return clonedSolution
   }
 
-  SetPieceIncomplete (piece: Piece | null): void {
+  SetPieceIncompleteIfBlank (piece: Piece | null): void {
     if (piece != null) {
-      if (piece.type !== SpecialTypes.VerifiedLeaf) {
-        this.incompletePieces.add(piece)
+      switch (piece.type) {
+        case SpecialTypes.GoalExistsAndCompleted:
+        case SpecialTypes.StartingThings:
+        case SpecialTypes.VerifiedLeaf:
+        case SpecialTypes.ZeroMatches:
+          return
+        default:
+          this.incompletePieces.add(piece)
       }
     }
   }
