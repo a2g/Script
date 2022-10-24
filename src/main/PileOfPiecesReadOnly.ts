@@ -6,7 +6,7 @@ import { Piece } from './Piece'
 export interface PileOfPiecesReadOnly {
   GetAutos: () => Piece[]
   HasAnyPiecesThatOutputObject: (objectToObtain: string) => boolean
-  GetPiecesThatOutputObject: (objectToObtain: string) => Set<Piece> | undefined
+  GetPiecesThatOutputObject: (objectToObtain: string) => Piece[] | undefined
   Has: (objectToObtain: string) => boolean
   Get: (objectToObtain: string) => Set<Piece> | undefined
   GetIterator: () => IterableIterator<Set<Piece>>

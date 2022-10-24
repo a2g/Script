@@ -45,10 +45,6 @@ export class PileOfPieces implements PileOfPiecesReadOnly {
     return this.piecesMappedByOutput.has(givenOutput)
   }
 
-  GetPiecesThatOutputObject (givenOutput: string): Set<Piece> | undefined {
-    return this.piecesMappedByOutput.get(givenOutput)
-  }
-
   Has (givenOutput: string): boolean {
     return this.piecesMappedByOutput.has(givenOutput)
   }
@@ -116,5 +112,28 @@ export class PileOfPieces implements PileOfPiecesReadOnly {
       }
     }
     return null
+  }
+
+  GetPiecesThatOutputObject (objectToObtain: string): Piece[] | undefined {
+    // since the remainingPieces are a map index by output piece
+    // then a remainingPieces.Get will retrieve all matching pieces.
+    const result: Set<Piece> | undefined =
+      this.Get(objectToObtain)
+    if (result != null) {
+      const blah: Piece[] = []
+      for (const item of result) {
+        if (item.count >= 1) {
+          blah.push(item)
+        }
+      }
+      return blah
+    }
+    return []
+  }
+
+  GetPiecesThatOutputObject2 (givenOutput: string): Set<Piece> | undefined {
+    // since the remainingPieces are a map index by output piece
+    // then a remainingPieces.Get will retrieve all matching pieces.
+    return this.piecesMappedByOutput.get(givenOutput)
   }
 }

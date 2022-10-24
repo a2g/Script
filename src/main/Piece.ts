@@ -15,7 +15,7 @@ export class Piece {
   characterRestrictions: string[]
   happenings: Happenings | null
 
-  constructor(
+  constructor (
     id: number,
     output: string,
     type = 'undefined',
@@ -69,7 +69,7 @@ export class Piece {
     }
   }
 
-  ClonePieceAndEntireTree(incompletePieceSet: Set<Piece>): Piece {
+  ClonePieceAndEntireTree (incompletePieceSet: Set<Piece>): Piece {
     const clone = new Piece(0, this.output, '')
     clone.id = this.id
     clone.type = this.type
@@ -103,7 +103,7 @@ export class Piece {
     return clone
   }
 
-  FindAnyPieceMatchingIdRecursively(id: number): Piece | null {
+  FindAnyPieceMatchingIdRecursively (id: number): Piece | null {
     if (this.id === id) {
       return this
     }
@@ -114,7 +114,7 @@ export class Piece {
     return null
   }
 
-  private InternalLoopOfProcessUntilCloning(solution: Solution, solutions: SolverViaRootPiece): boolean {
+  private InternalLoopOfProcessUntilCloning (solution: Solution, solutions: SolverViaRootPiece): boolean {
     for (let k = 0; k < this.inputs.length; k++) { // classic forloop useful because shared index on cloned piece
       // without this following line, any clones will attempt to reclone themselves
       // and Solution.ProcessUntilCompletion will continue forever
@@ -139,7 +139,7 @@ export class Piece {
 
       // This is where we get all the pieces that fit
       // and if there is more than one, then we clone
-      const matchingPieces = solution.GetPiecesThatOutputObject(objectToObtain)
+      const matchingPieces = solution.GetPile().GetPiecesThatOutputObject(objectToObtain)
       if ((matchingPieces === undefined) || matchingPieces.length === 0) {
         this.StubOutInputK(k, SpecialTypes.ZeroMatches)
         // solution.AddLeafForReverseTraversal(path + this.inputHints[k] + "/", newLeaf);
@@ -175,7 +175,7 @@ export class Piece {
 
           // This is the earliest possible point we can remove the
           // matching piece: i.e. after the cloning has occurred
-          theSolution.RemovePiece(theMatchingPiece)
+          theSolution.GetPile().RemovePiece(theMatchingPiece)
 
           // this is only here to make the unit tests make sense
           // something like to fix a bug where cloning doesn't mark piece as complete
@@ -215,14 +215,14 @@ export class Piece {
     return false
   }
 
-  StubOutInputK(k: number, type: SpecialTypes): void {
+  StubOutInputK (k: number, type: SpecialTypes): void {
     const objectToObtain = this.inputHints[k]
     const newLeaf = new Piece(0, `${type}(${objectToObtain})`, type)
     newLeaf.parent = this
     this.inputs[k] = newLeaf
   }
 
-  ProcessUntilCloning(solution: Solution, solutions: SolverViaRootPiece, path: string): boolean {
+  ProcessUntilCloning (solution: Solution, solutions: SolverViaRootPiece, path: string): boolean {
     path += this.output + '/'
     if (this.type === SpecialTypes.VerifiedLeaf) { return false }// false just means keep processing.
 
@@ -262,23 +262,23 @@ export class Piece {
     return false
   }
 
-  SetParent(parent: Piece | null): void {
+  SetParent (parent: Piece | null): void {
     this.parent = parent
   }
 
-  GetParent(): Piece | null {
+  GetParent (): Piece | null {
     return this.parent
   }
 
-  getRestrictions(): string[] {
+  getRestrictions (): string[] {
     return this.characterRestrictions
   }
 
-  public GetOutput(): string {
+  public GetOutput (): string {
     return this.output
   }
 
-  UpdateMapWithOutcomes(visiblePieces: Map<string, Set<string>>): void {
+  UpdateMapWithOutcomes (visiblePieces: Map<string, Set<string>>): void {
     if (this.happenings != null) {
       for (const happening of this.happenings.array) {
         switch (happening.happen) {

@@ -157,35 +157,6 @@ export class Solution {
     return 'goal_win'
   }
 
-  HasAnyPiecesThatOutputObject (objectToObtain: string): boolean {
-    return this.remainingPiecesRepo.Has(objectToObtain)
-  }
-
-  GetPiecesThatOutputObject (objectToObtain: string): Piece[] | undefined {
-    // since the remainingPieces are a map index by output piece
-    // then a remainingPieces.Get will retrieve all matching pieces.
-    const result: Set<Piece> | undefined =
-      this.remainingPiecesRepo.Get(objectToObtain)
-    if (result != null) {
-      const blah: Piece[] = []
-      for (const item of result) {
-        if (item.count >= 1) {
-          blah.push(item)
-        }
-      }
-      return blah
-    }
-    return []
-  }
-
-  RemovePiece (piece: Piece): void {
-    this.remainingPiecesRepo.RemovePiece(piece)
-  }
-
-  PushNameSegment (solutionName: string): void {
-    this.solutionNameSegments.push(solutionName)
-  }
-
   GetDisplayNamesConcatenated (): string {
     let result = ''
     for (let i = 0; i < this.solutionNameSegments.length; i += 1) {
@@ -205,7 +176,7 @@ export class Solution {
     return this.restrictionsEncounteredDuringSolving
   }
 
-  GetRepoOfRemainingPieces (): PileOfPieces {
+  GetPile (): PileOfPieces {
     // we already remove pieces from this when we use them up
     // so returning the current piece map is ok
     return this.remainingPiecesRepo
@@ -231,6 +202,10 @@ export class Solution {
     for (const nameSegment of this.solutionNameSegments) {
       virginSolution.PushNameSegment(nameSegment)
     }
+  }
+
+  PushNameSegment (solutionName: string): void {
+    this.solutionNameSegments.push(solutionName)
   }
 
   FindAnyPieceMatchingIdRecursively (id: number): Piece | null {
