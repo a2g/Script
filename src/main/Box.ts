@@ -7,8 +7,8 @@ import { Mix } from './Mix.js'
 import { SingleBigSwitch } from './SingleBigSwitch.js'
 import { Stringify } from './Stringify.js'
 import { BoxReadOnlyWithFileMethods } from './BoxReadOnlyWithFileMethods.js'
-import { RootPieceMap } from './RootPieceMap.js'
 import hjson from 'hjson'
+import { PileOrRootPieceMap } from './PileOrRootPieceMap.js'
 
 /**
  * So the most important part of this class is that the data
@@ -338,7 +338,7 @@ export class Box implements BoxReadOnlyWithFileMethods {
     return array
   }
 
-  CopyGoalPiecesToGoalMapRecursively (map: RootPieceMap): void {
+  CopyGoalPiecesToAnyContainer (map: PileOrRootPieceMap): void {
     const notUsed = new MixedObjectsAndVerb(
       Mix.ErrorVerbNotIdentified,
       '',
@@ -349,7 +349,7 @@ export class Box implements BoxReadOnlyWithFileMethods {
     SingleBigSwitch(this.filename, notUsed, true, map)
 
     for (const box of this.directSubBoxes.values()) {
-      box.CopyGoalPiecesToGoalMapRecursively(map)
+      box.CopyGoalPiecesToAnyContainer(map)
     }
   }
 }

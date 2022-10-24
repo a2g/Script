@@ -1,7 +1,7 @@
 import { MixedObjectsAndVerb } from './MixedObjectsAndVerb.js'
 import { Happenings } from './Happenings.js'
 import { PileOfPieces } from './PileOfPieces.js'
-import { RootPieceMap } from './RootPieceMap.js'
+import { PileOrRootPieceMap } from './PileOrRootPieceMap.js'
 
 /**
 * This is needed because there are all these analysis steps that are performed on a single box
@@ -35,5 +35,5 @@ export interface BoxReadOnly {
   // original-json-traversers
   FindHappeningsIfAny: (objects: MixedObjectsAndVerb) => Happenings | null
   CopyPiecesFromBoxToPile: (pile: PileOfPieces) => void // its possible for this to be done on aggregate
-  CopyGoalPiecesToGoalMapRecursively: (map: RootPieceMap) => void
+  CopyGoalPiecesToAnyContainer: (map: PileOrRootPieceMap) => void
 }

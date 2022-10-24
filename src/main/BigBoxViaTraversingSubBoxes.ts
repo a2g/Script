@@ -5,9 +5,9 @@ import { Mix } from './Mix.js'
 import { SingleBigSwitch } from './SingleBigSwitch.js'
 import { BoxReadOnly } from './BoxReadOnly.js'
 import { BoxReadOnlyWithFileMethods } from './BoxReadOnlyWithFileMethods.js'
-import { RootPieceMap } from './RootPieceMap.js'
+import { PileOrRootPieceMap } from './PileOrRootPieceMap.js'
 
-function CollectAllBoxesRecursively(box: BoxReadOnlyWithFileMethods, map: Map<string, BoxReadOnly>): void {
+function CollectAllBoxesRecursively (box: BoxReadOnlyWithFileMethods, map: Map<string, BoxReadOnly>): void {
   for (const keyValuePair of box.GetMapOfSubBoxes()) {
     const box: BoxReadOnly = keyValuePair[1]
     map.set(keyValuePair[0], box)
@@ -31,7 +31,7 @@ export class BigBoxViaTraversingSubBoxes implements BoxReadOnly {
   readonly boxesGatheredViaTraversal: Map<string, BoxReadOnlyWithFileMethods>
   readonly directSubBoxesMappedByKey: Map<string, BoxReadOnlyWithFileMethods>
 
-  constructor(rootBox: BoxReadOnlyWithFileMethods) {
+  constructor (rootBox: BoxReadOnlyWithFileMethods) {
     this.boxesGatheredViaTraversal = new Map<string, BoxReadOnlyWithFileMethods>()
     CollectAllBoxesRecursively(rootBox, this.boxesGatheredViaTraversal)
 
@@ -76,39 +76,39 @@ export class BigBoxViaTraversingSubBoxes implements BoxReadOnly {
     this.allChars = Array.from(setChars.values())
   }
 
-  GetSetOfStartingGoals(): Set<string> {
+  GetSetOfStartingGoals (): Set<string> {
     return new Set<string>()
   }
 
-  GetArrayOfProps(): string[] {
+  GetArrayOfProps (): string[] {
     return this.allProps
   }
 
-  GetArrayOfInvs(): string[] {
+  GetArrayOfInvs (): string[] {
     return this.allInvs
   }
 
-  GetArrayOfGoals(): string[] {
+  GetArrayOfGoals (): string[] {
     return this.allGoals
   }
 
-  static GetArrayOfSingleObjectVerbs(): string[] {
+  static GetArrayOfSingleObjectVerbs (): string[] {
     return ['grab', 'toggle']
   }
 
-  GetArrayOfSingleObjectVerbs(): string[] {
+  GetArrayOfSingleObjectVerbs (): string[] {
     return this.GetArrayOfSingleObjectVerbs()
   }
 
-  static GetArrayOfInitialStatesOfSingleObjectVerbs(): boolean[] {
+  static GetArrayOfInitialStatesOfSingleObjectVerbs (): boolean[] {
     return [true, true]
   }
 
-  GetArrayOfInitialStatesOfSingleObjectVerbs(): boolean[] {
+  GetArrayOfInitialStatesOfSingleObjectVerbs (): boolean[] {
     return this.GetArrayOfInitialStatesOfSingleObjectVerbs()
   }
 
-  GetArrayOfInitialStatesOfGoals(): number[] {
+  GetArrayOfInitialStatesOfGoals (): number[] {
     const array: number[] = []
     for (const goal of this.allGoals) {
       array.push(goal.length > 0 ? 0 : 0)// I used value.length>0 to get rid of the unused variable warning
@@ -116,19 +116,19 @@ export class BigBoxViaTraversingSubBoxes implements BoxReadOnly {
     return array
   }
 
-  GetSetOfStartingProps(): Set<string> {
+  GetSetOfStartingProps (): Set<string> {
     return this.startingPropSet
   }
 
-  GetSetOfStartingInvs(): Set<string> {
+  GetSetOfStartingInvs (): Set<string> {
     return this.startingInvSet
   }
 
-  GetMapOfAllStartingThings(): Map<string, Set<string>> {
+  GetMapOfAllStartingThings (): Map<string, Set<string>> {
     return this.mapOfStartingThingsWithChars
   }
 
-  GetStartingThingsForCharacter(charName: string): Set<string> {
+  GetStartingThingsForCharacter (charName: string): Set<string> {
     const startingThingSet = new Set<string>()
     this.mapOfStartingThingsWithChars.forEach((value: Set<string>, thing: string) => {
       for (const item of value) {
@@ -142,7 +142,7 @@ export class BigBoxViaTraversingSubBoxes implements BoxReadOnly {
     return startingThingSet
   }
 
-  GetArrayOfInitialStatesOfProps(): boolean[] {
+  GetArrayOfInitialStatesOfProps (): boolean[] {
     // construct array of booleans in exact same order as ArrayOfProps - so they can be correlated
     const startingSet = this.GetSetOfStartingProps()
     const visibilities: boolean[] = []
@@ -154,7 +154,7 @@ export class BigBoxViaTraversingSubBoxes implements BoxReadOnly {
     return visibilities
   }
 
-  GetArrayOfInitialStatesOfInvs(): boolean[] {
+  GetArrayOfInitialStatesOfInvs (): boolean[] {
     // construct array of booleans in exact same order as ArrayOfProps - so they can be correlated
     const startingSet = this.GetSetOfStartingInvs()
     const visibilities: boolean[] = []
@@ -166,11 +166,11 @@ export class BigBoxViaTraversingSubBoxes implements BoxReadOnly {
     return visibilities
   }
 
-  GetArrayOfCharacters(): string[] {
+  GetArrayOfCharacters (): string[] {
     return this.allChars
   }
 
-  GenerateSolutionPiecesMappedByInput(): PileOfPieces {
+  GenerateSolutionPiecesMappedByInput (): PileOfPieces {
     const solutionPiecesMappedByInput = new PileOfPieces(null)
 
     for (const filename of this.boxesGatheredViaTraversal.keys()) {
@@ -180,7 +180,7 @@ export class BigBoxViaTraversingSubBoxes implements BoxReadOnly {
     return solutionPiecesMappedByInput
   }
 
-  FindHappeningsIfAny(objects: MixedObjectsAndVerb): Happenings | null {
+  FindHappeningsIfAny (objects: MixedObjectsAndVerb): Happenings | null {
     for (const filename of this.boxesGatheredViaTraversal.keys()) {
       const result = SingleBigSwitch(filename, objects, false, null) as unknown as Happenings | null
       if (result != null) { return result }
@@ -188,7 +188,7 @@ export class BigBoxViaTraversingSubBoxes implements BoxReadOnly {
     return null
   }
 
-  CopyPiecesFromBoxToPile(pile: PileOfPieces): void {
+  CopyPiecesFromBoxToPile (pile: PileOfPieces): void {
     const notUsed = new MixedObjectsAndVerb(
       Mix.ErrorVerbNotIdentified,
       '',
@@ -201,7 +201,7 @@ export class BigBoxViaTraversingSubBoxes implements BoxReadOnly {
     }
   }
 
-  CopyGoalPiecesToGoalMapRecursively(map: RootPieceMap): void {
+  CopyGoalPiecesToAnyContainer (map: PileOrRootPieceMap): void {
     const notUsed = new MixedObjectsAndVerb(
       Mix.ErrorVerbNotIdentified,
       '',
@@ -214,7 +214,7 @@ export class BigBoxViaTraversingSubBoxes implements BoxReadOnly {
     }
   }
 
-  GetMapOfSubBoxes(): Map<string, BoxReadOnlyWithFileMethods> {
+  GetMapOfSubBoxes (): Map<string, BoxReadOnlyWithFileMethods> {
     return this.directSubBoxesMappedByKey
   }
 }

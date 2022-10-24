@@ -97,7 +97,7 @@ describe('Solution', () => {
 
     const throwaway = new Set<Piece>()
     const rootMap = new RootPieceMap(null, throwaway)
-    box.CopyGoalPiecesToGoalMapRecursively(rootMap)
+    box.CopyGoalPiecesToAnyContainer(rootMap)
     const solution = new Solution(rootMap, pile, startingThings, null, null)
 
     const collection = new SolverViaRootPiece(solution)

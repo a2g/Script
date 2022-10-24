@@ -5,7 +5,7 @@ import { Mix } from './Mix.js'
 import { SingleBigSwitch } from './SingleBigSwitch.js'
 import { BoxReadOnlyWithFileMethods } from './BoxReadOnlyWithFileMethods.js'
 import { BoxReadOnly } from './BoxReadOnly.js'
-import { RootPieceMap } from './RootPieceMap.js'
+import { PileOrRootPieceMap } from './PileOrRootPieceMap.js'
 
 /**
  * So the most important part of this class is that the data
@@ -180,7 +180,7 @@ export class BigBoxViaArrayOfBoxes implements BoxReadOnly {
     }
   }
 
-  CopyGoalPiecesToGoalMapRecursively (map: RootPieceMap): void {
+  CopyGoalPiecesToAnyContainer (map: PileOrRootPieceMap): void {
     for (const box of this.originalBoxes) {
       const notUsed = new MixedObjectsAndVerb(
         Mix.ErrorVerbNotIdentified,

@@ -16,7 +16,7 @@ import hjson from 'hjson'
  */
 let globalId = 1
 
-export function SingleBigSwitch(
+export function SingleBigSwitch (
   filename: string,
   objects: MixedObjectsAndVerb, isGoalRetrieval: boolean, piecesMappedByOutput: PileOrRootPieceMap | null
 ): Happenings | null {
@@ -393,8 +393,8 @@ export function SingleBigSwitch(
             case _.AUTO_PROP1_BECOMES_PROP2_VIA_GOAL1:
               if (piecesMappedByOutput != null) {
                 const input1 = goal1
-                const input2 = inv1
-                const output = inv2
+                const input2 = prop1
+                const output = prop2
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
