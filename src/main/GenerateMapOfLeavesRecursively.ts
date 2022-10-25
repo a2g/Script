@@ -10,11 +10,11 @@ export function GenerateMapOfLeavesRecursively (piece: Piece, path: string, map:
       case SpecialTypes.TempGoalWasntCompleteDontStubThisOut:
       case SpecialTypes.VerifiedLeaf:
       case 'null':
-        map.set(path + piece.inputHints[i], input)
+        map.set(path + '/' + piece.inputHints[i], input)
         break
       default:
         if (input != null) {
-          GenerateMapOfLeavesRecursively(input, path + piece.inputHints[i], map)
+          GenerateMapOfLeavesRecursively(input, path + '/' + piece.inputHints[i], map)
         }
     }
   }
