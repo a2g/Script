@@ -81,13 +81,15 @@ export class SolverViaRootPiece {
             .GetRootMap()
             .GenerateMapOfLeaves()
           for (const leafPiece of otherLeafs.values()) {
-            const otherLeafPieceName = leafPiece.output
-            let otherLeafPieceNameCount = 0
-            const result = mapForCounting.get(otherLeafPieceName)
-            if (result !== undefined) {
-              otherLeafPieceNameCount = result
+            if (leafPiece != null) {
+              const otherLeafPieceName = leafPiece.output
+              let otherLeafPieceNameCount = 0
+              const result = mapForCounting.get(otherLeafPieceName)
+              if (result !== undefined) {
+                otherLeafPieceNameCount = result
+              }
+              mapForCounting.set(otherLeafPieceName, otherLeafPieceNameCount + 1)
             }
-            mapForCounting.set(otherLeafPieceName, otherLeafPieceNameCount + 1)
           }
         }
       }
@@ -101,27 +103,29 @@ export class SolverViaRootPiece {
       const accumulatedRestrictions = currSolution.GetAccumulatedRestrictions()
 
       const currLeaves = currSolution.GetRootMap().GenerateMapOfLeaves()
-      for (const leafPieces of currLeaves.values()) {
-        const result = mapForCounting.get(leafPieces.output)
-        if (result !== undefined && result < minLeafPieceNameCount) {
-          minLeafPieceNameCount = result
-          minLeafPieceName = leafPieces.output
-        } else if (!mapForCounting.has(leafPieces.output)) {
-          // our leaf is no where in the leafs of other solutions - we can use it!
-          minLeafPieceNameCount = 0
-          minLeafPieceName = leafPieces.output
-        }
+      for (const leaf of currLeaves.values()) {
+        if (leaf != null) {
+          const result = mapForCounting.get(leaf.output)
+          if (result !== undefined && result < minLeafPieceNameCount) {
+            minLeafPieceNameCount = result
+            minLeafPieceName = leaf.output
+          } else if (!mapForCounting.has(leaf.output)) {
+            // our leaf is no where in the leafs of other solutions - we can use it!
+            minLeafPieceNameCount = 0
+            minLeafPieceName = leaf.output
+          }
 
-        // now we potentially add startingSet items to restrictions
-        mapOfStartingThingsAndWhoHasThem.forEach(
-          (characters: Set<string>, key: string) => {
-            if (key === leafPieces.output) {
-              for (const character of characters) {
-                accumulatedRestrictions.add(character)
+          // now we potentially add startingSet items to restrictions
+          mapOfStartingThingsAndWhoHasThem.forEach(
+            (characters: Set<string>, key: string) => {
+              if (key === leaf.output) {
+                for (const character of characters) {
+                  accumulatedRestrictions.add(character)
+                }
               }
             }
-          }
-        )
+          )
+        }
       }
 
       const term: string =

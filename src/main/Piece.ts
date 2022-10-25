@@ -161,7 +161,7 @@ export class Piece {
             this.StubOutInputK(k, SpecialTypes.TempGoalWasntCompleteDontStubThisOut)
           }
         } else {
-          this.StubOutInputK(k, SpecialTypes.ZeroMatches)
+          // do nothing
         }
       } else if (matchingPieces.length > 0) {
         // In our array the currentSolution, is at index zero

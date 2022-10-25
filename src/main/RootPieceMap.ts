@@ -64,8 +64,8 @@ export class RootPieceMap implements PileOrRootPieceMap {
     return this.roots.values()
   }
 
-  public GenerateMapOfLeaves (): Map<string, Piece> {
-    const map = new Map<string, Piece>()
+  public GenerateMapOfLeaves (): Map<string, Piece | null> {
+    const map = new Map<string, Piece | null>()
 
     for (const value of this.roots.values()) {
       const piece = value.piece
