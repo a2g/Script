@@ -54,9 +54,7 @@ export class SolverViaRootPiece {
       this.SolvePartiallyUntilCloning()
     } while (this.IsAnyPiecesUnprocessed())
 
-    this.GenerateSolutionNamesAndPush(
-      this.mapOfStartingThingsAndWhoCanHaveThem
-    )
+    this.GenerateSolutionNamesAndPush()
   }
 
   ProcessChaptersToEndAndUpdateList (): void {
@@ -68,9 +66,7 @@ export class SolverViaRootPiece {
     this.solutions = newList
   }
 
-  GenerateSolutionNamesAndPush (
-    mapOfStartingThingsAndWhoHasThem: Map<string, Set<string>>
-  ): void {
+  GenerateSolutionNamesAndPush (): void {
     for (let i = 0; i < this.solutions.length; i += 1) {
       // now lets find out the amount leafPiece name exists in all the other solutions
       const mapForCounting = new Map<string, number>()
@@ -116,7 +112,7 @@ export class SolverViaRootPiece {
           }
 
           // now we potentially add startingSet items to restrictions
-          mapOfStartingThingsAndWhoHasThem.forEach(
+          this.mapOfStartingThingsAndWhoCanHaveThem.forEach(
             (characters: Set<string>, key: string) => {
               if (key === leaf.output) {
                 for (const character of characters) {
