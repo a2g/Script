@@ -6,6 +6,8 @@ import { SingleBigSwitch } from './SingleBigSwitch.js'
 import { BoxReadOnlyWithFileMethods } from './BoxReadOnlyWithFileMethods.js'
 import { BoxReadOnly } from './BoxReadOnly.js'
 import { PileOrRootPieceMap } from './PileOrRootPieceMap.js'
+import { Piece } from './Piece.js'
+import { RootPieceMap } from './RootPieceMap.js'
 
 /**
  * So the most important part of this class is that the data
@@ -13,7 +15,7 @@ import { PileOrRootPieceMap } from './PileOrRootPieceMap.js'
  * I wanted to convey the idea that it represents  *.json files,
  * in this case multiple, so that goes in there too.
  * */
-export class BigBoxViaArrayOfBoxes implements BoxReadOnly {
+export class BigBoxViaSetOfBoxes implements BoxReadOnly {
   readonly allProps: string[]
   readonly allGoals: string[]
   readonly allInvs: string[]
@@ -22,20 +24,20 @@ export class BigBoxViaArrayOfBoxes implements BoxReadOnly {
   readonly startingInvSet: Set<string>
   readonly startingPropSet: Set<string>
   readonly startingGoalSet: Set<string>
-  readonly originalBoxes: BoxReadOnlyWithFileMethods[]
-  readonly directSubBoxesMappedByKeyPiece: Map<string, BoxReadOnlyWithFileMethods>
-
-  constructor (arrayOfBoxes: BoxReadOnlyWithFileMethods[]) {
+  readonly originalBoxes: Set<BoxReadOnlyWithFileMethods>
+  readonly goals: RootPieceMap
+  constructor (setOfBoxes: Set<BoxReadOnlyWithFileMethods>) {
     // we keep the original boxes, because we need to call
     // Big Switch on them numerous times
-    this.originalBoxes = arrayOfBoxes
+    this.originalBoxes = setOfBoxes
 
     // create sets for the 3 member and 4 indirect sets
     this.mapOfStartingThingsWithChars = new Map<string, Set<string>>()
-    this.directSubBoxesMappedByKeyPiece = new Map<string, BoxReadOnlyWithFileMethods>()
     this.startingPropSet = new Set<string>()
     this.startingInvSet = new Set<string>()
     this.startingGoalSet = new Set<string>()
+    const throwaway = new Set<Piece>()
+    this.goals = new RootPieceMap(null, throwaway)
     const setProps = new Set<string>()
     const setGoals = new Set<string>()
     const setInvs = new Set<string>()
@@ -44,10 +46,10 @@ export class BigBoxViaArrayOfBoxes implements BoxReadOnly {
     // collate the 3 member and 4 indirect sets
     for (const box of this.originalBoxes.values()) {
       box.CopyStartingThingCharsToGivenMap(this.mapOfStartingThingsWithChars)
-      box.CopySubBoxesToGivenMap(this.directSubBoxesMappedByKeyPiece)
       box.CopyStartingPropsToGivenSet(this.startingPropSet)
       box.CopyStartingInvsToGivenSet(this.startingInvSet)
       box.CopyStartingGoalsToGivenSet(this.startingGoalSet)
+      box.CopyGoalPiecesToAnyContainer(this.goals)
       box.CopyPropsToGivenSet(setProps)
       box.CopyGoalsToGivenSet(setGoals)
       box.CopyInvsToGivenSet(setInvs)
@@ -181,15 +183,10 @@ export class BigBoxViaArrayOfBoxes implements BoxReadOnly {
   }
 
   CopyGoalPiecesToAnyContainer (map: PileOrRootPieceMap): void {
-    for (const box of this.originalBoxes) {
-      const notUsed = new MixedObjectsAndVerb(
-        Mix.ErrorVerbNotIdentified,
-        '',
-        '',
-        '',
-        'ScenePreAggregator'
-      )
-      SingleBigSwitch(box.GetFilename(), notUsed, true, map)
+    const set = new Set<Piece>()
+    for (const goal of this.goals.GetValues()) {
+      const clonedPiece = goal.piece.ClonePieceAndEntireTree(set)
+      map.AddPiece(clonedPiece)
     }
   }
 
@@ -206,7 +203,15 @@ export class BigBoxViaArrayOfBoxes implements BoxReadOnly {
     return null
   }
 
-  GetMapOfSubBoxes (): Map<string, BoxReadOnlyWithFileMethods> {
-    return this.directSubBoxesMappedByKeyPiece
+  CollectAllReferencedBoxesRecursively (set: Set<BoxReadOnly>): void {
+    set.add(this)
+
+    // since this map of goal pieces already has been obtained recurseively
+    // then we don't need to recurse further here.
+    for (const goal of this.goals.GetValues()) {
+      if (goal.piece.merge != null) {
+        set.add(goal.piece.merge)
+      }
+    }
   }
 }

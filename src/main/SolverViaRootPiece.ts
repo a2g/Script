@@ -2,10 +2,14 @@ import { Solution } from './Solution.js'
 import { GetDisplayName } from './GetDisplayName.js'
 import { Colors } from './Colors.js'
 import { AddBrackets } from './AddBrackets.js'
-
+/**
+ * Does only a few things:
+ * 1. A simple collection of Solutions
+ * 2. Methods that call the same thing on all solutions
+ * 3. Generating solution names - which is why it needs mapOfStartingThings...
+ */
 export class SolverViaRootPiece {
   private solutions: Solution[]
-
   private readonly mapOfStartingThingsAndWhoCanHaveThem: Map<string, Set<string>>
 
   constructor (firstSolution: Solution) {
@@ -23,6 +27,10 @@ export class SolverViaRootPiece {
       }
       this.mapOfStartingThingsAndWhoCanHaveThem.set(key, newSet)
     }
+  }
+
+  NumberOfSolutions (): number {
+    return this.solutions.length
   }
 
   IsAnyPiecesUnprocessed (): boolean {
@@ -66,6 +74,12 @@ export class SolverViaRootPiece {
     this.solutions = newList
   }
 
+  MarkGoalsAsCompletedAndMergeIfNeeded (): void {
+    for (const solution of this.solutions) {
+      solution.MarkGoalsAsCompletedAndMergeIfNeeded()
+    }
+  }
+
   GenerateSolutionNamesAndPush (): void {
     for (let i = 0; i < this.solutions.length; i += 1) {
       // now lets find out the amount leafPiece name exists in all the other solutions
@@ -93,7 +107,7 @@ export class SolverViaRootPiece {
       // find least popular leaf in solution i
       const currSolution = this.solutions[i]
       let minLeafPieceNameCount = 1000 // something high
-      let minLeafPieceName = ' not found'
+      let minLeafPieceName = ' zero solutions so cant generate solution name'
 
       // get the restrictions accumulated from all the solution pieces
       const accumulatedRestrictions = currSolution.GetAccumulatedRestrictions()
@@ -128,7 +142,7 @@ export class SolverViaRootPiece {
         accumulatedRestrictions.size > 0
           ? AddBrackets(GetDisplayName(Array.from(accumulatedRestrictions)))
           : ''
-      const solutionName = `sol_${minLeafPieceName}${Colors.Reset}${term}`
+      const solutionName = `Solution name: ${minLeafPieceName}${Colors.Reset}${term}`
       currSolution.PushNameSegment(solutionName)
     }
   }

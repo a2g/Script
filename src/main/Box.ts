@@ -9,6 +9,9 @@ import { Stringify } from './Stringify.js'
 import { BoxReadOnlyWithFileMethods } from './BoxReadOnlyWithFileMethods.js'
 import hjson from 'hjson'
 import { PileOrRootPieceMap } from './PileOrRootPieceMap.js'
+import { RootPieceMap } from './RootPieceMap.js'
+import { Piece } from './Piece.js'
+import { BoxReadOnly } from './BoxReadOnly.js'
 
 /**
  * So the most important part of this class is that the data
@@ -27,7 +30,7 @@ export class Box implements BoxReadOnlyWithFileMethods {
   private readonly startingPropSet: Set<string>
   private readonly startingGoalSet: Set<string>
   private readonly filename: string
-  private readonly directSubBoxes: Map<string, BoxReadOnlyWithFileMethods>
+  private readonly goals: RootPieceMap
 
   constructor (filename: string) {
     this.filename = filename
@@ -90,7 +93,18 @@ export class Box implements BoxReadOnlyWithFileMethods {
     this.startingGoalSet = new Set<string>()
     this.startingPropSet = new Set<string>()
     this.mapOfStartingThings = new Map<string, Set<string>>()
-    this.directSubBoxes = new Map<string, BoxReadOnlyWithFileMethods>()
+
+    // this copies them to the container, and turns filenames in to boxes
+    const ignore = new Set<Piece>()
+    this.goals = new RootPieceMap(null, ignore)
+    const notUsed = new MixedObjectsAndVerb(
+      Mix.ErrorVerbNotIdentified,
+      '',
+      '',
+      '',
+      ''
+    )
+    SingleBigSwitch(this.filename, notUsed, true, this.goals)
 
     // starting things is optional in the json
     if (
@@ -123,21 +137,6 @@ export class Box implements BoxReadOnlyWithFileMethods {
         }
       }
     }
-
-    // starting things is optional in the json
-    // do the boxes
-    if (scenario.subBoxes !== undefined && scenario.subBoxes !== null) {
-      for (const thing of scenario.subBoxes) {
-        if (thing.goal !== undefined && thing.goal !== null) {
-          if (thing.fileToMerge !== undefined && thing.fileToMerge !== null) {
-            const box = new Box(thing.fileToMerge)
-
-            // add to this
-            this.directSubBoxes.set(thing.goal, box)
-          }
-        }
-      }
-    }
   }
 
   public CopyPiecesFromBoxToPile (pile: PileOfPieces): void {
@@ -161,16 +160,6 @@ export class Box implements BoxReadOnlyWithFileMethods {
     return result
   }
 
-  GetArrayOfSubBoxesRecursively (): BoxReadOnlyWithFileMethods[] {
-    let array: BoxReadOnlyWithFileMethods[] = []
-    array.push(this)
-    for (const box of this.directSubBoxes.values()) {
-      const arrayOfSubBoxes = box.GetArrayOfSubBoxesRecursively()
-      array = array.concat(arrayOfSubBoxes)
-    }
-    return array
-  }
-
   CopyStartingPropsToGivenSet (givenSet: Set<string>): void {
     for (const prop of this.startingPropSet) {
       givenSet.add(prop)
@@ -191,12 +180,6 @@ export class Box implements BoxReadOnlyWithFileMethods {
 
   CopyStartingThingCharsToGivenMap (givenMap: Map<string, Set<string>>): void {
     this.mapOfStartingThings.forEach((value: Set<string>, key: string) => {
-      givenMap.set(key, value)
-    })
-  }
-
-  CopySubBoxesToGivenMap (givenMap: Map<string, BoxReadOnlyWithFileMethods>): void {
-    this.directSubBoxes.forEach((value: BoxReadOnlyWithFileMethods, key: string) => {
       givenMap.set(key, value)
     })
   }
@@ -322,34 +305,24 @@ export class Box implements BoxReadOnlyWithFileMethods {
     return this.allChars
   }
 
-  GetMapOfSubBoxes (): Map<string, BoxReadOnlyWithFileMethods> {
-    return this.directSubBoxes
-  }
-
   GetFilename (): string {
     return this.filename
   }
 
-  public GetNamesOfPiecesStuckToSubBoxes (): string[] {
-    const array: string[] = []
-    for (const key of this.directSubBoxes.keys()) {
-      array.push(key)
+  CopyGoalPiecesToAnyContainer (map: PileOrRootPieceMap): void {
+    const set = new Set<Piece>()
+    for (const goal of this.goals.GetValues()) {
+      const clonedPiece = goal.piece.ClonePieceAndEntireTree(set)
+      map.AddPiece(clonedPiece)
     }
-    return array
   }
 
-  CopyGoalPiecesToAnyContainer (map: PileOrRootPieceMap): void {
-    const notUsed = new MixedObjectsAndVerb(
-      Mix.ErrorVerbNotIdentified,
-      '',
-      '',
-      '',
-      ''
-    )
-    SingleBigSwitch(this.filename, notUsed, true, map)
-
-    for (const box of this.directSubBoxes.values()) {
-      box.CopyGoalPiecesToAnyContainer(map)
+  CollectAllReferencedBoxesRecursively (set: Set<BoxReadOnly>): void {
+    set.add(this)
+    for (const goal of this.goals.GetValues()) {
+      if (goal.piece.merge != null) {
+        goal.piece.merge.CollectAllReferencedBoxesRecursively(set)
+      }
     }
   }
 }

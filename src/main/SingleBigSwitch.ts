@@ -9,6 +9,7 @@ import { Stringify } from './Stringify.js'
 import _ from '../../jigsaw.json'
 import { PileOrRootPieceMap } from './PileOrRootPieceMap.js'
 import hjson from 'hjson'
+import { Box } from './Box.js'
 
 /**
  * Yup, this is the one location of these
@@ -48,10 +49,15 @@ export function SingleBigSwitch (
       const inv1 = Stringify(piece.inv1)
       const inv2 = Stringify(piece.inv2)
       const inv3 = Stringify(piece.inv3)
+      const filenameToMerge = Stringify(piece.merge)
       const happs = new Happenings()
       const { restrictions } = piece
       if (pieceType.startsWith('GOAL1_SET') || pieceType.startsWith('AUTO_GOAL1_SET')) {
         if (isGoalRetrieval || piecesMappedByOutput == null) {
+          let merge: Box | null = null
+          if (filenameToMerge.length > 0) {
+            merge = new Box(filenameToMerge)
+          }
           switch (pieceType) {
             case _.AUTO_GOAL1_SET_BY_GOAL2:
               if (piecesMappedByOutput != null) {
@@ -60,6 +66,7 @@ export function SingleBigSwitch (
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
+                    merge,
                     output,
                     pieceType,
                     count,
@@ -82,6 +89,7 @@ export function SingleBigSwitch (
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
+                    merge,
                     output,
                     pieceType,
                     count,
@@ -106,6 +114,7 @@ export function SingleBigSwitch (
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
+                    merge,
                     output,
                     pieceType,
                     count,
@@ -131,6 +140,7 @@ export function SingleBigSwitch (
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
+                    merge,
                     output,
                     pieceType,
                     count,
@@ -164,6 +174,7 @@ export function SingleBigSwitch (
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
+                    merge,
                     output,
                     pieceType,
                     count,
@@ -192,6 +203,7 @@ export function SingleBigSwitch (
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
+                    merge,
                     output,
                     pieceType,
                     count,
@@ -218,6 +230,7 @@ export function SingleBigSwitch (
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
+                    merge,
                     output,
                     pieceType,
                     count,
@@ -243,6 +256,7 @@ export function SingleBigSwitch (
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
+                    merge,
                     output,
                     pieceType,
                     count,
@@ -272,6 +286,7 @@ export function SingleBigSwitch (
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
+                    merge,
                     output,
                     pieceType,
                     count,
@@ -301,6 +316,7 @@ export function SingleBigSwitch (
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
+                    merge,
                     output,
                     pieceType,
                     count,
@@ -326,6 +342,7 @@ export function SingleBigSwitch (
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
+                    merge,
                     output,
                     pieceType,
                     count,
@@ -356,6 +373,7 @@ export function SingleBigSwitch (
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
+                    null,
                     output,
                     pieceType,
                     count,
@@ -379,6 +397,7 @@ export function SingleBigSwitch (
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
+                    null,
                     output,
                     pieceType,
                     count,
@@ -398,7 +417,7 @@ export function SingleBigSwitch (
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
-
+                    null,
                     output,
                     pieceType,
                     count,
@@ -417,6 +436,7 @@ export function SingleBigSwitch (
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
+                    null,
                     output,
                     pieceType,
                     count,
@@ -434,6 +454,7 @@ export function SingleBigSwitch (
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
+                    null,
                     output,
                     pieceType,
                     count,
@@ -454,7 +475,7 @@ export function SingleBigSwitch (
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
-
+                    null,
                     output,
                     pieceType,
                     count,
@@ -480,7 +501,7 @@ export function SingleBigSwitch (
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
-
+                    null,
                     output,
                     pieceType,
                     count,
@@ -505,7 +526,7 @@ export function SingleBigSwitch (
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
-
+                    null,
                     output,
                     pieceType,
                     count,
@@ -530,7 +551,7 @@ export function SingleBigSwitch (
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
-
+                    null,
                     output,
                     pieceType,
                     count,
@@ -555,7 +576,7 @@ export function SingleBigSwitch (
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
-
+                    null,
                     output,
                     pieceType,
                     count,
@@ -582,7 +603,7 @@ export function SingleBigSwitch (
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
-
+                    null,
                     output,
                     pieceType,
                     count,
@@ -609,7 +630,7 @@ export function SingleBigSwitch (
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
-
+                    null,
                     output,
                     pieceType,
                     count,
@@ -636,7 +657,7 @@ export function SingleBigSwitch (
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
-
+                    null,
                     output,
                     pieceType,
                     count,
@@ -663,6 +684,7 @@ export function SingleBigSwitch (
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
+                    null,
                     output,
                     pieceType,
                     count,
@@ -689,7 +711,7 @@ export function SingleBigSwitch (
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
-
+                    null,
                     output,
                     pieceType,
                     count,
@@ -715,6 +737,7 @@ export function SingleBigSwitch (
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
+                    null,
                     output,
                     pieceType,
                     count,
@@ -741,7 +764,7 @@ export function SingleBigSwitch (
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
-
+                    null,
                     output,
                     pieceType,
                     count,
@@ -767,7 +790,7 @@ export function SingleBigSwitch (
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
-
+                    null,
                     output,
                     pieceType,
                     count,
@@ -793,7 +816,7 @@ export function SingleBigSwitch (
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
-
+                    null,
                     output,
                     pieceType,
                     count,
@@ -819,7 +842,7 @@ export function SingleBigSwitch (
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
-
+                    null,
                     output,
                     pieceType,
                     count,
@@ -847,7 +870,7 @@ export function SingleBigSwitch (
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
-
+                    null,
                     output,
                     pieceType,
                     count,
@@ -875,7 +898,7 @@ export function SingleBigSwitch (
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
-
+                    null,
                     output,
                     pieceType,
                     count,
@@ -904,7 +927,7 @@ export function SingleBigSwitch (
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
-
+                    null,
                     output,
                     pieceType,
                     count,
@@ -935,7 +958,7 @@ export function SingleBigSwitch (
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
-
+                    null,
                     output,
                     pieceType,
                     count,
@@ -961,7 +984,7 @@ export function SingleBigSwitch (
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
-
+                    null,
                     output,
                     pieceType,
                     count,
@@ -986,7 +1009,7 @@ export function SingleBigSwitch (
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
-
+                    null,
                     output,
                     pieceType,
                     count,
@@ -1012,7 +1035,7 @@ export function SingleBigSwitch (
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
-
+                    null,
                     output,
                     pieceType,
                     count,
@@ -1038,7 +1061,7 @@ export function SingleBigSwitch (
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
-
+                    null,
                     output,
                     pieceType,
                     count,
@@ -1067,7 +1090,7 @@ export function SingleBigSwitch (
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
-
+                    null,
                     output,
                     pieceType,
                     count,
@@ -1095,7 +1118,7 @@ export function SingleBigSwitch (
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
-
+                    null,
                     output,
                     pieceType,
                     count,
@@ -1120,7 +1143,7 @@ export function SingleBigSwitch (
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
-
+                    null,
                     output,
                     pieceType,
                     count,
@@ -1143,7 +1166,7 @@ export function SingleBigSwitch (
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
-
+                    null,
                     output,
                     pieceType,
                     count,
@@ -1168,7 +1191,7 @@ export function SingleBigSwitch (
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
-
+                    null,
                     output,
                     pieceType,
                     count,
@@ -1193,7 +1216,7 @@ export function SingleBigSwitch (
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
-
+                    null,
                     output,
                     pieceType,
                     count,
@@ -1216,7 +1239,7 @@ export function SingleBigSwitch (
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
-
+                    null,
                     output,
                     pieceType,
                     count,
@@ -1239,7 +1262,7 @@ export function SingleBigSwitch (
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
-
+                    null,
                     output,
                     pieceType,
                     count,
@@ -1265,7 +1288,7 @@ export function SingleBigSwitch (
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
-
+                    null,
                     output,
                     pieceType,
                     count,
@@ -1289,7 +1312,7 @@ export function SingleBigSwitch (
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
-
+                    null,
                     output,
                     pieceType,
                     count,
@@ -1312,7 +1335,7 @@ export function SingleBigSwitch (
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
-
+                    null,
                     output,
                     pieceType,
                     count,
@@ -1336,7 +1359,7 @@ export function SingleBigSwitch (
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
-
+                    null,
                     output,
                     pieceType,
                     count,

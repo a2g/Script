@@ -3,9 +3,11 @@ import { SpecialTypes } from './SpecialTypes'
 import { Solution } from './Solution'
 import { Happenings } from './Happenings'
 import { Happen } from './Happen'
+import { BoxReadOnlyWithFileMethods } from './BoxReadOnlyWithFileMethods'
 
 export class Piece {
   id: number
+  merge: BoxReadOnlyWithFileMethods | null
   type: string
   output: string
   inputs: Array<Piece | null>
@@ -17,6 +19,7 @@ export class Piece {
 
   constructor (
     id: number,
+    merge: BoxReadOnlyWithFileMethods | null,
     output: string,
     type = 'undefined',
     count = 1, // put it here so all the tests don't need to specify it.
@@ -30,6 +33,7 @@ export class Piece {
     inputF = 'undefined' // no statics in typescript, so this seemed preferable than global let Null = "Null";
   ) {
     this.id = id
+    this.merge = merge
     this.parent = null
     this.count = count
     this.output = output
@@ -70,7 +74,7 @@ export class Piece {
   }
 
   ClonePieceAndEntireTree (incompletePieceSet: Set<Piece>): Piece {
-    const clone = new Piece(0, this.output, '')
+    const clone = new Piece(0, null, this.output, '')
     clone.id = this.id
     clone.type = this.type
     clone.count = this.count
@@ -114,6 +118,21 @@ export class Piece {
     return null
   }
 
+  ReturnTheFirstNullInputHint (): string {
+    for (let i = 0; i < this.inputs.length; i++) {
+      const input = this.inputs[i]
+      if (input === null) {
+        return this.inputHints[i]
+      } else {
+        const result = input.ReturnTheFirstNullInputHint()
+        if (result.length > 0) {
+          return result
+        }
+      }
+    }
+    return ''
+  }
+
   private InternalLoopOfProcessUntilCloning (solution: Solution, solutions: SolverViaRootPiece): boolean {
     for (let k = 0; k < this.inputs.length; k++) { // classic forloop useful because shared index on cloned piece
       // without this following line, any clones will attempt to reclone themselves
@@ -155,7 +174,7 @@ export class Piece {
           // we don't do this anymore, since all pieces are put in root piece map
           // solution.GetRootMap().AddRootPiece(matchingPieces[0])
           const root = solution.GetRootMap().GetRootPieceByName(objectToObtain)
-          if (root.isCompleted) {
+          if (root.firstIncompleteInput.length === 0) {
             this.StubOutInputK(k, SpecialTypes.GoalExistsAndCompleted)
           } else {
             this.StubOutInputK(k, SpecialTypes.TempGoalWasntCompleteDontStubThisOut)
@@ -218,7 +237,7 @@ export class Piece {
 
   StubOutInputK (k: number, type: SpecialTypes): void {
     const objectToObtain = this.inputHints[k]
-    const newLeaf = new Piece(0, `${type}(${objectToObtain})`, type)
+    const newLeaf = new Piece(0, null, `${type}(${objectToObtain})`, type)
     newLeaf.parent = this
     this.inputs[k] = newLeaf
   }

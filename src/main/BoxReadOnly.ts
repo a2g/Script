@@ -30,10 +30,10 @@ export interface BoxReadOnly {
   GetArrayOfInitialStatesOfProps: () => boolean[]
   GetArrayOfInitialStatesOfInvs: () => boolean[]
   GetArrayOfCharacters: () => string[]
-  GetMapOfSubBoxes: () => Map<string, BoxReadOnly>
 
   // original-json-traversers
   FindHappeningsIfAny: (objects: MixedObjectsAndVerb) => Happenings | null
   CopyPiecesFromBoxToPile: (pile: PileOfPieces) => void // its possible for this to be done on aggregate
   CopyGoalPiecesToAnyContainer: (map: PileOrRootPieceMap) => void
+  CollectAllReferencedBoxesRecursively: (array: Set<BoxReadOnly>) => void
 }

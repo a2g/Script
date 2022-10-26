@@ -1,7 +1,6 @@
 export { AddBrackets } from './main/AddBrackets.js'
 export { AlleviateBrackets } from './main/AlleviateBrackets.js'
-export { BigBoxViaArrayOfBoxes } from './main/BigBoxViaArrayOfBoxes.js'
-export { BigBoxViaTraversingSubBoxes } from './main/BigBoxViaTraversingSubBoxes.js'
+export { BigBoxViaSetOfBoxes } from './main/BigBoxViaSetOfBoxes.js'
 export { Box } from './main/Box.js'
 export { BoxReadOnly } from './main/BoxReadOnly.js'
 export { BoxReadOnlyWithFileMethods } from './main/BoxReadOnlyWithFileMethods.js'

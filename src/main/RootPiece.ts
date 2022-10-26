@@ -2,9 +2,9 @@ import { Piece } from './Piece'
 
 export class RootPiece {
   public piece: Piece
-  public isCompleted: boolean
-  constructor (piece: Piece, isCompleted: boolean) {
+  public firstIncompleteInput: string
+  constructor (piece: Piece, firstIncompleteInput: string) {
     this.piece = piece
-    this.isCompleted = isCompleted
+    this.firstIncompleteInput = firstIncompleteInput
   }
 }

@@ -18,7 +18,7 @@ export class RootPieceMap implements PileOrRootPieceMap {
         const key = pair[0]
         const value = pair[1]
         const clonedTree = value.piece.ClonePieceAndEntireTree(incompletePieces)
-        this.roots.set(key, new RootPiece(clonedTree, value.isCompleted))
+        this.roots.set(key, new RootPiece(clonedTree, value.firstIncompleteInput))
       }
     }
   }
@@ -53,7 +53,7 @@ export class RootPieceMap implements PileOrRootPieceMap {
 
   AddPiece (piece: Piece): void {
     // always add to list
-    this.roots.set(piece.output, new RootPiece(piece, false))
+    this.roots.set(piece.output, new RootPiece(piece, ''))
   }
 
   Size (): number {
