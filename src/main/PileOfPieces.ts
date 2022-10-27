@@ -16,10 +16,9 @@ export class PileOfPieces implements PileOfPiecesReadOnly {
       for (const set of cloneFromMe.GetIterator()) {
         if (set.size > 0) {
           const clonedSet = new Set<Piece>()
-          const throwawaySet = new Set<Piece>()
           let outputName = ''
           for (const piece of set) {
-            const clonedPiece = piece.ClonePieceAndEntireTree(throwawaySet)
+            const clonedPiece = piece.ClonePieceAndEntireTree()
             clonedSet.add(clonedPiece)
             outputName = clonedPiece.output
           }

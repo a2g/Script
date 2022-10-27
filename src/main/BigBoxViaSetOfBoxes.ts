@@ -36,8 +36,7 @@ export class BigBoxViaSetOfBoxes implements BoxReadOnly {
     this.startingPropSet = new Set<string>()
     this.startingInvSet = new Set<string>()
     this.startingGoalSet = new Set<string>()
-    const throwaway = new Set<Piece>()
-    this.goals = new RootPieceMap(null, throwaway)
+    this.goals = new RootPieceMap(null)
     const setProps = new Set<string>()
     const setGoals = new Set<string>()
     const setInvs = new Set<string>()
@@ -183,9 +182,8 @@ export class BigBoxViaSetOfBoxes implements BoxReadOnly {
   }
 
   CopyGoalPiecesToAnyContainer (map: PileOrRootPieceMap): void {
-    const set = new Set<Piece>()
     for (const goal of this.goals.GetValues()) {
-      const clonedPiece = goal.piece.ClonePieceAndEntireTree(set)
+      const clonedPiece = goal.piece.ClonePieceAndEntireTree()
       map.AddPiece(clonedPiece)
     }
   }

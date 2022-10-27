@@ -33,20 +33,20 @@ export class SolverViaRootPiece {
     return this.solutions.length
   }
 
-  IsAnyPiecesUnprocessed (): boolean {
-    let isAnyPiecesUnprocessed = false
-    this.solutions.forEach((solution: Solution) => {
-      if (solution.IsAnyPiecesIncomplete()) {
-        isAnyPiecesUnprocessed = true
+  AreAnyInputsNull (): boolean {
+    for (const solution of this.solutions) {
+      solution.MarkGoalsAsContainingNullsAndMergeIfNeeded()
+      if (solution.AreAnyInputsNull()) {
+        return true
       }
-    })
-    return isAnyPiecesUnprocessed
+    }
+    return false
   }
 
   SolvePartiallyUntilCloning (): boolean {
     let hasACloneJustBeenCreated = false
     this.solutions.forEach((solution: Solution) => {
-      if (solution.IsAnyPiecesIncomplete()) {
+      if (solution.AreAnyInputsNull()) {
         if (!solution.IsArchived()) {
           if (solution.ProcessUntilCloning(this)) {
             hasACloneJustBeenCreated = true
@@ -60,7 +60,7 @@ export class SolverViaRootPiece {
   SolveUntilZeroUnprocessedPieces (): void {
     do {
       this.SolvePartiallyUntilCloning()
-    } while (this.IsAnyPiecesUnprocessed())
+    } while (this.AreAnyInputsNull())
 
     this.GenerateSolutionNamesAndPush()
   }
@@ -76,7 +76,7 @@ export class SolverViaRootPiece {
 
   MarkGoalsAsCompletedAndMergeIfNeeded (): void {
     for (const solution of this.solutions) {
-      solution.MarkGoalsAsCompletedAndMergeIfNeeded()
+      solution.MarkGoalsAsContainingNullsAndMergeIfNeeded()
     }
   }
 

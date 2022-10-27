@@ -6,8 +6,7 @@ import chai from 'chai'
 
 describe('GenerateMapOfLeaves', () => {
   it('EnsureARootPieceThatIsAVerifiedLeafGetsAdded', () => {
-    const throwaway = new Set<Piece>()
-    const rootPieceMap = new RootPieceMap(null, throwaway)
+    const rootPieceMap = new RootPieceMap(null)
     const piece = new Piece(0, null, 'blah', SpecialTypes.VerifiedLeaf, 1, null, null, 'c', 'c')
     rootPieceMap.AddPiece(piece)
 

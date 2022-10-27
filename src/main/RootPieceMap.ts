@@ -11,20 +11,20 @@ export class RootPieceMap implements PileOrRootPieceMap {
   private readonly roots: Map<string, RootPiece>
   // file names?
 
-  constructor (deepCopyFromMe: RootPieceMap | null, incompletePieces: Set<Piece>) {
+  constructor (deepCopyFromMe: RootPieceMap | null) {
     this.roots = new Map<string, RootPiece>()
     if (deepCopyFromMe != null) {
       for (const pair of deepCopyFromMe.roots) {
         const key = pair[0]
         const value = pair[1]
-        const clonedTree = value.piece.ClonePieceAndEntireTree(incompletePieces)
-        this.roots.set(key, new RootPiece(clonedTree, value.firstIncompleteInput))
+        const clonedTree = value.piece.ClonePieceAndEntireTree()
+        this.roots.set(key, new RootPiece(clonedTree, value.firstNullInput))
       }
     }
   }
 
   CloneAllRootPiecesAndTheirTrees (incompletePieces: Set<Piece>): RootPieceMap {
-    return new RootPieceMap(this, incompletePieces)
+    return new RootPieceMap(this)
   }
 
   Has (goalToObtain: string): boolean {

@@ -1,6 +1,5 @@
 import { SolverViaRootPiece } from './SolverViaRootPiece.js'
 import { Piece } from './Piece.js'
-import { SpecialTypes } from './SpecialTypes.js'
 import { PileOfPieces } from './PileOfPieces.js'
 import { FormatText } from './FormatText.js'
 import { RootPieceMap } from './RootPieceMap.js'
@@ -26,7 +25,7 @@ export class Solution {
   private readonly remainingPiecesRepo: PileOfPieces
 
   // less important
-  private readonly incompletePieces: Set<Piece>
+
   private readonly restrictionsEncounteredDuringSolving: Set<string>// yup these are added to
   private readonly solutionNameSegments: string[] // these get assigned by SolverViaRootPiece.GenerateNames
   private readonly startingThings: Map<string, Set<string>> // once, this was updated dynamically in GetNextDoableCommandAndDesconstructTree
@@ -40,8 +39,7 @@ export class Solution {
     restrictions: Set<string> | null = null,
     nameSegments: string[] | null = null
   ) {
-    this.incompletePieces = new Set<Piece>()
-    this.rootPieces = new RootPieceMap(rootPieceMapToCopy, this.incompletePieces)
+    this.rootPieces = new RootPieceMap(rootPieceMapToCopy)
 
     this.remainingPiecesRepo = new PileOfPieces(copyThisMapOfPieces)
     this.isArchived = false
@@ -70,11 +68,6 @@ export class Solution {
     }
   }
 
-  public AddRootPiece (rootPiece: Piece): void {
-    this.rootPieces.AddPiece(rootPiece)
-    this.incompletePieces.add(rootPiece)
-  }
-
   Clone (): Solution {
     // the weird order of this is because Solution constructor is used
     // primarily to construct, so passing in root piece is needed..
@@ -91,42 +84,7 @@ export class Solution {
       this.restrictionsEncounteredDuringSolving,
       this.solutionNameSegments
     )
-    clonedSolution.SetIncompletePieces(incompletePieces)
     return clonedSolution
-  }
-
-  SetPieceIncompleteIfBlank (piece: Piece | null): void {
-    if (piece != null) {
-      switch (piece.type) {
-        case SpecialTypes.GoalExistsAndCompleted:
-        case SpecialTypes.StartingThings:
-        case SpecialTypes.TempGoalWasntCompleteDontStubThisOut:
-        case SpecialTypes.VerifiedLeaf:
-          return
-        default:
-          this.incompletePieces.add(piece)
-      }
-    }
-  }
-
-  MarkPieceAsCompleted (piece: Piece | null): void {
-    if (piece != null) {
-      if (this.incompletePieces.has(piece)) {
-        this.incompletePieces.delete(piece)
-      }
-    }
-  }
-
-  SetIncompletePieces (set: Set<Piece>): void {
-    // safer to copy this - just being cautious
-    this.incompletePieces.clear()
-    for (const piece of set) {
-      this.incompletePieces.add(piece)
-    }
-  }
-
-  IsAnyPiecesIncomplete (): boolean {
-    return this.incompletePieces.size > 0
   }
 
   ProcessUntilCloning (solutions: SolverViaRootPiece): boolean {
@@ -138,10 +96,6 @@ export class Solution {
       }
     }
 
-    if (!isBreakingDueToSolutionCloning) {
-      // then this means the root piece has rolled to completion
-      this.incompletePieces.clear()
-    }
     return isBreakingDueToSolutionCloning
   }
 
@@ -230,15 +184,24 @@ export class Solution {
     return this.startingThings
   }
 
-  MarkGoalsAsCompletedAndMergeIfNeeded (): void {
+  MarkGoalsAsContainingNullsAndMergeIfNeeded (): void {
     for (const goal of this.rootPieces.GetValues()) {
-      goal.firstIncompleteInput = goal.piece.ReturnTheFirstNullInputHint()
-      if (goal.firstIncompleteInput === '') {
+      goal.firstNullInput = goal.piece.ReturnTheFirstNullInputHint()
+      if (goal.firstNullInput === '') {
         if (goal.piece.merge != null) {
           goal.piece.merge.CopyPiecesFromBoxToPile(this.GetPile())
           goal.piece.merge.CopyStartingThingCharsToGivenMap(this.startingThings)
         }
       }
     }
+  }
+
+  AreAnyInputsNull (): boolean {
+    for (const goal of this.rootPieces.GetValues()) {
+      if (goal.firstNullInput.length > 0) {
+        return true
+      }
+    }
+    return false
   }
 }

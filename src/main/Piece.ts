@@ -73,7 +73,7 @@ export class Piece {
     }
   }
 
-  ClonePieceAndEntireTree (incompletePieceSet: Set<Piece>): Piece {
+  ClonePieceAndEntireTree (): Piece {
     const clone = new Piece(0, null, this.output, '')
     clone.id = this.id
     clone.type = this.type
@@ -86,19 +86,15 @@ export class Piece {
     }
 
     // the pieces
-    let isIncomplete = false
     for (const input of this.inputs) {
       if (input != null) {
-        const child = input.ClonePieceAndEntireTree(incompletePieceSet)
+        const child = input.ClonePieceAndEntireTree()
         child.SetParent(clone)
         clone.inputs.push(child)
       } else {
-        isIncomplete = true
         clone.inputs.push(null)
       }
     }
-
-    if (isIncomplete) { incompletePieceSet.add(this) }
 
     for (const restriction of this.characterRestrictions) {
       clone.characterRestrictions.push(restriction)
@@ -153,6 +149,11 @@ export class Piece {
       // so we can skip on to the next one..I think...
       //
       if (solution.GetRootMap().Has(objectToObtain)) {
+        solution.MarkGoalsAsContainingNullsAndMergeIfNeeded()
+        const piece = solution.GetRootMap().GetRootPieceByName(objectToObtain).firstNullInput
+        if (piece.length === 0) {
+          this.StubOutInputK(k, SpecialTypes.GoalExistsAndCompleted)
+        }
         continue
       }
 
@@ -170,11 +171,8 @@ export class Piece {
           // and since AddToMap uses output as the key in the map
           // then the goals map will now have another entry with a key equal to "goal_..."
           // which is what we want.
-          //
-          // we don't do this anymore, since all pieces are put in root piece map
-          // solution.GetRootMap().AddRootPiece(matchingPieces[0])
           const root = solution.GetRootMap().GetRootPieceByName(objectToObtain)
-          if (root.firstIncompleteInput.length === 0) {
+          if (root.firstNullInput.length === 0) {
             this.StubOutInputK(k, SpecialTypes.GoalExistsAndCompleted)
           } else {
             this.StubOutInputK(k, SpecialTypes.TempGoalWasntCompleteDontStubThisOut)
@@ -199,7 +197,7 @@ export class Piece {
 
           // this is only here to make the unit tests make sense
           // something like to fix a bug where cloning doesn't mark piece as complete
-          theSolution.MarkPieceAsCompleted(theSolution.GetGoalWin())
+          // theSolution.MarkPieceAsCompleted(theSolution.GetGoalWin())
           // ^^ this might need to recursively ask for parent, since there are no
           // many root pieces
 
@@ -220,8 +218,7 @@ export class Piece {
             theMatchingPiece.parent = thePiece
             thePiece.inputs[k] = theMatchingPiece
 
-            // all gates are incomplete when they are *just* added
-            theSolution.SetPieceIncompleteIfBlank(theMatchingPiece)
+            // all pieces are incomplete when they are *just* added
             theSolution.AddRestrictions(theMatchingPiece.getRestrictions())
           } else {
             console.log('piece is null - so we are cloning wrong')
@@ -246,8 +243,8 @@ export class Piece {
     path += this.output + '/'
     if (this.type === SpecialTypes.VerifiedLeaf) { return false }// false just means keep processing.
 
-    // this is the point we set it as completed
-    solution.MarkPieceAsCompleted(this)
+    // this is the point we used to set it as completed
+    // solution.MarkPieceAsCompleted(this)
 
     if (this.InternalLoopOfProcessUntilCloning(solution, solutions)) {
       return true

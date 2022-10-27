@@ -2,9 +2,9 @@ import { Piece } from './Piece'
 
 export class RootPiece {
   public piece: Piece
-  public firstIncompleteInput: string
+  public firstNullInput: string
   constructor (piece: Piece, firstIncompleteInput: string) {
     this.piece = piece
-    this.firstIncompleteInput = firstIncompleteInput
+    this.firstNullInput = firstIncompleteInput
   }
 }

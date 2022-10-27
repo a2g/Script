@@ -4,7 +4,6 @@ import { SolverViaRootPiece } from '../main/SolverViaRootPiece'
 import { Box } from '../main/Box'
 import { PileOfPieces } from '../main/PileOfPieces'
 import { RootPieceMap } from '../main/RootPieceMap'
-import { Piece } from '../main/Piece'
 import { Solution } from '../main/Solution'
 
 describe('Solution', () => {
@@ -95,8 +94,7 @@ describe('Solution', () => {
     const pile = new PileOfPieces(null)
     box.CopyPiecesFromBoxToPile(pile)
 
-    const throwaway = new Set<Piece>()
-    const rootMap = new RootPieceMap(null, throwaway)
+    const rootMap = new RootPieceMap(null)
     box.CopyGoalPiecesToAnyContainer(rootMap)
     const solution = new Solution(rootMap, pile, startingThings, null, null)
 
@@ -115,7 +113,7 @@ describe('Solution', () => {
     // process the rest of the Pieces
     do {
       collection.SolvePartiallyUntilCloning()
-    } while (collection.IsAnyPiecesUnprocessed())
+    } while (collection.AreAnyInputsNull())
 
     {
       const leaves = solution0.GetRootMap().GenerateMapOfLeaves()
