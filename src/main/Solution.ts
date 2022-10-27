@@ -180,17 +180,20 @@ export class Solution {
     return this.rootPieces
   }
 
-  GetStartingThings (): ReadonlyMap<string, Set<string>> {
+  GetStartingThings (): Map<string, Set<string>> {
     return this.startingThings
   }
 
   MarkGoalsAsContainingNullsAndMergeIfNeeded (): void {
     for (const goal of this.rootPieces.GetValues()) {
-      goal.firstNullInput = goal.piece.ReturnTheFirstNullInputHint()
-      if (goal.firstNullInput === '') {
-        if (goal.piece.merge != null) {
-          goal.piece.merge.CopyPiecesFromBoxToPile(this.GetPile())
-          goal.piece.merge.CopyStartingThingCharsToGivenMap(this.startingThings)
+      const firstMissingPiece = goal.piece.ReturnTheFirstNullInputHint()
+      if (firstMissingPiece === '') { // there are no missing pieces - yay!
+        if (goal.firstNullInput !== '') {
+          goal.firstNullInput = ''
+          if (goal.piece.merge != null) {
+            goal.piece.merge.CopyPiecesFromBoxToPile(this.GetPile())
+            goal.piece.merge.CopyStartingThingCharsToGivenMap(this.startingThings)
+          }
         }
       }
     }

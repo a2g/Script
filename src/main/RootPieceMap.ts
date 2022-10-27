@@ -53,7 +53,7 @@ export class RootPieceMap implements PileOrRootPieceMap {
 
   AddPiece (piece: Piece): void {
     // always add to list
-    this.roots.set(piece.output, new RootPiece(piece, ''))
+    this.roots.set(piece.output, new RootPiece(piece, 'Default'))
   }
 
   Size (): number {

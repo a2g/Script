@@ -17,7 +17,7 @@ export class Piece {
   characterRestrictions: string[]
   happenings: Happenings | null
 
-  constructor (
+  constructor(
     id: number,
     merge: BoxReadOnlyWithFileMethods | null,
     output: string,
@@ -73,12 +73,13 @@ export class Piece {
     }
   }
 
-  ClonePieceAndEntireTree (): Piece {
+  ClonePieceAndEntireTree(): Piece {
     const clone = new Piece(0, null, this.output, '')
     clone.id = this.id
     clone.type = this.type
     clone.count = this.count
     clone.output = this.output
+    clone.merge = this.merge
 
     // the hints
     for (const inputHint of this.inputHints) {
@@ -103,7 +104,7 @@ export class Piece {
     return clone
   }
 
-  FindAnyPieceMatchingIdRecursively (id: number): Piece | null {
+  FindAnyPieceMatchingIdRecursively(id: number): Piece | null {
     if (this.id === id) {
       return this
     }
@@ -114,7 +115,7 @@ export class Piece {
     return null
   }
 
-  ReturnTheFirstNullInputHint (): string {
+  ReturnTheFirstNullInputHint(): string {
     for (let i = 0; i < this.inputs.length; i++) {
       const input = this.inputs[i]
       if (input === null) {
@@ -129,29 +130,29 @@ export class Piece {
     return ''
   }
 
-  private InternalLoopOfProcessUntilCloning (solution: Solution, solutions: SolverViaRootPiece): boolean {
-    for (let k = 0; k < this.inputs.length; k++) { // classic forloop useful because shared index on cloned piece
-      // without this following line, any clones will attempt to reclone themselves
+  private InternalLoopOfProcessUntilCloning(solution: Solution, solutions: SolverViaRootPiece): boolean {
+    for (let k = 0; k < this.inputs.length; k++) { // classic for-loop useful because shared index on cloned piece
+      // without this following line, any clones will attempt to re-clone themselves
       // and Solution.ProcessUntilCompletion will continue forever
-      if (this.inputs[k] != null) { continue }
+      if (this.inputs[k] != null) {
+        continue
+      }
 
       // we check our starting set first!
       // otherwise Toggle pieces will toggle until the count is zero.
       const objectToObtain = this.inputHints[k]
       if (solution.GetStartingThings().has(objectToObtain)) {
         this.StubOutInputK(k, SpecialTypes.StartingThings)
-        // solution.AddLeafForReverseTraversal(path + this.inputHints[k] + "/", newLeaf);
         continue
       }
 
       // check whether we've found the goal earlier,
       // then we will eventually come to process the other entry in goals
       // so we can skip on to the next one..I think...
-      //
-      if (solution.GetRootMap().Has(objectToObtain)) {
-        solution.MarkGoalsAsContainingNullsAndMergeIfNeeded()
-        const piece = solution.GetRootMap().GetRootPieceByName(objectToObtain).firstNullInput
-        if (piece.length === 0) {
+      if (solution.GetRootMap().Has(objectToObtain)) { // is it a goal? (since goal map always contains all goals)
+        solution.MarkGoalsAsContainingNullsAndMergeIfNeeded()// this is optional...
+        const firstNullInput = solution.GetRootMap().GetRootPieceByName(objectToObtain).firstNullInput
+        if (firstNullInput === '') {
           this.StubOutInputK(k, SpecialTypes.GoalExistsAndCompleted)
         }
         continue
@@ -159,28 +160,9 @@ export class Piece {
 
       // This is where we get all the pieces that fit
       // and if there is more than one, then we clone
-      const rootMap = solution.GetRootMap()
-      const startingThings = solution.GetStartingThings()
-      const matchingPieces = solution.GetPile().GetPiecesThatOutputObject(objectToObtain)
-      if ((matchingPieces === undefined) || matchingPieces.length === 0) {
-        if (startingThings.has(objectToObtain)) {
-          this.StubOutInputK(k, SpecialTypes.StartingThings)
-        } else if (rootMap.Has(objectToObtain)) {
-          // add the piece with the goal output to the goal map
-          // since matchingPieces[0] has output of "goal_..." (it must be equal to input)
-          // and since AddToMap uses output as the key in the map
-          // then the goals map will now have another entry with a key equal to "goal_..."
-          // which is what we want.
-          const root = solution.GetRootMap().GetRootPieceByName(objectToObtain)
-          if (root.firstNullInput.length === 0) {
-            this.StubOutInputK(k, SpecialTypes.GoalExistsAndCompleted)
-          } else {
-            this.StubOutInputK(k, SpecialTypes.TempGoalWasntCompleteDontStubThisOut)
-          }
-        } else {
-          // do nothing
-        }
-      } else if (matchingPieces.length > 0) {
+      const setOfMatchingPieces = solution.GetPile().GetPiecesThatOutputObject(objectToObtain)
+      if (setOfMatchingPieces.size > 0) {
+        const matchingPieces = Array.from(setOfMatchingPieces)
         // In our array the currentSolution, is at index zero
         // so we start at the highest index in the list
         // we when we finish the loop, we are with
@@ -232,14 +214,14 @@ export class Piece {
     return false
   }
 
-  StubOutInputK (k: number, type: SpecialTypes): void {
+  StubOutInputK(k: number, type: SpecialTypes): void {
     const objectToObtain = this.inputHints[k]
     const newLeaf = new Piece(0, null, `${type}(${objectToObtain})`, type)
     newLeaf.parent = this
     this.inputs[k] = newLeaf
   }
 
-  ProcessUntilCloning (solution: Solution, solutions: SolverViaRootPiece, path: string): boolean {
+  ProcessUntilCloning(solution: Solution, solutions: SolverViaRootPiece, path: string): boolean {
     path += this.output + '/'
     if (this.type === SpecialTypes.VerifiedLeaf) { return false }// false just means keep processing.
 
@@ -279,23 +261,23 @@ export class Piece {
     return false
   }
 
-  SetParent (parent: Piece | null): void {
+  SetParent(parent: Piece | null): void {
     this.parent = parent
   }
 
-  GetParent (): Piece | null {
+  GetParent(): Piece | null {
     return this.parent
   }
 
-  getRestrictions (): string[] {
+  getRestrictions(): string[] {
     return this.characterRestrictions
   }
 
-  public GetOutput (): string {
+  public GetOutput(): string {
     return this.output
   }
 
-  UpdateMapWithOutcomes (visiblePieces: Map<string, Set<string>>): void {
+  UpdateMapWithOutcomes(visiblePieces: Map<string, Set<string>>): void {
     if (this.happenings != null) {
       for (const happening of this.happenings.array) {
         switch (happening.happen) {

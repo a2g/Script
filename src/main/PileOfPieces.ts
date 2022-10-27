@@ -1,7 +1,6 @@
-import { BoxReadOnlyWithFileMethods } from './BoxReadOnlyWithFileMethods'
 import { Piece } from './Piece'
 import { PileOfPiecesReadOnly } from './PileOfPiecesReadOnly'
-import { RootPieceMap } from './RootPieceMap'
+
 /**
  * Yes, the only data here is the map.
  *
@@ -73,11 +72,6 @@ export class PileOfPieces implements PileOfPiecesReadOnly {
     return false
   }
 
-  // methods for mutating
-  MergeInPiecesFromScene (box: BoxReadOnlyWithFileMethods, rootPieceMap: RootPieceMap): void {
-    box.CopyPiecesFromBoxToPile(this)
-  }
-
   AddPiece (piece: Piece): void {
     // initialize array, if it hasn't yet been
     if (!this.piecesMappedByOutput.has(piece.output)) {
@@ -113,21 +107,15 @@ export class PileOfPieces implements PileOfPiecesReadOnly {
     return null
   }
 
-  GetPiecesThatOutputObject (objectToObtain: string): Piece[] | undefined {
+  GetPiecesThatOutputObject (objectToObtain: string): Set<Piece> {
     // since the remainingPieces are a map index by output piece
     // then a remainingPieces.Get will retrieve all matching pieces.
-    const result: Set<Piece> | undefined =
-      this.Get(objectToObtain)
-    if (result != null) {
-      const blah: Piece[] = []
-      for (const item of result) {
-        if (item.count >= 1) {
-          blah.push(item)
-        }
+    for (const pair of this.piecesMappedByOutput) {
+      if (pair[0] === objectToObtain) {
+        return pair[1]
       }
-      return blah
     }
-    return []
+    return new Set<Piece>()
   }
 
   GetPiecesThatOutputObject2 (givenOutput: string): Set<Piece> | undefined {
