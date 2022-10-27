@@ -6,7 +6,6 @@ import { SingleBigSwitch } from './SingleBigSwitch.js'
 import { BoxReadOnlyWithFileMethods } from './BoxReadOnlyWithFileMethods.js'
 import { BoxReadOnly } from './BoxReadOnly.js'
 import { PileOrRootPieceMap } from './PileOrRootPieceMap.js'
-import { Piece } from './Piece.js'
 import { RootPieceMap } from './RootPieceMap.js'
 
 /**

@@ -10,7 +10,6 @@ import { BoxReadOnlyWithFileMethods } from './BoxReadOnlyWithFileMethods.js'
 import hjson from 'hjson'
 import { PileOrRootPieceMap } from './PileOrRootPieceMap.js'
 import { RootPieceMap } from './RootPieceMap.js'
-import { Piece } from './Piece.js'
 import { BoxReadOnly } from './BoxReadOnly.js'
 
 /**
