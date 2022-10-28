@@ -3,21 +3,21 @@ import { Piece } from '../main/Piece'
 import { PileOfPieces } from '../main/PileOfPieces'
 describe('ReactionMap', () => {
   it('test AddToMap works', () => {
-    const blah = new PileOfPieces(null)
+    const pile = new PileOfPieces(null)
 
     // test that it is indeed null before
-    const arrayBefore = blah.Get('outputA')
-    expect(arrayBefore).to.equal(undefined)
+    const setBefore = pile.Get('outputA')
+    expect(setBefore).to.equal(undefined)
 
     // do it!
-    blah.AddPiece(new Piece(0, null, 'outputA', 'type', 1, null, null, 'A', 'B'))
+    pile.AddPiece(new Piece(0, null, 'outputA', 'type', 1, null, null, 'A', 'B'))
 
-    // test that it adds an array if the array is not yet null.
-    const arrayAfter = blah.Get('outputA')
-    expect(arrayAfter).to.equal(null)
+    // test that it has added a set for the new piece
+    const setAfter = pile.Get('outputA')
+    expect(setAfter).not.to.equal(null)
 
-    const countAfterAdding = (arrayAfter != null) ? arrayAfter.size : 0
-    expect(countAfterAdding).to.equal(1)
+    const sizeAfterAdding = (setAfter != null) ? setAfter.size : 0
+    expect(sizeAfterAdding).to.equal(1)
   })
 
   it('test RemovePiece works', () => {
@@ -70,6 +70,6 @@ describe('ReactionMap', () => {
     // check the originals are still the same
     expect(array[0].inputHints[0]).to.equal('a')
     expect(array[1].inputHints[0]).to.equal('b')
-    expect(array[2].inputHints[0]).to.equal('v')
+    expect(array[2].inputHints[0]).to.equal('c')
   })
 })
