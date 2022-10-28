@@ -17,7 +17,7 @@ export class Piece {
   characterRestrictions: string[]
   happenings: Happenings | null
 
-  constructor(
+  constructor (
     id: number,
     merge: BoxReadOnlyWithFileMethods | null,
     output: string,
@@ -73,7 +73,7 @@ export class Piece {
     }
   }
 
-  ClonePieceAndEntireTree(): Piece {
+  ClonePieceAndEntireTree (): Piece {
     const clone = new Piece(0, null, this.output, '')
     clone.id = this.id
     clone.type = this.type
@@ -104,7 +104,7 @@ export class Piece {
     return clone
   }
 
-  FindAnyPieceMatchingIdRecursively(id: number): Piece | null {
+  FindAnyPieceMatchingIdRecursively (id: number): Piece | null {
     if (this.id === id) {
       return this
     }
@@ -115,7 +115,7 @@ export class Piece {
     return null
   }
 
-  ReturnTheFirstNullInputHint(): string {
+  ReturnTheFirstNullInputHint (): string {
     for (let i = 0; i < this.inputs.length; i++) {
       const input = this.inputs[i]
       if (input === null) {
@@ -130,7 +130,7 @@ export class Piece {
     return ''
   }
 
-  private InternalLoopOfProcessUntilCloning(solution: Solution, solutions: SolverViaRootPiece): boolean {
+  private InternalLoopOfProcessUntilCloning (solution: Solution, solutions: SolverViaRootPiece): boolean {
     for (let k = 0; k < this.inputs.length; k++) { // classic for-loop useful because shared index on cloned piece
       // without this following line, any clones will attempt to re-clone themselves
       // and Solution.ProcessUntilCompletion will continue forever
@@ -214,14 +214,14 @@ export class Piece {
     return false
   }
 
-  StubOutInputK(k: number, type: SpecialTypes): void {
+  StubOutInputK (k: number, type: SpecialTypes): void {
     const objectToObtain = this.inputHints[k]
     const newLeaf = new Piece(0, null, `${type}(${objectToObtain})`, type)
     newLeaf.parent = this
     this.inputs[k] = newLeaf
   }
 
-  ProcessUntilCloning(solution: Solution, solutions: SolverViaRootPiece, path: string): boolean {
+  ProcessUntilCloning (solution: Solution, solutions: SolverViaRootPiece, path: string): boolean {
     path += this.output + '/'
     if (this.type === SpecialTypes.VerifiedLeaf) { return false }// false just means keep processing.
 
@@ -261,23 +261,23 @@ export class Piece {
     return false
   }
 
-  SetParent(parent: Piece | null): void {
+  SetParent (parent: Piece | null): void {
     this.parent = parent
   }
 
-  GetParent(): Piece | null {
+  GetParent (): Piece | null {
     return this.parent
   }
 
-  getRestrictions(): string[] {
+  getRestrictions (): string[] {
     return this.characterRestrictions
   }
 
-  public GetOutput(): string {
+  public GetOutput (): string {
     return this.output
   }
 
-  UpdateMapWithOutcomes(visiblePieces: Map<string, Set<string>>): void {
+  UpdateMapWithOutcomes (visiblePieces: Map<string, Set<string>>): void {
     if (this.happenings != null) {
       for (const happening of this.happenings.array) {
         switch (happening.happen) {

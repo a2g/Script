@@ -1,4 +1,3 @@
-import { assert } from 'console'
 import { Happen } from './Happen'
 
 export class Happening {
@@ -7,7 +6,7 @@ export class Happening {
 
   constructor (play: Happen, item: string) {
     if (item.length === 0) {
-      assert(false && 'item needs to be non null')
+      throw new Error('item needs to be non null')
     }
     this.happen = play
     this.item = item

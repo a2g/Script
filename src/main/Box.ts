@@ -1,4 +1,3 @@
-import { assert } from 'console'
 import { existsSync, readFileSync } from 'fs'
 import { PileOfPieces } from './PileOfPieces.js'
 import { MixedObjectsAndVerb } from './MixedObjectsAndVerb.js'
@@ -33,7 +32,7 @@ export class Box implements BoxReadOnlyWithFileMethods {
 
   constructor (filename: string) {
     this.filename = filename
-    assert(existsSync(filename))
+    if (!existsSync(filename)) { throw new Error("file doesn't exist") }
     const text = readFileSync(filename, 'utf8')
 
     const scenario = hjson.parse(text)

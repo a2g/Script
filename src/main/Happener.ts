@@ -2,7 +2,6 @@ import { PlayerAI } from './PlayerAI'
 import { HappenerCallbacksInterface } from './HappenerCallbacksInterface'
 import { MixedObjectsAndVerb } from './MixedObjectsAndVerb'
 import { Happen } from './Happen'
-import { assert } from 'console'
 import { BoxReadOnly } from './BoxReadOnly'
 
 // April 2021
@@ -32,7 +31,7 @@ export class Happener {
   public readonly Examine = 0
   private callbacks: HappenerCallbacksInterface
 
-  constructor(box: BoxReadOnly) {
+  constructor (box: BoxReadOnly) {
     // yes, all of these need to be initialized to harmless values due to PlayerAI below
     this.arrayOfInvNames = new Array<string>()
     this.arrayOfGoalNames = new Array<string>()
@@ -59,28 +58,28 @@ export class Happener {
     this.arrayOfGoalValues = box.GetArrayOfInitialStatesOfGoals()
   }
 
-  SetGoalValue(goal: string, value: number): void {
+  SetGoalValue (goal: string, value: number): void {
     const index = this.GetIndexOfGoal(goal)
     this.arrayOfGoalValues[index] = value
   }
 
-  GetGoalValue(goal: string): Number {
+  GetGoalValue (goal: string): Number {
     const index = this.GetIndexOfGoal(goal)
     const toReturn: Number = this.arrayOfGoalValues[index]
     return toReturn
   }
 
-  SetInvVisible(inv: string, value: boolean): void {
+  SetInvVisible (inv: string, value: boolean): void {
     const index = this.GetIndexOfInv(inv)
     this.arrayOfInventoryVisibilities[index] = value
   }
 
-  SetPropVisible(prop: string, value: boolean): void {
+  SetPropVisible (prop: string, value: boolean): void {
     const index = this.GetIndexOfProp(prop)
     this.arrayOfPropVisibilities[index] = value
   }
 
-  ExecuteCommand(objects: MixedObjectsAndVerb): void {
+  ExecuteCommand (objects: MixedObjectsAndVerb): void {
     const happenings = this.box.FindHappeningsIfAny(objects)
     if (happenings != null) {
       console.log(happenings.text)
@@ -91,37 +90,37 @@ export class Happener {
         const goal = this.GetIndexOfGoal(happening.item)
         switch (happening.happen) {
           case Happen.InvAppears:
-            assert(inv !== -1)
+            if (inv === -1) { throw Error('bad inv') }
             this.arrayOfInventoryVisibilities[inv] = true
             this.callbacks.OnInvVisbilityChange(inv, true, happening.item)
             break
           case Happen.InvGoes:
-            assert(inv !== -1)
+            if (inv === -1) { throw Error('bad inv') }
             this.arrayOfInventoryVisibilities[inv] = false
             this.callbacks.OnInvVisbilityChange(inv, false, happening.item)
             break
           case Happen.PropAppears:
-            assert(prop !== -1)
+            if (prop === -1) { throw Error('bad prop') }
             this.arrayOfPropVisibilities[prop] = true
             this.callbacks.OnPropVisbilityChange(prop, true, happening.item)
             break
           case Happen.PropGoes:
-            assert(prop !== -1)
+            if (prop === -1) { throw Error('bad prop') }
             this.arrayOfPropVisibilities[prop] = false
             this.callbacks.OnPropVisbilityChange(prop, false, happening.item)
             break
           case Happen.GoalIsDecremented:
-            assert(goal !== -1)
+            if (goal === -1) { throw Error('bad goal') }
             this.arrayOfGoalValues[goal] = this.arrayOfGoalValues[goal] - 1
             this.callbacks.OnGoalValueChange(goal, this.arrayOfGoalValues[goal] - 1, happening.item)
             break
           case Happen.GoalIsIncremented:
-            assert(goal !== -1)
+            if (goal === -1) { throw Error('bad goal') }
             this.arrayOfGoalValues[goal] = this.arrayOfGoalValues[goal] + 1
             this.callbacks.OnGoalValueChange(goal, this.arrayOfGoalValues[goal] + 1, happening.item)
             break
           case Happen.GoalIsSet:
-            assert(goal !== -1)
+            if (goal === -1) { throw Error('bad goal') }
             this.arrayOfGoalValues[goal] = 1
             this.callbacks.OnGoalValueChange(goal, 1, happening.item)
             break
@@ -132,51 +131,51 @@ export class Happener {
     }
   }
 
-  GetIndexOfVerb(verb: string): number {
+  GetIndexOfVerb (verb: string): number {
     const indexOfVerb: number = this.arrayOfVerbNames.indexOf(verb)
     return indexOfVerb
   }
 
-  GetIndexOfInv(item: string): number {
+  GetIndexOfInv (item: string): number {
     const indexOfInv: number = this.arrayOfInvNames.indexOf(item)
     return indexOfInv
   }
 
-  GetIndexOfGoal(item: string): number {
+  GetIndexOfGoal (item: string): number {
     const indexOfGoal: number = this.arrayOfGoalNames.indexOf(item)
     return indexOfGoal
   }
 
-  GetIndexOfProp(item: string): number {
+  GetIndexOfProp (item: string): number {
     const indexOfProp: number = this.arrayOfPropNames.indexOf(item)
     return indexOfProp
   }
 
-  GetVerb(i: number): string {
+  GetVerb (i: number): string {
     const name: string = i >= 0 ? this.GetVerbsExcludingUse()[i][0] : 'use'
     return name
   }
 
-  GetInv(i: number): string {
+  GetInv (i: number): string {
     const name: string = i >= 0 ? this.GetEntireInvSuite()[i][0] : '-1 lookup in GetInv'
     return name
   }
 
-  GetProp(i: number): string {
+  GetProp (i: number): string {
     const name: string = i >= 0 ? this.GetEntirePropSuite()[i][0] : '-1 lookup in GetProp'
     return name
   }
 
-  GetGoal(i: number): string {
+  GetGoal (i: number): string {
     const name: string = i >= 0 ? this.GetEntireGoalSuite()[i][0] : '-1 lookup for GetGoal'
     return name
   }
 
-  SubscribeToCallbacks(callbacks: HappenerCallbacksInterface): void {
+  SubscribeToCallbacks (callbacks: HappenerCallbacksInterface): void {
     this.callbacks = callbacks
   }
 
-  GetVerbsExcludingUse(): Array<[string, boolean]> {
+  GetVerbsExcludingUse (): Array<[string, boolean]> {
     const toReturn = new Array<[string, boolean]>()
     this.arrayOfVerbNames.forEach(function (Verb) {
       toReturn.push([Verb, true])
@@ -184,7 +183,7 @@ export class Happener {
     return toReturn
   }
 
-  GetEntireGoalSuite(): Array<[string, Number]> {
+  GetEntireGoalSuite (): Array<[string, Number]> {
     const toReturn = new Array<[string, Number]>()
     for (let i = 0; i < this.arrayOfPropNames.length; i++) { // classic forloop useful because shared index
       toReturn.push([this.arrayOfGoalNames[i], this.arrayOfGoalValues[i]])
@@ -192,7 +191,7 @@ export class Happener {
     return toReturn
   }
 
-  GetEntirePropSuite(): Array<[string, boolean]> {
+  GetEntirePropSuite (): Array<[string, boolean]> {
     const toReturn = new Array<[string, boolean]>()
     for (let i = 0; i < this.arrayOfPropNames.length; i++) { // classic forloop useful because shared index
       toReturn.push([this.arrayOfPropNames[i], this.arrayOfPropVisibilities[i]])
@@ -200,7 +199,7 @@ export class Happener {
     return toReturn
   }
 
-  GetEntireInvSuite(): Array<[string, boolean]> {
+  GetEntireInvSuite (): Array<[string, boolean]> {
     const toReturn = new Array<[string, boolean]>()
     for (let i = 0; i < this.arrayOfInvNames.length; i++) { // classic forloop useful because shared index
       toReturn.push([this.arrayOfInvNames[i], this.arrayOfInventoryVisibilities[i]])
@@ -208,7 +207,7 @@ export class Happener {
     return toReturn
   }
 
-  GetCurrentVisibleInventory(): string[] {
+  GetCurrentVisibleInventory (): string[] {
     const toReturn = new Array<string>()
     for (let i = 0; i < this.arrayOfInvNames.length; i++) { // classic forloop useful because shared index
       if (this.arrayOfInventoryVisibilities[i]) { toReturn.push(this.arrayOfInvNames[i]) }
@@ -216,7 +215,7 @@ export class Happener {
     return toReturn
   }
 
-  GetCurrentVisibleProps(): string[] {
+  GetCurrentVisibleProps (): string[] {
     const toReturn = new Array<string>()
     for (let i = 0; i < this.arrayOfPropNames.length; i++) { // classic forloop useful because shared index
       if (this.arrayOfPropVisibilities[i]) { toReturn.push(this.arrayOfPropNames[i]) }
@@ -224,7 +223,7 @@ export class Happener {
     return toReturn
   }
 
-  GetCurrentlyTrueGoals(): string[] {
+  GetCurrentlyTrueGoals (): string[] {
     const toReturn = new Array<string>()
     for (let i = 0; i < this.arrayOfGoalNames.length; i++) { // classic forloop useful because shared index
       if (this.arrayOfGoalValues[i] > 0) { toReturn.push(this.arrayOfGoalNames[i]) }
@@ -232,15 +231,15 @@ export class Happener {
     return toReturn
   }
 
-  GetArrayOfInvs(): string[] {
+  GetArrayOfInvs (): string[] {
     return this.arrayOfInvNames
   }
 
-  GetArrayOfProps(): string[] {
+  GetArrayOfProps (): string[] {
     return this.arrayOfPropNames
   }
 
-  MergeNewThingsFromScene(box: BoxReadOnly): void {
+  MergeNewThingsFromScene (box: BoxReadOnly): void {
     const invs = box.GetArrayOfInvs()
     for (const inv of invs) {
       if (!this.arrayOfInvNames.includes(inv)) {

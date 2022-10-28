@@ -472,30 +472,6 @@
               {
                 "properties": {
                   "piece": {
-                    "const": "INPUT_INV1_PROP1_BECOMES_PROP2",
-                    "examples": ["eg generic"]
-                  }
-                }
-              },
-              {
-                "properties": {
-                  "piece": {
-                    "const": "INPUT_PROP1_INV1_REVEALS_PROP2",
-                    "examples": ["eg generic"]
-                  }
-                }
-              },
-              {
-                "properties": {
-                  "piece": {
-                    "const": "INPUT_PROP1_INV1_BECOMES_INV2",
-                    "examples": ["eg generic"]
-                  }
-                }
-              },
-              {
-                "properties": {
-                  "piece": {
                     "const": "OBTAIN_INV1_BY_LOSING_INV2_KEEPING_PROP1",
                     "examples": ["eg obtain cogs when losing key in clock"]
                   }
@@ -635,9 +611,6 @@
         "GOAL1_SET_BY_USING_PROP1_WITH_PROP2",
         "GIVE_INV1_TO_PROP1_GETS_INV2",
         "GOAL1_SET_WHEN_GIVE_INV1_TO_PROP1",
-        "INPUT_INV1_PROP1_BECOMES_PROP2",
-        "INPUT_PROP1_INV1_BECOMES_INV2",
-        "INPUT_PROP1_INV1_REVEALS_PROP2",
         "INV1_AND_INV2_COMBINE_TO_FORM_INV3",
         "INV1_AND_INV2_GENERATE_AN_INV3",
         "INV1_BECOMES_INV2_BY_KEEPING_INV3",
@@ -689,9 +662,6 @@
   "GOAL1_SET_BY_USING_PROP1_WITH_PROP2": "GOAL1_SET_BY_USING_PROP1_WITH_PROP2",
   "GIVE_INV1_TO_PROP1_GETS_INV2": "GIVE_INV1_TO_PROP1_GETS_INV2",
   "GOAL1_SET_WHEN_GIVE_INV1_TO_PROP1": "GOAL1_SET_WHEN_GIVE_INV1_TO_PROP1",
-  "INPUT_INV1_PROP1_BECOMES_PROP2": "INPUT_INV1_PROP1_BECOMES_PROP2",
-  "INPUT_PROP1_INV1_BECOMES_INV2": "INPUT_PROP1_INV1_BECOMES_INV2",
-  "INPUT_PROP1_INV1_REVEALS_PROP2": "INPUT_PROP1_INV1_REVEALS_PROP2",
   "INV1_AND_INV2_COMBINE_TO_FORM_INV3": "INV1_AND_INV2_COMBINE_TO_FORM_INV3",
   "INV1_AND_INV2_GENERATE_AN_INV3": "INV1_AND_INV2_GENERATE_AN_INV3",
   "INV1_BECOMES_INV2_BY_KEEPING_INV3": "INV1_BECOMES_INV2_BY_KEEPING_INV3",
