@@ -6,7 +6,7 @@ import { SpecialTypes } from '../main/SpecialTypes'
 describe('Solution', () => {
   /*
   it("Test of a none clone piece", () => {
-      const box = new SceneSingle("20210415JsonPrivate/HospScene.json");
+      const box = new SceneSingle("jiggers/HospScene.json");
       const pile:PileOfPieces = new PileOfPieces();
       json.CopyPiecesFromBoxToPile(pile);
       const objective = "inv_screwdriver";
@@ -25,7 +25,7 @@ describe('Solution', () => {
   });
 
   it("Test of a non cloning five step", () => {
-      const box = new SceneSingle("20210415JsonPrivate/HospScene.json");
+      const box = new SceneSingle("jiggers/HospScene.json");
             const pile:PileOfPieces = new PileOfPieces();
       json.CopyPiecesFromBoxToPile(pile);
       const objective = "prop_death_by_guitar";
@@ -54,7 +54,7 @@ describe('Solution', () => {
   });
 
   it("Test of another non-cloning 5 step", () => {
-      const box = new SceneSingle("20210415JsonPrivate/HospScene.json");
+      const box = new SceneSingle("jiggers/HospScene.json");
       const map = json.CopyPiecesFromBoxToPile();
       const objective = "prop_death_by_slamdunk";
       const collection = new SolutionCollection();

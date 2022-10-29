@@ -136,6 +136,10 @@ export class Box implements BoxReadOnlyWithFileMethods {
     }
   }
 
+  IsMergingOk (): boolean {
+    return true
+  }
+
   public CopyPiecesFromBoxToPile (pile: PileOfPieces): void {
     const notUsed = new MixedObjectsAndVerb(
       Mix.ErrorVerbNotIdentified,

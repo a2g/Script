@@ -31,18 +31,22 @@ export class Solution {
   private readonly startingThings: Map<string, Set<string>> // once, this was updated dynamically in GetNextDoableCommandAndDesconstructTree
 
   private isArchived: boolean
+  private readonly isMergingOk: boolean
+  private readonly goalsCompletedInOrder: string[]
 
   constructor (
     rootPieceMapToCopy: RootPieceMap | null,
     copyThisMapOfPieces: PileOfPiecesReadOnly,
     startingThingsPassedIn: ReadonlyMap<string, Set<string>>,
+    isMergingOk: boolean = false,
     restrictions: Set<string> | null = null,
     nameSegments: string[] | null = null
   ) {
     this.rootPieces = new RootPieceMap(rootPieceMapToCopy)
-
+    this.isMergingOk = isMergingOk
     this.remainingPiecesRepo = new PileOfPieces(copyThisMapOfPieces)
     this.isArchived = false
+    this.goalsCompletedInOrder = []
 
     // if it is passed in, we deep copy it
     this.solutionNameSegments = []
@@ -81,6 +85,7 @@ export class Solution {
       clonedRootPieceMap,
       this.remainingPiecesRepo,
       this.startingThings,
+      this.isMergingOk,
       this.restrictionsEncounteredDuringSolving,
       this.solutionNameSegments
     )
@@ -190,7 +195,8 @@ export class Solution {
       if (firstMissingPiece === '') { // there are no missing pieces - yay!
         if (goal.firstNullInput !== '') {
           goal.firstNullInput = ''
-          if (goal.piece.merge != null) {
+          this.goalsCompletedInOrder.push(goal.piece.output)
+          if (goal.piece.merge != null && this.isMergingOk) {
             goal.piece.merge.CopyPiecesFromBoxToPile(this.GetPile())
             goal.piece.merge.CopyStartingThingCharsToGivenMap(this.startingThings)
           }
@@ -206,5 +212,12 @@ export class Solution {
       }
     }
     return false
+  }
+
+  GetOrderOfGoals (): string[] {
+    // I would like to return a read only array here.
+    // I can't do that, so instead, I will clone.
+    // The following is how to clone in js
+    return this.goalsCompletedInOrder.map(x => x)
   }
 }

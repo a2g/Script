@@ -71,6 +71,10 @@ export class BigBoxViaSetOfBoxes implements BoxReadOnly {
     this.allChars = Array.from(setChars.values())
   }
 
+  IsMergingOk (): boolean {
+    return false // doesn't need to merge, because it already includes all
+  }
+
   GetArrayOfProps (): string[] {
     return this.allProps
   }

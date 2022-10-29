@@ -9,7 +9,7 @@ import { Solution } from '../main/Solution'
 describe('Solution', () => {
   /*
   it("Test of a none clone solution", () => {
-      const box = new SceneSingle("20210415JsonPrivate/HospScene.json");
+      const box = new SceneSingle("jiggers/HospScene.json");
       const pile:PileOfPieces = new PileOfPieces();
       json.CopyPiecesFromBoxToPile(pile);
       const objective = "inv_screwdriver";
@@ -28,7 +28,7 @@ describe('Solution', () => {
   });
 
   it("Test of a non cloning five step", () => {
-      const box = new SceneSingle("20210415JsonPrivate/HospScene.json");
+      const box = new SceneSingle("jiggers/HospScene.json");
       const pile:PileOfPieces = new PileOfPieces();
       json.CopyPiecesFromBoxToPile(pile);
       const objective = "prop_death_by_guitar";
@@ -57,7 +57,7 @@ describe('Solution', () => {
   });
 
   it("Test of another non-cloning 5 step", () => {
-      const box = new SceneSingle("20210415JsonPrivate/HospScene.json");
+      const box = new SceneSingle("jiggers/HospScene.json");
       const pile:PileOfPieces = new PileOfPieces();
       const pile:PileOfPieces = new PileOfPieces();
       json.CopyPiecesFromBoxToPile(pile);
@@ -96,7 +96,7 @@ describe('Solution', () => {
 
     const rootMap = new RootPieceMap(null)
     box.CopyGoalPiecesToAnyContainer(rootMap)
-    const solution = new Solution(rootMap, pile, startingThings, null, null)
+    const solution = new Solution(rootMap, pile, startingThings)
 
     const collection = new SolverViaRootPiece(solution)
     const wasCloneEncountered = collection.SolvePartiallyUntilCloning()

@@ -238,35 +238,4 @@ export class Happener {
   GetArrayOfProps (): string[] {
     return this.arrayOfPropNames
   }
-
-  MergeNewThingsFromScene (box: BoxReadOnly): void {
-    const invs = box.GetArrayOfInvs()
-    for (const inv of invs) {
-      if (!this.arrayOfInvNames.includes(inv)) {
-        // new inventories come in as false
-        this.arrayOfInvNames.push(inv)
-        this.arrayOfInventoryVisibilities.push(false)
-      }
-    }
-    const props = box.GetArrayOfProps()
-    const startingProps = box.GetSetOfStartingProps()
-    for (const prop of props) {
-      if (!this.arrayOfPropNames.includes(prop)) {
-        // new inventories come in as false
-        this.arrayOfPropNames.push(prop)
-        this.arrayOfPropVisibilities.push(startingProps.has(prop))
-      }
-    }
-
-    const goals = box.GetArrayOfGoals()
-    const startingGoals = box.GetSetOfStartingGoals()
-    for (const goal of goals) {
-      if (!this.arrayOfGoalNames.includes(goal)) {
-        // new inventories come in as false
-        this.arrayOfGoalNames.push(goal)
-        const hasGoal: boolean = startingGoals.has(goal)
-        this.arrayOfGoalValues.push(hasGoal ? 1 : 0)
-      }
-    }
-  }
 }

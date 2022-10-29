@@ -36,4 +36,5 @@ export interface BoxReadOnly {
   CopyPiecesFromBoxToPile: (pile: PileOfPieces) => void // its possible for this to be done on aggregate
   CopyGoalPiecesToAnyContainer: (map: PileOrRootPieceMap) => void
   CollectAllReferencedBoxesRecursively: (array: Set<BoxReadOnly>) => void
+  IsMergingOk: () => boolean
 }
