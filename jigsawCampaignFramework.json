@@ -1,0 +1,159 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "description": "Gate Campaign Framework - allows chaining of jigsaw.jsons together in to a campaign",
+  "type": "object",
+  "definitions": {
+    "goal_enum_entity": {
+      "enum": [
+        "G1",
+        "G2",
+        "G3",
+        "G4",
+        "G5",
+        "G6",
+        "G7",
+        "G8",
+        "G9",
+        "G10",
+        "G11",
+        "G12"
+      ]
+    },
+    "location_enum_entity": {
+      "enum": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I",
+        "J",
+        "K",
+        "L",
+        "M",
+        "N",
+        "O",
+        "P",
+        "Q",
+        "R",
+        "S",
+        "T",
+        "U",
+        "V",
+        "W",
+        "X",
+        "Y",
+        "Z"
+      ]
+    },
+    "condition_enum_entity": {
+      "enum": [
+        "zeroConditions",
+        "allOfThem",
+        "oneOrMore",
+        "twoOrMore",
+        "threeOrMore"
+      ],
+      "zeroConditions": "zeroConditions",
+      "allOfThem": "allOfThem",
+      "oneOrMore": "oneOrMore",
+      "twoOrMore": "twoOrMore",
+      "threeOrMore": "threeOrMore"
+    },
+    "gate_and_location_to_add_entity": {
+      "type": "object",
+      "properties": {
+        "gateFileToAdd": {
+          "type": "string"
+        },
+        "locationToAddItToEnum": {
+          "$ref": "#/definitions/location_enum_entity"
+        }
+      }
+    },
+    "location_entity": {
+      "type": "object",
+      "properties": {
+        "locationName": {
+          "type": "string"
+        },
+        "locationEnum": {
+          "$ref": "#/definitions/location_enum_entity"
+        },
+        "startingGateFile": {
+          "type": "string"
+        },
+        "extraFiles": {
+          "type": "array",
+          "minItems": 0,
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "goal_entity": {
+      "type": "object",
+      "properties": {
+        "goalName": {
+          "type": "string"
+        },
+        "goalEnum": {
+          "$ref": "#/definitions/goal_enum_entity"
+        },
+        "location": {
+          "$ref": "#/definitions/location_enum_entity"
+        },
+        "gatesAddedUponActivation": {
+          "type": "array",
+          "minItems": 0,
+          "items": {
+            "$ref": "#/definitions/gate_and_location_to_add_entity"
+          }
+        },
+        "gatesAddedUponCompletion": {
+          "type": "array"
+        },
+        "prerequisiteType": {
+          "$ref": "#/definitions/condition_enum_entity"
+        },
+        "prerequisiteGoals": {
+          "type": "array",
+          "minItems": 0,
+          "items": {
+            "$ref": "#/definitions/goal_enum_entity"
+          }
+        },
+        "sunsetType": {
+          "$ref": "#/definitions/condition_enum_entity"
+        },
+        "sunsetGoals": {
+          "type": "array",
+          "minItems": 0,
+          "items": {
+            "$ref": "#/definitions/goal_enum_entity"
+          }
+        }
+      }
+    }
+  },
+  "properties": {
+    "locations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/definitions/location_entity"
+      }
+    },
+    "goals": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/definitions/goal_entity"
+      }
+    }
+  }
+}
