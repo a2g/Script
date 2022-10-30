@@ -10,7 +10,7 @@ export class ReverseTraverser {
   leavesForReverseTraversal: Map<string, Piece | null>
   currentlyVisibleThings: VisibleThingsMap
 
-  public constructor(visibleThings: VisibleThingsMap, leaves: Map<string, Piece | null>) {
+  public constructor (visibleThings: VisibleThingsMap, leaves: Map<string, Piece | null>) {
     // interestingly, leaf pieces don't get cloned
     // but it doesn't matter that much because they are just used
     // when reverse traversing a solution
@@ -18,7 +18,7 @@ export class ReverseTraverser {
     this.currentlyVisibleThings = visibleThings
   }
 
-  GetNextDoableCommandAndDeconstructTree(): RawObjectsAndVerb | null {
+  GetNextDoableCommandAndDeconstructTree (): RawObjectsAndVerb | null {
     for (const input of this.leavesForReverseTraversal) {
       const key: string = input[0]
       const piece: Piece | null = input[1]
@@ -95,7 +95,7 @@ export class ReverseTraverser {
     return null
   }
 
-  GeneratePath(piece: Piece | null): string {
+  GeneratePath (piece: Piece | null): string {
     let path = ''
     while (piece != null) {
       const pieceOutput: string = piece.output
@@ -105,7 +105,7 @@ export class ReverseTraverser {
     return `/${path}`
   }
 
-  private AddToMapOfVisibleThings(thing: string): void {
+  private AddToMapOfVisibleThings (thing: string): void {
     if (!this.currentlyVisibleThings.Has(thing)) {
       this.currentlyVisibleThings.Set(thing, new Set<string>())
     }
@@ -116,11 +116,11 @@ export class ReverseTraverser {
   * @param path the path, this is the key
   * @param piece the Piece
   */
-  AddLeafForReverseTraversal(path: string, piece: Piece): void {
+  AddLeafForReverseTraversal (path: string, piece: Piece): void {
     this.leavesForReverseTraversal.set(path, piece)
   }
 
-  UpdateMapOfVisibleThingsWithAReverseTraversal(solution: Solution): void {
+  UpdateMapOfVisibleThingsWithAReverseTraversal (solution: Solution): void {
     // 21/Aug/2022 hmmn..have just come to this
     // and I'm not exactly sure how to do it with the rootpiecemap approach
     //
@@ -143,11 +143,11 @@ export class ReverseTraverser {
     }
   }
 
-  GetLeavesForReverseTraversal(): ReadonlyMap<string, Piece | null> {
+  GetLeavesForReverseTraversal (): ReadonlyMap<string, Piece | null> {
     return this.leavesForReverseTraversal
   }
 
-  private CollectArrayOfPiecesInAWidthFirstRecursively(n: Piece, array: Array<Piece | null>): void {
+  private CollectArrayOfPiecesInAWidthFirstRecursively (n: Piece, array: Array<Piece | null>): void {
     for (const input of n.inputs) {
       array.push(input)
     }

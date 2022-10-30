@@ -40,7 +40,7 @@ export class Solution {
   private readonly isMergingOk: boolean
   private readonly commandCompletedInOrder: string[]
 
-  constructor(
+  constructor (
     rootPieceMapToCopy: RootPieceMap | null,
     copyThisMapOfPieces: PileOfPiecesReadOnly,
     startingThingsPassedIn: ReadonlyMap<string, Set<string>>,
@@ -80,7 +80,7 @@ export class Solution {
     }
   }
 
-  Clone(): Solution {
+  Clone (): Solution {
     // the weird order of this is because Solution constructor is used
     // primarily to construct, so passing in root piece is needed..
     // so we clone the whole tree and pass it in
@@ -100,7 +100,7 @@ export class Solution {
     return clonedSolution
   }
 
-  ProcessUntilCloning(solutions: SolverViaRootPiece): boolean {
+  ProcessUntilCloning (solutions: SolverViaRootPiece): boolean {
     let isBreakingDueToSolutionCloning = false
     for (const value of this.rootPieces.GetValues()) {
       if (value.piece.ProcessUntilCloning(this, solutions, '/')) {
@@ -120,15 +120,15 @@ export class Solution {
     return this.incompletePieces
   } */
 
-  GetGoalWin(): Piece {
+  GetGoalWin (): Piece {
     return this.rootPieces.GetRootPieceByName(this.GetFLAG_WIN()).piece
   }
 
-  GetFLAG_WIN(): string {
+  GetFLAG_WIN (): string {
     return 'goal_win'
   }
 
-  GetDisplayNamesConcatenated(): string {
+  GetDisplayNamesConcatenated (): string {
     let result = ''
     for (let i = 0; i < this.solutionNameSegments.length; i += 1) {
       const symbol = i === 0 ? '' : '/'
@@ -137,45 +137,45 @@ export class Solution {
     return result
   }
 
-  AddRestrictions(restrictions: string[]): void {
+  AddRestrictions (restrictions: string[]): void {
     for (const restriction of restrictions) {
       this.restrictionsEncounteredDuringSolving.add(restriction)
     }
   }
 
-  GetAccumulatedRestrictions(): Set<string> {
+  GetAccumulatedRestrictions (): Set<string> {
     return this.restrictionsEncounteredDuringSolving
   }
 
-  GetPile(): PileOfPieces {
+  GetPile (): PileOfPieces {
     // we already remove pieces from this when we use them up
     // so returning the current piece map is ok
     return this.remainingPiecesRepo
   }
 
-  SetAsArchived(): void {
+  SetAsArchived (): void {
     this.isArchived = true
   }
 
-  IsArchived(): boolean {
+  IsArchived (): boolean {
     return this.isArchived
   }
 
-  GetLastDisplayNameSegment(): string {
+  GetLastDisplayNameSegment (): string {
     return this.solutionNameSegments[this.solutionNameSegments.length - 1]
   }
 
-  CopyNameToVirginSolution(virginSolution: Solution): void {
+  CopyNameToVirginSolution (virginSolution: Solution): void {
     for (const nameSegment of this.solutionNameSegments) {
       virginSolution.PushNameSegment(nameSegment)
     }
   }
 
-  PushNameSegment(solutionName: string): void {
+  PushNameSegment (solutionName: string): void {
     this.solutionNameSegments.push(solutionName)
   }
 
-  FindAnyPieceMatchingIdRecursively(id: number): Piece | null {
+  FindAnyPieceMatchingIdRecursively (id: number): Piece | null {
     for (const goal of this.rootPieces.GetValues()) {
       const result = goal.piece.FindAnyPieceMatchingIdRecursively(id)
       if (result != null) {
@@ -185,15 +185,15 @@ export class Solution {
     return null
   }
 
-  public GetRootMap(): RootPieceMap {
+  public GetRootMap (): RootPieceMap {
     return this.rootPieces
   }
 
-  GetStartingThings(): Map<string, Set<string>> {
+  GetStartingThings (): Map<string, Set<string>> {
     return this.startingThings
   }
 
-  MarkGoalsAsContainingNullsAndMergeIfNeeded(): void {
+  MarkGoalsAsContainingNullsAndMergeIfNeeded (): void {
     for (const goal of this.rootPieces.GetValues()) {
       const firstMissingPiece = goal.piece.ReturnTheFirstNullInputHint()
       if (firstMissingPiece === '') { // there are no missing pieces - yay!
@@ -210,7 +210,7 @@ export class Solution {
     }
   }
 
-  GenerateCommandsAndAddToMap(piece: Piece): void {
+  GenerateCommandsAndAddToMap (piece: Piece): void {
     // first the goal
     this.commandCompletedInOrder.push(piece.output)
 
@@ -251,7 +251,7 @@ export class Solution {
     }
   }
 
-  AreAnyInputsNull(): boolean {
+  AreAnyInputsNull (): boolean {
     for (const goal of this.rootPieces.GetValues()) {
       if (goal.firstNullInput.length > 0) {
         return true
@@ -260,18 +260,18 @@ export class Solution {
     return false
   }
 
-  GetOrderOfGoals(): string[] {
+  GetOrderOfGoals (): string[] {
     // I would like to return a read only array here.
     // I can't do that, so instead, I will clone.
     // The following is how to clone in js
     return this.commandCompletedInOrder.map(x => x)
   }
 
-  GetVisibleThingsAtTheMoment(): VisibleThingsMap {
+  GetVisibleThingsAtTheMoment (): VisibleThingsMap {
     return this.currentlyVisibleThings
   }
 
-  GetVisibleThingsAtTheStart(): ReadonlyMap<string, Set<string>> {
+  GetVisibleThingsAtTheStart (): ReadonlyMap<string, Set<string>> {
     return this.startingThings
   }
 }
