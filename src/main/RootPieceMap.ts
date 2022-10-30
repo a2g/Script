@@ -1,4 +1,3 @@
-import { GenerateMapOfLeavesRecursively } from './GenerateMapOfLeavesRecursively'
 import { Piece } from './Piece'
 import { PileOrRootPieceMap } from './PileOrRootPieceMap'
 import { RootPiece } from './RootPiece'
@@ -62,16 +61,5 @@ export class RootPieceMap implements PileOrRootPieceMap {
 
   GetValues (): IterableIterator<RootPiece> {
     return this.roots.values()
-  }
-
-  public GenerateMapOfLeaves (): Map<string, Piece | null> {
-    const map = new Map<string, Piece | null>()
-
-    for (const value of this.roots.values()) {
-      const piece = value.piece
-      GenerateMapOfLeavesRecursively(piece, piece.output, map)
-    }
-
-    return map
   }
 }

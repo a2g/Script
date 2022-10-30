@@ -4,6 +4,7 @@ import { Solution } from './Solution'
 import { Happenings } from './Happenings'
 import { Happen } from './Happen'
 import { BoxReadOnlyWithFileMethods } from './BoxReadOnlyWithFileMethods'
+import { VisibleThingsMap } from './VisibleThingsMap'
 
 export class Piece {
   id: number
@@ -277,19 +278,19 @@ export class Piece {
     return this.output
   }
 
-  UpdateMapWithOutcomes (visiblePieces: Map<string, Set<string>>): void {
+  UpdateVisibleWithOutcomes (visiblePieces: VisibleThingsMap): void {
     if (this.happenings != null) {
       for (const happening of this.happenings.array) {
         switch (happening.happen) {
           case Happen.GoalIsSet:
           case Happen.InvAppears:
           case Happen.PropAppears:
-            visiblePieces.set(happening.item, new Set<string>())
+            visiblePieces.Set(happening.item, new Set<string>())
             break
           case Happen.InvGoes:
           case Happen.PropGoes:
           default:
-            visiblePieces.delete(happening.item)
+            visiblePieces.Delete(happening.item)
             break
         }
       }

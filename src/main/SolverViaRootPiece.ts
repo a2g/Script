@@ -2,6 +2,21 @@ import { Solution } from './Solution.js'
 import { GetDisplayName } from './GetDisplayName.js'
 import { Colors } from './Colors.js'
 import { AddBrackets } from './AddBrackets.js'
+import { GenerateMapOfLeavesRecursively } from './GenerateMapOfLeavesRecursively.js'
+import { RootPieceMap } from './RootPieceMap.js'
+import { Piece } from './Piece.js'
+
+function GenerateMapOfLeaves (rootMap: RootPieceMap): Map<string, Piece | null> {
+  const map = new Map<string, Piece | null>()
+
+  for (const value of rootMap.GetValues()) {
+    const piece = value.piece
+    GenerateMapOfLeavesRecursively(piece, piece.output, map)
+  }
+
+  return map
+}
+
 /**
  * Does only a few things:
  * 1. A simple collection of Solutions
@@ -87,9 +102,8 @@ export class SolverViaRootPiece {
       for (let j = 0; j < this.solutions.length; j += 1) {
         if (i !== j) {
           const otherSolution = this.solutions[j]
-          const otherLeafs = otherSolution
-            .GetRootMap()
-            .GenerateMapOfLeaves()
+          const otherLeafs = GenerateMapOfLeaves(otherSolution
+            .GetRootMap())
           for (const leafPiece of otherLeafs.values()) {
             if (leafPiece != null) {
               const otherLeafPieceName = leafPiece.output
@@ -112,7 +126,7 @@ export class SolverViaRootPiece {
       // get the restrictions accumulated from all the solution pieces
       const accumulatedRestrictions = currSolution.GetAccumulatedRestrictions()
 
-      const currLeaves = currSolution.GetRootMap().GenerateMapOfLeaves()
+      const currLeaves = GenerateMapOfLeaves(currSolution.GetRootMap())
       for (const leaf of currLeaves.values()) {
         if (leaf != null) {
           const result = mapForCounting.get(leaf.output)

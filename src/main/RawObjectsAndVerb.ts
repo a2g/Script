@@ -21,7 +21,7 @@ export class RawObjectsAndVerb {
     this.typeJustForDebugging = typeJustForDebugging
   }
 
-  WriteToConsole (): void {
+  AsDisplayString (): string {
     const enumAsInt = parseInt(this.type.toString(), 10)
     if (enumAsInt >= 0) {
       const verb = FormatText(Raw[enumAsInt])
@@ -38,9 +38,9 @@ export class RawObjectsAndVerb {
         case Raw.Toggle: joiner = ' to '; break
         case Raw.Auto: joiner = ' becomes '; break
       }
-      console.log(verb + ' ' + objectA + joiner + objectB + ' ' + restriction)
+      return (verb + ' ' + objectA + joiner + objectB + ' ' + restriction)
     } else {
-      console.log('Raw type was invalid')
+      return ('Raw type was invalid')
     }
   }
 
