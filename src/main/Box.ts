@@ -10,6 +10,7 @@ import hjson from 'hjson'
 import { PileOrRootPieceMap } from './PileOrRootPieceMap.js'
 import { RootPieceMap } from './RootPieceMap.js'
 import { BoxReadOnly } from './BoxReadOnly.js'
+import { VisibleThingsMap } from './VisibleThingsMap.js'
 
 /**
  * So the most important part of this class is that the data
@@ -23,7 +24,7 @@ export class Box implements BoxReadOnlyWithFileMethods {
   private readonly allGoals: string[]
   private readonly allInvs: string[]
   private readonly allChars: string[]
-  private readonly mapOfStartingThings: Map<string, Set<string>>
+  private readonly mapOfStartingThings: VisibleThingsMap
   private readonly startingInvSet: Set<string>
   private readonly startingPropSet: Set<string>
   private readonly startingGoalSet: Set<string>
@@ -90,7 +91,7 @@ export class Box implements BoxReadOnlyWithFileMethods {
     this.startingInvSet = new Set<string>()
     this.startingGoalSet = new Set<string>()
     this.startingPropSet = new Set<string>()
-    this.mapOfStartingThings = new Map<string, Set<string>>()
+    this.mapOfStartingThings = new VisibleThingsMap(null)
 
     // this copies them to the container, and turns filenames in to boxes
     this.goals = new RootPieceMap(null)
@@ -122,12 +123,12 @@ export class Box implements BoxReadOnlyWithFileMethods {
       }
 
       for (const item of scenario.startingThings) {
-        if (!this.mapOfStartingThings.has(item.thing)) {
-          this.mapOfStartingThings.set(item.thing, new Set<string>())
+        if (!this.mapOfStartingThings.Has(item.thing)) {
+          this.mapOfStartingThings.Set(item.thing, new Set<string>())
         }
         if (item.character !== undefined && item.character !== null) {
           const { character } = item
-          const array = this.mapOfStartingThings.get(item.thing)
+          const array = this.mapOfStartingThings.Get(item.thing)
           if (character.length > 0 && array != null) {
             array.add(character)
           }
@@ -179,10 +180,10 @@ export class Box implements BoxReadOnlyWithFileMethods {
     }
   }
 
-  CopyStartingThingCharsToGivenMap (givenMap: Map<string, Set<string>>): void {
-    this.mapOfStartingThings.forEach((value: Set<string>, key: string) => {
-      givenMap.set(key, value)
-    })
+  CopyStartingThingCharsToGivenMap (givenMap: VisibleThingsMap): void {
+    for (const item of this.mapOfStartingThings.GetIterableIterator()) {
+      givenMap.Set(item[0], item[1])
+    }
   }
 
   CopyPropsToGivenSet (givenSet: Set<string>): void {
@@ -260,20 +261,20 @@ export class Box implements BoxReadOnlyWithFileMethods {
     return this.startingInvSet
   }
 
-  GetMapOfAllStartingThings (): Map<string, Set<string>> {
+  GetMapOfAllStartingThings (): VisibleThingsMap {
     return this.mapOfStartingThings
   }
 
   GetStartingThingsForCharacter (charName: string): Set<string> {
     const startingThingSet = new Set<string>()
-    this.mapOfStartingThings.forEach((value: Set<string>, thing: string) => {
-      for (const item of value) {
-        if (item === charName) {
-          startingThingSet.add(thing)
+    for (const item of this.mapOfStartingThings.GetIterableIterator()) {
+      for (const name of item[1]) {
+        if (name === charName) {
+          startingThingSet.add(item[0])
           break
         }
       }
-    })
+    }
 
     return startingThingSet
   }

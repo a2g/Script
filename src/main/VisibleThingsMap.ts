@@ -2,17 +2,19 @@
 export class VisibleThingsMap {
   mapOfVisibleThings: Map<string, Set<string>>
 
-  constructor (startingThingsPassedIn: ReadonlyMap<string, Set<string>>) {
+  constructor (startingThingsPassedIn: ReadonlyMap<string, Set<string>> | null) {
     // its its passed in we deep copy it
     this.mapOfVisibleThings = new Map<string, Set<string>>()
-    for (const key of startingThingsPassedIn.keys()) {
-      const value = startingThingsPassedIn.get(key)
-      if (value != null) {
-        const newSet = new Set<string>()
-        for (const item of value) {
-          newSet.add(item)
+    if (startingThingsPassedIn != null) {
+      for (const key of startingThingsPassedIn.keys()) {
+        const value = startingThingsPassedIn.get(key)
+        if (value != null) {
+          const newSet = new Set<string>()
+          for (const item of value) {
+            newSet.add(item)
+          }
+          this.mapOfVisibleThings.set(key, newSet)
         }
-        this.mapOfVisibleThings.set(key, newSet)
       }
     }
   }
@@ -27,5 +29,17 @@ export class VisibleThingsMap {
 
   Delete (item: string): void {
     this.mapOfVisibleThings.delete(item)
+  }
+
+  Get (key: string): Set<string> | undefined {
+    return this.mapOfVisibleThings.get(key)
+  }
+
+  Size (): number {
+    return this.mapOfVisibleThings.size
+  }
+
+  GetIterableIterator (): IterableIterator<[string, Set<string>]> {
+    return this.mapOfVisibleThings.entries()
   }
 }

@@ -2,6 +2,7 @@ import { MixedObjectsAndVerb } from './MixedObjectsAndVerb.js'
 import { Happenings } from './Happenings.js'
 import { PileOfPieces } from './PileOfPieces.js'
 import { PileOrRootPieceMap } from './PileOrRootPieceMap.js'
+import { VisibleThingsMap } from './VisibleThingsMap.js'
 
 /**
 * This is needed because there are all these analysis steps that are performed on a single box
@@ -25,7 +26,7 @@ export interface BoxReadOnly {
   GetSetOfStartingGoals: () => Set<string>
   GetSetOfStartingProps: () => Set<string>
   GetSetOfStartingInvs: () => Set<string>
-  GetMapOfAllStartingThings: () => Map<string, Set<string>>
+  GetMapOfAllStartingThings: () => VisibleThingsMap
   GetStartingThingsForCharacter: (charName: string) => Set<string>
   GetArrayOfInitialStatesOfProps: () => boolean[]
   GetArrayOfInitialStatesOfInvs: () => boolean[]

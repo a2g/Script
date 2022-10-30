@@ -30,7 +30,7 @@ export class Solution {
   private readonly remainingPiecesRepo: PileOfPieces
 
   // less important
-  private readonly startingThings: Map<string, Set<string>> // once, this was updated dynamically in GetNextDoableCommandAndDesconstructTree
+  private readonly startingThings: VisibleThingsMap// once, this was updated dynamically in GetNextDoableCommandAndDesconstructTree
   private readonly currentlyVisibleThings: VisibleThingsMap
 
   private readonly restrictionsEncounteredDuringSolving: Set<string>// yup these are added to
@@ -43,7 +43,7 @@ export class Solution {
   constructor (
     rootPieceMapToCopy: RootPieceMap | null,
     copyThisMapOfPieces: PileOfPiecesReadOnly,
-    startingThingsPassedIn: ReadonlyMap<string, Set<string>>,
+    startingThingsPassedIn: VisibleThingsMap,
     isMergingOk: boolean = false,
     restrictions: Set<string> | null = null,
     nameSegments: string[] | null = null
@@ -54,14 +54,14 @@ export class Solution {
     this.isArchived = false
     this.commandCompletedInOrder = []
 
-    this.startingThings = new Map<string, Set<string>>()
+    this.startingThings = new VisibleThingsMap(null)
+    this.currentlyVisibleThings = new VisibleThingsMap(null)
     if (startingThingsPassedIn != null) {
-      for (const item of startingThingsPassedIn) {
-        this.startingThings.set(item[0], item[1])
+      for (const item of startingThingsPassedIn.GetIterableIterator()) {
+        this.startingThings.Set(item[0], item[1])
+        this.currentlyVisibleThings.Set(item[0], item[1])
       }
     }
-
-    this.currentlyVisibleThings = new VisibleThingsMap(this.startingThings)
 
     // if it is passed in, we deep copy it
     this.solutionNameSegments = []
@@ -189,7 +189,7 @@ export class Solution {
     return this.rootPieces
   }
 
-  GetStartingThings (): Map<string, Set<string>> {
+  GetStartingThings (): VisibleThingsMap {
     return this.startingThings
   }
 
@@ -204,6 +204,7 @@ export class Solution {
           if (goal.piece.merge != null && this.isMergingOk) {
             goal.piece.merge.CopyPiecesFromBoxToPile(this.GetPile())
             goal.piece.merge.CopyStartingThingCharsToGivenMap(this.startingThings)
+            goal.piece.merge.CopyStartingThingCharsToGivenMap(this.currentlyVisibleThings)
           }
         }
       }
@@ -211,19 +212,16 @@ export class Solution {
   }
 
   GenerateCommandsAndAddToMap (piece: Piece): void {
-    // first the goal
-    this.commandCompletedInOrder.push(piece.output)
-
-    // then the commands
+    // push the commands
     const leaves = new Map<string, Piece | null>()
     GenerateMapOfLeavesRecursively(piece, '', leaves)
-    this.currentlyVisibleThings.Set(piece.output, new Set<string>())
     const reverseTraverser = new ReverseTraverser(this.currentlyVisibleThings, leaves)
     let rawObjectsAndVerb: RawObjectsAndVerb | null = null
     for (let j = 0; j < 200; j++) {
       rawObjectsAndVerb = reverseTraverser.GetNextDoableCommandAndDeconstructTree()
-
       if (rawObjectsAndVerb == null) { // all out of moves!
+        // for debugging
+        rawObjectsAndVerb = reverseTraverser.GetNextDoableCommandAndDeconstructTree()
         break
       }
 
@@ -249,6 +247,12 @@ export class Solution {
         break
       }
     }
+
+    // set the goal as visible in the currently visible things
+    this.currentlyVisibleThings.Set(piece.output, new Set<string>())
+
+    // then write the goal we just completed
+    this.commandCompletedInOrder.push(piece.output)
   }
 
   AreAnyInputsNull (): boolean {
@@ -271,7 +275,7 @@ export class Solution {
     return this.currentlyVisibleThings
   }
 
-  GetVisibleThingsAtTheStart (): ReadonlyMap<string, Set<string>> {
+  GetVisibleThingsAtTheStart (): VisibleThingsMap {
     return this.startingThings
   }
 }

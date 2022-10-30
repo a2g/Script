@@ -1,4 +1,5 @@
 import { BoxReadOnly } from './BoxReadOnly.js'
+import { VisibleThingsMap } from './VisibleThingsMap.js'
 
 /**
 * This is needed, because we want to give assurance that the original state isn't being changed.
@@ -15,7 +16,7 @@ export interface BoxReadOnlyWithFileMethods extends BoxReadOnly {
   CopyStartingPropsToGivenSet: (givenSet: Set<string>) => void
   CopyStartingGoalsToGivenSet: (givenSet: Set<string>) => void
   CopyStartingInvsToGivenSet: (givenSet: Set<string>) => void
-  CopyStartingThingCharsToGivenMap: (givenMap: Map<string, Set<string>>) => void
+  CopyStartingThingCharsToGivenMap: (givenMap: VisibleThingsMap) => void
   CopyPropsToGivenSet: (givenSet: Set<string>) => void
   CopyGoalsToGivenSet: (givenSet: Set<string>) => void
   CopyInvsToGivenSet: (givenSet: Set<string>) => void

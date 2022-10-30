@@ -142,7 +142,7 @@ export class Piece {
       // we check our starting set first!
       // otherwise Toggle pieces will toggle until the count is zero.
       const objectToObtain = this.inputHints[k]
-      if (solution.GetStartingThings().has(objectToObtain)) {
+      if (solution.GetStartingThings().Has(objectToObtain)) {
         this.StubOutInputK(k, SpecialTypes.StartingThings)
         continue
       }

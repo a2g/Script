@@ -7,6 +7,7 @@ import { BoxReadOnlyWithFileMethods } from './BoxReadOnlyWithFileMethods.js'
 import { BoxReadOnly } from './BoxReadOnly.js'
 import { PileOrRootPieceMap } from './PileOrRootPieceMap.js'
 import { RootPieceMap } from './RootPieceMap.js'
+import { VisibleThingsMap } from './VisibleThingsMap.js'
 
 /**
  * So the most important part of this class is that the data
@@ -19,7 +20,7 @@ export class BigBoxViaSetOfBoxes implements BoxReadOnly {
   readonly allGoals: string[]
   readonly allInvs: string[]
   readonly allChars: string[]
-  readonly mapOfStartingThingsWithChars: Map<string, Set<string>>
+  readonly mapOfStartingThingsWithChars: VisibleThingsMap
   readonly startingInvSet: Set<string>
   readonly startingPropSet: Set<string>
   readonly startingGoalSet: Set<string>
@@ -31,7 +32,7 @@ export class BigBoxViaSetOfBoxes implements BoxReadOnly {
     this.originalBoxes = setOfBoxes
 
     // create sets for the 3 member and 4 indirect sets
-    this.mapOfStartingThingsWithChars = new Map<string, Set<string>>()
+    this.mapOfStartingThingsWithChars = new VisibleThingsMap(null)
     this.startingPropSet = new Set<string>()
     this.startingInvSet = new Set<string>()
     this.startingGoalSet = new Set<string>()
@@ -57,7 +58,7 @@ export class BigBoxViaSetOfBoxes implements BoxReadOnly {
     // clean 3 member and 4 indirect sets
     this.startingPropSet.delete('')
     this.startingInvSet.delete('')
-    this.mapOfStartingThingsWithChars.delete('')
+    this.mapOfStartingThingsWithChars.Delete('')
     this.startingGoalSet.delete('')
     setChars.delete('')
     setProps.delete('')
@@ -123,22 +124,22 @@ export class BigBoxViaSetOfBoxes implements BoxReadOnly {
     return this.startingInvSet
   }
 
-  GetMapOfAllStartingThings (): Map<string, Set<string>> {
+  GetMapOfAllStartingThings (): VisibleThingsMap {
     return this.mapOfStartingThingsWithChars
   }
 
   GetStartingThingsForCharacter (charName: string): Set<string> {
     const startingThingSet = new Set<string>()
-    this.mapOfStartingThingsWithChars.forEach(
-      (value: Set<string>, thing: string) => {
-        for (const item of value) {
-          if (item === charName) {
-            startingThingSet.add(thing)
-            break
-          }
+    for (const item of this.mapOfStartingThingsWithChars.GetIterableIterator()) {
+      const key = item[0]
+      const value = item[1]
+      for (const item of value) {
+        if (item === charName) {
+          startingThingSet.add(key)
+          break
         }
       }
-    )
+    }
 
     return startingThingSet
   }

@@ -32,8 +32,8 @@ export class SolverViaRootPiece {
     this.solutions.push(firstSolution)
 
     this.mapOfStartingThingsAndWhoCanHaveThem = new Map<string, Set<string>>()
-    const map: ReadonlyMap<string, Set<string>> = firstSolution.GetStartingThings()
-    for (const thing of map) {
+    const map = firstSolution.GetStartingThings()
+    for (const thing of map.GetIterableIterator()) {
       const key = thing[0]
       const items = thing[1]
       const newSet = new Set<string>()
