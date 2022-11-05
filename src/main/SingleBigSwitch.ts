@@ -17,7 +17,7 @@ import { Box } from './Box.js'
  */
 let globalId = 1
 
-export function SingleBigSwitch (
+export function SingleBigSwitch(
   filename: string,
   objects: MixedObjectsAndVerb, isGoalRetrieval: boolean, piecesMappedByOutput: PileOrRootPieceMap | null
 ): Happenings | null {
@@ -330,7 +330,7 @@ export function SingleBigSwitch (
                 return happs
               }
               break
-            case _.GOAL1_SET_WHEN_GIVE_INV1_TO_PROP1:
+            case _.GOAL1_SET_BY_GIVING_INV1_TO_PROP1:
               happs.text = `Goal is set ${goal1}`
               happs.array.push(new Happening(Happen.InvGoes, inv1))
               happs.array.push(new Happening(Happen.PropStays, prop1))

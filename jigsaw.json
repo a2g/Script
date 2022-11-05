@@ -1,7 +1,7 @@
 {
   "$id": "https://raw.githubusercontent.com/a2g/jigsaw/main/jigsaw.json",
   "$schema": "http://json-schema.org/draft-07/schema",
-  "description": "A puzzle dependency graph defined in json schema. This jigsaw.json includes an enum of types of Gate nodes that describe an adventure game puzzle, and some jscon schema contraints for each nodes",
+  "description": "A puzzle dependency graph defined in json schema. This jigsaw.json includes an enum of types of pieces that describe an adventure game puzzle, and some json schema constraints for each pieces",
   "type": "object",
   "definitions": {
     "piece_type": {
@@ -356,7 +356,7 @@
               {
                 "properties": {
                   "piece": {
-                    "const": "GOAL1_SET_WHEN_GIVE_INV1_TO_PROP1",
+                    "const": "GOAL1_SET_BY_GIVING_INV1_TO_PROP1",
                     "examples": ["eg give gold to king completes game"]
                   }
                 }
@@ -602,6 +602,8 @@
         "AUTO_PROP1_BECOMES_PROP2_BY_PROPS",
         "AUTO_PROP1_BECOMES_PROP2_VIA_GOAL1",
         "EXAMINE_PROP1_YIELDS_INV1",
+        "GIVE_INV1_TO_PROP1_GETS_INV2",
+        "GOAL1_SET_BY_GIVING_INV1_TO_PROP1",
         "GOAL1_SET_BY_LOSING_INV1_WHEN_USED_WITH_PROP1",
         "GOAL1_SET_BY_LOSING_INV1_USED_WITH_PROP1_AND_PROPS",
         "GOAL1_SET_BY_USING_INV1_WITH_INV2",
@@ -609,8 +611,6 @@
         "GOAL1_SET_BY_USING_INV1_WITH_PROP1_LOSE_PROPS",
         "GOAL1_SET_BY_USING_INV1_WITH_PROP1_NEED_GOALS",
         "GOAL1_SET_BY_USING_PROP1_WITH_PROP2",
-        "GIVE_INV1_TO_PROP1_GETS_INV2",
-        "GOAL1_SET_WHEN_GIVE_INV1_TO_PROP1",
         "INV1_AND_INV2_COMBINE_TO_FORM_INV3",
         "INV1_AND_INV2_GENERATE_AN_INV3",
         "INV1_BECOMES_INV2_BY_KEEPING_INV3",
@@ -653,6 +653,8 @@
   "AUTO_PROP1_BECOMES_PROP2_BY_PROPS": "AUTO_PROP1_BECOMES_PROP2_BY_PROPS",
   "AUTO_PROP1_BECOMES_PROP2_VIA_GOAL1": "AUTO_PROP1_BECOMES_PROP2_VIA_GOAL1",
   "EXAMINE_PROP1_YIELDS_INV1": "EXAMINE_PROP1_YIELDS_INV1",
+  "GIVE_INV1_TO_PROP1_GETS_INV2": "GIVE_INV1_TO_PROP1_GETS_INV2",
+  "GOAL1_SET_BY_GIVING_INV1_TO_PROP1": "GOAL1_SET_BY_GIVING_INV1_TO_PROP1",
   "GOAL1_SET_BY_LOSING_INV1_WHEN_USED_WITH_PROP1": "GOAL1_SET_BY_LOSING_INV1_WHEN_USED_WITH_PROP1",
   "GOAL1_SET_BY_LOSING_INV1_USED_WITH_PROP1_AND_PROPS": "GOAL1_SET_BY_LOSING_INV1_USED_WITH_PROP1_AND_PROPS",
   "GOAL1_SET_BY_USING_INV1_WITH_INV2": "GOAL1_SET_BY_USING_INV1_WITH_INV2",
@@ -660,8 +662,6 @@
   "GOAL1_SET_BY_USING_INV1_WITH_PROP1_LOSE_PROPS": "GOAL1_SET_BY_USING_INV1_WITH_PROP1_LOSE_PROPS",
   "GOAL1_SET_BY_USING_INV1_WITH_PROP1_NEED_GOALS": "GOAL1_SET_BY_USING_INV1_WITH_PROP1_NEED_GOALS",
   "GOAL1_SET_BY_USING_PROP1_WITH_PROP2": "GOAL1_SET_BY_USING_PROP1_WITH_PROP2",
-  "GIVE_INV1_TO_PROP1_GETS_INV2": "GIVE_INV1_TO_PROP1_GETS_INV2",
-  "GOAL1_SET_WHEN_GIVE_INV1_TO_PROP1": "GOAL1_SET_WHEN_GIVE_INV1_TO_PROP1",
   "INV1_AND_INV2_COMBINE_TO_FORM_INV3": "INV1_AND_INV2_COMBINE_TO_FORM_INV3",
   "INV1_AND_INV2_GENERATE_AN_INV3": "INV1_AND_INV2_GENERATE_AN_INV3",
   "INV1_BECOMES_INV2_BY_KEEPING_INV3": "INV1_BECOMES_INV2_BY_KEEPING_INV3",
