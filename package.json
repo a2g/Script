@@ -11,8 +11,8 @@
   },
   "scripts": {
     "analyze": "cem analyze --litelement",
-    "start": "npm run clean tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\"",
-    "build": "tsc && npm run analyze -- --exclude dist",
+    "start": "npm run clean tsc && npm run copy:src && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\"",
+    "build": "tsc && npm run copy:src && npm run analyze -- --exclude dist",
     "clean": "rimraf dist target",
     "prepublish": "tsc && npm run analyze -- --exclude dist",
     "lint": "eslint --ext .ts,.html . --ignore-path .gitignore && prettier \"**/*.ts\" --check --ignore-path .gitignore",
@@ -20,9 +20,11 @@
     "test": "tsc && wtr --coverage",
     "test:watch": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wtr --watch\"",
     "storybook": "tsc && npm run analyze -- --exclude dist && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds -c .storybook/server.mjs\"",
-    "storybook:build": "tsc && npm run analyze -- --exclude dist && build-storybook"
+    "storybook:build": "tsc && npm run analyze -- --exclude dist && build-storybook",
+    "copy:src": "copyfiles -u 1 -e \"src/**/*.js\" -e \"src/**/*.ts\" \"src/**/*\" dist"
   },
   "dependencies": {
+    "copyfiles": "^2.4.1",
     "prompt-sync": "^4.2.0",
     "rifraf": "^2.0.3"
   },
