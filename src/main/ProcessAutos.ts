@@ -1,30 +1,30 @@
 import { Happener } from './Happener.js'
 import { PileOfPieces } from './PileOfPieces.js'
 
-export function ProcessAutos(happener: Happener, solutionPieceMap: PileOfPieces): void {
+export function ProcessAutos(happener: Happener, pileOfPieces: PileOfPieces): void {
   const goals = happener.GetCurrentlyTrueGoals()
-  const invs = happener.GetCurrentVisibleInventory()
+  const items = happener.GetCurrentVisibleInventory()
   const props = happener.GetCurrentVisibleProps()
 
-  const autos = solutionPieceMap.GetAutos()
+  const autos = pileOfPieces.GetAutos()
   for (const piece of autos) {
-    let numberSatisified = 0
+    let numberSatisfied = 0
     for (const inputName of piece.inputHints) {
       if (inputName.startsWith('prop_')) {
         if (props.includes(inputName)) {
-          numberSatisified = numberSatisified + 1
+          numberSatisfied = numberSatisfied + 1
         }
       } else if (inputName.startsWith('inv_')) {
-        if (invs.includes(inputName)) {
-          numberSatisified++
+        if (items.includes(inputName)) {
+          numberSatisfied++
         }
       } else if (inputName.startsWith('goal_')) {
         if (goals.includes(inputName)) {
-          numberSatisified++
+          numberSatisfied++
         }
       }
     };
-    if (numberSatisified === piece.inputHints.length) {
+    if (numberSatisfied === piece.inputHints.length) {
       if (piece.output.startsWith('prop_')) {
         console.log('Auto: prop set visible ' + piece.output)
         happener.SetPropVisible(piece.output, true)

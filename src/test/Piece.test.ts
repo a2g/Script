@@ -11,7 +11,7 @@ describe('Solution', () => {
       json.CopyPiecesFromBoxToPile(pile);
       const objective = "inv_screwdriver";
       const collection = new SolutionCollection();
-      const solution = new Solution(new SolutionPiece("", "", objective), map)
+      const solution = new Solution(new Piece("", "", objective), map)
       collection.push(solution);
       const wasCloneEncountered = collection.SolvePartiallyUntilCloning();
 
@@ -30,7 +30,7 @@ describe('Solution', () => {
       json.CopyPiecesFromBoxToPile(pile);
       const objective = "prop_death_by_guitar";
       const collection = new SolutionCollection();
-      const solution = new Solution(new SolutionPiece("", "", objective), map);
+      const solution = new Solution(new Piece("", "", objective), map);
       collection.2ution);
       // process the rest of the pieces
       do {
@@ -58,7 +58,7 @@ describe('Solution', () => {
       const map = json.CopyPiecesFromBoxToPile();
       const objective = "prop_death_by_slamdunk";
       const collection = new SolutionCollection();
-      collection.push(new Solution(new SolutionPiece("", "", objective), map));
+      collection.push(new Solution(new Piece("", "", objective), map));
       // process the rest of the pieces
       do {
           collection.SolvePartiallyUntilCloning();
