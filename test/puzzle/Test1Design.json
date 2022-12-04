@@ -1,0 +1,124 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "description": "This is the schema for the main Scenario file for the game. It basically a skeleton, pulling in other more substantial types from other files. It could be split up, but for now its easier managing three files Scenario, Schema and Objects",
+  "type": "object",
+  "definitions": {
+    "reaction_type": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "../../jigsaw.json#/definitions/piece_type"
+        }
+      ],
+      "properties": {
+        "inv1": {
+          "$ref": "Test1Enums.json#/definitions/inv_type"
+        },
+        "inv2": {
+          "$ref": "Test1Enums.json#/definitions/inv_type"
+        },
+        "inv3": {
+          "$ref": "Test1Enums.json#/definitions/inv_type"
+        },
+        "prop1": {
+          "$ref": "Test1Enums.json#/definitions/prop_type"
+        },
+        "prop2": {
+          "$ref": "Test1Enums.json#/definitions/prop_type"
+        },
+        "prop3": {
+          "$ref": "Test1Enums.json#/definitions/prop_type"
+        },
+        "prop4": {
+          "$ref": "Test1Enums.json#/definitions/prop_type"
+        },
+        "prop5": {
+          "$ref": "Test1Enums.json#/definitions/prop_type"
+        },
+        "prop6": {
+          "$ref": "Test1Enums.json#/definitions/prop_type"
+        },
+        "goal1": {
+          "$ref": "Test1Enums.json#/definitions/goal_type"
+        },
+        "goal2": {
+          "$ref": "Test1Enums.json#/definitions/goal_type"
+        },
+        "goal3": {
+          "$ref": "Test1Enums.json#/definitions/goal_type"
+        },
+        "goal4": {
+          "$ref": "Test1Enums.json#/definitions/goal_type"
+        },
+        "goal5": {
+          "$ref": "Test1Enums.json#/definitions/goal_type"
+        },
+        "goal6": {
+          "$ref": "Test1Enums.json#/definitions/goal_type"
+        },
+        "merge": {
+          "type": "string"
+        },
+        "restrictions": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/char_wrapper_type"
+          }
+        }
+      }
+    },
+    "char_wrapper_type": {
+      "type": "object",
+      "required": ["char"],
+      "properties": {
+        "char": {
+          "$ref": "Test1Enums.json#/definitions/char_type"
+        }
+      }
+    },
+    "prop_wrapper_type": {
+      "type": "object",
+      "required": ["prop"],
+      "properties": {
+        "prop": {
+          "$ref": "Test1Enums.json#/definitions/prop_type"
+        }
+      }
+    }
+  },
+  "properties": {
+    "startingThings": {
+      "type": "array",
+      "minItems": 0,
+      "items": {
+        "type": "object",
+        "properties": {
+          "char": {
+            "$ref": "Test1Enums.json#/definitions/char_type"
+          },
+          "thing": {
+            "oneOf": [
+              {
+                "$ref": "Test1Enums.json#/definitions/inv_type"
+              },
+              {
+                "$ref": "Test1Enums.json#/definitions/goal_type"
+              },
+              {
+                "$ref": "Test1Enums.json#/definitions/prop_type"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "pieces": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/definitions/reaction_type"
+      }
+    }
+  }
+}

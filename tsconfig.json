@@ -1,15 +1,14 @@
 {
   "compilerOptions": {
-    "target": "es6",
     "moduleResolution": "node",
-    "module": "commonjs",
+    "target": "es2018",
+    "module": "esnext",
     "noEmitOnError": true,
     "lib": [
       "es2017",
       "dom"
     ],
     "strict": true,
-    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "importHelpers": true,
@@ -19,9 +18,9 @@
     "sourceMap": true, /* Generates corresponding '.map' file. */
     "inlineSources": true,
     "rootDir": "./",
-    "declaration": true,
     "incremental": true,
-    "resolveJsonModule": true,
+    "esModuleInterop": true, /* required for importation of json */
+    "resolveJsonModule": true, /* required for importation of json */
     "skipLibCheck": true, /* Skip type checking of declaration files. */
     "forceConsistentCasingInFileNames": true, /* Disallow inconsistently-cased references to the same file. */
     "types": [
@@ -30,7 +29,8 @@
     ], /* Type declaration files to be included in compilation. */
   },
   "include": [
-    "**/*.ts"
+    "**/*.ts",
+    "**/*.json"
   ],
   "exclude": [
     "node_modules",

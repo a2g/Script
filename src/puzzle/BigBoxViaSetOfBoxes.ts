@@ -1,0 +1,231 @@
+import { PileOfPieces } from './PileOfPieces.js'
+import { MixedObjectsAndVerb } from './MixedObjectsAndVerb.js'
+import { Happenings } from './Happenings.js'
+import { Mix } from './Mix.js'
+import { SingleBigSwitch } from './SingleBigSwitch.js'
+import { BoxReadOnlyWithFileMethods } from './BoxReadOnlyWithFileMethods.js'
+import { BoxReadOnly } from './BoxReadOnly.js'
+import { PileOrRootPieceMap } from './PileOrRootPieceMap.js'
+import { RootPieceMap } from './RootPieceMap.js'
+import { VisibleThingsMap } from './VisibleThingsMap.js'
+
+/**
+ * So the most important part of this class is that the data
+ * in it is read only. So I've put that in the name.
+ * I wanted to convey the idea that it represents  *.json files,
+ * in this case multiple, so that goes in there too.
+ * */
+export class BigBoxViaSetOfBoxes implements BoxReadOnly {
+  readonly allProps: string[]
+
+  readonly allGoals: string[]
+
+  readonly allInvs: string[]
+
+  readonly allChars: string[]
+
+  readonly mapOfStartingThingsWithChars: VisibleThingsMap
+
+  readonly startingInvSet: Set<string>
+
+  readonly startingPropSet: Set<string>
+
+  readonly startingGoalSet: Set<string>
+
+  readonly originalBoxes: Set<BoxReadOnlyWithFileMethods>
+
+  readonly goals: RootPieceMap
+
+  readonly isMergingOk: boolean = true
+
+  constructor (setOfBoxes: Set<BoxReadOnlyWithFileMethods>) {
+    // we keep the original boxes, because we need to call
+    // Big Switch on them numerous times
+    this.originalBoxes = setOfBoxes
+
+    // create sets for the 3 member and 4 indirect sets
+    this.mapOfStartingThingsWithChars = new VisibleThingsMap(null)
+    this.startingPropSet = new Set<string>()
+    this.startingInvSet = new Set<string>()
+    this.startingGoalSet = new Set<string>()
+    this.goals = new RootPieceMap(null)
+    const setProps = new Set<string>()
+    const setGoals = new Set<string>()
+    const setInvs = new Set<string>()
+    const setChars = new Set<string>()
+
+    // collate the 3 member and 4 indirect sets
+    for (const box of this.originalBoxes.values()) {
+      box.CopyStartingThingCharsToGivenMap(this.mapOfStartingThingsWithChars)
+      box.CopyStartingPropsToGivenSet(this.startingPropSet)
+      box.CopyStartingInvsToGivenSet(this.startingInvSet)
+      box.CopyStartingGoalsToGivenSet(this.startingGoalSet)
+      box.CopyGoalPiecesToContainer(this.goals)
+      box.CopyPropsToGivenSet(setProps)
+      box.CopyGoalsToGivenSet(setGoals)
+      box.CopyInvsToGivenSet(setInvs)
+      box.CopyCharsToGivenSet(setChars)
+    }
+
+    // clean 3 member and 4 indirect sets
+    this.startingPropSet.delete('')
+    this.startingInvSet.delete('')
+    this.mapOfStartingThingsWithChars.Delete('')
+    this.startingGoalSet.delete('')
+    setChars.delete('')
+    setProps.delete('')
+    setGoals.delete('')
+    setInvs.delete('')
+
+    // finally set arrays for the four
+    this.allProps = Array.from(setProps.values())
+    this.allGoals = Array.from(setGoals.values())
+    this.allInvs = Array.from(setInvs.values())
+    this.allChars = Array.from(setChars.values())
+  }
+
+  IsMergingOk (): boolean {
+    return this.isMergingOk // doesn't need to merge, because it already includes all
+  }
+
+  GetArrayOfProps (): string[] {
+    return this.allProps
+  }
+
+  GetArrayOfInvs (): string[] {
+    return this.allInvs
+  }
+
+  GetArrayOfGoals (): string[] {
+    return this.allGoals
+  }
+
+  static GetArrayOfSingleObjectVerbs (): string[] {
+    return ['grab', 'toggle']
+  }
+
+  GetArrayOfSingleObjectVerbs (): string[] {
+    return this.GetArrayOfSingleObjectVerbs()
+  }
+
+  static GetArrayOfInitialStatesOfSingleObjectVerbs (): boolean[] {
+    return [true, true]
+  }
+
+  GetArrayOfInitialStatesOfSingleObjectVerbs (): boolean[] {
+    return this.GetArrayOfInitialStatesOfSingleObjectVerbs()
+  }
+
+  GetArrayOfInitialStatesOfGoals (): number[] {
+    const array: number[] = []
+    for (const goal of this.allGoals) {
+      array.push(goal.length > 0 ? 0 : 0) // I used value.length>0 to get rid of the unused variable warnin
+    }
+    return array
+  }
+
+  GetSetOfStartingGoals (): Set<string> {
+    return this.startingGoalSet
+  }
+
+  GetSetOfStartingProps (): Set<string> {
+    return this.startingPropSet
+  }
+
+  GetSetOfStartingInvs (): Set<string> {
+    return this.startingInvSet
+  }
+
+  GetMapOfAllStartingThings (): VisibleThingsMap {
+    return this.mapOfStartingThingsWithChars
+  }
+
+  GetStartingThingsForCharacter (charName: string): Set<string> {
+    const startingThingSet = new Set<string>()
+    for (const startingThing of this.mapOfStartingThingsWithChars.GetIterableIterator()) {
+      const key = startingThing[0]
+      const value = startingThing[1]
+      for (const item of value) {
+        if (item === charName) {
+          startingThingSet.add(key)
+          break
+        }
+      }
+    }
+
+    return startingThingSet
+  }
+
+  GetArrayOfInitialStatesOfProps (): boolean[] {
+    // construct array of booleans in exact same order as ArrayOfProps - so they can be correlated
+    const startingSet = this.GetSetOfStartingProps()
+    const visibilities: boolean[] = []
+    for (const prop of this.allProps) {
+      const isVisible = startingSet.has(prop)
+      visibilities.push(isVisible)
+    }
+
+    return visibilities
+  }
+
+  GetArrayOfInitialStatesOfInvs (): boolean[] {
+    // construct array of booleans in exact same order as ArrayOfProps - so they can be correlated
+    const startingSet = this.GetSetOfStartingInvs()
+    const visibilities: boolean[] = []
+    for (const inv of this.allInvs) {
+      const isVisible = startingSet.has(inv)
+      visibilities.push(isVisible)
+    }
+
+    return visibilities
+  }
+
+  GetArrayOfCharacters (): string[] {
+    return this.allChars
+  }
+
+  CopyPiecesFromBoxToPile (pile: PileOfPieces): void {
+    for (const box of this.originalBoxes) {
+      const notUsed = new MixedObjectsAndVerb(
+        Mix.ErrorVerbNotIdentified,
+        '',
+        '',
+        '',
+        'ScenePreAggregator'
+      )
+      SingleBigSwitch(box.GetFilename(), notUsed, false, pile)
+    }
+  }
+
+  CopyGoalPiecesToContainer (map: PileOrRootPieceMap): void {
+    for (const goal of this.goals.GetValues()) {
+      const clonedPiece = goal.piece.ClonePieceAndEntireTree()
+      map.AddPiece(clonedPiece)
+    }
+  }
+
+  FindHappeningsIfAny (command: MixedObjectsAndVerb): Happenings | null {
+    for (const box of this.originalBoxes) {
+      const result = SingleBigSwitch(
+        box.GetFilename(),
+        command, false, null
+      ) as unknown as Happenings | null
+      if (result != null) {
+        return result
+      }
+    }
+    return null
+  }
+
+  CollectAllReferencedBoxesRecursively (set: Set<BoxReadOnly>): void {
+    set.add(this)
+
+    // since this map of goal pieces already has been obtained recurseively
+    // then we don't need to recurse further here.
+    for (const goal of this.goals.GetValues()) {
+      if (goal.piece.merge != null) {
+        set.add(goal.piece.merge)
+      }
+    }
+  }
+}
