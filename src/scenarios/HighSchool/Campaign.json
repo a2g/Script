@@ -1,0 +1,107 @@
+{
+  "$schema": "../../jigsaw/jigsawCampaignFramework.json",
+  "locations": [
+    {
+      "locationName": "(M)usic-kid-house",
+      "locationEnum": "M",
+      "startingGateFile": "src/jiggers/HighSchool/IntroMusicKid.json",
+      "extraFiles": []
+    },
+    {
+      "locationName": "(B)asketball-kid-house",
+      "locationEnum": "B",
+      "startingGateFile": "src/jiggers/HighSchool/IntroBasketballKid.json",
+      "extraFiles": []
+    },
+    {
+      "locationName": "(A)rmy-kid-house",
+      "locationEnum": "A",
+      "startingGateFile": "src/jiggers/HighSchool/IntroArmyKid.json",
+      "extraFiles": []
+    },
+    {
+      "locationName": "(G)oth-kid-house",
+      "locationEnum": "G",
+      "startingGateFile": "src/jiggers/HighSchool/IntroGothKid.json",
+      "extraFiles": []
+    },
+    {
+      "locationName": "(S)chool",
+      "locationEnum": "S",
+      "startingGateFile": "src/jiggers/HighSchool/High.json",
+      "extraFiles": [
+        "src/jiggers/HighSchool/Cyclotron.json",
+        "src/jiggers/HighSchool/Cyclotron-NoDuplicates.json",
+        "src/jiggers/HighSchool/Chapter1FindTimmyInSports.json"
+      ]
+    }
+  ],
+  "goals": [
+    {
+      "gatesAddedUponActivation": [],
+      "gatesAddedUponCompletion": [],
+      "prerequisiteGoals": [],
+      "prerequisiteType": "allOfThem",
+      "goalName": "g1-music-kid",
+      "goalEnum": "G1",
+      "location": "M",
+      "sunsetType": "threeOrMore",
+      "sunsetGoals": ["G1", "G2", "G3", "G4", "G5"]
+    },
+    {
+      "gatesAddedUponActivation": [],
+      "gatesAddedUponCompletion": [],
+      "prerequisiteGoals": [],
+      "prerequisiteType": "allOfThem",
+      "goalName": "basketball-kid",
+      "goalEnum": "G2",
+      "location": "B",
+      "sunsetType": "threeOrMore",
+      "sunsetGoals": ["G1", "G2", "G3", "G4", "G5"]
+    },
+    {
+      "gatesAddedUponActivation": [],
+      "gatesAddedUponCompletion": [],
+      "prerequisiteGoals": [],
+      "prerequisiteType": "allOfThem",
+      "goalName": "free-army-kid",
+      "goalEnum": "G3",
+      "location": "A",
+      "sunsetType": "threeOrMore",
+      "sunsetGoals": ["G1", "G2", "G3", "G4", "G5"]
+    },
+    {
+      "gatesAddedUponActivation": [],
+      "gatesAddedUponCompletion": [],
+      "prerequisiteGoals": [],
+      "prerequisiteType": "allOfThem",
+      "goalName": "free-goth-kid",
+      "goalEnum": "G4",
+      "location": "G",
+      "sunsetType": "threeOrMore",
+      "sunsetGoals": ["G1", "G2", "G3", "G4", "G5"]
+    },
+    {
+      "gatesAddedUponActivation": [],
+      "gatesAddedUponCompletion": [],
+      "goalName": "high school (part one)",
+      "goalEnum": "G10",
+      "location": "S",
+      "sunsetType": "zeroConditions",
+      "sunsetGoals": [],
+      "prerequisiteType": "threeOrMore",
+      "prerequisiteGoals": ["G1", "G2", "G3", "G4", "G5"]
+    },
+    {
+      "gatesAddedUponActivation": [],
+      "gatesAddedUponCompletion": [],
+      "goalName": "high school (part one)",
+      "goalEnum": "G10",
+      "location": "S",
+      "sunsetType": "zeroConditions",
+      "sunsetGoals": [],
+      "prerequisiteType": "oneOrMore",
+      "prerequisiteGoals": ["G10"]
+    }
+  ]
+}

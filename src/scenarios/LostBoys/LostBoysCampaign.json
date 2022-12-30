@@ -1,0 +1,24 @@
+{
+  "$schema": "../../jigsaw/jigsawCampaignFramework.json",
+  "locations": [
+    {
+      "locationName": "(F)lying  Michael",
+      "locationEnum": "F",
+      "startingGateFile": "src/jiggers/LostBoys/MichaelFlying.json",
+      "extraFiles": []
+    }
+  ],
+  "goals": [
+    {
+      "goalName": "get the keys",
+      "goalEnum": "G1",
+      "location": "F",
+      "gatesAddedUponActivation": [],
+      "gatesAddedUponCompletion": [],
+      "prerequisiteGoals": [],
+      "prerequisiteType": "zeroConditions",
+      "sunsetGoals": [],
+      "sunsetType": "zeroConditions"
+    }
+  ]
+}

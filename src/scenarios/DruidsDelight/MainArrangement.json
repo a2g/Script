@@ -1,0 +1,115 @@
+{
+  "$schema": "./MainArrangementSchema.json",
+  "squares": [
+    {
+      "location": "rocket_turret",
+      "col": "D",
+      "row": "1"
+    },
+    {
+      "location": "attic",
+      "col": "D",
+      "row": "3"
+    },
+    {
+      "location": "inside_cubby",
+      "col": "F",
+      "row": "3"
+    },
+    {
+      "location": "bathroom_vent",
+      "col": "E",
+      "row": "5"
+    },
+    {
+      "location": "furnace_room",
+      "col": "J",
+      "row": "6"
+    },
+    {
+      "location": "empty_bedroom",
+      "col": "C",
+      "row": "7"
+    },
+    {
+      "location": "canvas_bedroom",
+      "col": "E",
+      "row": "7"
+    },
+    {
+      "location": "fireplace_room",
+      "col": "J",
+      "row": "8"
+    },
+    {
+      "location": "five_statues_room",
+      "col": "L",
+      "row": "8"
+    },
+    {
+      "location": "upstairs_landing",
+      "col": "D",
+      "row": "9"
+    },
+    {
+      "location": "entry",
+      "col": "G",
+      "row": "10"
+    },
+    {
+      "location": "sunstone_altar",
+      "col": "I",
+      "row": "10"
+    },
+    {
+      "location": "hallway",
+      "col": "K",
+      "row": "10"
+    },
+    {
+      "location": "downstairs_kitchen",
+      "col": "D",
+      "row": "12"
+    },
+    {
+      "location": "larder",
+      "col": "F",
+      "row": "12"
+    },
+    {
+      "location": "inside_icehouse",
+      "col": "A",
+      "row": "16"
+    },
+    {
+      "location": "ceremonial_circle",
+      "col": "C",
+      "row": "16"
+    },
+    {
+      "location": "inside_greenhouse",
+      "col": "E",
+      "row": "16"
+    },
+    {
+      "location": "outside_icehouse",
+      "col": "A",
+      "row": "18"
+    },
+    {
+      "location": "grove",
+      "col": "C",
+      "row": "18"
+    },
+    {
+      "location": "outside_greenhouse",
+      "col": "E",
+      "row": "18"
+    },
+    {
+      "location": "front_door",
+      "col": "G",
+      "row": "18"
+    }
+  ]
+}

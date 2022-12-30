@@ -1,0 +1,90 @@
+{
+    "$schema": "../../jigsaw/jigsawCampaignFramework.json",
+    "locations": [
+        {
+            "locationName": "(D)Dock)",
+            "locationEnum": "D",
+            "startingGateFile": "../jiggers/DruidsDelight/DockF.json",
+            "extraFiles": []
+        },
+        {
+            "locationName": "(E)Elder)",
+            "locationEnum": "E",
+            "startingGateFile": "../jiggers/DruidsDelight/ElderF.json",
+            "extraFiles": []
+        },
+        {
+            "locationName": "(F)First)",
+            "locationEnum": "F",
+            "startingGateFile": "../jiggers/DruidsDelight/MainFirst.json",
+            "extraFiles": []
+        }
+    ],
+    "goals": [
+        {
+            "goalName": "get to Airport",
+            "goalEnum": "G1",
+            "location": "D",
+            "gatesAddedUponActivation": [],
+            "gatesAddedUponCompletion": [],
+            "prerequisiteGoals": [],
+            "prerequisiteType": "allOfThem",
+            "sunsetGoals": [],
+            "sunsetType": "allOfThem"
+        },
+        {
+            "goalName": "create a light source",
+            "goalEnum": "G2",
+            "location": "E",
+            "gatesAddedUponActivation": [],
+            "gatesAddedUponCompletion": [],
+            "prerequisiteGoals": [],
+            "prerequisiteType": "allOfThem",
+            "sunsetGoals": [],
+            "sunsetType": "allOfThem"
+        },
+        {
+            "goalName": "open the greenhouse",
+            "goalEnum": "G3",
+            "location": "F",
+            "gatesAddedUponActivation": [],
+            "gatesAddedUponCompletion": [],
+            "prerequisiteGoals": [],
+            "prerequisiteType": "allOfThem",
+            "sunsetGoals": [],
+            "sunsetType": "allOfThem"
+        },
+        {
+            "goalName": "open the icehouse",
+            "goalEnum": "G4",
+            "location": "F",
+            "gatesAddedUponActivation": [
+                {
+                    "gateFileToAdd": "../jiggers/DruidsDelight/Test1InsideGreenhouse.json",
+                    "locationToAddItToEnum": "F"
+                }
+            ],
+            "gatesAddedUponCompletion": [],
+            "prerequisiteGoals": ["G3"],
+            "prerequisiteType": "allOfThem",
+            "sunsetGoals": [],
+            "sunsetType": "allOfThem"
+        },
+        {
+            "goalName": "do stuff with the os",
+            "goalEnum": "G5",
+            "location": "F",
+            "gatesAddedUponActivation": [
+                {
+                    "gateFileToAdd": "../jiggers/DruidsDelight/FirstAndIcehouse.json",
+                    "locationToAddItToEnum": "F"
+                }
+            ],
+            "gatesAddedUponCompletion": [],
+            "prerequisiteGoals": ["G4"],
+            "prerequisiteType": "allOfThem",
+            "sunsetGoals": [],
+            "sunsetType": "allOfThem"
+        }
+    ]
+}

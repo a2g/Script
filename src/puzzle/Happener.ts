@@ -1,8 +1,8 @@
-import { PlayerAI } from './PlayerAI'
-import { HappenerCallbacksInterface } from './HappenerCallbacksInterface'
-import { MixedObjectsAndVerb } from './MixedObjectsAndVerb'
-import { Happen } from './Happen'
-import { BoxReadOnly } from './BoxReadOnly'
+import { Happen } from './Happen.js';
+import { IBoxReadOnly } from './IBoxReadOnly.js';
+import { IHappenerCallbacks } from './IHappenerCallbacks.js';
+import { MixedObjectsAndVerb } from './MixedObjectsAndVerb.js';
+import { PlayerAI } from './PlayerAI.js';
 
 // April 2021
 // The blind / location - agnostic way to find solutions is to have an inv vs props table, and inv vs inv table, and a verb vs props table, and a verb vs invs table, then
@@ -19,223 +19,277 @@ import { BoxReadOnly } from './BoxReadOnly'
 //
 
 export class Happener {
-  private readonly arrayOfInvNames: string[]
-  private arrayOfInventoryVisibilities: boolean[]
-  private readonly arrayOfPropNames: string[]
-  private arrayOfPropVisibilities: boolean[]
-  private readonly arrayOfVerbNames: string[]
-  private readonly arrayOfVerbVisibilities: boolean[]
-  private readonly arrayOfGoalNames: string[]
-  private arrayOfGoalValues: number[]
-  private readonly box: BoxReadOnly
-  public readonly Examine = 0
-  private callbacks: HappenerCallbacksInterface
+  public readonly Examine = 0;
+  private readonly arrayOfInvNames: string[];
 
-  constructor (box: BoxReadOnly) {
+  private arrayOfInventoryVisibilities: boolean[];
+
+  private readonly arrayOfPropNames: string[];
+
+  private arrayOfPropVisibilities: boolean[];
+
+  private readonly arrayOfVerbNames: string[];
+
+  // private readonly arrayOfVerbVisibilities: boolean[];
+
+  private readonly arrayOfGoalNames: string[];
+
+  private arrayOfGoalValues: number[];
+
+  private readonly box: IBoxReadOnly;
+
+  private callbacks: IHappenerCallbacks;
+
+  constructor(box: IBoxReadOnly) {
     // yes, all of these need to be initialized to harmless values due to PlayerAI below
-    this.arrayOfInvNames = new Array<string>()
-    this.arrayOfGoalNames = new Array<string>()
-    this.arrayOfPropNames = new Array<string>()
-    this.arrayOfVerbNames = new Array<string>()
-    this.arrayOfInventoryVisibilities = new Array<boolean>()
-    this.arrayOfPropVisibilities = new Array<boolean>()
-    this.arrayOfVerbVisibilities = new Array<boolean>()
-    this.arrayOfGoalValues = new Array<number>()
-    this.box = box
+    this.arrayOfInvNames = [];
+    this.arrayOfGoalNames = [];
+    this.arrayOfPropNames = [];
+    this.arrayOfVerbNames = [];
+    this.arrayOfInventoryVisibilities = [];
+    this.arrayOfPropVisibilities = [];
+    this.arrayOfGoalValues = [];
+    this.box = box;
     // PlayerAI needs to be initialized last, because for
     // the first parameter it passes this - and the PlayerAI
     // constructor expects a fully constructed item to be
     // passed to it.
-    this.callbacks = new PlayerAI(this, 0)
+    this.callbacks = new PlayerAI(this, 0);
 
-    this.arrayOfInvNames = box.GetArrayOfInvs()
-    this.arrayOfGoalNames = box.GetArrayOfGoals()
-    this.arrayOfPropNames = box.GetArrayOfProps()
-    this.arrayOfVerbNames = box.GetArrayOfSingleObjectVerbs()
-    this.arrayOfInventoryVisibilities = box.GetArrayOfInitialStatesOfInvs()
-    this.arrayOfPropVisibilities = box.GetArrayOfInitialStatesOfProps()
-    this.arrayOfVerbVisibilities = box.GetArrayOfInitialStatesOfSingleObjectVerbs()
-    this.arrayOfGoalValues = box.GetArrayOfInitialStatesOfGoals()
+    this.arrayOfInvNames = box.GetArrayOfInvs();
+    this.arrayOfGoalNames = box.GetArrayOfGoals();
+    this.arrayOfPropNames = box.GetArrayOfProps();
+    this.arrayOfVerbNames = box.GetArrayOfSingleObjectVerbs();
+    this.arrayOfInventoryVisibilities = box.GetArrayOfInitialStatesOfInvs();
+    this.arrayOfPropVisibilities = box.GetArrayOfInitialStatesOfProps();
+    this.arrayOfGoalValues = box.GetArrayOfInitialStatesOfGoals();
   }
 
-  SetGoalValue (goal: string, value: number): void {
-    const index = this.GetIndexOfGoal(goal)
-    this.arrayOfGoalValues[index] = value
+  public SetGoalValue(goal: string, value: number): void {
+    const index = this.GetIndexOfGoal(goal);
+    this.arrayOfGoalValues[index] = value;
   }
 
-  GetGoalValue (goal: string): Number {
-    const index = this.GetIndexOfGoal(goal)
-    const toReturn: Number = this.arrayOfGoalValues[index]
-    return toReturn
+  public GetGoalValue(goal: string): number {
+    const index = this.GetIndexOfGoal(goal);
+    const toReturn: number = this.arrayOfGoalValues[index];
+    return toReturn;
   }
 
-  SetInvVisible (inv: string, value: boolean): void {
-    const index = this.GetIndexOfInv(inv)
-    this.arrayOfInventoryVisibilities[index] = value
+  public SetInvVisible(inv: string, value: boolean): void {
+    const index = this.GetIndexOfInv(inv);
+    this.arrayOfInventoryVisibilities[index] = value;
   }
 
-  SetPropVisible (prop: string, value: boolean): void {
-    const index = this.GetIndexOfProp(prop)
-    this.arrayOfPropVisibilities[index] = value
+  public SetPropVisible(prop: string, value: boolean): void {
+    const index = this.GetIndexOfProp(prop);
+    this.arrayOfPropVisibilities[index] = value;
   }
 
-  ExecuteCommand (objects: MixedObjectsAndVerb): void {
-    const happenings = this.box.FindHappeningsIfAny(objects)
+  public ExecuteCommand(objects: MixedObjectsAndVerb): void {
+    const happenings = this.box.FindHappeningsIfAny(objects);
     if (happenings != null) {
-      console.log(happenings.text)
+      console.warn(happenings.text);
       for (const happening of happenings.array) {
         // one of these will be wrong - but we won't use the wrong one :)
-        const prop = this.GetIndexOfProp(happening.item)
-        const inv = this.GetIndexOfInv(happening.item)
-        const goal = this.GetIndexOfGoal(happening.item)
+        const prop = this.GetIndexOfProp(happening.item);
+        const inv = this.GetIndexOfInv(happening.item);
+        const goal = this.GetIndexOfGoal(happening.item);
         switch (happening.happen) {
           case Happen.InvAppears:
-            if (inv === -1) { throw Error('bad inv') }
-            this.arrayOfInventoryVisibilities[inv] = true
-            this.callbacks.OnInvVisbilityChange(inv, true, happening.item)
-            break
+            if (inv === -1) {
+              throw Error('bad inv');
+            }
+            this.arrayOfInventoryVisibilities[inv] = true;
+            this.callbacks.OnInvVisbilityChange(inv, true, happening.item);
+            break;
           case Happen.InvGoes:
-            if (inv === -1) { throw Error('bad inv') }
-            this.arrayOfInventoryVisibilities[inv] = false
-            this.callbacks.OnInvVisbilityChange(inv, false, happening.item)
-            break
+            if (inv === -1) {
+              throw Error('bad inv');
+            }
+            this.arrayOfInventoryVisibilities[inv] = false;
+            this.callbacks.OnInvVisbilityChange(inv, false, happening.item);
+            break;
           case Happen.PropAppears:
-            if (prop === -1) { throw Error('bad prop') }
-            this.arrayOfPropVisibilities[prop] = true
-            this.callbacks.OnPropVisbilityChange(prop, true, happening.item)
-            break
+            if (prop === -1) {
+              throw Error('bad prop');
+            }
+            this.arrayOfPropVisibilities[prop] = true;
+            this.callbacks.OnPropVisbilityChange(prop, true, happening.item);
+            break;
           case Happen.PropGoes:
-            if (prop === -1) { throw Error('bad prop') }
-            this.arrayOfPropVisibilities[prop] = false
-            this.callbacks.OnPropVisbilityChange(prop, false, happening.item)
-            break
+            if (prop === -1) {
+              throw Error('bad prop');
+            }
+            this.arrayOfPropVisibilities[prop] = false;
+            this.callbacks.OnPropVisbilityChange(prop, false, happening.item);
+            break;
           case Happen.GoalIsDecremented:
-            if (goal === -1) { throw Error('bad goal') }
-            this.arrayOfGoalValues[goal] = this.arrayOfGoalValues[goal] - 1
-            this.callbacks.OnGoalValueChange(goal, this.arrayOfGoalValues[goal] - 1, happening.item)
-            break
+            if (goal === -1) {
+              throw Error('bad goal');
+            }
+            this.arrayOfGoalValues[goal] -= 1;
+            this.callbacks.OnGoalValueChange(
+              goal,
+              this.arrayOfGoalValues[goal],
+              happening.item
+            );
+            break;
           case Happen.GoalIsIncremented:
-            if (goal === -1) { throw Error('bad goal') }
-            this.arrayOfGoalValues[goal] = this.arrayOfGoalValues[goal] + 1
-            this.callbacks.OnGoalValueChange(goal, this.arrayOfGoalValues[goal] + 1, happening.item)
-            break
+            if (goal === -1) {
+              throw Error('bad goal');
+            }
+            this.arrayOfGoalValues[goal] += 1;
+            this.callbacks.OnGoalValueChange(
+              goal,
+              this.arrayOfGoalValues[goal] + 1,
+              happening.item
+            );
+            break;
           case Happen.GoalIsSet:
-            if (goal === -1) { throw Error('bad goal') }
-            this.arrayOfGoalValues[goal] = 1
-            this.callbacks.OnGoalValueChange(goal, 1, happening.item)
-            break
+            if (goal === -1) {
+              throw Error('bad goal');
+            }
+            this.arrayOfGoalValues[goal] = 1;
+            this.callbacks.OnGoalValueChange(goal, 1, happening.item);
+            break;
+          default:
+            console.warn(
+              'Happening happen set to something unexpected exception'
+            );
         }
-      };
+      }
     } else {
-      console.log('Nothing happened')
+      console.warn('Nothing happened');
     }
   }
 
-  GetIndexOfVerb (verb: string): number {
-    const indexOfVerb: number = this.arrayOfVerbNames.indexOf(verb)
-    return indexOfVerb
+  public GetIndexOfVerb(verb: string): number {
+    const indexOfVerb: number = this.arrayOfVerbNames.indexOf(verb);
+    return indexOfVerb;
   }
 
-  GetIndexOfInv (item: string): number {
-    const indexOfInv: number = this.arrayOfInvNames.indexOf(item)
-    return indexOfInv
+  public GetIndexOfInv(item: string): number {
+    const indexOfInv: number = this.arrayOfInvNames.indexOf(item);
+    return indexOfInv;
   }
 
-  GetIndexOfGoal (item: string): number {
-    const indexOfGoal: number = this.arrayOfGoalNames.indexOf(item)
-    return indexOfGoal
+  public GetIndexOfGoal(item: string): number {
+    const indexOfGoal: number = this.arrayOfGoalNames.indexOf(item);
+    return indexOfGoal;
   }
 
-  GetIndexOfProp (item: string): number {
-    const indexOfProp: number = this.arrayOfPropNames.indexOf(item)
-    return indexOfProp
+  public GetIndexOfProp(item: string): number {
+    const indexOfProp: number = this.arrayOfPropNames.indexOf(item);
+    return indexOfProp;
   }
 
-  GetVerb (i: number): string {
-    const name: string = i >= 0 ? this.GetVerbsExcludingUse()[i][0] : 'use'
-    return name
+  public GetVerb(i: number): string {
+    const name: string = i >= 0 ? this.GetVerbsExcludingUse()[i][0] : 'use';
+    return name;
   }
 
-  GetInv (i: number): string {
-    const name: string = i >= 0 ? this.GetEntireInvSuite()[i][0] : '-1 lookup in GetInv'
-    return name
+  public GetInv(i: number): string {
+    const name: string =
+      i >= 0 ? this.GetEntireInvSuite()[i][0] : '-1 lookup in GetInv';
+    return name;
   }
 
-  GetProp (i: number): string {
-    const name: string = i >= 0 ? this.GetEntirePropSuite()[i][0] : '-1 lookup in GetProp'
-    return name
+  public GetProp(i: number): string {
+    const name: string =
+      i >= 0 ? this.GetEntirePropSuite()[i][0] : '-1 lookup in GetProp';
+    return name;
   }
 
-  GetGoal (i: number): string {
-    const name: string = i >= 0 ? this.GetEntireGoalSuite()[i][0] : '-1 lookup for GetGoal'
-    return name
+  public GetGoal(i: number): string {
+    const name: string =
+      i >= 0 ? this.GetEntireGoalSuite()[i][0] : '-1 lookup for GetGoal';
+    return name;
   }
 
-  SubscribeToCallbacks (callbacks: HappenerCallbacksInterface): void {
-    this.callbacks = callbacks
+  public SubscribeToCallbacks(callbacks: IHappenerCallbacks): void {
+    this.callbacks = callbacks;
   }
 
-  GetVerbsExcludingUse (): Array<[string, boolean]> {
-    const toReturn = new Array<[string, boolean]>()
-    this.arrayOfVerbNames.forEach(function (Verb) {
-      toReturn.push([Verb, true])
-    })
-    return toReturn
-  }
-
-  GetEntireGoalSuite (): Array<[string, Number]> {
-    const toReturn = new Array<[string, Number]>()
-    for (let i = 0; i < this.arrayOfPropNames.length; i++) { // classic forloop useful because shared index
-      toReturn.push([this.arrayOfGoalNames[i], this.arrayOfGoalValues[i]])
+  public GetVerbsExcludingUse(): Array<[string, boolean]> {
+    const toReturn: Array<[string, boolean]> = [];
+    for (const verb of this.arrayOfVerbNames) {
+      toReturn.push([verb, true]);
     }
-    return toReturn
+    return toReturn;
   }
 
-  GetEntirePropSuite (): Array<[string, boolean]> {
-    const toReturn = new Array<[string, boolean]>()
-    for (let i = 0; i < this.arrayOfPropNames.length; i++) { // classic forloop useful because shared index
-      toReturn.push([this.arrayOfPropNames[i], this.arrayOfPropVisibilities[i]])
+  public GetEntireGoalSuite(): Array<[string, number]> {
+    const toReturn: Array<[string, number]> = [];
+    for (let i = 0; i < this.arrayOfPropNames.length; i += 1) {
+      // classic forloop useful because shared index
+      toReturn.push([this.arrayOfGoalNames[i], this.arrayOfGoalValues[i]]);
     }
-    return toReturn
+    return toReturn;
   }
 
-  GetEntireInvSuite (): Array<[string, boolean]> {
-    const toReturn = new Array<[string, boolean]>()
-    for (let i = 0; i < this.arrayOfInvNames.length; i++) { // classic forloop useful because shared index
-      toReturn.push([this.arrayOfInvNames[i], this.arrayOfInventoryVisibilities[i]])
+  public GetEntirePropSuite(): Array<[string, boolean]> {
+    const toReturn: Array<[string, boolean]> = [];
+    for (let i = 0; i < this.arrayOfPropNames.length; i += 1) {
+      // classic forloop useful because shared index
+      toReturn.push([
+        this.arrayOfPropNames[i],
+        this.arrayOfPropVisibilities[i],
+      ]);
     }
-    return toReturn
+    return toReturn;
   }
 
-  GetCurrentVisibleInventory (): string[] {
-    const toReturn = new Array<string>()
-    for (let i = 0; i < this.arrayOfInvNames.length; i++) { // classic forloop useful because shared index
-      if (this.arrayOfInventoryVisibilities[i]) { toReturn.push(this.arrayOfInvNames[i]) }
+  public GetEntireInvSuite(): Array<[string, boolean]> {
+    const toReturn: Array<[string, boolean]> = [];
+    for (let i = 0; i < this.arrayOfInvNames.length; i += 1) {
+      // classic forloop useful because shared index
+      toReturn.push([
+        this.arrayOfInvNames[i],
+        this.arrayOfInventoryVisibilities[i],
+      ]);
     }
-    return toReturn
+    return toReturn;
   }
 
-  GetCurrentVisibleProps (): string[] {
-    const toReturn = new Array<string>()
-    for (let i = 0; i < this.arrayOfPropNames.length; i++) { // classic forloop useful because shared index
-      if (this.arrayOfPropVisibilities[i]) { toReturn.push(this.arrayOfPropNames[i]) }
+  public GetCurrentVisibleInventory(): string[] {
+    const toReturn: string[] = [];
+    for (let i = 0; i < this.arrayOfInvNames.length; i += 1) {
+      // classic forloop useful because shared index
+      if (this.arrayOfInventoryVisibilities[i]) {
+        toReturn.push(this.arrayOfInvNames[i]);
+      }
     }
-    return toReturn
+    return toReturn;
   }
 
-  GetCurrentlyTrueGoals (): string[] {
-    const toReturn = new Array<string>()
-    for (let i = 0; i < this.arrayOfGoalNames.length; i++) { // classic forloop useful because shared index
-      if (this.arrayOfGoalValues[i] > 0) { toReturn.push(this.arrayOfGoalNames[i]) }
+  public GetCurrentVisibleProps(): string[] {
+    const toReturn: string[] = [];
+    for (let i = 0; i < this.arrayOfPropNames.length; i += 1) {
+      // classic forloop useful because shared index
+      if (this.arrayOfPropVisibilities[i]) {
+        toReturn.push(this.arrayOfPropNames[i]);
+      }
     }
-    return toReturn
+    return toReturn;
   }
 
-  GetArrayOfInvs (): string[] {
-    return this.arrayOfInvNames
+  public GetCurrentlyTrueGoals(): string[] {
+    const toReturn: string[] = [];
+    for (let i = 0; i < this.arrayOfGoalNames.length; i += 1) {
+      // classic forloop useful because shared index
+      if (this.arrayOfGoalValues[i] > 0) {
+        toReturn.push(this.arrayOfGoalNames[i]);
+      }
+    }
+    return toReturn;
   }
 
-  GetArrayOfProps (): string[] {
-    return this.arrayOfPropNames
+  public GetArrayOfInvs(): string[] {
+    return this.arrayOfInvNames;
+  }
+
+  public GetArrayOfProps(): string[] {
+    return this.arrayOfPropNames;
   }
 }

@@ -1,0 +1,15 @@
+{
+    "$schema": "./MainConnectionsSchema.json",
+    "thoroughfares": [
+        {
+            "start": "inside_icehouse",
+            "end": "outside_icehouse",
+            "bidirectional": true
+        },
+        {
+            "start": "outside_icehouse",
+            "end": "grove",
+            "bidirectional": true
+        }
+    ]
+}

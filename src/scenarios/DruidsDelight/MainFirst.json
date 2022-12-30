@@ -1,0 +1,124 @@
+{
+  "$schema": "./MainDesignSchema.json",
+  "startingThings": [
+    {
+      "thing": "inv_torch_lit"
+    },
+    {
+      "thing": "prop_icehouse"
+    },
+    {
+      "thing": "prop_apples"
+    },
+    {
+      "thing": "prop_loose_brick"
+    },
+    {
+      "thing": "prop_druid_wielding_knife"
+    },
+    {
+      "thing": "prop_butler"
+    },
+    {
+      "thing": "prop_greenhouse_door"
+    },
+    {
+      "thing": "prop_coal_bunker"
+    },
+    {
+      "thing": "prop_well"
+    },
+    {
+      "thing": "prop_arch_druid"
+    }
+  ],
+  "pieces": [
+    {
+      "piece": "GOAL1_SET_BY_USING_INV1_WITH_PROP1",
+      "goal1": "goal_access_to_icehouse",
+      "merge": "test/puzzle/Test1InsideIcehouse.json",
+      "inv1": "inv_soil_thermometer",
+      "prop1": "prop_icehouse"
+    },
+    {
+      "piece": "PROP1_GOES_WHEN_GRAB_INV1",
+      "prop1": "prop_loose_brick",
+      "inv1": "inv_rock"
+    },
+    {
+      "piece": "THROW_INV1_AT_PROP1_GETS_INV2_LOSE_BOTH",
+      "inv1": "inv_rock",
+      "prop1": "prop_apples",
+      "inv2": "inv_apple"
+    },
+    {
+      "piece": "TALK_TO_PROP1_GETS_INV1",
+      "prop1": "prop_druid_wielding_knife",
+      "inv1": "inv_knife"
+    },
+    {
+      "piece": "INV1_BECOMES_INV2_BY_KEEPING_INV3",
+      "inv1": "inv_apple",
+      "inv2": "inv_apple_slices",
+      "inv3": "inv_knife"
+    },
+    {
+      "piece": "GIVE_INV1_TO_PROP1_GETS_INV2",
+      "inv1": "inv_apple_slices",
+      "prop1": "prop_butler",
+      "inv2": "inv_greenhouse_key"
+    },
+    {
+      "piece": "GOAL1_SET_BY_USING_INV1_WITH_PROP1",
+      "goal1": "goal_access_to_greenhouse",
+      "merge": "test/puzzle/Test1InsideGreenhouse.json",
+      "inv1": "inv_greenhouse_key",
+      "prop1": "prop_greenhouse_door"
+    },
+    {
+      "piece": "INV1_BECOMES_INV2_BY_KEEPING_INV3",
+      "inv1": "inv_herbs",
+      "inv2": "inv_burning_herbs",
+      "inv3": "inv_torch_lit"
+    },
+    {
+      "piece": "INV1_AND_INV2_COMBINE_TO_FORM_INV3",
+      "inv1": "inv_handle",
+      "inv2": "inv_rolling_pin",
+      "inv3": "inv_crank"
+    },
+    {
+      "piece": "GOAL1_SET_BY_USING_INV1_WITH_PROP1",
+      "goal1": "goal_used_bucket_with_coal_bunker",
+      "inv1": "inv_empty_bucket",
+      "prop1": "prop_coal_bunker"
+    },
+    {
+      "piece": "AUTO_INV1_OBTAINED_VIA_GOAL1",
+      "goal1": "goal_used_bucket_with_coal_bunker",
+      "inv1": "inv_bucket_of_coal"
+    },
+    {
+      "piece": "OBTAIN_INV1_BY_LOSING_PROP1_KEEPING_INV2",
+      "inv1": "inv_crank2",
+      "inv2": "inv_hurl",
+      "prop1": "prop_crank_attached_to_well"
+    },
+    {
+      "piece": "GOAL1_SET_BY_USING_INV1_WITH_PROP1",
+      "goal1": "goal_used_crank_with_well",
+      "inv1": "inv_crank",
+      "prop1": "prop_well"
+    },
+    {
+      "piece": "AUTO_PROP1_APPEARS_VIA_GOAL1",
+      "goal1": "goal_used_crank_with_well",
+      "prop1": "prop_crank_attached_to_well"
+    },
+    {
+      "piece": "AUTO_INV1_OBTAINED_VIA_GOAL1",
+      "goal1": "goal_used_crank_with_well",
+      "inv1": "inv_bucket_of_water"
+    }
+  ]
+}

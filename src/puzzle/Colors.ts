@@ -1,4 +1,3 @@
-
 /**
  * All the escape codes for color switching in one place
  */

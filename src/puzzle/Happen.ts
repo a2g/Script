@@ -9,5 +9,5 @@ export enum Happen {
 
   GoalIsSet,
   GoalIsIncremented,
-  GoalIsDecremented
+  GoalIsDecremented,
 }

@@ -1,0 +1,68 @@
+{
+  "$schema": "./ElderDesign.json",
+  "startingThings": [
+    {
+      "thing": "inv_bottle_top"
+    },
+    {
+      "thing": "prop_limestone"
+    },
+    {
+      "thing": "prop_teenager"
+    },
+    {
+      "thing": "prop_arch-druid"
+    },
+    {
+      "thing": "prop_officer_dooley"
+    },
+    {
+      "thing": "prop_officer_dooley"
+    }
+  ],
+  "pieces": [
+    {
+      "piece": "PROP1_STAYS_WHEN_GRAB_INV1",
+      "prop1": "prop_officer_dooley",
+      "inv1": "inv_piece_of_robe"
+    },
+    {
+      "piece": "PROP1_STAYS_WHEN_GRAB_INV1",
+      "prop1": "prop_limestone",
+      "inv1": "inv_flint"
+    },
+    {
+      "piece": "PROP1_STAYS_WHEN_GRAB_INV1",
+      "prop1": "prop_teenager",
+      "inv1": "inv_poitan"
+    },
+    {
+      "piece": "PROP1_GOES_WHEN_GRAB_INV1",
+      "prop1": "prop_arch-druid",
+      "inv1": "inv_shillelagh"
+    },
+    {
+      "piece": "INV1_BECOMES_INV2_BY_LOSING_INV3",
+      "inv1": "inv_shillelagh",
+      "inv2": "inv_torch_unlit",
+      "inv3": "inv_piece_of_robe"
+    },
+    {
+      "piece": "INV1_BECOMES_INV2_BY_LOSING_INV3",
+      "inv1": "inv_flint",
+      "inv2": "inv_tinder_kit",
+      "inv3": "inv_bottle_top"
+    },
+    {
+      "piece": "INV1_BECOMES_INV2_BY_LOSING_INV3",
+      "inv1": "inv_torch_unlit",
+      "inv2": "inv_torch_lit",
+      "inv3": "inv_tinder_kit"
+    },
+    {
+      "piece": "AUTO_GOAL1_SET_BY_INVS",
+      "goal1": "goal_win",
+      "inv1": "inv_torch_lit"
+    }
+  ]
+}

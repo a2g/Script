@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "description": "a list of specific objects that gets references from mansion.gates.schema.json",
+  "type": "object",
+  "definitions": {
+    "char_type": {
+      "enum": ["char_main"]
+    },
+    "inv_type": {
+      "enum": [
+        "inv_flint",
+        "inv_poitan",
+        "inv_shillelagh",
+        "inv_bottle_top",
+        "inv_piece_of_robe",
+        "inv_torch_unlit",
+        "inv_torch_lit",
+        "inv_tinder_kit"
+      ]
+    },
+    "prop_type": {
+      "enum": [
+        "prop_limestone",
+        "prop_teenager",
+        "prop_arch-druid",
+        "prop_officer_dooley"
+      ]
+    },
+    "goal_type": {
+      "enum": ["goal_win"]
+    }
+  }
+}

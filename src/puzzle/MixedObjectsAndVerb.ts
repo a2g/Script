@@ -1,28 +1,50 @@
-import { Mix } from './Mix.js'
+import { Mix } from './Mix.js';
 
 export class MixedObjectsAndVerb {
-  type: Mix
+  public type: Mix;
 
-  verb: string
+  public verb: string;
 
-  object1: string
+  public object1: string;
 
-  object2: string
+  public object2: string;
 
-  error: string
+  public error: string;
 
-  constructor (type: Mix, verb: string, object1: string, object2 = '', error = '') {
-    this.type = type
-    this.verb = verb.toLowerCase()
-    this.object1 = object1
-    this.object2 = object2
-    this.error = error
+  constructor(
+    type: Mix,
+    verb: string,
+    object1: string,
+    object2 = '',
+    error = ''
+  ) {
+    this.type = type;
+    this.verb = verb.toLowerCase();
+    this.object1 = object1;
+    this.object2 = object2;
+    this.error = error;
   }
 
-  Match (verbIncoming: string, object1: string | undefined, object2: string | undefined): boolean {
-    const verb = verbIncoming.toLowerCase()
-    if (this.verb === verb && this.object1 === object1 && this.object2 === object2) { return true }
-    if (this.verb === verb && this.object1 === object2 && this.object2 === object1) { return true }
-    return false
+  public Match(
+    verbIncoming: string,
+    object1: string | undefined,
+    object2: string | undefined
+  ): boolean {
+    const verb = verbIncoming.toLowerCase();
+    if (
+      this.verb === verb &&
+      this.object1 === object1 &&
+      this.object2 === object2
+    ) {
+      return true;
+    }
+    if (
+      this.verb === verb &&
+      this.object1 === object2 &&
+      this.object2 === object1
+    ) {
+      return true;
+    }
+    return false;
   }
 }

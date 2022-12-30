@@ -1,0 +1,82 @@
+{
+  "$schema": "./MainDesignSchema.json",
+  "startingThings": [
+    {
+      "thing": "prop_vinegar"
+    },
+    {
+      "thing": "prop_painting"
+    },
+    {
+      "thing": "prop_rolling_pin"
+    },
+    {
+      "thing": "prop_fireplace(lit)"
+    },
+    {
+      "thing": "prop_grandfather_clock"
+    },
+    {
+      "thing": "prop_dumbwaiter"
+    },
+    {
+      "thing": "prop_vent"
+    },
+    {
+      "thing": "prop_sunstone"
+    },
+    {
+      "thing": "prop_cooking_lard"
+    }
+  ],
+  "pieces": [
+    {
+      "piece": "AUTO_GOAL1_SET_BY_PROPS",
+      "goal1": "goal_access_thru_fireplace",
+      "merge": "test/puzzle/Test1InsideFireplace.json",
+      "prop1": "prop_fireplace_ladder"
+    },
+    {
+      "piece": "GOAL1_SET_BY_USING_INV1_WITH_PROP1",
+      "goal1": "goal_used_bucket_of_water_with_fire",
+      "inv1": "inv_bucket_of_water",
+      "prop1": "prop_fireplace(lit)"
+    },
+    {
+      "piece": "AUTO_PROP1_APPEARS_VIA_GOAL1",
+      "goal1": "goal_used_bucket_of_water_with_fire",
+      "prop1": "prop_fireplace_ladder"
+    },
+    {
+      "piece": "AUTO_INV1_OBTAINED_VIA_GOAL1",
+      "goal1": "goal_used_bucket_of_water_with_fire",
+      "inv1": "inv_empty_bucket"
+    },
+    {
+      "piece": "OBTAIN_INV1_BY_LOSING_INV2_KEEPING_PROP1",
+      "inv1": "inv_cogs",
+      "inv2": "inv_windup_key",
+      "prop1": "prop_grandfather_clock"
+    },
+    {
+      "piece": "GOAL1_SET_BY_LOSING_INV1_WHEN_USED_WITH_PROP1",
+      "goal1": "goal_access_thru_dumbwaiter",
+      "merge": "test/puzzle/Test1InsideDumbwaiter.json",
+      "inv1": "inv_cogs",
+      "prop1": "prop_dumbwaiter"
+    },
+    {
+      "piece": "GOAL1_SET_BY_USING_INV1_WITH_PROP1",
+      "goal1": "goal_access_to_hideout",
+      "merge": "test/puzzle/Test1InsideHideout.json",
+      "inv1": "inv_burning_herbs",
+      "prop1": "prop_vent"
+    },
+    {
+      "piece": "PROP1_GOES_WHEN_GRAB_INV1_WITH_GOAL1",
+      "prop1": "prop_cooking_lard",
+      "goal1": "goal_access_to_castle",
+      "inv1": "inv_cooking_lard"
+    }
+  ]
+}

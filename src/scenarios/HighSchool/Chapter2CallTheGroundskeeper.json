@@ -1,0 +1,40 @@
+{
+  "$schema": "./Chapter2CallTheGroundskeeperSchema.json",
+  "pieces": [
+    {
+      "piece": "GOAL1_SET_BY_USING_INV1_WITH_PROP1",
+      "goal1": "goal_chapter2_complete",
+      "inv1": "inv_sports_storeroom_key",
+      "prop1": "prop_sports_storeroom_key"
+    },
+    {
+      "piece": "AUTO_GOAL1_SET_BY_GOAL2",
+      "goal1": "goal_win",
+      "goal2": "goal_chapter2_complete"
+    },
+    {
+      "piece": "AUTO_GOAL1_SET_BY_PROPS",
+      "goal1": "goal_chapter2_complete",
+      "prop1": "prop_precipitation_meter(full)"
+    },
+    {
+      "piece": "AUTO_GOAL1_SET_BY_PROPS",
+      "goal1": "goal_chapter2_complete",
+      "prop1": "prop_wet_patch_of_ground"
+    },
+    {
+      "piece": "PROP1_BECOMES_PROP2_AS_INV1_BECOMES_INV2",
+      "prop1": "prop_patch_of_ground_with_small_holes",
+      "prop2": "prop_wet_patch_of_ground",
+      "inv1": "inv_bucket_full_of_water",
+      "inv2": "inv_empty_bucket"
+    },
+    {
+      "piece": "PROP1_BECOMES_PROP2_AS_INV1_BECOMES_INV2",
+      "prop1": "prop_precipitation_meter(empty)",
+      "prop2": "prop_precipitation_meter(full)",
+      "inv1": "inv_bucket_full_of_water",
+      "inv2": "inv_empty_bucket"
+    }
+  ]
+}

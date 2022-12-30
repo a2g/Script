@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "description": "a list of specific objects that gets references from mansion.gates.schema.json",
+  "type": "object",
+  "sayWhenAddedDynamically": {
+    "line0": "this has happened before.",
+    "line1": "20 years ago...that time the grounds keeper legendarily dispatched the demon to another dimension",
+    "line2": "but no one even knows his phone number?",
+    "line3": "I hear that he gets called in automatically, whenever the pitch gets too wet or dry"
+  },
+  "definitions": {
+    "char_type": {
+      "enum": ["char_goth_kid"]
+    },
+    "inv_type": {
+      "enum": [
+        "inv_sports_storeroom_key",
+        "inv_empty_bucket",
+        "inv_bucket_full_of_water"
+      ]
+    },
+    "prop_type": {
+      "enum": [
+        "prop_sports_storeroom_door",
+        "prop_sports_storeroom_key",
+        "prop_bucket",
+        "prop_precipitation_meter(full)",
+        "prop_precipitation_meter(empty)",
+        "prop_patch_of_ground_with_small_holes",
+        "prop_wet_patch_of_ground",
+        "prop_water_fountains",
+        "prop_water_faucet",
+        "prop_drain"
+      ]
+    },
+    "goal_type": {
+      "enum": [
+        "goal_win",
+        "goal_chapter2_complete",
+        "goal_sensor_too_much_moisture",
+        "goal_sensor_too_much_precipitation"
+      ]
+    }
+  }
+}

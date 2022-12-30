@@ -1,33 +1,43 @@
-import { Happen } from './Happen'
+import { Happen } from './Happen';
 
 export class Happening {
-  item: string
-  happen: Happen
+  public item: string;
+  public happen: Happen;
 
-  constructor (play: Happen, item: string) {
+  constructor(play: Happen, item: string) {
     if (item.length === 0) {
-      throw new Error('item needs to be non null')
+      throw new Error('item needs to be non null');
     }
-    this.happen = play
-    this.item = item
+    this.happen = play;
+    this.item = item;
     switch (play) {
       case Happen.InvGoes:
       case Happen.InvStays:
       case Happen.InvAppears:
-        if (!item.startsWith('inv')) { console.log('Mismatch! the item (' + item + ') doesn"t start with "inv"') }
-        break
+        if (!item.startsWith('inv')) {
+          console.warn(
+            'Mismatch! the item (' + item + ') doesn"t start with "inv"'
+          );
+        }
+        break;
       case Happen.PropGoes:
       case Happen.PropStays:
       case Happen.PropAppears:
         if (!item.startsWith('prop')) {
-          console.log('Mismatch! the item (' + item + ') does not start with "prop"')
+          console.warn(
+            'Mismatch! the item (' + item + ') does not start with "prop"'
+          );
         }
-        break
+        break;
       case Happen.GoalIsDecremented:
       case Happen.GoalIsIncremented:
       case Happen.GoalIsSet:
-        if (!item.startsWith('goal')) { console.log('Mismatch! the item (' + item + ') doesn"t start with "goal"') }
-        break
+        if (!item.startsWith('goal')) {
+          console.warn(
+            'Mismatch! the item (' + item + ') does not start with "goal"'
+          );
+        }
+        break;
     }
   }
 }

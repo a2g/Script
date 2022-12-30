@@ -1,0 +1,88 @@
+{
+  "$schema": "./DockDesign.json",
+  "startingThings": [
+    {
+      "thing": "prop_bartender"
+    },
+    {
+      "thing": "prop_boatman"
+    },
+    {
+      "thing": "prop_harbour_master"
+    },
+    {
+      "thing": "inv_american_dollars"
+    },
+    {
+      "thing": "prop_picture_frame"
+    },
+    {
+      "thing": "prop_greasy_grease_paper"
+    },
+    {
+      "thing": "prop_phone"
+    },
+    {
+      "thing": "prop_generator"
+    }
+  ],
+  "pieces": [
+    {
+      "piece": "TALK_TO_PROP1_GETS_INV1",
+      "prop1": "prop_harbour_master",
+      "inv1": "inv_spirits"
+    },
+    {
+      "piece": "GIVE_INV1_TO_PROP1_GETS_INV2",
+      "inv1": "inv_framed_money",
+      "prop1": "prop_bartender",
+      "inv2": "inv_one_irish_punt"
+    },
+    {
+      "piece": "INV1_AND_INV2_FORM_INV3",
+      "inv1": "inv_spirits",
+      "inv2": "inv_grease_proof_paper",
+      "inv3": "inv_unguent"
+    },
+    {
+      "piece": "GIVE_INV1_TO_PROP1_GETS_INV2",
+      "inv1": "inv_unguent",
+      "prop1": "prop_boatman",
+      "inv2": "inv_bio-diesel"
+    },
+    {
+      "piece": "GOAL1_SET_BY_USING_INV1_WITH_PROP1",
+      "goal1": "goal_electricity_restored",
+      "inv1": "inv_bio-diesel",
+      "prop1": "prop_generator"
+    },
+    {
+      "piece": "PROP1_APPEARS_WHEN_GRAB_PROP2_WITH_GOAL1",
+      "prop1": "prop_taxi",
+      "prop2": "prop_phone",
+      "goal1": "goal_electricity_restored"
+    },
+    {
+      "piece": "GOAL1_SET_BY_GIVING_INV1_TO_PROP1",
+      "goal1": "goal_win",
+      "inv1": "inv_one_irish_punt",
+      "prop1": "prop_taxi"
+    },
+    {
+      "piece": "PROP1_GOES_WHEN_GRAB_INV1",
+      "prop1": "prop_picture_frame",
+      "inv1": "inv_picture_frame"
+    },
+    {
+      "piece": "INV1_BECOMES_INV2_BY_KEEPING_INV3",
+      "inv1": "inv_picture_frame",
+      "inv2": "inv_framed_money",
+      "inv3": "inv_american_dollars"
+    },
+    {
+      "piece": "PROP1_GOES_WHEN_GRAB_INV1",
+      "prop1": "prop_greasy_grease_paper",
+      "inv1": "inv_grease_proof_paper"
+    }
+  ]
+}

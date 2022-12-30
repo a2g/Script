@@ -1,22 +1,22 @@
-import { Solution } from './Solution.js'
-import { GetDisplayName } from './GetDisplayName.js'
-import { Colors } from './Colors.js'
-import { AddBrackets } from './AddBrackets.js'
-import { GenerateMapOfLeavesRecursively } from './GenerateMapOfLeavesRecursively.js'
-import { RootPieceMap } from './RootPieceMap.js'
-import { Piece } from './Piece.js'
-import { BoxReadOnly } from './BoxReadOnly.js'
-import { PileOfPieces } from './PileOfPieces.js'
+import { AddBrackets } from './AddBrackets.js';
+import { Colors } from './Colors.js';
+import { GenerateMapOfLeavesRecursively } from './GenerateMapOfLeavesRecursively.js';
+import { GetDisplayName } from './GetDisplayName.js';
+import { IBoxReadOnly } from './IBoxReadOnly.js';
+import { Piece } from './Piece.js';
+import { PileOfPieces } from './PileOfPieces.js';
+import { RootPieceMap } from './RootPieceMap.js';
+import { Solution } from './Solution.js';
 
-function GenerateMapOfLeaves (rootMap: RootPieceMap): Map<string, Piece | null> {
-  const map = new Map<string, Piece | null>()
+function GenerateMapOfLeaves(rootMap: RootPieceMap): Map<string, Piece | null> {
+  const map = new Map<string, Piece | null>();
 
   for (const value of rootMap.GetValues()) {
-    const { piece } = value
-    GenerateMapOfLeavesRecursively(piece, piece.output, map)
+    const { piece } = value;
+    GenerateMapOfLeavesRecursively(piece, piece.output, map);
   }
 
-  return map
+  return map;
 }
 
 /**
@@ -26,135 +26,132 @@ function GenerateMapOfLeaves (rootMap: RootPieceMap): Map<string, Piece | null> 
  * 3. Generating solution names - which is why it needs mapOfStartingThings...
  */
 export class SolverViaRootPiece {
-  private solutions: Solution[]
+  private solutions: Solution[];
 
-  private readonly mapOfStartingThingsAndWhoCanHaveThem: Map<string, Set<string>>
+  private readonly mapOfStartingThingsAndWhoCanHaveThem: Map<
+    string,
+    Set<string>
+  >;
 
-  constructor (box: BoxReadOnly) {
-    const startingThingsAndWhoCanHaveThem = box.GetMapOfAllStartingThings()
+  constructor(box: IBoxReadOnly) {
+    const startingThingsAndWhoCanHaveThem = box.GetMapOfAllStartingThings();
 
-    const pile = new PileOfPieces(null)
-    box.CopyPiecesFromBoxToPile(pile)
+    const pile = new PileOfPieces(null);
+    box.CopyPiecesFromBoxToPile(pile);
 
-    const rootMap = new RootPieceMap(null)
-    const boxes = new Set<BoxReadOnly>()
-    box.CollectAllReferencedBoxesRecursively(boxes)
+    const rootMap = new RootPieceMap(null);
+    const boxes = new Set<IBoxReadOnly>();
+    box.CollectAllReferencedBoxesRecursively(boxes);
     for (const subBox of boxes) {
-      subBox.CopyGoalPiecesToContainer(rootMap)
+      subBox.CopyGoalPiecesToContainer(rootMap);
     }
 
-    const firstSolution = new Solution(rootMap, pile, startingThingsAndWhoCanHaveThem, box.IsMergingOk())
-    this.solutions = []
-    this.solutions.push(firstSolution)
+    const firstSolution = new Solution(
+      rootMap,
+      pile,
+      startingThingsAndWhoCanHaveThem,
+      box.IsMergingOk()
+    );
+    this.solutions = [];
+    this.solutions.push(firstSolution);
 
-    this.mapOfStartingThingsAndWhoCanHaveThem = new Map<string, Set<string>>()
-    const map = firstSolution.GetStartingThings()
+    this.mapOfStartingThingsAndWhoCanHaveThem = new Map<string, Set<string>>();
+    const map = firstSolution.GetStartingThings();
     for (const thing of map.GetIterableIterator()) {
-      const key = thing[0]
-      const items = thing[1]
-      const newSet = new Set<string>()
+      const key = thing[0];
+      const items = thing[1];
+      const newSet = new Set<string>();
       for (const item of items) {
-        newSet.add(item)
+        newSet.add(item);
       }
-      this.mapOfStartingThingsAndWhoCanHaveThem.set(key, newSet)
+      this.mapOfStartingThingsAndWhoCanHaveThem.set(key, newSet);
     }
 
-    this.GenerateSolutionNamesAndPush()
+    this.GenerateSolutionNamesAndPush();
   }
 
-  NumberOfSolutions (): number {
-    return this.solutions.length
+  public NumberOfSolutions(): number {
+    return this.solutions.length;
   }
 
-  AreAnyInputsNull (): boolean {
+  public AreAnyInputsNull(): boolean {
     for (const solution of this.solutions) {
-      solution.MarkGoalsAsContainingNullsAndMergeIfNeeded()
+      solution.MarkGoalsAsContainingNullsAndMergeIfNeeded();
       if (solution.AreAnyInputsNull()) {
-        return true
+        return true;
       }
     }
-    return false
+    return false;
   }
 
-  SolvePartiallyUntilCloning (): boolean {
-    let hasACloneJustBeenCreated = false
+  public SolvePartiallyUntilCloning(): boolean {
+    let hasACloneJustBeenCreated = false;
     this.solutions.forEach((solution: Solution) => {
       if (solution.AreAnyInputsNull()) {
         if (!solution.IsArchived()) {
           if (solution.ProcessUntilCloning(this)) {
-            hasACloneJustBeenCreated = true
+            hasACloneJustBeenCreated = true;
           }
         }
       }
-    })
-    return hasACloneJustBeenCreated
+    });
+    return hasACloneJustBeenCreated;
   }
 
-  SolveUntilZeroUnprocessedPieces (): void {
-    do {
-      this.SolvePartiallyUntilCloning()
-    } while (this.AreAnyInputsNull())
-
-    this.GenerateSolutionNamesAndPush()
+  public GetSolutions(): Solution[] {
+    return this.solutions;
   }
 
-  ProcessChaptersToEndAndUpdateList (): void {
-    // this needs to be a member function because we are overwriting this.solutions
-    const newList = []
-    for (const oldSolution of this.solutions) {
-      newList.push(oldSolution)
-    }
-    this.solutions = newList
-  }
-
-  MarkGoalsAsCompletedAndMergeIfNeeded (): void {
+  public MarkGoalsAsCompletedAndMergeIfNeeded(): void {
     for (const solution of this.solutions) {
-      solution.MarkGoalsAsContainingNullsAndMergeIfNeeded()
+      solution.MarkGoalsAsContainingNullsAndMergeIfNeeded();
     }
   }
 
-  GenerateSolutionNamesAndPush (): void {
+  public GenerateSolutionNamesAndPush(): void {
     for (let i = 0; i < this.solutions.length; i += 1) {
       // now lets find out the amount leafPiece name exists in all the other solutions
-      const mapForCounting = new Map<string, number>()
+      const mapForCounting = new Map<string, number>();
       for (let j = 0; j < this.solutions.length; j += 1) {
         if (i !== j) {
-          const otherSolution = this.solutions[j]
-          const otherLeafs = GenerateMapOfLeaves(otherSolution
-            .GetRootMap())
+          const otherSolution = this.solutions[j];
+          const otherLeafs = GenerateMapOfLeaves(otherSolution.GetRootMap());
           for (const leafPiece of otherLeafs.values()) {
             if (leafPiece != null) {
-              const otherLeafPieceName = leafPiece.output
-              let otherLeafPieceNameCount = 0
-              const result = mapForCounting.get(otherLeafPieceName)
+              const otherLeafPieceName = leafPiece.output;
+              let otherLeafPieceNameCount = 0;
+              const result = mapForCounting.get(otherLeafPieceName);
               if (result !== undefined) {
-                otherLeafPieceNameCount = result
+                otherLeafPieceNameCount = result;
               }
-              mapForCounting.set(otherLeafPieceName, otherLeafPieceNameCount + 1)
+              mapForCounting.set(
+                otherLeafPieceName,
+                otherLeafPieceNameCount + 1
+              );
             }
           }
         }
       }
 
       // find least popular leaf in solution i
-      const currSolution = this.solutions[i]
-      let minLeafPieceNameCount = 1000 // something high
-      let minLeafPieceName = ' zero solutions so cant generate solution name'
+      const currSolution = this.solutions[i];
+      let minLeafPieceNameCount = 1000; // something high
+      let minLeafPieceName = ' zero solutions so cant generate solution name';
 
       // get the restrictions accumulated from all the solution pieces
-      const accumulatedRestrictions = currSolution.GetAccumulatedRestrictions()
+      const accumulatedRestrictions = currSolution.GetAccumulatedRestrictions();
 
-      const currLeaves = GenerateMapOfLeaves(currSolution.GetRootMap())
+      const currLeaves = GenerateMapOfLeaves(currSolution.GetRootMap());
       for (const leaf of currLeaves.values()) {
         if (leaf != null) {
-          const result = mapForCounting.get(leaf.output)
+          const result = mapForCounting.get(leaf.output);
           if (result !== undefined && result < minLeafPieceNameCount) {
-            minLeafPieceNameCount = result
-            minLeafPieceName = leaf.output
+            minLeafPieceNameCount = result;
+            minLeafPieceName = leaf.output;
           } else if (!mapForCounting.has(leaf.output)) {
             // our leaf is no where in the leafs of other solutions - we can use it!
-            minLeafPieceNameCount = 0
-            minLeafPieceName = leaf.output
+            minLeafPieceNameCount = 0;
+            minLeafPieceName = leaf.output;
           }
 
           // now we potentially add startingSet items to restrictions
@@ -162,24 +159,20 @@ export class SolverViaRootPiece {
             (characters: Set<string>, key: string) => {
               if (key === leaf.output) {
                 for (const character of characters) {
-                  accumulatedRestrictions.add(character)
+                  accumulatedRestrictions.add(character);
                 }
               }
             }
-          )
+          );
         }
       }
 
       const term: string =
         accumulatedRestrictions.size > 0
           ? AddBrackets(GetDisplayName(Array.from(accumulatedRestrictions)))
-          : ''
-      const solutionName = `Solution name: ${minLeafPieceName}${Colors.Reset}${term}`
-      currSolution.PushNameSegment(solutionName)
+          : '';
+      const solutionName = `Solution name: ${minLeafPieceName}${Colors.Reset}${term}`;
+      currSolution.PushNameSegment(solutionName);
     }
-  }
-
-  GetSolutions (): Solution[] {
-    return this.solutions
   }
 }

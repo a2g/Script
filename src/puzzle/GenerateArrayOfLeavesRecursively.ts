@@ -1,19 +1,19 @@
-import { Piece } from './Piece'
+import { Piece } from './Piece';
 
-export function GenerateArrayOfLeavesRecursively (piece: Piece): Piece[] {
-  let array: Piece[] = []
-  let isNoInputs = true
+export function GenerateArrayOfLeavesRecursively(piece: Piece): Piece[] {
+  let array: Piece[] = [];
+  let isNoInputs = true;
   for (const input of piece.inputs) {
     if (input != null) {
-      isNoInputs = false
-      const tempArray = GenerateArrayOfLeavesRecursively(input)
-      array = array.concat(tempArray)
+      isNoInputs = false;
+      const tempArray = GenerateArrayOfLeavesRecursively(input);
+      array = array.concat(tempArray);
     }
   }
 
   if (isNoInputs) {
-    array.push(piece)
+    array.push(piece);
   }
 
-  return array
+  return array;
 }

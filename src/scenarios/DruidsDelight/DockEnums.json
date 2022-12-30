@@ -1,0 +1,38 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "description": "a list of specific objects that gets references from mansion.gates.schema.json",
+  "type": "object",
+  "definitions": {
+    "char_type": {
+      "enum": ["char_main"]
+    },
+    "inv_type": {
+      "enum": [
+        "inv_spirits",
+        "inv_picture_frame",
+        "inv_american_dollars",
+        "inv_framed_money",
+        "inv_one_irish_punt",
+        "inv_unguent",
+        "inv_grease_proof_paper",
+        "inv_bio-diesel"
+      ]
+    },
+    "prop_type": {
+      "enum": [
+        "prop_picture",
+        "prop_harbour_master",
+        "prop_bartender",
+        "prop_greasy_grease_paper",
+        "prop_generator",
+        "prop_boatman",
+        "prop_taxi",
+        "prop_phone",
+        "prop_picture_frame"
+      ]
+    },
+    "goal_type": {
+      "enum": ["goal_electricity_restored", "goal_win"]
+    }
+  }
+}

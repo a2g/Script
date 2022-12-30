@@ -1,0 +1,103 @@
+{
+  "$schema": "./MichaelFlyingSchema.json",
+  "pieces": [
+    {
+      "piece": "TOGGLE_PROP1_REVEALS_PROP2_AS_IT_BECOMES_PROP3",
+      "prop1": "prop_fridge(closed)",
+      "prop2": "prop_carton_of_milk",
+      "prop3": "prop_fridge(open)"
+    },
+    {
+      "piece": "TOGGLE_PROP1_REVEALS_PROP2_AS_IT_BECOMES_PROP3",
+      "prop1": "prop_freezer(closed)",
+      "prop2": "prop_frozen_steak",
+      "prop3": "prop_freezer(open)"
+    },
+    {
+      "piece": "PROP1_GOES_WHEN_GRAB_INV1",
+      "prop1": "prop_frozen_steak",
+      "inv1": "inv_frozen_steak"
+    },
+    {
+      "piece": "INV1_BECOMES_INV2_BY_KEEPING_PROP1",
+      "inv1": "inv_frozen_steak",
+      "inv2": "inv_thawed_out_raw_steak",
+      "prop1": "prop_microwave_oven"
+    },
+    {
+      "piece": "PROP1_GOES_WHEN_GRAB_INV1",
+      "prop1": "prop_carton_of_milk",
+      "inv1": "inv_carton_of_milk"
+    },
+    {
+      "piece": "TOGGLE_PROP1_REVEALS_PROP2_AS_IT_BECOMES_PROP3",
+      "prop1": "prop_blind(closed)",
+      "prop2": "prop_window(closed)",
+      "prop3": "prop_blind(open)"
+    },
+    {
+      "piece": "TOGGLE_PROP1_REVEALS_PROP2_AS_IT_BECOMES_PROP3",
+      "prop1": "prop_window(closed)",
+      "prop2": "prop_Michael(floating-in-the-distance)",
+      "prop3": "prop_window(open)"
+    },
+    {
+      "piece": "PROP1_BECOMES_PROP2_BY_KEEPING_PROP3",
+      "prop1": "prop_Michael(floating-in-the-distance)",
+      "prop2": "prop_Michael(standing-in-your-room)",
+      "prop3": "prop_telephone_with_long_cord"
+    },
+    {
+      "piece": "PROP1_BECOMES_PROP2_BY_LOSING_INV1",
+      "prop1": "prop_Michael(standing-in-your-room)",
+      "prop2": "prop_Michael(sleepy-on-your-bed)",
+      "inv1": "inv_thawed_out_raw_steak"
+    },
+    {
+      "piece": "PROP1_BECOMES_PROP2_BY_LOSING_INV1",
+      "prop1": "prop_Michael(sleepy-on-your-bed)",
+      "prop2": "prop_Michael_with_keys(asleep-on-your-bed)",
+      "inv1": "inv_sunglasses"
+    },
+    {
+      "piece": "PROP1_BECOMES_PROP2_WHEN_GRAB_INV1",
+      "prop1": "prop_Michael_with_keys(asleep-on-your-bed)",
+      "prop2": "prop_Michael(asleep-on-your-bed)",
+      "inv1": "inv_motorbike_keys"
+    },
+    {
+      "piece": "GOAL1_SET_BY_USING_INV1_WITH_PROP1",
+      "goal1": "goal_win",
+      "inv1": "inv_motorbike_keys",
+      "prop1": "prop_motorbike"
+    },
+    {
+      "piece": "PROP1_GOES_WHEN_GRAB_INV1",
+      "prop1": "prop_sunglasses",
+      "inv1": "inv_sunglasses"
+    }
+  ],
+  "startingThings": [
+    {
+      "thing": "prop_microwave_oven"
+    },
+    {
+      "thing": "prop_sunglasses"
+    },
+    {
+      "thing": "prop_fridge(closed)"
+    },
+    {
+      "thing": "prop_freezer(closed)"
+    },
+    {
+      "thing": "prop_blind(closed)"
+    },
+    {
+      "thing": "prop_telephone_with_long_cord"
+    },
+    {
+      "thing": "prop_motorbike"
+    }
+  ]
+}

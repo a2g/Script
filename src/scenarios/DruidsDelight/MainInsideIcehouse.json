@@ -1,0 +1,23 @@
+{
+  "$schema": "./MainDesignSchema.json",
+  "startingThings": [
+    {
+      "thing": "prop_three_punctuated_circles"
+    }
+  ],
+  "pieces": [
+    {
+      "piece": "PROP1_GOES_WHEN_GRAB_INV1_WITH_GOAL1",
+      "prop1": "prop_three_punctuated_circles",
+      "inv1": "inv_three_punctuated_circles",
+      "goal1": "goal_access_to_icehouse"
+    },
+    {
+      "piece": "GOAL1_SET_BY_GIVING_INV1_TO_PROP1",
+      "goal1": "goal_access_to_castle",
+      "merge": "test/puzzle/Test1InsideCastle.json",
+      "inv1": "inv_three_punctuated_circles",
+      "prop1": "prop_arch_druid"
+    }
+  ]
+}

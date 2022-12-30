@@ -1,0 +1,67 @@
+{
+  "$schema": "./AshesAndCyclotronSchema.json",
+  "pieces": [
+    {
+      "piece": "AUTO_GOAL1_SET_BY_GOAL2",
+      "goal1": "goal_win",
+      "goal2": "goal_death_by_goth"
+    },
+    {
+      "piece": "GOAL1_SET_BY_LOSING_INV1_USED_WITH_PROP1_AND_PROPS",
+      "goal1": "goal_death_by_goth",
+      "inv1": "inv_urn_of_ashes",
+      "prop1": "prop_EasyTube™",
+      "prop2": "prop_topology_button(star_mode)",
+      "prop3": "prop_destination_switch(test_run)"
+    }
+  ],
+  "startingThings": [
+    {
+      "char": "char_goth_kid",
+      "thing": "inv_scraper"
+    },
+    {
+      "char": "char_goth_kid",
+      "thing": "inv_urn_of_ashes"
+    },
+    {
+      "thing": "prop_topology_button(star_mode)"
+    },
+    {
+      "thing": "prop_destination_switch(maths_and_science)"
+    },
+    {
+      "thing": "prop_powerpoint1"
+    },
+    {
+      "thing": "prop_exposed_vacuum_pipe1"
+    },
+    {
+      "thing": "prop_powerpoint2"
+    },
+    {
+      "thing": "prop_exposed_vacuum_pipe2"
+    },
+    {
+      "thing": "prop_powerpoint3"
+    },
+    {
+      "thing": "prop_exposed_vacuum_pipe3"
+    },
+    {
+      "thing": "prop_powerpoint4"
+    },
+    {
+      "thing": "prop_exposed_vacuum_pipe4"
+    },
+    {
+      "thing": "prop_powerpoint5"
+    },
+    {
+      "thing": "prop_exposed_vacuum_pipe5"
+    },
+    {
+      "thing": "prop_EasyTube™"
+    }
+  ]
+}

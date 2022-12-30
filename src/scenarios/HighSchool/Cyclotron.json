@@ -1,0 +1,232 @@
+{
+  "$schema": "./CyclotronAndAshesSchema.json",
+  "pieces": [
+    {
+      "piece": "AUTO_GOAL1_SET_BY_GOAL2",
+      "goal1": "goal_win",
+      "goal2": "goal_death_by_physics"
+    },
+    {
+      "piece": "GOAL1_SET_BY_LOSING_INV1_USED_WITH_PROP1_AND_PROPS",
+      "goal1": "goal_death_by_physics",
+      "inv1": "inv_jar_of_protons",
+      "prop1": "prop_fully_accelerated_EasyTube™",
+      "prop2": "prop_destination_switch(test_run)",
+      "prop3": "prop_topology_button(ring_mode)"
+    },
+    {
+      "piece": "TOGGLE_PROP1_BECOMES_PROP2",
+      "prop1": "prop_plugged_in_electromagnet1",
+      "prop2": "prop_switched_on_electromagnet1"
+    },
+    {
+      "piece": "TOGGLE_PROP1_BECOMES_PROP2",
+      "prop1": "prop_plugged_in_electromagnet2",
+      "prop2": "prop_switched_on_electromagnet2"
+    },
+    {
+      "piece": "TOGGLE_PROP1_BECOMES_PROP2",
+      "prop1": "prop_plugged_in_electromagnet3",
+      "prop2": "prop_switched_on_electromagnet3"
+    },
+    {
+      "piece": "TOGGLE_PROP1_BECOMES_PROP2",
+      "prop1": "prop_plugged_in_electromagnet4",
+      "prop2": "prop_switched_on_electromagnet4"
+    },
+    {
+      "piece": "TOGGLE_PROP1_BECOMES_PROP2",
+      "prop1": "prop_plugged_in_electromagnet5",
+      "prop2": "prop_switched_on_electromagnet5"
+    },
+    {
+      "piece": "PROP1_BECOMES_PROP2_BY_LOSING_INV1",
+      "prop1": "prop_exposed_vacuum_pipe1",
+      "prop2": "prop_attached_electromagnet1",
+      "inv1": "inv_box_of_electromagnets"
+    },
+    {
+      "piece": "PROP1_BECOMES_PROP2_BY_LOSING_INV1",
+      "prop1": "prop_exposed_vacuum_pipe2",
+      "prop2": "prop_attached_electromagnet2",
+      "inv1": "inv_box_of_electromagnets"
+    },
+    {
+      "piece": "PROP1_BECOMES_PROP2_BY_LOSING_INV1",
+      "prop1": "prop_exposed_vacuum_pipe3",
+      "prop2": "prop_attached_electromagnet3",
+      "inv1": "inv_box_of_electromagnets"
+    },
+    {
+      "piece": "PROP1_BECOMES_PROP2_BY_LOSING_INV1",
+      "prop1": "prop_exposed_vacuum_pipe4",
+      "prop2": "prop_attached_electromagnet4",
+      "inv1": "inv_box_of_electromagnets"
+    },
+    {
+      "piece": "PROP1_BECOMES_PROP2_BY_LOSING_INV1",
+      "prop1": "prop_exposed_vacuum_pipe5",
+      "prop2": "prop_attached_electromagnet5",
+      "inv1": "inv_box_of_electromagnets"
+    },
+    {
+      "piece": "PROP1_BECOMES_PROP2_BY_LOSING_PROP3",
+      "prop1": "prop_attached_electromagnet1",
+      "prop2": "prop_plugged_in_electromagnet1",
+      "prop3": "prop_powerpoint1"
+    },
+    {
+      "piece": "PROP1_BECOMES_PROP2_BY_LOSING_PROP3",
+      "prop1": "prop_attached_electromagnet2",
+      "prop2": "prop_plugged_in_electromagnet2",
+      "prop3": "prop_powerpoint2"
+    },
+    {
+      "piece": "PROP1_BECOMES_PROP2_BY_LOSING_PROP3",
+      "prop1": "prop_attached_electromagnet3",
+      "prop2": "prop_plugged_in_electromagnet3",
+      "prop3": "prop_powerpoint3"
+    },
+    {
+      "piece": "PROP1_BECOMES_PROP2_BY_LOSING_PROP3",
+      "prop1": "prop_attached_electromagnet4",
+      "prop2": "prop_plugged_in_electromagnet4",
+      "prop3": "prop_powerpoint4"
+    },
+    {
+      "piece": "PROP1_BECOMES_PROP2_BY_LOSING_PROP3",
+      "prop1": "prop_attached_electromagnet5",
+      "prop2": "prop_plugged_in_electromagnet5",
+      "prop3": "prop_powerpoint5"
+    },
+    {
+      "piece": "AUTO_PROP1_BECOMES_PROP2_BY_PROPS",
+      "prop1": "prop_partly_accelerated_EasyTube™",
+      "prop2": "prop_fully_accelerated_EasyTube™",
+      "prop3": "prop_switched_on_electromagnet1",
+      "prop4": "prop_switched_on_electromagnet2",
+      "prop5": "prop_switched_on_electromagnet3",
+      "prop6": "prop_switched_on_electromagnet4",
+      "prop7": "prop_switched_on_electromagnet5"
+    },
+    {
+      "piece": "AUTO_PROP1_BECOMES_PROP2_BY_PROPS",
+      "prop1": "prop_moderately_accelerated_EasyTube™",
+      "prop2": "prop_partly_accelerated_EasyTube™",
+      "prop3": "prop_switched_on_electromagnet1",
+      "prop4": "prop_switched_on_electromagnet2",
+      "prop5": "prop_switched_on_electromagnet3",
+      "prop6": "prop_switched_on_electromagnet4"
+    },
+    {
+      "piece": "AUTO_PROP1_BECOMES_PROP2_BY_PROPS",
+      "prop1": "prop_mildly_accelerated_EasyTube™",
+      "prop2": "prop_moderately_accelerated_EasyTube™",
+      "prop3": "prop_switched_on_electromagnet1",
+      "prop4": "prop_switched_on_electromagnet2",
+      "prop5": "prop_switched_on_electromagnet3"
+    },
+    {
+      "piece": "AUTO_PROP1_BECOMES_PROP2_BY_PROPS",
+      "prop1": "prop_slightly_accelerated_EasyTube™",
+      "prop2": "prop_mildly_accelerated_EasyTube™",
+      "prop3": "prop_switched_on_electromagnet1",
+      "prop4": "prop_switched_on_electromagnet2"
+    },
+    {
+      "piece": "AUTO_PROP1_BECOMES_PROP2_BY_PROPS",
+      "prop1": "prop_EasyTube™",
+      "prop2": "prop_slightly_accelerated_EasyTube™",
+      "prop3": "prop_switched_on_electromagnet1"
+    },
+    {
+      "piece": "TOGGLE_PROP1_CHANGES_STATE_TO_PROP2",
+      "prop1": "prop_topology_button(ring_mode)",
+      "prop2": "prop_topology_button(star_mode)"
+    },
+    {
+      "piece": "TOGGLE_PROP1_CHANGES_STATE_TO_PROP2",
+      "prop1": "prop_topology_button(star_mode)",
+      "prop2": "prop_topology_button(ring_mode)"
+    },
+    {
+      "piece": "TOGGLE_PROP1_CHANGES_STATE_TO_PROP2",
+      "prop1": "prop_topology_button(star_mode)",
+      "prop2": "prop_topology_button(ring_mode)"
+    },
+    {
+      "piece": "TOGGLE_PROP1_BECOMES_PROP2",
+      "prop1": "prop_destination_switch(test_run)",
+      "prop2": "prop_destination_switch(maths_and_science)"
+    },
+    {
+      "piece": "TOGGLE_PROP1_BECOMES_PROP2",
+      "prop1": "prop_destination_switch(maths_and_science)",
+      "prop2": "prop_destination_switch(humanities)"
+    },
+    {
+      "piece": "TOGGLE_PROP1_BECOMES_PROP2",
+      "prop1": "prop_destination_switch(humanities)",
+      "prop2": "prop_destination_switch(sportsfield)"
+    },
+    {
+      "piece": "TOGGLE_PROP1_BECOMES_PROP2",
+      "prop1": "prop_destination_switch(sportsfield)",
+      "prop2": "prop_destination_switch(languages)"
+    },
+    {
+      "piece": "TOGGLE_PROP1_BECOMES_PROP2",
+      "prop1": "prop_destination_switch(languages)",
+      "prop2": "prop_destination_switch(test_run)"
+    }
+  ],
+  "startingThings": [
+    {
+      "char": "char_science_kid",
+      "thing": "inv_jar_of_protons"
+    },
+    {
+      "char": "char_science_kid",
+      "thing": "inv_box_of_electromagnets"
+    },
+    {
+      "thing": "prop_topology_button(star_mode)"
+    },
+    {
+      "thing": "prop_destination_switch(maths_and_science)"
+    },
+    {
+      "thing": "prop_powerpoint1"
+    },
+    {
+      "thing": "prop_exposed_vacuum_pipe1"
+    },
+    {
+      "thing": "prop_powerpoint2"
+    },
+    {
+      "thing": "prop_exposed_vacuum_pipe2"
+    },
+    {
+      "thing": "prop_powerpoint3"
+    },
+    {
+      "thing": "prop_exposed_vacuum_pipe3"
+    },
+    {
+      "thing": "prop_powerpoint4"
+    },
+    {
+      "thing": "prop_exposed_vacuum_pipe4"
+    },
+    {
+      "thing": "prop_powerpoint5"
+    },
+    {
+      "thing": "prop_exposed_vacuum_pipe5"
+    },
+    {
+      "thing": "prop_EasyTube™"
+    }
+  ]
+}

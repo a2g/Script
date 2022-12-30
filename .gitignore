@@ -1,28 +1,8 @@
-## editors
-/.idea
-/.vscode
-
-## system files
-.DS_Store
-
-## npm
-/node_modules/
-/npm-debug.log
-
-## testing
-/coverage/
-
-## temp folders
-/.tmp/
-
-# build
-/_site/
-/dist/
-/out-tsc/
-
-storybook-static
-custom-elements.json
-custom-elements.json
-jungle/tsconfig.tsbuildinfo
-custom-elements.json
-custom-elements.json
+coverage/
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.nyc_output
+lib
+lib_test

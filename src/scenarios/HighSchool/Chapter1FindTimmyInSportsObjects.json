@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "description": "a list of specific objects that gets references from mansion.gates.schema.json",
+  "type": "object",
+  "definitions": {
+    "char_type": {
+      "enum": ["char_goth_kid"]
+    },
+    "inv_type": {
+      "enum": ["inv_sports_storeroom_key"]
+    },
+    "prop_type": {
+      "enum": ["prop_sports_storeroom_door", "prop_sports_storeroom_key"]
+    },
+    "goal_type": {
+      "enum": ["goal_win", "goal_chapter1_complete"]
+    }
+  }
+}

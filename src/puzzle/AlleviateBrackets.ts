@@ -4,17 +4,17 @@
  * @param name the string whose brackets should be removed
  * @returns the resultant string
  */
-export function AlleviateBrackets (name: string | undefined): string {
+export function AlleviateBrackets(name: string | undefined): string {
   if (typeof name !== 'undefined') {
-    const firstOpenBracket: number = name.indexOf('(')
+    const firstOpenBracket: number = name.indexOf('(');
 
     if (firstOpenBracket >= 0) {
-      const lastIndexOf = name.lastIndexOf(')')
+      const lastIndexOf = name.lastIndexOf(')');
 
       if (lastIndexOf > firstOpenBracket) {
-        return name.slice(firstOpenBracket, lastIndexOf - 1)
+        return name.slice(firstOpenBracket, lastIndexOf - 1);
       }
     }
   }
-  return 'undefined'
+  return 'undefined';
 }

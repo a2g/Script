@@ -1,0 +1,65 @@
+{
+  "$id": "https://raw.githubusercontent.com/a2g/adv/main/Objects.json",
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "description": "a list of specific objects that gets references from mansion.gates.schema.json",
+  "type": "object",
+  "definitions": {
+    "char_type": {
+      "enum": ["char_science_kid", "char_goth_kid"]
+    },
+    "inv_type": {
+      "enum": [
+        "inv_jar_of_protons",
+        "inv_tube_carrier",
+        "inv_box_of_electromagnets",
+        "inv_scraper",
+        "inv_urn_of_ashes"
+      ]
+    },
+    "prop_type": {
+      "enum": [
+        "prop_topology_button(ring_mode)",
+        "prop_topology_button(star_mode)",
+        "prop_destination_switch(test_run)",
+        "prop_destination_switch(maths_and_science)",
+        "prop_destination_switch(humanities)",
+        "prop_destination_switch(sportsfield)",
+        "prop_destination_switch(languages)",
+        "prop_powerpoint1",
+        "prop_exposed_vacuum_pipe1",
+        "prop_attached_electromagnet1",
+        "prop_plugged_in_electromagnet1",
+        "prop_switched_on_electromagnet1",
+        "prop_powerpoint2",
+        "prop_exposed_vacuum_pipe2",
+        "prop_attached_electromagnet2",
+        "prop_plugged_in_electromagnet2",
+        "prop_switched_on_electromagnet2",
+        "prop_powerpoint3",
+        "prop_exposed_vacuum_pipe3",
+        "prop_attached_electromagnet3",
+        "prop_plugged_in_electromagnet3",
+        "prop_switched_on_electromagnet3",
+        "prop_powerpoint4",
+        "prop_exposed_vacuum_pipe4",
+        "prop_attached_electromagnet4",
+        "prop_plugged_in_electromagnet4",
+        "prop_switched_on_electromagnet4",
+        "prop_powerpoint5",
+        "prop_exposed_vacuum_pipe5",
+        "prop_attached_electromagnet5",
+        "prop_plugged_in_electromagnet5",
+        "prop_switched_on_electromagnet5",
+        "prop_EasyTube™",
+        "prop_slightly_accelerated_EasyTube™",
+        "prop_mildly_accelerated_EasyTube™",
+        "prop_moderately_accelerated_EasyTube™",
+        "prop_partly_accelerated_EasyTube™",
+        "prop_fully_accelerated_EasyTube™"
+      ]
+    },
+    "goal_type": {
+      "enum": ["goal_win", "goal_death_by_physics", "goal_death_by_goth"]
+    }
+  }
+}

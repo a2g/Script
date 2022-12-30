@@ -1,0 +1,24 @@
+{
+  "$schema": "./MainDesignSchema.json",
+  "startingThings": [
+    {
+      "thing": "prop_soil_thermometer"
+    },
+    {
+      "thing": "prop_herbs"
+    }
+  ],
+  "pieces": [
+    {
+      "piece": "PROP1_GOES_WHEN_GRAB_INV1_WITH_GOAL1",
+      "prop1": "prop_herbs",
+      "goal1": "goal_access_to_greenhouse",
+      "inv1": "inv_herbs"
+    },
+    {
+      "piece": "PROP1_GOES_WHEN_GRAB_INV1",
+      "prop1": "prop_soil_thermometer",
+      "inv1": "inv_soil_thermometer"
+    }
+  ]
+}

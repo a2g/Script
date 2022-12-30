@@ -1,15 +1,15 @@
-import { Happening } from './Happening.js'
+import { Happening } from './Happening.js';
 
 export class Happenings {
-  verb: string
+  public verb: string;
 
-  text: string
+  public text: string;
 
-  array: Happening[]
+  public array: Happening[];
 
-  constructor () {
-    this.verb = ''
-    this.text = ''
-    this.array = []
+  constructor() {
+    this.verb = '';
+    this.text = '';
+    this.array = [];
   }
 }
