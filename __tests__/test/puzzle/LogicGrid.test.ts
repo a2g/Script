@@ -1,5 +1,5 @@
-import { Greeter } from '../../../src/greeter.js';
-import { LogicGrid } from '../../../src/puzzle/LogicGrid.js';
+import { Greeter } from '../../../src/greeter';
+import { LogicGrid } from '../../../src/puzzle/LogicGrid';
 
 
 test('Should greet with message', () => {
