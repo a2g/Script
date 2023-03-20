@@ -19,7 +19,7 @@ function GetLastSeg (path: string): string {
 } */
 
 function main(): void {
-  while (true) {
+  for (;;) {
     console.warn(process.cwd());
     console.warn(' ');
     console.warn(' Master Menu');

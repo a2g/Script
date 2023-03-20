@@ -7,7 +7,7 @@ import { Playable } from './Playable.js';
 import { Sleep } from './Sleep.js';
 
 export function PlayPlayable(playable: Playable): void {
-  while (true) {
+  for (;;) {
     // report current situation to cmd output
     const reporter = GameReporter.GetInstance();
     const goals = playable.GetHappener().GetCurrentlyTrueGoals();

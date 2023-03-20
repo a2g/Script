@@ -1,47 +1,52 @@
+import { Greeter } from '../../../src/greeter.js';
 import { LogicGrid } from '../../../src/puzzle/LogicGrid.js';
 
-describe('LogicGrid', () => {
-  it('FindMostNearlyCompleteRowOrColumnCombined', () => {
-    const sizeFour: Array<[string, boolean]> = [
-      ['a', true],
-      ['b', true],
-      ['c', true],
-      ['d', true],
-    ];
 
-    const t = new LogicGrid(sizeFour, sizeFour);
+test('Should greet with message', () => {
+  const greeter = new Greeter('friend');
+  expect(greeter.greet()).toBe('Bonjour, friend!');
+});
 
-    // nearly fill the 2 column and test that the column gets picked
-    t.SetColumnRow(2, 0);
-    t.SetColumnRow(2, 1);
-    t.SetColumnRow(2, 2);
-    {
-      const r1 = t.FindMostNearlyCompleteRowOrColumnCombined();
-      expect(r1).toEqual(LogicGrid.ColumnsStartHere + 2);
-    }
+test('FindMostNearlyCompleteRowOrColumnCombined', () => {
+  const sizeFour: Array<[string, boolean]> = [
+    ['a', true],
+    ['b', true],
+    ['c', true],
+    ['d', true],
+  ];
 
-    // fill the column completely and test that the column doesn't get picked
-    t.SetColumnRow(2, 3);
-    {
-      const r2 = t.FindMostNearlyCompleteRowOrColumnCombined();
-      expect(r2).not.toEqual(LogicGrid.ColumnsStartHere + 2);
-    }
+  const t = new LogicGrid(sizeFour, sizeFour);
 
-    // nearly fill the 2 row, and test it gets picked
-    t.SetColumnRow(0, 2);
-    t.SetColumnRow(1, 2);
-    {
-      const r3 = t.FindMostNearlyCompleteRowOrColumnCombined();
-      expect(r3).toEqual(2);
-    }
+  // nearly fill the 2 column and test that the column gets picked
+  t.SetColumnRow(2, 0);
+  t.SetColumnRow(2, 1);
+  t.SetColumnRow(2, 2);
+  {
+    const r1 = t.FindMostNearlyCompleteRowOrColumnCombined();
+    expect(r1).toEqual(LogicGrid.ColumnsStartHere + 2);
+  }
 
-    // fill the column completely and test that the column doesn't get picked
-    t.SetColumnRow(3, 2);
-    {
-      const r4 = t.FindMostNearlyCompleteRowOrColumnCombined();
-      expect(r4).not.toEqual(2);
-    }
-  });
+  // fill the column completely and test that the column doesn't get picked
+  t.SetColumnRow(2, 3);
+  {
+    const r2 = t.FindMostNearlyCompleteRowOrColumnCombined();
+    expect(r2).not.toEqual(LogicGrid.ColumnsStartHere + 2);
+  }
+
+  // nearly fill the 2 row, and test it gets picked
+  t.SetColumnRow(0, 2);
+  t.SetColumnRow(1, 2);
+  {
+    const r3 = t.FindMostNearlyCompleteRowOrColumnCombined();
+    expect(r3).toEqual(2);
+  }
+
+  // fill the column completely and test that the column doesn't get picked
+  t.SetColumnRow(3, 2);
+  {
+    const r4 = t.FindMostNearlyCompleteRowOrColumnCombined();
+    expect(r4).not.toEqual(2);
+  }
 });
 
 /*
