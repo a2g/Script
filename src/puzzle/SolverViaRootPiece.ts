@@ -1,12 +1,12 @@
-import { AddBrackets } from './AddBrackets.js';
-import { Colors } from './Colors.js';
-import { GenerateMapOfLeavesRecursively } from './GenerateMapOfLeavesRecursively.js';
-import { GetDisplayName } from './GetDisplayName.js';
-import { IBoxReadOnly } from './IBoxReadOnly.js';
-import { Piece } from './Piece.js';
-import { PileOfPieces } from './PileOfPieces.js';
-import { RootPieceMap } from './RootPieceMap.js';
-import { Solution } from './Solution.js';
+import { AddBrackets } from './AddBrackets';
+import { Colors } from './Colors';
+import { GenerateMapOfLeavesRecursively } from './GenerateMapOfLeavesRecursively';
+import { GetDisplayName } from './GetDisplayName';
+import { IBoxReadOnly } from './IBoxReadOnly';
+import { Piece } from './Piece';
+import { PileOfPieces } from './PileOfPieces';
+import { RootPieceMap } from './RootPieceMap';
+import { Solution } from './Solution';
 
 function GenerateMapOfLeaves(rootMap: RootPieceMap): Map<string, Piece | null> {
   const map = new Map<string, Piece | null>();

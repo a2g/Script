@@ -1,5 +1,5 @@
-import { Happener } from './Happener.js';
-import { PileOfPieces } from './PileOfPieces.js';
+import { Happener } from './Happener';
+import { PileOfPieces } from './PileOfPieces';
 
 export function ProcessAutos(
   happener: Happener,

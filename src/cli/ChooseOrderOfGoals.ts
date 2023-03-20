@@ -1,7 +1,7 @@
 import promptSync from 'prompt-sync';
-import { FormatText } from '../puzzle/FormatText.js';
-import { SolverViaRootPiece } from '../puzzle/SolverViaRootPiece.js';
-import { NavigatePieceRecursive } from './NavigatePieceRecursive.js';
+import { FormatText } from '../puzzle/FormatText';
+import { SolverViaRootPiece } from '../puzzle/SolverViaRootPiece';
+import { NavigatePieceRecursive } from './NavigatePieceRecursive';
 const prompt = promptSync({});
 
 export function ChooseOrderOfGoals(solver: SolverViaRootPiece): void {

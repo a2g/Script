@@ -1,7 +1,7 @@
 import promptSync from 'prompt-sync';
 import { FormatText } from '../puzzle/FormatText';
 import { Piece } from '../puzzle/Piece';
-import { SolverViaRootPiece } from '../puzzle/SolverViaRootPiece.js';
+import { SolverViaRootPiece } from '../puzzle/SolverViaRootPiece';
 
 const prompt = promptSync({});
 

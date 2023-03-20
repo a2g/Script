@@ -1,6 +1,6 @@
-import { IBoxReadOnly } from '../puzzle/IBoxReadOnly.js';
-import { Piece } from '../puzzle/Piece.js';
-import { PileOfPieces } from '../puzzle/PileOfPieces.js';
+import { IBoxReadOnly } from '../puzzle/IBoxReadOnly';
+import { Piece } from '../puzzle/Piece';
+import { PileOfPieces } from '../puzzle/PileOfPieces';
 
 export function ChooseToFindUnused(box: IBoxReadOnly): void {
   const invs = box.GetArrayOfInvs();

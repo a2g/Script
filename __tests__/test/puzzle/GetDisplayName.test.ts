@@ -1,4 +1,4 @@
-import { GetDisplayName } from '../../../src/puzzle/GetDisplayName.js';
+import { GetDisplayName } from '../../../src/puzzle/GetDisplayName';
 
 
 test('TestAllNamesSoFar', () => {

@@ -1,5 +1,5 @@
-import { SingleFileData } from './SingleFileData.js';
-import { Stringify } from './Stringify.js';
+import { SingleFileData } from './SingleFileData';
+import { Stringify } from './Stringify';
 
 /**
  * Logic grid (aka Elimination Grid)

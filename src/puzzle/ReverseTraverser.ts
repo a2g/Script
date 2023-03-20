@@ -1,10 +1,10 @@
-import { Piece } from './Piece.js';
-import { Raw } from './Raw.js';
-import { RawObjectsAndVerb } from './RawObjectsAndVerb.js';
-import { Solution } from './Solution.js';
-import { SpecialTypes } from './SpecialTypes.js';
-import { Stringify } from './Stringify.js';
-import { VisibleThingsMap } from './VisibleThingsMap.js';
+import { Piece } from './Piece';
+import { Raw } from './Raw';
+import { RawObjectsAndVerb } from './RawObjectsAndVerb';
+import { Solution } from './Solution';
+import { SpecialTypes } from './SpecialTypes';
+import { Stringify } from './Stringify';
+import { VisibleThingsMap } from './VisibleThingsMap';
 
 export class ReverseTraverser {
   public leavesForReverseTraversal: Map<string, Piece | null>;

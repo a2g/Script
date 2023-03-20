@@ -1,6 +1,6 @@
-import { Happener } from '../puzzle/Happener.js';
-import { PileOfPieces } from '../puzzle/PileOfPieces.js';
-import { PlayerAI } from '../puzzle/PlayerAI.js';
+import { Happener } from '../puzzle/Happener';
+import { PileOfPieces } from '../puzzle/PileOfPieces';
+import { PlayerAI } from '../puzzle/PlayerAI';
 
 export class Playable {
   private readonly player: PlayerAI;

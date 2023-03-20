@@ -1,5 +1,5 @@
-import { IPileOfPiecesReadOnly } from './IPileOfPiecesReadOnly.js';
-import { Piece } from './Piece.js';
+import { IPileOfPiecesReadOnly } from './IPileOfPiecesReadOnly';
+import { Piece } from './Piece';
 
 /**
  * Yes, the only data here is the map.

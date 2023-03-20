@@ -1,7 +1,7 @@
 import { expect } from '@open-wc/testing';
-import { GetAnyErrorsFromObjectAvailability } from '../../../src/puzzle/GetAnyErrorsFromObjectAvailability.js';
-import { Mix } from '../../../src/puzzle/Mix.js';
-import { MixedObjectsAndVerb } from '../../../src/puzzle/MixedObjectsAndVerb.js';
+import { GetAnyErrorsFromObjectAvailability } from '../../../src/puzzle/GetAnyErrorsFromObjectAvailability';
+import { Mix } from '../../../src/puzzle/Mix';
+import { MixedObjectsAndVerb } from '../../../src/puzzle/MixedObjectsAndVerb';
 
 describe('GetAnyErrorsFromObjectAvailability', () => {
   it('SingleVsInv', () => {

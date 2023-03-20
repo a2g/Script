@@ -1,14 +1,14 @@
 import promptSync from 'prompt-sync'; // const prompt = require('prompt-sync')({ sigint: true });
-import { BigBoxViaSetOfBoxes } from '../puzzle/BigBoxViaSetOfBoxes.js';
-import { Box } from '../puzzle/Box.js';
-import { SolverViaRootPiece } from '../puzzle/SolverViaRootPiece.js';
+import { BigBoxViaSetOfBoxes } from '../puzzle/BigBoxViaSetOfBoxes';
+import { Box } from '../puzzle/Box';
+import { SolverViaRootPiece } from '../puzzle/SolverViaRootPiece';
 import druids from '../scenarios/DruidsDelight/Campaign.json';
-import { ChooseDigIntoGoals } from './ChooseDigIntoGoals.js';
-import { ChooseListOfLeaves } from './ChooseListOfLeaves.js';
-import { ChooseOrderOfGoals } from './ChooseOrderOfGoals.js';
-import { ChooseToFindUnused } from './ChooseToFindUnused.js';
-import { ChooseToPlayCampaign } from './ChooseToPlayCampaign.js';
-import { Location } from './Location.js';
+import { ChooseDigIntoGoals } from './ChooseDigIntoGoals';
+import { ChooseListOfLeaves } from './ChooseListOfLeaves';
+import { ChooseOrderOfGoals } from './ChooseOrderOfGoals';
+import { ChooseToFindUnused } from './ChooseToFindUnused';
+import { ChooseToPlayCampaign } from './ChooseToPlayCampaign';
+import { Location } from './Location';
 
 const prompt = promptSync();
 /*

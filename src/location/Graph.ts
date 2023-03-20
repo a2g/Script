@@ -1,7 +1,7 @@
-import { Point } from './Point.js';
-import { PriorityQueue } from './PriorityQueue.js';
-import { QueueItem } from './QueueItem.js';
-import { Result } from './Result.js';
+import { Point } from './Point';
+import { PriorityQueue } from './PriorityQueue';
+import { QueueItem } from './QueueItem';
+import { Result } from './Result';
 
 export class Graph {
   public nodes: Point[];

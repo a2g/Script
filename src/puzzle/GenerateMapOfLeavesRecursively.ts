@@ -1,5 +1,5 @@
-import { Piece } from './Piece.js';
-import { SpecialTypes } from './SpecialTypes.js';
+import { Piece } from './Piece';
+import { SpecialTypes } from './SpecialTypes';
 
 export function GenerateMapOfLeavesRecursively(
   piece: Piece,

@@ -1,5 +1,5 @@
-import { AddBrackets } from './AddBrackets.js';
-import { Colors } from './Colors.js';
+import { AddBrackets } from './AddBrackets';
+import { Colors } from './Colors';
 
 export function FormatText(
   input: string | string[],

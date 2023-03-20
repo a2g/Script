@@ -1,10 +1,10 @@
-import { GetAnyErrorsFromObjectAvailability } from '../puzzle/GetAnyErrorsFromObjectAvailability.js';
-import { ProcessAutos } from '../puzzle/ProcessAutos.js';
-import { Stringify } from '../puzzle/Stringify.js';
-import { GameReporter } from './GameReporter.js';
-import { ParseTokenizedCommandLineFromFromThreeStrings } from './GetMixedObjectsAndVerbFromThreeStrings.js';
-import { Playable } from './Playable.js';
-import { Sleep } from './Sleep.js';
+import { GetAnyErrorsFromObjectAvailability } from '../puzzle/GetAnyErrorsFromObjectAvailability';
+import { ProcessAutos } from '../puzzle/ProcessAutos';
+import { Stringify } from '../puzzle/Stringify';
+import { GameReporter } from './GameReporter';
+import { ParseTokenizedCommandLineFromFromThreeStrings } from './GetMixedObjectsAndVerbFromThreeStrings';
+import { Playable } from './Playable';
+import { Sleep } from './Sleep';
 
 export function PlayPlayable(playable: Playable): void {
   for (;;) {

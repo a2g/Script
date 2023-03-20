@@ -1,6 +1,6 @@
 import { expect } from '@open-wc/testing';
-import { Piece } from '../../../src/puzzle/Piece.js';
-import { PileOfPieces } from '../../../src/puzzle/PileOfPieces.js';
+import { Piece } from '../../../src/puzzle/Piece';
+import { PileOfPieces } from '../../../src/puzzle/PileOfPieces';
 
 describe('ReactionMap', () => {
   it('test AddToMap works', () => {

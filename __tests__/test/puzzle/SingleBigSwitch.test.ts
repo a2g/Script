@@ -1,7 +1,7 @@
 import { expect } from '@open-wc/testing';
-import { Mix } from '../../../src/puzzle/Mix.js';
-import { MixedObjectsAndVerb } from '../../../src/puzzle/MixedObjectsAndVerb.js';
-import { SingleBigSwitch } from '../../../src/puzzle/SingleBigSwitch.js';
+import { Mix } from '../../../src/puzzle/Mix';
+import { MixedObjectsAndVerb } from '../../../src/puzzle/MixedObjectsAndVerb';
+import { SingleBigSwitch } from '../../../src/puzzle/SingleBigSwitch';
 
 describe('SingleBigSwitch', () => {
   it('SingleBigSwitch', async () => {

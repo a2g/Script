@@ -1,15 +1,15 @@
 import { existsSync, readFileSync } from 'fs';
-import { Happenings } from './Happenings.js';
-import { IBoxReadOnly } from './IBoxReadOnly.js';
-import { IBoxReadOnlyWithFileMethods } from './IBoxReadOnlyWithFileMethods.js';
-import { IPileOrRootPieceMap } from './IPileOrRootPieceMap.js';
-import { Mix } from './Mix.js';
-import { MixedObjectsAndVerb } from './MixedObjectsAndVerb.js';
-import { PileOfPieces } from './PileOfPieces.js';
-import { RootPieceMap } from './RootPieceMap.js';
-import { SingleBigSwitch } from './SingleBigSwitch.js';
-import { Stringify } from './Stringify.js';
-import { VisibleThingsMap } from './VisibleThingsMap.js';
+import { Happenings } from './Happenings';
+import { IBoxReadOnly } from './IBoxReadOnly';
+import { IBoxReadOnlyWithFileMethods } from './IBoxReadOnlyWithFileMethods';
+import { IPileOrRootPieceMap } from './IPileOrRootPieceMap';
+import { Mix } from './Mix';
+import { MixedObjectsAndVerb } from './MixedObjectsAndVerb';
+import { PileOfPieces } from './PileOfPieces';
+import { RootPieceMap } from './RootPieceMap';
+import { SingleBigSwitch } from './SingleBigSwitch';
+import { Stringify } from './Stringify';
+import { VisibleThingsMap } from './VisibleThingsMap';
 
 /**
  * So the most important part of this class is that the data

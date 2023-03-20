@@ -1,8 +1,8 @@
 import promptSync from 'prompt-sync';
-import { GetThreeStringsFromInput } from './GetThreeStringsFromInput.js';
-import { Happener } from './Happener.js';
-import { IHappenerCallbacks } from './IHappenerCallbacks.js';
-import { LogicGrid } from './LogicGrid.js';
+import { GetThreeStringsFromInput } from './GetThreeStringsFromInput';
+import { Happener } from './Happener';
+import { IHappenerCallbacks } from './IHappenerCallbacks';
+import { LogicGrid } from './LogicGrid';
 const prompt = promptSync();
 
 // const result = prompt(message);

@@ -1,8 +1,8 @@
-import { Happenings } from './Happenings.js';
-import { IPileOrRootPieceMap } from './IPileOrRootPieceMap.js';
-import { MixedObjectsAndVerb } from './MixedObjectsAndVerb.js';
-import { PileOfPieces } from './PileOfPieces.js';
-import { VisibleThingsMap } from './VisibleThingsMap.js';
+import { Happenings } from './Happenings';
+import { IPileOrRootPieceMap } from './IPileOrRootPieceMap';
+import { MixedObjectsAndVerb } from './MixedObjectsAndVerb';
+import { PileOfPieces } from './PileOfPieces';
+import { VisibleThingsMap } from './VisibleThingsMap';
 
 /**
  * This is needed because there are all these analysis steps that are performed on a single box

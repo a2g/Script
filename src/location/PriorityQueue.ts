@@ -1,4 +1,4 @@
-import { QueueItem } from './QueueItem.js';
+import { QueueItem } from './QueueItem';
 
 /**
  * PriorityQueue class repurposes an array to simulate a priority queue.

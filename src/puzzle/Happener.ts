@@ -1,8 +1,8 @@
-import { Happen } from './Happen.js';
-import { IBoxReadOnly } from './IBoxReadOnly.js';
-import { IHappenerCallbacks } from './IHappenerCallbacks.js';
-import { MixedObjectsAndVerb } from './MixedObjectsAndVerb.js';
-import { PlayerAI } from './PlayerAI.js';
+import { Happen } from './Happen';
+import { IBoxReadOnly } from './IBoxReadOnly';
+import { IHappenerCallbacks } from './IHappenerCallbacks';
+import { MixedObjectsAndVerb } from './MixedObjectsAndVerb';
+import { PlayerAI } from './PlayerAI';
 
 // April 2021
 // The blind / location - agnostic way to find solutions is to have an inv vs props table, and inv vs inv table, and a verb vs props table, and a verb vs invs table, then

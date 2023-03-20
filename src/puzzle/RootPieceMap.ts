@@ -1,7 +1,7 @@
-import { GenerateMapOfLeavesRecursively } from './GenerateMapOfLeavesRecursively.js';
-import { IPileOrRootPieceMap } from './IPileOrRootPieceMap.js';
-import { Piece } from './Piece.js';
-import { RootPiece } from './RootPiece.js';
+import { GenerateMapOfLeavesRecursively } from './GenerateMapOfLeavesRecursively';
+import { IPileOrRootPieceMap } from './IPileOrRootPieceMap';
+import { Piece } from './Piece';
+import { RootPiece } from './RootPiece';
 /**
  * Yes, the only data here is the map.
  *

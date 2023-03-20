@@ -1,5 +1,5 @@
 import LostBoys from '../scenarios/LostBoys/LostBoysCampaign.json';
-import { Location } from './Location.js';
+import { Location } from './Location';
 
 export function ChooseToPlayCampaign(): void {
   const filenames = new Map<string, string[]>();

@@ -1,8 +1,8 @@
 // Typescript Unit test
 
 import { expect } from '@open-wc/testing';
-import { Piece } from '../../../src/puzzle/Piece.js';
-import { SpecialTypes } from '../../../src/puzzle/SpecialTypes.js';
+import { Piece } from '../../../src/puzzle/Piece';
+import { SpecialTypes } from '../../../src/puzzle/SpecialTypes';
 
 describe('Solution', () => {
   it('Test of a none clone piece', () => {

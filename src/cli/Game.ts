@@ -1,4 +1,4 @@
-import { GameReporter } from './GameReporter.js';
+import { GameReporter } from './GameReporter';
 
 export class Game {
   public static instance: Game | null;

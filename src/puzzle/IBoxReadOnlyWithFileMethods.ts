@@ -1,5 +1,5 @@
-import { IBoxReadOnly } from './IBoxReadOnly.js';
-import { VisibleThingsMap } from './VisibleThingsMap.js';
+import { IBoxReadOnly } from './IBoxReadOnly';
+import { VisibleThingsMap } from './VisibleThingsMap';
 
 /**
  * This is needed, because we want to give assurance that the original state isn't being changed.

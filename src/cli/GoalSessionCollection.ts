@@ -1,5 +1,5 @@
 import definitions from '../../jigsawCampaignFramework.json';
-import { GoalSession } from './GoalSession.js';
+import { GoalSession } from './GoalSession';
 
 export class GoalSessionCollection {
   private readonly goals: GoalSession[];

@@ -1,4 +1,4 @@
-import { Mix } from './Mix.js';
+import { Mix } from './Mix';
 
 export class MixedObjectsAndVerb {
   public type: Mix;

@@ -1,14 +1,14 @@
 import { readFileSync } from 'fs';
 import _ from '../../jigsaw.json';
-import { AlleviateBrackets } from './AlleviateBrackets.js';
-import { Box } from './Box.js';
-import { Happen } from './Happen.js';
-import { Happening } from './Happening.js';
-import { Happenings } from './Happenings.js';
-import { IPileOrRootPieceMap } from './IPileOrRootPieceMap.js';
-import { MixedObjectsAndVerb } from './MixedObjectsAndVerb.js';
-import { Piece } from './Piece.js';
-import { Stringify } from './Stringify.js';
+import { AlleviateBrackets } from './AlleviateBrackets';
+import { Box } from './Box';
+import { Happen } from './Happen';
+import { Happening } from './Happening';
+import { Happenings } from './Happenings';
+import { IPileOrRootPieceMap } from './IPileOrRootPieceMap';
+import { MixedObjectsAndVerb } from './MixedObjectsAndVerb';
+import { Piece } from './Piece';
+import { Stringify } from './Stringify';
 /**
  * Yup, this is the one location of these
  * And when the pieces are cloned, these ids get cloned too

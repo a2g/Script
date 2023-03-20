@@ -1,4 +1,4 @@
-import { Happening } from './Happening.js';
+import { Happening } from './Happening';
 
 export class Happenings {
   public verb: string;

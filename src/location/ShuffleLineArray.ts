@@ -1,4 +1,4 @@
-import { Line } from './Line.js';
+import { Line } from './Line';
 
 export function ShuffleLineArray(givenArray: Line[]): Line[] {
   const theArray = givenArray.slice();

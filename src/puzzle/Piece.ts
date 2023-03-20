@@ -1,10 +1,10 @@
-import { Happen } from './Happen.js';
-import { Happenings } from './Happenings.js';
-import { IBoxReadOnlyWithFileMethods } from './IBoxReadOnlyWithFileMethods.js';
-import { Solution } from './Solution.js';
-import { SolverViaRootPiece } from './SolverViaRootPiece.js';
-import { SpecialTypes } from './SpecialTypes.js';
-import { VisibleThingsMap } from './VisibleThingsMap.js';
+import { Happen } from './Happen';
+import { Happenings } from './Happenings';
+import { IBoxReadOnlyWithFileMethods } from './IBoxReadOnlyWithFileMethods';
+import { Solution } from './Solution';
+import { SolverViaRootPiece } from './SolverViaRootPiece';
+import { SpecialTypes } from './SpecialTypes';
+import { VisibleThingsMap } from './VisibleThingsMap';
 
 export class Piece {
   public id: number;

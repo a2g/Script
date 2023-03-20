@@ -1,6 +1,6 @@
-import { Happener } from '../puzzle/Happener.js';
-import { Mix } from '../puzzle/Mix.js';
-import { MixedObjectsAndVerb } from '../puzzle/MixedObjectsAndVerb.js';
+import { Happener } from '../puzzle/Happener';
+import { Mix } from '../puzzle/Mix';
+import { MixedObjectsAndVerb } from '../puzzle/MixedObjectsAndVerb';
 
 export function ParseTokenizedCommandLineFromFromThreeStrings(
   strings: string[],

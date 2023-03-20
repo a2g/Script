@@ -1,14 +1,14 @@
-import { FormatText } from './FormatText.js';
-import { GenerateMapOfLeavesRecursively } from './GenerateMapOfLeavesRecursively.js';
-import { IPileOfPiecesReadOnly } from './IPileOfPiecesReadOnly.js';
-import { Piece } from './Piece.js';
-import { PileOfPieces } from './PileOfPieces.js';
-import { Raw } from './Raw.js';
-import { RawObjectsAndVerb } from './RawObjectsAndVerb.js';
-import { ReverseTraverser } from './ReverseTraverser.js';
-import { RootPieceMap } from './RootPieceMap.js';
-import { SolverViaRootPiece } from './SolverViaRootPiece.js';
-import { VisibleThingsMap } from './VisibleThingsMap.js';
+import { FormatText } from './FormatText';
+import { GenerateMapOfLeavesRecursively } from './GenerateMapOfLeavesRecursively';
+import { IPileOfPiecesReadOnly } from './IPileOfPiecesReadOnly';
+import { Piece } from './Piece';
+import { PileOfPieces } from './PileOfPieces';
+import { Raw } from './Raw';
+import { RawObjectsAndVerb } from './RawObjectsAndVerb';
+import { ReverseTraverser } from './ReverseTraverser';
+import { RootPieceMap } from './RootPieceMap';
+import { SolverViaRootPiece } from './SolverViaRootPiece';
+import { VisibleThingsMap } from './VisibleThingsMap';
 
 /**
  * Solution needs to be cloned.

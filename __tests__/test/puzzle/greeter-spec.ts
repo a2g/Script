@@ -1,4 +1,4 @@
-import { Greeter } from '../../../src/greeter.js';
+import { Greeter } from '../../../src/greeter';
 
 test('Should greet with message', () => {
   const greeter = new Greeter('friend');
