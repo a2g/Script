@@ -49,8 +49,6 @@ export function ChooseOrderOfGoals(solver: SolverViaRootPiece): void {
     const input = prompt('Choose a goal (b)ack, (r)e-run: ').toLowerCase();
     if (input === null || input === 'b') {
       return;
-    } else if (input === 'b') {
-      continue;
     } else {
       // show map entry for chosen item
       const theNumber = Number(input);

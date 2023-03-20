@@ -51,7 +51,7 @@ function main(): void {
         break;
       default:
         if (index >= 0 && index < arrayOfFilenames.length) {
-          while (true) {
+          for (;;) {
             const filename = arrayOfFilenames[index];
             const firstBox = new Box(filename);
             firstBox.Init();

@@ -2,14 +2,14 @@ import { Colors } from '../puzzle/Colors';
 import { FormatText } from '../puzzle/FormatText';
 
 export class GameReporter {
+  private static instance: GameReporter | null = null;
+
   public static GetInstance(): GameReporter {
     if (GameReporter.instance == null) {
       GameReporter.instance = new GameReporter();
     }
     return GameReporter.instance;
   }
-
-  private static instance: GameReporter | null = null;
 
   private numberOfCommandsExecuted: number;
   constructor() {

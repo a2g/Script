@@ -21,7 +21,7 @@
     "start": "node lib/src/cli/app.js",
     "clean": "rimraf lib && rimraf coverage",
     "format": "prettier --write \"{src,__tests__}/**/*.ts\" --single-quote --trailing-comma es5",
-    "lint": "tslint --force --format verbose \"src/**/*.ts\"",
+    "lint": "eslint -c .eslintrc.js --ext .ts src/**/*.ts",
     "prepublishOnly": "npm run build",
     "prebuild": "npm run clean && npm run format && npm run lint && echo Using TypeScript && tsc --version",
     "build": "tsc --pretty",
@@ -31,16 +31,18 @@
     "watch:test": "jest --watch"
   },
   "devDependencies": {
+    "@babel/core": "^7.21.3",
+    "@babel/eslint-parser": "^7.21.3",
     "@types/jest": "^23.3.3",
     "@types/node": "^10.11.4",
+    "babel-eslint": "^10.1.0",
     "coveralls": "^3.0.2",
+    "eslint": "^8.36.0",
     "jest": "^29.5.0",
     "prettier": "^1.14.3",
     "rimraf": "^2.6.2",
     "ts-jest": "^29.0.5",
     "ts-node": "^7.0.1",
-    "tslint": "^5.11.0",
-    "tslint-config-prettier": "^1.15.0",
     "typescript": "^3.1.1"
   },
   "engines": {
