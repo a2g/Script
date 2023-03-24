@@ -1,4 +1,4 @@
-import promptSync from 'prompt-sync'; // const prompt = require('prompt-sync')({ sigint: true });
+import promptSync from 'prompt-sync';
 import { BigBoxViaSetOfBoxes } from '../puzzle/BigBoxViaSetOfBoxes';
 import { Box } from '../puzzle/Box';
 import { SolverViaRootPiece } from '../puzzle/SolverViaRootPiece';
@@ -19,6 +19,7 @@ function GetLastSeg (path: string): string {
 } */
 
 function main(): void {
+  process.chdir('./src/scenarios/DruidsDelight/');
   for (;;) {
     console.warn(process.cwd());
     console.warn(' ');

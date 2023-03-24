@@ -33,7 +33,7 @@
     {
       "piece": "AUTO_GOAL1_SET_BY_PROPS",
       "goal1": "goal_access_thru_fireplace",
-      "merge": "test/puzzle/Test1InsideFireplace.json",
+      "merge": "MainInsideFireplace.json",
       "prop1": "prop_fireplace_ladder"
     },
     {
@@ -61,14 +61,14 @@
     {
       "piece": "GOAL1_SET_BY_LOSING_INV1_WHEN_USED_WITH_PROP1",
       "goal1": "goal_access_thru_dumbwaiter",
-      "merge": "test/puzzle/Test1InsideDumbwaiter.json",
+      "merge": "MainInsideDumbwaiter.json",
       "inv1": "inv_cogs",
       "prop1": "prop_dumbwaiter"
     },
     {
       "piece": "GOAL1_SET_BY_USING_INV1_WITH_PROP1",
       "goal1": "goal_access_to_hideout",
-      "merge": "test/puzzle/Test1InsideHideout.json",
+      "merge": "MainInsideHideout.json",
       "inv1": "inv_burning_herbs",
       "prop1": "prop_vent"
     },

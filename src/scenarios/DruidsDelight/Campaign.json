@@ -4,19 +4,19 @@
         {
             "locationName": "(D)Dock)",
             "locationEnum": "D",
-            "startingGateFile": "../jiggers/DruidsDelight/DockF.json",
+            "startingGateFile": "./DockF.json",
             "extraFiles": []
         },
         {
             "locationName": "(E)Elder)",
             "locationEnum": "E",
-            "startingGateFile": "../jiggers/DruidsDelight/ElderF.json",
+            "startingGateFile": "./ElderF.json",
             "extraFiles": []
         },
         {
             "locationName": "(F)First)",
             "locationEnum": "F",
-            "startingGateFile": "../jiggers/DruidsDelight/MainFirst.json",
+            "startingGateFile": "./MainFirst.json",
             "extraFiles": []
         }
     ],
@@ -60,7 +60,7 @@
             "location": "F",
             "gatesAddedUponActivation": [
                 {
-                    "gateFileToAdd": "../jiggers/DruidsDelight/Test1InsideGreenhouse.json",
+                    "gateFileToAdd": "../scenarios/DruidsDelight/Test1InsideGreenhouse.json",
                     "locationToAddItToEnum": "F"
                 }
             ],
@@ -76,7 +76,7 @@
             "location": "F",
             "gatesAddedUponActivation": [
                 {
-                    "gateFileToAdd": "../jiggers/DruidsDelight/FirstAndIcehouse.json",
+                    "gateFileToAdd": "../scenarios/DruidsDelight/FirstAndIcehouse.json",
                     "locationToAddItToEnum": "F"
                 }
             ],

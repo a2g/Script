@@ -3,7 +3,7 @@
   "CampaignElement": [
     {
       "bookName": "KidChooserAnt",
-      "mainFile": "src/jiggers/Teleporter/KidChooserAnt.json",
+      "mainFile": "src/scenarios/Teleporter/KidChooserAnt.json",
       "goalSetUponCompletion": "A",
       "sunsetType": "threeOrMore",
       "sunsetGoals": ["M", "A", "G", "B", "P"],
@@ -14,7 +14,7 @@
     },
     {
       "bookName": "KidChooserBen",
-      "mainFile": "src/jiggers/Teleporter/KidChooserBen.json",
+      "mainFile": "src/scenarios/Teleporter/KidChooserBen.json",
       "goalSetUponCompletion": "B",
       "sunsetType": "noPrerequisites",
       "sunsetGoals": ["M", "A", "G", "B", "P"],
@@ -25,7 +25,7 @@
     },
     {
       "bookName": "KidChooserCam",
-      "mainFile": "src/jiggers/Teleporter/KidChooserCam.json",
+      "mainFile": "src/scenarios/Teleporter/KidChooserCam.json",
       "goalSetUponCompletion": "A",
       "sunsetType": "threeOrMore",
       "sunsetGoals": ["M", "A", "G", "B", "P"],
@@ -36,7 +36,7 @@
     },
     {
       "bookName": "KidChooserDan",
-      "mainFile": "src/jiggers/Teleporter/KidChooserDan.json",
+      "mainFile": "src/scenarios/Teleporter/KidChooserDan.json",
       "goalSetUponCompletion": "D",
       "sunsetType": "threeOrMore",
       "sunsetGoals": ["M", "A", "G", "B", "P"],
@@ -47,11 +47,11 @@
     },
     {
       "bookName": "high school (part one)",
-      "mainFile": "src/jiggers/Teleporter/High.json",
+      "mainFile": "src/scenarios/Teleporter/High.json",
       "extraFiles": [
-        "src/jiggers/Teleporter/Cyclotron.json",
-        "src/jiggers/Teleporter/Ashes-NoDuplicates.json",
-        "src/jiggers/Teleporter/Chapter1FindTimmyInSports.json"
+        "src/scenarios/Teleporter/Cyclotron.json",
+        "src/scenarios/Teleporter/Ashes-NoDuplicates.json",
+        "src/scenarios/Teleporter/Chapter1FindTimmyInSports.json"
       ],
       "goalSetUponCompletion": "X",
       "prerequisiteType": "threeOrMore",

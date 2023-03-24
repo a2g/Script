@@ -4,7 +4,7 @@
     {
       "locationName": "(F)lying  Michael",
       "locationEnum": "F",
-      "startingGateFile": "src/jiggers/LostBoys/MichaelFlying.json",
+      "startingGateFile": "src/scenarios/LostBoys/MichaelFlying.json",
       "extraFiles": []
     }
   ],

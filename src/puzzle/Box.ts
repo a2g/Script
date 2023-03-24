@@ -51,7 +51,7 @@ export class Box implements IBoxReadOnlyWithFileMethods {
     this.isMergingOk = true;
     this.filename = filename;
     if (!existsSync(filename)) {
-      throw new Error("file doesn't exist");
+      throw new Error(`file doesn't exist ${filename} ${process.cwd()}`);
     }
     const text = readFileSync(filename, 'utf8');
     const scenario = JSON.parse(text);
@@ -146,7 +146,7 @@ export class Box implements IBoxReadOnlyWithFileMethods {
     }
   }
   public Init() {
-    throw new Error('Method not implemented.');
+   // this was here in case we couldn't load the file in the constructor - but now we can.
   }
 
   public IsMergingOk(): boolean {

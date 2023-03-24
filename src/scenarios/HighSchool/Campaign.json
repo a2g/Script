@@ -4,35 +4,35 @@
     {
       "locationName": "(M)usic-kid-house",
       "locationEnum": "M",
-      "startingGateFile": "src/jiggers/HighSchool/IntroMusicKid.json",
+      "startingGateFile": "src/scenarios/HighSchool/IntroMusicKid.json",
       "extraFiles": []
     },
     {
       "locationName": "(B)asketball-kid-house",
       "locationEnum": "B",
-      "startingGateFile": "src/jiggers/HighSchool/IntroBasketballKid.json",
+      "startingGateFile": "src/scenarios/HighSchool/IntroBasketballKid.json",
       "extraFiles": []
     },
     {
       "locationName": "(A)rmy-kid-house",
       "locationEnum": "A",
-      "startingGateFile": "src/jiggers/HighSchool/IntroArmyKid.json",
+      "startingGateFile": "src/scenarios/HighSchool/IntroArmyKid.json",
       "extraFiles": []
     },
     {
       "locationName": "(G)oth-kid-house",
       "locationEnum": "G",
-      "startingGateFile": "src/jiggers/HighSchool/IntroGothKid.json",
+      "startingGateFile": "src/scenarios/HighSchool/IntroGothKid.json",
       "extraFiles": []
     },
     {
       "locationName": "(S)chool",
       "locationEnum": "S",
-      "startingGateFile": "src/jiggers/HighSchool/High.json",
+      "startingGateFile": "src/scenarios/HighSchool/High.json",
       "extraFiles": [
-        "src/jiggers/HighSchool/Cyclotron.json",
-        "src/jiggers/HighSchool/Cyclotron-NoDuplicates.json",
-        "src/jiggers/HighSchool/Chapter1FindTimmyInSports.json"
+        "src/scenarios/HighSchool/Cyclotron.json",
+        "src/scenarios/HighSchool/Cyclotron-NoDuplicates.json",
+        "src/scenarios/HighSchool/Chapter1FindTimmyInSports.json"
       ]
     }
   ],

@@ -41,12 +41,11 @@
       "piece": "TOGGLE_PROP1_BECOMES_PROP2",
       "prop1": "prop_button(unpressed)",
       "prop2": "prop_button(pressed)"
-      // needs an automatic goal for having got fireplace access
     },
     {
       "piece": "AUTO_GOAL1_SET_BY_PROPS",
       "goal1": "goal_button_pressed",
-      "merge": "test/puzzle/Test1PostButtonPressed.json",
+      "merge": "MainPostButtonPressed.json",
       "prop1": "prop_button(pressed)",
       "prop2": "prop_furnace_lit"
     },
