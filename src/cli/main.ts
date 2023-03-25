@@ -9,14 +9,7 @@ import { ChooseOrderOfGoals } from './ChooseOrderOfGoals';
 import { ChooseToFindUnused } from './ChooseToFindUnused';
 import { ChooseToPlayCampaign } from './ChooseToPlayCampaign';
 import { Location } from './Location';
-
 const prompt = promptSync();
-/*
-function GetLastSeg (path: string): string {
-  const lastSeg = path
-  if (path.includes('/')) { return path.substring(path.lastIndexOf('/') + 1) }
-  return lastSeg
-} */
 
 function main(): void {
   process.chdir('./src/scenarios/DruidsDelight/');

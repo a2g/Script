@@ -1,4 +1,3 @@
-import { expect } from '@open-wc/testing';
 import { Piece } from '../../../src/puzzle/Piece';
 import { PileOfPieces } from '../../../src/puzzle/PileOfPieces';
 
@@ -8,7 +7,7 @@ describe('ReactionMap', () => {
 
     // test that it is indeed null before
     const arrayBefore = pile.Get('outputA');
-    expect(arrayBefore).to.equal(undefined);
+    expect(arrayBefore).toEqual(undefined);
 
     // do it!
     pile.AddPiece(
@@ -17,10 +16,10 @@ describe('ReactionMap', () => {
 
     // test that it adds an array if the array is not yet null.
     const arrayAfter = pile.Get('outputA');
-    expect(arrayAfter).not.to.equal(null);
+    expect(arrayAfter).not.toEqual(null);
 
     const sizeAfterAdding = arrayAfter != null ? arrayAfter.size : 0;
-    expect(sizeAfterAdding).to.equal(1);
+    expect(sizeAfterAdding).toEqual(1);
   });
 
   it('test RemovePiece works', () => {
@@ -45,7 +44,7 @@ describe('ReactionMap', () => {
     {
       const arrayBefore = blah.Get('outputA');
       const countBeforeRemoval = arrayBefore != null ? arrayBefore.size : 0;
-      expect(countBeforeRemoval).to.equal(4);
+      expect(countBeforeRemoval).toEqual(4);
     }
 
     blah.RemovePiece(theOneToRemove);
@@ -53,7 +52,7 @@ describe('ReactionMap', () => {
     {
       const arrayAfter = blah.Get('outputA');
       const countAfterRemoval = arrayAfter != null ? arrayAfter.size : 0;
-      expect(countAfterRemoval).to.equal(3);
+      expect(countAfterRemoval).toEqual(3);
     }
   });
 
@@ -83,8 +82,8 @@ describe('ReactionMap', () => {
     }
 
     // check the originals are still the same
-    expect(array[0].inputHints[0]).to.equal('a');
-    expect(array[1].inputHints[0]).to.equal('b');
-    expect(array[2].inputHints[0]).to.equal('c');
+    expect(array[0].inputHints[0]).toEqual('a');
+    expect(array[1].inputHints[0]).toEqual('b');
+    expect(array[2].inputHints[0]).toEqual('c');
   });
 });

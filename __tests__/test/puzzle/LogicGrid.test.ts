@@ -1,10 +1,4 @@
-import { Greeter } from '../../../src/greeter';
 import { LogicGrid } from '../../../src/puzzle/LogicGrid';
-
-test('Should greet with message', () => {
-  const greeter = new Greeter('friend');
-  expect(greeter.greet()).toBe('Bonjour, friend!');
-});
 
 test('FindMostNearlyCompleteRowOrColumnCombined', () => {
   const sizeFour: Array<[string, boolean]> = [

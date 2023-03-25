@@ -1,6 +1,4 @@
 // Typescript Unit test
-
-import { expect } from '@open-wc/testing';
 import { Piece } from '../../../src/puzzle/Piece';
 import { SpecialTypes } from '../../../src/puzzle/SpecialTypes';
 
@@ -22,12 +20,12 @@ describe('Solution', () => {
     );
 
     const clone = root.ClonePieceAndEntireTree();
-    expect('A').equals(segA.output);
-    expect('B').equals(segB.output);
-    expect('C').equals(segC.output);
-    expect('D').equals(segD.output);
-    expect('root').equals(clone.GetOutput());
-    expect(null).equals(segC.GetParent());
+    expect('A').toEqual(segA.output);
+    expect('B').toEqual(segB.output);
+    expect('C').toEqual(segC.output);
+    expect('D').toEqual(segD.output);
+    expect('root').toEqual(clone.GetOutput());
+    expect(null).toEqual(segC.GetParent());
   });
   /*
     it("Test of a non cloning five step", () => {

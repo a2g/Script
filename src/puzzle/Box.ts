@@ -146,7 +146,7 @@ export class Box implements IBoxReadOnlyWithFileMethods {
     }
   }
   public Init() {
-   // this was here in case we couldn't load the file in the constructor - but now we can.
+    // this was here in case we couldn't load the file in the constructor - but now we can.
   }
 
   public IsMergingOk(): boolean {
