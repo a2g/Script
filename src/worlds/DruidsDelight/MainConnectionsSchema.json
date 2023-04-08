@@ -7,10 +7,10 @@
             "type": "object",
             "properties": {
                 "start": {
-                    "$ref": "MainEnums.json#/definitions/location_type"
+                    "$ref": "MainEnums.json#/definitions/area_type"
                 },
                 "end": {
-                    "$ref": "MainEnums.json#/definitions/location_type"
+                    "$ref": "MainEnums.json#/definitions/area_type"
                 },
                 "bidirectional": {
                     "type": "boolean"

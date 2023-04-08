@@ -1,16 +1,16 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema",
-    "description": "This is the schema for the main Scenario file for the game. It basically a skeleton, pulling in other more substantial types from other files. It could be split up, but for now its easier managing three files Scenario, Schema and Objects",
+    "description": "This is the schema for an area in the game. ",
     "type": "object",
     "definitions": {
         "square_type": {
             "type": "object",
             "properties": {
                 "col": {
-                    "$ref": "../../jigsaw/jigsaw.json#/definitions/col_type"
+                    "$ref": "../../../../jigsaw/jigsaw.json#/definitions/col_type"
                 },
                 "row": {
-                    "$ref": "../../jigsaw/jigsaw.json#/definitions/row_type"
+                    "$ref": "../../../../jigsaw/jigsaw.json#/definitions/row_type"
                 },
                 "location": {
                     "$ref": "MainEnums.json#/definitions/location_type"

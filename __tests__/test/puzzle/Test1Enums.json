@@ -94,7 +94,7 @@
                 "goal_used_bucket_with_coal_bunker"
             ]
         },
-        "location_type": {
+        "area_type": {
             "enum": [
                 "rocket_turret",
                 "attic",

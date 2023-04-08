@@ -1,5 +1,5 @@
 {
-  "$schema": "./MainDesignSchema.json",
+  "$schema": "./MainDevilishnessSchema.json",
   "startingThings": [
     {
       "thing": "prop_soil_thermometer"

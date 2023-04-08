@@ -4,7 +4,7 @@
     {
       "locationName": "(F)lying  Michael",
       "locationEnum": "F",
-      "startingGateFile": "src/scenarios/LostBoys/MichaelFlying.json",
+      "startingGateFile": "src/worlds/LostBoys/MichaelFlying.json",
       "extraFiles": []
     }
   ],
@@ -13,8 +13,6 @@
       "goalName": "get the keys",
       "goalEnum": "G1",
       "location": "F",
-      "gatesAddedUponActivation": [],
-      "gatesAddedUponCompletion": [],
       "prerequisiteGoals": [],
       "prerequisiteType": "zeroConditions",
       "sunsetGoals": [],

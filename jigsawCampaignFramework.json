@@ -19,7 +19,7 @@
         "G12"
       ]
     },
-    "location_enum_entity": {
+    "area_enum_entity": {
       "enum": [
         "A",
         "B",
@@ -70,7 +70,7 @@
           "type": "string"
         },
         "locationToAddItToEnum": {
-          "$ref": "#/definitions/location_enum_entity"
+          "$ref": "#/definitions/area_enum_entity"
         }
       }
     },
@@ -81,7 +81,7 @@
           "type": "string"
         },
         "locationEnum": {
-          "$ref": "#/definitions/location_enum_entity"
+          "$ref": "#/definitions/area_enum_entity"
         },
         "startingGateFile": {
           "type": "string"
@@ -105,17 +105,7 @@
           "$ref": "#/definitions/goal_enum_entity"
         },
         "location": {
-          "$ref": "#/definitions/location_enum_entity"
-        },
-        "gatesAddedUponActivation": {
-          "type": "array",
-          "minItems": 0,
-          "items": {
-            "$ref": "#/definitions/gate_and_location_to_add_entity"
-          }
-        },
-        "gatesAddedUponCompletion": {
-          "type": "array"
+          "$ref": "#/definitions/area_enum_entity"
         },
         "prerequisiteType": {
           "$ref": "#/definitions/condition_enum_entity"

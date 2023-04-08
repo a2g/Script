@@ -1,43 +1,30 @@
 {
-    "$schema": "../../jigsaw/jigsawCampaignFramework.json",
-    "locations": [
+    "$schema": "../../../../jigsaw/jigsawCampaignFramework.json",
+    "areas": [
         {
-            "locationName": "(D)Dock)",
-            "locationEnum": "D",
+            "areaName": "(D)Dock)",
+            "areaEnum": "D",
             "startingGateFile": "./DockF.json",
             "extraFiles": []
         },
         {
-            "locationName": "(E)Elder)",
-            "locationEnum": "E",
+            "areaName": "(E)Elder)",
+            "areaEnum": "E",
             "startingGateFile": "./ElderF.json",
             "extraFiles": []
         },
         {
-            "locationName": "(F)First)",
-            "locationEnum": "F",
+            "areaName": "(F)First)",
+            "areaEnum": "F",
             "startingGateFile": "./MainFirst.json",
             "extraFiles": []
         }
     ],
     "goals": [
         {
-            "goalName": "get to Airport",
-            "goalEnum": "G1",
-            "location": "D",
-            "gatesAddedUponActivation": [],
-            "gatesAddedUponCompletion": [],
-            "prerequisiteGoals": [],
-            "prerequisiteType": "allOfThem",
-            "sunsetGoals": [],
-            "sunsetType": "allOfThem"
-        },
-        {
             "goalName": "create a light source",
             "goalEnum": "G2",
             "location": "E",
-            "gatesAddedUponActivation": [],
-            "gatesAddedUponCompletion": [],
             "prerequisiteGoals": [],
             "prerequisiteType": "allOfThem",
             "sunsetGoals": [],
@@ -47,8 +34,6 @@
             "goalName": "open the greenhouse",
             "goalEnum": "G3",
             "location": "F",
-            "gatesAddedUponActivation": [],
-            "gatesAddedUponCompletion": [],
             "prerequisiteGoals": [],
             "prerequisiteType": "allOfThem",
             "sunsetGoals": [],
@@ -58,13 +43,6 @@
             "goalName": "open the icehouse",
             "goalEnum": "G4",
             "location": "F",
-            "gatesAddedUponActivation": [
-                {
-                    "gateFileToAdd": "../scenarios/DruidsDelight/Test1InsideGreenhouse.json",
-                    "locationToAddItToEnum": "F"
-                }
-            ],
-            "gatesAddedUponCompletion": [],
             "prerequisiteGoals": ["G3"],
             "prerequisiteType": "allOfThem",
             "sunsetGoals": [],
@@ -74,13 +52,6 @@
             "goalName": "do stuff with the os",
             "goalEnum": "G5",
             "location": "F",
-            "gatesAddedUponActivation": [
-                {
-                    "gateFileToAdd": "../scenarios/DruidsDelight/FirstAndIcehouse.json",
-                    "locationToAddItToEnum": "F"
-                }
-            ],
-            "gatesAddedUponCompletion": [],
             "prerequisiteGoals": ["G4"],
             "prerequisiteType": "allOfThem",
             "sunsetGoals": [],

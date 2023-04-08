@@ -1,15 +1,15 @@
-import LostBoys from '../scenarios/LostBoys/LostBoysCampaign.json';
-import { Location } from './Location';
+import LostBoys from '../worlds/LostBoys/LostBoysCampaign.json';
+import { Area } from './Area';
 
 export function ChooseToPlayCampaign(): void {
   const filenames = new Map<string, string[]>();
-  const locations = new Map<string, Location>();
+  const locations = new Map<string, Area>();
   for (const incoming of LostBoys.locations) {
-    const location = new Location();
-    location.locationName = incoming.locationName;
-    location.locationEnum = incoming.locationEnum;
+    const location = new Area();
+    location.areaName = incoming.locationName;
+    location.areaEnum = incoming.locationEnum;
 
-    locations.set(location.locationName, location);
+    locations.set(location.areaName, location);
     const array: string[] = [];
     array.push(incoming.startingGateFile);
 

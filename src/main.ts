@@ -1,18 +1,18 @@
 import promptSync from 'prompt-sync';
-import { BigBoxViaSetOfBoxes } from '../puzzle/BigBoxViaSetOfBoxes';
-import { Box } from '../puzzle/Box';
-import { SolverViaRootPiece } from '../puzzle/SolverViaRootPiece';
-import druids from '../scenarios/DruidsDelight/Campaign.json';
-import { ChooseDigIntoGoals } from './ChooseDigIntoGoals';
-import { ChooseListOfLeaves } from './ChooseListOfLeaves';
-import { ChooseOrderOfGoals } from './ChooseOrderOfGoals';
-import { ChooseToFindUnused } from './ChooseToFindUnused';
-import { ChooseToPlayCampaign } from './ChooseToPlayCampaign';
-import { Location } from './Location';
+import { BigBoxViaSetOfBoxes } from './puzzle/BigBoxViaSetOfBoxes';
+import { Box } from './puzzle/Box';
+import { SolverViaRootPiece } from './puzzle/SolverViaRootPiece';
+import druids from './worlds/DruidsDelight/Campaign.json';
+import { ChooseDigIntoGoals } from './cli/ChooseDigIntoGoals';
+import { ChooseListOfLeaves } from './cli/ChooseListOfLeaves';
+import { ChooseOrderOfGoals } from './cli/ChooseOrderOfGoals';
+import { ChooseToFindUnused } from './cli/ChooseToFindUnused';
+import { ChooseToPlayCampaign } from './cli/ChooseToPlayCampaign';
+import { Area } from './cli/Area';
 const prompt = promptSync();
 
 function main(): void {
-  process.chdir('./src/scenarios/DruidsDelight/');
+  process.chdir('./src/worlds/DruidsDelight/');
   for (;;) {
     console.warn(process.cwd());
     console.warn(' ');
@@ -23,19 +23,19 @@ function main(): void {
     const arrayOfFilenames: string[] = [];
     // initialize the map with
     let i = 1;
-    const locations = new Map<string, Location>();
-    for (const incoming of druids.locations) {
-      const location = new Location();
-      location.locationName = incoming.locationName;
-      location.locationEnum = incoming.locationEnum;
-      locations.set(location.locationEnum, location);
+    const areas = new Map<string, Area>();
+    for (const incoming of druids.areas) {
+      const area = new Area();
+      area.areaName = incoming.areaName;
+      area.areaEnum = incoming.areaEnum;
+      areas.set(area.areaEnum, area);
       arrayOfFilenames.push(incoming.startingGateFile);
       const { startingGateFile } = incoming;
       console.warn(`${i}. ${startingGateFile}`);
       i += 1;
     }
 
-    const indexAsString = prompt('Choose an option (b)ail): ').toLowerCase();
+    const indexAsString = prompt('Choose an area (b)ail): ').toLowerCase();
     const index = Number(indexAsString) - 1;
     switch (indexAsString) {
       case 'b':
@@ -49,19 +49,20 @@ function main(): void {
             const filename = arrayOfFilenames[index];
             const firstBox = new Box(filename);
             firstBox.Init();
-            const set = new Set<Box>();
-            firstBox.CollectAllReferencedBoxesRecursively(set);
-            const combined = new BigBoxViaSetOfBoxes(set);
 
-            const solver = new SolverViaRootPiece(combined);
-            const solverFirst = new SolverViaRootPiece(firstBox);
+            const allBoxes = new Set<Box>();
+            firstBox.CollectAllReferencedBoxesRecursively(allBoxes);
+            const combined = new BigBoxViaSetOfBoxes(allBoxes);
+
+            const solverPrimedWithCombined = new SolverViaRootPiece(combined);
+            const solverPrimedWithFirstBox = new SolverViaRootPiece(firstBox);
 
             console.warn(`\nSubMenu of ${filename[0]}`);
             console.warn('---------------------------------------');
             console.warn('1. Dig into Goals for COMBINED');
-            console.warn('2. Dig into Goals for First Box solve');
+            console.warn('2. Dig into Goals for First Box');
             console.warn('3. List the Leaves for COMBINED.');
-            console.warn('4. List the Leaves for First Box solve');
+            console.warn('4. List the Leaves for First Boxz`');
             console.warn('5. Order of Goals for First Box solve');
             console.warn(
               '6. Check for unused props and invs <-- delete these from enums'
@@ -74,19 +75,19 @@ function main(): void {
             }
             switch (choice) {
               case '1':
-                ChooseDigIntoGoals(solver);
+                ChooseDigIntoGoals(solverPrimedWithCombined);
                 break;
               case '2':
-                ChooseDigIntoGoals(solverFirst);
+                ChooseDigIntoGoals(solverPrimedWithFirstBox);
                 break;
               case '3':
-                ChooseListOfLeaves(solver);
+                ChooseListOfLeaves(solverPrimedWithCombined);
                 break;
               case '4':
-                ChooseListOfLeaves(solverFirst);
+                ChooseListOfLeaves(solverPrimedWithFirstBox);
                 break;
               case '5':
-                ChooseOrderOfGoals(solverFirst);
+                ChooseOrderOfGoals(solverPrimedWithFirstBox);
                 break;
               case '6':
                 ChooseToFindUnused(combined);
