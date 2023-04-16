@@ -79,5 +79,5 @@ app.get('/timezones', getLocationsWithTimezones);
 app.get('/worlds', getWorlds); // based on folder
 app.get('/areas', getAreasInWorld); // get areas given
 app.get('/locations', getLocationsInArea);
-app.get('/areas', getTreeJustPriorToSolving); // get areas given
-app.get('/areas', getSolutionViaDepthFirstSearch); // get areas given
+app.get('/solutionPriorToSolving', getTreeJustPriorToSolving); // get areas given
+app.get('/solutionViaDepthFirstSearch', getSolutionViaDepthFirstSearch); // get areas given

@@ -19,7 +19,7 @@
   "types": "lib/index",
   "scripts": {
     "main": "tsc --pretty && node lib/src/main.js",
-    "app": "node lib/app.js",
+    "app": "node lib/src/app.js",
     "clean": "rimraf lib && rimraf coverage",
     "format": "prettier --write \"{src,__tests__}/**/*.ts\" --single-quote --trailing-comma es5",
     "lint": "eslint -c .eslintrc.js --ext .ts src/**/*.ts",
@@ -54,6 +54,7 @@
     "preset": "ts-jest"
   },
   "dependencies": {
+    "@vue/cli": "^5.0.8",
     "express": "^4.18.2",
     "xmldom": "^0.6.0"
   }
