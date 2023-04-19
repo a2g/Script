@@ -72,7 +72,7 @@
   },
   "include": [
     "src/**/*",
-    "__tests__/**/*",
+    "testsYup/**/*",
     "jigsaw.ts",
     "src/app.ts"
   ],

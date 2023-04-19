@@ -21,7 +21,7 @@
     "main": "tsc --pretty && node lib/src/main.js",
     "app": "node lib/src/app.js",
     "clean": "rimraf lib && rimraf coverage",
-    "format": "prettier --write \"{src,__tests__}/**/*.ts\" --single-quote --trailing-comma es5",
+    "format": "prettier --write \"{src,testsYup}/**/*.ts\" --single-quote --trailing-comma es5",
     "lint": "eslint -c .eslintrc.js --ext .ts src/**/*.ts",
     "prepublishOnly": "npm run build",
     "prebuild": "npm run clean && npm run format && npm run lint && echo Using TypeScript && tsc --version",

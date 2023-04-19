@@ -1,7 +1,7 @@
 import { Box } from '../../../src/puzzle/Box';
 
 test('Test GetMapOfAllStartingThings', () => {
-  const box = new Box('__tests__/test/puzzle/Test1First.json');
+  const box = new Box('testsYup/test/puzzle/Test1First.json');
   box.Init();
 
   const goals = box.GetSetOfStartingGoals();

@@ -14,6 +14,6 @@ lib_test
 # npmignore
 
 src/
-__tests__/
+testsYup/
 .vscode/
 
