@@ -1,16 +1,15 @@
 import express, { Request, Response, NextFunction } from 'express';
 import dotenv from 'dotenv';
-import fetch from 'node-fetch';
-import redis, { RedisClientType } from 'redis';
+import redis, { RedisClient } from 'redis';
 import responseTime from 'response-time';
 import cors from 'cors';
 import path from 'path';
+import axios from 'axios';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-//https://github.com/redis/node-redis/blob/HEAD/docs/client-configuration.md
-const client: RedisClientType = redis.createClient({
+const client: RedisClient = redis.createClient({
   url: process.env.REDIS_ENDPOINT_URI,
   password: process.env.REDIS_PASSWORD,
 });
@@ -18,7 +17,7 @@ const client: RedisClientType = redis.createClient({
 dotenv.config();
 
 // Set response
-function composeResponse(username: string, repos: number, isCached: boolean) {
+function composeResponse(username: string, repos: string, isCached: boolean) {
   return {
     username,
     repos,
@@ -26,22 +25,32 @@ function composeResponse(username: string, repos: number, isCached: boolean) {
   };
 }
 
+type GetUsersResponse = {
+  public_repos: number;
+};
+
 // Make request to Github for data
 async function getRepos(req: Request, res: Response) {
   try {
     const { username } = req.params;
 
-    const response = await fetch(`https://api.github.com/users/${username}`);
+    const { data, status } = await axios.get<GetUsersResponse>(
+      `https://api.github.com/users/${username}`,
+      {
+        headers: {
+          Accept: 'application/json',
+        },
+      }
+    );
+    if (status == 200) {
+      const repos = data.public_repos;
 
-    const data: any = await response.json();
-
-    const repos = data.public_repos;
-
-    if (!isNaN(repos)) {
-      client.setEx(username, 3600, repos);
-      res.json(composeResponse(username, repos, false));
-    } else {
-      res.status(404);
+      if (!isNaN(repos)) {
+        client.setex(username, 3600, `${repos}`);
+        res.json(composeResponse(username, `${repos}`, false));
+      } else {
+        res.status(404);
+      }
     }
   } catch (err) {
     console.error(err);
@@ -57,20 +66,18 @@ app.use(
   })
 );
 
-async function cacheMiddleware(
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
+function cacheMiddleware(req: Request, res: Response, next: NextFunction) {
   const { username } = req.params;
 
-  const data: string | null = await client.get(username);
+  client.get(username, (err, data) => {
+    if (err) throw err;
 
-  if (data !== null) {
-    res.json(composeResponse(username, Number(data), true));
-  } else {
-    next();
-  }
+    if (data !== null) {
+      res.json(composeResponse(username, data, true));
+    } else {
+      next();
+    }
+  });
 }
 
 app.get('/repos/:username', cacheMiddleware, getRepos);

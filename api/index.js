@@ -1,6 +1,5 @@
 require('dotenv').config();
-const express = require('express');
-const fetch = require('node-fetch');
+const express = require('express'); 
 const redis = require('redis');
 const responseTime = require('response-time');
 const cors = require('cors');
