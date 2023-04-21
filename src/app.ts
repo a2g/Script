@@ -71,7 +71,10 @@ const getTreeJustPriorToSolving = (request: Request, response: Response) => {
   response.status(200).json(request);
 };
 
-const getSolutionViaDepthFirstSearch = (request: Request, response: Response) => {
+const getSolutionViaDepthFirstSearch = (
+  request: Request,
+  response: Response
+) => {
   response.status(200).json(request);
 };
 
