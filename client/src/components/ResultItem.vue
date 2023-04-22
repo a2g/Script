@@ -9,7 +9,7 @@
           color: !result.cached ? '#c72b40' : '#29967c'
         }"
       >
-        Took {{ result.responseTime }} (Cache {{ result.cached ? 'hit' : 'missed' }}{{ timesLiteral }})
+        Took {{ result.responseTime }} (Cache {{ result.isCached ? 'hit' : 'missed' }}{{ timesLiteral }})
       </span>
       <a
         href="#"

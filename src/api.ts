@@ -9,7 +9,7 @@ import axios from 'axios';
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-const client: RedisClient = redis.createClient({
+const redisClient: RedisClient = redis.createClient({
   url: process.env.REDIS_ENDPOINT_URI,
   password: process.env.REDIS_PASSWORD,
 });
@@ -17,7 +17,11 @@ const client: RedisClient = redis.createClient({
 dotenv.config();
 
 // Set response
-function composeResponse(username: string, repos: string, isCached: boolean) {
+function composeResponse(
+  username: string,
+  repos: string,
+  isCached: boolean
+): Object {
   return {
     username,
     repos,
@@ -29,8 +33,8 @@ type GetUsersResponse = {
   public_repos: number;
 };
 
-// Make request to Github for data
-async function getRepos(req: Request, res: Response) {
+// Make direct request to Github for data
+async function directRequestToGithub(req: Request, responseSender: Response) {
   try {
     const { username } = req.params;
 
@@ -46,15 +50,16 @@ async function getRepos(req: Request, res: Response) {
       const repos = data.public_repos;
 
       if (!isNaN(repos)) {
-        client.setex(username, 3600, `${repos}`);
-        res.json(composeResponse(username, `${repos}`, false));
+        redisClient.setex(username, 3600, `${repos}`);
+        const response = composeResponse(username, `${repos}`, false);
+        responseSender.json(response);
       } else {
-        res.status(404);
+        responseSender.status(404);
       }
     }
   } catch (err) {
     console.error(err);
-    res.status(500);
+    responseSender.status(500);
   }
 }
 
@@ -66,21 +71,26 @@ app.use(
   })
 );
 
-function cacheMiddleware(req: Request, res: Response, next: NextFunction) {
+function requestToRedisServer(
+  req: Request,
+  responseSender: Response,
+  next: NextFunction
+) {
   const { username } = req.params;
 
-  client.get(username, (err, data) => {
+  redisClient.get(username, (err, data) => {
     if (err) throw err;
 
     if (data !== null) {
-      res.json(composeResponse(username, data, true));
+      const response = composeResponse(username, data, true);
+      responseSender.json(response);
     } else {
       next();
     }
   });
 }
 
-app.get('/repos/:username', cacheMiddleware, getRepos);
+app.get('/repos/:username', requestToRedisServer, directRequestToGithub);
 
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
