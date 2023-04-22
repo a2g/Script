@@ -11,7 +11,7 @@
 #### Run frontend
 
 ```sh
-cd client
+cd vuelve
 yarn
 yarn serve
 ```
