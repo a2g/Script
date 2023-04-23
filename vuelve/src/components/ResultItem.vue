@@ -1,28 +1,5 @@
-<template>
-  <div class="result-item">
-    <div>
-      "{{ result.username }}" has {{ result.repos }} repos.
-    </div>
-    <div>
-      <span
-        :style="{
-          color: !result.cached ? '#c72b40' : '#29967c'
-        }"
-      >
-        Took {{ result.responseTime }} (Cache {{ result.isCached ? 'hit' : 'missed' }}{{ timesLiteral }})
-      </span>
-      <a
-        href="#"
-        class="ml-3 mr-1"
-        @click="$emit('search', result.username)"
-      >search again</a>
-      <i class="fa fa-search" style="font-size: 1.2rem"></i>
-    </div>
-  </div>
-</template>
-
 <script>
-import { calcTimes } from '@/storage'
+import { getPerformanceImprovementOnLastAccessTimeAsString } from '@/storage'
 
 export default {
   name: 'ResultItem',
@@ -38,9 +15,9 @@ export default {
   },
 
   computed: {
-    timesLiteral () {
+    getTimesFasterString () {
       if (this.result.cached) {
-        const str = calcTimes(this.result.username, this.result.responseTime)
+        const str = getPerformanceImprovementOnLastAccessTimeAsString(this.result.username, this.result.responseTime)
         return str ? `, ${str}X faster` : ''
       } else {
         return ''
@@ -49,6 +26,30 @@ export default {
   }
 }
 </script>
+
+<template>
+  <div class="result-item">
+    <div>
+      "{{ result.username }}" has {{ result.repos }} repos.
+    </div>
+    <div>
+      <span
+        :style="{
+          color: !result.cached ? '#c72b40' : '#29967c'
+        }"
+      >
+        Took {{ result.responseTime }} (Cache {{ result.isCached ? 'hit' : 'missed' }}{{ getTimesFasterString }})
+      </span>
+      <a
+        href="#"
+        class="ml-3 mr-1"
+        @click="$emit('search', result.username)"
+      >search again</a>
+      <i class="fa fa-search" style="font-size: 1.2rem"></i>
+    </div>
+  </div>
+</template>
+
 
 <style scoped>
 .result-item {

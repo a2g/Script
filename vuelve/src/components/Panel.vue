@@ -1,3 +1,22 @@
+<script>
+export default {
+  name: 'Panel',
+
+  components: {
+  },
+
+  props: {
+    usernames: {
+      type: Array,
+      required: true,
+    },
+  },
+
+  data: () => ({
+  }),
+}
+</script>
+
 <template>
   <div class="panel mt-5">
     <span>Or, select one of these</span>
@@ -17,24 +36,6 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'Panel',
-
-  components: {
-  },
-
-  props: {
-    usernames: {
-      type: Array,
-      required: true,
-    },
-  },
-
-  data: () => ({
-  }),
-}
-</script>
 
 <style scoped>
 .panel {

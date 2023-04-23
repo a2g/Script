@@ -1,53 +1,24 @@
-<template>
-  <div id="app">
-    <h1>Redis Caching Example</h1>
-    <ul>
-    <TreeItem class="item" :model="treeData"></TreeItem>
-  </ul>
-    <example />
-  </div>
-</template>
-
 <script>
-import TreeItem from './components/TreeItem.vue'
-import Example from './components/Example.vue'
 
-const treeData = {
-  name: 'My Tree',
-  children: [
-    { name: 'hello' },
-    { name: 'wat' },
-    {
-      name: 'child folder',
-      children: [
-        {
-          name: 'child folder',
-          children: [{ name: 'hello' }, { name: 'wat' }]
-        },
-        { name: 'hello' },
-        { name: 'wat' },
-        {
-          name: 'child folder',
-          children: [{ name: 'hello' }, { name: 'wat' }]
-        }
-      ]
-    }
-  ]
-}
+import Example from './components/Example.vue'
+import Tree from './components/Tree.vue'
 
 export default {
   name: 'App',
   components: {
     Example,
-    TreeItem
-  },
-  data() {
-    return {
-      treeData
-    }
+    Tree
   }
 }
 </script>
+
+<template>
+  <div id="app">
+    <h1>Title is set in App.vue </h1>
+    <tree />
+    <example />
+  </div>
+</template>
 
 <style>
 .item {

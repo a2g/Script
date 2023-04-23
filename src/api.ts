@@ -1,6 +1,6 @@
 import express, { Request, Response, NextFunction } from 'express';
 import dotenv from 'dotenv';
-import redis, { RedisClient } from 'redis';
+import { createClient, RedisClient } from 'redis';
 import responseTime from 'response-time';
 import cors from 'cors';
 import path from 'path';
@@ -9,7 +9,7 @@ import axios from 'axios';
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-const redisClient: RedisClient = redis.createClient({
+const redisClient: RedisClient = createClient({
   url: process.env.REDIS_ENDPOINT_URI,
   password: process.env.REDIS_PASSWORD,
 });

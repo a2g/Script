@@ -1,46 +1,25 @@
-const STORAGE_KEY = 'node-github-redis'
 
-const trimMillisec = (duration) => {
-  if (!duration) {
-    return 0
-  } else {
-    return +duration.slice(0, duration.length - 2)
-  }
-}
 
-const getStorage = () => {
-  try {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}
-  } catch (err) {
-    return {}
-  }
-}
-
-const setStorage = (storage) => {
-  try {
-    return localStorage.setItem(STORAGE_KEY, JSON.stringify(storage))
-  } catch (err) {
-    return {}
-  }
-}
-
-export function storeLastNonCached (username, duration) {
-  const storage = getStorage()
+export function storeGithubAccessTimeForUser (username, duration) {
+  // get whole map..
+  const storage = getMapOfGithubAccessTimesFromLocalStorage()
   
+  // change just the entry we desier...
   storage[username] = duration
   
-  setStorage(storage)
+  // set the storage back
+  setMapOfGithubAccessTimesToLocalStorage(storage)
 }
 
 
-export function getLastNonCached (username) {
-  const storage = getStorage()
+export function getGithubAccessTimeForUser (username) {
+  const storage = getMapOfGithubAccessTimesFromLocalStorage()
   
   return storage[username]
 }
 
-export function calcTimes (username, duration) {
-  const prevDuration = getLastNonCached(username)
+export function getPerformanceImprovementOnLastAccessTimeAsString (username, duration) {
+  const prevDuration = getGithubAccessTimeForUser(username)
   
   if (!prevDuration) {
     return ''
@@ -53,5 +32,33 @@ export function calcTimes (username, duration) {
     return Math.ceil(prevDurationValue / durationValue)
   } catch (err) {
     return ''
+  }
+}
+
+
+const LOCAL_STORAGE_KEY = 'key-for-local-storage-jigsaw'
+
+const getMapOfGithubAccessTimesFromLocalStorage = () => {
+  try {
+    return JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || {}
+  } catch (err) {
+    return {}
+  }
+}
+
+const setMapOfGithubAccessTimesToLocalStorage = (storage) => {
+  try {
+    return localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(storage))
+  } catch (err) {
+    return {}
+  }
+}
+
+
+const trimMillisec = (duration) => {
+  if (!duration) {
+    return 0
+  } else {
+    return +duration.slice(0, duration.length - 2)
   }
 }
