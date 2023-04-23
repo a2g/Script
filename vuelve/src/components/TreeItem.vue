@@ -52,7 +52,7 @@ export default {
       -->
       <TreeItem
         class="item"
-        v-for="model in model.children"
+        v-for="model in model.children"  v-bind:key = "model.id"
         :model="model">
       </TreeItem>
       <li class="add" @click="addChild">+</li>
