@@ -3,12 +3,14 @@ coverage/
 lib
 lib_test
 node_modules
-
+vuelve/dist
+vuelve/node_modules
 
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .nyc_output
-.env
+.envss
 .vercel
+.env
 
