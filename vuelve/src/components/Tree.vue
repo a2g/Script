@@ -77,7 +77,7 @@ export default {
 
 <template>
   <ul>
-    <TreeItem class="item" :model="treeData"></TreeItem>
+    <TreeItem class="item" :theModelAsAProp="treeData"></TreeItem>
   </ul>
 </template>
 

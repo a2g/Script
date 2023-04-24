@@ -2,7 +2,7 @@
 export default {
   name: 'TreeItem', // necessary for self-reference
   props: {
-    model: Object
+    theModelAsAProp: Object
   },
   data() {
     return {
@@ -11,7 +11,7 @@ export default {
   },
   computed: {
     isFolder() {
-      return this.model.children && this.model.children.length
+      return this.theModelAsAProp.children && this.theModelAsAProp.children.length
     }
   },
   methods: {
@@ -22,13 +22,13 @@ export default {
     },
     changeType() {
       if (!this.isFolder) {
-        this.model.children = []
+        this.theModelAsAProp.children = []
         this.addChild()
         this.isOpen = true
       }
     },
     addChild() {
-      this.model.children.push({
+      this.theModelAsAProp.children.push({
         name: 'new stuff'
       })
     }
@@ -42,7 +42,7 @@ export default {
       :class="{ bold: isFolder }"
       @click="toggle"
       @dblclick="changeType">
-      {{ model.name }}
+      {{ theModelAsAProp.name }}
       <span v-if="isFolder">[{{ isOpen ? '-' : '+' }}]</span>
     </div>
     <ul v-show="isOpen" v-if="isFolder">
@@ -52,8 +52,8 @@ export default {
       -->
       <TreeItem
         class="item"
-        v-for="subModel in model.children"  v-bind:key = "subModel.id"
-        :model="subModel">
+        v-for="subModel in theModelAsAProp.children"  v-bind:key = "subModel.id"
+        :theModelAsAProp="subModel">
       </TreeItem>
       <li class="add" @click="addChild">+</li>
     </ul>
