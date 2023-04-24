@@ -22,7 +22,8 @@
   "types": "lib/index",
   "scripts": {
     "main": "tsc --pretty && node lib/src/main.js",
-    "api": "node lib/src/api.js",
+    "serveSolutions": "node lib/src/serveSolutions.js",
+    "serveRepos": "node lib/src/serveRepos.js",
     "app": "node lib/src/app.js",
     "clean": "rimraf lib && rimraf coverage",
     "format": "prettier --write \"{src,testsYup}/**/*.ts\" --single-quote --trailing-comma es5",
