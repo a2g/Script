@@ -55,7 +55,7 @@ async function getSolutionsDirect(req: Request, responseSender: Response) {
           // display list item
           const status: string = item.firstNullInput;
           const { output } = item.piece;
-          console.warn(`    ${listItemNumber}. ${output} (${status})`);
+          console.warn(`    ${listItemNumber}. ${output} (status=${status})`);
           incomplete += status.length > 0 ? 1 : 0;
         }
       }
@@ -105,11 +105,6 @@ function getSolutionsFromRedis(
 }
 
 app.get('/solutions/:firstFile', getSolutionsFromRedis, getSolutionsDirect);
-app.get(
-  'world/:name/solutions/:index',
-  getSolutionsFromRedis,
-  getSolutionsDirect
-);
 
 // http://odata.netflix.com/v2/Catalog/Titles/$count
 app.listen(PORT, () => {

@@ -32,7 +32,7 @@ export class JsonOfSolutions {
     const toReturn = new Array<Object>();
     for (let rootPiece of rootPieces) {
       toReturn.push({
-        firstNullInput: rootPiece.firstNullInput,
+        firstNullInput: rootPiece.piece.GetOutput(),
         inputs: this.getJsonArrayOfAllSubPieces(rootPiece.piece),
       });
     }
