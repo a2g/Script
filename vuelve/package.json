@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "serve2": "node --inspect ./node_modules/@vue/cli-service/bin/vue-cli-service.js serve"
   },
   "dependencies": {
     "axios": "^0.21.0",
