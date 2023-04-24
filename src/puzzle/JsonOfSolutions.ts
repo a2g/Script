@@ -17,8 +17,8 @@ export class JsonOfSolutions {
     for (let solution of solutions) {
       i += 1;
       toReturn.push({
-        solutionName: `Solution ${i}`,
-        rootNodes: this.getJsonArrayOfRootPieces(
+        name: `Solution ${i}`,
+        children: this.getJsonArrayOfRootPieces(
           solution.GetRootMap().GetValues()
         ),
       });
@@ -32,8 +32,8 @@ export class JsonOfSolutions {
     const toReturn = new Array<Object>();
     for (let rootPiece of rootPieces) {
       toReturn.push({
-        firstNullInput: rootPiece.piece.GetOutput(),
-        inputs: this.getJsonArrayOfAllSubPieces(rootPiece.piece),
+        name: rootPiece.piece.GetOutput(),
+        children: this.getJsonArrayOfAllSubPieces(rootPiece.piece),
       });
     }
     return toReturn;
@@ -42,16 +42,16 @@ export class JsonOfSolutions {
   private static getJsonArrayOfAllSubPieces(piece: Piece): Array<Object> {
     const toReturn = new Array<Object>();
     let i = 0;
-    for (let hintName of piece.inputHints) {
+    for (let hint of piece.inputHints) {
       let pieceOrNull = piece.inputs[i];
       if (pieceOrNull != null) {
         toReturn.push({
-          hintName: hintName,
+          name: hint,
           children: this.getJsonArrayOfAllSubPieces(pieceOrNull),
         });
       } else {
         toReturn.push({
-          hintName: hintName,
+          name: hint,
         });
       }
     }

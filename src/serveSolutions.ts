@@ -1,6 +1,6 @@
-import express, { Request, Response, NextFunction } from 'express';
+import express, { Request, Response } from 'express';
 import dotenv from 'dotenv';
-import { createClient, RedisClient } from 'redis';
+//import { createClient, RedisClient } from 'redis';
 import responseTime from 'response-time';
 import cors from 'cors';
 import path from 'path';
@@ -12,11 +12,11 @@ import { JsonOfSolutions } from './puzzle/JsonOfSolutions';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-
+/*
 const redisClient: RedisClient = createClient({
   url: process.env.REDIS_ENDPOINT_URI,
   password: process.env.REDIS_PASSWORD,
-});
+});*/
 
 dotenv.config();
 
@@ -83,7 +83,7 @@ app.use(
     exposedHeaders: ['X-Response-Time'],
   })
 );
-
+/*
 function getSolutionsFromRedis(
   req: Request,
   responseSender: Response,
@@ -103,8 +103,9 @@ function getSolutionsFromRedis(
     }
   });
 }
-
-app.get('/solutions/:firstFile', getSolutionsFromRedis, getSolutionsDirect);
+*/
+//app.get('/solutions/:firstFile', getSolutionsFromRedis, getSolutionsDirect);
+app.get('/solutions/:firstFile', getSolutionsDirect);
 
 // http://odata.netflix.com/v2/Catalog/Titles/$count
 app.listen(PORT, () => {

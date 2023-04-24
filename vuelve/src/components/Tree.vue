@@ -7,7 +7,7 @@ const API_BASE = location.hostname === 'localhost'
   : location.origin
 
 const treeData = {
-  name: 'My Tree',
+  name: 'Report',
   children: [
     { name: 'hello' },
     { name: 'wat' },
@@ -49,12 +49,12 @@ export default {
         this.history.unshift(this.currentResult)
       }
 
-      this.currentResult = await this.getRepoCount(username)
+      this.currentResult = await this.getSolutions(username)
     },
     
-    async getRepoCount (username) {
+    async getSolutions (username) {
       try {
-        const apiResp = await axios.get(`${API_BASE}/repos/${username}`)
+        const apiResp = await axios.get(`${API_BASE}/solutions/${username}`)
         const responseTime = apiResp.headers['x-response-time']
         const data = apiResp.data
 
