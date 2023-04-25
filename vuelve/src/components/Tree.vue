@@ -77,7 +77,7 @@ export default {
 
 <template>
   <ul>
-    <TreeItem class="item" :theModelAsAProp="treeData"></TreeItem>
+    <TreeItem class="item" v-bind:theModelAsAProp="treeData"></TreeItem>
   </ul>
 </template>
 
