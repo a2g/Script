@@ -43,7 +43,7 @@ export class Solution {
 
   private readonly isMergingOk: boolean;
 
-  private readonly commandCompletedInOrder: string[];
+  private readonly commandCompletedInOrder: Array<RawObjectsAndVerb>;
 
   private readonly FLAG_WIN: string = 'goal_win';
 
@@ -249,9 +249,7 @@ export class Solution {
 
       if (rawObjectsAndVerb.type !== Raw.None) {
         // this is just here for debugging!
-        this.commandCompletedInOrder.push(
-          `    ${rawObjectsAndVerb.AsDisplayString()}`
-        );
+        this.commandCompletedInOrder.push(rawObjectsAndVerb);
       }
 
       if (rawObjectsAndVerb.type === Raw.You_have_won_the_game) {
@@ -265,7 +263,9 @@ export class Solution {
     this.currentlyVisibleThings.Set(piece.output, new Set<string>());
 
     // then write the goal we just completed
-    this.commandCompletedInOrder.push(piece.output);
+    this.commandCompletedInOrder.push(
+      new RawObjectsAndVerb(Raw.Goal, `completed (${piece.output})`, '', [], '')
+    );
   }
 
   public AreAnyInputsNull(): boolean {
@@ -277,7 +277,7 @@ export class Solution {
     return false;
   }
 
-  public GetOrderOfGoals(): string[] {
+  public GetOrderOfGoals(): Array<RawObjectsAndVerb> {
     // I would like to return a read only array here.
     // I can't do that, so instead, I will clone.
     // The following is how to clone in js

@@ -3,6 +3,7 @@ import { Colors } from './Colors';
 
 export function FormatText(
   input: string | string[],
+  isColor = true,
   isParenthesisNeeded = false
 ): string {
   if (Array.isArray(input)) {
@@ -10,13 +11,14 @@ export function FormatText(
     let toReturn = '';
     for (const nameToAdd of input) {
       toReturn +=
-        toReturn.length > 0 ? `, ${FormatText(nameToAdd)}` : nameToAdd;
+        toReturn.length > 0 ? `, ${FormatText(nameToAdd, isColor)}` : nameToAdd;
     }
     return toReturn;
   }
 
   const single = input.toString();
   if (single.startsWith('sol_prop_')) {
+    if (!isColor) return AddBrackets(single.slice(9), isParenthesisNeeded);
     return (
       Colors.Red +
       AddBrackets(single.slice(9), isParenthesisNeeded) +
@@ -24,21 +26,27 @@ export function FormatText(
     );
   }
   if (single.startsWith('sol_goal_')) {
+    if (!isColor) return single.slice(9);
     return Colors.Red + single.slice(9) + Colors.Reset;
   }
   if (single.startsWith('sol_inv_')) {
+    if (!isColor) return single.slice(8);
     return Colors.Red + single.slice(8) + Colors.Reset;
   }
   if (single.startsWith('inv_')) {
+    if (!isColor) return single.slice(4);
     return Colors.Magenta + single.slice(4) + Colors.Reset;
   }
   if (single.startsWith('prop_')) {
+    if (!isColor) return single.slice(5);
     return Colors.Cyan + single.slice(5) + Colors.Reset;
   }
   if (single.startsWith('goal_')) {
+    if (!isColor) return single.slice(5);
     return Colors.Green + single.slice(5) + Colors.Reset;
   }
   if (single.startsWith('char_')) {
+    if (!isColor) return AddBrackets(single.slice(5), isParenthesisNeeded);
     return (
       Colors.Yellow +
       AddBrackets(single.slice(5), isParenthesisNeeded) +
@@ -50,6 +58,7 @@ export function FormatText(
     single.startsWith('toggle') ||
     single.startsWith('grab')
   ) {
+    if (!isColor) return single;
     return Colors.Yellow + single + Colors.Reset;
   }
 

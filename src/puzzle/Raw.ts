@@ -6,5 +6,6 @@ export enum Raw {
   Toggle,
   Use,
   Give,
+  Goal,
   You_have_won_the_game,
 }

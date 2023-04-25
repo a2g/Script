@@ -2,6 +2,7 @@ import promptSync from 'prompt-sync';
 import { FormatText } from '../puzzle/FormatText';
 import { SolverViaRootPiece } from '../puzzle/SolverViaRootPiece';
 import { NavigatePieceRecursive } from './NavigatePieceRecursive';
+import { RawObjectsAndVerb } from '../puzzle/RawObjectsAndVerb';
 const prompt = promptSync({});
 
 export function ChooseOrderOfGoals(solver: SolverViaRootPiece): void {
@@ -38,10 +39,10 @@ export function ChooseOrderOfGoals(solver: SolverViaRootPiece): void {
     for (const solution of solver.GetSolutions()) {
       console.warn(FormatText(solution.GetDisplayNamesConcatenated()));
       console.warn(FormatText(solution.GetRootMap().CalculateListOfKeys()));
-      const goals: string[] = solution.GetOrderOfGoals();
+      const goals: Array<RawObjectsAndVerb> = solution.GetOrderOfGoals();
       for (const goal of goals) {
         listItemNumber++;
-        console.warn(`    ${listItemNumber}. ${goal}`);
+        console.warn(`    ${listItemNumber}. ${goal.AsDisplayString}`);
       }
     }
 
@@ -55,11 +56,13 @@ export function ChooseOrderOfGoals(solver: SolverViaRootPiece): void {
       if (theNumber > 0 && theNumber <= listItemNumber) {
         let i = 0;
         for (const solution of solver.GetSolutions()) {
-          const goals: string[] = solution.GetOrderOfGoals();
+          const goals: Array<RawObjectsAndVerb> = solution.GetOrderOfGoals();
           for (const goal of goals) {
             i++;
             if (i === theNumber) {
-              const rootPiece = solution.GetRootMap().GetRootPieceByName(goal);
+              const rootPiece = solution
+                .GetRootMap()
+                .GetRootPieceByName(goal.AsDisplayString());
               NavigatePieceRecursive(rootPiece.piece, solution.GetRootMap());
             }
           }

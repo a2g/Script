@@ -1,5 +1,5 @@
 import { Piece } from './Piece';
-import { RootPiece } from './RootPiece';
+import { RawObjectsAndVerb } from './RawObjectsAndVerb';
 import { Solution } from './Solution';
 import { SolverViaRootPiece } from './SolverViaRootPiece';
 
@@ -17,25 +17,28 @@ export class JsonOfSolutions {
     for (let solution of solutions) {
       i += 1;
       toReturn.push({
-        name: `Solution ${i}`,
-        children: this.getJsonArrayOfRootPieces(
-          solution.GetRootMap().GetValues()
-        ),
+        name: `Puzzle Graph ${i}`,
+        children: this.getJsonArrayOfRootPieces(solution),
       });
     }
+
     return toReturn;
   }
 
-  private static getJsonArrayOfRootPieces(
-    rootPieces: IterableIterator<RootPiece>
-  ): Array<Object> {
+  private static getJsonArrayOfRootPieces(solution: Solution): Array<Object> {
     const toReturn = new Array<Object>();
+
+    const rootPieces = solution.GetRootMap().GetValues();
     for (let rootPiece of rootPieces) {
       toReturn.push({
         name: rootPiece.piece.GetOutput(),
         children: this.getJsonArrayOfAllSubPieces(rootPiece.piece),
       });
     }
+    toReturn.push({
+      name: `Solution`,
+      children: this.getJsonArrayOfOrderedSteps(solution.GetOrderOfGoals()),
+    });
     return toReturn;
   }
 
@@ -59,6 +62,19 @@ export class JsonOfSolutions {
     if (i == -1) {
       toReturn.push({
         name: piece.output,
+      });
+    }
+    return toReturn;
+  }
+
+  private static getJsonArrayOfOrderedSteps(
+    steps: Array<RawObjectsAndVerb>
+  ): Array<Object> {
+    const toReturn = new Array<Object>();
+    for (let step of steps) {
+      toReturn.push({
+        name: step.AsDisplayString(false),
+        children: [],
       });
     }
     return toReturn;

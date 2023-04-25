@@ -27,21 +27,23 @@ export class RawObjectsAndVerb {
     this.typeJustForDebugging = typeJustForDebugging;
   }
 
-  public AsDisplayString(): string {
+  public AsDisplayString(isColor: boolean = true): string {
     const enumAsInt = parseInt(this.type.toString(), 10);
     if (enumAsInt >= 0) {
-      const verb = FormatText(Raw[enumAsInt]);
+      const verb = FormatText(Raw[enumAsInt], isColor);
       const objectA =
-        FormatText(this.objectA) + FormatText(this.startingCharacterForA, true);
+        FormatText(this.objectA, isColor) +
+        FormatText(this.startingCharacterForA, isColor, true);
       if (this.objectB === undefined) {
         this.dumpRaw();
       }
       const objectB =
-        FormatText(this.objectB) + FormatText(this.startingCharacterForB, true);
+        FormatText(this.objectB, isColor) +
+        FormatText(this.startingCharacterForB, isColor, true);
 
       const restriction =
         this.restrictions.length > 0
-          ? AddBrackets(FormatText(this.restrictions))
+          ? AddBrackets(FormatText(this.restrictions, isColor))
           : '';
       let joiner = ' ';
       switch (enumAsInt) {
