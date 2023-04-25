@@ -1,9 +1,9 @@
 <script>
 import axios from 'axios'
-import SearchInput from './SearchInput.vue'
-import ResultItem from './ResultItem.vue'
-import History from './History.vue'
-import Panel from './Panel.vue'
+import SearchInput from './example/SearchInput.vue'
+import ResultItem from './example/ResultItem.vue'
+import History from './example/History.vue'
+import Panel from './example/Panel.vue'
 import { storeGithubAccessTimeForUser } from '@/storage'
 
 const API_BASE = location.hostname === 'localhost'

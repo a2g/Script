@@ -1,6 +1,6 @@
 <script> 
 import axios from 'axios'
-import TreeItem from './TreeItem.vue'
+import TreeItem from './tree/TreeItem.vue'
 
 const API_BASE = location.hostname === 'localhost'
   ? 'http://localhost:5000'

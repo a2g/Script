@@ -25,7 +25,7 @@ export default {
 
     <div
       v-for="(name, index) in usernames"
-      :key="index"
+      v-bind:key="index"
     >
       <a
         href="#"
