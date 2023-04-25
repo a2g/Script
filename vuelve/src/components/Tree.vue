@@ -18,53 +18,33 @@ export default {
   },
   data() {
     return {
-      treeData2:  {
-  name: 'Report',
-  children: [
-    { name: 'hello' },
-    { name: 'wat' },
-    {
-      name: 'child folder',
-      children: [
-        {
-          name: 'child folder',
-          children: [{ name: 'hello' }, { name: 'wat' }]
-        },
-        { name: 'hello' },
-        { name: 'wat' },
-        {
-          name: 'child folder',
-          children: [{ name: 'hello' }, { name: 'wat' }]
-        }
-      ]
-    }
-  ]
-}
+      treeData2: {
+        name: 'nothing yet',
+        children: [
+        ]
+      }
     }
   },
   methods: {
-    async awaitSettingRepoCountToThisCurrent (username) {
-      if (this.currentResult) {
-        this.history.unshift(this.currentResult)
-      }
+    async awaitGetSolutionsAndSetToData (username) {
+      this.treeData2 = await this.getSolutions(username)
 
-      this.currentResult = await this.getSolutions(username)
+      if (this.treeData2) {
+        this.history.unshift(this.treeData2)
+      }
     },
     
     async getSolutions (username) {
       try {
         const apiResp = await axios.get(`${API_BASE}/solutions/${username}`)
-        const responseTime = apiResp.headers['x-response-time']
+       // const responseTime = apiResp.headers['x-response-time']
         const data = apiResp.data
 
         if (!data.cached) {
           // storeGithubAccessTimeForUser(data.username, responseTime)
         }
 
-        return {
-          responseTime,
-          ...data,
-        }
+        return data
       } catch (err) {
         console.log(err)
         // catch err
@@ -75,9 +55,13 @@ export default {
 </script>
 
 <template>
+  <div>
+    <button @click="awaitGetSolutionsAndSetToData"> blah </button>
   <ul>
+    <td></td>
     <TreeItem class="item" v-bind:theModelAsAProp="treeData2"></TreeItem>
   </ul>
+</div>
 </template>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
