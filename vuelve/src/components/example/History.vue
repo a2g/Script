@@ -28,11 +28,11 @@ export default {
 
     <div
       v-for="(item, index) in history"
-      :key="index"
+      v-bind:key="index"
       class="history-list"
     >
       <result-item
-        :result="item"
+        v-bind:result="item"
         @search="username => $emit('search', username)"
       />
     </div>

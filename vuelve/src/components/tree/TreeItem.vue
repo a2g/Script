@@ -53,7 +53,7 @@ export default {
       <TreeItem
         class="item"
         v-for="subModel in theModelAsAProp.children"  v-bind:key = "subModel.id"
-        :theModelAsAProp="subModel">
+        v-bind:theModelAsAProp="subModel">
       </TreeItem>
       <li class="add" @click="addChild">+</li>
     </ul>
