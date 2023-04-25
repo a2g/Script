@@ -6,7 +6,19 @@ const API_BASE = location.hostname === 'localhost'
   ? 'http://localhost:5000'
   : location.origin
 
-const treeData = {
+
+export default {
+  name: 'Tree',
+
+  components: {
+    TreeItem
+  },
+
+  props: {
+  },
+  data() {
+    return {
+      treeData2:  {
   name: 'Report',
   children: [
     { name: 'hello' },
@@ -28,19 +40,6 @@ const treeData = {
     }
   ]
 }
-
-export default {
-  name: 'Tree',
-
-  components: {
-    TreeItem
-  },
-
-  props: {
-  },
-  data() {
-    return {
-      treeData
     }
   },
   methods: {
@@ -77,7 +76,7 @@ export default {
 
 <template>
   <ul>
-    <TreeItem class="item" v-bind:theModelAsAProp="treeData"></TreeItem>
+    <TreeItem class="item" v-bind:theModelAsAProp="treeData2"></TreeItem>
   </ul>
 </template>
 
