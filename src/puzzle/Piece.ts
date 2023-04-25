@@ -257,7 +257,7 @@ export class Piece {
       // otherwise Toggle pieces will toggle until the count is zero.
       const objectToObtain = this.inputHints[k];
       if (solution.GetStartingThings().Has(objectToObtain)) {
-        this.StubOutInputK(k, SpecialTypes.StartingThings);
+        this.StubOutInputK(k, SpecialTypes.ExistsFromBeginning);
         continue;
       }
 
@@ -272,7 +272,7 @@ export class Piece {
           .GetRootPieceByName(objectToObtain);
 
         if (firstNullInput === '') {
-          this.StubOutInputK(k, SpecialTypes.GoalExistsAndCompleted);
+          this.StubOutInputK(k, SpecialTypes.CompletedElsewhere);
         }
         continue;
       }

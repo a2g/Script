@@ -9,9 +9,8 @@ export function GenerateMapOfLeavesRecursively(
   for (let i = 0; i < piece.inputs.length; i += 1) {
     const input = piece.inputs[i];
     switch (input != null ? input.type : 'null') {
-      case SpecialTypes.GoalExistsAndCompleted:
-      case SpecialTypes.StartingThings:
-      case SpecialTypes.TempGoalWasntCompleteDontStubThisOut:
+      case SpecialTypes.CompletedElsewhere:
+      case SpecialTypes.ExistsFromBeginning:
       case SpecialTypes.VerifiedLeaf:
       case 'null':
         map.set(`${path}/${piece.inputHints[i]}`, input);
