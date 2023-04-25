@@ -5,10 +5,10 @@ import { SolverViaRootPiece } from './SolverViaRootPiece';
 
 export class JsonOfSolutions {
   static getJsonObjectContainingSolutions(solver: SolverViaRootPiece): Object {
-    const jsonArray = {
-      solutions: this.getJsonArrayOfSolutions(solver.GetSolutions()),
+    return {
+      name: 'solutions',
+      children: this.getJsonArrayOfSolutions(solver.GetSolutions()),
     };
-    return jsonArray;
   }
 
   private static getJsonArrayOfSolutions(solutions: Solution[]): Array<Object> {

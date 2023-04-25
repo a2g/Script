@@ -25,9 +25,11 @@ async function getSolutionsDirect(req: Request, responseSender: Response) {
   try {
     const { firstFile } = req.params;
 
-    process.chdir('./src/worlds/DruidsDelight/');
+    // it doesn't make sense to change the folder here.
+    // if switching from
+    //process.chdir('./src/worlds/DruidsDelight/');
     console.log(firstFile);
-    const firstBox = new Box('./MainFirst.json');
+    const firstBox = new Box('./src/worlds/DruidsDelight/', 'MainFirst.json');
     firstBox.Init();
 
     const allBoxes = new Set<Box>();

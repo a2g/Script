@@ -15,12 +15,13 @@ import { Stringify } from './Stringify';
  */
 let globalId = 1;
 export function SingleBigSwitch(
+  path: string,
   filename: string,
   objects: MixedObjectsAndVerb,
   isGoalRetrieval: boolean,
   piecesMappedByOutput: IPileOrRootPieceMap | null
 ): Happenings | null {
-  const text = readFileSync(filename, 'utf-8');
+  const text = readFileSync(path + filename, 'utf-8');
   const scenario = JSON.parse(text);
   for (const piece of scenario.pieces) {
     const id1 = globalId;
@@ -56,7 +57,7 @@ export function SingleBigSwitch(
         if (isGoalRetrieval || piecesMappedByOutput == null) {
           let merge: Box | null = null;
           if (filenameToMerge.length > 0) {
-            merge = new Box(filenameToMerge);
+            merge = new Box(path, filenameToMerge);
           }
           switch (pieceType) {
             case _.AUTO_GOAL1_SET_BY_GOAL2:

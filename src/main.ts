@@ -12,7 +12,6 @@ import { Area } from './cli/Area';
 const prompt = promptSync();
 
 function main(): void {
-  process.chdir('./src/worlds/DruidsDelight/');
   for (;;) {
     console.warn(process.cwd());
     console.warn(' ');
@@ -47,7 +46,7 @@ function main(): void {
         if (index >= 0 && index < arrayOfFilenames.length) {
           for (;;) {
             const filename = arrayOfFilenames[index];
-            const firstBox = new Box(filename);
+            const firstBox = new Box('./src/worlds/DruidsDelight/', filename);
             firstBox.Init();
 
             const allBoxes = new Set<Box>();

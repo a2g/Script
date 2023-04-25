@@ -192,7 +192,7 @@ export class BigBoxViaSetOfBoxes implements IBoxReadOnly {
         '',
         'ScenePreAggregator'
       );
-      SingleBigSwitch(box.GetFilename(), notUsed, false, pile);
+      SingleBigSwitch(box.GetPath(), box.GetFilename(), notUsed, false, pile);
     }
   }
 
@@ -206,6 +206,7 @@ export class BigBoxViaSetOfBoxes implements IBoxReadOnly {
   public FindHappeningsIfAny(command: MixedObjectsAndVerb): Happenings | null {
     for (const box of this.originalBoxes) {
       const result = (SingleBigSwitch(
+        box.GetPath(),
         box.GetFilename(),
         command,
         false,

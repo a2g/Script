@@ -12,6 +12,9 @@ export interface IBoxReadOnlyWithFileMethods extends IBoxReadOnly {
   // methods that only a real file can implement
   GetFilename: () => string;
 
+  // methods that only a real file can implement
+  GetPath: () => string;
+
   // copiers
   CopyStartingPropsToGivenSet: (givenSet: Set<string>) => void;
   CopyStartingGoalsToGivenSet: (givenSet: Set<string>) => void;

@@ -43,17 +43,20 @@ export class Box implements IBoxReadOnlyWithFileMethods {
 
   private readonly filename: string;
 
+  private readonly path: string;
+
   private readonly goals: RootPieceMap;
 
   private isMergingOk: boolean;
 
-  constructor(filename: string) {
+  constructor(path: string, filename: string) {
     this.isMergingOk = true;
+    this.path = path;
     this.filename = filename;
-    if (!existsSync(filename)) {
-      throw new Error(`file doesn't exist ${filename} ${process.cwd()}`);
+    if (!existsSync(path + filename)) {
+      throw new Error(`file doesn't exist ${path}${filename} ${process.cwd()}`);
     }
-    const text = readFileSync(filename, 'utf8');
+    const text = readFileSync(path + filename, 'utf8');
     const scenario = JSON.parse(text);
     const setProps = new Set<string>();
     const setGoals = new Set<string>();
@@ -113,7 +116,7 @@ export class Box implements IBoxReadOnlyWithFileMethods {
       '',
       ''
     );
-    SingleBigSwitch(this.filename, notUsed, true, this.goals);
+    SingleBigSwitch(this.path, this.filename, notUsed, true, this.goals);
     // starting things is optional in the json
     if (
       scenario.startingThings !== undefined &&
@@ -161,11 +164,12 @@ export class Box implements IBoxReadOnlyWithFileMethods {
       '',
       ''
     );
-    await SingleBigSwitch(this.filename, notUsed, false, pile);
+    await SingleBigSwitch(this.path, this.filename, notUsed, false, pile);
   }
 
   public FindHappeningsIfAny(objects: MixedObjectsAndVerb): Happenings | null {
     const result = (SingleBigSwitch(
+      this.path,
       this.filename,
       objects,
       false,
@@ -310,6 +314,10 @@ export class Box implements IBoxReadOnlyWithFileMethods {
 
   public GetFilename(): string {
     return this.filename;
+  }
+
+  public GetPath(): string {
+    return this.path;
   }
 
   public CopyGoalPiecesToContainer(map: IPileOrRootPieceMap): void {

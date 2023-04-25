@@ -5,7 +5,7 @@ import { Box } from '../../../src/puzzle/Box.js'
 
 describe('Solution', () => {
   it('Test of a none clone solution', async () => {
-    const box = new Box('test/puzzle/Test1First.json')
+    const box = new Box('test/puzzle/'+'Test1First.json')
     await box.Init()
     const solver = new SolverViaRootPiece(box)
 
@@ -79,7 +79,7 @@ describe('Solution', () => {
     });
 
     it('Solution test cloning with High Permutation scene2', async () => {
-      const box = new Box('./tests/TestHighPermutationSolution.json')
+      const box = new Box('./tests/'+'TestHighPermutationSolution.json')
       await box.Init()
       const startingThings = box.GetMapOfAllStartingThings()
 

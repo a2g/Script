@@ -11,7 +11,8 @@ describe('SingleBigSwitch', () => {
     );
     const isReturnHappenings = false;
     const happenings = await SingleBigSwitch(
-      'test/puzzle/Test1First.json',
+      'test/puzzle/',
+      'Test1First.json',
       combo,
       isReturnHappenings,
       null
