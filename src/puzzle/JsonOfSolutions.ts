@@ -41,8 +41,9 @@ export class JsonOfSolutions {
 
   private static getJsonArrayOfAllSubPieces(piece: Piece): Array<Object> {
     const toReturn = new Array<Object>();
-    let i = 0;
+    let i = -1;
     for (let hint of piece.inputHints) {
+      i++;
       let pieceOrNull = piece.inputs[i];
       if (pieceOrNull != null) {
         toReturn.push({
@@ -54,6 +55,11 @@ export class JsonOfSolutions {
           name: hint,
         });
       }
+    }
+    if (i == -1) {
+      toReturn.push({
+        name: piece.output,
+      });
     }
     return toReturn;
   }
