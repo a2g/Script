@@ -1,0 +1,32 @@
+<!--
+Modal component with customizable slots and CSS transitions.
+-->
+
+<script type="module">
+  import { createApp } from 'vue'
+  import Modal from './Modal.js'
+  
+  createApp({
+    components: {
+      Modal
+    },
+    data() {
+      return {
+        showModal: false
+      }
+    }
+  }).mount('#app')
+  </script>
+  
+  <div id="app">
+    <button id="show-modal" @click="showModal = true">Show Modal</button>
+  
+    <teleport to="body">
+      <!-- use the modal component, pass in the prop -->
+      <modal :show="showModal" @close="showModal = false">
+        <template #header>
+          <h3>custom header</h3>
+        </template>
+      </modal>
+    </teleport>
+  </div>
