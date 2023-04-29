@@ -230,4 +230,10 @@ export class BigBoxViaSetOfBoxes implements IBoxReadOnly {
       }
     }
   }
+
+  public GetNewPileOfPieces(): PileOfPieces {
+    const pile = new PileOfPieces(null);
+    this.CopyPiecesFromBoxToPile(pile);
+    return pile;
+  }
 }

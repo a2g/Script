@@ -5,7 +5,6 @@ import responseTime from 'response-time';
 import cors from 'cors';
 import path from 'path';
 import { Box } from './puzzle/Box';
-import { BigBoxViaSetOfBoxes } from './puzzle/BigBoxViaSetOfBoxes';
 import { SolverViaRootPiece } from './puzzle/SolverViaRootPiece';
 import { FormatText } from './puzzle/FormatText';
 import { JsonOfSolutions } from './puzzle/JsonOfSolutions';
@@ -34,9 +33,10 @@ async function getSolutionsDirect(req: Request, responseSender: Response) {
 
     const allBoxes = new Set<Box>();
     firstBox.CollectAllReferencedBoxesRecursively(allBoxes);
-    const combined = new BigBoxViaSetOfBoxes(allBoxes);
-    const solver = new SolverViaRootPiece(combined);
+    //const combined = new BigBoxViaSetOfBoxes(allBoxes);
+    const solver = new SolverViaRootPiece(firstBox);
 
+    // iterate 40 times until all root nodes are solved
     for (let i = 0; i < 40; i++) {
       solver.SolvePartiallyUntilCloning();
       solver.MarkGoalsAsCompletedAndMergeIfNeeded();
@@ -62,9 +62,8 @@ async function getSolutionsDirect(req: Request, responseSender: Response) {
         }
       }
 
-      console.warn(
-        `Number of goals incomplete ${incomplete}/${listItemNumber}`
-      );
+      // log the number of goals that are solved
+      console.log(`Number of goals incomplete ${incomplete}/${listItemNumber}`);
       if (incomplete >= listItemNumber) {
         break;
       }

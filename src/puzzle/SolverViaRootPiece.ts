@@ -4,7 +4,6 @@ import { GenerateMapOfLeavesRecursively } from './GenerateMapOfLeavesRecursively
 import { GetDisplayName } from './GetDisplayName';
 import { IBoxReadOnly } from './IBoxReadOnly';
 import { Piece } from './Piece';
-import { PileOfPieces } from './PileOfPieces';
 import { RootPieceMap } from './RootPieceMap';
 import { Solution } from './Solution';
 
@@ -34,11 +33,8 @@ export class SolverViaRootPiece {
   >;
 
   constructor(box: IBoxReadOnly) {
-    const startingThingsAndWhoCanHaveThem = box.GetMapOfAllStartingThings();
-
-    const pile = new PileOfPieces(null);
-    box.CopyPiecesFromBoxToPile(pile);
-
+    // we collect the other boxes - not for their pieces
+    // but for their goal pieces,
     const rootMap = new RootPieceMap(null);
     const boxes = new Set<IBoxReadOnly>();
     box.CollectAllReferencedBoxesRecursively(boxes);
@@ -46,10 +42,11 @@ export class SolverViaRootPiece {
       subBox.CopyGoalPiecesToContainer(rootMap);
     }
 
+    // now we can create the solution
     const firstSolution = new Solution(
       rootMap,
-      pile,
-      startingThingsAndWhoCanHaveThem,
+      box.GetNewPileOfPieces(),
+      box.GetMapOfAllStartingThings(),
       box.IsMergingOk()
     );
     this.solutions = [];

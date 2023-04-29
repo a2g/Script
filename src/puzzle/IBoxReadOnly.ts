@@ -37,4 +37,5 @@ export interface IBoxReadOnly {
   CopyGoalPiecesToContainer: (map: IPileOrRootPieceMap) => void;
   CollectAllReferencedBoxesRecursively: (array: Set<IBoxReadOnly>) => void;
   IsMergingOk: () => boolean;
+  GetNewPileOfPieces: () => PileOfPieces;
 }

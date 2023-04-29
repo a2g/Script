@@ -148,6 +148,7 @@ export class Box implements IBoxReadOnlyWithFileMethods {
       }
     }
   }
+
   public Init() {
     // this was here in case we couldn't load the file in the constructor - but now we can.
   }
@@ -334,5 +335,11 @@ export class Box implements IBoxReadOnlyWithFileMethods {
         goal.piece.merge.CollectAllReferencedBoxesRecursively(set);
       }
     }
+  }
+
+  public GetNewPileOfPieces(): PileOfPieces {
+    const pile = new PileOfPieces(null);
+    this.CopyPiecesFromBoxToPile(pile);
+    return pile;
   }
 }
