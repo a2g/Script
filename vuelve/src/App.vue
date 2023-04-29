@@ -1,12 +1,14 @@
 <script>
- 
+import Example from './components/Example.vue'
+import Tree from './components/Tree.vue'
 import Modal from './components/Modal.vue'
 
 export default {
   name: 'App',
   
   components: {
- 
+    Example,
+    Tree,
     Modal
   },
   data() {
@@ -21,7 +23,8 @@ export default {
   <div id="app">
     <h1>Title is set in App.vue </h1>
     <button id="show-modal" @click="showModal = true">Show Modal</button>
-  
+    <tree />
+    <example />
    
     <!-- use the modal component, pass in the prop -->
     <modal :show="showModal" @close="showModal = false">
