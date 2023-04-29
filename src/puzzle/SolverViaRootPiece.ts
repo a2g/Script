@@ -33,8 +33,8 @@ export class SolverViaRootPiece {
   >;
 
   constructor(box: IBoxReadOnly) {
-    // we collect the other boxes - not for their pieces
-    // but for their goal pieces,
+    // we collect the other boxes, but only for
+    // collecting all rootmap
     const rootMap = new RootPieceMap(null);
     const boxes = new Set<IBoxReadOnly>();
     box.CollectAllReferencedBoxesRecursively(boxes);
@@ -42,7 +42,7 @@ export class SolverViaRootPiece {
       subBox.CopyGoalPiecesToContainer(rootMap);
     }
 
-    // now we can create the solution
+    // ..everything else comes from the single box passed in
     const firstSolution = new Solution(
       rootMap,
       box.GetNewPileOfPieces(),
@@ -58,8 +58,8 @@ export class SolverViaRootPiece {
       const key = thing[0];
       const items = thing[1];
       const newSet = new Set<string>();
-      for (const item of items) {
-        newSet.add(item);
+      for (const itemName of items) {
+        newSet.add(itemName);
       }
       this.mapOfStartingThingsAndWhoCanHaveThem.set(key, newSet);
     }
