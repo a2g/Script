@@ -1,4 +1,4 @@
-import express, { Request, Response } from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import dotenv from 'dotenv';
 //import { createClient, RedisClient } from 'redis';
 import responseTime from 'response-time';
@@ -18,6 +18,26 @@ const redisClient: RedisClient = createClient({
 });*/
 
 dotenv.config();
+
+let svgData = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="400" height="400">
+  <rect width="100%" height="100%" fill="red"/>
+  <text x="50%" y="50%" text-anchor="middle">${String(Math.random())}</text>
+</svg>`;
+
+async function svg(req: Request, responseSender: Response, next: NextFunction) {
+  try {
+    console.log(req.body);
+    console.log(next.name);
+    responseSender.writeHead(200, {
+      'Content-Type': 'image/svg+xml',
+      'Content-Length': svgData.length,
+    });
+    responseSender.end(svgData);
+  } catch (err) {
+    console.error(err);
+    responseSender.status(500);
+  }
+}
 
 // Make direct request to Github for data
 async function getSolutionsDirect(req: Request, responseSender: Response) {
@@ -107,7 +127,7 @@ function getSolutionsFromRedis(
 */
 //app.get('/solutions/:firstFile', getSolutionsFromRedis, getSolutionsDirect);
 app.get('/solutions/:firstFile', getSolutionsDirect);
-
+app.get('/svg/:firstFile', svg);
 // http://odata.netflix.com/v2/Catalog/Titles/$count
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
