@@ -88,24 +88,6 @@ Here is a quick example of how this module can be used in other modules. The [Ty
 
 Now assuming you have published this amazing module to _npm_ with the name `my-amazing-lib`, and installed it in the module in which you need it -
 
-- To use the `Greeter` class in a TypeScript file -
-
-```ts
-import { Greeter } from "my-amazing-lib";
-
-const greeter = new Greeter("World!");
-greeter.greet();
-```
-
-- To use the `Greeter` class in a JavaScript file -
-
-```js
-const Greeter = require('my-amazing-lib').Greeter;
-
-const greeter = new Greeter('World!');
-greeter.greet();
-```
-
 ## Setting travis and coveralls badges
 
 1. Sign in to [travis](https://travis-ci.org/) and activate the build for your project.
