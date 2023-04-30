@@ -16,6 +16,22 @@ export default {
 
         <div class="modal-body">
           <slot name="body">default body</slot>
+          <svg width="300" height="100" xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink">
+  <text x="10" y="20" fill="gray">Attribute Animation with SMIL</text>
+  <rect x="0" y="30" width="300" height="100" stroke="red" stroke-width="1" />
+  <circle cx="0" cy="50" r="15" fill="blue" stroke="cyan" stroke-width="1">
+    <animate
+      attributeName="cx"
+      from="0"
+      to="500"
+      dur="5s "
+      repeatCount="indefinite" />
+  </circle>
+</svg>
+
+
+
         </div>
 
         <div class="modal-footer">
