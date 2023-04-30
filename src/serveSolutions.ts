@@ -7,7 +7,8 @@ import path from 'path';
 import { Box } from './puzzle/Box';
 import { SolverViaRootPiece } from './puzzle/SolverViaRootPiece';
 import { FormatText } from './puzzle/FormatText';
-import { JsonOfSolutions } from './puzzle/JsonOfSolutions';
+import { JsonOfSolutions } from './api/JsonOfSolutions';
+import { SvgWriter } from './api/SvgWriter';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -19,20 +20,13 @@ const redisClient: RedisClient = createClient({
 
 dotenv.config();
 
-let svgData = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="400" height="400">
-  <rect width="100%" height="100%" fill="red"/>
-  <text x="50%" y="50%" text-anchor="middle">${String(Math.random())}</text>
-</svg>`;
 
 async function svg(req: Request, responseSender: Response, next: NextFunction) {
   try {
-    console.log(req.body);
+    const lastVisitedProp = req.params['lastVisitedProp']
+    const command = req.params['command']
     console.log(next.name);
-    responseSender.writeHead(200, {
-      'Content-Type': 'image/svg+xml',
-      'Content-Length': svgData.length,
-    });
-    responseSender.end(svgData);
+    SvgWriter.writeSvg(lastVisitedProp, command, responseSender)
   } catch (err) {
     console.error(err);
     responseSender.status(500);
@@ -97,13 +91,6 @@ async function getSolutionsDirect(req: Request, responseSender: Response) {
   }
 }
 
-app.use('/', express.static(path.join(__dirname, '../lib/src')));
-app.use(responseTime());
-app.use(
-  cors({
-    exposedHeaders: ['X-Response-Time'],
-  })
-);
 /*
 function getSolutionsFromRedis(
   req: Request,
@@ -127,8 +114,15 @@ function getSolutionsFromRedis(
 */
 //app.get('/solutions/:firstFile', getSolutionsFromRedis, getSolutionsDirect);
 app.get('/solutions/:firstFile', getSolutionsDirect);
-app.get('/svg/:firstFile', svg);
-// http://odata.netflix.com/v2/Catalog/Titles/$count
+app.get('/svg', svg);
+app.use('/', express.static(path.join(__dirname, '../lib/src')));
+app.use(responseTime());
+app.use(
+  cors({
+    exposedHeaders: ['X-Response-Time'],
+  })
+);
+
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
 });
