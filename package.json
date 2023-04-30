@@ -46,6 +46,7 @@
     "@types/response-time": "^2.3.5",
     "@typescript-eslint/eslint-plugin": "^5.56.0",
     "@typescript-eslint/parser": "5.56.0",
+    "@svgdotjs/svg.js": "^3.1.2",
     "coveralls": "^3.0.2",
     "jest": "^29.5.0",
     "prettier": "^1.14.3",
