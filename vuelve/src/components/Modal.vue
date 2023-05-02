@@ -1,7 +1,20 @@
 <script>
+
 export default {
   props: {
     show: Boolean
+  },
+  data() {
+    return {
+     svgPath: 'http://localhost:5000/svg'
+    }
+  },
+  methods: {
+    svgLoaded() {
+      setTimeout(() => {
+        console.log(this.$refs.object.contentDocument);
+      }, 1000);
+    }
   }
 }
 </script>
@@ -9,27 +22,25 @@ export default {
 <template>
   <Transition name="modal">
     <div v-if="show" class="modal-mask">
+ 
       <div class="modal-container">
         <div class="modal-header">
           <slot name="header">default header</slot>
         </div>
 
         <div class="modal-body">
+          <object ref="object" :data="svgPath" width="100" height="100" v-on:load="svgLoaded" >
+          </object>
           <slot name="body">default body</slot>
-          <svg width="300" height="100" xmlns="http://www.w3.org/2000/svg"
-  xmlns:xlink="http://www.w3.org/1999/xlink">
-  <text x="10" y="20" fill="gray">Attribute Animation with SMIL</text>
-  <rect x="0" y="30" width="300" height="100" stroke="red" stroke-width="1" />
-  <circle cx="0" cy="50" r="15" fill="blue" stroke="cyan" stroke-width="1">
-    <animate
-      attributeName="cx"
-      from="0"
-      to="500"
-      dur="5s "
-      repeatCount="indefinite" />
-  </circle>
-</svg>
-
+          <svg width="300" height="100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <text x="10" y="20" fill="gray">Attribute Animation with SMIL</text>
+            <rect x="0" y="30" width="300" height="100" stroke="red" stroke-width="1" />
+            <circle cx="0" cy="50" r="15" fill="blue" stroke="cyan" stroke-width="1">
+              <animate attributeName="cx" from="0" to="500" dur="5s " repeatCount="indefinite" />
+            </circle>
+          </svg>
+       
+     
 
 
         </div>
@@ -37,10 +48,7 @@ export default {
         <div class="modal-footer">
           <slot name="footer">
             default footer
-            <button
-              class="modal-default-button"
-              @click="$emit('close')"
-            >OK</button>
+            <button class="modal-default-button" @click="$emit('close')">OK</button>
           </slot>
         </div>
       </div>

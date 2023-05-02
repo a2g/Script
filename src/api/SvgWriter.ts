@@ -1,23 +1,47 @@
 import { Response } from 'express';
+import { SVG, Container, registerWindow } from '@svgdotjs/svg.js';
+//@ts-ignore
+import * as svgdom from 'svgdom';
 
 export class SvgWriter {
+  public static writeSvg(
+    lastVisitedProp: string,
+    command: string,
+    responseSender: Response
+  ) {
+    console.log(command);
+    console.log(lastVisitedProp);
+    let window = svgdom.createSVGWindow();
+    // register window and document
+    registerWindow(window, window.document);
 
-  
-  public static writeSvg(lastVisitedProp: string, command: string, responseSender: Response) {
-    const svg = '<svg width="300" height="100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">'
-const text = `<text x="10" y="20" fill="gray">${lastVisitedProp} ${command}</text>`
-const rect = '<rect x="0" y="30" width="300" height="100" stroke="red" stroke-width="1" />'
-const circle = '<circle cx="0" cy="50" r="15" fill="blue" stroke="cyan" stroke-width="1">'
-const animate = '<animate attributeName="cx" from="0" to="500" dur="5s" repeatCount="indefinite" />'
-const circleEnd = '</circle>'
-const svgEnd = '</svg>'
+    // create canvas
+    const canvas = SVG(window.document.documentElement) as Container;
+    canvas
+      .rect(50, 50)
+      .attr({ fill: '#f03' })
+      .animate({
+        duration: 2000,
+        delay: 1000,
+        when: 'now',
+        swing: true,
+        times: 5,
+        wait: 200,
+      })
+      .attr({ fill: '#f03' });
 
-    let fullSvg = svg + text + rect + circle + animate + circleEnd + svgEnd
-    
+    // use svg.js as normal
+    // canvas.rect(100, 100).fill('yellow').move(50,50)
+    const svg = canvas.svg();
+    // get your svg as string
+    console.log(svg);
+    // or
+    console.log(canvas.node.outerHTML);
+
     responseSender.writeHead(200, {
       'Content-Type': 'image/svg+xml',
-      'Content-Length': fullSvg.length,
+      'Content-Length': svg.length,
     });
-    responseSender.end(fullSvg);
+    responseSender.end(svg);
   }
 }
