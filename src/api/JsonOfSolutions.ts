@@ -1,11 +1,12 @@
-import { Piece } from "../puzzle/Piece";
-import { RawObjectsAndVerb } from "../puzzle/RawObjectsAndVerb";
-import { Solution } from "../puzzle/Solution";
-import { SolverViaRootPiece } from "../puzzle/SolverViaRootPiece";
+import { Piece } from '../puzzle/Piece';
+import { RawObjectsAndVerb } from '../puzzle/RawObjectsAndVerb';
+import { Solution } from '../puzzle/Solution';
+import { SolverViaRootPiece } from '../puzzle/SolverViaRootPiece';
 
- 
 export class JsonOfSolutions {
-  public static getJsonObjectContainingSolutions(solver: SolverViaRootPiece): Object {
+  public static getJsonObjectContainingSolutions(
+    solver: SolverViaRootPiece
+  ): Object {
     return {
       name: 'solutions',
       children: this.getJsonArrayOfSolutions(solver.GetSolutions()),
