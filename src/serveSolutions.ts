@@ -20,13 +20,12 @@ const redisClient: RedisClient = createClient({
 
 dotenv.config();
 
-
 async function svg(req: Request, responseSender: Response, next: NextFunction) {
   try {
-    const lastVisitedProp = req.params['lastVisitedProp']
-    const command = req.params['command']
+    const lastVisitedProp = req.params['lastVisitedProp'];
+    const command = req.params['command'];
     console.log(next.name);
-    SvgWriter.writeSvg(lastVisitedProp, command, responseSender)
+    SvgWriter.writeSvg(lastVisitedProp, command, responseSender);
   } catch (err) {
     console.error(err);
     responseSender.status(500);
