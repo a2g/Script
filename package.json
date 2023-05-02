@@ -37,6 +37,8 @@
     "watch:test": "jest --watch"
   },
   "devDependencies": {
+    "@svgdotjs/svg.js": "^3.1.2",
+    "@svgdom/types": "^0.1.14",
     "@types/cors": "^2.8.13",
     "@types/express": "^4.17.17",
     "@types/jest": "^23.3.14",
@@ -46,7 +48,6 @@
     "@types/response-time": "^2.3.5",
     "@typescript-eslint/eslint-plugin": "^5.56.0",
     "@typescript-eslint/parser": "5.56.0",
-    "@svgdotjs/svg.js": "^3.1.2",
     "coveralls": "^3.0.2",
     "jest": "^29.5.0",
     "prettier": "^1.14.3",
@@ -63,6 +64,7 @@
     "express": "^4.18.2",
     "redis": "3.0.2",
     "response-time": "^2.3.2",
+    "svgdom": "^0.1.14",
     "xmldom": "^0.6.0"
   },
   "engines": {
