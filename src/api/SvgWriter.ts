@@ -1,7 +1,7 @@
 import { Response } from 'express';
-import { SVG, Container, registerWindow } from '@svgdotjs/svg.js';
+
 //@ts-ignore
-import * as svgdom from 'svgdom';
+import { create } from 'xmlbuilder2';
 
 export class SvgWriter {
   public static writeSvg(
@@ -11,37 +11,36 @@ export class SvgWriter {
   ) {
     console.log(command);
     console.log(lastVisitedProp);
-    let window = svgdom.createSVGWindow();
-    // register window and document
-    registerWindow(window, window.document);
 
-    // create canvas
-    const canvas = SVG(window.document.documentElement) as Container;
-    canvas
-      .rect(50, 50)
-      .attr({ fill: '#f03' })
-      .animate({
-        duration: 2000,
-        delay: 1000,
-        when: 'now',
-        swing: true,
-        times: 5,
-        wait: 200,
-      })
+    //const svgNs = 'http://www.w3.org/2000/svg';
+    //const xlinkNs = 'http://www.w3.org/1999/xlink';
 
-
-    // use svg.js as normal
-    // canvas.rect(100, 100).fill('yellow').move(50,50)
-    const svg = canvas.svg();
-    // get your svg as string
-    console.log(svg);
-    // or
-    console.log(canvas.node.outerHTML);
+    const svgDoc = create({
+      defaultNamespace: { ele: 'http://www.w3.org/2000/svg', att: null },
+    });
+    // all svg elements below will be created in the 'http://www.w3.org/2000/svg' namespace
+    // all attributes will be created with the null namespace
+    svgDoc
+      .ele('svg')
+      .att('viewBox', '0 0 100 100')
+      .ele('circle')
+      .att({ cx: 50, cy: 50, r: 48, fill: 'none', stroke: '#000' })
+      .up()
+      .ele('path')
+      .att('d', 'M50,2a48,48 0 1 1 0,96a24 24 0 1 1 0-48a24 24 0 1 0 0-48')
+      .up()
+      .ele('circle')
+      .att({ cx: 50, cy: 26, r: 6 })
+      .up()
+      .ele('circle')
+      .att({ cx: 50, cy: 74, r: 6, fill: '#FFF' })
+      .up();
+    const result = svgDoc.end({ prettyPrint: true });
 
     responseSender.writeHead(200, {
       'Content-Type': 'image/svg+xml',
-      'Content-Length': svg.length,
+      'Content-Length': result.length,
     });
-    responseSender.end(svg);
+    responseSender.end(result);
   }
 }
