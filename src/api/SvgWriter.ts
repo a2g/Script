@@ -28,7 +28,7 @@ export class SvgWriter {
         times: 5,
         wait: 200,
       })
-      .attr({ fill: '#f03' });
+
 
     // use svg.js as normal
     // canvas.rect(100, 100).fill('yellow').move(50,50)
