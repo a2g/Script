@@ -31,6 +31,15 @@ export class SvgWriter {
       .up()
       .ele('circle')
       .att({ cx: 50, cy: 26, r: 6 })
+      .ele('animate')
+      .att({
+        attributeName: 'cx',
+        from: '0',
+        to: '500',
+        dur: '5s',
+        repeatCount: 'indefinite',
+      })
+      .up()
       .up()
       .ele('circle')
       .att({ cx: 50, cy: 74, r: 6, fill: '#FFF' })
