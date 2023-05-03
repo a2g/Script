@@ -2,30 +2,24 @@
   xmlns:xlink="http://www.w3.org/1999/xlink">
   <text x="10" y="20" fill="gray">Attribute Animation with SMIL</text>
   <rect x="0" y="30" width="700" height="700" stroke="red" stroke-width="1" />
-  <circle visible="false" cx="500"  cy="50" r="15" fill="blue" stroke="cyan" stroke-width="1">
-    <animate
-      attributeName="cx"
-      begin="0s" 
-      dur="2s"
-      from="500"
-      to="50"
-      repeatCount="1" />
+  <circle visibility="false" cx="500"  cy="50" r="15" fill="blue" stroke="cyan" stroke-width="1">
      <set attributeName="visibility" to="true" begin="2s" dur="2s" />
   </circle>
-   <circle visible="false" cx="50" cy="50" r="15" fill="blue" stroke="cyan" stroke-width="1">
+   <circle opacity="0" cx="50" cy="50" r="15" fill="blue" stroke="cyan" stroke-width="1">
     <animate 
-      attributeName="visibility"
+      attributeName="opacity"
       begin="2s" 
       dur="2s"
       fill="remove"
-      from="invisible" 
-      to="invisible"  />
+      from="100" 
+      to="100"
+      repeatCount="0"  />
     <animate
       attributeName="cy"
       begin="2s"
       dur="2s "
       from="50"
       to="500"
-      repeatCount="1" />
+      repeatCount="0" />
   </circle>
 </svg>
