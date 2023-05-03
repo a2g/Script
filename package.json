@@ -21,18 +21,19 @@
   "main": "lib/index",
   "types": "lib/index",
   "scripts": {
-    "main": "tsc --pretty && node lib/src/main.js",
-    "serveSolutions": "node lib/src/serveSolutions.js",
-    "serveRepos": "node lib/src/serveRepos.js",
     "app": "node lib/src/app.js",
+    "build": "tsc --pretty",
     "clean": "rimraf lib && rimraf coverage",
+    "compile": "tsc",
+    "coverage": "jest --coverage",
     "format": "prettier --write \"{src,testsYup}/**/*.ts\" --single-quote --trailing-comma es5",
     "lint": "eslint -c .eslintrc.js --ext .ts src/**/*.ts",
+    "main": "tsc --pretty && node lib/src/main.js",
     "prepublishOnly": "npm run build",
     "prebuild": "npm run clean && npm run format && npm run lint && echo Using TypeScript && tsc --version",
-    "build": "tsc --pretty",
+    "serveSolutions": "node lib/src/serveSolutions.js",
+    "serveRepos": "node lib/src/serveRepos.js",
     "test": "jest",
-    "coverage": "jest --coverage",
     "watch": "npm run build -- --watch",
     "watch:test": "jest --watch"
   },
@@ -64,6 +65,7 @@
     "redis": "3.0.2",
     "response-time": "^2.3.2",
     "svgdom": "^0.1.14",
+    "xmlbuilder2": "^3.1.0",
     "xmldom": "^0.6.0"
   },
   "engines": {

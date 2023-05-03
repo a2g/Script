@@ -634,6 +634,35 @@
     "@nodelib/fs.scandir" "2.1.5"
     "fastq" "^1.6.0"
 
+"@oozcitak/dom@1.15.10":
+  "integrity" "sha512-0JT29/LaxVgRcGKvHmSrUTEvZ8BXvZhGl2LASRUgHqDTC1M5g1pLmVv56IYNyt3bG2CUjDkc67wnyZC14pbQrQ=="
+  "resolved" "https://registry.npmjs.org/@oozcitak/dom/-/dom-1.15.10.tgz"
+  "version" "1.15.10"
+  dependencies:
+    "@oozcitak/infra" "1.0.8"
+    "@oozcitak/url" "1.0.4"
+    "@oozcitak/util" "8.3.8"
+
+"@oozcitak/infra@1.0.8":
+  "integrity" "sha512-JRAUc9VR6IGHOL7OGF+yrvs0LO8SlqGnPAMqyzOuFZPSZSXI7Xf2O9+awQPSMXgIWGtgUf/dA6Hs6X6ySEaWTg=="
+  "resolved" "https://registry.npmjs.org/@oozcitak/infra/-/infra-1.0.8.tgz"
+  "version" "1.0.8"
+  dependencies:
+    "@oozcitak/util" "8.3.8"
+
+"@oozcitak/url@1.0.4":
+  "integrity" "sha512-kDcD8y+y3FCSOvnBI6HJgl00viO/nGbQoCINmQ0h98OhnGITrWR3bOGfwYCthgcrV8AnTJz8MzslTQbC3SOAmw=="
+  "resolved" "https://registry.npmjs.org/@oozcitak/url/-/url-1.0.4.tgz"
+  "version" "1.0.4"
+  dependencies:
+    "@oozcitak/infra" "1.0.8"
+    "@oozcitak/util" "8.3.8"
+
+"@oozcitak/util@8.3.8":
+  "integrity" "sha512-T8TbSnGsxo6TDBJx/Sgv/BlVJL3tshxZP7Aq5R1mSnM5OcHY2dQaxLMu2+E8u3gN0MLOzdjurqN4ZRVuzQycOQ=="
+  "resolved" "https://registry.npmjs.org/@oozcitak/util/-/util-8.3.8.tgz"
+  "version" "8.3.8"
+
 "@sinclair/typebox@^0.25.16":
   "integrity" "sha512-XJfwUVUKDHF5ugKwIcxEgc9k8b7HbznCp6eUfWgu710hMPNIO4aw4/zB5RogDQz8nd6gyCDpU9O/m6qYEWY6yQ=="
   "resolved" "https://registry.npmjs.org/@sinclair/typebox/-/typebox-0.25.24.tgz"
@@ -2946,6 +2975,14 @@
   dependencies:
     "argparse" "^2.0.1"
 
+"js-yaml@3.14.0":
+  "integrity" "sha512-/4IbIeHcD9VMHFqDR/gQ7EdZdLimOvW2DdcxFjdyyZ9NsbS+ccrXqVWDtab/lRl5AlUqmpBx8EhPaWR+OtY17A=="
+  "resolved" "https://registry.npmjs.org/js-yaml/-/js-yaml-3.14.0.tgz"
+  "version" "3.14.0"
+  dependencies:
+    "argparse" "^1.0.7"
+    "esprima" "^4.0.0"
+
 "jsbn@~0.1.0":
   "integrity" "sha512-UVU9dibq2JcFWxQPA6KCqj5O42VOmAY3zQUfEKxU0KpTGXwNoCjkX1e13eHNvw/xPynt6pU0rZ1htjWTNTSXsg=="
   "resolved" "https://registry.npmjs.org/jsbn/-/jsbn-0.1.1.tgz"
@@ -4229,6 +4266,17 @@
   dependencies:
     "imurmurhash" "^0.1.4"
     "signal-exit" "^3.0.7"
+
+"xmlbuilder2@^3.1.0":
+  "integrity" "sha512-QAfrowmLOGPh99FbflhSYC6jkNKhP6MtF9A5vIwbOKR+V03MOttdEuFrMzmmramYJoTJimGeyB8PnX9ouIjM7w=="
+  "resolved" "https://registry.npmjs.org/xmlbuilder2/-/xmlbuilder2-3.1.0.tgz"
+  "version" "3.1.0"
+  dependencies:
+    "@oozcitak/dom" "1.15.10"
+    "@oozcitak/infra" "1.0.8"
+    "@oozcitak/util" "8.3.8"
+    "@types/node" "*"
+    "js-yaml" "3.14.0"
 
 "xmldom@^0.6.0":
   "integrity" "sha512-iAcin401y58LckRZ0TkI4k0VSM1Qg0KGSc3i8rU+xrxe19A/BN1zHyVSJY7uoutVlaTSzYyk/v5AmkewAP7jtg=="
