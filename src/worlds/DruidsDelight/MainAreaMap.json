@@ -3,113 +3,113 @@
   "squares": [
     {
       "location": "rocket_turret",
-      "col": "D",
+      "col": "G",
       "row": "1"
     },
     {
       "location": "attic",
-      "col": "D",
+      "col": "G",
       "row": "3"
     },
     {
       "location": "inside_cubby",
-      "col": "F",
+      "col": "I",
       "row": "3"
     },
     {
       "location": "bathroom_vent",
-      "col": "E",
+      "col": "H",
       "row": "5"
     },
     {
       "location": "furnace_room",
       "col": "J",
-      "row": "6"
+      "row": "7"
     },
     {
       "location": "empty_bedroom",
-      "col": "C",
+      "col": "F",
       "row": "7"
     },
     {
       "location": "canvas_bedroom",
-      "col": "E",
+      "col": "H",
       "row": "7"
     },
     {
       "location": "fireplace_room",
       "col": "J",
-      "row": "8"
+      "row": "9"
     },
     {
       "location": "five_statues_room",
       "col": "L",
-      "row": "8"
+      "row": "9"
     },
     {
       "location": "upstairs_landing",
-      "col": "D",
+      "col": "G",
       "row": "9"
     },
     {
       "location": "entry",
       "col": "G",
-      "row": "10"
+      "row": "11"
     },
     {
       "location": "sunstone_altar",
       "col": "I",
-      "row": "10"
+      "row": "11"
     },
     {
       "location": "hallway",
       "col": "K",
-      "row": "10"
+      "row": "11"
     },
     {
       "location": "downstairs_kitchen",
-      "col": "D",
-      "row": "12"
+      "col": "H",
+      "row": "13"
     },
     {
       "location": "larder",
-      "col": "F",
-      "row": "12"
+      "col": "L",
+      "row": "13"
     },
     {
       "location": "inside_icehouse",
       "col": "A",
-      "row": "16"
+      "row": "13"
     },
     {
       "location": "ceremonial_circle",
       "col": "C",
-      "row": "16"
+      "row": "13"
     },
     {
       "location": "inside_greenhouse",
       "col": "E",
-      "row": "16"
+      "row": "13"
     },
     {
       "location": "outside_icehouse",
       "col": "A",
-      "row": "18"
+      "row": "15"
     },
     {
       "location": "grove",
       "col": "C",
-      "row": "18"
+      "row": "15"
     },
     {
       "location": "outside_greenhouse",
       "col": "E",
-      "row": "18"
+      "row": "15"
     },
     {
       "location": "front_door",
       "col": "G",
-      "row": "18"
+      "row": "15"
     }
   ]
 }

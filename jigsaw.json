@@ -4,6 +4,13 @@
   "description": "A puzzle dependency graph defined in json schema. This jigsaw.json includes an enum of types of pieces that describe an adventure game puzzle, and some json schema constraints for each pieces",
   "type": "object",
   "definitions": {
+    "access_type":{
+      "enum": [
+        "bidirectional",
+        "start_to_end",
+        "end_to_start"
+      ]
+    },
     "col_type": {
       "enum": [
         "A",

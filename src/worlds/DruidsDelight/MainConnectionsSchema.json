@@ -3,27 +3,27 @@
     "description": "This is the schema for the main Scenario file for the game. It basically a skeleton, pulling in other more substantial types from other files. It could be split up, but for now its easier managing three files Scenario, Schema and Objects",
     "type": "object",
     "definitions": {
-        "thoroughfare_type": {
+        "connection_type": {
             "type": "object",
             "properties": {
                 "start": {
-                    "$ref": "MainEnums.json#/definitions/area_type"
+                    "$ref": "MainEnums.json#/definitions/location_type"
                 },
                 "end": {
-                    "$ref": "MainEnums.json#/definitions/area_type"
+                    "$ref": "MainEnums.json#/definitions/location_type"
                 },
-                "bidirectional": {
-                    "type": "boolean"
+                "access": {
+                    "$ref": "../../../../jigsaw/jigsaw.json#/definitions/access_type"
                 }
             }
         }
     },
     "properties": {
-        "thoroughfares": {
+        "connections": {
             "type": "array",
             "minItems": 1,
             "items": {
-                "$ref": "#/definitions/thoroughfare_type"
+                "$ref": "#/definitions/connection_type"
             }
         }
     }

@@ -20,12 +20,32 @@ const redisClient: RedisClient = createClient({
 
 dotenv.config();
 
-async function svg(req: Request, responseSender: Response, next: NextFunction) {
+interface RequestParams {
+  world: string;
+  area: string;
+}
+
+interface ResponseBody {}
+
+interface RequestBody {}
+
+interface RequestQuery {
+  lastVisitedProp: string;
+  command: string;
+}
+
+async function svg(
+  req: Request<RequestParams, ResponseBody, RequestBody, RequestQuery>,
+  responseSender: Response,
+  next: NextFunction
+) {
   try {
-    const lastVisitedProp = req.params['lastVisitedProp'];
-    const command = req.params['command'];
+    const world = req.params.world;
+    const area = req.params.area;
+    const command = req.query.command;
+    const lastVisitedProp = req.query.lastVisitedProp;
     console.log(next.name);
-    SvgWriter.writeSvg(lastVisitedProp, command, responseSender);
+    SvgWriter.writeSvg(world, area, lastVisitedProp, command, responseSender);
   } catch (err) {
     console.error(err);
     responseSender.status(500);
@@ -113,7 +133,7 @@ function getSolutionsFromRedis(
 */
 //app.get('/solutions/:firstFile', getSolutionsFromRedis, getSolutionsDirect);
 app.get('/solutions/:firstFile', getSolutionsDirect);
-app.get('/svg', svg);
+app.get('/worlds/:world/:area/svg', svg);
 app.use('/', express.static(path.join(__dirname, '../lib/src')));
 app.use(responseTime());
 app.use(

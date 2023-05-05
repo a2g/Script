@@ -1,15 +1,121 @@
 {
     "$schema": "./MainConnectionsSchema.json",
-    "thoroughfares": [
+    "connections": [
         {
             "start": "inside_icehouse",
             "end": "outside_icehouse",
-            "bidirectional": true
+            "access": "bidirectional"
         },
         {
             "start": "outside_icehouse",
             "end": "grove",
-            "bidirectional": true
+            "access": "bidirectional"
+        },
+        {
+          "start": "outside_greenhouse",
+          "end": "grove",
+          "access": "bidirectional"
+        },
+        {
+          "start": "ceremonial_circle",
+          "end": "grove",
+          "access": "bidirectional"
+        }
+        ,
+        {
+          "start": "inside_greenhouse",
+          "end": "outside_greenhouse",
+          "access": "bidirectional"
+        },
+        {
+          "start": "outside_greenhouse",
+          "end": "front_door",
+          "access": "bidirectional"
+        },
+        {
+          "start": "entry",
+          "end": "front_door",
+          "access": "bidirectional"
+        },
+        {
+          "start": "entry",
+          "end": "downstairs_kitchen",
+          "access": "bidirectional"
+        },
+        {
+          "start": "entry",
+          "end": "upstairs_landing",
+          "access": "bidirectional"
+        },
+        {
+          "start": "entry",
+          "end": "sunstone_altar",
+          "access": "bidirectional"
+        },
+        {
+          "start": "hallway",
+          "end": "sunstone_altar",
+          "access": "bidirectional"
+        },
+        {
+          "start": "fireplace_room",
+          "end": "hallway",
+          "access": "bidirectional"
+        },
+        {
+          "start": "fireplace_room",
+          "end": "furnace_room",
+          "access": "bidirectional"
+        },
+        {
+          "start": "five_statues_room",
+          "end": "hallway",
+          "access": "bidirectional"
+        },
+        {
+          "start": "five_statues_room",
+          "end": "larder",
+          "access": "bidirectional"
+        },
+        {
+          "start": "downstairs_kitchen",
+          "end": "larder",
+          "access": "bidirectional"
+        },
+        {
+          "start": "upstairs_landing",
+          "end": "empty_bedroom",
+          "access": "bidirectional"
+        },
+        {
+          "start": "upstairs_landing",
+          "end": "canvas_bedroom",
+          "access": "bidirectional"
+        },
+        {
+          "start": "bathroom_vent",
+          "end": "canvas_bedroom",
+          "access": "bidirectional"
+        },
+        {
+          "start": "attic",
+          "end": "upstairs_landing",
+          "access": "bidirectional"
+        },
+        {
+          "start": "attic",
+          "end": "rocket_turret",
+          "access": "bidirectional"
+        },
+        {
+          "start": "attic",
+          "end": "inside_cubby",
+          "access": "bidirectional"
+        },
+        {
+          "start": "canvas_bedroom",
+          "end": "bathroom_vent",
+          "access": "bidirectional"
         }
     ]
 }

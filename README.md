@@ -1,6 +1,12 @@
 
 <div style="height: 150px"></div>
 
+location - sigle place
+area = a collection of places
+world = a collection of areas
+
+square - a square on the area-map grid
+
 ## How to run it locally?
 
 #### Copy `.env.sample` to create `.env`. And provide the values for environment variables
