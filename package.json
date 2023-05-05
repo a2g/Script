@@ -31,10 +31,10 @@
     "main": "tsc --pretty && node lib/src/main.js",
     "prepublishOnly": "npm run build",
     "prebuild": "npm run clean && npm run format && npm run lint && echo Using TypeScript && tsc --version",
-    "serveSolutions": "node lib/src/serveSolutions.js",
+    "serve": "node lib/src/serveSolutions.js",
     "serveRepos": "node lib/src/serveRepos.js",
     "test": "jest",
-    "watch": "npm run build -- --watch",
+    "watch": "tsc -w & nodemon lib/src/serveSolutions.js",
     "watch:test": "jest --watch"
   },
   "devDependencies": {
