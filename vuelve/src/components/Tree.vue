@@ -20,8 +20,8 @@ export default {
     return {
       treeData2: {
         name: 'nothing yet',
-        paramA: 'PARAM1',
-        paramB: 'PARAM2',
+        paramA: 'set in Tree.vue',
+        paramB: 'also set in Tree.vue',
         children: [
         ]
       }
@@ -58,7 +58,7 @@ export default {
 
 <template>
   <div>
-    <button @click="awaitGetSolutionsAndSetToData"> blah </button>
+    <button @click="awaitGetSolutionsAndSetToData"> getSolutions </button>
   <ul>
     <td></td>
     <TreeItem class="item" v-bind:theModelAsAProp="treeData2"></TreeItem>
