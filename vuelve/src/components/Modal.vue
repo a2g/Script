@@ -4,11 +4,14 @@ export default {
   props: {
     show: Boolean,
     param1: String,
-    param2: String
+    param2: String,
+    svgProp:{
+      type: String,
+      default: 'http://localhost:5000/worlds/DruidsDelight/Main/svg'
+    }
   },
   data() {
     return {
-     svgPath: 'http://localhost:5000/svg'
     }
   },
   methods: {
@@ -31,20 +34,9 @@ export default {
         </div>
        
         <div class="modal-body">
-          <object ref="object" :data="svgPath" width="100" height="100" v-on:load="svgLoaded" >
+          <object ref="object" :data="svgProp" width="100" height="100"  >
           </object>
           <slot name="body"> {{ param1 }}</slot>
-          <svg width="300" height="100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-            <text x="10" y="20" fill="gray">Attribute Animation with SMIL</text>
-            <rect x="0" y="30" width="300" height="100" stroke="red" stroke-width="1" />
-            <circle cx="0" cy="50" r="15" fill="blue" stroke="cyan" stroke-width="1">
-              <animate attributeName="cx" from="0" to="500" dur="5s " repeatCount="indefinite" />
-            </circle>
-          </svg>
-       
-     
-
-
         </div>
 
         <div class="modal-footer">
