@@ -1,4 +1,4 @@
-import express, { NextFunction, Request, Response } from 'express';
+import express, { Request, Response } from 'express';
 import dotenv from 'dotenv';
 //import { createClient, RedisClient } from 'redis';
 import responseTime from 'response-time';
@@ -7,8 +7,9 @@ import path from 'path';
 import { Box } from './puzzle/Box';
 import { SolverViaRootPiece } from './puzzle/SolverViaRootPiece';
 import { FormatText } from './puzzle/FormatText';
-import { JsonOfSolutions } from './api/JsonOfSolutions';
-import { SvgWriter } from './api/SvgWriter';
+
+import { solutions } from './api/solutions';
+import { svg } from './api/svg';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -19,38 +20,6 @@ const redisClient: RedisClient = createClient({
 });*/
 
 dotenv.config();
-
-interface RequestParams {
-  world: string;
-  area: string;
-}
-
-interface ResponseBody {}
-
-interface RequestBody {}
-
-interface RequestQuery {
-  lastVisitedProp: string;
-  command: string;
-}
-
-async function svg(
-  req: Request<RequestParams, ResponseBody, RequestBody, RequestQuery>,
-  responseSender: Response,
-  next: NextFunction
-) {
-  try {
-    const world = req.params.world;
-    const area = req.params.area;
-    const command = req.query.command;
-    const lastVisitedProp = req.query.lastVisitedProp;
-    console.log(next.name);
-    SvgWriter.writeSvg(world, area, lastVisitedProp, command, responseSender);
-  } catch (err) {
-    console.error(err);
-    responseSender.status(500);
-  }
-}
 
 // Make direct request to Github for data
 async function getSolutionsDirect(req: Request, responseSender: Response) {
@@ -69,7 +38,6 @@ async function getSolutionsDirect(req: Request, responseSender: Response) {
     //const combined = new BigBoxViaSetOfBoxes(allBoxes);
     const solver = new SolverViaRootPiece(firstBox);
 
-    // iterate 40 times until all root nodes are solved
     for (let i = 0; i < 40; i++) {
       solver.SolvePartiallyUntilCloning();
       solver.MarkGoalsAsCompletedAndMergeIfNeeded();
@@ -95,13 +63,14 @@ async function getSolutionsDirect(req: Request, responseSender: Response) {
         }
       }
 
-      // log the number of goals that are solved
-      console.log(`Number of goals incomplete ${incomplete}/${listItemNumber}`);
+      console.warn(
+        `Number of goals incomplete ${incomplete}/${listItemNumber}`
+      );
       if (incomplete >= listItemNumber) {
         break;
       }
     }
-    const json = JsonOfSolutions.getJsonObjectContainingSolutions(solver);
+    const json = solutions(solver);
 
     responseSender.json(json);
   } catch (err) {
@@ -110,6 +79,13 @@ async function getSolutionsDirect(req: Request, responseSender: Response) {
   }
 }
 
+app.use('/', express.static(path.join(__dirname, '../lib/src')));
+app.use(responseTime());
+app.use(
+  cors({
+    exposedHeaders: ['X-Response-Time'],
+  })
+);
 /*
 function getSolutionsFromRedis(
   req: Request,
@@ -134,13 +110,6 @@ function getSolutionsFromRedis(
 //app.get('/solutions/:firstFile', getSolutionsFromRedis, getSolutionsDirect);
 app.get('/solutions/:firstFile', getSolutionsDirect);
 app.get('/worlds/:world/:area/svg', svg);
-app.use('/', express.static(path.join(__dirname, '../lib/src')));
-app.use(responseTime());
-app.use(
-  cors({
-    exposedHeaders: ['X-Response-Time'],
-  })
-);
 
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
