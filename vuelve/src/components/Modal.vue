@@ -34,7 +34,7 @@ export default {
         </div>
        
         <div class="modal-body">
-          <object ref="object" :data="svgProp" width="100" height="100"  >
+          <object ref="object" :data="svgProp" >
           </object>
           <slot name="body"> {{ param1 }}</slot>
         </div>
