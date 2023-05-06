@@ -20,6 +20,8 @@ export default {
     return {
       treeData2: {
         name: 'nothing yet',
+        paramA: 'PARAM1',
+        paramB: 'PARAM2',
         children: [
         ]
       }

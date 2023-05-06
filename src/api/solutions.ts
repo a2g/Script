@@ -73,6 +73,8 @@ function getJsonArrayOfOrderedSteps(
   for (let step of steps) {
     toReturn.push({
       name: step.AsDisplayString(false),
+      paramA: 'furnace_room',
+      paramB: 'inside_greenhouse',
       children: [],
     });
   }

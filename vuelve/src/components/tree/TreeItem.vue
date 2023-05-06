@@ -12,7 +12,6 @@ export default {
       type: Boolean,
       default: false
     }
-
   },
   data() {
     return {
@@ -50,6 +49,9 @@ export default {
   <li>
     <div :class="{ bold: isFolder }" @click="toggle" @dblclick="changeType">
       {{ theModelAsAProp.name }}
+      
+      <button  @click="showModal = true">{{theModelAsAProp.paramA}}</button>
+     
       <span v-if="isFolder">[{{ isOpen ? '-' : '+' }}]</span>
     </div>
     <ul v-show="isOpen" v-if="isFolder">
@@ -61,11 +63,11 @@ export default {
         v-bind:theModelAsAProp="subModel">
       </TreeItem>
       <li class="add" @click="showModal = true">Show Modal</li>
-   
       <li class="add" @click="addChild">+</li>
     </ul>
      <!-- use the modal component, pass in the prop -->
-  <modal :show="showModal" @close="showModal = false">
+  <modal :show="showModal" :param1='theModelAsAProp.paramA' :param2='theModelAsAProp.paramB'
+  @close="showModal = false">
     <template #header>
       <h3>custom header</h3>
     </template>

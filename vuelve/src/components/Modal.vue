@@ -2,7 +2,9 @@
 
 export default {
   props: {
-    show: Boolean
+    show: Boolean,
+    param1: String,
+    param2: String
   },
   data() {
     return {
@@ -25,13 +27,13 @@ export default {
  
       <div class="modal-container">
         <div class="modal-header">
-          <slot name="header">default header</slot>
+          <slot name="header"> {{ param1 }}</slot>
         </div>
-
+       
         <div class="modal-body">
           <object ref="object" :data="svgPath" width="100" height="100" v-on:load="svgLoaded" >
           </object>
-          <slot name="body">default body</slot>
+          <slot name="body"> {{ param1 }}</slot>
           <svg width="300" height="100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
             <text x="10" y="20" fill="gray">Attribute Animation with SMIL</text>
             <rect x="0" y="30" width="300" height="100" stroke="red" stroke-width="1" />
