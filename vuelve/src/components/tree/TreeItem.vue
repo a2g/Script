@@ -1,8 +1,18 @@
 <script>
+import Modal from '../Modal.vue'
+
 export default {
   name: 'TreeItem', // necessary for self-reference
+  components: {
+    Modal
+  },
   props: {
-    theModelAsAProp: Object
+    theModelAsAProp: Object,
+    showModal: {
+      type: Boolean,
+      default: false
+    }
+
   },
   data() {
     return {
@@ -38,10 +48,7 @@ export default {
 
 <template>
   <li>
-    <div
-      :class="{ bold: isFolder }"
-      @click="toggle"
-      @dblclick="changeType">
+    <div :class="{ bold: isFolder }" @click="toggle" @dblclick="changeType">
       {{ theModelAsAProp.name }}
       <span v-if="isFolder">[{{ isOpen ? '-' : '+' }}]</span>
     </div>
@@ -50,12 +57,19 @@ export default {
         A component can recursively render itself using its
         "name" option (inferred from filename if using SFC)
       -->
-      <TreeItem
-        class="item"
-        v-for="subModel in theModelAsAProp.children"  v-bind:key = "subModel.id"
+      <TreeItem class="item" v-for="subModel in theModelAsAProp.children" v-bind:key="subModel.id"
         v-bind:theModelAsAProp="subModel">
       </TreeItem>
+      <li class="add" @click="showModal = true">Show Modal</li>
+   
       <li class="add" @click="addChild">+</li>
     </ul>
+     <!-- use the modal component, pass in the prop -->
+  <modal :show="showModal" @close="showModal = false">
+    <template #header>
+      <h3>custom header</h3>
+    </template>
+  </modal>
   </li>
+ 
 </template>
