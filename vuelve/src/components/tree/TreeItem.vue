@@ -62,7 +62,6 @@ export default {
       <TreeItem class="item" v-for="subModel in theModelAsAProp.children" v-bind:key="subModel.id"
         v-bind:theModelAsAProp="subModel">
       </TreeItem>
-      <li class="add" @click="showModal = true">Show Modal</li>
       <li class="add" @click="addChild">+</li>
     </ul>
      <!-- use the modal component, pass in the prop -->
