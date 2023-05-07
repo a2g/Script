@@ -17,7 +17,7 @@ export default {
   methods: {
     svgLoaded() {
       setTimeout(() => {
-        console.log(this.$refs.object.contentDocument);
+        console.log("this works");
       }, 1000);
     }
   }

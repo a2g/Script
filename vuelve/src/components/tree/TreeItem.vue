@@ -65,7 +65,9 @@ export default {
       <li class="add" @click="addChild">+</li>
     </ul>
      <!-- use the modal component, pass in the prop -->
-  <modal :show="showModal" :param1='theModelAsAProp.paramA' :param2='theModelAsAProp.paramB'
+  <modal :show="showModal" 
+  :param1='theModelAsAProp.paramA'
+  :param2='theModelAsAProp.paramB'
   @close="showModal = false">
     <template #header>
       <h3>custom header</h3>
