@@ -16,7 +16,7 @@
         {
             "areaName": "(F)First)",
             "areaEnum": "F",
-            "startingGateFile": "./MainFirst.json",
+            "startingGateFile": "./MainFirstBox.json",
             "extraFiles": []
         }
     ],

@@ -30,7 +30,7 @@ async function getSolutionsDirect(req: Request, responseSender: Response) {
     // if switching from
     //process.chdir('./src/worlds/DruidsDelight/');
     console.log(firstFile);
-    const firstBox = new Box('./src/worlds/DruidsDelight/', 'MainFirst.json');
+    const firstBox = new Box('./src/worlds/DruidsDelight/', 'MainFirstBox.json');
     firstBox.Init();
 
     const allBoxes = new Set<Box>();
