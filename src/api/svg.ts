@@ -7,8 +7,8 @@ interface RequestParams {
 interface ResponseBody {}
 interface RequestBody {}
 interface RequestQuery {
-  lastVisitedProp: string;
-  command: string;
+  paramA: string;
+  paramB: string;
 }
 
 export async function svg(
@@ -19,10 +19,10 @@ export async function svg(
   try {
     const world = req.params.world;
     const area = req.params.area;
-    const command = req.query.command;
-    const lastVisitedProp = req.query.lastVisitedProp;
+    const paramA = req.query.paramA;
+    const paramB = req.query.paramB;
     console.log(next.name);
-    SvgWriter.writeSvg(world, area, lastVisitedProp, command, responseSender);
+    SvgWriter.writeSvg(world, area, paramA, paramB, responseSender);
   } catch (err) {
     console.error(err);
     responseSender.status(500);

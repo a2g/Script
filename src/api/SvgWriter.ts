@@ -20,12 +20,11 @@ export class SvgWriter {
   public static writeSvg(
     world: string,
     area: string,
-    lastVisitedProp: string,
-    command: string,
+    paramA: string,
+    paramB: string,
     responseSender: Response
   ) {
-    console.log(command);
-    console.log(lastVisitedProp);
+
 
     const path = `./src/worlds/${world}/`;
     const areaMapFilename = `${area}AreaMap.json`;
@@ -140,58 +139,65 @@ export class SvgWriter {
               graph.addEdge(a, b, 8);
             }
           }
-          const start = centres.get('furnace_room');
-          const end = centres.get('inside_greenhouse');
-          if (start != null && end != null) {
-            let solution = graph.findShortestPath(start, end);
-            for (let i = 0; i < solution.path.length - 1; i++) {
-              const a = solution.path[i];
-              const b = solution.path[i + 1];
-              lastNode
-                .ele('circle')
-                .att({
-                  opacity: 0,
-                  cx: 50,
-                  cy: 500,
-                  r: 15,
-                  fill: 'blue',
-                  stroke: 'cyan',
-                })
-                .ele('animate')
-                .att({
-                  attributeName: 'opacity',
-                  begin: `${i * 2}s`,
-                  dur: '2s',
-                  fill: 'remove',
-                  from: '100',
-                  to: '100',
-                  repeatCount: '0',
-                })
-                .up()
-                .ele('animate')
-                .att({
-                  attributeName: 'cx',
-                  begin: `${i * 2}s`,
-                  dur: '2s',
-                  fill: 'remove',
-                  from: a.getX(),
-                  to: b.getX(),
-                  repeatCount: '0',
-                })
-                .up()
+          if (scenario.props != null) {
+            let props = scenario.props as Map<string, string>
+            let locationA = props.get(paramA);
+            let locationB = props.get(paramB);
+            if (locationA != null && locationB != null) {
+              const start = centres.get(locationA);
+              const end = centres.get(locationB);
+              if (start != null && end != null) {
+                let solution = graph.findShortestPath(start, end);
+                for (let i = 0; i < solution.path.length - 1; i++) {
+                  const a = solution.path[i];
+                  const b = solution.path[i + 1];
+                  lastNode
+                    .ele('circle')
+                    .att({
+                      opacity: 0,
+                      cx: 50,
+                      cy: 500,
+                      r: 15,
+                      fill: 'blue',
+                      stroke: 'cyan',
+                    })
+                    .ele('animate')
+                    .att({
+                      attributeName: 'opacity',
+                      begin: `${i * 2}s`,
+                      dur: '2s',
+                      fill: 'remove',
+                      from: '100',
+                      to: '100',
+                      repeatCount: '0',
+                    })
+                    .up()
+                    .ele('animate')
+                    .att({
+                      attributeName: 'cx',
+                      begin: `${i * 2}s`,
+                      dur: '2s',
+                      fill: 'remove',
+                      from: a.getX(),
+                      to: b.getX(),
+                      repeatCount: '0',
+                    })
+                    .up()
 
-                .ele('animate')
-                .att({
-                  attributeName: 'cy',
-                  begin: `${i * 2}s`,
-                  dur: '2s',
-                  fill: 'remove',
-                  from: a.getY(),
-                  to: b.getY(),
-                  repeatCount: '0',
-                })
-                .up()
-                .up();
+                    .ele('animate')
+                    .att({
+                      attributeName: 'cy',
+                      begin: `${i * 2}s`,
+                      dur: '2s',
+                      fill: 'remove',
+                      from: a.getY(),
+                      to: b.getY(),
+                      repeatCount: '0',
+                    })
+                    .up()
+                    .up();
+                }
+              }
             }
           }
         }

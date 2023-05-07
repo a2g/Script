@@ -111,5 +111,46 @@
       "col": "G",
       "row": "15"
     }
-  ]
+  ],
+  "props": {
+    "prop_druid_wielding_knife" :"grove",
+    "prop_dog" :"grove", 
+    "prop_icehouse" : "outside_icehouse",
+    "prop_well" : "outside_icehouse",
+    "prop_loose_brick": "outside_icehouse",
+    "prop_greenhouse" :"outside_greenhouse",
+    "prop_greenhouse_door":"outside_greenhouse",
+    "prop_apples":"outside_greenhouse",
+    "prop_butler":"front_door",
+    "prop_soil_thermometer":"inside_greenhouse",
+    "prop_hurl" : "inside_cubby",
+    "prop_furnace" : "furnace_room",
+    "prop_furnace_with_coal":"furnace_room",
+    "prop_rocket": "rocket_turret",
+    "prop_control_panel": "furnace_room",
+    "prop_hole_in_wall" : "rocket_turret",
+    "prop_crank_in_wall" : "rocket_turret",
+    "prop_crank_attached_to_well" :  "outside_icehouse",
+    "prop_three_punctuated_circles" : "inside_icehouse",
+    "prop_arch_druid" : "ceremonial_circle",
+    "prop_grandfather_clock":"entry",
+    "prop_cooking_lard" :"downstairs_kitchen",
+    "prop_herbs" : "inside_greenhouse",
+    "prop_vent" : "bathroom_vent",
+    "prop_windup_key" : "inside_cubby",
+    "prop_dumbwaiter" : "larder",
+    "prop_vinegar" : "five_statues_room",
+    "prop_rolling_pin": "five_statues_room",
+    "prop_sunstone" : "five_statues_room",
+    "prop_painting" : "empty_bedroom",
+    "prop_fireplace(lit)" : "fireplace_room",
+    "prop_fireplace_ladder" : "fireplace_room",
+    "prop_coal_bunker" : "outside_greenhouse",
+    "prop_button(unpressed)" : "furnace_room",
+    "prop_button(pressed)" : "furnace_room",
+    "prop_rocket_gate" : "rocket_turret",
+    "prop_rocket_gate_buttered" : "rocket_turret",
+    "prop_furnace_lit" : "furnace_room"
+    }
+  
 }

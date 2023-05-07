@@ -70,13 +70,27 @@ function getJsonArrayOfOrderedSteps(
   steps: Array<RawObjectsAndVerb>
 ): Array<Object> {
   const toReturn = new Array<Object>();
+  let lastLocation = '';
   for (let step of steps) {
+
+    // big writing about why its bad
+    //
+    //
+    // 
+    let newLocation = lastLocation; // default to last
+    if (step.objectA.startsWith('prop_')) {
+      newLocation = step.objectA;
+    } else if (step.objectB.startsWith('prop_')) {
+      newLocation = step.objectB;
+    }
+
     toReturn.push({
       name: step.AsDisplayString(false),
-      paramA: 'furnace_room',
-      paramB: 'inside_greenhouse',
+      paramA: lastLocation,
+      paramB: newLocation,
       children: [],
     });
+    lastLocation = newLocation;
   }
   return toReturn;
 }
