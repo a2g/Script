@@ -3,7 +3,7 @@
   "description": "This is the schema for the main Scenario file for the game. It basically a skeleton, pulling in other more substantial types from other files. It could be split up, but for now its easier managing three files Scenario, Schema and Objects",
   "type": "object",
   "definitions": {
-    "reaction_type": {
+    "pieces_type": {
       "type": "object",
       "allOf": [
         {
@@ -106,7 +106,7 @@
       "type": "array",
       "minItems": 1,
       "items": {
-        "$ref": "#/definitions/reaction_type"
+        "$ref": "#/definitions/pieces_type"
       }
     }
   }
