@@ -18,7 +18,12 @@
       }
     }
   },
+  "additionalProperties": false,
+  "minProperties": 3,
   "properties": {
+    "startingLocation" :{
+      "$ref": "MainEnums.json#/definitions/location_type"
+    },
     "squares": {
       "type": "array",
       "minItems": 1,

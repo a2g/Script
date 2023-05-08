@@ -8,6 +8,10 @@ export default {
   },
   props: {
     theModelAsAProp: Object,
+    baseUrl: {
+      type: String,
+      default: "http://localhost:5000/worlds/DruidsDelight/Main/svg?"
+    },
     showModal: {
       type: Boolean,
       default: false
@@ -50,7 +54,7 @@ export default {
     <div :class="{ bold: isFolder }" @click="toggle" @dblclick="changeType">
       {{ theModelAsAProp.name }}
       
-      <button  @click="showModal = true">{{theModelAsAProp.paramA}}</button>
+      <button  @click="showModal = true">{{baseUrl}}paramA={{theModelAsAProp.paramA}}&amp;paramB={{theModelAsAProp.paramB}}</button>
      
       <span v-if="isFolder">[{{ isOpen ? '-' : '+' }}]</span>
     </div>
@@ -66,8 +70,7 @@ export default {
     </ul>
      <!-- use the modal component, pass in the prop -->
   <modal :show="showModal" 
-  :param1='theModelAsAProp.paramA'
-  :param2='theModelAsAProp.paramB'
+  :svgProp="baseUrl + 'paramA='+theModelAsAProp.paramA+'&paramB='+theModelAsAProp.paramB"
   @close="showModal = false">
     <template #header>
       <h3>custom header</h3>

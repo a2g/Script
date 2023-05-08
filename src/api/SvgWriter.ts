@@ -24,8 +24,6 @@ export class SvgWriter {
     paramB: string,
     responseSender: Response
   ) {
-
-
     const path = `./src/worlds/${world}/`;
     const areaMapFilename = `${area}AreaMap.json`;
     const connectionsFilename = `${area}Connections.json`;
@@ -35,12 +33,12 @@ export class SvgWriter {
       );
     }
     const text = readFileSync(path + areaMapFilename, 'utf8');
-    const scenario = JSON.parse(text);
+    const areaMap = JSON.parse(text);
 
     let maxCol = 1;
     let maxRow = 1;
-    if (Array.isArray(scenario.squares)) {
-      let squares = scenario.squares as $Square[];
+    if (Array.isArray(areaMap.squares)) {
+      let squares = areaMap.squares as $Square[];
       for (let square of squares) {
         const colAsString = square.col;
         let col = colAsString.length > 0 ? colAsString.charCodeAt(0) - 65 : 0;
@@ -99,7 +97,7 @@ export class SvgWriter {
 
       const connectionsPath = path + connectionsFilename;
 
-      // connections are optional
+      // connections are optional - but need for animations
       if (existsSync(connectionsPath)) {
         const text = readFileSync(connectionsPath, 'utf8');
         const json = JSON.parse(text);
@@ -139,10 +137,15 @@ export class SvgWriter {
               graph.addEdge(a, b, 8);
             }
           }
-          if (scenario.props != null) {
-            let props = scenario.props as Map<string, string>
-            let locationA = props.get(paramA);
-            let locationB = props.get(paramB);
+          const props = new Map<string, string>(Object.entries(areaMap.props));
+          console.log(props);
+          if (areaMap.props != null && Boolean(props)) {
+            let locationA = props.get(
+              paramA.length > 0 ? paramA : areaMap.startingLocation
+            );
+            let locationB = props.get(
+              paramB.length > 0 ? paramB : areaMap.startingLocation
+            );
             if (locationA != null && locationB != null) {
               const start = centres.get(locationA);
               const end = centres.get(locationB);

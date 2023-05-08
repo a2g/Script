@@ -3,11 +3,9 @@
 export default {
   props: {
     show: Boolean,
-    param1: String,
-    param2: String,
     svgProp:{
       type: String,
-      default: 'http://localhost:5000/worlds/DruidsDelight/Main/svg'
+      default: "http://localhost:5000/worlds/DruidsDelight/Main/svg?paramA='prop_hurl'&paramB='prop_well'"
     }
   },
   data() {
@@ -30,13 +28,13 @@ export default {
  
       <div class="modal-container">
         <div class="modal-header">
-          <slot name="header"> {{ param1 }}</slot>
+          <slot name="header"> {{ svgProp }}</slot>
         </div>
        
         <div class="modal-body">
           <object ref="object" :data="svgProp" >
           </object>
-          <slot name="body"> {{ param1 }}</slot>
+          <slot name="body"> {{ svgProp }}</slot>
         </div>
 
         <div class="modal-footer">

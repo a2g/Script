@@ -19,8 +19,8 @@ export async function svg(
   try {
     const world = req.params.world;
     const area = req.params.area;
-    const paramA = req.query.paramA;
-    const paramB = req.query.paramB;
+    const paramA: string = req.query.paramA ?? '';
+    const paramB: string = req.query.paramB ?? '';
     console.log(next.name);
     SvgWriter.writeSvg(world, area, paramA, paramB, responseSender);
   } catch (err) {
