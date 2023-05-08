@@ -7,5 +7,5 @@ export enum Raw {
   Use,
   Give,
   Goal,
-  You_have_won_the_game,
+  PenultimateStep,
 }

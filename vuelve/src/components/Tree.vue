@@ -20,7 +20,7 @@ export default {
     return {
       treeData2: {
         name: 'nothing yet',
-        isAGoal: true,
+        isAGoalOrAuto: true,
         paramA: 'set in Tree.vue',
         paramB: 'also set in Tree.vue',
         children: [

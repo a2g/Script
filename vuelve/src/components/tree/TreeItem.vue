@@ -54,7 +54,7 @@ export default {
     <div :class="{ bold: isFolder }" @click="toggle" @dblclick="changeType">
       {{ theModelAsAProp.name }}
       
-      <button v-if="!isFolder && !theModelAsAProp.isAGoal" @click="showModal = true">Show</button>
+      <button v-if="!isFolder && !theModelAsAProp.isAGoalOrAuto" @click="showModal = true">Show</button>
      
       <span v-if="isFolder">[{{ isOpen ? '-' : '+' }}]</span>
     </div>
@@ -70,10 +70,11 @@ export default {
     </ul>
      <!-- use the modal component, pass in the prop -->
   <modal :show="showModal" 
+  :displayString="theModelAsAProp.name"
   :svgProp="baseUrl + 'paramA='+theModelAsAProp.paramA+'&paramB='+theModelAsAProp.paramB"
   @close="showModal = false">
     <template #header>
-      <h3>custom header</h3>
+      <h3>Map and path</h3>
     </template>
   </modal>
   </li>

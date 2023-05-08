@@ -16,6 +16,8 @@ declare interface $Connection {
   access: string;
 }
 
+const DELAY = 1;
+
 export class SvgWriter {
   public static writeSvg(
     world: string,
@@ -167,8 +169,8 @@ export class SvgWriter {
                     .ele('animate')
                     .att({
                       attributeName: 'opacity',
-                      begin: `${i * 2}s`,
-                      dur: '2s',
+                      begin: `${i * DELAY}s`,
+                      dur: `${DELAY}s`,
                       fill: 'remove',
                       from: '100',
                       to: '100',
@@ -178,8 +180,8 @@ export class SvgWriter {
                     .ele('animate')
                     .att({
                       attributeName: 'cx',
-                      begin: `${i * 2}s`,
-                      dur: '2s',
+                      begin: `${i * DELAY}s`,
+                      dur: `${DELAY}s`,
                       fill: 'remove',
                       from: a.getX(),
                       to: b.getX(),
@@ -190,8 +192,8 @@ export class SvgWriter {
                     .ele('animate')
                     .att({
                       attributeName: 'cy',
-                      begin: `${i * 2}s`,
-                      dur: '2s',
+                      begin: `${i * DELAY}s`,
+                      dur: `${DELAY}s`,
                       fill: 'remove',
                       from: a.getY(),
                       to: b.getY(),

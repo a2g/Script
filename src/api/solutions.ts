@@ -31,13 +31,13 @@ function getJsonArrayOfRootPieces(solution: Solution): Array<Object> {
   for (let rootPiece of rootPieces) {
     toReturn.push({
       name: rootPiece.piece.GetOutput(),
-      isAGoal: false,
+      isAGoalOrAuto: false,
       children: getJsonArrayOfAllSubPieces(rootPiece.piece),
     });
   }
   toReturn.push({
     name: `Solution`,
-    isAGoal: false,
+    isAGoalOrAuto: false,
     children: getJsonArrayOfOrderedSteps(solution.GetOrderOfGoals()),
   });
   return toReturn;
@@ -52,20 +52,20 @@ function getJsonArrayOfAllSubPieces(piece: Piece): Array<Object> {
     if (pieceOrNull != null) {
       toReturn.push({
         name: hint,
-        isAGoal: false,
+        isAGoalOrAuto: false,
         children: getJsonArrayOfAllSubPieces(pieceOrNull),
       });
     } else {
       toReturn.push({
         name: hint,
-        isAGoal: false,
+        isAGoalOrAuto: false,
       });
     }
   }
   if (i == -1) {
     toReturn.push({
       name: piece.output,
-      isAGoal: false,
+      isAGoalOrAuto: false,
     });
   }
   return toReturn;
@@ -90,7 +90,7 @@ function getJsonArrayOfOrderedSteps(
 
     toReturn.push({
       name: step.AsDisplayString(false),
-      isAGoal: step.isAGoal(),
+      isAGoalOrAuto: step.isAGoalOrAuto(),
       paramA: lastLocation,
       paramB: newLocation,
       children: [],

@@ -3,6 +3,7 @@
 export default {
   props: {
     show: Boolean,
+    displayString: String,
     svgProp:{
       type: String,
       default: "http://localhost:5000/worlds/DruidsDelight/Main/svg?paramA='prop_hurl'&paramB='prop_well'"
@@ -39,7 +40,7 @@ export default {
 
         <div class="modal-footer">
           <slot name="footer">
-            default footer
+            {{displayString}}
             <button class="modal-default-button" @click="$emit('close')">OK</button>
           </slot>
         </div>

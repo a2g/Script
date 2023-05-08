@@ -252,7 +252,7 @@ export class Solution {
         this.commandCompletedInOrder.push(rawObjectsAndVerb);
       }
 
-      if (rawObjectsAndVerb.type === Raw.You_have_won_the_game) {
+      if (rawObjectsAndVerb.type === Raw.PenultimateStep) {
         // this is just here for debugging!
         console.warn(reverseTraverser.GetNextDoableCommandAndDeconstructTree());
         break;

@@ -60,7 +60,7 @@ export class ReverseTraverser {
 
           if (piece.output === 'goal_win') {
             return new RawObjectsAndVerb(
-              Raw.You_have_won_the_game,
+              Raw.PenultimateStep,
               '',
               '',
               piece.getRestrictions(),
@@ -135,7 +135,7 @@ export class ReverseTraverser {
             // I think this means tha the root piece isn't set properly!
             // so we need to set breakpoint on this return, and the one above, and debug
             return new RawObjectsAndVerb(
-              Raw.You_have_won_the_game,
+              Raw.PenultimateStep,
               piece.inputHints[0],
               '',
               piece.getRestrictions(),
