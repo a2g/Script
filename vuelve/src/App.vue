@@ -22,7 +22,6 @@ export default {
 <template>
   <div id="app">
     <h1>Title is set in App.vue </h1>
-    <button id="show-modal" @click="showModal = true">Show Modal</button>
     <tree />
     <example />
    
