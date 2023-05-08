@@ -54,7 +54,7 @@ export default {
     <div :class="{ bold: isFolder }" @click="toggle" @dblclick="changeType">
       {{ theModelAsAProp.name }}
       
-      <button  @click="showModal = true">{{baseUrl}}paramA={{theModelAsAProp.paramA}}&amp;paramB={{theModelAsAProp.paramB}}</button>
+      <button v-if="!isFolder && !theModelAsAProp.isAGoal" @click="showModal = true">Show</button>
      
       <span v-if="isFolder">[{{ isOpen ? '-' : '+' }}]</span>
     </div>

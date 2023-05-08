@@ -34,7 +34,7 @@ export default {
         <div class="modal-body">
           <object ref="object" :data="svgProp" >
           </object>
-          <slot name="body"> {{ svgProp }}</slot>
+          <slot name="body"></slot>
         </div>
 
         <div class="modal-footer">
@@ -62,7 +62,7 @@ export default {
 }
 
 .modal-container {
-  width: 300px;
+  width: 900px;
   margin: auto;
   padding: 20px 30px;
   background-color: #fff;

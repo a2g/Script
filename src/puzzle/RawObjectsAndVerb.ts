@@ -85,4 +85,8 @@ export class RawObjectsAndVerb {
     console.warn(this.objectA);
     console.warn(this.objectB);
   }
+
+  public isAGoal(): boolean {
+    return this.type === Raw.Goal;
+  }
 }
