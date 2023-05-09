@@ -153,54 +153,78 @@ export class SvgWriter {
               const end = centres.get(locationB);
               if (start != null && end != null) {
                 let solution = graph.findShortestPath(start, end);
-                for (let i = 0; i < solution.path.length - 1; i++) {
+                for (let i = 0; i < solution.path.length; i++) {
                   const a = solution.path[i];
-                  const b = solution.path[i + 1];
-                  lastNode
-                    .ele('circle')
-                    .att({
-                      opacity: 0,
-                      cx: 50,
-                      cy: 500,
-                      r: 15,
-                      fill: 'blue',
-                      stroke: 'cyan',
-                    })
-                    .ele('animate')
-                    .att({
-                      attributeName: 'opacity',
-                      begin: `${i * DELAY}s`,
-                      dur: `${DELAY}s`,
-                      fill: 'remove',
-                      from: '100',
-                      to: '100',
-                      repeatCount: '0',
-                    })
-                    .up()
-                    .ele('animate')
-                    .att({
-                      attributeName: 'cx',
-                      begin: `${i * DELAY}s`,
-                      dur: `${DELAY}s`,
-                      fill: 'remove',
-                      from: a.getX(),
-                      to: b.getX(),
-                      repeatCount: '0',
-                    })
-                    .up()
+                  if (i < solution.path.length - 1) {
+                    const b = solution.path[i + 1];
+                    lastNode
+                      .ele('circle')
+                      .att({
+                        opacity: 0,
+                        cx: 50,
+                        cy: 500,
+                        r: 15,
+                        fill: 'blue',
+                        stroke: 'cyan',
+                      })
+                      .ele('animate')
+                      .att({
+                        attributeName: 'opacity',
+                        begin: `${i * DELAY}s`,
+                        dur: `${DELAY}s`,
+                        fill: 'remove',
+                        from: '100',
+                        to: '100',
+                        repeatCount: '0',
+                      })
+                      .up()
+                      .ele('animate')
+                      .att({
+                        attributeName: 'cx',
+                        begin: `${i * DELAY}s`,
+                        dur: `${DELAY}s`,
+                        fill: 'remove',
+                        from: a.getX(),
+                        to: b.getX(),
+                        repeatCount: '0',
+                      })
+                      .up()
 
-                    .ele('animate')
-                    .att({
-                      attributeName: 'cy',
-                      begin: `${i * DELAY}s`,
-                      dur: `${DELAY}s`,
-                      fill: 'remove',
-                      from: a.getY(),
-                      to: b.getY(),
-                      repeatCount: '0',
-                    })
-                    .up()
-                    .up();
+                      .ele('animate')
+                      .att({
+                        attributeName: 'cy',
+                        begin: `${i * DELAY}s`,
+                        dur: `${DELAY}s`,
+                        fill: 'remove',
+                        from: a.getY(),
+                        to: b.getY(),
+                        repeatCount: '0',
+                      })
+                      .up()
+                      .up();
+                  } else {
+                    lastNode
+                      .ele('circle')
+                      .att({
+                        opacity: 0,
+                        cx: a.getX(),
+                        cy: a.getY(),
+                        r: 15,
+                        fill: 'blue',
+                        stroke: 'cyan',
+                      })
+                      .ele('animate')
+                      .att({
+                        attributeName: 'opacity',
+                        begin: `${i * DELAY}s`,
+                        dur: `2h`,
+                        fill: 'remove',
+                        from: 1,
+                        to: 1,
+                        repeatCount: '0',
+                      })
+                     
+                  }
                 }
               }
             }
