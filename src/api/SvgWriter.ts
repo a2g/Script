@@ -140,14 +140,14 @@ export class SvgWriter {
             }
           }
           const props = new Map<string, string>(Object.entries(areaMap.props));
-          console.log(props);
+
           if (areaMap.props != null && Boolean(props)) {
-            let locationA = props.get(
-              paramA.length > 0 ? paramA : areaMap.startingLocation
-            );
-            let locationB = props.get(
-              paramB.length > 0 ? paramB : areaMap.startingLocation
-            );
+            let locationA =
+              paramA.length > 0 ? props.get(paramA) : areaMap.startingLocation;
+
+            let locationB =
+              paramB.length > 0 ? props.get(paramB) : areaMap.startingLocation;
+
             if (locationA != null && locationB != null) {
               const start = centres.get(locationA);
               const end = centres.get(locationB);
@@ -222,8 +222,7 @@ export class SvgWriter {
                         from: 1,
                         to: 1,
                         repeatCount: '0',
-                      })
-                     
+                      });
                   }
                 }
               }
