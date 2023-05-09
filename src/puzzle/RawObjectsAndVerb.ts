@@ -87,8 +87,10 @@ export class RawObjectsAndVerb {
   }
 
   public isAGoalOrAuto(): boolean {
-    return this.type === Raw.Goal 
-    || this.type == Raw.Auto
-    || this.type == Raw.PenultimateStep;
+    return (
+      this.type === Raw.Goal ||
+      this.type == Raw.Auto ||
+      this.type == Raw.PenultimateStep
+    );
   }
 }
