@@ -7,10 +7,10 @@
       "type": "object",
       "properties": {
         "col": {
-          "$ref": "../../../../jigsaw/jigsaw.json#/definitions/col_type"
+          "$ref": "../jigsaw.json#/definitions/col_type"
         },
         "row": {
-          "$ref": "../../../../jigsaw/jigsaw.json#/definitions/row_type"
+          "$ref": "../jigsaw.json#/definitions/row_type"
         },
         "location": {
           "$ref": "MainEnums.json#/definitions/location_type"

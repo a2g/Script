@@ -1,5 +1,5 @@
 {
-    "$schema": "../../../../jigsaw/jigsawCampaignFramework.json",
+    "$schema": "../jigsawCampaignFramework.json",
     "areas": [
         {
             "areaName": "(D)Dock)",

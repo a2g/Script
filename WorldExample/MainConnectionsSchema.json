@@ -13,7 +13,7 @@
                     "$ref": "MainEnums.json#/definitions/location_type"
                 },
                 "access": {
-                    "$ref": "../../../../jigsaw/jigsaw.json#/definitions/access_type"
+                    "$ref": "../jigsaw.json#/definitions/access_type"
                 }
             }
         }
