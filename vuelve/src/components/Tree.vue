@@ -29,17 +29,20 @@ export default {
     }
   },
   methods: {
-    async awaitGetSolutionsAndSetToData (username) {
-      this.treeData2 = await this.getSolutions(username)
+    async awaitGetSolutionsAndSetToData () {
+      const repo = 'jigsaw'
+      const world = 'WorldExample'
+      const area = 'Main'
+      this.treeData2 = await this.getSolutions(repo, world, area)
 
       if (this.treeData2) {
         this.history.unshift(this.treeData2)
       }
     },
     
-    async getSolutions (username) {
+    async getSolutions (repo, world, area) {
       try {
-        const apiResp = await axios.get(`${API_BASE}/solutions/${username}`)
+        const apiResp = await axios.get(`${API_BASE}/jig/${repo}/${world}/${area}/sols`)
        // const responseTime = apiResp.headers['x-response-time']
         const data = apiResp.data
 

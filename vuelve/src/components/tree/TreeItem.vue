@@ -10,7 +10,7 @@ export default {
     theModelAsAProp: Object,
     baseUrl: {
       type: String,
-      default: "http://localhost:5000/worlds/DruidsDelight/Main/svg?"
+      default: "http://localhost:5000/jig/jigsaw/WorldExample/Main/svg?"
     },
     showModal: {
       type: Boolean,
