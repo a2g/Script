@@ -1,10 +1,11 @@
-import LostBoys from '../worlds/LostBoys/LostBoysCampaign.json';
+/* 
+import Campaign from '../../WorldExample/Campaign.json';
 import { Area } from './Area';
 
 export function ChooseToPlayCampaign(): void {
   const filenames = new Map<string, string[]>();
   const locations = new Map<string, Area>();
-  for (const incoming of LostBoys.locations) {
+  for (const incoming of Campaign.areas) {
     const location = new Area();
     location.areaName = incoming.locationName;
     location.areaEnum = incoming.locationEnum;
@@ -67,5 +68,6 @@ export function ChooseToPlayCampaign(): void {
       PlayPlayable(session.playable);
 
     }// end while true of selecting a section
-  */
-} // end fn
+  
+}
+*/

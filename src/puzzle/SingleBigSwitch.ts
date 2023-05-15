@@ -1,5 +1,5 @@
 import { readFileSync } from 'fs';
-import _ from '../jigsaw.json';
+import _ from '../../jigsaw.json';
 import { AlleviateBrackets } from './AlleviateBrackets';
 import { Box } from './Box';
 import { Happen } from './Happen';

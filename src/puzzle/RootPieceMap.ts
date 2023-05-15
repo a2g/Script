@@ -55,7 +55,7 @@ export class RootPieceMap implements IPileOrRootPieceMap {
 
   public AddPiece(piece: Piece): void {
     // always add to list
-    this.roots.set(piece.output, new RootPiece(piece, 'Default'));
+    this.roots.set(piece.output, new RootPiece(piece, 'Unsolved'));
   }
 
   public Size(): number {

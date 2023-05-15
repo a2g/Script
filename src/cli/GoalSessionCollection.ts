@@ -1,4 +1,4 @@
-import definitions from '../jigsawCampaignFramework.json';
+import definitions from '../../jigsawCampaignFramework.json';
 import { GoalSession } from './GoalSession';
 
 export class GoalSessionCollection {

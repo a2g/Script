@@ -2,12 +2,11 @@ import promptSync from 'prompt-sync';
 import { BigBoxViaSetOfBoxes } from './puzzle/BigBoxViaSetOfBoxes';
 import { Box } from './puzzle/Box';
 import { SolverViaRootPiece } from './puzzle/SolverViaRootPiece';
-import druids from './worlds/DruidsDelight/Campaign.json';
+import druids from '../WorldExample/Campaign.json';
 import { ChooseDigIntoGoals } from './cli/ChooseDigIntoGoals';
 import { ChooseListOfLeaves } from './cli/ChooseListOfLeaves';
 import { ChooseOrderOfGoals } from './cli/ChooseOrderOfGoals';
 import { ChooseToFindUnused } from './cli/ChooseToFindUnused';
-import { ChooseToPlayCampaign } from './cli/ChooseToPlayCampaign';
 import { Area } from './cli/Area';
 const prompt = promptSync();
 
@@ -40,13 +39,13 @@ function main(): void {
       case 'b':
         return;
       case '0':
-        ChooseToPlayCampaign();
+        return; //ChooseToPlayCampaign();
         break;
       default:
         if (index >= 0 && index < arrayOfFilenames.length) {
           for (;;) {
             const filename = arrayOfFilenames[index];
-            const firstBox = new Box('./src/worlds/DruidsDelight/', filename);
+            const firstBox = new Box('./WorldExample/', filename);
             firstBox.Init();
 
             const allBoxes = new Set<Box>();

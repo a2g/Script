@@ -42,7 +42,7 @@ export function ChooseOrderOfGoals(solver: SolverViaRootPiece): void {
       const goals: Array<RawObjectsAndVerb> = solution.GetOrderOfGoals();
       for (const goal of goals) {
         listItemNumber++;
-        console.warn(`    ${listItemNumber}. ${goal.AsDisplayString}`);
+        console.warn(`    ${listItemNumber}. ${goal.AsDisplayString()}`);
       }
     }
 
