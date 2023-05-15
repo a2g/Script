@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { SvgWriter } from './SvgWriter';
 interface RequestParams {
+  repo: string;
   world: string;
   area: string;
 }
@@ -17,12 +18,13 @@ export async function svg(
   next: NextFunction
 ) {
   try {
+    const repo = req.params.repo;
     const world = req.params.world;
     const area = req.params.area;
     const paramA: string = req.query.paramA ?? '';
     const paramB: string = req.query.paramB ?? '';
     console.log(next.name);
-    SvgWriter.writeSvg(world, area, paramA, paramB, responseSender);
+    SvgWriter.writeSvg(repo, world, area, paramA, paramB, responseSender);
   } catch (err) {
     console.error(err);
     responseSender.status(500);

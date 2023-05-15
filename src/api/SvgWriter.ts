@@ -20,19 +20,21 @@ const DELAY = 1;
 
 export class SvgWriter {
   public static writeSvg(
+    repo: string,
     world: string,
     area: string,
     paramA: string,
     paramB: string,
     responseSender: Response
   ) {
-    const path = `./src/worlds/${world}/`;
+    const path = `../${repo}/${world}/`;
     const areaMapFilename = `${area}AreaMap.json`;
     const connectionsFilename = `${area}Connections.json`;
     if (!existsSync(path + areaMapFilename)) {
-      throw new Error(
+      console.log(
         `file doesn't exist ${path}${areaMapFilename} ${process.cwd()}`
       );
+      return;
     }
     const text = readFileSync(path + areaMapFilename, 'utf8');
     const areaMap = JSON.parse(text);

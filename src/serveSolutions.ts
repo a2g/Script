@@ -10,6 +10,7 @@ import { FormatText } from './puzzle/FormatText';
 
 import { solutions } from './api/solutions';
 import { svg } from './api/svg';
+import { existsSync } from 'fs';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -24,16 +25,24 @@ dotenv.config();
 // Make direct request to Github for data
 async function getSolutionsDirect(req: Request, responseSender: Response) {
   try {
-    const { firstFile } = req.params;
+    const repo = req.params.repo;
+    const world = req.params.world;
+    const area = req.params.area;
+
+    const path = `../${repo}/${world}/`;
+    const firstBoxFilename = `${area}FirstBox.json`;
+
+    if (!existsSync(path + firstBoxFilename)) {
+      console.log(
+        `file doesn't exist ${path}${firstBoxFilename} ${process.cwd()}`
+      );
+      return;
+    }
 
     // it doesn't make sense to change the folder here.
     // if switching from
     //process.chdir('./src/worlds/DruidsDelight/');
-    console.log(firstFile);
-    const firstBox = new Box(
-      './src/worlds/DruidsDelight/',
-      'MainFirstBox.json'
-    );
+    const firstBox = new Box(path, firstBoxFilename);
     firstBox.Init();
 
     const allBoxes = new Set<Box>();
@@ -111,8 +120,8 @@ function getSolutionsFromRedis(
 }
 */
 //app.get('/solutions/:firstFile', getSolutionsFromRedis, getSolutionsDirect);
-app.get('/solutions/:firstFile', getSolutionsDirect);
-app.get('/worlds/:world/:area/svg', svg);
+app.get('/jig/:repo/:world/:area/sols', getSolutionsDirect);
+app.get('/jig/:repo/:world/:area/svg', svg);
 
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
