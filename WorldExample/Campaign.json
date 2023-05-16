@@ -19,43 +19,5 @@
             "startingGateFile": "./MainFirstBox.json",
             "extraFiles": []
         }
-    ],
-    "goals": [
-        {
-            "goalName": "create a light source",
-            "goalEnum": "G2",
-            "location": "E",
-            "prerequisiteGoals": [],
-            "prerequisiteType": "allOfThem",
-            "sunsetGoals": [],
-            "sunsetType": "allOfThem"
-        },
-        {
-            "goalName": "open the greenhouse",
-            "goalEnum": "G3",
-            "location": "F",
-            "prerequisiteGoals": [],
-            "prerequisiteType": "allOfThem",
-            "sunsetGoals": [],
-            "sunsetType": "allOfThem"
-        },
-        {
-            "goalName": "open the icehouse",
-            "goalEnum": "G4",
-            "location": "F",
-            "prerequisiteGoals": ["G3"],
-            "prerequisiteType": "allOfThem",
-            "sunsetGoals": [],
-            "sunsetType": "allOfThem"
-        },
-        {
-            "goalName": "do stuff with the os",
-            "goalEnum": "G5",
-            "location": "F",
-            "prerequisiteGoals": ["G4"],
-            "prerequisiteType": "allOfThem",
-            "sunsetGoals": [],
-            "sunsetType": "allOfThem"
-        }
     ]
 }
