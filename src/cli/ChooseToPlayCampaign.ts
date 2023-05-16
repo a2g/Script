@@ -12,9 +12,9 @@ export function ChooseToPlayCampaign(): void {
 
     locations.set(location.areaName, location);
     const array: string[] = [];
-    array.push(incoming.startingGateFile);
+    array.push(incoming.firstBoxFile);
 
-    location.fileSet.push(incoming.startingGateFile);
+    location.fileSet.push(incoming.firstBoxFile);
     for (const file of incoming.extraFiles) {
       location.fileSet.push(file);
       array.push(file);

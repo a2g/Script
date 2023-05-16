@@ -27,9 +27,9 @@ function main(): void {
       area.areaName = incoming.areaName;
       area.areaEnum = incoming.areaEnum;
       areas.set(area.areaEnum, area);
-      arrayOfFilenames.push(incoming.startingGateFile);
-      const { startingGateFile } = incoming;
-      console.warn(`${i}. ${startingGateFile}`);
+      arrayOfFilenames.push(incoming.firstBoxFile);
+      const { firstBoxFile } = incoming;
+      console.warn(`${i}. ${firstBoxFile}`);
       i += 1;
     }
 

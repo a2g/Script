@@ -4,19 +4,19 @@
         {
             "areaName": "(D)Dock)",
             "areaEnum": "D",
-            "startingGateFile": "./DockF.json",
+            "firstBoxFile": "./DockFirstBox.json",
             "extraFiles": []
         },
         {
             "areaName": "(E)Elder)",
             "areaEnum": "E",
-            "startingGateFile": "./ElderF.json",
+            "firstBoxFile": "./ElderFirstBox.json",
             "extraFiles": []
         },
         {
             "areaName": "(F)First)",
             "areaEnum": "F",
-            "startingGateFile": "./MainFirstBox.json",
+            "firstBoxFile": "./MainFirstBox.json",
             "extraFiles": []
         }
     ]

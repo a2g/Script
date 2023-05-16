@@ -83,7 +83,7 @@
         "locationEnum": {
           "$ref": "#/definitions/area_enum_entity"
         },
-        "startingGateFile": {
+        "firstBoxFile": {
           "type": "string"
         },
         "extraFiles": {
