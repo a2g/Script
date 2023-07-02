@@ -44,6 +44,7 @@ export function SingleBigSwitch(
       const goal3 = Stringify(piece.goal3);
       const goal4 = Stringify(piece.goal4);
       const goal5 = Stringify(piece.goal5);
+      const goal6 = Stringify(piece.goal6);
       const inv1 = Stringify(piece.inv1);
       const inv2 = Stringify(piece.inv2);
       const inv3 = Stringify(piece.inv3);
@@ -60,10 +61,9 @@ export function SingleBigSwitch(
             merge = new Box(path, filenameToMerge);
           }
           switch (pieceType) {
-            case _.AUTO_GOAL1_SET_BY_GOAL2:
+            case _.AUTO_GOAL1_SET_BY_GOALS:
               if (piecesMappedByOutput != null) {
                 const output = goal1;
-                const input = goal2;
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
@@ -73,7 +73,11 @@ export function SingleBigSwitch(
                     count,
                     happs,
                     restrictions,
-                    input
+                    goal2,
+                    goal3,
+                    goal4,
+                    goal5,
+                    goal6
                   )
                 );
               }
@@ -126,6 +130,32 @@ export function SingleBigSwitch(
                     input3
                   )
                 );
+              }
+              break;
+            case _.GOAL1_SET_BY_KEEPING_INV1_WHEN_USED_WITH_PROP1:
+              happs.text = `You use the ${inv1} with the ${prop1} and something good happens...`;
+              happs.array.push(new Happening(Happen.GoalIsSet, goal1));
+              happs.array.push(new Happening(Happen.InvStays, inv1));
+              happs.array.push(new Happening(Happen.PropStays, prop1));
+              if (piecesMappedByOutput != null) {
+                const output = goal1;
+                const inputA = inv1;
+                const inputB = prop1;
+                piecesMappedByOutput.AddPiece(
+                  new Piece(
+                    id1,
+                    merge,
+                    output,
+                    pieceType,
+                    count,
+                    happs,
+                    restrictions,
+                    inputA,
+                    inputB
+                  )
+                );
+              } else if (objects.Match('Use', inv1, prop1)) {
+                return happs;
               }
               break;
             case _.GOAL1_SET_BY_LOSING_INV1_WHEN_USED_WITH_PROP1:

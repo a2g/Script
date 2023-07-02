@@ -1,6 +1,5 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema",
-    "description": "a list of specific objects that gets references from mansion.gates.schema.json",
     "type": "object",
     "definitions": {
         "char_type": {

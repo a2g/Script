@@ -302,7 +302,7 @@
               "piece": {
                 "const": "AUTO_GOAL1_SET_BY_PROPS",
                 "examples": [
-                  "eg goal_wall_has_been_graffitied set by graffitied_wall"
+                  "eg goal_access_thru_fireplace set by prop_fireplace_ladder"
                 ]
               }
             }
@@ -554,19 +554,7 @@
           "if": {
             "properties": {
               "piece": {
-                "const": "AUTO_GOAL1_SET_BY_GOAL2"
-              }
-            }
-          },
-          "then": {
-            "required": ["goal1", "goal2"]
-          }
-        },
-        {
-          "if": {
-            "properties": {
-              "piece": {
-                "const": "AUTO_GOAL1_SET_BY_GOAL2"
+                "const": "AUTO_GOAL1_SET_BY_GOALSS"
               }
             }
           },
@@ -650,7 +638,7 @@
     },
     "the_enum": {
       "enum": [
-        "AUTO_GOAL1_SET_BY_GOAL2",
+        "AUTO_GOAL1_SET_BY_GOALS",
         "AUTO_GOAL1_SET_BY_INVS",
         "AUTO_GOAL1_SET_BY_PROPS",
         "AUTO_INV1_BECOMES_INV2_VIA_GOAL1",
@@ -660,6 +648,7 @@
         "AUTO_PROP1_BECOMES_PROP2_VIA_GOAL1",
         "EXAMINE_PROP1_YIELDS_INV1",
         "GIVE_INV1_TO_PROP1_GETS_INV2",
+        "GOAL1_SET_BY_KEEPING_INV1_WHEN_USED_WITH_PROP1",
         "GOAL1_SET_BY_GIVING_INV1_TO_PROP1",
         "GOAL1_SET_BY_LOSING_INV1_WHEN_USED_WITH_PROP1",
         "GOAL1_SET_BY_LOSING_INV1_USED_WITH_PROP1_AND_PROPS",
@@ -701,7 +690,7 @@
       ]
     }
   },
-  "AUTO_GOAL1_SET_BY_GOAL2": "AUTO_GOAL1_SET_BY_GOAL2",
+  "AUTO_GOAL1_SET_BY_GOALS": "AUTO_GOAL1_SET_BY_GOALS",
   "AUTO_GOAL1_SET_BY_INVS": "AUTO_GOAL1_SET_BY_INVS",
   "AUTO_GOAL1_SET_BY_PROPS": "AUTO_GOAL1_SET_BY_PROPS",
   "AUTO_INV1_BECOMES_INV2_VIA_GOAL1": "AUTO_INV1_BECOMES_INV2_VIA_GOAL1",
@@ -712,6 +701,7 @@
   "EXAMINE_PROP1_YIELDS_INV1": "EXAMINE_PROP1_YIELDS_INV1",
   "GIVE_INV1_TO_PROP1_GETS_INV2": "GIVE_INV1_TO_PROP1_GETS_INV2",
   "GOAL1_SET_BY_GIVING_INV1_TO_PROP1": "GOAL1_SET_BY_GIVING_INV1_TO_PROP1",
+  "GOAL1_SET_BY_KEEPING_INV1_WHEN_USED_WITH_PROP1" : "GOAL1_SET_BY_KEEPING_INV1_WHEN_USED_WITH_PROP1",
   "GOAL1_SET_BY_LOSING_INV1_WHEN_USED_WITH_PROP1": "GOAL1_SET_BY_LOSING_INV1_WHEN_USED_WITH_PROP1",
   "GOAL1_SET_BY_LOSING_INV1_USED_WITH_PROP1_AND_PROPS": "GOAL1_SET_BY_LOSING_INV1_USED_WITH_PROP1_AND_PROPS",
   "GOAL1_SET_BY_USING_INV1_WITH_INV2": "GOAL1_SET_BY_USING_INV1_WITH_INV2",

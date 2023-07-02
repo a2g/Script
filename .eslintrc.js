@@ -15,8 +15,9 @@ module.exports = {
     "@typescript-eslint/no-unused-vars": ["error"]
   },
   parserOptions: {
-      tsconfigRootDir: "./",
-      project: "tsconfig.json",
-  }
+    project: 'tsconfig.json',
+    tsconfigRootDir: __dirname,
+    sourceType: 'module',
+  },
 };
 
