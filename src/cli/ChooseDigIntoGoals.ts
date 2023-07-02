@@ -28,7 +28,10 @@ export function ChooseDigIntoGoals(solver: SolverViaRootPiece): void {
 
           // display list item
           const status: string = item.firstNullInput;
-          const { output } = item.piece;
+          let { output } = item.piece;
+          for(const input of item.piece.inputHints){
+            output+=`/${input}`
+          }
           console.warn(`    ${listItemNumber}. ${output} (status=${status})`);
           incomplete += status.length > 0 ? 1 : 0;
         }
