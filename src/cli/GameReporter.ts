@@ -33,25 +33,25 @@ export class GameReporter {
   public ReportCommand(command: string[]): void {
     this.numberOfCommandsExecuted++;
 
-    let prettifiedComand = '';
+    let prettifiedCommand = '';
     if (command.length !== 3) {
-      prettifiedComand = Colors.Red + 'Command length is not 3!' + Colors.Reset;
+      prettifiedCommand = Colors.Red + 'Command length is not 3!' + Colors.Reset;
     } else if (command[2] !== '') {
-      prettifiedComand =
+      prettifiedCommand =
         this.Prettify(command[0]) +
         ' ' +
         this.Prettify(command[1]) +
         ' with ' +
         this.Prettify(command[2]);
     } else if (command[1] !== '') {
-      prettifiedComand =
+      prettifiedCommand =
         this.Prettify(command[0]) + ' ' + this.Prettify(command[1]);
     } else {
-      prettifiedComand = this.Prettify(command[0]);
+      prettifiedCommand = this.Prettify(command[0]);
     }
 
     console.warn('\n');
-    console.warn(`> #${this.numberOfCommandsExecuted} ${prettifiedComand}`);
+    console.warn(`> #${this.numberOfCommandsExecuted} ${prettifiedCommand}`);
     console.warn('\n');
   }
 
