@@ -1,3 +1,4 @@
+import assert from 'assert';
 import { Happen } from './Happen';
 import { Happenings } from './Happenings';
 import { IBoxReadOnlyWithFileMethods } from './IBoxReadOnlyWithFileMethods';
@@ -159,9 +160,6 @@ export class Piece {
     path: string
   ): boolean {
     const newPath: string = `${path}${this.output}/`;
-    if (this.type === SpecialTypes.VerifiedLeaf) {
-      return false;
-    } // false just means keep processing.
 
     // this is the point we used to set it as completed
     // solution.MarkPieceAsCompleted(this)
@@ -267,9 +265,13 @@ export class Piece {
       if (solution.GetRootMap().Has(objectToObtain)) {
         // is it a goal? (since goal map always contains all goals)
         // solution.MarkGoalsAsContainingNullsAndMergeIfNeeded()// this is optional...
-        const { firstNullInput } = solution
+        const array = solution
           .GetRootMap()
-          .GetRootPieceByName(objectToObtain);
+          .GetRootPieceArrayByName(objectToObtain);
+
+        assert(array.length > 0);
+
+        const { firstNullInput } = array[0];
 
         if (firstNullInput === '') {
           this.StubOutInputK(k, SpecialTypes.CompletedElsewhere);
@@ -311,10 +313,16 @@ export class Piece {
 
           // rediscover the current piece in theSolution - again because we might be cloned
           let thePiece = null;
-          for (const rootPiece of theSolution.GetRootMap().GetValues()) {
-            thePiece = rootPiece.piece.FindAnyPieceMatchingIdRecursively(
-              this.id
-            );
+          for (const array of theSolution.GetRootMap().GetValues()) {
+            for (const rootPiece of array) {
+              thePiece = rootPiece.piece.FindAnyPieceMatchingIdRecursively(
+                this.id
+              );
+
+              if (thePiece != null) {
+                break;
+              }
+            }
             if (thePiece != null) {
               break;
             }

@@ -22,14 +22,16 @@ export function ChooseDigIntoGoals(solver: SolverViaRootPiece): void {
     for (const solution of solver.GetSolutions()) {
       console.warn(FormatText(solution.GetDisplayNamesConcatenated()));
       console.warn(FormatText(solution.GetRootMap().CalculateListOfKeys()));
-      for (const item of solution.GetRootMap().GetValues()) {
-        listItemNumber++;
+      for (const array of solution.GetRootMap().GetValues()) {
+        for (const item of array) {
+          listItemNumber++;
 
-        // display list item
-        const status: string = item.firstNullInput;
-        const { output } = item.piece;
-        console.warn(`    ${listItemNumber}. ${output} (status=${status})`);
-        incomplete += status.length > 0 ? 1 : 0;
+          // display list item
+          const status: string = item.firstNullInput;
+          const { output } = item.piece;
+          console.warn(`    ${listItemNumber}. ${output} (status=${status})`);
+          incomplete += status.length > 0 ? 1 : 0;
+        }
       }
     }
     console.warn(`Number of goals incomplete ${incomplete}/${listItemNumber}`);
@@ -50,10 +52,12 @@ export function ChooseDigIntoGoals(solver: SolverViaRootPiece): void {
         let i = 0;
         for (const solution of solver.GetSolutions()) {
           const goals = solution.GetRootMap().GetValues();
-          for (const goal of goals) {
-            i++;
-            if (i === theNumber) {
-              NavigatePieceRecursive(goal.piece, solution.GetRootMap());
+          for (const array of goals) {
+            for (const goal of array) {
+              i++;
+              if (i === theNumber) {
+                NavigatePieceRecursive(goal.piece, solution.GetRootMap());
+              }
             }
           }
         }

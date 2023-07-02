@@ -28,12 +28,14 @@ function getJsonArrayOfRootPieces(solution: Solution): Array<Object> {
   const toReturn = new Array<Object>();
 
   const rootPieces = solution.GetRootMap().GetValues();
-  for (let rootPiece of rootPieces) {
-    toReturn.push({
-      name: rootPiece.piece.GetOutput(),
-      isAGoalOrAuto: false,
-      children: getJsonArrayOfAllSubPieces(rootPiece.piece),
-    });
+  for (let array of rootPieces) {
+    for (const rootPiece of array) {
+      toReturn.push({
+        name: rootPiece.piece.GetOutput(),
+        isAGoalOrAuto: false,
+        children: getJsonArrayOfAllSubPieces(rootPiece.piece),
+      });
+    }
   }
   toReturn.push({
     name: `Solution`,

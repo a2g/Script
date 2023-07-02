@@ -45,8 +45,6 @@ export class Solution {
 
   private readonly commandCompletedInOrder: Array<RawObjectsAndVerb>;
 
-  private readonly FLAG_WIN: string = 'goal_win';
-
   constructor(
     rootPieceMapToCopy: RootPieceMap | null,
     copyThisMapOfPieces: IPileOfPiecesReadOnly,
@@ -92,9 +90,10 @@ export class Solution {
     // primarily to construct, so passing in root piece is needed..
     // so we clone the whole tree and pass it in
     const clonedRootPieceMap = this.rootPieces.CloneAllRootPiecesAndTheirTrees();
-    this.rootPieces.GetRootPieceByName(
-      this.FLAG_WIN
-    ).piece.id = this.rootPieces.GetRootPieceByName(this.FLAG_WIN).piece.id; // not sure why do this, but looks crucial!
+
+    // When we clone we generally give everything new ids
+    // but
+
     const clonedSolution = new Solution(
       clonedRootPieceMap,
       this.remainingPiecesRepo,
@@ -108,10 +107,12 @@ export class Solution {
 
   public ProcessUntilCloning(solutions: SolverViaRootPiece): boolean {
     let isBreakingDueToSolutionCloning = false;
-    for (const value of this.rootPieces.GetValues()) {
-      if (value.piece.ProcessUntilCloning(this, solutions, '/')) {
-        isBreakingDueToSolutionCloning = true;
-        break;
+    for (const array of this.rootPieces.GetValues()) {
+      for (const goal of array) {
+        if (goal.piece.ProcessUntilCloning(this, solutions, '/')) {
+          isBreakingDueToSolutionCloning = true;
+          break;
+        }
       }
     }
 
@@ -125,10 +126,6 @@ export class Solution {
   GetIncompletePieces (): Set<Piece> {
     return this.incompletePieces
   } */
-
-  public GetGoalWin(): Piece {
-    return this.rootPieces.GetRootPieceByName(this.FLAG_WIN).piece;
-  }
 
   public GetDisplayNamesConcatenated(): string {
     let result = '';
@@ -178,10 +175,12 @@ export class Solution {
   }
 
   public FindAnyPieceMatchingIdRecursively(id: number): Piece | null {
-    for (const goal of this.rootPieces.GetValues()) {
-      const result = goal.piece.FindAnyPieceMatchingIdRecursively(id);
-      if (result != null) {
-        return result;
+    for (const array of this.rootPieces.GetValues()) {
+      for (const goal of array) {
+        const result = goal.piece.FindAnyPieceMatchingIdRecursively(id);
+        if (result != null) {
+          return result;
+        }
       }
     }
     return null;
@@ -196,22 +195,24 @@ export class Solution {
   }
 
   public MarkGoalsAsContainingNullsAndMergeIfNeeded(): void {
-    for (const goal of this.rootPieces.GetValues()) {
-      const firstMissingPiece = goal.piece.ReturnTheFirstNullInputHint();
-      if (firstMissingPiece === '') {
-        // there are no missing pieces - yay!
-        if (goal.firstNullInput !== '') {
-          goal.firstNullInput = '';
-          //
-          this.GenerateCommandsAndAddToMap(goal.piece);
-          if (goal.piece.merge != null && this.isMergingOk) {
-            goal.piece.merge.CopyPiecesFromBoxToPile(this.GetPile());
-            goal.piece.merge.CopyStartingThingCharsToGivenMap(
-              this.startingThings
-            );
-            goal.piece.merge.CopyStartingThingCharsToGivenMap(
-              this.currentlyVisibleThings
-            );
+    for (const array of this.rootPieces.GetValues()) {
+      for (const goal of array) {
+        const firstMissingPiece = goal.piece.ReturnTheFirstNullInputHint();
+        if (firstMissingPiece === '') {
+          // there are no missing pieces - yay!
+          if (goal.firstNullInput !== '') {
+            goal.firstNullInput = '';
+            //
+            this.GenerateCommandsAndAddToMap(goal.piece);
+            if (goal.piece.merge != null && this.isMergingOk) {
+              goal.piece.merge.CopyPiecesFromBoxToPile(this.GetPile());
+              goal.piece.merge.CopyStartingThingCharsToGivenMap(
+                this.startingThings
+              );
+              goal.piece.merge.CopyStartingThingCharsToGivenMap(
+                this.currentlyVisibleThings
+              );
+            }
           }
         }
       }
@@ -269,9 +270,11 @@ export class Solution {
   }
 
   public AreAnyInputsNull(): boolean {
-    for (const goal of this.rootPieces.GetValues()) {
-      if (goal.firstNullInput.length > 0) {
-        return true;
+    for (const array of this.rootPieces.GetValues()) {
+      for (const goal of array) {
+        if (goal.firstNullInput.length > 0) {
+          return true;
+        }
       }
     }
     return false;
@@ -290,5 +293,9 @@ export class Solution {
 
   public GetVisibleThingsAtTheStart(): VisibleThingsMap {
     return this.startingThings;
+  }
+
+  public GetSize(){
+    return this.remainingPiecesRepo.Size()
   }
 }

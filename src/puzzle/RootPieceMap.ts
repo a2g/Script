@@ -8,17 +8,22 @@ import { RootPiece } from './RootPiece';
  * This is the source repository of the solution pieces
  */
 export class RootPieceMap implements IPileOrRootPieceMap {
-  private readonly roots: Map<string, RootPiece>;
+  private readonly roots: Map<string, RootPiece[]>;
   // file names?
 
   constructor(deepCopyFromMe: RootPieceMap | null) {
-    this.roots = new Map<string, RootPiece>();
+    this.roots = new Map<string, RootPiece[]>();
     if (deepCopyFromMe != null) {
       for (const pair of deepCopyFromMe.roots) {
         const key = pair[0];
         const value = pair[1];
-        const clonedTree = value.piece.ClonePieceAndEntireTree();
-        this.roots.set(key, new RootPiece(clonedTree, value.firstNullInput));
+        let array = [];
+        this.roots.set(key, []);
+        for (const rootPiece of value) {
+          const clonedTree = rootPiece.piece.ClonePieceAndEntireTree();
+          array.push(new RootPiece(clonedTree, rootPiece.firstNullInput));
+        }
+        this.roots.set(key, array);
       }
     }
   }
@@ -31,13 +36,13 @@ export class RootPieceMap implements IPileOrRootPieceMap {
     return this.roots.has(goalToObtain);
   }
 
-  public GetRootPieceByNameNoThrow(
+  public GetRootPieceArrayByNameNoThrow(
     goalToObtain: string
-  ): RootPiece | undefined {
+  ): RootPiece[] | undefined {
     return this.roots.get(goalToObtain);
   }
 
-  public GetRootPieceByName(name: string): RootPiece {
+  public GetRootPieceArrayByName(name: string): RootPiece[] {
     const root = this.roots.get(name);
     if (typeof root === 'undefined' || root === null) {
       throw new Error(`rootPiece of that name doesn't exist ${name}`);
@@ -55,14 +60,23 @@ export class RootPieceMap implements IPileOrRootPieceMap {
 
   public AddPiece(piece: Piece): void {
     // always add to list
-    this.roots.set(piece.output, new RootPiece(piece, 'Unsolved'));
+    let array: RootPiece[] | undefined = []
+    if (this.roots.get(piece.output) != null) {
+      array = this.roots.get(piece.output)
+    } else {
+      this.roots.set(piece.output, array)
+    }
+
+    if (array != null) {
+      array.push(new RootPiece(piece, 'Unsolved'));
+    }
   }
 
   public Size(): number {
     return this.roots.size;
   }
 
-  public GetValues(): IterableIterator<RootPiece> {
+  public GetValues(): IterableIterator<RootPiece[]> {
     return this.roots.values();
   }
 
@@ -73,8 +87,10 @@ export class RootPieceMap implements IPileOrRootPieceMap {
    */
   public GenerateMapOfLeaves(): Map<string, Piece | null> {
     const leaves = new Map<string, Piece | null>();
-    for (const root of this.GetValues()) {
-      GenerateMapOfLeavesRecursively(root.piece, '', leaves);
+    for (const array of this.GetValues()) {
+      for (const root of array) {
+        GenerateMapOfLeavesRecursively(root.piece, '', leaves);
+      }
     }
     return leaves;
   }

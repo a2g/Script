@@ -10,9 +10,11 @@ import { Solution } from './Solution';
 function GenerateMapOfLeaves(rootMap: RootPieceMap): Map<string, Piece | null> {
   const map = new Map<string, Piece | null>();
 
-  for (const value of rootMap.GetValues()) {
-    const { piece } = value;
-    GenerateMapOfLeavesRecursively(piece, piece.output, map);
+  for (const array of rootMap.GetValues()) {
+    for (const value of array) {
+      const { piece } = value;
+      GenerateMapOfLeavesRecursively(piece, piece.output, map);
+    }
   }
 
   return map;

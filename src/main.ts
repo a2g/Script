@@ -40,7 +40,6 @@ function main(): void {
         return;
       case '0':
         return; //ChooseToPlayCampaign();
-        break;
       default:
         if (index >= 0 && index < arrayOfFilenames.length) {
           for (;;) {
@@ -55,7 +54,8 @@ function main(): void {
             const solverPrimedWithCombined = new SolverViaRootPiece(combined);
             const solverPrimedWithFirstBox = new SolverViaRootPiece(firstBox);
 
-            console.warn(`\nSubMenu of ${filename[0]}`);
+            console.warn(`\nSubMenu of ${filename}`);
+            console.warn(`number of pieces = ${solverPrimedWithCombined.GetSolutions()[0].GetSize()}`)
             console.warn('---------------------------------------');
             console.warn('1. Dig into Goals for COMBINED');
             console.warn('2. Dig into Goals for First Box');

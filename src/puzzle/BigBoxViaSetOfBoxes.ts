@@ -197,9 +197,11 @@ export class BigBoxViaSetOfBoxes implements IBoxReadOnly {
   }
 
   public CopyGoalPiecesToContainer(map: IPileOrRootPieceMap): void {
-    for (const goal of this.goals.GetValues()) {
-      const clonedPiece = goal.piece.ClonePieceAndEntireTree();
-      map.AddPiece(clonedPiece);
+    for (const array of this.goals.GetValues()) {
+      for (const goal of array) {
+        const clonedPiece = goal.piece.ClonePieceAndEntireTree();
+        map.AddPiece(clonedPiece);
+      }
     }
   }
 
@@ -224,9 +226,11 @@ export class BigBoxViaSetOfBoxes implements IBoxReadOnly {
 
     // since this map of goal pieces already has been obtained recurseively
     // then we don't need to recurse further here.
-    for (const goal of this.goals.GetValues()) {
-      if (goal.piece.merge != null) {
-        set.add(goal.piece.merge);
+    for (const array of this.goals.GetValues()) {
+      for (const goal of array) {
+        if (goal.piece.merge != null) {
+          set.add(goal.piece.merge);
+        }
       }
     }
   }

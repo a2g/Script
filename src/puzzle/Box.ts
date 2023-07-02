@@ -322,17 +322,21 @@ export class Box implements IBoxReadOnlyWithFileMethods {
   }
 
   public CopyGoalPiecesToContainer(map: IPileOrRootPieceMap): void {
-    for (const goal of this.goals.GetValues()) {
-      const clonedPiece = goal.piece.ClonePieceAndEntireTree();
-      map.AddPiece(clonedPiece);
+    for (const array of this.goals.GetValues()) {
+      for (const goal of array) {
+        const clonedPiece = goal.piece.ClonePieceAndEntireTree();
+        map.AddPiece(clonedPiece);
+      }
     }
   }
 
   public CollectAllReferencedBoxesRecursively(set: Set<IBoxReadOnly>): void {
     set.add(this);
-    for (const goal of this.goals.GetValues()) {
-      if (goal.piece.merge != null) {
-        goal.piece.merge.CollectAllReferencedBoxesRecursively(set);
+    for (const array of this.goals.GetValues()) {
+      for (const goal of array) {
+        if (goal.piece.merge != null) {
+          goal.piece.merge.CollectAllReferencedBoxesRecursively(set);
+        }
       }
     }
   }

@@ -64,14 +64,16 @@ async function getSolutionsDirect(req: Request, responseSender: Response) {
       for (const solution of solver.GetSolutions()) {
         console.warn(FormatText(solution.GetDisplayNamesConcatenated()));
         console.warn(FormatText(solution.GetRootMap().CalculateListOfKeys()));
-        for (const item of solution.GetRootMap().GetValues()) {
-          listItemNumber++;
+        for (const array of solution.GetRootMap().GetValues()) {
+          for (const item of array) {
+            listItemNumber++;
 
-          // display list item
-          const status: string = item.firstNullInput;
-          const { output } = item.piece;
-          console.warn(`    ${listItemNumber}. ${output} (status=${status})`);
-          incomplete += status.length > 0 ? 1 : 0;
+            // display list item
+            const status: string = item.firstNullInput;
+            const { output } = item.piece;
+            console.warn(`    ${listItemNumber}. ${output} (status=${status})`);
+            incomplete += status.length > 0 ? 1 : 0;
+          }
         }
       }
 

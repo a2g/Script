@@ -188,16 +188,21 @@ export class ReverseTraverser {
     // we were able to get all the starting items at the end of the array.
     // Now that we have RootPieceMap, we have an extra dimension..
     // but we still
-    const array = new Array<Piece>();
+    const container = new Array<Piece>();
 
     // we do this width first recursively to get order from root to leaves
-    for (const rootPiece of solution.GetRootMap().GetValues()) {
-      this.CollectArrayOfPiecesInAWidthFirstRecursively(rootPiece.piece, array);
+    for (const array of solution.GetRootMap().GetValues()) {
+      for (const rootPiece of array) {
+        this.CollectArrayOfPiecesInAWidthFirstRecursively(
+          rootPiece.piece,
+          container
+        );
+      }
     }
 
     // then we traverse the array backwards - from oldest to newest
-    for (let i = array.length - 1; i >= 0; i--) {
-      const piece = array[i];
+    for (let i = container.length - 1; i >= 0; i--) {
+      const piece = container[i];
       piece.UpdateVisibleWithOutcomes(this.currentlyVisibleThings);
     }
   }
@@ -206,11 +211,11 @@ export class ReverseTraverser {
     return this.leavesForReverseTraversal;
   }
 
-  private AddToMapOfVisibleThings(thing: string): void {
+  /*private AddToMapOfVisibleThings(thing: string): void {
     if (!this.currentlyVisibleThings.Has(thing)) {
       this.currentlyVisibleThings.Set(thing, new Set<string>());
     }
-  }
+  }*/
 
   private CollectArrayOfPiecesInAWidthFirstRecursively(
     n: Piece,
