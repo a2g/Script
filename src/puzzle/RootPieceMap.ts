@@ -3,13 +3,18 @@ import { IPileOrRootPieceMap } from './IPileOrRootPieceMap';
 import { Piece } from './Piece';
 import { RootPiece } from './RootPiece';
 /**
- * Yes, the only data here is the map.
- *
- * This is the source repository of the solution pieces
+ * This started out simpler that PileOfPieces, because there
+ * was only ever one piece that outputted a particular goal.
+ * But then - and probably obvious in hindsight - it was changed to handle
+ * multiple pieces that can output a goal, hence a map of arrays.
+ * Oh , and a strange difference - this one contains RootPiece
+ * rather than piece. RootPiece just wraps a Piece and adds a
+ * cached version of 'firstNullInput' <-- why can't we just calculate?
+ * yeah, that seems dodgy and subject to bugs.
+ * 
  */
 export class RootPieceMap implements IPileOrRootPieceMap {
   private readonly roots: Map<string, RootPiece[]>;
-  // file names?
 
   constructor(deepCopyFromMe: RootPieceMap | null) {
     this.roots = new Map<string, RootPiece[]>();
@@ -28,18 +33,28 @@ export class RootPieceMap implements IPileOrRootPieceMap {
     }
   }
 
-  public CloneAllRootPiecesAndTheirTrees(): RootPieceMap {
-    return new RootPieceMap(this);
+  public AddPiece(piece: Piece): void {
+    // initialize array, if it hasn't yet been
+    if (this.roots.get(piece.output) == null) {
+      this.roots.set(piece.output, new Array<RootPiece>)
+    }
+    // always add to list
+    this.roots.get(piece.output)?.push(new RootPiece(piece, 'Unsolved'))
   }
 
-  public Has(goalToObtain: string): boolean {
-    return this.roots.has(goalToObtain);
-  }
-
-  public GetRootPieceArrayByNameNoThrow(
-    goalToObtain: string
-  ): RootPiece[] | undefined {
-    return this.roots.get(goalToObtain);
+  /**
+   * this is only here for the ui method.
+   *
+   * @returns unsolved root nodes
+   */
+  public GenerateMapOfLeaves(): Map<string, Piece | null> {
+    const leaves = new Map<string, Piece | null>();
+    for (const array of this.GetValues()) {
+      for (const root of array) {
+        GenerateMapOfLeavesRecursively(root.piece, '', leaves);
+      }
+    }
+    return leaves;
   }
 
   public GetRootPieceArrayByName(name: string): RootPiece[] {
@@ -58,20 +73,6 @@ export class RootPieceMap implements IPileOrRootPieceMap {
     return array;
   }
 
-  public AddPiece(piece: Piece): void {
-    // always add to list
-    let array: RootPiece[] | undefined = []
-    if (this.roots.get(piece.output) != null) {
-      array = this.roots.get(piece.output)
-    } else {
-      this.roots.set(piece.output, array)
-    }
-
-    if (array != null) {
-      array.push(new RootPiece(piece, 'Unsolved'));
-    }
-  }
-
   public Size(): number {
     return this.roots.size;
   }
@@ -80,18 +81,15 @@ export class RootPieceMap implements IPileOrRootPieceMap {
     return this.roots.values();
   }
 
-  /**
-   * this is only here for the ui method.
-   *
-   * @returns unsolved root nodes
-   */
-  public GenerateMapOfLeaves(): Map<string, Piece | null> {
-    const leaves = new Map<string, Piece | null>();
-    for (const array of this.GetValues()) {
-      for (const root of array) {
-        GenerateMapOfLeavesRecursively(root.piece, '', leaves);
-      }
-    }
-    return leaves;
+  public CloneAllRootPiecesAndTheirTrees(): RootPieceMap {
+    return new RootPieceMap(this);
+  }
+
+  public Has(goalToObtain: string): boolean {
+    return this.roots.has(goalToObtain);
+  }
+
+  public GetRootPieceArrayByNameNoThrow(goal: string): RootPiece[] | undefined {
+    return this.roots.get(goal);
   }
 }

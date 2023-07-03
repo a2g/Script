@@ -2,15 +2,70 @@ import promptSync from 'prompt-sync';
 import { BigBoxViaSetOfBoxes } from './puzzle/BigBoxViaSetOfBoxes';
 import { Box } from './puzzle/Box';
 import { SolverViaRootPiece } from './puzzle/SolverViaRootPiece';
-import druids from '../WorldExample/Campaign.json';
 import { ChooseDigIntoGoals } from './cli/ChooseDigIntoGoals';
 import { ChooseListOfLeaves } from './cli/ChooseListOfLeaves';
+import { ChooseOrderOfCommands } from './cli/ChooseOrderOfCommands';
 import { ChooseToFindUnused } from './cli/ChooseToFindUnused';
 import { Area } from './cli/Area';
-import { ChooseOrderOfCommands } from './cli/ChooseOrderOfCommands';
+import { readFileSync } from 'fs';
+const fs = require('fs');
 const prompt = promptSync();
 
 function main(): void {
+  process.chdir('./..');
+
+  const allFolders = new Array<string>();
+  allFolders.push('jigsaw/WorldExample');
+
+  // lets try adding more folders from 'private-world'
+  // but that folder may not exist, so we try/catch it
+  try {
+    const ignoreSet = new Set([
+      'settings.json',
+      '.gitmodules',
+      '.gitignore',
+      'package.json',
+      'tsconfig.json',
+      '.git',
+    ]);
+    process.chdir('./private-worlds');
+    const dir = fs.opendirSync('.');
+    let dirent;
+    while ((dirent = dir.readSync()) !== null) {
+      if (!ignoreSet.has(dirent.name)) {
+        allFolders.push(`private-worlds/${dirent.name}`);
+      }
+    }
+    dir.closeSync();
+    process.chdir('..');
+  } catch (Error) {
+    throw new EvalError('Check your file paths!')
+  }
+
+  for (;;) {
+    let i = 1;
+    for (const campaign of allFolders) {
+      console.warn(`${i}. ${campaign}`);
+      i += 1;
+    }
+
+    const indexAsString = prompt('Choose an campaign (b)ail): ').toLowerCase();
+    const index = Number(indexAsString) - 1;
+    switch (indexAsString) {
+      case 'b':
+        return;
+      default:
+        if (index >= 0 && index < allFolders.length) {
+          ChooseArea(allFolders[index]);
+        }
+    }
+  }
+}
+
+function ChooseArea(folder: string) {
+  const text = readFileSync(`${folder}/Campaign.json`, 'utf-8');
+  const druids = JSON.parse(text);
+
   for (;;) {
     console.warn(process.cwd());
     console.warn(' ');
@@ -44,7 +99,7 @@ function main(): void {
         if (index >= 0 && index < arrayOfFilenames.length) {
           for (;;) {
             const filename = arrayOfFilenames[index];
-            const firstBox = new Box('./WorldExample/', filename);
+            const firstBox = new Box(`${folder}/`, filename);
             firstBox.Init();
 
             const allBoxes = new Set<Box>();

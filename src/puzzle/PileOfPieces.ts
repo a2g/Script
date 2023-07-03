@@ -2,9 +2,16 @@ import { IPileOfPiecesReadOnly } from './IPileOfPiecesReadOnly';
 import { Piece } from './Piece';
 
 /**
- * Yes, the only data here is the map.
- *
- * This is the source repository of the solution pieces
+ * This is basically wraps a multimap - no extra data - 
+ * so we can more easily obtain all the pieces whose output
+ * node matches a given input.
+ * 
+ * It also has non-trivial implementations for the following reasons:
+ * - deep cloning (important for solution gathering)
+ * - RemovePiece considers piece counts
+ * - get Autos to retrieve piece.type.startsWith
+ * - GetPiecesThatOutputString returns empty set if no match
+ * - GetSinglePieceById matches by id
  */
 export class PileOfPieces implements IPileOfPiecesReadOnly {
   private readonly piecesMappedByOutput: Map<string, Set<Piece>>;
@@ -27,62 +34,6 @@ export class PileOfPieces implements IPileOfPiecesReadOnly {
     }
   }
 
-  public GetAutos(): Piece[] {
-    const toReturn: Piece[] = [];
-    this.piecesMappedByOutput.forEach((value: Set<Piece>) => {
-      value.forEach((piece: Piece) => {
-        if (piece.type.startsWith('AUTO')) {
-          toReturn.push(piece);
-        }
-      });
-    });
-    return toReturn;
-  }
-
-  public HasAnyPiecesThatOutputObject(givenOutput: string): boolean {
-    return this.piecesMappedByOutput.has(givenOutput);
-  }
-
-  public Has(givenOutput: string): boolean {
-    return this.piecesMappedByOutput.has(givenOutput);
-  }
-
-  public Get(givenOutput: string): Set<Piece> | undefined {
-    return this.piecesMappedByOutput.get(givenOutput);
-  }
-
-  public GetIterator(): IterableIterator<Set<Piece>> {
-    return this.piecesMappedByOutput.values();
-  }
-
-  public Size(): number {
-    let count = 0;
-    for (const set of this.piecesMappedByOutput.values()) {
-      count += set.size;
-    }
-    return count;
-  }
-
-  public ContainsId(idToMatch: number): boolean {
-    for (const set of this.piecesMappedByOutput.values()) {
-      for (const piece of set) {
-        if (piece.id === idToMatch) {
-          return true;
-        }
-      }
-    }
-    return false;
-  }
-
-  public AddPiece(piece: Piece): void {
-    // initialize array, if it hasn't yet been
-    if (!this.piecesMappedByOutput.has(piece.output)) {
-      this.piecesMappedByOutput.set(piece.output, new Set<Piece>());
-    }
-    // always add to list
-    this.piecesMappedByOutput.get(piece.output)?.add(piece);
-  }
-
   public RemovePiece(piece: Piece): void {
     if (piece.count - 1 <= 0) {
       const key = piece.output;
@@ -100,7 +51,28 @@ export class PileOfPieces implements IPileOfPiecesReadOnly {
     }
   }
 
-  public GetById(idToMatch: number): Piece | null {
+  public GetAutos(): Piece[] {
+    const toReturn: Piece[] = [];
+    this.piecesMappedByOutput.forEach((setOfPieces: Set<Piece>) => {
+      setOfPieces.forEach((piece: Piece) => {
+        if (piece.type.startsWith('AUTO')) {
+          toReturn.push(piece);
+        }
+      });
+    });
+    return toReturn;
+  }
+
+  public AddPiece(piece: Piece): void {
+    // initialize array, if it hasn't yet been
+    if (!this.piecesMappedByOutput.has(piece.output)) {
+      this.piecesMappedByOutput.set(piece.output, new Set<Piece>());
+    }
+    // always add to list
+    this.piecesMappedByOutput.get(piece.output)?.add(piece);
+  }
+
+  public GetSinglePieceById(idToMatch: number): Piece | null {
     for (const set of this.piecesMappedByOutput.values()) {
       for (const piece of set) {
         if (piece.id === idToMatch) {
@@ -111,9 +83,13 @@ export class PileOfPieces implements IPileOfPiecesReadOnly {
     return null;
   }
 
-  public GetPiecesThatOutputObject(objectToObtain: string): Set<Piece> {
+  public GetPiecesThatOutputString(objectToObtain: string): Set<Piece> {
     // since the remainingPieces are a map index by output piece
     // then a remainingPieces.Get will retrieve all matching pieces.
+    // BUT...
+    // we want it to return a random empty set if not found
+    // and for now, it seems like it was changed to a slow
+    // iteration through the map to match - possibly for debugging.
     for (const pair of this.piecesMappedByOutput) {
       if (pair[0] === objectToObtain) {
         return pair[1];
@@ -122,11 +98,24 @@ export class PileOfPieces implements IPileOfPiecesReadOnly {
     return new Set<Piece>();
   }
 
-  public GetPiecesThatOutputObject2(
-    givenOutput: string
-  ): Set<Piece> | undefined {
-    // since the remainingPieces are a map index by output piece
-    // then a remainingPieces.Get will retrieve all matching pieces.
+  public Size(): number {
+    let count = 0;
+    for (const set of this.piecesMappedByOutput.values()) {
+      count += set.size;
+    }
+    return count;
+  }
+
+  public Has(givenOutput: string): boolean {
+    return this.piecesMappedByOutput.has(givenOutput);
+  }
+
+  public Get(givenOutput: string): Set<Piece> | undefined {
     return this.piecesMappedByOutput.get(givenOutput);
   }
+
+  public GetIterator(): IterableIterator<Set<Piece>> {
+    return this.piecesMappedByOutput.values();
+  }
+
 }

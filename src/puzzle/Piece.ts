@@ -253,8 +253,8 @@ export class Piece {
 
       // we check our starting set first!
       // otherwise Toggle pieces will toggle until the count is zero.
-      const objectToObtain = this.inputHints[k];
-      if (solution.GetStartingThings().Has(objectToObtain)) {
+      const importHintToFind = this.inputHints[k];
+      if (solution.GetStartingThings().Has(importHintToFind)) {
         this.StubOutInputK(k, SpecialTypes.ExistsFromBeginning);
         continue;
       }
@@ -262,12 +262,12 @@ export class Piece {
       // check whether we've found the goal earlier,
       // then we will eventually come to process the other entry in goals
       // so we can skip on to the next one..I think...
-      if (solution.GetRootMap().Has(objectToObtain)) {
+      if (solution.GetRootMap().Has(importHintToFind)) {
         // is it a goal? (since goal map always contains all goals)
         // solution.MarkGoalsAsContainingNullsAndMergeIfNeeded()// this is optional...
         const array = solution
           .GetRootMap()
-          .GetRootPieceArrayByName(objectToObtain);
+          .GetRootPieceArrayByName(importHintToFind);
 
         assert(array.length > 0);
 
@@ -283,7 +283,7 @@ export class Piece {
       // and if there is more than one, then we clone
       const setOfMatchingPieces = solution
         .GetPile()
-        .GetPiecesThatOutputObject(objectToObtain);
+        .GetPiecesThatOutputString(importHintToFind);
       if (setOfMatchingPieces.size > 0) {
         const matchingPieces = Array.from(setOfMatchingPieces);
         // In our array the currentSolution, is at index zero
