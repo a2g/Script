@@ -65,6 +65,10 @@ export class RootPieceMap implements IPileOrRootPieceMap {
     return root;
   }
 
+  public RemoveAllWithName(name: string) {
+    this.roots.delete(name);
+  }
+
   public CalculateListOfKeys(): string[] {
     const array: string[] = [];
     for (const key of this.roots.keys()) {

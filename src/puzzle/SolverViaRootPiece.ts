@@ -44,18 +44,29 @@ export class SolverViaRootPiece {
       subBox.CopyGoalPiecesToContainer(rootMap);
     }
 
-    // ..everything else comes from the single box passed in
-    const firstSolution = new Solution(
-      rootMap,
-      box.GetNewPileOfPieces(),
-      box.GetMapOfAllStartingThings(),
-      box.IsMergingOk()
-    );
+    const allGoalWin = rootMap.GetRootPieceArrayByNameNoThrow('goal_win');
+    if (allGoalWin == null || allGoalWin.length == 0) {
+      throw new Error('Zero goal_wins in solution constructor');
+    }
+    rootMap.RemoveAllWithName('goal_win');
+
     this.solutions = [];
-    this.solutions.push(firstSolution);
+    for (const rootPiece of allGoalWin) {
+      // ..everything else comes from the single box passed in
+      const newRootMap = rootMap.CloneAllRootPiecesAndTheirTrees();
+      newRootMap.AddPiece(rootPiece.piece);
+
+      const firstSolution = new Solution(
+        newRootMap,
+        box.GetNewPileOfPieces(),
+        box.GetMapOfAllStartingThings(),
+        box.IsMergingOk()
+      );
+      this.solutions.push(firstSolution);
+    }
 
     this.mapOfStartingThingsAndWhoCanHaveThem = new Map<string, Set<string>>();
-    const map = firstSolution.GetStartingThings();
+    const map = this.solutions[0].GetStartingThings();
     for (const thing of map.GetIterableIterator()) {
       const key = thing[0];
       const items = thing[1];

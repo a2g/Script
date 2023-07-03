@@ -1,6 +1,7 @@
 import promptSync from 'prompt-sync';
 import { FormatText } from '../puzzle/FormatText';
 import { SolverViaRootPiece } from '../puzzle/SolverViaRootPiece';
+import { TrimNonIntegratedRootPieces } from '../puzzle/TrimNonIntegratedRootPieces';
 import { NavigatePieceRecursive } from './NavigatePieceRecursive';
 
 const prompt = promptSync({});
@@ -9,7 +10,7 @@ export function ChooseDigIntoGoals(solver: SolverViaRootPiece): void {
   console.warn(' ');
 
   for (;;) {
-    solver.SolvePartiallyUntilCloning();
+   
     solver.MarkGoalsAsCompletedAndMergeIfNeeded();
     const numberOfSolutions: number = solver.NumberOfSolutions();
     console.warn('Dig in to goals');
@@ -20,6 +21,7 @@ export function ChooseDigIntoGoals(solver: SolverViaRootPiece): void {
     let incomplete = 0;
     let listItemNumber = 0;
     for (const solution of solver.GetSolutions()) {
+      TrimNonIntegratedRootPieces(solution)
       console.warn(FormatText(solution.GetDisplayNamesConcatenated()));
       console.warn(FormatText(solution.GetRootMap().CalculateListOfKeys()));
       for (const array of solution.GetRootMap().GetValues()) {
@@ -47,6 +49,7 @@ export function ChooseDigIntoGoals(solver: SolverViaRootPiece): void {
       return;
     }
     if (input === 'r') {
+      solver.SolvePartiallyUntilCloning();
       continue;
     } else {
       // show map entry for chosen item
