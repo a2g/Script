@@ -3,6 +3,7 @@ import { existsSync, readFileSync } from 'fs';
 import { create } from 'xmlbuilder2';
 import { Graph } from '../location/Graph';
 import { Point } from '../location/Point';
+import { Suffix } from '../Suffix';
 
 //@ts-ignore
 declare interface $Square {
@@ -28,8 +29,8 @@ export class SvgWriter {
     responseSender: Response
   ) {
     const path = `../${repo}/${world}/`;
-    const areaMapFilename = `${area}AreaMap.json`;
-    const connectionsFilename = `${area}Connections.json`;
+    const areaMapFilename = `${area}${Suffix.AreaMap}.json`;
+    const connectionsFilename = `${area}${Suffix.Connections}.json`;
     if (!existsSync(path + areaMapFilename)) {
       console.log(
         `file doesn't exist ${path}${areaMapFilename} ${process.cwd()}`

@@ -8,6 +8,7 @@ import { ChooseOrderOfCommands } from './cli/ChooseOrderOfCommands';
 import { ChooseToFindUnused } from './cli/ChooseToFindUnused';
 import { Area } from './cli/Area';
 import { readFileSync } from 'fs';
+import { Suffix } from './Suffix';
 const fs = require('fs');
 const prompt = promptSync();
 
@@ -63,7 +64,7 @@ function main(): void {
 }
 
 function ChooseArea(folder: string) {
-  const text = readFileSync(`${folder}/Campaign.json`, 'utf-8');
+  const text = readFileSync(`${folder}/${Suffix.Campaign}.json`, 'utf-8');
   const druids = JSON.parse(text);
 
   for (;;) {

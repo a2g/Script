@@ -11,6 +11,7 @@ import { FormatText } from './puzzle/FormatText';
 import { solutions } from './api/solutions';
 import { svg } from './api/svg';
 import { existsSync } from 'fs';
+import { Suffix } from './Suffix';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -30,7 +31,7 @@ async function getSolutionsDirect(req: Request, responseSender: Response) {
     const area = req.params.area;
 
     const path = `../${repo}/${world}/`;
-    const firstBoxFilename = `${area}FirstBox.json`;
+    const firstBoxFilename = `${area}${Suffix.FirstBox}.json`;
 
     if (!existsSync(path + firstBoxFilename)) {
       console.log(
@@ -127,6 +128,9 @@ app.get('/jig/:repo/:world/:area/svg', svg);
 
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
+  console.log(
+    `http://localhost:${PORT}/jig/private-worlds/Highschool/12_BigThirdAct/sols`
+  );
 });
 
 module.exports = app;
