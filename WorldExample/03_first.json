@@ -1,5 +1,5 @@
 {
-  "$schema": "./MainDevilishnessSchema.json",
+  "$schema": "./03_defs.json",
   "startingThings": [
     {
       "thing": "inv_torch_lit"
@@ -36,7 +36,7 @@
     {
       "piece": "GOAL1_SET_BY_USING_INV1_WITH_PROP1",
       "goal1": "goal_access_to_icehouse",
-      "merge": "MainInsideIcehouse.json",
+      "merge": "03-InsideIcehouse.json",
       "inv1": "inv_soil_thermometer",
       "prop1": "prop_icehouse"
     },
@@ -71,7 +71,7 @@
     {
       "piece": "GOAL1_SET_BY_USING_INV1_WITH_PROP1",
       "goal1": "goal_access_to_greenhouse",
-      "merge": "MainInsideGreenhouse.json",
+      "merge": "03-InsideGreenhouse.json",
       "inv1": "inv_greenhouse_key",
       "prop1": "prop_greenhouse_door"
     },

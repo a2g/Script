@@ -4,19 +4,19 @@
         {
             "areaName": "(D)Dock)",
             "areaEnum": "D",
-            "firstBoxFile": "./DockFirstBox.json",
+            "firstBoxFile": "./01_first.json",
             "extraFiles": []
         },
         {
             "areaName": "(E)Elder)",
             "areaEnum": "E",
-            "firstBoxFile": "./ElderFirstBox.json",
+            "firstBoxFile": "./02_first.json",
             "extraFiles": []
         },
         {
             "areaName": "(F)First)",
             "areaEnum": "F",
-            "firstBoxFile": "./MainFirstBox.json",
+            "firstBoxFile": "./03_first.json",
             "extraFiles": []
         }
     ]

@@ -7,54 +7,42 @@
       "type": "object",
       "allOf": [
         {
-          "$ref": "../../jigsaw.json#/definitions/piece_type"
+          "$ref": "../jigsaw.json#/definitions/piece_type"
         }
       ],
       "properties": {
-        "inv1": {
-          "$ref": "MainEnums.json#/definitions/inv_type"
-        },
-        "inv2": {
-          "$ref": "MainEnums.json#/definitions/inv_type"
-        },
-        "inv3": {
-          "$ref": "MainEnums.json#/definitions/inv_type"
-        },
-        "prop1": {
-          "$ref": "MainEnums.json#/definitions/prop_type"
-        },
-        "prop2": {
-          "$ref": "MainEnums.json#/definitions/prop_type"
-        },
-        "prop3": {
-          "$ref": "MainEnums.json#/definitions/prop_type"
-        },
-        "prop4": {
-          "$ref": "MainEnums.json#/definitions/prop_type"
-        },
-        "prop5": {
-          "$ref": "MainEnums.json#/definitions/prop_type"
-        },
-        "prop6": {
-          "$ref": "MainEnums.json#/definitions/prop_type"
-        },
         "goal1": {
-          "$ref": "MainEnums.json#/definitions/goal_type"
+          "$ref": "02_enums.json#/definitions/goal_enum"
         },
         "goal2": {
-          "$ref": "MainEnums.json#/definitions/goal_type"
+          "$ref": "02_enums.json#/definitions/goal_enum"
         },
-        "goal3": {
-          "$ref": "MainEnums.json#/definitions/goal_type"
+        "inv1": {
+          "$ref": "02_enums.json#/definitions/inv_enum"
         },
-        "goal4": {
-          "$ref": "MainEnums.json#/definitions/goal_type"
+        "inv2": {
+          "$ref": "02_enums.json#/definitions/inv_enum"
         },
-        "goal5": {
-          "$ref": "MainEnums.json#/definitions/goal_type"
+        "inv3": {
+          "$ref": "02_enums.json#/definitions/inv_enum"
         },
-        "goal6": {
-          "$ref": "MainEnums.json#/definitions/goal_type"
+        "prop1": {
+          "$ref": "02_enums.json#/definitions/prop_enum"
+        },
+        "prop2": {
+          "$ref": "02_enums.json#/definitions/prop_enum"
+        },
+        "prop3": {
+          "$ref": "02_enums.json#/definitions/prop_enum"
+        },
+        "prop4": {
+          "$ref": "02_enums.json#/definitions/prop_enum"
+        },
+        "prop5": {
+          "$ref": "02_enums.json#/definitions/prop_enum"
+        },
+        "prop6": {
+          "$ref": "02_enums.json#/definitions/prop_enum"
         },
         "merge": {
           "type": "string"
@@ -73,7 +61,7 @@
       "required": ["char"],
       "properties": {
         "char": {
-          "$ref": "MainEnums.json#/definitions/char_type"
+          "$ref": "02_enums.json#/definitions/char_enum"
         }
       }
     },
@@ -82,7 +70,7 @@
       "required": ["prop"],
       "properties": {
         "prop": {
-          "$ref": "MainEnums.json#/definitions/prop_type"
+          "$ref": "02_enums.json#/definitions/prop_enum"
         }
       }
     }
@@ -95,18 +83,18 @@
         "type": "object",
         "properties": {
           "char": {
-            "$ref": "MainEnums.json#/definitions/char_type"
+            "$ref": "02_enums.json#/definitions/char_enum"
           },
           "thing": {
             "oneOf": [
               {
-                "$ref": "MainEnums.json#/definitions/inv_type"
+                "$ref": "02_enums.json#/definitions/inv_enum"
               },
               {
-                "$ref": "MainEnums.json#/definitions/goal_type"
+                "$ref": "02_enums.json#/definitions/goal_enum"
               },
               {
-                "$ref": "MainEnums.json#/definitions/prop_type"
+                "$ref": "02_enums.json#/definitions/prop_enum"
               }
             ]
           }

@@ -1,6 +1,8 @@
 export enum Suffix {
-  FirstBox = "_",
-  Campaign = "Campaign",
-  AreaMap = "AreaMap",
-  Connections = "Connections"
+  Campaign = "_campaign",
+  AreaMap = "_area-map",
+  Connections = "_connections",
+  Defs = "_defs",
+  Enums = "_enums",
+  FirstBox = "_first",
 }

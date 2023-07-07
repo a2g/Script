@@ -3,7 +3,7 @@
   "description": "This is the schema for the main Scenario file for the game. It basically a skeleton, pulling in other more substantial types from other files. It could be split up, but for now its easier managing three files Scenario, Schema and Objects",
   "type": "object",
   "definitions": {
-    "pieces_type": {
+    "piece_type": {
       "type": "object",
       "allOf": [
         {
@@ -11,38 +11,50 @@
         }
       ],
       "properties": {
-        "goal1": {
-          "$ref": "DockEnums.json#/definitions/goal_type"
-        },
-        "goal2": {
-          "$ref": "DockEnums.json#/definitions/goal_type"
-        },
         "inv1": {
-          "$ref": "DockEnums.json#/definitions/inv_type"
+          "$ref": "03_enums.json#/definitions/inv_enum"
         },
         "inv2": {
-          "$ref": "DockEnums.json#/definitions/inv_type"
+          "$ref": "03_enums.json#/definitions/inv_enum"
         },
         "inv3": {
-          "$ref": "DockEnums.json#/definitions/inv_type"
+          "$ref": "03_enums.json#/definitions/inv_enum"
         },
         "prop1": {
-          "$ref": "DockEnums.json#/definitions/prop_type"
+          "$ref": "03_enums.json#/definitions/prop_enum"
         },
         "prop2": {
-          "$ref": "DockEnums.json#/definitions/prop_type"
+          "$ref": "03_enums.json#/definitions/prop_enum"
         },
         "prop3": {
-          "$ref": "DockEnums.json#/definitions/prop_type"
+          "$ref": "03_enums.json#/definitions/prop_enum"
         },
         "prop4": {
-          "$ref": "DockEnums.json#/definitions/prop_type"
+          "$ref": "03_enums.json#/definitions/prop_enum"
         },
         "prop5": {
-          "$ref": "DockEnums.json#/definitions/prop_type"
+          "$ref": "03_enums.json#/definitions/prop_enum"
         },
         "prop6": {
-          "$ref": "DockEnums.json#/definitions/prop_type"
+          "$ref": "03_enums.json#/definitions/prop_enum"
+        },
+        "goal1": {
+          "$ref": "03_enums.json#/definitions/goal_enum"
+        },
+        "goal2": {
+          "$ref": "03_enums.json#/definitions/goal_enum"
+        },
+        "goal3": {
+          "$ref": "03_enums.json#/definitions/goal_enum"
+        },
+        "goal4": {
+          "$ref": "03_enums.json#/definitions/goal_enum"
+        },
+        "goal5": {
+          "$ref": "03_enums.json#/definitions/goal_enum"
+        },
+        "goal6": {
+          "$ref": "03_enums.json#/definitions/goal_enum"
         },
         "merge": {
           "type": "string"
@@ -61,7 +73,7 @@
       "required": ["char"],
       "properties": {
         "char": {
-          "$ref": "DockEnums.json#/definitions/char_type"
+          "$ref": "03_enums.json#/definitions/char_enum"
         }
       }
     },
@@ -70,7 +82,7 @@
       "required": ["prop"],
       "properties": {
         "prop": {
-          "$ref": "DockEnums.json#/definitions/prop_type"
+          "$ref": "03_enums.json#/definitions/prop_enum"
         }
       }
     }
@@ -83,18 +95,18 @@
         "type": "object",
         "properties": {
           "char": {
-            "$ref": "DockEnums.json#/definitions/char_type"
+            "$ref": "03_enums.json#/definitions/char_enum"
           },
           "thing": {
             "oneOf": [
               {
-                "$ref": "DockEnums.json#/definitions/inv_type"
+                "$ref": "03_enums.json#/definitions/inv_enum"
               },
               {
-                "$ref": "DockEnums.json#/definitions/goal_type"
+                "$ref": "03_enums.json#/definitions/goal_enum"
               },
               {
-                "$ref": "DockEnums.json#/definitions/prop_type"
+                "$ref": "03_enums.json#/definitions/prop_enum"
               }
             ]
           }
@@ -105,7 +117,7 @@
       "type": "array",
       "minItems": 0,
       "items": {
-        "$ref": "#/definitions/pieces_type"
+        "$ref": "#/definitions/piece_type"
       }
     }
   }

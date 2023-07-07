@@ -2,10 +2,10 @@
   "$schema": "http://json-schema.org/draft-07/schema",
   "type": "object",
   "definitions": {
-    "char_type": {
+    "char_enum": {
       "enum": ["char_main"]
     },
-    "inv_type": {
+    "inv_enum": {
       "enum": [
         "inv_spirits",
         "inv_picture_frame",
@@ -17,7 +17,7 @@
         "inv_bio-diesel"
       ]
     },
-    "prop_type": {
+    "prop_enum": {
       "enum": [
         "prop_picture",
         "prop_harbour_master",
@@ -30,8 +30,11 @@
         "prop_picture_frame"
       ]
     },
-    "goal_type": {
-      "enum": ["goal_electricity_restored", "goal_win"]
+    "goal_enum": {
+      "enum": [
+        "goal_electricity_restored",
+         "goal_win"
+      ]
     }
   }
 }

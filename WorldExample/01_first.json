@@ -1,5 +1,5 @@
 {
-  "$schema": "./DockDesign.json",
+  "$schema": "./01_defs.json",
   "startingThings": [
     {
       "thing": "prop_bartender"
@@ -39,7 +39,7 @@
       "inv2": "inv_one_irish_punt"
     },
     {
-      "piece": "INV1_AND_INV2_FORM_INV3",
+      "piece": "INV1_AND_INV2_COMBINE_TO_FORM_INV3",
       "inv1": "inv_spirits",
       "inv2": "inv_grease_proof_paper",
       "inv3": "inv_unguent"

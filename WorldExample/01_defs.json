@@ -3,7 +3,7 @@
   "description": "This is the schema for the main Scenario file for the game. It basically a skeleton, pulling in other more substantial types from other files. It could be split up, but for now its easier managing three files Scenario, Schema and Objects",
   "type": "object",
   "definitions": {
-    "pieces_type": {
+    "piece_def": {
       "type": "object",
       "allOf": [
         {
@@ -12,37 +12,37 @@
       ],
       "properties": {
         "goal1": {
-          "$ref": "ElderEnums.json#/definitions/goal_type"
+          "$ref": "01_enums.json#/definitions/goal_enum"
         },
         "goal2": {
-          "$ref": "ElderEnums.json#/definitions/goal_type"
+          "$ref": "01_enums.json#/definitions/goal_enum"
         },
         "inv1": {
-          "$ref": "ElderEnums.json#/definitions/inv_type"
+          "$ref": "01_enums.json#/definitions/inv_enum"
         },
         "inv2": {
-          "$ref": "ElderEnums.json#/definitions/inv_type"
+          "$ref": "01_enums.json#/definitions/inv_enum"
         },
         "inv3": {
-          "$ref": "ElderEnums.json#/definitions/inv_type"
+          "$ref": "01_enums.json#/definitions/inv_enum"
         },
         "prop1": {
-          "$ref": "ElderEnums.json#/definitions/prop_type"
+          "$ref": "01_enums.json#/definitions/prop_enum"
         },
         "prop2": {
-          "$ref": "ElderEnums.json#/definitions/prop_type"
+          "$ref": "01_enums.json#/definitions/prop_enum"
         },
         "prop3": {
-          "$ref": "ElderEnums.json#/definitions/prop_type"
+          "$ref": "01_enums.json#/definitions/prop_enum"
         },
         "prop4": {
-          "$ref": "ElderEnums.json#/definitions/prop_type"
+          "$ref": "01_enums.json#/definitions/prop_enum"
         },
         "prop5": {
-          "$ref": "ElderEnums.json#/definitions/prop_type"
+          "$ref": "01_enums.json#/definitions/prop_enum"
         },
         "prop6": {
-          "$ref": "ElderEnums.json#/definitions/prop_type"
+          "$ref": "01_enums.json#/definitions/prop_enum"
         },
         "merge": {
           "type": "string"
@@ -61,7 +61,7 @@
       "required": ["char"],
       "properties": {
         "char": {
-          "$ref": "ElderEnums.json#/definitions/char_type"
+          "$ref": "01_enums.json#/definitions/char_enum"
         }
       }
     },
@@ -70,7 +70,7 @@
       "required": ["prop"],
       "properties": {
         "prop": {
-          "$ref": "ElderEnums.json#/definitions/prop_type"
+          "$ref": "01_enums.json#/definitions/prop_enum"
         }
       }
     }
@@ -83,18 +83,18 @@
         "type": "object",
         "properties": {
           "char": {
-            "$ref": "ElderEnums.json#/definitions/char_type"
+            "$ref": "01_enums.json#/definitions/char_enum"
           },
           "thing": {
             "oneOf": [
               {
-                "$ref": "ElderEnums.json#/definitions/inv_type"
+                "$ref": "01_enums.json#/definitions/inv_enum"
               },
               {
-                "$ref": "ElderEnums.json#/definitions/goal_type"
+                "$ref": "01_enums.json#/definitions/goal_enum"
               },
               {
-                "$ref": "ElderEnums.json#/definitions/prop_type"
+                "$ref": "01_enums.json#/definitions/prop_enum"
               }
             ]
           }
@@ -105,7 +105,7 @@
       "type": "array",
       "minItems": 0,
       "items": {
-        "$ref": "#/definitions/pieces_type"
+        "$ref": "#/definitions/piece_def"
       }
     }
   }

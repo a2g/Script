@@ -1,5 +1,5 @@
 {
-  "$schema": "./ElderDesign.json",
+  "$schema": "./02_defs.json",
   "startingThings": [
     {
       "thing": "inv_bottle_top"

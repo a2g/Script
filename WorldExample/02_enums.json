@@ -2,10 +2,10 @@
   "$schema": "http://json-schema.org/draft-07/schema",
   "type": "object",
   "definitions": {
-    "char_type": {
+    "char_enum": {
       "enum": ["char_main"]
     },
-    "inv_type": {
+    "inv_enum": {
       "enum": [
         "inv_flint",
         "inv_poitan",
@@ -17,7 +17,7 @@
         "inv_tinder_kit"
       ]
     },
-    "prop_type": {
+    "prop_enum": {
       "enum": [
         "prop_limestone",
         "prop_teenager",
@@ -25,7 +25,7 @@
         "prop_officer_dooley"
       ]
     },
-    "goal_type": {
+    "goal_enum": {
       "enum": ["goal_win"]
     }
   }

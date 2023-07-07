@@ -7,10 +7,10 @@
             "type": "object",
             "properties": {
                 "start": {
-                    "$ref": "MainEnums.json#/definitions/location_type"
+                    "$ref": "03_enums.json#/definitions/location_enum"
                 },
                 "end": {
-                    "$ref": "MainEnums.json#/definitions/location_type"
+                    "$ref": "03_enums.json#/definitions/location_enum"
                 },
                 "access": {
                     "$ref": "../jigsaw.json#/definitions/access_type"
