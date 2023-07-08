@@ -22,10 +22,10 @@ export class RootPieceMap implements IPileOrRootPieceMap {
       for (const pair of deepCopyFromMe.roots) {
         const key = pair[0];
         const value = pair[1];
-        let array = [];
+        let array = new Array<RootPiece>();
         this.roots.set(key, []);
         for (const rootPiece of value) {
-          const clonedTree = rootPiece.piece.ClonePieceAndEntireTree();
+          const clonedTree: Piece = rootPiece.piece.ClonePieceAndEntireTree();
           array.push(new RootPiece(clonedTree, rootPiece.firstNullInput));
         }
         this.roots.set(key, array);

@@ -222,9 +222,16 @@ export class BigBoxViaSetOfBoxes implements IBoxReadOnly {
   }
 
   public CollectAllReferencedBoxesRecursively(set: Set<IBoxReadOnly>): void {
-    set.add(this);
+    // We don't want to go: set.add(this);
+    // Because *event hough* this big box via set of big boxes can
+    // proxy as an IBoxReadonly - we really want the actual
+    // *genuine* only boxes in the list, otherwise pieces will
+    // get added twice.
+    for (const box of this.originalBoxes) {
+      set.add(box);
+    }
 
-    // since this map of goal pieces already has been obtained recurseively
+    // since this map of goal pieces already has been obtained recursively
     // then we don't need to recurse further here.
     for (const array of this.goals.GetValues()) {
       for (const goal of array) {

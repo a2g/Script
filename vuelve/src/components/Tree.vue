@@ -31,8 +31,8 @@ export default {
   methods: {
     async awaitGetSolutionsAndSetToData () {
       const repo = 'jigsaw'
-      const world = 'WorldExample'
-      const area = 'Main'
+      const world = 'world-example'
+      const area = '03'
       this.treeData2 = await this.getSolutions(repo, world, area)
 
       if (this.treeData2) {

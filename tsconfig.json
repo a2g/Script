@@ -75,7 +75,7 @@
     "testsYup/**/*",
     "jigsaw.ts",
     "src/app.ts"
-  ],
+, "Suffix.ts"  ],
   "exclude": [
     "node_modules",
     "**/*-spec.ts"

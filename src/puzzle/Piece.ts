@@ -312,7 +312,7 @@ export class Piece {
           }
 
           // rediscover the current piece in theSolution - again because we might be cloned
-          let thePiece = null;
+          let thePiece: Piece | null = null;
           for (const array of theSolution.GetRootMap().GetValues()) {
             for (const rootPiece of array) {
               thePiece = rootPiece.piece.FindAnyPieceMatchingIdRecursively(

@@ -7,11 +7,10 @@ import path from 'path';
 import { Box } from './puzzle/Box';
 import { SolverViaRootPiece } from './puzzle/SolverViaRootPiece';
 import { FormatText } from './puzzle/FormatText';
-
 import { solutions } from './api/solutions';
 import { svg } from './api/svg';
 import { existsSync } from 'fs';
-import { Suffix } from './Suffix';
+import { Suffix } from '../Suffix';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -40,15 +39,11 @@ async function getSolutionsDirect(req: Request, responseSender: Response) {
       return;
     }
 
-    // it doesn't make sense to change the folder here.
-    // if switching from
-    //process.chdir('./src/worlds/DruidsDelight/');
     const firstBox = new Box(path, firstBoxFilename);
     firstBox.Init();
 
     const allBoxes = new Set<Box>();
     firstBox.CollectAllReferencedBoxesRecursively(allBoxes);
-    //const combined = new BigBoxViaSetOfBoxes(allBoxes);
     const solver = new SolverViaRootPiece(firstBox);
 
     for (let i = 0; i < 40; i++) {
@@ -128,9 +123,7 @@ app.get('/jig/:repo/:world/:area/svg', svg);
 
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
-  console.log(
-    `http://localhost:${PORT}/jig/private-worlds/Highschool/12_BigThirdAct/sols`
-  );
+  console.log(`http://localhost:${PORT}/jig/jigsaw/world-example/03/sols`);
 });
 
 module.exports = app;

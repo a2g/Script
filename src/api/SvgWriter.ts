@@ -1,9 +1,9 @@
 import { Response } from 'express';
 import { existsSync, readFileSync } from 'fs';
 import { create } from 'xmlbuilder2';
+import { Suffix } from './../../Suffix';
 import { Graph } from '../location/Graph';
 import { Point } from '../location/Point';
-import { Suffix } from '../Suffix';
 
 //@ts-ignore
 declare interface $Square {
