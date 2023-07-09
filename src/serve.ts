@@ -124,6 +124,9 @@ app.get('/jig/:repo/:world/:area/svg', svg);
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
   console.log(`http://localhost:${PORT}/jig/jigsaw/world-example/03/sols`);
+  console.log(
+    `http://localhost:${PORT}/jig/exclusive-worlds/Highschool/12/sols`
+  );
 });
 
 module.exports = app;
