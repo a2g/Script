@@ -5,7 +5,7 @@ import { NavigatePieceRecursive } from './NavigatePieceRecursive';
 import { RawObjectsAndVerb } from '../puzzle/RawObjectsAndVerb';
 const prompt = promptSync({});
 
-export function ChooseOrderOfGoals(solver: SolverViaRootPiece): void {
+export function ChooseOrderOfCommands(solver: SolverViaRootPiece): void {
   console.warn(' ');
 
   for (;;) {

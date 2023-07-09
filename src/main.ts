@@ -5,9 +5,9 @@ import { SolverViaRootPiece } from './puzzle/SolverViaRootPiece';
 import druids from '../WorldExample/Campaign.json';
 import { ChooseDigIntoGoals } from './cli/ChooseDigIntoGoals';
 import { ChooseListOfLeaves } from './cli/ChooseListOfLeaves';
-import { ChooseOrderOfGoals } from './cli/ChooseOrderOfGoals';
 import { ChooseToFindUnused } from './cli/ChooseToFindUnused';
 import { Area } from './cli/Area';
+import { ChooseOrderOfCommands } from './cli/ChooseOrderOfCommands';
 const prompt = promptSync();
 
 function main(): void {
@@ -85,7 +85,7 @@ function main(): void {
                 ChooseListOfLeaves(solverPrimedWithFirstBox);
                 break;
               case '5':
-                ChooseOrderOfGoals(solverPrimedWithFirstBox);
+                ChooseOrderOfCommands(solverPrimedWithFirstBox);
                 break;
               case '6':
                 ChooseToFindUnused(combined);
