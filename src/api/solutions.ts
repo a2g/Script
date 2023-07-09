@@ -5,7 +5,7 @@ import { SolverViaRootPiece } from '../puzzle/SolverViaRootPiece';
 
 export function solutions(solver: SolverViaRootPiece): Object {
   return {
-    name: 'solutions',
+    name: 'Solutions',
     children: getJsonArrayOfSolutions(solver.GetSolutions()),
   };
 }
@@ -16,7 +16,7 @@ function getJsonArrayOfSolutions(solutions: Solution[]): Array<Object> {
   for (let solution of solutions) {
     i += 1;
     toReturn.push({
-      name: `Puzzle Graph ${i}`,
+      name: `Solution ${i}`,
       children: getJsonArrayOfRootPieces(solution),
     });
   }
@@ -38,7 +38,7 @@ function getJsonArrayOfRootPieces(solution: Solution): Array<Object> {
     }
   }
   toReturn.push({
-    name: `Solution`,
+    name: `List of Commands`,
     isAGoalOrAuto: false,
     children: getJsonArrayOfOrderedSteps(solution.GetOrderOfCommands()),
   });
