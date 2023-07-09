@@ -8,7 +8,7 @@ import { ChooseOrderOfCommands } from './cli/ChooseOrderOfCommands';
 import { ChooseToFindUnused } from './cli/ChooseToFindUnused';
 import { Area } from './cli/Area';
 import { readFileSync } from 'fs';
-import { Suffix } from './Suffix';
+import { Suffix } from '../Suffix';
 const fs = require('fs');
 const prompt = promptSync();
 

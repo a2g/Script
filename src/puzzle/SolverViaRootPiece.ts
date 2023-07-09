@@ -145,6 +145,7 @@ export class SolverViaRootPiece {
 
       // find least popular leaf in solution i
       const currSolution = this.solutions[i];
+      currSolution.ClearNameSegments();
       let minLeafPieceNameCount = 1000; // something high
       let minLeafPieceName = ' zero solutions so cant generate solution name';
 

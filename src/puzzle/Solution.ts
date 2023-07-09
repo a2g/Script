@@ -174,6 +174,10 @@ export class Solution {
     this.solutionNameSegments.push(solutionName);
   }
 
+  public ClearNameSegments(): void {
+    this.solutionNameSegments.length = 0;
+  }
+
   public FindAnyPieceMatchingIdRecursively(id: number): Piece | null {
     for (const array of this.rootPieces.GetValues()) {
       for (const goal of array) {

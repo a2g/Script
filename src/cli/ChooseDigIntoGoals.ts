@@ -16,6 +16,8 @@ export function ChooseDigIntoGoals(solver: SolverViaRootPiece): void {
     console.warn('===============');
     console.warn(`Number of solutions in solver = ${numberOfSolutions}`);
 
+    solver.GenerateSolutionNamesAndPush();
+
     // display list
     let incomplete = 0;
     let listItemNumber = 0;
