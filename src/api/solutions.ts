@@ -38,7 +38,7 @@ function getJsonArrayOfRootPieces(solution: Solution): Array<Object> {
   toReturn.push({
     name: `Solution`,
     isAGoalOrAuto: false,
-    children: getJsonArrayOfOrderedSteps(solution.GetOrderOfGoals()),
+    children: getJsonArrayOfOrderedSteps(solution.GetOrderOfCommands()),
   });
   return toReturn;
 }

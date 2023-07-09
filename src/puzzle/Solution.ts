@@ -277,7 +277,7 @@ export class Solution {
     return false;
   }
 
-  public GetOrderOfGoals(): Array<RawObjectsAndVerb> {
+  public GetOrderOfCommands(): Array<RawObjectsAndVerb> {
     // I would like to return a read only array here.
     // I can't do that, so instead, I will clone.
     // The following is how to clone in js

@@ -164,11 +164,11 @@ export class SolverViaRootPiece {
         }
       }
 
-      const term: string =
+      const restrictions =
         accumulatedRestrictions.size > 0
           ? AddBrackets(GetDisplayName(Array.from(accumulatedRestrictions)))
           : '';
-      const solutionName = `Solution name: ${minLeafPieceName}${Colors.Reset}${term}`;
+      const solutionName = `Solution name: ${minLeafPieceName}${Colors.Reset}${restrictions}`;
       currSolution.PushNameSegment(solutionName);
     }
   }

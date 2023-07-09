@@ -39,15 +39,15 @@ export function ChooseOrderOfGoals(solver: SolverViaRootPiece): void {
     for (const solution of solver.GetSolutions()) {
       console.warn(FormatText(solution.GetDisplayNamesConcatenated()));
       console.warn(FormatText(solution.GetRootMap().CalculateListOfKeys()));
-      const goals: Array<RawObjectsAndVerb> = solution.GetOrderOfGoals();
-      for (const goal of goals) {
+      const commands: Array<RawObjectsAndVerb> = solution.GetOrderOfCommands();
+      for (const command of commands) {
         listItemNumber++;
-        console.warn(`    ${listItemNumber}. ${goal.AsDisplayString()}`);
+        console.warn(`    ${listItemNumber}. ${command.AsDisplayString()}`);
       }
     }
 
     // allow user to choose item
-    const input = prompt('Choose a goal (b)ack, (r)e-run: ').toLowerCase();
+    const input = prompt('Choose a step (b)ack, (r)e-run: ').toLowerCase();
     if (input === null || input === 'b') {
       return;
     } else {
@@ -56,13 +56,13 @@ export function ChooseOrderOfGoals(solver: SolverViaRootPiece): void {
       if (theNumber > 0 && theNumber <= listItemNumber) {
         let i = 0;
         for (const solution of solver.GetSolutions()) {
-          const goals: Array<RawObjectsAndVerb> = solution.GetOrderOfGoals();
-          for (const goal of goals) {
+          const commands: Array<RawObjectsAndVerb> = solution.GetOrderOfCommands();
+          for (const command of commands) {
             i++;
             if (i === theNumber) {
               const rootPiece = solution
                 .GetRootMap()
-                .GetRootPieceByName(goal.AsDisplayString());
+                .GetRootPieceByName(command.AsDisplayString());
               NavigatePieceRecursive(rootPiece.piece, solution.GetRootMap());
             }
           }
