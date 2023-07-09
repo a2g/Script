@@ -10,7 +10,6 @@ export function ChooseDigIntoGoals(solver: SolverViaRootPiece): void {
   console.warn(' ');
 
   for (;;) {
-   
     solver.MarkGoalsAsCompletedAndMergeIfNeeded();
     const numberOfSolutions: number = solver.NumberOfSolutions();
     console.warn('Dig in to goals');
@@ -21,7 +20,7 @@ export function ChooseDigIntoGoals(solver: SolverViaRootPiece): void {
     let incomplete = 0;
     let listItemNumber = 0;
     for (const solution of solver.GetSolutions()) {
-      TrimNonIntegratedRootPieces(solution)
+      TrimNonIntegratedRootPieces(solution);
       console.warn(FormatText(solution.GetDisplayNamesConcatenated()));
       console.warn(FormatText(solution.GetRootMap().CalculateListOfKeys()));
       for (const array of solution.GetRootMap().GetValues()) {
