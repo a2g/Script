@@ -295,7 +295,7 @@ export class Solution {
     return this.startingThings;
   }
 
-  public GetSize(){
-    return this.remainingPiecesRepo.Size()
+  public GetSize() {
+    return this.remainingPiecesRepo.Size();
   }
 }

@@ -28,18 +28,18 @@ function main(): void {
       'tsconfig.json',
       '.git',
     ]);
-    process.chdir('./private-worlds');
+    process.chdir('./exclusive-worlds');
     const dir = fs.opendirSync('.');
     let dirent;
     while ((dirent = dir.readSync()) !== null) {
       if (!ignoreSet.has(dirent.name)) {
-        allFolders.push(`private-worlds/${dirent.name}`);
+        allFolders.push(`exclusive-worlds/${dirent.name}`);
       }
     }
     dir.closeSync();
     process.chdir('..');
   } catch (Error) {
-    throw new EvalError('Check your file paths!')
+    throw new EvalError('Check your file paths!');
   }
 
   for (;;) {
@@ -110,7 +110,11 @@ function ChooseArea(folder: string) {
             const solverPrimedWithFirstBox = new SolverViaRootPiece(firstBox);
 
             console.warn(`\nSubMenu of ${filename}`);
-            console.warn(`number of pieces = ${solverPrimedWithCombined.GetSolutions()[0].GetSize()}`)
+            console.warn(
+              `number of pieces = ${solverPrimedWithCombined
+                .GetSolutions()[0]
+                .GetSize()}`
+            );
             console.warn('---------------------------------------');
             console.warn('1. Dig into Goals for COMBINED');
             console.warn('2. Dig into Goals for First Box');

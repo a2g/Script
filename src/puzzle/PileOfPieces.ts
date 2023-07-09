@@ -2,10 +2,10 @@ import { IPileOfPiecesReadOnly } from './IPileOfPiecesReadOnly';
 import { Piece } from './Piece';
 
 /**
- * This is basically wraps a multimap - no extra data - 
+ * This is basically wraps a multimap - no extra data -
  * so we can more easily obtain all the pieces whose output
  * node matches a given input.
- * 
+ *
  * It also has non-trivial implementations for the following reasons:
  * - deep cloning (important for solution gathering)
  * - RemovePiece considers piece counts
@@ -117,5 +117,4 @@ export class PileOfPieces implements IPileOfPiecesReadOnly {
   public GetIterator(): IterableIterator<Set<Piece>> {
     return this.piecesMappedByOutput.values();
   }
-
 }

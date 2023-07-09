@@ -1,7 +1,6 @@
 import promptSync from 'prompt-sync';
 import { FormatText } from '../puzzle/FormatText';
 import { SolverViaRootPiece } from '../puzzle/SolverViaRootPiece';
-import { NavigatePieceRecursive } from './NavigatePieceRecursive';
 import { RawObjectsAndVerb } from '../puzzle/RawObjectsAndVerb';
 const prompt = promptSync({});
 
@@ -60,10 +59,11 @@ export function ChooseOrderOfCommands(solver: SolverViaRootPiece): void {
           for (const command of commands) {
             i++;
             if (i === theNumber) {
-              const rootPiece = solution
-                .GetRootMap()
-                .GetRootPieceByName(command.AsDisplayString());
-              NavigatePieceRecursive(rootPiece.piece, solution.GetRootMap());
+              console.log(
+                `Command info: ${command.type} ${command.objectA} ${command.objectB}`
+              );
+              prompt('Hit a key to continue');
+              break;
             }
           }
         }

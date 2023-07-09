@@ -211,11 +211,11 @@ export class ReverseTraverser {
     return this.leavesForReverseTraversal;
   }
 
-  /*private AddToMapOfVisibleThings(thing: string): void {
+  private AddToMapOfVisibleThings(thing: string): void {
     if (!this.currentlyVisibleThings.Has(thing)) {
       this.currentlyVisibleThings.Set(thing, new Set<string>());
     }
-  }*/
+  }
 
   private CollectArrayOfPiecesInAWidthFirstRecursively(
     n: Piece,

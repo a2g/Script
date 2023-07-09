@@ -11,7 +11,7 @@ import { RootPiece } from './RootPiece';
  * rather than piece. RootPiece just wraps a Piece and adds a
  * cached version of 'firstNullInput' <-- why can't we just calculate?
  * yeah, that seems dodgy and subject to bugs.
- * 
+ *
  */
 export class RootPieceMap implements IPileOrRootPieceMap {
   private readonly roots: Map<string, RootPiece[]>;
@@ -36,10 +36,10 @@ export class RootPieceMap implements IPileOrRootPieceMap {
   public AddPiece(piece: Piece): void {
     // initialize array, if it hasn't yet been
     if (this.roots.get(piece.output) == null) {
-      this.roots.set(piece.output, new Array<RootPiece>)
+      this.roots.set(piece.output, new Array<RootPiece>());
     }
     // always add to list
-    this.roots.get(piece.output)?.push(new RootPiece(piece, 'Unsolved'))
+    this.roots.get(piece.output)?.push(new RootPiece(piece, 'Unsolved'));
   }
 
   /**
