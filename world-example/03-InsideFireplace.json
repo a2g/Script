@@ -1,5 +1,5 @@
 {
-  "$schema": "./MainDevilishnessSchema.json",
+  "$schema": "./03_defs.json",
   "startingThings": [
     {
       "thing": "prop_button(unpressed)"
@@ -45,7 +45,7 @@
     {
       "piece": "AUTO_GOAL1_SET_BY_PROPS",
       "goal1": "goal_button_pressed",
-      "merge": "MainPostButtonPressed.json",
+      "merge": "03-PostButtonPressed.json",
       "prop1": "prop_button(pressed)",
       "prop2": "prop_furnace_lit"
     },
