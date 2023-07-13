@@ -9,8 +9,10 @@ export function GetDisplayName(
   if (Array.isArray(input)) {
     let toReturn = '';
     for (const inputItem of input) {
-      const nameToAdd = GetDisplayName(inputItem); // recurse
-      toReturn += toReturn.length > 0 ? `, ${nameToAdd}` : nameToAdd;
+      if (inputItem != null) {
+        const nameToAdd = GetDisplayName(inputItem); // recurse
+        toReturn += toReturn.length > 0 ? `, ${nameToAdd}` : nameToAdd;
+      }
     }
     return toReturn;
   }
