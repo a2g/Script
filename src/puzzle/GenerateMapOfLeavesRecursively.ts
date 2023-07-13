@@ -12,8 +12,9 @@ export function GenerateMapOfLeavesRecursively(
       case SpecialTypes.CompletedElsewhere:
       case SpecialTypes.ExistsFromBeginning:
       case SpecialTypes.VerifiedLeaf:
-      case 'null':
-        map.set(`${path}/${piece.inputHints[i]}`, input);
+        if (!piece.output.startsWith('goal')) {
+          map.set(`${path}/${piece.inputHints[i]}`, piece);
+        }
         break;
       default:
         if (input != null) {
