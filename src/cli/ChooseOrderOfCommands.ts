@@ -37,7 +37,6 @@ export function ChooseOrderOfCommands(solver: SolverViaRootPiece): void {
     let listItemNumber = 0;
     for (const solution of solver.GetSolutions()) {
       console.warn(FormatText(solution.GetDisplayNamesConcatenated()));
-      console.warn(FormatText(solution.GetRootMap().CalculateListOfKeys()));
       const commands: Array<RawObjectsAndVerb> = solution.GetOrderOfCommands();
       for (const command of commands) {
         listItemNumber++;

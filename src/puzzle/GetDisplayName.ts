@@ -20,16 +20,16 @@ export function GetDisplayName(
   const single = input.toString();
   if (single.startsWith('sol_prop_')) {
     return (
-      Colors.Red +
+      Colors.Yellow +
       AddBrackets(single.slice(9), isParenthesisNeeded) +
       Colors.Reset
     );
   }
   if (single.startsWith('sol_goal_')) {
-    return Colors.Red + single.slice(9) + Colors.Reset;
+    return Colors.Yellow + single.slice(9) + Colors.Reset;
   }
   if (single.startsWith('sol_inv_')) {
-    return Colors.Red + single.slice(8) + Colors.Reset;
+    return Colors.Yellow + single.slice(8) + Colors.Reset;
   }
   if (single.startsWith('inv_')) {
     return Colors.Magenta + single.slice(4) + Colors.Reset;
@@ -42,7 +42,7 @@ export function GetDisplayName(
   }
   if (single.startsWith('char_')) {
     return (
-      Colors.Yellow +
+      Colors.Red +
       AddBrackets(single.slice(5), isParenthesisNeeded) +
       Colors.Reset
     );
@@ -52,7 +52,7 @@ export function GetDisplayName(
     single.startsWith('toggle') ||
     single.startsWith('grab')
   ) {
-    return Colors.Yellow + single + Colors.Reset;
+    return Colors.Red + single + Colors.Reset;
   }
 
   return single;

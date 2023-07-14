@@ -20,18 +20,18 @@ export function FormatText(
   if (single.startsWith('sol_prop_')) {
     if (!isColor) return AddBrackets(single.slice(9), isParenthesisNeeded);
     return (
-      Colors.Red +
+      Colors.Yellow +
       AddBrackets(single.slice(9), isParenthesisNeeded) +
       Colors.Reset
     );
   }
   if (single.startsWith('sol_goal_')) {
     if (!isColor) return single.slice(9);
-    return Colors.Red + single.slice(9) + Colors.Reset;
+    return Colors.Yellow + single.slice(9) + Colors.Reset;
   }
   if (single.startsWith('sol_inv_')) {
     if (!isColor) return single.slice(8);
-    return Colors.Red + single.slice(8) + Colors.Reset;
+    return Colors.Yellow + single.slice(8) + Colors.Reset;
   }
   if (single.startsWith('inv_')) {
     if (!isColor) return single.slice(4);
@@ -48,7 +48,7 @@ export function FormatText(
   if (single.startsWith('char_')) {
     if (!isColor) return AddBrackets(single.slice(5), isParenthesisNeeded);
     return (
-      Colors.Yellow +
+      Colors.Red +
       AddBrackets(single.slice(5), isParenthesisNeeded) +
       Colors.Reset
     );
@@ -59,7 +59,7 @@ export function FormatText(
     single.startsWith('grab')
   ) {
     if (!isColor) return single;
-    return Colors.Yellow + single + Colors.Reset;
+    return Colors.Red + single + Colors.Reset;
   }
 
   return single;

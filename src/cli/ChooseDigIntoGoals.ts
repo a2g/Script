@@ -1,4 +1,5 @@
 import promptSync from 'prompt-sync';
+import { AddBrackets } from '../puzzle/AddBrackets';
 import { FormatText } from '../puzzle/FormatText';
 import { SolverViaRootPiece } from '../puzzle/SolverViaRootPiece';
 import { TrimNonIntegratedRootPieces } from '../puzzle/TrimNonIntegratedRootPieces';
@@ -21,11 +22,13 @@ export function ChooseDigIntoGoals(solver: SolverViaRootPiece): void {
     // display list
     let incomplete = 0;
     let listItemNumber = 0;
+    let solutionNumber = 65;
     for (const solution of solver.GetSolutions()) {
       TrimNonIntegratedRootPieces(solution);
-      console.warn('------------------------------------------------');
-      console.warn(FormatText(solution.GetDisplayNamesConcatenated()));
-      console.warn(FormatText(solution.GetRootMap().CalculateListOfKeys()));
+      const letter = String.fromCharCode(solutionNumber++);
+      console.warn(
+        letter  +  '. '+ FormatText(solution.GetDisplayNamesConcatenated())+'<--unique name'
+      );
       for (const array of solution.GetRootMap().GetValues()) {
         for (const item of array) {
           listItemNumber++;
@@ -33,10 +36,11 @@ export function ChooseDigIntoGoals(solver: SolverViaRootPiece): void {
           // display list item
           const status: string = item.firstNullInput;
           let { output } = item.piece;
+          let inputs = ''
           for (const input of item.piece.inputHints) {
-            output += `/${input}`;
+            inputs += `${FormatText(input)},`;
           }
-          console.warn(`    ${listItemNumber}. ${output} (status=${status})`);
+          console.warn(`    ${listItemNumber}. ${FormatText(output)} ${AddBrackets(inputs)} (status=${status})`);
           incomplete += status.length > 0 ? 1 : 0;
         }
       }

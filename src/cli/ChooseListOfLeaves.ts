@@ -35,10 +35,11 @@ export function ChooseListOfLeaves(solver: SolverViaRootPiece): void {
 
     let incomplete = 0;
     let listItemNumber = 0;
+    let solutionNumber = 65;
     for (const solution of solver.GetSolutions()) {
-      console.warn('------------------------------------------------------');
+      const letter = String.fromCharCode(solutionNumber++);
       console.warn(
-        'unique item: ' + FormatText(solution.GetDisplayNamesConcatenated())
+       letter  +  '. '+ FormatText(solution.GetDisplayNamesConcatenated())+'<--unique name'
       );
       const leaves: Map<
         string,
@@ -49,7 +50,7 @@ export function ChooseListOfLeaves(solver: SolverViaRootPiece): void {
         const piece = leaves.get(key);
         //  "1. XXXXXX"   <- this is the format we list the leaves
         const pieceName: string = piece != null ? piece.output : 'null';
-        console.warn(`    ${listItemNumber}. ${pieceName} [${key}]`);
+        console.warn(`    ${listItemNumber}. ${FormatText(pieceName)} [${key}]`);
         incomplete += piece === null ? 1 : 0;
       }
     }

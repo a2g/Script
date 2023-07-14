@@ -36,7 +36,7 @@ export class GameReporter {
     let prettifiedCommand = '';
     if (command.length !== 3) {
       prettifiedCommand =
-        Colors.Red + 'Command length is not 3!' + Colors.Reset;
+        Colors.Yellow + 'Command length is not 3!' + Colors.Reset;
     } else if (command[2] !== '') {
       prettifiedCommand =
         this.Prettify(command[0]) +
