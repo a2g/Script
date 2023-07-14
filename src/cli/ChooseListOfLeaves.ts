@@ -36,8 +36,10 @@ export function ChooseListOfLeaves(solver: SolverViaRootPiece): void {
     let incomplete = 0;
     let listItemNumber = 0;
     for (const solution of solver.GetSolutions()) {
-      console.warn(FormatText(solution.GetDisplayNamesConcatenated()));
-      console.warn(FormatText(solution.GetRootMap().CalculateListOfKeys()));
+      console.warn('------------------------------------------------------');
+      console.warn(
+        'unique item: ' + FormatText(solution.GetDisplayNamesConcatenated())
+      );
       const leaves: Map<
         string,
         Piece | null

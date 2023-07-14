@@ -7,7 +7,7 @@ import { NavigatePieceRecursive } from './NavigatePieceRecursive';
 const prompt = promptSync({});
 
 export function ChooseDigIntoGoals(solver: SolverViaRootPiece): void {
-  console.warn(' ');
+  console.warn('ChooseDigIntoGoals... ');
 
   for (;;) {
     solver.MarkGoalsAsCompletedAndMergeIfNeeded();
@@ -23,6 +23,7 @@ export function ChooseDigIntoGoals(solver: SolverViaRootPiece): void {
     let listItemNumber = 0;
     for (const solution of solver.GetSolutions()) {
       TrimNonIntegratedRootPieces(solution);
+      console.warn('------------------------------------------------');
       console.warn(FormatText(solution.GetDisplayNamesConcatenated()));
       console.warn(FormatText(solution.GetRootMap().CalculateListOfKeys()));
       for (const array of solution.GetRootMap().GetValues()) {

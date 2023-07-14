@@ -25,9 +25,9 @@ export function ChooseOrderOfCommands(solver: SolverViaRootPiece): void {
     );
     console.warn('for items that two goals need, but only one ends up with.');
     console.warn('GOTCHA: Also validate boxes against schema, as this has ');
-    console.warn('been the cause of the problem on numerous occasions.');
+    console.warn('been the cause of the problem numerous times.');
     console.warn('');
-    console.warn('List Leaf Pieces');
+    console.warn('List of Commands');
     console.warn('================');
     console.warn(`Number of solutions = ${numberOfSolutions}`);
 

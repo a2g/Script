@@ -113,8 +113,8 @@ export class SolverViaRootPiece {
         }
         const otherSolution = this.solutions[j];
         const otherLeafs = otherSolution.GetRootMap().GenerateMapOfLeaves();
-        for (const leafNode of otherLeafs.keys()) {
-          const otherLeafNodeName = leafNode;
+        for (const leafNode of otherLeafs.values()) {
+          const otherLeafNodeName = leafNode.GetOutput();
           let otherLeafNodeNameCount = 0;
           const result = mapForCounting.get(otherLeafNodeName);
           if (result !== undefined) {
@@ -135,22 +135,21 @@ export class SolverViaRootPiece {
 
       //GenerateMapOfLeaves
       const currLeaves = currSolution.GetRootMap().GenerateMapOfLeaves();
-      for (const leafNode of currLeaves.keys()) {
-        const result = mapForCounting.get(leafNode);
+      for (const leafNode of currLeaves.values()) {
+        const result = mapForCounting.get(leafNode.GetOutput());
         if (result !== undefined && result < minLeafNodeNameCount) {
           minLeafNodeNameCount = result;
-          minLeafNodeName = leafNode;
-        } else if (!mapForCounting.has(leafNode)) {
+          minLeafNodeName = leafNode.GetOutput();
+        } else if (!mapForCounting.has(leafNode.GetOutput())) {
           // our leaf is no where in the leafs of other solutions - we can use it!
           minLeafNodeNameCount = 0;
-          minLeafNodeName = leafNode;
+          minLeafNodeName = leafNode.GetOutput();
         }
 
         // now we potentially add startingSet items to restrictions
-
         this.mapOfStartingThingsAndWhoCanHaveThem.forEach(
           (characters: Set<string>, key: string) => {
-            if (key === leafNode) {
+            if (key === leafNode.GetOutput()) {
               for (const character of characters) {
                 accumulatedRestrictions.add(character);
               }

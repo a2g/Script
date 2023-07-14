@@ -47,8 +47,8 @@ export class RootPieceMap implements IPileOrRootPieceMap {
    *
    * @returns unsolved root nodes
    */
-  public GenerateMapOfLeaves(): Map<string, Piece | null> {
-    const leaves = new Map<string, Piece | null>();
+  public GenerateMapOfLeaves(): Map<string, Piece> {
+    const leaves = new Map<string, Piece>();
     for (const array of this.GetValues()) {
       for (const root of array) {
         GenerateMapOfLeavesRecursively(root.piece, '', leaves);
