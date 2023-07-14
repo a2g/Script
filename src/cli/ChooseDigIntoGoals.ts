@@ -27,7 +27,10 @@ export function ChooseDigIntoGoals(solver: SolverViaRootPiece): void {
       TrimNonIntegratedRootPieces(solution);
       const letter = String.fromCharCode(solutionNumber++);
       console.warn(
-        letter  +  '. '+ FormatText(solution.GetDisplayNamesConcatenated())+'<--unique name'
+        letter +
+          '. ' +
+          FormatText(solution.GetDisplayNamesConcatenated()) +
+          '<--unique name'
       );
       for (const array of solution.GetRootMap().GetValues()) {
         for (const item of array) {
@@ -36,11 +39,15 @@ export function ChooseDigIntoGoals(solver: SolverViaRootPiece): void {
           // display list item
           const status: string = item.firstNullInput;
           let { output } = item.piece;
-          let inputs = ''
+          let inputs = '';
           for (const input of item.piece.inputHints) {
             inputs += `${FormatText(input)},`;
           }
-          console.warn(`    ${listItemNumber}. ${FormatText(output)} ${AddBrackets(inputs)} (status=${status})`);
+          console.warn(
+            `    ${listItemNumber}. ${FormatText(output)} ${AddBrackets(
+              inputs
+            )} (status=${status})`
+          );
           incomplete += status.length > 0 ? 1 : 0;
         }
       }
