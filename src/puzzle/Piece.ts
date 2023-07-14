@@ -149,7 +149,7 @@ export class Piece {
 
   public StubOutInputK(k: number, type: SpecialTypes): void {
     const objectToObtain = this.inputHints[k];
-    const newLeaf = new Piece(0, null, `${type}(${objectToObtain})`, type);
+    const newLeaf = new Piece(0, null, `${objectToObtain}       (${type}))`, type);
     newLeaf.parent = this;
     this.inputs[k] = newLeaf;
   }
