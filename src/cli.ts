@@ -121,7 +121,7 @@ function ChooseArea(folder: string) {
             console.warn('2. Dig into Goals for First Box');
             console.warn('3. List the Leaves for COMBINED.');
             console.warn('4. List the Leaves for First Box`');
-            console.warn('5. Order of Goals for First Box solve');
+            console.warn('5. Order of Commands for First Box solve');
             console.warn(
               '6. Check for unused props and invs <-- delete these from enums'
             );
