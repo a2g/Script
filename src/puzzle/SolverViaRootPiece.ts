@@ -112,15 +112,19 @@ export class SolverViaRootPiece {
           continue;
         }
         const otherSolution = this.solutions[j];
-        const otherLeafs = otherSolution.GetRootMap().GenerateMapOfLeaves();
+        const otherLeafs = otherSolution
+          .GetRootMap()
+          .GenerateMapOfLeaves(false);
         for (const leafNode of otherLeafs.values()) {
-          const otherLeafNodeName = leafNode.GetOutput();
-          let otherLeafNodeNameCount = 0;
-          const result = mapForCounting.get(otherLeafNodeName);
-          if (result !== undefined) {
-            otherLeafNodeNameCount = result;
+          if (leafNode != null) {
+            const otherLeafNodeName = leafNode.GetOutput();
+            let otherLeafNodeNameCount = 0;
+            const result = mapForCounting.get(otherLeafNodeName);
+            if (result !== undefined) {
+              otherLeafNodeNameCount = result;
+            }
+            mapForCounting.set(otherLeafNodeName, otherLeafNodeNameCount + 1);
           }
-          mapForCounting.set(otherLeafNodeName, otherLeafNodeNameCount + 1);
         }
       }
 
@@ -134,28 +138,30 @@ export class SolverViaRootPiece {
       const accumulatedRestrictions = currSolution.GetAccumulatedRestrictions();
 
       //GenerateMapOfLeaves
-      const currLeaves = currSolution.GetRootMap().GenerateMapOfLeaves();
+      const currLeaves = currSolution.GetRootMap().GenerateMapOfLeaves(false);
       for (const leafNode of currLeaves.values()) {
-        const result = mapForCounting.get(leafNode.GetOutput());
-        if (result !== undefined && result < minLeafNodeNameCount) {
-          minLeafNodeNameCount = result;
-          minLeafNodeName = leafNode.GetOutput();
-        } else if (!mapForCounting.has(leafNode.GetOutput())) {
-          // our leaf is no where in the leafs of other solutions - we can use it!
-          minLeafNodeNameCount = 0;
-          minLeafNodeName = leafNode.GetOutput();
-        }
+        if (leafNode != null) {
+          const result = mapForCounting.get(leafNode.GetOutput());
+          if (result !== undefined && result < minLeafNodeNameCount) {
+            minLeafNodeNameCount = result;
+            minLeafNodeName = leafNode.GetOutput();
+          } else if (!mapForCounting.has(leafNode.GetOutput())) {
+            // our leaf is no where in the leafs of other solutions - we can use it!
+            minLeafNodeNameCount = 0;
+            minLeafNodeName = leafNode.GetOutput();
+          }
 
-        // now we potentially add startingSet items to restrictions
-        this.mapOfStartingThingsAndWhoCanHaveThem.forEach(
-          (characters: Set<string>, key: string) => {
-            if (key === leafNode.GetOutput()) {
-              for (const character of characters) {
-                accumulatedRestrictions.add(character);
+          // now we potentially add startingSet items to restrictions
+          this.mapOfStartingThingsAndWhoCanHaveThem.forEach(
+            (characters: Set<string>, key: string) => {
+              if (key === leafNode.GetOutput()) {
+                for (const character of characters) {
+                  accumulatedRestrictions.add(character);
+                }
               }
             }
-          }
-        );
+          );
+        }
       }
 
       currSolution.PushNameSegment(

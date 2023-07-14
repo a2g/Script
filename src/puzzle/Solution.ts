@@ -226,7 +226,7 @@ export class Solution {
   public GenerateCommandsAndAddToMap(piece: Piece): void {
     // push the commands
     const leaves = new Map<string, Piece | null>();
-    GenerateMapOfLeavesRecursively(piece, '', leaves);
+    GenerateMapOfLeavesRecursively(piece, '', leaves, true);
     const reverseTraverser = new ReverseTraverser(
       this.currentlyVisibleThings,
       leaves
