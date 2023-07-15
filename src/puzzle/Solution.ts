@@ -256,12 +256,6 @@ export class Solution {
         // this is just here for debugging!
         this.commandCompletedInOrder.push(rawObjectsAndVerb);
       }
-
-      if (rawObjectsAndVerb.type === Raw.PenultimateStep) {
-        // this is just here for debugging!
-        console.warn(reverseTraverser.GetNextDoableCommandAndDeconstructTree());
-        break;
-      }
     }
 
     // set the goal as visible in the currently visible things

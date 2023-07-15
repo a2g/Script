@@ -1,3 +1,4 @@
+import assert from 'assert';
 import { Piece } from './Piece';
 import { Raw } from './Raw';
 import { RawObjectsAndVerb } from './RawObjectsAndVerb';
@@ -58,15 +59,7 @@ export class ReverseTraverser {
             this.leavesForReverseTraversal.set(pathOfParent, piece.parent);
           }
 
-          if (piece.output === 'goal_win') {
-            return new RawObjectsAndVerb(
-              Raw.PenultimateStep,
-              '',
-              '',
-              piece.getRestrictions(),
-              piece.type
-            );
-          } else if (piece.inputs.length === 0) {
+          if (piece.inputs.length === 0) {
             return new RawObjectsAndVerb(
               Raw.None,
               '',
@@ -133,14 +126,8 @@ export class ReverseTraverser {
             );
           } else if (piece.parent == null) {
             // I think this means tha the root piece isn't set properly!
-            // so we need to set breakpoint on this return, and the one above, and debug
-            return new RawObjectsAndVerb(
-              Raw.PenultimateStep,
-              piece.inputHints[0],
-              '',
-              piece.getRestrictions(),
-              piece.type
-            );
+            // so we need to set breakpoint on this return, and debug.
+            assert(false)
           } else {
             // assert(false && " type not identified");
             const maybePieceInputs1: string = Stringify(

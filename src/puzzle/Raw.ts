@@ -7,5 +7,4 @@ export enum Raw {
   Use,
   Give,
   Goal,
-  PenultimateStep,
 }
