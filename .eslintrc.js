@@ -1,23 +1,9 @@
 module.exports = {
-  // Extends the previous ESLint configuration by adding `settings`
-  // <--! Previous configuration comes here !-->
-  root: true,
-  parser: '@typescript-eslint/parser',
-  plugins: [
-      '@typescript-eslint',
-  ],
-  extends: [
-      'eslint:recommended'
-  ],
-  rules: {
-    "no-unused-vars": "off",
-    "no-undef": "off",
-    "@typescript-eslint/no-unused-vars": ["error"]
-  },
+  extends: "standard-with-typescript",
   parserOptions: {
-    project: 'tsconfig.json',
-    tsconfigRootDir: __dirname,
-    sourceType: 'module',
+    project: "./tsconfig.json",
+  },
+  rules: {
+    "restrict-template-expressions": "off",
   },
 };
-
