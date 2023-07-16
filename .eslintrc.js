@@ -15,5 +15,6 @@ module.exports = {
   },
   rules: {
     "restrict-template-expressions": "off",
+    "@typescript-eslint/no-empty-interface": "off"
   },
 };
