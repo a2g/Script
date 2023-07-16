@@ -65,7 +65,7 @@ export class RootPieceMap implements IPileOrRootPieceMap {
     return root;
   }
 
-  public RemoveAllWithName(name: string) {
+  public RemoveAllWithName(name: string): void {
     this.roots.delete(name);
   }
 

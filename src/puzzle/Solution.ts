@@ -293,7 +293,7 @@ export class Solution {
     return this.startingThings;
   }
 
-  public GetSize() {
+  public GetSize(): number {
     return this.remainingPiecesRepo.Size();
   }
 }

@@ -83,7 +83,7 @@ export class LogicGrid {
     });
   }
 
-  public GetLastDebugString() {
+  public GetLastDebugString(): string {
     return this.lastDebugString;
   }
 

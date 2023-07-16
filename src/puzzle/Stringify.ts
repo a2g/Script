@@ -1,4 +1,4 @@
-export function Stringify(blah: any): string {
+export function Stringify(blah: unknown): string {
   if (blah != null) {
     return blah.toString();
   }

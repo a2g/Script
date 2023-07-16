@@ -17,7 +17,7 @@ interface LocationWithTimezone {
   timezoneName: string;
   timezoneAbbr: string;
   utcOffset: number;
-  void: any;
+  void: unknown;
 }
 
 const getLocationsWithTimezones = (request: Request, response: Response) => {

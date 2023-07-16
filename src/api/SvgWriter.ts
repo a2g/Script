@@ -26,7 +26,7 @@ export class SvgWriter {
     paramA: string,
     paramB: string,
     responseSender: Response
-  ) {
+  ): void {
     const path = `../${repo}/${world}/`;
     const areaMapFilename = `${area}${Suffix.AreaMap}.json`;
     const connectionsFilename = `${area}${Suffix.Connections}.json`;

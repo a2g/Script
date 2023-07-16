@@ -149,7 +149,7 @@ export class Box implements IBoxReadOnlyWithFileMethods {
     }
   }
 
-  public Init() {
+  public Init(): void {
     // this was here in case we couldn't load the file in the constructor - but now we can.
   }
 
