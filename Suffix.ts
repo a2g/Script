@@ -5,4 +5,4 @@ export const Suffix = {
   Defs: '_defs',
   Enums: '_enums',
   FirstBox: '_first',
-}
+};

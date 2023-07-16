@@ -54,7 +54,8 @@ export function ChooseOrderOfCommands(solver: SolverViaRootPiece): void {
       if (theNumber > 0 && theNumber <= listItemNumber) {
         let i = 0;
         for (const solution of solver.GetSolutions()) {
-          const commands: Array<RawObjectsAndVerb> = solution.GetOrderOfCommands();
+          const commands: Array<RawObjectsAndVerb> =
+            solution.GetOrderOfCommands();
           for (const command of commands) {
             i++;
             if (i === theNumber) {

@@ -60,15 +60,13 @@ export class Graph {
 
     pq.enqueue(new QueueItem<Point, number>(startPoint, 0));
     while (!pq.isEmpty()) {
-      const shortestStepOrUndefined:
-        | QueueItem<Point, number>
-        | undefined = pq.dequeue();
+      const shortestStepOrUndefined: QueueItem<Point, number> | undefined =
+        pq.dequeue();
       if (shortestStepOrUndefined !== undefined) {
         const shortestStep: QueueItem<Point, number> = shortestStepOrUndefined;
         const currentPoint = shortestStep.getPrimitive();
-        const list:
-          | Array<QueueItem<Point, number>>
-          | undefined = this.adjacencyList.get(currentPoint);
+        const list: Array<QueueItem<Point, number>> | undefined =
+          this.adjacencyList.get(currentPoint);
         if (list !== undefined) {
           for (const neighbor of list) {
             const currentPointPriority = priorities.get(currentPoint);

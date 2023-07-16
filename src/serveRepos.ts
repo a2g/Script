@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 5000;
 
 const redisClient: RedisClient = createClient({
   url: process.env.REDIS_ENDPOINT_URI,
-  password: process.env.REDIS_PASSWORD
+  password: process.env.REDIS_PASSWORD,
 });
 
 dotenv.config();
@@ -25,7 +25,7 @@ function composeResponse(
   return {
     username,
     repos,
-    isCached
+    isCached,
   };
 }
 
@@ -42,8 +42,8 @@ async function directRequestToGithub(req: Request, responseSender: Response) {
       `https://api.github.com/users/${username}`,
       {
         headers: {
-          Accept: 'application/json'
-        }
+          Accept: 'application/json',
+        },
       }
     );
     if (status == 200) {
@@ -67,7 +67,7 @@ app.use('/', express.static(path.join(__dirname, '../lib/src')));
 app.use(responseTime());
 app.use(
   cors({
-    exposedHeaders: ['X-Response-Time']
+    exposedHeaders: ['X-Response-Time'],
   })
 );
 

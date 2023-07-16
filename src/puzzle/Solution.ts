@@ -89,7 +89,8 @@ export class Solution {
     // the weird order of this is because Solution constructor is used
     // primarily to construct, so passing in root piece is needed..
     // so we clone the whole tree and pass it in
-    const clonedRootPieceMap = this.rootPieces.CloneAllRootPiecesAndTheirTrees();
+    const clonedRootPieceMap =
+      this.rootPieces.CloneAllRootPiecesAndTheirTrees();
 
     // When we clone we generally give everything new ids
     // but
@@ -233,11 +234,13 @@ export class Solution {
     );
     let rawObjectsAndVerb: RawObjectsAndVerb | null = null;
     for (let j = 0; j < 200; j += 1) {
-      rawObjectsAndVerb = reverseTraverser.GetNextDoableCommandAndDeconstructTree();
+      rawObjectsAndVerb =
+        reverseTraverser.GetNextDoableCommandAndDeconstructTree();
       if (rawObjectsAndVerb == null) {
         // all out of moves!
         // for debugging
-        rawObjectsAndVerb = reverseTraverser.GetNextDoableCommandAndDeconstructTree();
+        rawObjectsAndVerb =
+          reverseTraverser.GetNextDoableCommandAndDeconstructTree();
         break;
       }
 

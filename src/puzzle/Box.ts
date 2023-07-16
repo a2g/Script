@@ -169,13 +169,13 @@ export class Box implements IBoxReadOnlyWithFileMethods {
   }
 
   public FindHappeningsIfAny(objects: MixedObjectsAndVerb): Happenings | null {
-    const result = (SingleBigSwitch(
+    const result = SingleBigSwitch(
       this.path,
       this.filename,
       objects,
       false,
       null
-    ) as unknown) as Happenings | null;
+    ) as unknown as Happenings | null;
     return result;
   }
 

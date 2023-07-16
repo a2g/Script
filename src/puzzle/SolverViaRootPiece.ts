@@ -112,9 +112,7 @@ export class SolverViaRootPiece {
           continue;
         }
         const otherSolution = this.solutions[j];
-        const otherLeafs = otherSolution
-          .GetRootMap()
-          .GenerateMapOfLeaves();
+        const otherLeafs = otherSolution.GetRootMap().GenerateMapOfLeaves();
         for (const leafNode of otherLeafs.values()) {
           if (leafNode != null) {
             const otherLeafNodeName = leafNode.GetOutput();

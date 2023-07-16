@@ -63,7 +63,7 @@ export class SvgWriter {
       const svgNs = 'http://www.w3.org/2000/svg';
 
       const svgDoc = create({
-        defaultNamespace: { ele: svgNs, att: null }
+        defaultNamespace: { ele: svgNs, att: null },
       });
 
       // all svg elements below will be created in the 'http://www.w3.org/2000/svg' namespace
@@ -92,7 +92,7 @@ export class SvgWriter {
             width: squareSize,
             height: squareSize,
             fill: 'none',
-            stroke: '#f00'
+            stroke: '#f00',
           })
           .up();
         // we need to go up, otherwise any subsequent
@@ -122,7 +122,7 @@ export class SvgWriter {
                     x2: p2.getX(),
                     y2: p2.getY(),
                     fill: 'none',
-                    stroke: '#f00'
+                    stroke: '#f00',
                   })
                   .up();
               }
@@ -167,7 +167,7 @@ export class SvgWriter {
                         cy: 500,
                         r: 15,
                         fill: 'blue',
-                        stroke: 'cyan'
+                        stroke: 'cyan',
                       })
                       .ele('animate')
                       .att({
@@ -177,7 +177,7 @@ export class SvgWriter {
                         fill: 'remove',
                         from: '100',
                         to: '100',
-                        repeatCount: '0'
+                        repeatCount: '0',
                       })
                       .up()
                       .ele('animate')
@@ -188,7 +188,7 @@ export class SvgWriter {
                         fill: 'remove',
                         from: a.getX(),
                         to: b.getX(),
-                        repeatCount: '0'
+                        repeatCount: '0',
                       })
                       .up()
 
@@ -200,7 +200,7 @@ export class SvgWriter {
                         fill: 'remove',
                         from: a.getY(),
                         to: b.getY(),
-                        repeatCount: '0'
+                        repeatCount: '0',
                       })
                       .up()
                       .up();
@@ -213,7 +213,7 @@ export class SvgWriter {
                         cy: a.getY(),
                         r: 15,
                         fill: 'blue',
-                        stroke: 'cyan'
+                        stroke: 'cyan',
                       })
                       .ele('animate')
                       .att({
@@ -223,7 +223,7 @@ export class SvgWriter {
                         fill: 'remove',
                         from: 1,
                         to: 1,
-                        repeatCount: '0'
+                        repeatCount: '0',
                       });
                   }
                 }
@@ -236,7 +236,7 @@ export class SvgWriter {
       const resultantSvg = svgDoc.end({ prettyPrint: true });
       responseSender.writeHead(200, {
         'Content-Type': 'image/svg+xml',
-        'Content-Length': resultantSvg.length
+        'Content-Length': resultantSvg.length,
       });
       responseSender.end(resultantSvg);
     }

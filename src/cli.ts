@@ -27,7 +27,7 @@ function main(): void {
       '.gitignore',
       'package.json',
       'tsconfig.json',
-      '.git'
+      '.git',
     ]);
     process.chdir('./exclusive-worlds');
     const folders = fs.readdirSync('.');

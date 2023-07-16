@@ -207,13 +207,13 @@ export class BigBoxViaSetOfBoxes implements IBoxReadOnly {
 
   public FindHappeningsIfAny(command: MixedObjectsAndVerb): Happenings | null {
     for (const box of this.originalBoxes) {
-      const result = (SingleBigSwitch(
+      const result = SingleBigSwitch(
         box.GetPath(),
         box.GetFilename(),
         command,
         false,
         null
-      ) as unknown) as Happenings | null;
+      ) as unknown as Happenings | null;
       if (result != null) {
         return result;
       }

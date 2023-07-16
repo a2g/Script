@@ -12,7 +12,7 @@ interface $INameIsAGoalChildren {
 export function solutions(solver: SolverViaRootPiece): Record<string, unknown> {
   return {
     name: 'Solutions',
-    children: getJsonArrayOfSolutions(solver.GetSolutions())
+    children: getJsonArrayOfSolutions(solver.GetSolutions()),
   };
 }
 
@@ -26,7 +26,7 @@ function getJsonArrayOfSolutions(
     toReturn.push({
       name: `Solution ${i}`,
       isAGoalOrAuto: false,
-      children: getJsonArrayOfRootPieces(solution)
+      children: getJsonArrayOfRootPieces(solution),
     });
   }
 
@@ -44,14 +44,14 @@ function getJsonArrayOfRootPieces(
       toReturn.push({
         name: rootPiece.piece.GetOutput(),
         isAGoalOrAuto: false,
-        children: getJsonArrayOfAllSubPieces(rootPiece.piece)
+        children: getJsonArrayOfAllSubPieces(rootPiece.piece),
       });
     }
   }
   toReturn.push({
     name: `List of Commands`,
     isAGoalOrAuto: false,
-    children: getJsonArrayOfOrderedSteps(solution.GetOrderOfCommands())
+    children: getJsonArrayOfOrderedSteps(solution.GetOrderOfCommands()),
   });
   return toReturn;
 }
@@ -66,19 +66,19 @@ function getJsonArrayOfAllSubPieces(piece: Piece): Array<unknown> {
       toReturn.push({
         name: hint,
         isAGoalOrAuto: false,
-        children: getJsonArrayOfAllSubPieces(pieceOrNull)
+        children: getJsonArrayOfAllSubPieces(pieceOrNull),
       });
     } else {
       toReturn.push({
         name: hint,
-        isAGoalOrAuto: false
+        isAGoalOrAuto: false,
       });
     }
   }
   if (i == -1) {
     toReturn.push({
       name: piece.output,
-      isAGoalOrAuto: false
+      isAGoalOrAuto: false,
     });
   }
   return toReturn;
@@ -106,7 +106,7 @@ function getJsonArrayOfOrderedSteps(
       isAGoalOrAuto: step.isAGoalOrAuto(),
       paramA: lastLocation,
       paramB: newLocation,
-      children: []
+      children: [],
     });
     lastLocation = newLocation;
   }

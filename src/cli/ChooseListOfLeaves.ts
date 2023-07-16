@@ -44,10 +44,9 @@ export function ChooseListOfLeaves(solver: SolverViaRootPiece): void {
           FormatText(solution.GetDisplayNamesConcatenated()) +
           '<--unique name'
       );
-      const leaves: Map<
-        string,
-        Piece | null
-      > = solution.GetRootMap().GenerateMapOfLeaves();
+      const leaves: Map<string, Piece | null> = solution
+        .GetRootMap()
+        .GenerateMapOfLeaves();
       for (const key of leaves.keys()) {
         listItemNumber++;
         const piece = leaves.get(key);
