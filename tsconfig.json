@@ -70,7 +70,8 @@
     "src/**/*",
     "testsYup/**/*",
     "jigsaw.ts",
-    "Suffix.ts"
+    "Suffix.ts",
+    ".eslintrc.js"
   ],
   "exclude": [
     "node_modules",
