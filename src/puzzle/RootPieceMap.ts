@@ -22,7 +22,7 @@ export class RootPieceMap implements IPileOrRootPieceMap {
       for (const pair of deepCopyFromMe.roots) {
         const key = pair[0];
         const value = pair[1];
-        let array = new Array<RootPiece>();
+        const array = new Array<RootPiece>();
         this.roots.set(key, []);
         for (const rootPiece of value) {
           const clonedTree: Piece = rootPiece.piece.ClonePieceAndEntireTree();
@@ -51,11 +51,7 @@ export class RootPieceMap implements IPileOrRootPieceMap {
     const leaves = new Map<string, Piece>();
     for (const array of this.GetValues()) {
       for (const root of array) {
-        GenerateMapOfLeavesRecursively(
-          root.piece,
-          '',
-          leaves
-        );
+        GenerateMapOfLeavesRecursively(root.piece, '', leaves);
       }
     }
     return leaves;

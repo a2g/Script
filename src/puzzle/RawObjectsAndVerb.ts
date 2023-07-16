@@ -27,7 +27,7 @@ export class RawObjectsAndVerb {
     this.typeJustForDebugging = typeJustForDebugging;
   }
 
-  public AsDisplayString(isColor: boolean = true): string {
+  public AsDisplayString(isColor = true): string {
     const enumAsInt = parseInt(this.type.toString(), 10);
     if (enumAsInt >= 0) {
       const verb = FormatText(Raw[enumAsInt], isColor);
@@ -87,9 +87,6 @@ export class RawObjectsAndVerb {
   }
 
   public isAGoalOrAuto(): boolean {
-    return (
-      this.type === Raw.Goal ||
-      this.type == Raw.Auto 
-    );
+    return this.type === Raw.Goal || this.type == Raw.Auto;
   }
 }

@@ -92,7 +92,7 @@ export class ReverseTraverser {
               piece.type
             );
           } else if (isAuto) {
-            let text: string = 'auto using (';
+            let text = 'auto using (';
             for (const inputName of piece.inputHints) {
               const inputName2: string = inputName;
               text += `${inputName2} `;
@@ -127,7 +127,7 @@ export class ReverseTraverser {
           } else if (piece.parent == null) {
             // I think this means tha the root piece isn't set properly!
             // so we need to set breakpoint on this return, and debug.
-            assert(false)
+            assert(false);
           } else {
             // assert(false && " type not identified");
             const maybePieceInputs1: string = Stringify(
@@ -135,7 +135,7 @@ export class ReverseTraverser {
             );
             const pieceInputs0: string = Stringify(piece.inputs[0]);
             const pieceType: string = Stringify(piece.type);
-            const warning: string = `Assertion because of type not Identified!: ${pieceType} ${pieceInputs0} ${maybePieceInputs1}`;
+            const warning = `Assertion because of type not Identified!: ${pieceType} ${pieceInputs0} ${maybePieceInputs1}`;
             console.warn(warning);
           }
         }

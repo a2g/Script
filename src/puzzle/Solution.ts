@@ -49,7 +49,7 @@ export class Solution {
     rootPieceMapToCopy: RootPieceMap | null,
     copyThisMapOfPieces: IPileOfPiecesReadOnly,
     startingThingsPassedIn: VisibleThingsMap,
-    isMergingOk: boolean = false,
+    isMergingOk = false,
     restrictions: Set<string> | null = null,
     nameSegments: string[] | null = null
   ) {

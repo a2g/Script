@@ -43,14 +43,14 @@ export class SvgWriter {
     let maxCol = 1;
     let maxRow = 1;
     if (Array.isArray(areaMap.squares)) {
-      let squares = areaMap.squares as $Square[];
-      for (let square of squares) {
+      const squares = areaMap.squares as $Square[];
+      for (const square of squares) {
         const colAsString = square.col;
-        let col = colAsString.length > 0 ? colAsString.charCodeAt(0) - 65 : 0;
+        const col = colAsString.length > 0 ? colAsString.charCodeAt(0) - 65 : 0;
         if (col > maxCol) {
           maxCol = col;
         }
-        let row = parseInt(square.row);
+        const row = parseInt(square.row);
         if (row > maxRow) {
           maxRow = row;
         }
@@ -64,7 +64,7 @@ export class SvgWriter {
       const svgNs = 'http://www.w3.org/2000/svg';
 
       const svgDoc = create({
-        defaultNamespace: { ele: svgNs, att: null },
+        defaultNamespace: { ele: svgNs, att: null }
       });
 
       // all svg elements below will be created in the 'http://www.w3.org/2000/svg' namespace
@@ -74,15 +74,15 @@ export class SvgWriter {
         .att('viewBox', `0 0 ${length} ${height}`);
 
       const centres = new Map<string, Point>();
-      for (let square of squares) {
+      for (const square of squares) {
         const colAsString = square.col;
-        let col = colAsString.length > 0 ? colAsString.charCodeAt(0) - 65 : 0;
-        let row = parseInt(square.row);
+        const col = colAsString.length > 0 ? colAsString.charCodeAt(0) - 65 : 0;
+        const row = parseInt(square.row);
 
-        let k = squareSize * 0.5;
+        const k = squareSize * 0.5;
         const x = k + col * squareSize;
         const y = row * squareSize;
-        let point = new Point(x + k, y + k);
+        const point = new Point(x + k, y + k);
         centres.set(square.location, point);
 
         lastNode = lastNode
@@ -93,7 +93,7 @@ export class SvgWriter {
             width: squareSize,
             height: squareSize,
             fill: 'none',
-            stroke: '#f00',
+            stroke: '#f00'
           })
           .up();
         // we need to go up, otherwise any subsequent
@@ -108,11 +108,11 @@ export class SvgWriter {
         const json = JSON.parse(text);
 
         if (Array.isArray(json.connections)) {
-          let connections = json.connections as $Connection[];
-          for (let connection of connections) {
+          const connections = json.connections as $Connection[];
+          for (const connection of connections) {
             if (centres.has(connection.start) && centres.has(connection.end)) {
-              let p1 = centres.get(connection.start);
-              let p2 = centres.get(connection.end);
+              const p1 = centres.get(connection.start);
+              const p2 = centres.get(connection.end);
 
               if (p1 && p2) {
                 lastNode = lastNode
@@ -123,7 +123,7 @@ export class SvgWriter {
                     x2: p2.getX(),
                     y2: p2.getY(),
                     fill: 'none',
-                    stroke: '#f00',
+                    stroke: '#f00'
                   })
                   .up();
               }
@@ -132,10 +132,10 @@ export class SvgWriter {
 
           const graph = new Graph();
 
-          for (let point of centres.values()) {
+          for (const point of centres.values()) {
             graph.addPoint(point);
           }
-          for (let connection of connections) {
+          for (const connection of connections) {
             const a = centres.get(connection.start);
             const b = centres.get(connection.end);
             if (a != null && b != null) {
@@ -145,17 +145,17 @@ export class SvgWriter {
           const props = new Map<string, string>(Object.entries(areaMap.props));
 
           if (areaMap.props != null && Boolean(props)) {
-            let locationA =
+            const locationA =
               paramA.length > 0 ? props.get(paramA) : areaMap.startingLocation;
 
-            let locationB =
+            const locationB =
               paramB.length > 0 ? props.get(paramB) : areaMap.startingLocation;
 
             if (locationA != null && locationB != null) {
               const start = centres.get(locationA);
               const end = centres.get(locationB);
               if (start != null && end != null) {
-                let solution = graph.findShortestPath(start, end);
+                const solution = graph.findShortestPath(start, end);
                 for (let i = 0; i < solution.path.length; i++) {
                   const a = solution.path[i];
                   if (i < solution.path.length - 1) {
@@ -168,7 +168,7 @@ export class SvgWriter {
                         cy: 500,
                         r: 15,
                         fill: 'blue',
-                        stroke: 'cyan',
+                        stroke: 'cyan'
                       })
                       .ele('animate')
                       .att({
@@ -178,7 +178,7 @@ export class SvgWriter {
                         fill: 'remove',
                         from: '100',
                         to: '100',
-                        repeatCount: '0',
+                        repeatCount: '0'
                       })
                       .up()
                       .ele('animate')
@@ -189,7 +189,7 @@ export class SvgWriter {
                         fill: 'remove',
                         from: a.getX(),
                         to: b.getX(),
-                        repeatCount: '0',
+                        repeatCount: '0'
                       })
                       .up()
 
@@ -201,7 +201,7 @@ export class SvgWriter {
                         fill: 'remove',
                         from: a.getY(),
                         to: b.getY(),
-                        repeatCount: '0',
+                        repeatCount: '0'
                       })
                       .up()
                       .up();
@@ -214,7 +214,7 @@ export class SvgWriter {
                         cy: a.getY(),
                         r: 15,
                         fill: 'blue',
-                        stroke: 'cyan',
+                        stroke: 'cyan'
                       })
                       .ele('animate')
                       .att({
@@ -224,7 +224,7 @@ export class SvgWriter {
                         fill: 'remove',
                         from: 1,
                         to: 1,
-                        repeatCount: '0',
+                        repeatCount: '0'
                       });
                   }
                 }
@@ -237,7 +237,7 @@ export class SvgWriter {
       const resultantSvg = svgDoc.end({ prettyPrint: true });
       responseSender.writeHead(200, {
         'Content-Type': 'image/svg+xml',
-        'Content-Length': resultantSvg.length,
+        'Content-Length': resultantSvg.length
       });
       responseSender.end(resultantSvg);
     }

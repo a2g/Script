@@ -21,35 +21,35 @@ interface LocationWithTimezone {
 }
 
 const getLocationsWithTimezones = (request: Request, response: Response) => {
-  let locations: LocationWithTimezone[] = [
+  const locations: LocationWithTimezone[] = [
     {
       location: 'Germany',
       timezoneName: 'Central European Time',
       timezoneAbbr: 'CET',
       utcOffset: 1,
-      void: null,
+      void: null
     },
     {
       location: 'China',
       timezoneName: 'China Standard Time',
       timezoneAbbr: 'CST',
       utcOffset: 8,
-      void: null,
+      void: null
     },
     {
       location: 'Argentina',
       timezoneName: 'Argentina Time',
       timezoneAbbr: 'ART',
       utcOffset: -3,
-      void: null,
+      void: null
     },
     {
       location: 'Japan',
       timezoneName: 'Japan Standard Time',
       timezoneAbbr: 'JST',
       utcOffset: 9,
-      void: request,
-    },
+      void: request
+    }
   ];
 
   response.status(200).json(locations);

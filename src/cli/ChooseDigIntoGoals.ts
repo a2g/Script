@@ -38,7 +38,7 @@ export function ChooseDigIntoGoals(solver: SolverViaRootPiece): void {
 
           // display list item
           const status: string = item.firstNullInput;
-          let { output } = item.piece;
+          const { output } = item.piece;
           let inputs = '';
           for (const input of item.piece.inputHints) {
             inputs += `${FormatText(input)},`;

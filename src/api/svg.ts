@@ -16,7 +16,7 @@ export async function svg(
   req: Request<RequestParams, ResponseBody, RequestBody, RequestQuery>,
   responseSender: Response,
   next: NextFunction
-) {
+): Promise<void> {
   try {
     const repo = req.params.repo;
     const world = req.params.world;

@@ -3,71 +3,82 @@ import { RawObjectsAndVerb } from '../puzzle/RawObjectsAndVerb';
 import { Solution } from '../puzzle/Solution';
 import { SolverViaRootPiece } from '../puzzle/SolverViaRootPiece';
 
-export function solutions(solver: SolverViaRootPiece): Object {
+interface $INameIsAGoalChildren {
+  name: string;
+  isAGoalOrAuto: boolean;
+  children: Array<Record<string, unknown>>;
+}
+
+export function solutions(solver: SolverViaRootPiece): Record<string, unknown> {
   return {
     name: 'Solutions',
-    children: getJsonArrayOfSolutions(solver.GetSolutions()),
+    children: getJsonArrayOfSolutions(solver.GetSolutions())
   };
 }
 
-function getJsonArrayOfSolutions(solutions: Solution[]): Array<Object> {
-  const toReturn = new Array<Object>();
+function getJsonArrayOfSolutions(
+  solutions: Solution[]
+): Array<$INameIsAGoalChildren> {
+  const toReturn = new Array<$INameIsAGoalChildren>();
   let i = 0;
-  for (let solution of solutions) {
+  for (const solution of solutions) {
     i += 1;
     toReturn.push({
       name: `Solution ${i}`,
-      children: getJsonArrayOfRootPieces(solution),
+      isAGoalOrAuto: false,
+      children: getJsonArrayOfRootPieces(solution)
     });
   }
 
   return toReturn;
 }
 
-function getJsonArrayOfRootPieces(solution: Solution): Array<Object> {
-  const toReturn = new Array<Object>();
+function getJsonArrayOfRootPieces(
+  solution: Solution
+): Array<Record<string, unknown>> {
+  const toReturn = new Array<Record<string, unknown>>();
 
   const rootPieces = solution.GetRootMap().GetValues();
-  for (let array of rootPieces) {
+  for (const array of rootPieces) {
     for (const rootPiece of array) {
       toReturn.push({
         name: rootPiece.piece.GetOutput(),
         isAGoalOrAuto: false,
-        children: getJsonArrayOfAllSubPieces(rootPiece.piece),
+        children: getJsonArrayOfAllSubPieces(rootPiece.piece)
       });
     }
   }
   toReturn.push({
     name: `List of Commands`,
     isAGoalOrAuto: false,
-    children: getJsonArrayOfOrderedSteps(solution.GetOrderOfCommands()),
+    children: getJsonArrayOfOrderedSteps(solution.GetOrderOfCommands())
   });
   return toReturn;
 }
 
-function getJsonArrayOfAllSubPieces(piece: Piece): Array<Object> {
-  const toReturn = new Array<Object>();
+function getJsonArrayOfAllSubPieces(piece: Piece): Array<unknown> {
+  const toReturn = new Array<unknown>();
   let i = -1;
-  for (let hint of piece.inputHints) {
+  for (const hint of piece.inputHints) {
     i++;
-    let pieceOrNull = piece.inputs[i];
+    const pieceOrNull = piece.inputs[i];
     if (pieceOrNull != null) {
       toReturn.push({
         name: hint,
         isAGoalOrAuto: false,
-        children: getJsonArrayOfAllSubPieces(pieceOrNull),
+        children: getJsonArrayOfAllSubPieces(pieceOrNull)
       });
     } else {
       toReturn.push({
         name: hint,
-        isAGoalOrAuto: false,
+        isAGoalOrAuto: false
       });
     }
   }
   if (i == -1) {
     toReturn.push({
       name: piece.output,
-      isAGoalOrAuto: false,
+      isAGoalOrAuto: false
     });
   }
   return toReturn;
@@ -75,10 +86,10 @@ function getJsonArrayOfAllSubPieces(piece: Piece): Array<Object> {
 
 function getJsonArrayOfOrderedSteps(
   steps: Array<RawObjectsAndVerb>
-): Array<Object> {
-  const toReturn = new Array<Object>();
+): Array<unknown> {
+  const toReturn = new Array<unknown>();
   let lastLocation = '';
-  for (let step of steps) {
+  for (const step of steps) {
     // big writing about why its bad
     //
     //
@@ -95,7 +106,7 @@ function getJsonArrayOfOrderedSteps(
       isAGoalOrAuto: step.isAGoalOrAuto(),
       paramA: lastLocation,
       paramB: newLocation,
-      children: [],
+      children: []
     });
     lastLocation = newLocation;
   }

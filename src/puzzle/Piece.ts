@@ -36,7 +36,7 @@ export class Piece {
     count = 1, // put it here so all the tests don't need to specify it.
     happenings: Happenings | null = null,
     restrictions: Array<{ character: string }> | null | undefined = null, // put it here so all the tests don't need to specify it.
-    inputA: string = 'undefined',
+    inputA = 'undefined',
     inputB = 'undefined',
     inputC = 'undefined',
     inputD = 'undefined',
@@ -84,7 +84,7 @@ export class Piece {
     }
   }
 
-  public SetCount(count: number) {
+  public SetCount(count: number): void {
     this.count = count;
   }
 
@@ -149,7 +149,12 @@ export class Piece {
 
   public StubOutInputK(k: number, type: SpecialTypes): void {
     const objectToObtain = this.inputHints[k];
-    const newLeaf = new Piece(0, null, `${objectToObtain}       (${type}))`, type);
+    const newLeaf = new Piece(
+      0,
+      null,
+      `${objectToObtain}       (${type}))`,
+      type
+    );
     newLeaf.parent = this;
     this.inputs[k] = newLeaf;
   }
@@ -159,7 +164,7 @@ export class Piece {
     solutions: SolverViaRootPiece,
     path: string
   ): boolean {
-    const newPath: string = `${path}${this.output}/`;
+    const newPath = `${path}${this.output}/`;
 
     // this is the point we used to set it as completed
     // solution.MarkPieceAsCompleted(this)
@@ -247,7 +252,6 @@ export class Piece {
       // without this following line, any clones will attempt to re-clone themselves
       // and Solution.ProcessUntilCompletion will continue forever
       if (this.inputs[k] != null) {
-        // @ts-ignore
         continue;
       }
 
