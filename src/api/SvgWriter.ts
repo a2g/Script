@@ -5,7 +5,6 @@ import { Suffix } from './../../Suffix';
 import { Graph } from '../location/Graph';
 import { Point } from '../location/Point';
 
-//@ts-ignore
 declare interface $Square {
   col: string;
   row: string;

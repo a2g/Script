@@ -9,7 +9,7 @@ import { ChooseToFindUnused } from './cli/ChooseToFindUnused';
 import { Area } from './cli/Area';
 import { readFileSync } from 'fs';
 import { Suffix } from '../Suffix';
-const fs = require('fs');
+import * as fs from 'fs';
 const prompt = promptSync();
 
 function main(): void {
@@ -27,17 +27,15 @@ function main(): void {
       '.gitignore',
       'package.json',
       'tsconfig.json',
-      '.git',
+      '.git'
     ]);
     process.chdir('./exclusive-worlds');
-    const dir = fs.opendirSync('.');
-    let dirent;
-    while ((dirent = dir.readSync()) !== null) {
-      if (!ignoreSet.has(dirent.name)) {
-        allFolders.push(`exclusive-worlds/${dirent.name}`);
+    const folders = fs.readdirSync('.');
+    for (const folder of folders) {
+      if (!ignoreSet.has(folder)) {
+        allFolders.push(`exclusive-worlds/${folder}`);
       }
     }
-    dir.closeSync();
     process.chdir('..');
   } catch (Error) {
     throw new EvalError('Check your file paths!');
