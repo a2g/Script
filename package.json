@@ -6,8 +6,8 @@
   "repository": "",
   "author": {
     "name": "",
-    "email": "",
-    "url": ""
+    "email": "blah@blah.com",
+    "url": "http://url.com"
   },
   "keywords": [
     "redis",

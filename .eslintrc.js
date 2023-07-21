@@ -15,6 +15,13 @@ module.exports = {
   },
   rules: {
     "restrict-template-expressions": "off",
-    "@typescript-eslint/no-empty-interface": "off"
+    "@typescript-eslint/no-empty-interface": "off",
+    "max-line-length": [
+      true,
+      {
+        "limit": 120,
+        "ignore-pattern": "^import [^,]+ from |^export | implements"
+      }
+    ],
   },
 };
