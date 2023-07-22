@@ -22,7 +22,7 @@
   "types": "lib/index",
   "scripts": {
     "app": "node lib/src/app.js",
-    "build": "tsc --pretty",
+    "build": "tsc",
     "clean": "rimraf lib && rimraf coverage",
     "compile": "tsc",
     "coverage": "jest --coverage",
@@ -33,6 +33,7 @@
     "cli": "tsc --pretty && node lib/src/cli.js",
     "prepublishOnly": "npm run build",
     "prebuild": "npm run clean && npm run format && npm run lint && echo Using TypeScript && tsc --version",
+    "pretty": "tsc --pretty",
     "serve": "node lib/src/serve.js",
     "serveRepos": "node lib/src/serveRepos.js",
     "test": "jest",

@@ -68,7 +68,6 @@
   },
   "include": [
     "src/**/*",
-    "testsYup/**/*",
     "jigsaw.ts",
     "Suffix.ts"
   ],
