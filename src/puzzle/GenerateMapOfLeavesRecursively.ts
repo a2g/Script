@@ -8,8 +8,9 @@ export function GenerateMapOfLeavesRecursively(
 ): void {
   for (let i = 0; i < piece.inputs.length; i += 1) {
     const input = piece.inputs[i];
+    const inputType = input == null ? 'null' : input.type;
     // either set an entry in the leaf map or not...
-    switch (input == null ? 'null' : input.type) {
+    switch (inputType) {
       case SpecialTypes.CompletedElsewhere:
       case SpecialTypes.ExistsFromBeginning:
       case SpecialTypes.VerifiedLeaf:
