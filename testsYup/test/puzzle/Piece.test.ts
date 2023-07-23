@@ -1,9 +1,9 @@
 // Typescript Unit test
 import { Piece } from '../../../src/puzzle/Piece';
 import { SpecialTypes } from '../../../src/puzzle/SpecialTypes';
-
+import { describe, expect, test } from '@jest/globals';
 describe('Solution', () => {
-  it('Test of a none clone piece', () => {
+  test('Test of a none clone piece', () => {
     const root = new Piece(0, null, 'root', '', 1, null, null, 'A');
     const segA = new Piece(0, null, 'A', '', 1, null, null, 'B');
     const segB = new Piece(0, null, 'B', '', 1, null, null, 'C');
@@ -91,7 +91,7 @@ describe('Solution', () => {
   if (inputF !== 'undefined' && inputF !== undefined && inputF.length > 0) {
        A test could be added for this too.  */
 
-  it('Test cloning with High Permutation scene2', () => {
+  test('Test cloning with High Permutation scene2', () => {
     const root = new Piece(0, null, 'root', '', 1, null, null, 'A');
     const segA = new Piece(0, null, 'A', '', 1, null, null, 'B');
     const segB = new Piece(0, null, 'B', '', 1, null, null, 'C');

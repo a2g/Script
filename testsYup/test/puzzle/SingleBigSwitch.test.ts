@@ -1,9 +1,9 @@
 import { Mix } from '../../../src/puzzle/Mix';
 import { MixedObjectsAndVerb } from '../../../src/puzzle/MixedObjectsAndVerb';
 import { SingleBigSwitch } from '../../../src/puzzle/SingleBigSwitch';
-
+import { expect, describe, test } from '@jest/globals';
 describe('SingleBigSwitch', () => {
-  it('SingleBigSwitch', async () => {
+  test('SingleBigSwitch', async () => {
     const combo = new MixedObjectsAndVerb(
       Mix.SingleVsProp,
       'Grab',

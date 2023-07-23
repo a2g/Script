@@ -1,8 +1,8 @@
 import { Piece } from '../../../src/puzzle/Piece';
 import { PileOfPieces } from '../../../src/puzzle/PileOfPieces';
-
+import { expect, describe, test } from '@jest/globals';
 describe('ReactionMap', () => {
-  it('test AddToMap works', () => {
+  test('test AddToMap works', () => {
     const pile = new PileOfPieces(null);
 
     // test that it is indeed null before
@@ -22,7 +22,7 @@ describe('ReactionMap', () => {
     expect(sizeAfterAdding).toEqual(1);
   });
 
-  it('test RemovePiece works', () => {
+  test('test RemovePiece works', () => {
     const blah = new PileOfPieces(null);
     for (let i = 0; i < 3; i += 1) {
       blah.AddPiece(
@@ -56,9 +56,9 @@ describe('ReactionMap', () => {
     }
   });
 
-  it('test Clone works', () => {
+  test('test Clone works', () => {
     // create original entries
-    const array = [];
+    const array = new Array<Piece>();
     array.push(new Piece(0, null, 'blah', 'outputA', 1, null, null, 'a', 'a'));
     array.push(new Piece(0, null, 'blah', 'outputA', 1, null, null, 'b', 'b'));
     array.push(new Piece(0, null, 'blah', 'outputA', 1, null, null, 'c', 'c'));

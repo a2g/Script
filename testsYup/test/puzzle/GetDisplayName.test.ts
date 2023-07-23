@@ -1,4 +1,5 @@
 import { GetDisplayName } from '../../../src/puzzle/GetDisplayName';
+import { expect, test } from '@jest/globals';
 
 test('TestAllNamesSoFar', () => {
   // this test is here just because it looked easy to implement

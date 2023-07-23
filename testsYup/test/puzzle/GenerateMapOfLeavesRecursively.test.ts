@@ -1,5 +1,6 @@
 import { GenerateMapOfLeavesRecursively } from '../../../src/puzzle/GenerateMapOfLeavesRecursively';
 import { Piece } from '../../../src/puzzle/Piece';
+import { expect, test } from '@jest/globals';
 
 test('GenerateMapOfLeavesRecursively', () => {
   const map = new Map<string, Piece | null>();

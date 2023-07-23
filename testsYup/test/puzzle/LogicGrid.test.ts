@@ -1,4 +1,5 @@
 import { LogicGrid } from '../../../src/puzzle/LogicGrid';
+import { expect, test } from '@jest/globals';
 
 test('FindMostNearlyCompleteRowOrColumnCombined', () => {
   const sizeFour: Array<[string, boolean]> = [
