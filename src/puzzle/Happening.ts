@@ -1,5 +1,10 @@
 import { Happen } from './Happen';
 
+/*
+These are all the state changes that can occur
+Possible new name: StateChangeEvent
+Possible new name: StateChange
+*/
 export class Happening {
   public item: string;
   public happen: Happen;

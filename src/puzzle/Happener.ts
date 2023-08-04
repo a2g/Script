@@ -18,6 +18,10 @@ import { PlayerAI } from './PlayerAI';
 // // even in maniac mansion it was like use radtion suit with meteot etc.
 //
 
+/*
+This manages the state changes
+Possible new name: StateChangManager
+*/
 export class Happener {
   public readonly Examine = 0;
   private readonly arrayOfInvNames: string[];
