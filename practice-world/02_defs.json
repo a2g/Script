@@ -58,16 +58,20 @@
     },
     "char_wrapper_type": {
       "type": "object",
-      "required": ["char"],
+      "required": [
+        "character"
+      ],
       "properties": {
-        "char": {
+        "character": {
           "$ref": "02_enums.json#/definitions/char_enum"
         }
       }
     },
     "prop_wrapper_type": {
       "type": "object",
-      "required": ["prop"],
+      "required": [
+        "prop"
+      ],
       "properties": {
         "prop": {
           "$ref": "02_enums.json#/definitions/prop_enum"
@@ -82,7 +86,7 @@
       "items": {
         "type": "object",
         "properties": {
-          "char": {
+          "character": {
             "$ref": "02_enums.json#/definitions/char_enum"
           },
           "thing": {
