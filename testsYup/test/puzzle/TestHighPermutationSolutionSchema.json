@@ -18,13 +18,13 @@
           "$ref": "TestHighPermutationSolutionObjects.json#/definitions/flag_type"
         },
         "inv1": {
-          "$ref": "TestHighPermutationSolutionObjects.json#/definitions/inv_type"
+          "$ref": "TestHighPermutationSolutionObjects.json#/definitions/inventory_type"
         },
         "inv2": {
-          "$ref": "TestHighPermutationSolutionObjects.json#/definitions/inv_type"
+          "$ref": "TestHighPermutationSolutionObjects.json#/definitions/inventory_type"
         },
         "inv3": {
-          "$ref": "TestHighPermutationSolutionObjects.json#/definitions/inv_type"
+          "$ref": "TestHighPermutationSolutionObjects.json#/definitions/inventory_type"
         },
         "prop1": {
           "$ref": "TestHighPermutationSolutionObjects.json#/definitions/prop_type"
@@ -58,16 +58,20 @@
     },
     "char_wrapper_type": {
       "type": "object",
-      "required": ["character"],
+      "required": [
+        "character"
+      ],
       "properties": {
         "character": {
-          "$ref": "TestHighPermutationSolutionObjects.json#/definitions/char_type"
+          "$ref": "TestHighPermutationSolutionObjects.json#/definitions/character_type"
         }
       }
     },
     "prop_wrapper_type": {
       "type": "object",
-      "required": ["prop"],
+      "required": [
+        "prop"
+      ],
       "properties": {
         "prop": {
           "$ref": "TestHighPermutationSolutionObjects.json#/definitions/prop_type"
@@ -90,12 +94,12 @@
         "type": "object",
         "properties": {
           "character": {
-            "$ref": "TestHighPermutationSolutionObjects.json#/definitions/char_type"
+            "$ref": "TestHighPermutationSolutionObjects.json#/definitions/character_type"
           },
           "thing": {
             "oneOf": [
               {
-                "$ref": "TestHighPermutationSolutionObjects.json#/definitions/inv_type"
+                "$ref": "TestHighPermutationSolutionObjects.json#/definitions/inventory_type"
               },
               {
                 "$ref": "TestHighPermutationSolutionObjects.json#/definitions/prop_type"

@@ -12,13 +12,13 @@
       ],
       "properties": {
         "inv1": {
-          "$ref": "Test1Enums.json#/definitions/inv_type"
+          "$ref": "Test1Enums.json#/definitions/inventory_type"
         },
         "inv2": {
-          "$ref": "Test1Enums.json#/definitions/inv_type"
+          "$ref": "Test1Enums.json#/definitions/inventory_type"
         },
         "inv3": {
-          "$ref": "Test1Enums.json#/definitions/inv_type"
+          "$ref": "Test1Enums.json#/definitions/inventory_type"
         },
         "prop1": {
           "$ref": "Test1Enums.json#/definitions/prop_type"
@@ -75,7 +75,7 @@
       ],
       "properties": {
         "character": {
-          "$ref": "Test1Enums.json#/definitions/char_type"
+          "$ref": "Test1Enums.json#/definitions/character_type"
         }
       }
     },
@@ -99,12 +99,12 @@
         "type": "object",
         "properties": {
           "character": {
-            "$ref": "Test1Enums.json#/definitions/char_type"
+            "$ref": "Test1Enums.json#/definitions/character_type"
           },
           "thing": {
             "oneOf": [
               {
-                "$ref": "Test1Enums.json#/definitions/inv_type"
+                "$ref": "Test1Enums.json#/definitions/inventory_type"
               },
               {
                 "$ref": "Test1Enums.json#/definitions/goal_type"
