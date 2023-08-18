@@ -1,5 +1,5 @@
 {
-  "$schema": "./01_defs.json",
+  "$schema": "./01 defs.json",
   "startingThings": [
     {
       "thing": "prop_bartender"

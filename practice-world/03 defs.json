@@ -12,49 +12,49 @@
       ],
       "properties": {
         "inv1": {
-          "$ref": "03_enums.json#/definitions/inv_enum"
+          "$ref": "03 enums.json#/definitions/inventory_enum"
         },
         "inv2": {
-          "$ref": "03_enums.json#/definitions/inv_enum"
+          "$ref": "03 enums.json#/definitions/inventory_enum"
         },
         "inv3": {
-          "$ref": "03_enums.json#/definitions/inv_enum"
+          "$ref": "03 enums.json#/definitions/inventory_enum"
         },
         "prop1": {
-          "$ref": "03_enums.json#/definitions/prop_enum"
+          "$ref": "03 enums.json#/definitions/prop_enum"
         },
         "prop2": {
-          "$ref": "03_enums.json#/definitions/prop_enum"
+          "$ref": "03 enums.json#/definitions/prop_enum"
         },
         "prop3": {
-          "$ref": "03_enums.json#/definitions/prop_enum"
+          "$ref": "03 enums.json#/definitions/prop_enum"
         },
         "prop4": {
-          "$ref": "03_enums.json#/definitions/prop_enum"
+          "$ref": "03 enums.json#/definitions/prop_enum"
         },
         "prop5": {
-          "$ref": "03_enums.json#/definitions/prop_enum"
+          "$ref": "03 enums.json#/definitions/prop_enum"
         },
         "prop6": {
-          "$ref": "03_enums.json#/definitions/prop_enum"
+          "$ref": "03 enums.json#/definitions/prop_enum"
         },
         "goal1": {
-          "$ref": "03_enums.json#/definitions/goal_enum"
+          "$ref": "03 enums.json#/definitions/goal_enum"
         },
         "goal2": {
-          "$ref": "03_enums.json#/definitions/goal_enum"
+          "$ref": "03 enums.json#/definitions/goal_enum"
         },
         "goal3": {
-          "$ref": "03_enums.json#/definitions/goal_enum"
+          "$ref": "03 enums.json#/definitions/goal_enum"
         },
         "goal4": {
-          "$ref": "03_enums.json#/definitions/goal_enum"
+          "$ref": "03 enums.json#/definitions/goal_enum"
         },
         "goal5": {
-          "$ref": "03_enums.json#/definitions/goal_enum"
+          "$ref": "03 enums.json#/definitions/goal_enum"
         },
         "goal6": {
-          "$ref": "03_enums.json#/definitions/goal_enum"
+          "$ref": "03 enums.json#/definitions/goal_enum"
         },
         "merge": {
           "type": "string"
@@ -63,19 +63,19 @@
           "type": "array",
           "minItems": 0,
           "items": {
-            "$ref": "#/definitions/char_wrapper_type"
+            "$ref": "#/definitions/character_wrapper_type"
           }
         }
       }
     },
-    "char_wrapper_type": {
+    "character_wrapper_type": {
       "type": "object",
       "required": [
         "character"
       ],
       "properties": {
         "character": {
-          "$ref": "03_enums.json#/definitions/char_enum"
+          "$ref": "03 enums.json#/definitions/character_enum"
         }
       }
     },
@@ -86,7 +86,7 @@
       ],
       "properties": {
         "prop": {
-          "$ref": "03_enums.json#/definitions/prop_enum"
+          "$ref": "03 enums.json#/definitions/prop_enum"
         }
       }
     }
@@ -99,18 +99,18 @@
         "type": "object",
         "properties": {
           "character": {
-            "$ref": "03_enums.json#/definitions/char_enum"
+            "$ref": "03 enums.json#/definitions/character_enum"
           },
           "thing": {
             "oneOf": [
               {
-                "$ref": "03_enums.json#/definitions/inv_enum"
+                "$ref": "03 enums.json#/definitions/inventory_enum"
               },
               {
-                "$ref": "03_enums.json#/definitions/goal_enum"
+                "$ref": "03 enums.json#/definitions/goal_enum"
               },
               {
-                "$ref": "03_enums.json#/definitions/prop_enum"
+                "$ref": "03 enums.json#/definitions/prop_enum"
               }
             ]
           }

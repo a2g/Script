@@ -13,7 +13,7 @@
           "$ref": "../jigsaw.json#/definitions/row_type"
         },
         "location": {
-          "$ref": "03_enums.json#/definitions/location_enum"
+          "$ref": "03 enums.json#/definitions/location_enum"
         }
       }
     }
@@ -21,8 +21,8 @@
   "additionalProperties": false,
   "minProperties": 3,
   "properties": {
-    "startingLocation" :{
-      "$ref": "03_enums.json#/definitions/location_enum"
+    "startingLocation": {
+      "$ref": "03 enums.json#/definitions/location_enum"
     },
     "squares": {
       "type": "array",
@@ -35,7 +35,7 @@
       "type": "object",
       "patternProperties": {
         "^prop_": {
-          "$ref": "03_enums.json#/definitions/location_enum"
+          "$ref": "03 enums.json#/definitions/location_enum"
         }
       }
     }

@@ -1,5 +1,5 @@
 {
-  "$schema": "./02_defs.json",
+  "$schema": "./02 defs.json",
   "startingThings": [
     {
       "thing": "inv_bottle_top"

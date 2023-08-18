@@ -1,23 +1,23 @@
 {
-    "$schema": "../jigsawCampaignFramework.json",
-    "areas": [
-        {
-            "areaName": "(D)Dock)",
-            "areaEnum": "D",
-            "firstBoxFile": "./01_first.json",
-            "extraFiles": []
-        },
-        {
-            "areaName": "(E)Elder)",
-            "areaEnum": "E",
-            "firstBoxFile": "./02_first.json",
-            "extraFiles": []
-        },
-        {
-            "areaName": "(F)First)",
-            "areaEnum": "F",
-            "firstBoxFile": "./03_first.json",
-            "extraFiles": []
-        }
-    ]
+  "$schema": "../jigsawCampaignFramework.json",
+  "areas": [
+    {
+      "areaName": "(D)Dock)",
+      "areaEnum": "D",
+      "firstBoxFile": "./01 first.json",
+      "extraFiles": []
+    },
+    {
+      "areaName": "(E)Elder)",
+      "areaEnum": "E",
+      "firstBoxFile": "./02 first.json",
+      "extraFiles": []
+    },
+    {
+      "areaName": "(F)First)",
+      "areaEnum": "F",
+      "firstBoxFile": "./03 first.json",
+      "extraFiles": []
+    }
+  ]
 }

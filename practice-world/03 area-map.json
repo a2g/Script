@@ -1,5 +1,5 @@
 {
-  "$schema": "./03_area-map.schema.json",
+  "$schema": "./03 area-map.schema.json",
   "startingLocation": "ceremonial_circle",
   "squares": [
     {

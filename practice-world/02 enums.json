@@ -2,10 +2,12 @@
   "$schema": "http://json-schema.org/draft-07/schema",
   "type": "object",
   "definitions": {
-    "char_enum": {
-      "enum": ["char_main"]
+    "character_enum": {
+      "enum": [
+        "char_main"
+      ]
     },
-    "inv_enum": {
+    "inventory_enum": {
       "enum": [
         "inv_flint",
         "inv_poitan",
@@ -26,7 +28,9 @@
       ]
     },
     "goal_enum": {
-      "enum": ["goal_win"]
+      "enum": [
+        "goal_win"
+      ]
     }
   }
 }

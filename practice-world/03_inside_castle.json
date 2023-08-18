@@ -1,5 +1,5 @@
 {
-  "$schema": "./03_defs.json",
+  "$schema": "./03 defs.json",
   "startingThings": [
     {
       "thing": "prop_vinegar"
@@ -33,7 +33,7 @@
     {
       "piece": "AUTO_GOAL1_SET_BY_PROPS",
       "goal1": "goal_access_thru_fireplace",
-      "merge": "03-InsideFireplace.json",
+      "merge": "03_inside_fireplace.json",
       "prop1": "prop_fireplace_ladder"
     },
     {
@@ -61,14 +61,14 @@
     {
       "piece": "GOAL1_SET_BY_LOSING_INV1_WHEN_USED_WITH_PROP1",
       "goal1": "goal_access_thru_dumbwaiter",
-      "merge": "03-InsideDumbwaiter.json",
+      "merge": "03_inside_dumbwaiter.json",
       "inv1": "inv_cogs",
       "prop1": "prop_dumbwaiter"
     },
     {
       "piece": "GOAL1_SET_BY_USING_INV1_WITH_PROP1",
       "goal1": "goal_access_to_hideout",
-      "merge": "03-InsideHideout.json",
+      "merge": "03_inside_hideout.json",
       "inv1": "inv_burning_herbs",
       "prop1": "prop_vent"
     },

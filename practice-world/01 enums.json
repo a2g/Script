@@ -2,10 +2,12 @@
   "$schema": "http://json-schema.org/draft-07/schema",
   "type": "object",
   "definitions": {
-    "char_enum": {
-      "enum": ["char_main"]
+    "character_enum": {
+      "enum": [
+        "char_main"
+      ]
     },
-    "inv_enum": {
+    "inventory_enum": {
       "enum": [
         "inv_spirits",
         "inv_picture_frame",
@@ -33,7 +35,7 @@
     "goal_enum": {
       "enum": [
         "goal_electricity_restored",
-         "goal_win"
+        "goal_win"
       ]
     }
   }
