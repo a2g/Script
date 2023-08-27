@@ -33,20 +33,20 @@ export class Piece {
     merge: IBoxReadOnlyWithFileMethods | null,
     output: string,
     type = 'undefined',
-    reuseCount = 1, // put it here so all the tests don't need to specify it.
+    count = 1, // put it here so all the tests don't need to specify it.
     happenings: Happenings | null = null,
     restrictions: Array<{ character: string }> | null | undefined = null, // put it here so all the tests don't need to specify it.
-    inputA: string | null = 'undefined',
-    inputB: string | null = 'undefined',
-    inputC: string | null = 'undefined',
-    inputD: string | null = 'undefined',
-    inputE: string | null = 'undefined',
-    inputF: string | null = 'undefined' // no statics in typescript, so this seemed preferable than global let Null = "Null";
+    inputA = 'undefined',
+    inputB = 'undefined',
+    inputC = 'undefined',
+    inputD = 'undefined',
+    inputE = 'undefined',
+    inputF = 'undefined' // no statics in typescript, so this seemed preferable than global let Null = "Null";
   ) {
     this.id = id;
     this.merge = merge;
     this.parent = null;
-    this.count = reuseCount;
+    this.count = count;
     this.output = output;
     this.type = type;
     this.happenings = happenings;
@@ -58,27 +58,27 @@ export class Piece {
     }
     this.inputs = [];
     this.inputHints = [];
-    if (inputA != null && inputA !== undefined && inputA.length > 0) {
+    if (inputA !== 'undefined' && inputA !== undefined && inputA.length > 0) {
       this.inputHints.push(inputA);
       this.inputs.push(null);
     }
-    if (inputB != null && inputB !== undefined && inputB.length > 0) {
+    if (inputB !== 'undefined' && inputB !== undefined && inputB.length > 0) {
       this.inputHints.push(inputB);
       this.inputs.push(null);
     }
-    if (inputC !== null && inputC !== undefined && inputC.length > 0) {
+    if (inputC !== 'undefined' && inputC !== undefined && inputC.length > 0) {
       this.inputHints.push(inputC);
       this.inputs.push(null);
     }
-    if (inputD != null && inputD !== undefined && inputD.length > 0) {
+    if (inputD !== 'undefined' && inputD !== undefined && inputD.length > 0) {
       this.inputHints.push(inputD);
       this.inputs.push(null);
     }
-    if (inputE != null && inputE !== undefined && inputE.length > 0) {
+    if (inputE !== 'undefined' && inputE !== undefined && inputE.length > 0) {
       this.inputHints.push(inputE);
       this.inputs.push(null);
     }
-    if (inputF != null && inputF !== undefined && inputF.length > 0) {
+    if (inputF !== 'undefined' && inputF !== undefined && inputF.length > 0) {
       this.inputHints.push(inputF);
       this.inputs.push(null);
     }
