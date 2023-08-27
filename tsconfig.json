@@ -69,7 +69,8 @@
   "include": [
     "src/**/*",
     "jigsaw.ts",
-    "Suffix.ts"
+    "Suffix.ts",
+    "testsYup/**/*"
   ],
   "exclude": [
     "node_modules",
