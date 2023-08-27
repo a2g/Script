@@ -1,8 +1,8 @@
 export const Suffix = {
-  Campaign: '00_campaign',
-  AreaMap: '_area-map',
-  Connections: '_connections',
-  Defs: '_defs',
-  Enums: '_enums',
-  FirstBox: '_first',
+  Campaign: '00 campaign',
+  AreaMap: ' area-map',
+  Connections: ' connections',
+  Defs: ' defs',
+  Enums: ' enums',
+  FirstBox: ' first',
 };
