@@ -35,7 +35,7 @@ export class PileOfPieces implements IPileOfPiecesReadOnly {
   }
 
   public RemovePiece(piece: Piece): void {
-    if (piece.count - 1 <= 0) {
+    if (piece.reuseCount - 1 <= 0) {
       const key = piece.output;
       if (this.piecesMappedByOutput.has(key)) {
         const oldSet = this.piecesMappedByOutput.get(key);
@@ -45,8 +45,8 @@ export class PileOfPieces implements IPileOfPiecesReadOnly {
           // console.warn(" newSize = "+oldSet.size);
         }
       } else {
-        piece.SetCount(piece.count - 1);
-        console.warn(`trans.count is now ${piece.count}`);
+        piece.SetCount(piece.reuseCount - 1);
+        console.warn(`trans.count is now ${piece.reuseCount}`);
       }
     }
   }

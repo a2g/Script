@@ -22,7 +22,7 @@ export class Piece {
 
   public parent: Piece | null; // this is not needed for leaf finding - but *is* needed for command finding.
 
-  public count: number;
+  public reuseCount: number; // pieces are allowed to used many times in a puzzle solving network - this enables that
 
   public characterRestrictions: string[];
 
@@ -33,7 +33,7 @@ export class Piece {
     merge: IBoxReadOnlyWithFileMethods | null,
     output: string,
     type = 'undefined',
-    count = 1, // put it here so all the tests don't need to specify it.
+    reuseCount = 1, // put it here so all the tests don't need to specify it.
     happenings: Happenings | null = null,
     restrictions: Array<{ character: string }> | null | undefined = null, // put it here so all the tests don't need to specify it.
     inputA = 'undefined',
@@ -46,7 +46,7 @@ export class Piece {
     this.id = id;
     this.merge = merge;
     this.parent = null;
-    this.count = count;
+    this.reuseCount = reuseCount;
     this.output = output;
     this.type = type;
     this.happenings = happenings;
@@ -85,14 +85,14 @@ export class Piece {
   }
 
   public SetCount(count: number): void {
-    this.count = count;
+    this.reuseCount = count;
   }
 
   public ClonePieceAndEntireTree(): Piece {
     const clone = new Piece(0, null, this.output, '');
     clone.id = this.id;
     clone.type = this.type;
-    clone.count = this.count;
+    clone.reuseCount = this.reuseCount;
     clone.output = this.output;
     clone.merge = this.merge;
 
