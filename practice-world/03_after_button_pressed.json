@@ -22,7 +22,7 @@
       "inv1": "inv_crank2"
     },
     {
-      "piece": "AUTO_GOAL1_SET_BY_PROPS",
+      "piece": "AUTO_GOAL1_MET_BY_PROPS",
       "goal1": "goal_win",
       "prop1": "prop_crank_in_wall",
       "prop2": "prop_rocket_gate_buttered"

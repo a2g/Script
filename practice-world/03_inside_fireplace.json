@@ -13,7 +13,7 @@
   ],
   "pieces": [
     {
-      "piece": "GOAL1_SET_BY_USING_INV1_WITH_PROP1",
+      "piece": "GOAL1_MET_BY_USING_INV1_WITH_PROP1",
       "text": "use bucket of coal on furnace",
       "goal1": "goal_used_bucket_of_coal_with_furnace",
       "inv1": "inv_bucket_of_coal",
@@ -32,7 +32,7 @@
       "prop2": "prop_furnace_with_coal"
     },
     {
-      "piece": "GOAL1_SET_BY_USING_INV1_WITH_PROP1",
+      "piece": "GOAL1_MET_BY_USING_INV1_WITH_PROP1",
       "goal1": "goal_sunstone_is_in_rocket",
       "inv1": "inv_sunstone",
       "prop1": "prop_rocket"
@@ -43,7 +43,7 @@
       "prop2": "prop_button(pressed)"
     },
     {
-      "piece": "AUTO_GOAL1_SET_BY_PROPS",
+      "piece": "AUTO_GOAL1_MET_BY_PROPS",
       "goal1": "goal_button_pressed",
       "merge": "03_after_button_pressed.json",
       "prop1": "prop_button(pressed)",

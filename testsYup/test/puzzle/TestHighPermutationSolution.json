@@ -2,7 +2,7 @@
   "$schema": "./TestHighPermutationSolutionSchema.json",
   "pieces": [
     {
-      "piece": "FLAG1_SET_BY_USING_INV1_WITH_PROP1",
+      "piece": "GOAL1_MET_BY_USING_INV1_WITH_PROP1",
       "inv1": "inv_final_catalyst",
       "prop1": "prop_stageE",
       "flag1": "flag_win"

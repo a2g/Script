@@ -51,7 +51,7 @@
       "inv2": "inv_bio-diesel"
     },
     {
-      "piece": "GOAL1_SET_BY_USING_INV1_WITH_PROP1",
+      "piece": "GOAL1_MET_BY_USING_INV1_WITH_PROP1",
       "goal1": "goal_electricity_restored",
       "inv1": "inv_bio-diesel",
       "prop1": "prop_generator"
@@ -63,7 +63,7 @@
       "goal1": "goal_electricity_restored"
     },
     {
-      "piece": "GOAL1_SET_BY_GIVING_INV1_TO_PROP1",
+      "piece": "GOAL1_MET_BY_GIVING_INV1_TO_PROP1",
       "goal1": "goal_win",
       "inv1": "inv_one_irish_punt",
       "prop1": "prop_taxi"

@@ -52,8 +52,8 @@ export function SingleBigSwitch(
       const happs = new Happenings();
       const { restrictions } = piece;
       if (
-        pieceType.startsWith('GOAL1_SET') ||
-        pieceType.startsWith('AUTO_GOAL1_SET')
+        pieceType.startsWith('GOAL1_MET') ||
+        pieceType.startsWith('AUTO_GOAL1_MET')
       ) {
         if (isGoalRetrieval || piecesMappedByOutput == null) {
           let merge: Box | null = null;
@@ -61,7 +61,7 @@ export function SingleBigSwitch(
             merge = new Box(path, filenameToMerge);
           }
           switch (pieceType) {
-            case _.AUTO_GOAL1_SET_BY_GOALS:
+            case _.AUTO_GOAL1_MET_BY_GOALS:
               if (piecesMappedByOutput != null) {
                 const output = goal1;
                 piecesMappedByOutput.AddPiece(
@@ -82,7 +82,7 @@ export function SingleBigSwitch(
                 );
               }
               break;
-            case _.AUTO_GOAL1_SET_BY_PROPS:
+            case _.AUTO_GOAL1_MET_BY_PROPS:
               if (piecesMappedByOutput != null) {
                 const output = goal1;
                 const input1 = prop1;
@@ -110,7 +110,7 @@ export function SingleBigSwitch(
                 );
               }
               break;
-            case _.AUTO_GOAL1_SET_BY_INVS:
+            case _.AUTO_GOAL1_MET_BY_INVS:
               if (piecesMappedByOutput != null) {
                 const output = goal1;
                 const input1 = inv1;
@@ -132,7 +132,7 @@ export function SingleBigSwitch(
                 );
               }
               break;
-            case _.GOAL1_SET_BY_KEEPING_INV1_WHEN_USED_WITH_PROP1:
+            case _.GOAL1_MET_BY_KEEPING_INV1_WHEN_USED_WITH_PROP1:
               happs.text = `You use the ${inv1} with the ${prop1} and something good happens...`;
               happs.array.push(new Happening(Happen.GoalIsSet, goal1));
               happs.array.push(new Happening(Happen.InvStays, inv1));
@@ -158,7 +158,7 @@ export function SingleBigSwitch(
                 return happs;
               }
               break;
-            case _.GOAL1_SET_BY_LOSING_INV1_WHEN_USED_WITH_PROP1:
+            case _.GOAL1_MET_BY_LOSING_INV1_WHEN_USED_WITH_PROP1:
               happs.text = `You use the ${inv1} with the ${prop1} and something good happens...`;
               happs.array.push(new Happening(Happen.GoalIsSet, goal1));
               happs.array.push(new Happening(Happen.InvGoes, inv1));
@@ -184,7 +184,7 @@ export function SingleBigSwitch(
                 return happs;
               }
               break;
-            case _.GOAL1_SET_BY_LOSING_INV1_USED_WITH_PROP1_AND_PROPS:
+            case _.GOAL1_MET_BY_LOSING_INV1_USED_WITH_PROP1_AND_PROPS:
               happs.text = `With everything set up correctly, you use the ${inv1} with the ${prop1} and something good happens...`;
               happs.array.push(new Happening(Happen.GoalIsSet, goal1));
               happs.array.push(new Happening(Happen.InvGoes, inv1));
@@ -220,7 +220,7 @@ export function SingleBigSwitch(
                 return happs;
               }
               break;
-            case _.GOAL1_SET_BY_USING_INV1_WITH_INV2:
+            case _.GOAL1_MET_BY_USING_INV1_WITH_INV2:
               happs.text = `You use the ${inv1} with the ${inv2} and something good happens...`;
               happs.array.push(new Happening(Happen.InvStays, inv1));
               happs.array.push(new Happening(Happen.InvStays, inv2));
@@ -246,7 +246,7 @@ export function SingleBigSwitch(
                 return happs;
               }
               break;
-            case _.GOAL1_SET_BY_USING_INV1_WITH_PROP1:
+            case _.GOAL1_MET_BY_USING_INV1_WITH_PROP1:
               happs.text = `You use the ${inv1} with the ${prop1} and something good happens...`;
               happs.array.push(new Happening(Happen.InvStays, inv1));
               happs.array.push(new Happening(Happen.PropStays, prop1));
@@ -272,7 +272,7 @@ export function SingleBigSwitch(
                 return happs;
               }
               break;
-            case _.GOAL1_SET_BY_USING_INV1_WITH_PROP1_LOSE_PROPS:
+            case _.GOAL1_MET_BY_USING_INV1_WITH_PROP1_LOSE_PROPS:
               happs.text = `You use the ${inv1} with the  ${prop1} and something good happens...`;
               happs.array.push(new Happening(Happen.InvStays, inv1));
               happs.array.push(new Happening(Happen.PropGoes, prop1));
@@ -298,7 +298,7 @@ export function SingleBigSwitch(
                 return happs;
               }
               break;
-            case _.GOAL1_SET_BY_USING_INV1_WITH_PROP1_NEED_GOALS:
+            case _.GOAL1_MET_BY_USING_INV1_WITH_PROP1_NEED_GOALS:
               happs.text = `You use the ${inv1} with the  ${prop1} and something good happens...`;
               happs.array.push(new Happening(Happen.InvStays, inv1));
               happs.array.push(new Happening(Happen.PropStays, prop1));
@@ -332,7 +332,7 @@ export function SingleBigSwitch(
                 return happs;
               }
               break;
-            case _.GOAL1_SET_BY_USING_PROP1_WITH_PROP2:
+            case _.GOAL1_MET_BY_USING_PROP1_WITH_PROP2:
               happs.text = `You use the ${prop1} with the ${prop2} and something good happens...`;
               happs.array.push(new Happening(Happen.PropStays, prop1));
               happs.array.push(new Happening(Happen.PropStays, prop2));
@@ -358,7 +358,7 @@ export function SingleBigSwitch(
                 return happs;
               }
               break;
-            case _.GOAL1_SET_BY_GIVING_INV1_TO_PROP1:
+            case _.GOAL1_MET_BY_GIVING_INV1_TO_PROP1:
               happs.text = `Goal is set ${goal1}`;
               happs.array.push(new Happening(Happen.InvGoes, inv1));
               happs.array.push(new Happening(Happen.PropStays, prop1));

@@ -60,7 +60,7 @@
       "inv3": "inv_tinder_kit"
     },
     {
-      "piece": "AUTO_GOAL1_SET_BY_INVS",
+      "piece": "AUTO_GOAL1_MET_BY_INVS",
       "goal1": "goal_win",
       "inv1": "inv_torch_lit"
     }
