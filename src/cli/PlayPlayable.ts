@@ -21,7 +21,7 @@ export function PlayPlayable(playable: Playable): void {
     ProcessAutos(playable.GetHappener(), playable.GetPileOfPieces());
 
     // check have we won?
-    if (playable.GetHappener().GetGoalValue('goal_win') > 0) {
+    if (playable.GetHappener().GetGoalValue('win.goal') > 0) {
       // btw this is the only goal_win outside of Solution.ts, so if we can get rid of it, then great
       playable.SetCompleted();
       break;

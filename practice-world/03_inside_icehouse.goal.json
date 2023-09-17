@@ -10,12 +10,12 @@
       "piece": "PROP1_GOES_WHEN_GRAB_INV1_WITH_GOAL1",
       "prop1": "prop_three_punctuated_circles",
       "inv1": "inv_three_punctuated_circles",
-      "goal1": "goal_access_to_icehouse"
+      "goal1": "access_to_icehouse.goal"
     },
     {
       "piece": "GOAL1_MET_BY_GIVING_INV1_TO_PROP1",
-      "goal1": "goal_access_to_castle",
-      "merge": "03_inside_castle.json",
+      "goal1": "access_to_castle.goal",
+      "merge": "03_inside_castle.goal.json",
       "inv1": "inv_three_punctuated_circles",
       "prop1": "prop_arch_druid"
     }

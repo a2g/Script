@@ -29,11 +29,11 @@ export class SolverViaRootPiece {
       subBox.CopyGoalPiecesToContainer(rootMap);
     }
 
-    const allGoalWin = rootMap.GetRootPieceArrayByNameNoThrow('goal_win');
+    const allGoalWin = rootMap.GetRootPieceArrayByNameNoThrow('win.goal');
     if (allGoalWin == null || allGoalWin.length == 0) {
       throw new Error('Zero goal_wins in solution constructor');
     }
-    rootMap.RemoveAllWithName('goal_win');
+    rootMap.RemoveAllWithName('win.goal');
 
     this.solutions = [];
     for (const rootPiece of allGoalWin) {
