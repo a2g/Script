@@ -37,7 +37,7 @@ export class Happening {
       case Happen.GoalIsDecremented:
       case Happen.GoalIsIncremented:
       case Happen.GoalIsSet:
-        if (!item.startsWith('goal')) {
+        if (!item.endsWith('.goal')) {
           console.warn(
             'Mismatch! the item (' + item + ') does not start with "goal"'
           );
