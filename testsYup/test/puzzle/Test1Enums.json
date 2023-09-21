@@ -80,19 +80,19 @@
     },
     "goal_type": {
       "enum": [
-        "goal_win",
-        "goal_access_to_greenhouse",
-        "goal_access_to_icehouse",
-        "goal_access_to_castle",
-        "goal_access_to_hideout",
-        "goal_access_thru_dumbwaiter",
-        "goal_access_thru_fireplace",
-        "goal_sunstone_is_in_rocket",
-        "goal_button_pressed",
-        "goal_used_crank_with_well",
-        "goal_used_bucket_of_water_with_fire",
-        "goal_used_bucket_of_coal_with_furnace",
-        "goal_used_bucket_with_coal_bunker"
+        "win.goal",
+        "access_to_greenhouse.goal",
+        "access_to_icehouse.goal",
+        "access_to_castle.goal",
+        "access_to_hideout.goal",
+        "access_thru_dumbwaiter.goal",
+        "access_thru_fireplace.goal",
+        "sunstone_is_in_rocket.goal",
+        "button_pressed.goal",
+        "used_crank_with_well.goal",
+        "used_bucket_of_water_with_fire.goal",
+        "used_bucket_of_coal_with_furnace.goal",
+        "used_bucket_with_coal_bunker.goal"
       ]
     },
     "area_type": {

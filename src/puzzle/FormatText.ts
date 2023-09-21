@@ -41,7 +41,7 @@ export function FormatText(
     if (!isColor) return single.slice(5);
     return Colors.Cyan + single.slice(5) + Colors.Reset;
   }
-  if (single.startsWith('goal_')) {
+  if (single.endsWith('.goal')) {
     if (!isColor) return single.slice(5);
     return Colors.Green + single.slice(5) + Colors.Reset;
   }
