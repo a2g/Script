@@ -12,16 +12,7 @@ export function NavigatePieceRecursive(
     console.warn(`output: ${output}`);
     const targets = new Array<Piece | null>();
     for (let i = 0; i < piece.inputs.length; i++) {
-      if (piece.inputs[i] == null) {
-        const result = rootPieceMap.GetRootPieceArrayByName(
-          piece.inputHints[i]
-        );
-        // TODO: I completely changed the way Navigate Piece Recursevely
-        // by changing to GetRootByName -> GetRootPieceByName
-        targets.push(result[0].piece);
-      } else {
-        targets.push(piece.inputs[i]);
-      }
+      targets.push(piece.inputs[i]);
       const inputHint: string = piece.inputHints[i];
       console.warn(`input: ${i + 1}. ${inputHint}`);
     }

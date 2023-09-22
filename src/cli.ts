@@ -44,7 +44,7 @@ function main(): void {
   for (;;) {
     let i = 1;
     for (const campaign of allFolders) {
-      console.warn(`${i}. ${campaign}`);
+      console.warn(`${i}. ${campaign}  ${i}`);
       i += 1;
     }
 
