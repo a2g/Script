@@ -11,19 +11,19 @@
     {
       "piece": "PROP1_GOES_WHEN_GRAB_INV1_WITH_GOAL1",
       "prop1": "prop_vinegar",
-      "goal1": "access_thru_dumbwaiter.goal",
+      "goal1": "03_access_thru_dumbwaiter.goal",
       "inv1": "inv_vinegar"
     },
     {
       "piece": "PROP1_GOES_WHEN_GRAB_INV1_WITH_GOAL1",
       "prop1": "prop_sunstone",
-      "goal1": "access_thru_dumbwaiter.goal",
+      "goal1": "03_access_thru_dumbwaiter.goal",
       "inv1": "inv_sunstone"
     },
     {
       "piece": "PROP1_GOES_WHEN_GRAB_INV1_WITH_GOAL1",
       "prop1": "prop_rolling_pin",
-      "goal1": "access_thru_dumbwaiter.goal",
+      "goal1": "03_access_thru_dumbwaiter.goal",
       "inv1": "inv_rolling_pin"
     }
   ]

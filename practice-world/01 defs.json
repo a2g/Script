@@ -44,8 +44,8 @@
         "prop6": {
           "$ref": "01 enums.json#/definitions/prop_enum"
         },
-        "merge": {
-          "type": "string"
+        "isMergeNeeded": {
+          "type": "boolean"
         },
         "restrictions": {
           "type": "array",

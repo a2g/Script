@@ -35,8 +35,8 @@
   "pieces": [
     {
       "piece": "GOAL1_MET_BY_USING_INV1_WITH_PROP1",
-      "goal1": "access_to_icehouse.goal",
-      "merge": "03_inside_icehouse.goal.json",
+      "goal1": "03_access_to_icehouse.goal",
+      "isMergeNeeded": true,
       "inv1": "inv_soil_thermometer",
       "prop1": "prop_icehouse"
     },
@@ -70,8 +70,8 @@
     },
     {
       "piece": "GOAL1_MET_BY_USING_INV1_WITH_PROP1",
-      "goal1": "access_to_greenhouse.goal",
-      "merge": "03_inside_greenhouse.goal.json",
+      "goal1": "03_access_to_greenhouse.goal",
+      "isMergeNeeded": true,
       "inv1": "inv_greenhouse_key",
       "prop1": "prop_greenhouse_door"
     },
@@ -89,13 +89,13 @@
     },
     {
       "piece": "GOAL1_MET_BY_USING_INV1_WITH_PROP1",
-      "goal1": "used_bucket_with_coal_bunker.goal",
+      "goal1": "03_used_bucket_with_coal_bunker.goal",
       "inv1": "inv_empty_bucket",
       "prop1": "prop_coal_bunker"
     },
     {
       "piece": "AUTO_INV1_OBTAINED_VIA_GOAL1",
-      "goal1": "used_bucket_with_coal_bunker.goal",
+      "goal1": "03_used_bucket_with_coal_bunker.goal",
       "inv1": "inv_bucket_of_coal"
     },
     {
@@ -106,18 +106,18 @@
     },
     {
       "piece": "GOAL1_MET_BY_USING_INV1_WITH_PROP1",
-      "goal1": "used_crank_with_well.goal",
+      "goal1": "03_used_crank_with_well.goal",
       "inv1": "inv_crank",
       "prop1": "prop_well"
     },
     {
       "piece": "AUTO_PROP1_APPEARS_VIA_GOAL1",
-      "goal1": "used_crank_with_well.goal",
+      "goal1": "03_used_crank_with_well.goal",
       "prop1": "prop_crank_attached_to_well"
     },
     {
       "piece": "AUTO_INV1_OBTAINED_VIA_GOAL1",
-      "goal1": "used_crank_with_well.goal",
+      "goal1": "03_used_crank_with_well.goal",
       "inv1": "inv_bucket_of_water"
     }
   ]

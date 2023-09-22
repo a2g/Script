@@ -56,8 +56,8 @@
         "goal6": {
           "$ref": "Test1Enums.json#/definitions/goal_type"
         },
-        "merge": {
-          "type": "string"
+        "isMergeNeeded": {
+          "type": "boolean"
         },
         "restrictions": {
           "type": "array",

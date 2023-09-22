@@ -12,7 +12,7 @@
     {
       "piece": "PROP1_GOES_WHEN_GRAB_INV1_WITH_GOAL1",
       "prop1": "prop_herbs",
-      "goal1": "goal_access_to_greenhouse",
+      "goal1": "goal_03_access_to_greenhouse",
       "inv1": "inv_herbs"
     },
     {

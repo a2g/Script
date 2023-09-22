@@ -31,7 +31,7 @@ export class SolverViaRootPiece {
 
     const allGoalWin = rootMap.GetRootPieceArrayByNameNoThrow('win.goal');
     if (allGoalWin == null || allGoalWin.length == 0) {
-      throw new Error('No win.goal was found in solution constructor');
+      throw new Error(`No win.goal was found among the ${boxes.size} boxes`);
     }
     rootMap.RemoveAllWithName('win.goal');
 

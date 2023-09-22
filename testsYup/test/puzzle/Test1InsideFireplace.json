@@ -33,7 +33,7 @@
     },
     {
       "piece": "GOAL1_MET_BY_USING_INV1_WITH_PROP1",
-      "goal1": "goal_sunstone_is_in_rocket",
+      "goal1": "goal_03_sunstone_is_in_rocket",
       "inv1": "inv_sunstone",
       "prop1": "prop_rocket"
     },
@@ -44,8 +44,8 @@
     },
     {
       "piece": "AUTO_GOAL1_MET_BY_PROPS",
-      "goal1": "goal_button_pressed",
-      "merge": "test/puzzle/Test1PostButtonPressed.json",
+      "goal1": "goal_03_button_pressed",
+      "isMergeNeeded": true,
       "prop1": "prop_button(pressed)",
       "prop2": "prop_furnace_lit"
     },

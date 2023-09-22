@@ -48,7 +48,7 @@ export function SingleBigSwitch(
       const inv1 = Stringify(piece.inv1);
       const inv2 = Stringify(piece.inv2);
       const inv3 = Stringify(piece.inv3);
-      const filenameToMerge = Stringify(piece.merge);
+      const isMergeNeeded = piece.isMergeNeeded;
       const happs = new Happenings();
       const { restrictions } = piece;
       if (
@@ -57,8 +57,8 @@ export function SingleBigSwitch(
       ) {
         if (isGoalRetrieval || piecesMappedByOutput == null) {
           let merge: Box | null = null;
-          if (filenameToMerge.length > 0) {
-            merge = new Box(path, filenameToMerge);
+          if (isMergeNeeded) {
+            merge = new Box(path, `${goal1}.json`);
           }
           switch (pieceType) {
             case _.AUTO_GOAL1_MET_BY_GOALS:
