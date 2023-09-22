@@ -307,7 +307,7 @@ export class Piece {
 
           // this is only here to make the unit tests make sense
           // something like to fix a bug where cloning doesn't mark piece as complete
-          // theSolution.MarkPieceAsCompleted(theSolution.GetGoalWin())
+          // theSolution.MarkPieceAsCompleted(theSolution.GetWinGoal())
           // ^^ this might need to recursively ask for parent, since there are no
           // many root pieces
 

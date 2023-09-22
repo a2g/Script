@@ -29,14 +29,14 @@ export class SolverViaRootPiece {
       subBox.CopyGoalPiecesToContainer(rootMap);
     }
 
-    const allGoalWin = rootMap.GetRootPieceArrayByNameNoThrow('win.goal');
-    if (allGoalWin == null || allGoalWin.length == 0) {
+    const allWinGoal = rootMap.GetRootPieceArrayByNameNoThrow('win.goal');
+    if (allWinGoal == null || allWinGoal.length == 0) {
       throw new Error(`No win.goal was found among the ${boxes.size} boxes`);
     }
     rootMap.RemoveAllWithName('win.goal');
 
     this.solutions = [];
-    for (const rootPiece of allGoalWin) {
+    for (const rootPiece of allWinGoal) {
       // ..everything else comes from the single box passed in
       const newRootMap = rootMap.CloneAllRootPiecesAndTheirTrees();
       newRootMap.AddPiece(rootPiece.piece);
