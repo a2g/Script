@@ -29,11 +29,11 @@ export class SolverViaRootPiece {
       subBox.CopyGoalPiecesToContainer(rootMap);
     }
 
-    const allWinGoal = rootMap.GetRootPieceArrayByNameNoThrow('win.goal');
+    const allWinGoal = rootMap.GetAllWinGoals();
     if (allWinGoal == null || allWinGoal.length == 0) {
       throw new Error(`No win.goal was found among the ${boxes.size} boxes`);
     }
-    rootMap.RemoveAllWithName('win.goal');
+    rootMap.RemoveAllWinGoals();
 
     this.solutions = [];
     for (const winGoal of allWinGoal) {
@@ -112,7 +112,9 @@ export class SolverViaRootPiece {
           continue;
         }
         const otherSolution = this.solutions[j];
-        const otherLeafs = otherSolution.GetRootMap().GenerateMapOfLeaves();
+        const otherLeafs = otherSolution
+          .GetRootMap()
+          .GenerateMapOfLeavesFromAllRoots();
         for (const leafNode of otherLeafs.values()) {
           if (leafNode != null) {
             const otherLeafNodeName = leafNode.GetOutput();
@@ -136,7 +138,9 @@ export class SolverViaRootPiece {
       const accumulatedRestrictions = currSolution.GetAccumulatedRestrictions();
 
       //GenerateMapOfLeaves
-      const currLeaves = currSolution.GetRootMap().GenerateMapOfLeaves();
+      const currLeaves = currSolution
+        .GetRootMap()
+        .GenerateMapOfLeavesFromAllRoots();
       for (const leafNode of currLeaves.values()) {
         if (leafNode != null) {
           const result = mapForCounting.get(leafNode.GetOutput());

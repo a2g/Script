@@ -46,7 +46,7 @@ export function ChooseListOfLeaves(solver: SolverViaRootPiece): void {
       );
       const leaves: Map<string, Piece | null> = solution
         .GetRootMap()
-        .GenerateMapOfLeaves();
+        .GenerateMapOfLeavesFromAllRoots();
       for (const key of leaves.keys()) {
         listItemNumber++;
         const piece = leaves.get(key);
@@ -75,7 +75,7 @@ export function ChooseListOfLeaves(solver: SolverViaRootPiece): void {
       if (theNumber > 0 && theNumber <= listItemNumber) {
         let i = 0;
         for (const solution of solver.GetSolutions()) {
-          const goals = solution.GetRootMap().GenerateMapOfLeaves();
+          const goals = solution.GetRootMap().GenerateMapOfLeavesFromAllRoots();
           for (const key of goals.keys()) {
             i++;
             if (i === theNumber) {

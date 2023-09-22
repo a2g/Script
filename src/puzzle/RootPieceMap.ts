@@ -47,7 +47,7 @@ export class RootPieceMap implements IPileOrRootPieceMap {
    *
    * @returns unsolved root nodes
    */
-  public GenerateMapOfLeaves(): Map<string, Piece> {
+  public GenerateMapOfLeavesFromAllRoots(): Map<string, Piece> {
     const leaves = new Map<string, Piece>();
     for (const array of this.GetValues()) {
       for (const root of array) {
@@ -95,5 +95,13 @@ export class RootPieceMap implements IPileOrRootPieceMap {
 
   public GetRootPieceArrayByNameNoThrow(goal: string): RootPiece[] | undefined {
     return this.roots.get(goal);
+  }
+
+  public GetAllWinGoals(): RootPiece[] | undefined {
+    return this.roots.get('win.goal');
+  }
+
+  public RemoveAllWinGoals(): void {
+    this.roots.delete('win.goal');
   }
 }
