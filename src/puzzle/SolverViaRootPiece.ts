@@ -36,10 +36,10 @@ export class SolverViaRootPiece {
     rootMap.RemoveAllWithName('win.goal');
 
     this.solutions = [];
-    for (const rootPiece of allWinGoal) {
+    for (const winGoal of allWinGoal) {
       // ..everything else comes from the single box passed in
       const newRootMap = rootMap.CloneAllRootPiecesAndTheirTrees();
-      newRootMap.AddPiece(rootPiece.piece);
+      newRootMap.AddPiece(winGoal.piece);
 
       const firstSolution = new Solution(
         newRootMap,
