@@ -114,7 +114,7 @@ export class SolverViaRootPiece {
         const otherSolution = this.solutions[j];
         const otherLeafs = otherSolution
           .GetRootMap()
-          .GenerateMapOfLeavesFromAllRoots();
+          .GenerateMapOfLeavesFromWinGoal();
         for (const leafNode of otherLeafs.values()) {
           if (leafNode != null) {
             const otherLeafNodeName = leafNode.GetOutput();
@@ -140,7 +140,7 @@ export class SolverViaRootPiece {
       //GenerateMapOfLeaves
       const currLeaves = currSolution
         .GetRootMap()
-        .GenerateMapOfLeavesFromAllRoots();
+        .GenerateMapOfLeavesFromWinGoal();
       for (const leafNode of currLeaves.values()) {
         if (leafNode != null) {
           const result = mapForCounting.get(leafNode.GetOutput());
