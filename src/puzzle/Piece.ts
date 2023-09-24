@@ -266,8 +266,7 @@ export class Piece {
       // 2. Goal - matches a single goal in the goal root map
       // then we just set and forget, allowing that goal
       // be completed via the natural process
-      if (solution
-        .GetRootMap().Has(importHintToFind)) {
+      if (solution.GetRootMap().Has(importHintToFind)) {
         const matchingRootPieces = solution
           .GetRootMap()
           .GetRootPieceArrayByName(importHintToFind);

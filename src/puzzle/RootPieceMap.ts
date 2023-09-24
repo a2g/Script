@@ -60,17 +60,16 @@ export class RootPieceMap implements IPileOrRootPieceMap {
 
   public GenerateMapOfLeavesFromWinGoal(): Map<string, Piece> {
     const allWinGaols = this.GetAllWinGoals();
-    if (allWinGaols?.length != 1) {
-      throw new Error('Name Generation found win.goal != 1');
-    }
-    const winGoal = allWinGaols[0];
     const leaves = new Map<string, Piece>();
-    GenerateMapOfLeavesTracingGoalsRecursively(
-      winGoal.piece,
-      'win.goal',
-      leaves,
-      this
-    );
+    if (allWinGaols?.length == 1) {
+      const winGoal = allWinGaols[0];
+      GenerateMapOfLeavesTracingGoalsRecursively(
+        winGoal.piece,
+        'win.goal',
+        leaves,
+        this
+      );
+    }
     return leaves;
   }
 

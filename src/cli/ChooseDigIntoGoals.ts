@@ -26,12 +26,11 @@ export function ChooseDigIntoGoals(solver: SolverViaRootPiece): void {
     for (const solution of solver.GetSolutions()) {
       TrimNonIntegratedRootPieces(solution);
       const letter = String.fromCharCode(solutionNumber++);
-      console.warn(
-        letter +
-          '. ' +
-          FormatText(solution.GetDisplayNamesConcatenated()) +
-          '<--unique name'
-      );
+      const text = FormatText(solution.GetDisplayNamesConcatenated());
+      const NAME_NOT_DETERMINABLE = 'name_not_determinable';
+      const label =
+        text.length > 8 ? text + '<-- yellow is type of leaf, red is constraints' : NAME_NOT_DETERMINABLE;
+      console.warn(`${letter}. ${label}`);
       for (const array of solution.GetRootMap().GetValues()) {
         for (const item of array) {
           listItemNumber++;

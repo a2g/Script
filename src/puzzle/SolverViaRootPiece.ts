@@ -18,7 +18,6 @@ export class SolverViaRootPiece {
     string,
     Set<string>
   >;
-
   constructor(box: IBoxReadOnly) {
     // we collect the other boxes, but only for
     // collecting all rootmap
@@ -140,7 +139,7 @@ export class SolverViaRootPiece {
       const currSolution = this.solutions[i];
       currSolution.ClearNameSegments();
       let minLeafNodeNameCount = 1000; // something high
-      let minLeafNodeName = 'name_not_determinable';
+      let minLeafNodeName = '';
 
       // get the restrictions accumulated from all the solution nodes
       const accumulatedRestrictions = currSolution.GetAccumulatedRestrictions();
