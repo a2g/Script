@@ -103,6 +103,14 @@ export class SolverViaRootPiece {
     }
   }
 
+  public RemoveSolution(solution: Solution): void {
+    for (let i = 0; i < this.solutions.length; i++) {
+      if (this.solutions[i] === solution) {
+        this.solutions.splice(i, 1);
+      }
+    }
+  }
+
   public GenerateSolutionNamesAndPush(): void {
     for (let i = 0; i < this.solutions.length; i++) {
       // now lets find out the amount leafNode name exists in all the other solutions

@@ -121,4 +121,15 @@ export class RootPieceMap implements IPileOrRootPieceMap {
   public RemoveAllWinGoals(): void {
     this.roots.delete('win.goal');
   }
+
+  public RemovePieceById(id: number): void {
+    for (const array of this.roots.values()) {
+      for (let i = 0; i < array.length; i++)
+        if (array[i].piece.id == id) {
+          array.splice(i, 1);
+          return;
+        }
+    }
+    throw new Error("Id was not found, and couldn't remove");
+  }
 }

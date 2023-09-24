@@ -1,4 +1,3 @@
-import assert from 'assert';
 import { Happen } from './Happen';
 import { Happenings } from './Happenings';
 import { IBoxReadOnlyWithFileMethods } from './IBoxReadOnlyWithFileMethods';
@@ -256,6 +255,7 @@ export class Piece {
       }
 
       // we check our starting set first!
+      // 1. Starting set - we check our starting set first!
       // otherwise Toggle pieces will toggle until the count is zero.
       const importHintToFind = this.inputHints[k];
       if (solution.GetStartingThings().Has(importHintToFind)) {
@@ -263,26 +263,55 @@ export class Piece {
         continue;
       }
 
-      // check whether we've found the goal earlier,
-      // then we will eventually come to process the other entry in goals
-      // so we can skip on to the next one..I think...
-      if (solution.GetRootMap().Has(importHintToFind)) {
-        // is it a goal? (since goal map always contains all goals)
-        // solution.MarkGoalsAsContainingNullsAndMergeIfNeeded()// this is optional...
-        const array = solution
+      // 2. Goal - matches a single goal in the goal root map
+      // then we just set and forget, allowing that goal
+      // be completed via the natural process
+      if (solution
+        .GetRootMap().Has(importHintToFind)) {
+        const matchingRootPieces = solution
           .GetRootMap()
           .GetRootPieceArrayByName(importHintToFind);
+        if (matchingRootPieces.length == 1) {
+          // is it a goal? (since goal map always contains all goals)
+          // solution.MarkGoalsAsContainingNullsAndMergeIfNeeded()// this is optional...
+          const { firstNullInput } = matchingRootPieces[0];
 
-        assert(array.length > 0);
-
-        const { firstNullInput } = array[0];
-
-        if (firstNullInput === '') {
-          this.StubOutInputK(k, SpecialTypes.CompletedElsewhere);
+          if (firstNullInput === '') {
+            this.StubOutInputK(k, SpecialTypes.CompletedElsewhere);
+          }
+          continue;
         }
-        continue;
+
+        // 3. Matches multiple goals in goalrootmap
+        if (matchingRootPieces.length > 0) {
+          for (let i = matchingRootPieces.length - 1; i >= 0; i--) {
+            const thisMatchingRootPiece = matchingRootPieces[i];
+
+            // Clone - if needed!
+            const newClonedSolution = solution.Clone();
+
+            // go through all other matching root piece,s  and delete their matching root
+            // piece from this solutions root piece
+            for (const matchingRootPiece of newClonedSolution
+              .GetRootMap()
+              .GetRootPieceArrayByName(importHintToFind)) {
+              if (matchingRootPiece !== thisMatchingRootPiece) {
+                newClonedSolution
+                  .GetRootMap()
+                  .RemovePieceById(matchingRootPiece.piece.id);
+              }
+            }
+            solutions.GetSolutions().push(newClonedSolution);
+          }
+          // since we've added multiple
+          solutions.RemoveSolution(solution);
+
+          // we could stub out here, but even if we don't it will occur next iteration
+          return true; //since cloning occured
+        }
       }
 
+      // 4. PLain old pieces
       // This is where we get all the pieces that fit
       // and if there is more than one, then we clone
       const setOfMatchingPieces = solution
