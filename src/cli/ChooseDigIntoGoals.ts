@@ -30,7 +30,9 @@ export function ChooseDigIntoGoals(solver: SolverViaRootPiece): void {
       const NAME_NOT_DETERMINABLE = 'name_not_determinable';
       // HACKY!
       const label =
-        text.length > 8 ? text + '<-- yellow is type of leaf, red is constraints' : NAME_NOT_DETERMINABLE;
+        text.length > 8
+          ? text + '<-- yellow is type of leaf, red is constraints'
+          : NAME_NOT_DETERMINABLE;
       console.warn(`${letter}. ${label}`);
       for (const array of solution.GetRootMap().GetValues()) {
         for (const item of array) {

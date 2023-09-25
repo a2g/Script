@@ -50,8 +50,8 @@ export function ChooseListOfLeaves(solver: SolverViaRootPiece): void {
       for (const key of leaves.keys()) {
         listItemNumber++;
         const piece = leaves.get(key);
-        //  "1. XXXXXX"   <- this is the format we list the leaves
         const pieceName: string = piece != null ? piece.output : 'null';
+        //  "1. XXXXXX"   <- this is the format we list the leaves
         console.warn(
           `    ${listItemNumber}. ${FormatText(pieceName)} [${key}]`
         );

@@ -12,6 +12,7 @@ export function ChooseOrderOfCommands(solver: SolverViaRootPiece): void {
       solver.SolvePartiallyUntilCloning();
       solver.MarkGoalsAsCompletedAndMergeIfNeeded();
     }
+    solver.GenerateSolutionNamesAndPush();
     const numberOfSolutions: number = solver.NumberOfSolutions();
 
     console.warn('If any leaves are not resolved properly, for example');
@@ -27,43 +28,74 @@ export function ChooseOrderOfCommands(solver: SolverViaRootPiece): void {
     console.warn('GOTCHA: Also validate boxes against schema, as this has ');
     console.warn('been the cause of the problem numerous times.');
     console.warn('');
-    console.warn('List of Commands');
+    console.warn('Pick solution');
     console.warn('================');
     console.warn(`Number of solutions = ${numberOfSolutions}`);
+    console.warn(`    0. All solutions`);
+    for (let i = 0; i < solver.GetSolutions().length; i++) {
+      const solution = solver.GetSolutions()[i];
+      const name = FormatText(solution.GetDisplayNamesConcatenated());
+      //  "1. XXXXXX"   <- this is the format we list the solutions
+      console.warn(`    ${i + 1}. ${name}`);
+    }
 
+    // allow user to choose item
+    const input = prompt(
+      'Choose an ingredient of one of the solutions or (b)ack, (r)e-run: '
+    ).toLowerCase();
+
+    if (input === null || input === 'b') {
+      return;
+    }
+
+    if (input === 'b') {
+      continue;
+    }
+    const theNumber = Number(input);
     // list all leaves, of all solutions in order
-    solver.GenerateSolutionNamesAndPush();
+    const name =
+      theNumber === 0
+        ? 'all solutions'
+        : solver.GetSolutions()[theNumber - 1].GetDisplayNamesConcatenated();
+    console.warn(`List of Commands for ${name}`);
+    console.warn('================');
 
     let listItemNumber = 0;
-    for (const solution of solver.GetSolutions()) {
-      console.warn(FormatText(solution.GetDisplayNamesConcatenated()));
-      const commands: Array<RawObjectsAndVerb> = solution.GetOrderOfCommands();
-      for (const command of commands) {
-        listItemNumber++;
-        console.warn(`    ${listItemNumber}. ${command.AsDisplayString()}`);
+    for (let i = 0; i < solver.GetSolutions().length; i++) {
+      const solution = solver.GetSolutions()[i];
+      if (theNumber === 0 || theNumber - 1 === i) {
+        const commands: Array<RawObjectsAndVerb> =
+          solution.GetOrderOfCommands();
+        for (const command of commands) {
+          listItemNumber++;
+          console.warn(`    ${listItemNumber}. ${command.AsDisplayString()}`);
+        }
       }
     }
 
     // allow user to choose item
-    const input = prompt('Choose a step (b)ack, (r)e-run: ').toLowerCase();
-    if (input === null || input === 'b') {
+    const input2 = prompt('Choose a step (b)ack, (r)e-run: ').toLowerCase();
+    if (input2 === null || input2 === 'b') {
       return;
     } else {
       // show map entry for chosen item
-      const theNumber = Number(input);
+      const theNumber2 = Number(input2);
       if (theNumber > 0 && theNumber <= listItemNumber) {
-        let i = 0;
-        for (const solution of solver.GetSolutions()) {
-          const commands: Array<RawObjectsAndVerb> =
-            solution.GetOrderOfCommands();
-          for (const command of commands) {
-            i++;
-            if (i === theNumber) {
-              console.log(
-                `Command info: ${command.type} ${command.objectA} ${command.objectB}`
-              );
-              prompt('Hit a key to continue');
-              break;
+        let j = 0;
+        for (let i = 0; i < solver.GetSolutions().length; i++) {
+          const solution = solver.GetSolutions()[i];
+          if (theNumber === 0 || theNumber === i) {
+            const commands: Array<RawObjectsAndVerb> =
+              solution.GetOrderOfCommands();
+            for (const command of commands) {
+              j++;
+              if (j === theNumber2) {
+                console.log(
+                  `Command info: ${command.type} ${command.objectA} ${command.objectB}`
+                );
+                prompt('Hit a key to continue');
+                break;
+              }
             }
           }
         }
