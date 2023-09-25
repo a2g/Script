@@ -61,9 +61,19 @@ export function ChooseOrderOfCommands(solver: SolverViaRootPiece): void {
     console.warn('================');
 
     let listItemNumber = 0;
-    for (let i = 0; i < solver.GetSolutions().length; i++) {
-      const solution = solver.GetSolutions()[i];
-      if (theNumber === 0 || theNumber - 1 === i) {
+    for (let solutionNumber = 0; solutionNumber < solver.GetSolutions().length; solutionNumber++) {
+      const solution = solver.GetSolutions()[solutionNumber];
+      if (theNumber === 0 || theNumber - 1 === solutionNumber) {
+        const letter = String.fromCharCode(65+ solutionNumber);
+        const text = FormatText(solution.GetDisplayNamesConcatenated());
+        const NAME_NOT_DETERMINABLE = 'name_not_determinable';
+        // HACKY!
+        const label =
+          text.length > 8
+            ? text + '<-- yellow is type of leaf, red is constraints'
+            : NAME_NOT_DETERMINABLE;
+        console.warn(`${letter}. ${label}`);
+
         const commands: Array<RawObjectsAndVerb> =
           solution.GetOrderOfCommands();
         for (const command of commands) {
