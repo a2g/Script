@@ -5,7 +5,7 @@ import { Piece } from './Piece';
 import { PileOfPieces } from './PileOfPieces';
 import { Raw } from './Raw';
 import { RawObjectsAndVerb } from './RawObjectsAndVerb';
-import { ReverseTraverser } from './ReverseTraverser';
+import { LeafToRootTraverser } from './LeafToRootTraverser';
 import { RootPieceMap } from './RootPieceMap';
 import { SolverViaRootPiece } from './SolverViaRootPiece';
 import { VisibleThingsMap } from './VisibleThingsMap';
@@ -238,19 +238,19 @@ export class Solution {
     // push the commands
     const leaves = new Map<string, Piece | null>();
     GenerateMapOfLeavesRecursively(piece, '', leaves);
-    const reverseTraverser = new ReverseTraverser(
+    const leafToRootTraverser = new LeafToRootTraverser(
       this.currentlyVisibleThings,
       leaves
     );
     let rawObjectsAndVerb: RawObjectsAndVerb | null = null;
     for (let j = 0; j < 200; j += 1) {
       rawObjectsAndVerb =
-        reverseTraverser.GetNextDoableCommandAndDeconstructTree();
+        leafToRootTraverser.GetNextDoableCommandAndDeconstructTree();
       if (rawObjectsAndVerb == null) {
         // all out of moves!
         // for debugging
         rawObjectsAndVerb =
-          reverseTraverser.GetNextDoableCommandAndDeconstructTree();
+          leafToRootTraverser.GetNextDoableCommandAndDeconstructTree();
         break;
       }
 

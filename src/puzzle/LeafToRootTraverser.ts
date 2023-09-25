@@ -7,8 +7,8 @@ import { SpecialTypes } from './SpecialTypes';
 import { Stringify } from './Stringify';
 import { VisibleThingsMap } from './VisibleThingsMap';
 
-export class ReverseTraverser {
-  public leavesForReverseTraversal: Map<string, Piece | null>;
+export class LeafToRootTraverser {
+  public leavesForTraversal: Map<string, Piece | null>;
   public currentlyVisibleThings: VisibleThingsMap;
 
   public constructor(
@@ -17,13 +17,13 @@ export class ReverseTraverser {
   ) {
     // interestingly, leaf pieces don't get cloned
     // but it doesn't matter that much because they are just used
-    // when reverse traversing a solution
-    this.leavesForReverseTraversal = leaves;
+    // when doing a leaf-to-root traversal
+    this.leavesForTraversal = leaves;
     this.currentlyVisibleThings = visibleThings;
   }
 
   public GetNextDoableCommandAndDeconstructTree(): RawObjectsAndVerb | null {
-    for (const input of this.leavesForReverseTraversal) {
+    for (const input of this.leavesForTraversal) {
       const key: string = input[0];
       const piece: Piece | null = input[1];
       let areAllInputsAvailable = true;
@@ -52,11 +52,11 @@ export class ReverseTraverser {
           const isAuto: boolean = piece.type.toLowerCase().includes('auto');
           const isUse: boolean = piece.type.toLowerCase().includes('use');
           // then we remove this key as a leaf piece..
-          this.leavesForReverseTraversal.delete(key);
+          this.leavesForTraversal.delete(key);
 
           // ... and add a parent in its place
           if (piece.parent != null) {
-            this.leavesForReverseTraversal.set(pathOfParent, piece.parent);
+            this.leavesForTraversal.set(pathOfParent, piece.parent);
           }
 
           if (piece.inputs.length === 0) {
@@ -156,15 +156,15 @@ export class ReverseTraverser {
   }
 
   /**
-   * Add a piece for the reverse traversal map. It can be a verified Leaf, or just intermediate.
+   * Add a piece for the leaf-to-root traversal map. It can be a verified Leaf, or just intermediate.
    * @param path the path, this is the key
    * @param piece the Piece
    */
-  public AddLeafForReverseTraversal(path: string, piece: Piece): void {
-    this.leavesForReverseTraversal.set(path, piece);
+  public AddLeafForLeafToRootTraversal(path: string, piece: Piece): void {
+    this.leavesForTraversal.set(path, piece);
   }
 
-  public UpdateMapOfVisibleThingsWithAReverseTraversal(
+  public UpdateMapOfVisibleThingsWithLeafToRootTraversal(
     solution: Solution
   ): void {
     // 21/Aug/2022 hmmn..have just come to this
@@ -194,8 +194,8 @@ export class ReverseTraverser {
     }
   }
 
-  public GetLeavesForReverseTraversal(): ReadonlyMap<string, Piece | null> {
-    return this.leavesForReverseTraversal;
+  public GetLeavesForLeafToRootTraversal(): ReadonlyMap<string, Piece | null> {
+    return this.leavesForTraversal;
   }
 
   private AddToMapOfVisibleThings(thing: string): void {
