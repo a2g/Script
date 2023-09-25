@@ -43,13 +43,14 @@ export class Solution {
 
   private readonly isMergingOk: boolean;
 
-  private readonly commandCompletedInOrder: Array<RawObjectsAndVerb>;
+  private readonly commandsCompletedInOrder: Array<RawObjectsAndVerb>;
 
   constructor(
     rootPieceMapToCopy: RootPieceMap | null,
     copyThisMapOfPieces: IPileOfPiecesReadOnly,
     startingThingsPassedIn: VisibleThingsMap,
     isMergingOk = false,
+    commandsCompletedInOrder: Array<RawObjectsAndVerb> | null = null,
     restrictions: Set<string> | null = null,
     nameSegments: string[] | null = null
   ) {
@@ -57,8 +58,8 @@ export class Solution {
     this.isMergingOk = isMergingOk;
     this.remainingPiecesRepo = new PileOfPieces(copyThisMapOfPieces);
     this.isArchived = false;
-    this.commandCompletedInOrder = [];
 
+    // starting things AND currentlyVisibleThings
     this.startingThings = new VisibleThingsMap(null);
     this.currentlyVisibleThings = new VisibleThingsMap(null);
     if (startingThingsPassedIn != null) {
@@ -68,7 +69,15 @@ export class Solution {
       }
     }
 
-    // if it is passed in, we deep copy it
+    // if commandsCompletedInOrder is passed in, we deep copy it
+    this.commandsCompletedInOrder = [];
+    if (commandsCompletedInOrder) {
+      for (const command of commandsCompletedInOrder) {
+        this.commandsCompletedInOrder.push(command);
+      }
+    }
+
+    // if solutionNameSegments is passed in, we deep copy it
     this.solutionNameSegments = [];
     if (nameSegments != null) {
       for (const segment of nameSegments) {
@@ -76,7 +85,7 @@ export class Solution {
       }
     }
 
-    // its its passed in we deep copy it
+    // its restrictionsEncounteredDuringSolving is passed in we deep copy it
     this.restrictionsEncounteredDuringSolving = new Set<string>();
     if (restrictions != null) {
       for (const restriction of restrictions) {
@@ -100,6 +109,7 @@ export class Solution {
       this.remainingPiecesRepo,
       this.startingThings,
       this.isMergingOk,
+      this.commandsCompletedInOrder,
       this.restrictionsEncounteredDuringSolving,
       this.solutionNameSegments
     );
@@ -257,7 +267,7 @@ export class Solution {
 
       if (rawObjectsAndVerb.type !== Raw.None) {
         // this is just here for debugging!
-        this.commandCompletedInOrder.push(rawObjectsAndVerb);
+        this.commandsCompletedInOrder.push(rawObjectsAndVerb);
       }
     }
 
@@ -265,7 +275,7 @@ export class Solution {
     this.currentlyVisibleThings.Set(piece.output, new Set<string>());
 
     // then write the goal we just completed
-    this.commandCompletedInOrder.push(
+    this.commandsCompletedInOrder.push(
       new RawObjectsAndVerb(Raw.Goal, `completed (${piece.output})`, '', [], '')
     );
   }
@@ -285,7 +295,7 @@ export class Solution {
     // I would like to return a read only array here.
     // I can't do that, so instead, I will clone.
     // The following is how to clone in js
-    return this.commandCompletedInOrder.map(x => x);
+    return this.commandsCompletedInOrder.map(x => x);
   }
 
   public GetVisibleThingsAtTheMoment(): VisibleThingsMap {
