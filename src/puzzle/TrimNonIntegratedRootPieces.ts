@@ -3,6 +3,6 @@ import { Solution } from './Solution';
 
 export function TrimNonIntegratedRootPieces(solution: Solution): void {
   const roots = solution.GetRootMap();
-  const goal_win = roots.GetRootPieceArrayByNameNoThrow('win.goal');
-  assert(goal_win != null);
+  const win_goal = roots.GetRootPieceArrayByNameNoThrow('win.goal');
+  assert(win_goal != null);
 }

@@ -8,7 +8,7 @@ export function ChooseOrderOfCommands(solver: SolverViaRootPiece): void {
   console.warn(' ');
 
   for (;;) {
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 200; i++) {
       solver.SolvePartiallyUntilCloning();
       solver.MarkGoalsAsCompletedAndMergeIfNeeded();
     }

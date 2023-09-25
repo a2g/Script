@@ -22,7 +22,7 @@ export function PlayPlayable(playable: Playable): void {
 
     // check have we won?
     if (playable.GetHappener().GetGoalValue('win.goal') > 0) {
-      // btw this is the only goal_win outside of Solution.ts, so if we can get rid of it, then great
+      // btw this is the only win.goal outside of Solution.ts, so if we can get rid of it, then great
       playable.SetCompleted();
       break;
     }
