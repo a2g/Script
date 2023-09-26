@@ -155,15 +155,6 @@ export class LeafToRootTraverser {
     return `/${path}`;
   }
 
-  /**
-   * Add a piece for the leaf-to-root traversal map. It can be a verified Leaf, or just intermediate.
-   * @param path the path, this is the key
-   * @param piece the Piece
-   */
-  public AddLeafForLeafToRootTraversal(path: string, piece: Piece): void {
-    this.leavesForTraversal.set(path, piece);
-  }
-
   public UpdateMapOfVisibleThingsWithLeafToRootTraversal(
     solution: Solution
   ): void {
