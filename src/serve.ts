@@ -82,7 +82,7 @@ async function getSolutionsDirect(req: Request, responseSender: Response) {
     }
     const json = solutions(solver);
 
-    responseSender.jsonc(json);
+    responseSender.json(json);
   } catch (err) {
     console.error(err);
     responseSender.status(500);

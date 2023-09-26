@@ -52,30 +52,30 @@ const getLocationsWithTimezones = (request: Request, response: Response) => {
     },
   ];
 
-  response.status(200).jsonc(locations);
+  response.status(200).json(locations);
 };
 
 const getWorlds = (request: Request, response: Response) => {
-  response.status(200).jsonc(request);
+  response.status(200).json(request);
 };
 
 const getAreasInWorld = (request: Request, response: Response) => {
-  response.status(200).jsonc(request);
+  response.status(200).json(request);
 };
 
 const getLocationsInArea = (request: Request, response: Response) => {
-  response.status(200).jsonc(request);
+  response.status(200).json(request);
 };
 
 const getTreeJustPriorToSolving = (request: Request, response: Response) => {
-  response.status(200).jsonc(request);
+  response.status(200).json(request);
 };
 
 const getSolutionViaDepthFirstSearch = (
   request: Request,
   response: Response
 ) => {
-  response.status(200).jsonc(request);
+  response.status(200).json(request);
 };
 
 app.get('/timezones', getLocationsWithTimezones);
