@@ -9,6 +9,7 @@ import { ChooseToFindUnused } from './cli/ChooseToFindUnused';
 import { Area } from './cli/Area';
 import { readFileSync } from 'fs';
 import { Suffix } from '../Suffix';
+import {parse} from 'jsonc-parser';
 import * as fs from 'fs';
 const prompt = promptSync();
 
@@ -63,7 +64,7 @@ function main(): void {
 
 function ChooseArea(folder: string) {
   const text = readFileSync(`${folder}/${Suffix.Campaign}.jsonc`, 'utf-8');
-  const druids = JSON.parse(text);
+  const druids = parse(text);
 
   for (;;) {
     console.warn(process.cwd());

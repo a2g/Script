@@ -10,6 +10,7 @@ import { RootPieceMap } from './RootPieceMap';
 import { SingleBigSwitch } from './SingleBigSwitch';
 import { Stringify } from './Stringify';
 import { VisibleThingsMap } from './VisibleThingsMap';
+import {parse} from 'jsonc-parser'
 
 /**
  * So the most important part of this class is that the data
@@ -57,7 +58,7 @@ export class Box implements IBoxReadOnlyWithFileMethods {
       throw new Error(`file doesn't exist ${path}${filename} ${process.cwd()}`);
     }
     const text = readFileSync(path + filename, 'utf8');
-    const scenario = JSON.parse(text);
+    const scenario = parse(text);
     const setProps = new Set<string>();
     const setGoals = new Set<string>();
     const setInvs = new Set<string>();
