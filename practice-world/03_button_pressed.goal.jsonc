@@ -1,6 +1,6 @@
 
 {
-  "$schema": "./03 defs.json",
+  "$schema": "./03 defs.jsonc",
   "startingThings": [
     {
       "thing": "prop_hole_in_wall"

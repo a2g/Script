@@ -22,11 +22,11 @@ function main(): void {
   // but that folder may not exist, so we try/catch it
   try {
     const ignoreSet = new Set([
-      'settings.json',
+      'settings.jsonc',
       '.gitmodules',
       '.gitignore',
-      'package.json',
-      'tsconfig.json',
+      'package.jsonc',
+      'tsconfig.jsonc',
       '.git',
     ]);
     process.chdir('./exclusive-worlds');
@@ -62,7 +62,7 @@ function main(): void {
 }
 
 function ChooseArea(folder: string) {
-  const text = readFileSync(`${folder}/${Suffix.Campaign}.json`, 'utf-8');
+  const text = readFileSync(`${folder}/${Suffix.Campaign}.jsonc`, 'utf-8');
   const druids = JSON.parse(text);
 
   for (;;) {

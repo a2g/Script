@@ -52,7 +52,7 @@ async function directRequestToGithub(req: Request, responseSender: Response) {
       if (!isNaN(repos)) {
         redisClient.setex(username, 3600, `${repos}`);
         const response = composeResponse(username, `${repos}`, false);
-        responseSender.json(response);
+        responseSender.jsonc(response);
       } else {
         responseSender.status(404);
       }
@@ -83,7 +83,7 @@ function requestToRedisServer(
 
     if (data !== null) {
       const response = composeResponse(username, data, true);
-      responseSender.json(response);
+      responseSender.jsonc(response);
     } else {
       next();
     }

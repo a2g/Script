@@ -29,7 +29,7 @@ describe('Solution', () => {
   });
   /*
     it("Test of a non cloning five step", () => {
-        const box = new SceneSingle("test/puzzle/Test1First.json");
+        const box = new SceneSingle("test/puzzle/Test1First.jsonc");
               const pile:PileOfPieces = new PileOfPieces();
         json.CopyPiecesFromBoxToPile(pile);
         const objective = "prop_death_by_guitar";
@@ -58,7 +58,7 @@ describe('Solution', () => {
     });
 
     it("Test of another non-cloning 5 step", () => {
-        const box = new SceneSingle("test/puzzle/Test1First.json");
+        const box = new SceneSingle("test/puzzle/Test1First.jsonc");
         const map = json.CopyPiecesFromBoxToPile();
         const objective = "prop_death_by_slamdunk";
         const collection = new SolutionCollection();

@@ -1,5 +1,5 @@
 {
-  "$schema": "./TestHighPermutationSolutionSchema.json",
+  "$schema": "./TestHighPermutationSolutionSchema.jsonc",
   "pieces": [
     {
       "piece": "GOAL1_MET_BY_USING_INV1_WITH_PROP1",

@@ -1,5 +1,5 @@
 import { readFileSync } from 'fs';
-import _ from '../../jigsaw.json';
+import _ from '../../jigsaw.jsonc';
 import { AlleviateBrackets } from './AlleviateBrackets';
 import { Box } from './Box';
 import { Happen } from './Happen';
@@ -58,7 +58,7 @@ export function SingleBigSwitch(
         if (isGoalRetrieval || piecesMappedByOutput == null) {
           let merge: Box | null = null;
           if (isMergeNeeded) {
-            merge = new Box(path, `${goal1}.json`);
+            merge = new Box(path, `${goal1}.jsonc`);
           }
           switch (pieceType) {
             case _.AUTO_GOAL1_MET_BY_GOALS:

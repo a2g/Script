@@ -12,7 +12,7 @@ import { VisibleThingsMap } from './VisibleThingsMap';
 /**
  * So the most important part of this class is that the data
  * in it is read only. So I've put that in the name.
- * I wanted to convey the idea that it represents  *.json files,
+ * I wanted to convey the idea that it represents  *.jsonc files,
  * in this case multiple, so that goes in there too.
  */
 export class BigBoxViaSetOfBoxes implements IBoxReadOnly {

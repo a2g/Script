@@ -7,7 +7,7 @@
       "type": "object",
       "allOf": [
         {
-          "$ref": "../jigsaw.json#/definitions/piece_type"
+          "$ref": "../jigsaw.jsonc#/definitions/piece_type"
         }
       ],
       "properties": {

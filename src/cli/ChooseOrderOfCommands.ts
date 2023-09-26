@@ -61,10 +61,14 @@ export function ChooseOrderOfCommands(solver: SolverViaRootPiece): void {
     console.warn('================');
 
     let listItemNumber = 0;
-    for (let solutionNumber = 0; solutionNumber < solver.GetSolutions().length; solutionNumber++) {
+    for (
+      let solutionNumber = 0;
+      solutionNumber < solver.GetSolutions().length;
+      solutionNumber++
+    ) {
       const solution = solver.GetSolutions()[solutionNumber];
       if (theNumber === 0 || theNumber - 1 === solutionNumber) {
-        const letter = String.fromCharCode(65+ solutionNumber);
+        const letter = String.fromCharCode(65 + solutionNumber);
         const text = FormatText(solution.GetDisplayNamesConcatenated());
         const NAME_NOT_DETERMINABLE = 'name_not_determinable';
         // HACKY!

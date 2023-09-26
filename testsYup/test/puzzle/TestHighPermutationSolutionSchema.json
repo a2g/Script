@@ -7,42 +7,42 @@
       "type": "object",
       "allOf": [
         {
-          "$ref": "../jigsaw.json#/definitions/piece_type"
+          "$ref": "../jigsaw.jsonc#/definitions/piece_type"
         }
       ],
       "properties": {
         "flag1": {
-          "$ref": "TestHighPermutationSolutionObjects.json#/definitions/flag_type"
+          "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/flag_type"
         },
         "flag2": {
-          "$ref": "TestHighPermutationSolutionObjects.json#/definitions/flag_type"
+          "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/flag_type"
         },
         "inv1": {
-          "$ref": "TestHighPermutationSolutionObjects.json#/definitions/inventory_type"
+          "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/inventory_type"
         },
         "inv2": {
-          "$ref": "TestHighPermutationSolutionObjects.json#/definitions/inventory_type"
+          "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/inventory_type"
         },
         "inv3": {
-          "$ref": "TestHighPermutationSolutionObjects.json#/definitions/inventory_type"
+          "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/inventory_type"
         },
         "prop1": {
-          "$ref": "TestHighPermutationSolutionObjects.json#/definitions/prop_type"
+          "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/prop_type"
         },
         "prop2": {
-          "$ref": "TestHighPermutationSolutionObjects.json#/definitions/prop_type"
+          "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/prop_type"
         },
         "prop3": {
-          "$ref": "TestHighPermutationSolutionObjects.json#/definitions/prop_type"
+          "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/prop_type"
         },
         "prop4": {
-          "$ref": "TestHighPermutationSolutionObjects.json#/definitions/prop_type"
+          "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/prop_type"
         },
         "prop5": {
-          "$ref": "TestHighPermutationSolutionObjects.json#/definitions/prop_type"
+          "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/prop_type"
         },
         "prop6": {
-          "$ref": "TestHighPermutationSolutionObjects.json#/definitions/prop_type"
+          "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/prop_type"
         },
         "fileToMerge": {
           "type": "string"
@@ -63,7 +63,7 @@
       ],
       "properties": {
         "character": {
-          "$ref": "TestHighPermutationSolutionObjects.json#/definitions/character_type"
+          "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/character_type"
         }
       }
     },
@@ -74,7 +74,7 @@
       ],
       "properties": {
         "prop": {
-          "$ref": "TestHighPermutationSolutionObjects.json#/definitions/prop_type"
+          "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/prop_type"
         }
       }
     }
@@ -84,7 +84,7 @@
       "type": "array",
       "minItems": 0,
       "items": {
-        "$ref": "TestHighPermutationSolutionObjects.json#/definitions/prop_type"
+        "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/prop_type"
       }
     },
     "startingThings": {
@@ -94,18 +94,18 @@
         "type": "object",
         "properties": {
           "character": {
-            "$ref": "TestHighPermutationSolutionObjects.json#/definitions/character_type"
+            "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/character_type"
           },
           "thing": {
             "oneOf": [
               {
-                "$ref": "TestHighPermutationSolutionObjects.json#/definitions/inventory_type"
+                "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/inventory_type"
               },
               {
-                "$ref": "TestHighPermutationSolutionObjects.json#/definitions/prop_type"
+                "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/prop_type"
               },
               {
-                "$ref": "TestHighPermutationSolutionObjects.json#/definitions/flag_type"
+                "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/flag_type"
               }
             ]
           }

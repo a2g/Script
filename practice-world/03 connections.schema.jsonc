@@ -7,13 +7,13 @@
       "type": "object",
       "properties": {
         "start": {
-          "$ref": "03 enums.json#/definitions/location_enum"
+          "$ref": "03 enums.jsonc#/definitions/location_enum"
         },
         "end": {
-          "$ref": "03 enums.json#/definitions/location_enum"
+          "$ref": "03 enums.jsonc#/definitions/location_enum"
         },
         "access": {
-          "$ref": "../jigsaw.json#/definitions/access_type"
+          "$ref": "../jigsaw.jsonc#/definitions/access_type"
         }
       }
     }

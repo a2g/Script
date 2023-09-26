@@ -1,5 +1,5 @@
 /* 
-import Campaign from '../../practice-world/Campaign.json';
+import Campaign from '../../practice-world/Campaign.jsonc';
 import { Area } from './Area';
 
 export function ChooseToPlayCampaign(): void {

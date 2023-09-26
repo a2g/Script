@@ -14,7 +14,7 @@ import { VisibleThingsMap } from './VisibleThingsMap';
 /**
  * So the most important part of this class is that the data
  * in it is read only. So I've put that in the name.
- * I wanted to convey the idea that it represents one *.json file
+ * I wanted to convey the idea that it represents one *.jsonc file
  * so that's in there too.
  */
 export class Box implements IBoxReadOnlyWithFileMethods {

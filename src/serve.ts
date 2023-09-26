@@ -30,7 +30,7 @@ async function getSolutionsDirect(req: Request, responseSender: Response) {
     const area = req.params.area;
 
     const path = `../${repo}/${world}/`;
-    const firstBoxFilename = `${area}${Suffix.FirstBox}.json`;
+    const firstBoxFilename = `${area}${Suffix.FirstBox}.jsonc`;
 
     if (!existsSync(path + firstBoxFilename)) {
       console.log(
@@ -82,7 +82,7 @@ async function getSolutionsDirect(req: Request, responseSender: Response) {
     }
     const json = solutions(solver);
 
-    responseSender.json(json);
+    responseSender.jsonc(json);
   } catch (err) {
     console.error(err);
     responseSender.status(500);
@@ -110,7 +110,7 @@ function getSolutionsFromRedis(
     if (err) throw err;
 
     if (data !== null) {
-      responseSender.json(username);
+      responseSender.jsonc(username);
     } else {
       next();
     }

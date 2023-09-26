@@ -28,8 +28,8 @@ export class SvgWriter {
     responseSender: Response
   ): void {
     const path = `../${repo}/${world}/`;
-    const areaMapFilename = `${area}${Suffix.AreaMap}.json`;
-    const connectionsFilename = `${area}${Suffix.Connections}.json`;
+    const areaMapFilename = `${area}${Suffix.AreaMap}.jsonc`;
+    const connectionsFilename = `${area}${Suffix.Connections}.jsonc`;
     if (!existsSync(path + areaMapFilename)) {
       console.log(
         `file doesn't exist ${path}${areaMapFilename} ${process.cwd()}`
