@@ -9,7 +9,7 @@ import { IPileOrRootPieceMap } from './IPileOrRootPieceMap';
 import { MixedObjectsAndVerb } from './MixedObjectsAndVerb';
 import { Piece } from './Piece';
 import { Stringify } from './Stringify';
-import {parse} from 'jsonc-parser'
+import { parse } from 'jsonc-parser';
 /**
  * Yup, this is the one location of these
  * And when the pieces are cloned, these ids get cloned too

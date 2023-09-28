@@ -9,7 +9,7 @@ import { ChooseToFindUnused } from './cli/ChooseToFindUnused';
 import { Area } from './cli/Area';
 import { readFileSync } from 'fs';
 import { Suffix } from '../Suffix';
-import {parse} from 'jsonc-parser';
+import { parse } from 'jsonc-parser';
 import * as fs from 'fs';
 const prompt = promptSync();
 

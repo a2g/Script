@@ -10,7 +10,7 @@ import { RootPieceMap } from './RootPieceMap';
 import { SingleBigSwitch } from './SingleBigSwitch';
 import { Stringify } from './Stringify';
 import { VisibleThingsMap } from './VisibleThingsMap';
-import {parse} from 'jsonc-parser'
+import { parse } from 'jsonc-parser';
 
 /**
  * So the most important part of this class is that the data
