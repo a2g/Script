@@ -811,6 +811,31 @@ export function SingleBigSwitch(
               return happs;
             }
             break;
+          case _.OBTAIN_INV1_BY_OPENING_INV2_WHICH_BECOMES_INV3:
+            // eg open radio...BATTERIES!
+            happs.text = `You open the ${inv2} and find ${inv1}`;
+            happs.array.push(new Happening(Happen.InvAppears, inv1));
+            happs.array.push(new Happening(Happen.InvGoes, inv2));
+            happs.array.push(new Happening(Happen.InvAppears, inv3));
+            if (piecesMappedByOutput != null) {
+              const output = inv1;
+              const inputA = inv2;
+              piecesMappedByOutput.AddPiece(
+                new Piece(
+                  id1,
+                  null,
+                  output,
+                  pieceType,
+                  count,
+                  happs,
+                  restrictions,
+                  inputA
+                )
+              );
+            } else if (objects.Match('Toggle', inv2, '')) {
+              return happs;
+            }
+            break;
           case _.OBTAIN_INV1_BY_PROP1_WITH_PROP2_LOSE_PROPS:
             // eg obtain inv_meteor via radiation suit with the meteor.
             // ^^ this is nearly a two in one, but the radiation suit never becomes inventory: you wear it.
