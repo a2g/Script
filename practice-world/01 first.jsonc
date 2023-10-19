@@ -52,7 +52,7 @@
     },
     {
       "piece": "GOAL1_MET_BY_USING_INV1_WITH_PROP1",
-      "goal1": "electricity_restored.goal",
+      "goal1": "electricity_restored_goal",
       "inv1": "inv_bio-diesel",
       "prop1": "prop_generator"
     },
@@ -60,7 +60,7 @@
       "piece": "PROP1_APPEARS_WHEN_GRAB_PROP2_WITH_GOAL1",
       "prop1": "prop_taxi",
       "prop2": "prop_phone",
-      "goal1": "electricity_restored.goal"
+      "goal1": "electricity_restored_goal"
     },
     {
       "piece": "GOAL1_MET_BY_GIVING_INV1_TO_PROP1",
