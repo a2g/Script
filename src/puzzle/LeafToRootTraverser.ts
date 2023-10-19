@@ -51,6 +51,7 @@ export class LeafToRootTraverser {
           const isToggle: boolean = piece.type.toLowerCase().includes('toggle');
           const isAuto: boolean = piece.type.toLowerCase().includes('auto');
           const isUse: boolean = piece.type.toLowerCase().includes('use');
+          const isOpen: boolean = piece.type.toLowerCase().includes('open');
           // then we remove this key as a leaf piece..
           this.leavesForTraversal.delete(key);
 
@@ -78,6 +79,14 @@ export class LeafToRootTraverser {
           } else if (isTalk) {
             return new RawObjectsAndVerb(
               Raw.Talk,
+              piece.inputHints[0],
+              '',
+              piece.getRestrictions(),
+              piece.type
+            );
+          } else if (isOpen) {
+            return new RawObjectsAndVerb(
+              Raw.Open,
               piece.inputHints[0],
               '',
               piece.getRestrictions(),

@@ -39,7 +39,9 @@ export class Happening {
       case Happen.GoalIsSet:
         if (!item.endsWith('_goal')) {
           console.warn(
-            'Convention mismatch! the item (' + item + ') does not end with "goal"'
+            'Convention mismatch! the item (' +
+              item +
+              ') does not end with "goal"'
           );
         }
         break;

@@ -832,7 +832,7 @@ export function SingleBigSwitch(
                   inputA
                 )
               );
-            } else if (objects.Match('Toggle', inv2, '')) {
+            } else if (objects.Match('Open', inv2, '')) {
               return happs;
             }
             break;
