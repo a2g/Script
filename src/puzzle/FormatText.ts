@@ -35,7 +35,7 @@ export function FormatText(
   }
   if (single.startsWith('inv_')) {
     if (!isColor) return single.slice(4);
-    return Colors.Magenta + single.slice(4) + Colors.Reset;
+    return Colors.Green + single.slice(4) + Colors.Reset;
   }
   if (single.startsWith('prop_')) {
     if (!isColor) return single.slice(5);

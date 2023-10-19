@@ -32,7 +32,7 @@ export function GetDisplayName(
     return Colors.Yellow + single.slice(8) + Colors.Reset;
   }
   if (single.startsWith('inv_')) {
-    return Colors.Magenta + single.slice(4) + Colors.Reset;
+    return Colors.Green + single.slice(4) + Colors.Reset;
   }
   if (single.startsWith('prop_')) {
     return Colors.Cyan + single.slice(5) + Colors.Reset;
