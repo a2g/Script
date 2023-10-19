@@ -16,6 +16,7 @@
       "piece": "GOAL1_MET_BY_USING_INV1_WITH_PROP1",
       "text": "use bucket of coal on furnace",
       "goal1": "03_used_bucket_of_coal_with_furnace.goal",
+      "isNoFile": true,
       "inv1": "inv_bucket_of_coal",
       "prop1": "prop_furnace"
     },
@@ -34,6 +35,7 @@
     {
       "piece": "GOAL1_MET_BY_USING_INV1_WITH_PROP1",
       "goal1": "03_sunstone_is_in_rocket.goal",
+      "isNoFile": true,
       "inv1": "inv_sunstone",
       "prop1": "prop_rocket"
     },
@@ -45,7 +47,6 @@
     {
       "piece": "AUTO_GOAL1_MET_BY_PROPS",
       "goal1": "03_button_pressed.goal",
-      "isMergeNeeded": true,
       "prop1": "prop_button(pressed)",
       "prop2": "prop_furnace_lit"
     },

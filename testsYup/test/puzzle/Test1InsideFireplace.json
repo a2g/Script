@@ -45,7 +45,6 @@
     {
       "piece": "AUTO_GOAL1_MET_BY_PROPS",
       "goal1": "goal_03_button_pressed",
-      "isMergeNeeded": true,
       "prop1": "prop_button(pressed)",
       "prop2": "prop_furnace_lit"
     },

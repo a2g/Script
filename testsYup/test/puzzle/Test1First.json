@@ -41,7 +41,6 @@
     {
       "piece": "GOAL1_MET_BY_USING_INV1_WITH_PROP1",
       "goal1": "03_goal_03_access_to_icehouse",
-      "isMergeNeeded": true,
       "inv1": "inv_soil_thermometer",
       "prop1": "prop_icehouse"
     },
@@ -71,7 +70,6 @@
     {
       "piece": "GOAL1_MET_BY_USING_INV1_WITH_PROP1",
       "goal1": "goal_03_access_to_greenhouse",
-      "isMergeNeeded": true,
       "inv1": "inv_greenhouse_key",
       "prop1": "prop_greenhouse_door"
     },

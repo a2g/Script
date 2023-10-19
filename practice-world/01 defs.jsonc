@@ -44,7 +44,7 @@
         "prop6": {
           "$ref": "01 enums.jsonc#/definitions/prop_enum"
         },
-        "isMergeNeeded": {
+        "isNoFile": {
           "type": "boolean"
         },
         "restrictions": {

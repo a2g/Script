@@ -56,7 +56,7 @@
         "goal6": {
           "$ref": "02 enums.jsonc#/definitions/goal_enum"
         },
-        "isMergeNeeded": {
+        "isNoFile": {
           "type": "boolean"
         },
         "restrictions": {

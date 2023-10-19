@@ -49,7 +49,7 @@ export function SingleBigSwitch(
       const inv1 = Stringify(piece.inv1);
       const inv2 = Stringify(piece.inv2);
       const inv3 = Stringify(piece.inv3);
-      const isMergeNeeded = piece.isMergeNeeded;
+      const isNoFile = piece.isNoFile;
       const happs = new Happenings();
       const { restrictions } = piece;
       if (
@@ -57,9 +57,10 @@ export function SingleBigSwitch(
         pieceType.startsWith('AUTO_GOAL1_MET')
       ) {
         if (isGoalRetrieval || piecesMappedByOutput == null) {
-          let merge: Box | null = null;
-          if (isMergeNeeded) {
-            merge = new Box(path, `${goal1}.jsonc`);
+          let boxToMerge: Box | null = null;
+          // merge file - unless it has been marked to avoid
+          if (!isNoFile && goal1 !== 'win.goal') {
+            boxToMerge = new Box(path, `${goal1}.jsonc`);
           }
           switch (pieceType) {
             case _.AUTO_GOAL1_MET_BY_GOALS:
@@ -68,7 +69,7 @@ export function SingleBigSwitch(
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
-                    merge,
+                    boxToMerge,
                     output,
                     pieceType,
                     count,
@@ -95,7 +96,7 @@ export function SingleBigSwitch(
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
-                    merge,
+                    boxToMerge,
                     output,
                     pieceType,
                     count,
@@ -120,7 +121,7 @@ export function SingleBigSwitch(
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
-                    merge,
+                    boxToMerge,
                     output,
                     pieceType,
                     count,
@@ -145,7 +146,7 @@ export function SingleBigSwitch(
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
-                    merge,
+                    boxToMerge,
                     output,
                     pieceType,
                     count,
@@ -171,7 +172,7 @@ export function SingleBigSwitch(
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
-                    merge,
+                    boxToMerge,
                     output,
                     pieceType,
                     count,
@@ -205,7 +206,7 @@ export function SingleBigSwitch(
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
-                    merge,
+                    boxToMerge,
                     output,
                     pieceType,
                     count,
@@ -233,7 +234,7 @@ export function SingleBigSwitch(
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
-                    merge,
+                    boxToMerge,
                     output,
                     pieceType,
                     count,
@@ -259,7 +260,7 @@ export function SingleBigSwitch(
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
-                    merge,
+                    boxToMerge,
                     output,
                     pieceType,
                     count,
@@ -285,7 +286,7 @@ export function SingleBigSwitch(
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
-                    merge,
+                    boxToMerge,
                     output,
                     pieceType,
                     count,
@@ -315,7 +316,7 @@ export function SingleBigSwitch(
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
-                    merge,
+                    boxToMerge,
                     output,
                     pieceType,
                     count,
@@ -345,7 +346,7 @@ export function SingleBigSwitch(
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
-                    merge,
+                    boxToMerge,
                     output,
                     pieceType,
                     count,
@@ -371,7 +372,7 @@ export function SingleBigSwitch(
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
-                    merge,
+                    boxToMerge,
                     output,
                     pieceType,
                     count,

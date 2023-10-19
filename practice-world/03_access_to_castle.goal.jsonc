@@ -33,12 +33,12 @@
     {
       "piece": "AUTO_GOAL1_MET_BY_PROPS",
       "goal1": "03_access_thru_fireplace.goal",
-      "isMergeNeeded": true,
       "prop1": "prop_fireplace_ladder"
     },
     {
       "piece": "GOAL1_MET_BY_USING_INV1_WITH_PROP1",
       "goal1": "03_used_bucket_of_water_with_fire.goal",
+      "isNoFile": true,
       "inv1": "inv_bucket_of_water",
       "prop1": "prop_fireplace(lit)"
     },
@@ -61,14 +61,12 @@
     {
       "piece": "GOAL1_MET_BY_LOSING_INV1_WHEN_USED_WITH_PROP1",
       "goal1": "03_access_thru_dumbwaiter.goal",
-      "isMergeNeeded": true,
       "inv1": "inv_cogs",
       "prop1": "prop_dumbwaiter"
     },
     {
       "piece": "GOAL1_MET_BY_USING_INV1_WITH_PROP1",
       "goal1": "03_access_to_hideout.goal",
-      "isMergeNeeded": true,
       "inv1": "inv_burning_herbs",
       "prop1": "prop_vent"
     },
