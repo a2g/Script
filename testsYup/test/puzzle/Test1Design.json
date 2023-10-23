@@ -12,49 +12,49 @@
       ],
       "properties": {
         "inv1": {
-          "$ref": "Test1Enums.jsonc#/definitions/inventory_type"
+          "$ref": "Test1 enums.jsonc#/definitions/inventory_type"
         },
         "inv2": {
-          "$ref": "Test1Enums.jsonc#/definitions/inventory_type"
+          "$ref": "Test1 enums.jsonc#/definitions/inventory_type"
         },
         "inv3": {
-          "$ref": "Test1Enums.jsonc#/definitions/inventory_type"
+          "$ref": "Test1 enums.jsonc#/definitions/inventory_type"
         },
         "prop1": {
-          "$ref": "Test1Enums.jsonc#/definitions/prop_type"
+          "$ref": "Test1 enums.jsonc#/definitions/prop_type"
         },
         "prop2": {
-          "$ref": "Test1Enums.jsonc#/definitions/prop_type"
+          "$ref": "Test1 enums.jsonc#/definitions/prop_type"
         },
         "prop3": {
-          "$ref": "Test1Enums.jsonc#/definitions/prop_type"
+          "$ref": "Test1 enums.jsonc#/definitions/prop_type"
         },
         "prop4": {
-          "$ref": "Test1Enums.jsonc#/definitions/prop_type"
+          "$ref": "Test1 enums.jsonc#/definitions/prop_type"
         },
         "prop5": {
-          "$ref": "Test1Enums.jsonc#/definitions/prop_type"
+          "$ref": "Test1 enums.jsonc#/definitions/prop_type"
         },
         "prop6": {
-          "$ref": "Test1Enums.jsonc#/definitions/prop_type"
+          "$ref": "Test1 enums.jsonc#/definitions/prop_type"
         },
         "goal1": {
-          "$ref": "Test1Enums.jsonc#/definitions/goal_type"
+          "$ref": "Test1 enums.jsonc#/definitions/goal_type"
         },
         "goal2": {
-          "$ref": "Test1Enums.jsonc#/definitions/goal_type"
+          "$ref": "Test1 enums.jsonc#/definitions/goal_type"
         },
         "goal3": {
-          "$ref": "Test1Enums.jsonc#/definitions/goal_type"
+          "$ref": "Test1 enums.jsonc#/definitions/goal_type"
         },
         "goal4": {
-          "$ref": "Test1Enums.jsonc#/definitions/goal_type"
+          "$ref": "Test1 enums.jsonc#/definitions/goal_type"
         },
         "goal5": {
-          "$ref": "Test1Enums.jsonc#/definitions/goal_type"
+          "$ref": "Test1 enums.jsonc#/definitions/goal_type"
         },
         "goal6": {
-          "$ref": "Test1Enums.jsonc#/definitions/goal_type"
+          "$ref": "Test1 enums.jsonc#/definitions/goal_type"
         },
         "isNoFile": {
           "type": "boolean"
@@ -75,7 +75,7 @@
       ],
       "properties": {
         "character": {
-          "$ref": "Test1Enums.jsonc#/definitions/character_type"
+          "$ref": "Test1 enums.jsonc#/definitions/character_type"
         }
       }
     },
@@ -86,7 +86,7 @@
       ],
       "properties": {
         "prop": {
-          "$ref": "Test1Enums.jsonc#/definitions/prop_type"
+          "$ref": "Test1 enums.jsonc#/definitions/prop_type"
         }
       }
     }
@@ -99,18 +99,18 @@
         "type": "object",
         "properties": {
           "character": {
-            "$ref": "Test1Enums.jsonc#/definitions/character_type"
+            "$ref": "Test1 enums.jsonc#/definitions/character_type"
           },
           "thing": {
             "oneOf": [
               {
-                "$ref": "Test1Enums.jsonc#/definitions/inventory_type"
+                "$ref": "Test1 enums.jsonc#/definitions/inventory_type"
               },
               {
-                "$ref": "Test1Enums.jsonc#/definitions/goal_type"
+                "$ref": "Test1 enums.jsonc#/definitions/goal_type"
               },
               {
-                "$ref": "Test1Enums.jsonc#/definitions/prop_type"
+                "$ref": "Test1 enums.jsonc#/definitions/prop_type"
               }
             ]
           }
