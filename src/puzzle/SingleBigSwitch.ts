@@ -681,9 +681,35 @@ export function SingleBigSwitch(
               return happs;
             }
             break;
+          case _.INV1_WITH_PROP1_REVEALS_PROP2_LOSE_INV:
+            happs.text = `Using the ${inv1} with the ${prop1} loses ${inv1} , but revaels a ${prop2}`;
+            happs.array.push(new Happening(Happen.InvGoes, inv1));
+            happs.array.push(new Happening(Happen.PropStays, prop1));
+            happs.array.push(new Happening(Happen.PropAppears, prop2));
+            if (piecesMappedByOutput != null) {
+              const inputA = inv1;
+              const inputB = prop1;
+              const output = prop2;
+              piecesMappedByOutput.AddPiece(
+                new Piece(
+                  id1,
+                  null,
+                  output,
+                  pieceType,
+                  count,
+                  happs,
+                  restrictions,
+                  inputA,
+                  inputB
+                )
+              );
+            } else if (objects.Match('Use', inv1, prop1)) {
+              return happs;
+            }
+            break;
           case _.INV1_WITH_PROP1_REVEALS_PROP2_KEPT_ALL:
             happs.text = `Using the ${inv1} with the ${prop1} has revealed a ${prop2}`;
-            happs.array.push(new Happening(Happen.InvGoes, inv1));
+            happs.array.push(new Happening(Happen.InvStays, inv1));
             happs.array.push(new Happening(Happen.PropStays, prop1));
             happs.array.push(new Happening(Happen.PropAppears, prop2));
             if (piecesMappedByOutput != null) {

@@ -31,7 +31,9 @@ export function ChooseOrderOfCommands(solver: SolverViaRootPiece): void {
     console.warn('Pick solution');
     console.warn('================');
     console.warn(`Number of solutions = ${numberOfSolutions}`);
-    console.warn(`    0. All solutions`);
+    if (solver.GetSolutions().length > 1) {
+      console.warn(`    0. All solutions`);
+    }
     for (let i = 0; i < solver.GetSolutions().length; i++) {
       const solution = solver.GetSolutions()[i];
       const name = FormatText(solution.GetDisplayNamesConcatenated());

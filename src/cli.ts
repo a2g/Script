@@ -6,11 +6,11 @@ import { ChooseDigIntoGoals } from './cli/ChooseDigIntoGoals';
 import { ChooseListOfLeaves } from './cli/ChooseListOfLeaves';
 import { ChooseOrderOfCommands } from './cli/ChooseOrderOfCommands';
 import { ChooseToFindUnused } from './cli/ChooseToFindUnused';
-import { Area } from './cli/Area';
 import { readFileSync } from 'fs';
 import { Suffix } from '../Suffix';
 import { parse } from 'jsonc-parser';
 import * as fs from 'fs';
+import { assert } from 'console';
 const prompt = promptSync();
 
 function main(): void {
@@ -73,17 +73,13 @@ function ChooseArea(folder: string) {
     console.warn('==================');
     console.warn('0. Play Campaign');
 
+    assert(Array.isArray(druids.areas));
     const arrayOfFilenames: string[] = [];
     // initialize the map with
     let i = 1;
-    const areas = new Map<string, Area>();
-    for (const incoming of druids.areas) {
-      const area = new Area();
-      area.areaName = incoming.areaName;
-      area.areaEnum = incoming.areaEnum;
-      areas.set(area.areaEnum, area);
-      arrayOfFilenames.push(incoming.firstBoxFile);
-      const { firstBoxFile } = incoming;
+    // const areas = new Map<string, Area>();
+    for (const firstBoxFile of druids.areas) {
+      arrayOfFilenames.push(firstBoxFile);
       console.warn(`${i}. ${firstBoxFile}`);
       i += 1;
     }
