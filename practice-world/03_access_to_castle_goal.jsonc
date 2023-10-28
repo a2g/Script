@@ -53,7 +53,7 @@
       "inv1": "inv_empty_bucket"
     },
     {
-      "piece": "OBTAIN_INV1_BY_LOSING_INV2_KEEPING_PROP1",
+      "piece": "INV1_OBTAINED_BY_LOSING_INV2_KEEPING_PROP1",
       "inv1": "inv_cogs",
       "inv2": "inv_windup_key",
       "prop1": "prop_grandfather_clock"

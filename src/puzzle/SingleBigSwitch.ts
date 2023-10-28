@@ -627,7 +627,7 @@ export function SingleBigSwitch(
               return happs;
             }
             break;
-          case _.OBTAIN_INV1_BY_COMBINING_INV2_WITH_INV3:
+          case _.INV1_OBTAINED_BY_COMBINING_INV2_WITH_INV3:
               happs.text = `The ${inv2} and the ${inv3} combine to form an ${inv1}`;
               happs.array.push(new Happening(Happen.InvAppears, inv1));
               happs.array.push(new Happening(Happen.InvGoes, inv2));
@@ -655,7 +655,7 @@ export function SingleBigSwitch(
               }
               break;
   
-          case _.OBTAIN_INV1_BY_COMBINING_INV2_WITH_PROP1:
+          case _.INV1_OBTAINED_BY_COMBINING_INV2_WITH_PROP1:
             happs.text = `By using the ${inv1} with the ${prop1} you have obtained the ${inv1}.`;
             happs.array.push(new Happening(Happen.InvAppears, inv1));
             happs.array.push(new Happening(Happen.InvGoes, inv2));
@@ -681,7 +681,7 @@ export function SingleBigSwitch(
               return happs;
             }
             break;
-          case _.OBTAIN_INV1_BY_INV2_WITH_PROP1_LOSE_NONE:
+          case _.INV1_OBTAINED_BY_INV2_WITH_PROP1_LOSE_NONE:
             happs.text = `By using the ${inv2} with the ${prop1} you have obtained the ${inv1}.`;
             happs.array.push(new Happening(Happen.InvAppears, inv1));
             happs.array.push(new Happening(Happen.InvStays, inv2));
@@ -707,7 +707,7 @@ export function SingleBigSwitch(
               return happs;
             }
             break;
-          case _.OBTAIN_INV1_BY_LOSING_INV2_KEEPING_PROP1:
+          case _.INV1_OBTAINED_BY_LOSING_INV2_KEEPING_PROP1:
             happs.text = `By using the ${inv2} with the ${prop1} you have obtained the ${inv1}.`;
             happs.array.push(new Happening(Happen.InvAppears, inv1));
             happs.array.push(new Happening(Happen.InvGoes, inv2));
@@ -733,7 +733,7 @@ export function SingleBigSwitch(
               return happs;
             }
             break;
-          case _.OBTAIN_INV1_BY_LOSING_PROP1_KEEPING_INV2:
+          case _.INV1_OBTAINED_BY_LOSING_PROP1_KEEPING_INV2:
             happs.text = `By using the ${inv2} with the ${prop1} you have obtained the ${inv1}.`;
             happs.array.push(new Happening(Happen.InvAppears, inv1));
             happs.array.push(new Happening(Happen.InvStays, inv2));
@@ -759,7 +759,7 @@ export function SingleBigSwitch(
               return happs;
             }
             break;
-          case _.OBTAIN_INV1_BY_OPENING_INV2_WHICH_BECOMES_INV3:
+          case _.INV1_OBTAINED_BY_OPENING_INV2_WHICH_BECOMES_INV3:
             // eg open radio...BATTERIES!
             happs.text = `You open the ${inv2} and find ${inv1}`;
             happs.array.push(new Happening(Happen.InvAppears, inv1));
@@ -784,7 +784,7 @@ export function SingleBigSwitch(
               return happs;
             }
             break;
-          case _.OBTAIN_INV1_BY_PROP1_WITH_PROP2_LOSE_PROPS:
+          case _.INV1_OBTAINED_BY_PROP1_WITH_PROP2_LOSE_PROPS:
             // eg obtain inv_meteor via radiation suit with the meteor.
             // ^^ this is nearly a two in one, but the radiation suit never becomes inventory: you wear it.
             happs.text = `You use the ${prop1} with the ${prop2} and obtain the ${inv1}`;

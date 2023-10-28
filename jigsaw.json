@@ -85,7 +85,7 @@
                     "examples": [
                       "all the combining ones"
                     ],
-                    "const": "OBTAIN_INV1_BY_COMBINING_INV2_WITH_INV3"
+                    "const": "INV1_OBTAINED_BY_COMBINING_INV2_WITH_INV3"
                   }
                 }
               },
@@ -112,7 +112,7 @@
               {
                 "properties": {
                   "piece": {
-                    "const" : "OBTAIN_INV1_BY_OPENING_INV2_WHICH_BECOMES_INV3"
+                    "const" : "INV1_OBTAINED_BY_OPENING_INV2_WHICH_BECOMES_INV3"
                   }
                 }
               }
@@ -178,7 +178,7 @@
                      "powerpoint -> plugged-in-amp via losing INV_FIXEDAMP",
                      "eg use radiation suit with the meteor"
                    ],
-                    "const": "OBTAIN_INV1_BY_PROP1_WITH_PROP2_LOSE_PROPS"
+                    "const": "INV1_OBTAINED_BY_PROP1_WITH_PROP2_LOSE_PROPS"
                   }
                 }
               },
@@ -586,7 +586,7 @@
                     "examples": [
                       "eg key throw rock at apple in tree, obtains apple (lose rock and apple in tree)"
                     ],
-                    "const": "OBTAIN_INV1_BY_COMBINING_INV2_WITH_PROP1"
+                    "const": "INV1_OBTAINED_BY_COMBINING_INV2_WITH_PROP1"
                   }
                 }
               },
@@ -596,7 +596,7 @@
                     "examples": [
                       "eg no example, but might need it"
                     ],
-                    "const": "OBTAIN_INV1_BY_INV2_WITH_PROP1_LOSE_NONE"
+                    "const": "INV1_OBTAINED_BY_INV2_WITH_PROP1_LOSE_NONE"
                   }
                 }
               },
@@ -626,7 +626,7 @@
                     "examples": [
                       "eg obtain cogs when losing key in clock"
                     ],
-                    "const": "OBTAIN_INV1_BY_LOSING_INV2_KEEPING_PROP1"
+                    "const": "INV1_OBTAINED_BY_LOSING_INV2_KEEPING_PROP1"
                   }
                 }
               },
@@ -636,7 +636,7 @@
                     "examples": [
                       "eg obtain crank when use hurl to knock it off the well"
                     ],
-                    "const": "OBTAIN_INV1_BY_LOSING_PROP1_KEEPING_INV2"
+                    "const": "INV1_OBTAINED_BY_LOSING_PROP1_KEEPING_INV2"
                   }
                 }
               }
@@ -787,13 +787,13 @@
         "INV1_BECOMES_INV2_BY_KEEPING_INV3",
         "INV1_BECOMES_INV2_BY_KEEPING_PROP1",
         "INV1_BECOMES_INV2_BY_LOSING_INV3",
-        "OBTAIN_INV1_BY_COMBINING_INV2_WITH_INV3",
-        "OBTAIN_INV1_BY_COMBINING_INV2_WITH_PROP1",
-        "OBTAIN_INV1_BY_INV2_WITH_PROP1_LOSE_NONE",
-        "OBTAIN_INV1_BY_LOSING_INV2_KEEPING_PROP1",
-        "OBTAIN_INV1_BY_LOSING_PROP1_KEEPING_INV2",
-        "OBTAIN_INV1_BY_OPENING_INV2_WHICH_BECOMES_INV3",
-        "OBTAIN_INV1_BY_PROP1_WITH_PROP2_LOSE_PROPS",
+        "INV1_OBTAINED_BY_COMBINING_INV2_WITH_INV3",
+        "INV1_OBTAINED_BY_COMBINING_INV2_WITH_PROP1",
+        "INV1_OBTAINED_BY_INV2_WITH_PROP1_LOSE_NONE",
+        "INV1_OBTAINED_BY_LOSING_INV2_KEEPING_PROP1",
+        "INV1_OBTAINED_BY_LOSING_PROP1_KEEPING_INV2",
+        "INV1_OBTAINED_BY_OPENING_INV2_WHICH_BECOMES_INV3",
+        "INV1_OBTAINED_BY_PROP1_WITH_PROP2_LOSE_PROPS",
         "PROP1_APPEARS_BY_INV1_WITH_PROP2",
         "PROP1_APPEARS_BY_LOSING_INV1_WITH_PROP2",
         "PROP1_APPEARS_WHEN_GRAB_PROP2_WITH_GOAL1",
@@ -840,13 +840,13 @@
   "INV1_BECOMES_INV2_BY_KEEPING_INV3": "INV1_BECOMES_INV2_BY_KEEPING_INV3",
   "INV1_BECOMES_INV2_BY_KEEPING_PROP1": "INV1_BECOMES_INV2_BY_KEEPING_PROP1",
   "INV1_BECOMES_INV2_BY_LOSING_INV3": "INV1_BECOMES_INV2_BY_LOSING_INV3",
-  "OBTAIN_INV1_BY_COMBINING_INV2_WITH_INV3": "OBTAIN_INV1_BY_COMBINING_INV2_WITH_INV3",
-  "OBTAIN_INV1_BY_COMBINING_INV2_WITH_PROP1": "OBTAIN_INV1_BY_COMBINING_INV2_WITH_PROP1",
-  "OBTAIN_INV1_BY_INV2_WITH_PROP1_LOSE_NONE": "OBTAIN_INV1_BY_INV2_WITH_PROP1_LOSE_NONE",
-  "OBTAIN_INV1_BY_LOSING_INV2_KEEPING_PROP1": "OBTAIN_INV1_BY_LOSING_INV2_KEEPING_PROP1",
-  "OBTAIN_INV1_BY_LOSING_PROP1_KEEPING_INV2": "OBTAIN_INV1_BY_LOSING_PROP1_KEEPING_INV2",
-  "OBTAIN_INV1_BY_OPENING_INV2_WHICH_BECOMES_INV3" : "OBTAIN_INV1_BY_OPENING_INV2_WHICH_BECOMES_INV3",
-  "OBTAIN_INV1_BY_PROP1_WITH_PROP2_LOSE_PROPS" : "OBTAIN_INV1_BY_PROP1_WITH_PROP2_LOSE_PROPS",
+  "INV1_OBTAINED_BY_COMBINING_INV2_WITH_INV3": "INV1_OBTAINED_BY_COMBINING_INV2_WITH_INV3",
+  "INV1_OBTAINED_BY_COMBINING_INV2_WITH_PROP1": "INV1_OBTAINED_BY_COMBINING_INV2_WITH_PROP1",
+  "INV1_OBTAINED_BY_INV2_WITH_PROP1_LOSE_NONE": "INV1_OBTAINED_BY_INV2_WITH_PROP1_LOSE_NONE",
+  "INV1_OBTAINED_BY_LOSING_INV2_KEEPING_PROP1": "INV1_OBTAINED_BY_LOSING_INV2_KEEPING_PROP1",
+  "INV1_OBTAINED_BY_LOSING_PROP1_KEEPING_INV2": "INV1_OBTAINED_BY_LOSING_PROP1_KEEPING_INV2",
+  "INV1_OBTAINED_BY_OPENING_INV2_WHICH_BECOMES_INV3" : "INV1_OBTAINED_BY_OPENING_INV2_WHICH_BECOMES_INV3",
+  "INV1_OBTAINED_BY_PROP1_WITH_PROP2_LOSE_PROPS" : "INV1_OBTAINED_BY_PROP1_WITH_PROP2_LOSE_PROPS",
   "PROP1_APPEARS_BY_INV1_WITH_PROP2": "PROP1_APPEARS_BY_INV1_WITH_PROP2",
   "PROP1_APPEARS_BY_LOSING_INV1_WITH_PROP2": "PROP1_APPEARS_BY_LOSING_INV1_WITH_PROP2",
   "PROP1_APPEARS_WHEN_GRAB_PROP2_WITH_GOAL1": "PROP1_APPEARS_WHEN_GRAB_PROP2_WITH_GOAL1",
