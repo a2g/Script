@@ -39,10 +39,10 @@
       "inv2": "inv_one_irish_punt"
     },
     {
-      "piece": "INV1_AND_INV2_COMBINE_TO_FORM_INV3",
-      "inv1": "inv_spirits",
-      "inv2": "inv_grease_proof_paper",
-      "inv3": "inv_unguent"
+      "piece": "OBTAIN_INV1_BY_INV2_WITH_INV3_LOSE_BOTH",
+      "inv1": "inv_unguent",
+      "inv2": "inv_spirits",
+      "inv3": "inv_grease_proof_paper"
     },
     {
       "piece": "GIVE_INV1_TO_PROP1_GETS_INV2",
