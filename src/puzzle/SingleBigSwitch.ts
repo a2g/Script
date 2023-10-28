@@ -573,33 +573,6 @@ export function SingleBigSwitch(
               return happs;
             }
             break;
-          case _.INV1_AND_INV2_GENERATE_AN_INV3:
-            happs.text = `The ${inv1} and the ${inv2} has generated an ${inv3}`;
-            happs.array.push(new Happening(Happen.InvStays, inv1));
-            happs.array.push(new Happening(Happen.InvStays, inv2));
-            happs.array.push(new Happening(Happen.InvAppears, inv3));
-            if (piecesMappedByOutput != null) {
-              // losing none
-              const inputA = inv1;
-              const inputB = inv2;
-              const output = inv3;
-              piecesMappedByOutput.AddPiece(
-                new Piece(
-                  id1,
-                  null,
-                  output,
-                  pieceType,
-                  count,
-                  happs,
-                  restrictions,
-                  inputA,
-                  inputB
-                )
-              );
-            } else if (objects.Match('Use', inv1, inv2)) {
-              return happs;
-            }
-            break;
           case _.INV1_BECOMES_INV2_BY_KEEPING_INV3:
             happs.text = `Your ${inv1} has become a ${inv2}`;
             happs.array.push(new Happening(Happen.InvGoes, inv1));

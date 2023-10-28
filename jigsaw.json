@@ -83,16 +83,6 @@
                 "properties": {
                   "piece": {
                     "examples": [
-                      "eg none yet"
-                    ],
-                    "const": "INV1_AND_INV2_GENERATE_AN_INV3"
-                  }
-                }
-              },
-              {
-                "properties": {
-                  "piece": {
-                    "examples": [
                       "not quite the amp fixing - but close"
                     ],
                     "const": "INV1_AND_INV2_COMBINE_TO_FORM_INV3"
@@ -795,7 +785,6 @@
         "GOAL1_MET_BY_USING_INV1_WITH_PROP1_NEED_GOALS",
         "GOAL1_MET_BY_USING_PROP1_WITH_PROP2",
         "INV1_AND_INV2_COMBINE_TO_FORM_INV3",
-        "INV1_AND_INV2_GENERATE_AN_INV3",
         "INV1_BECOMES_INV2_BY_KEEPING_INV3",
         "INV1_BECOMES_INV2_BY_KEEPING_PROP1",
         "INV1_BECOMES_INV2_BY_LOSING_INV3",
@@ -849,7 +838,6 @@
   "GOAL1_MET_BY_USING_INV1_WITH_PROP1_NEED_GOALS": "GOAL1_MET_BY_USING_INV1_WITH_PROP1_NEED_GOALS",
   "GOAL1_MET_BY_USING_PROP1_WITH_PROP2": "GOAL1_MET_BY_USING_PROP1_WITH_PROP2",
   "INV1_AND_INV2_COMBINE_TO_FORM_INV3": "INV1_AND_INV2_COMBINE_TO_FORM_INV3",
-  "INV1_AND_INV2_GENERATE_AN_INV3": "INV1_AND_INV2_GENERATE_AN_INV3",
   "INV1_BECOMES_INV2_BY_KEEPING_INV3": "INV1_BECOMES_INV2_BY_KEEPING_INV3",
   "INV1_BECOMES_INV2_BY_KEEPING_PROP1": "INV1_BECOMES_INV2_BY_KEEPING_PROP1",
   "INV1_BECOMES_INV2_BY_LOSING_INV3": "INV1_BECOMES_INV2_BY_LOSING_INV3",
