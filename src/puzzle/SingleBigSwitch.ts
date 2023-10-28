@@ -627,58 +627,6 @@ export function SingleBigSwitch(
               return happs;
             }
             break;
-          case _.INV1_WITH_PROP1_REVEALS_PROP2_LOSE_INV:
-            happs.text = `Using the ${inv1} with the ${prop1} loses ${inv1} , but revaels a ${prop2}`;
-            happs.array.push(new Happening(Happen.InvGoes, inv1));
-            happs.array.push(new Happening(Happen.PropStays, prop1));
-            happs.array.push(new Happening(Happen.PropAppears, prop2));
-            if (piecesMappedByOutput != null) {
-              const inputA = inv1;
-              const inputB = prop1;
-              const output = prop2;
-              piecesMappedByOutput.AddPiece(
-                new Piece(
-                  id1,
-                  null,
-                  output,
-                  pieceType,
-                  count,
-                  happs,
-                  restrictions,
-                  inputA,
-                  inputB
-                )
-              );
-            } else if (objects.Match('Use', inv1, prop1)) {
-              return happs;
-            }
-            break;
-          case _.INV1_WITH_PROP1_REVEALS_PROP2_KEPT_ALL:
-            happs.text = `Using the ${inv1} with the ${prop1} has revealed a ${prop2}`;
-            happs.array.push(new Happening(Happen.InvStays, inv1));
-            happs.array.push(new Happening(Happen.PropStays, prop1));
-            happs.array.push(new Happening(Happen.PropAppears, prop2));
-            if (piecesMappedByOutput != null) {
-              const inputA = inv1;
-              const inputB = prop1;
-              const output = prop2;
-              piecesMappedByOutput.AddPiece(
-                new Piece(
-                  id1,
-                  null,
-                  output,
-                  pieceType,
-                  count,
-                  happs,
-                  restrictions,
-                  inputA,
-                  inputB
-                )
-              );
-            } else if (objects.Match('Use', inv1, prop1)) {
-              return happs;
-            }
-            break;
           case _.OBTAIN_INV1_BY_INV2_WITH_INV3_LOSE_BOTH:
               happs.text = `The ${inv2} and the ${inv3} combine to form an ${inv1}`;
               happs.array.push(new Happening(Happen.InvAppears, inv1));
@@ -861,6 +809,59 @@ export function SingleBigSwitch(
                 )
               );
             } else if (objects.Match('Use', prop1, prop2)) {
+              return happs;
+            }
+            break;
+            case _.PROP1_APPEARS_BY_INV1_WITH_PROP2:
+              happs.text = `Using the ${inv1} with the ${prop2} has revealed a ${prop1}`;
+              happs.array.push(new Happening(Happen.PropAppears, prop1));
+              happs.array.push(new Happening(Happen.InvStays, inv1));
+              happs.array.push(new Happening(Happen.PropStays, prop2));
+              if (piecesMappedByOutput != null) {
+                const output = prop1;
+                const inputA = inv1;
+                const inputB = prop2;
+                piecesMappedByOutput.AddPiece(
+                  new Piece(
+                    id1,
+                    null,
+                    output,
+                    pieceType,
+                    count,
+                    happs,
+                    restrictions,
+                    inputA,
+                    inputB
+                  )
+                );
+              } else if (objects.Match('Use', inv1, prop1)) {
+                return happs;
+              }
+              break;
+          case _.PROP1_APPEARS_BY_LOSING_INV1_WITH_PROP2:
+            happs.text = `Using the ${inv1} with the ${prop2} loses ${inv1} , but revaels a ${prop1}`;
+            happs.array.push(new Happening(Happen.PropAppears, prop1));
+            happs.array.push(new Happening(Happen.InvGoes, inv1));
+            happs.array.push(new Happening(Happen.PropStays, prop2));
+
+            if (piecesMappedByOutput != null) {
+              const output = prop1;
+              const inputA = inv1;
+              const inputB = prop2;
+              piecesMappedByOutput.AddPiece(
+                new Piece(
+                  id1,
+                  null,
+                  output,
+                  pieceType,
+                  count,
+                  happs,
+                  restrictions,
+                  inputA,
+                  inputB
+                )
+              );
+            } else if (objects.Match('Use', inv1, prop1)) {
               return happs;
             }
             break;
