@@ -80,7 +80,7 @@
       "inv3": "inv_torch_lit"
     },
     {
-      "piece": "OBTAIN_INV1_BY_INV2_WITH_INV3_LOSE_BOTH",
+      "piece": "OBTAIN_INV1_BY_COMBINING_INV2_WITH_INV3",
       "inv1": "inv_crank",
       "inv2": "inv_handle",
       "inv3": "inv_rolling_pin"

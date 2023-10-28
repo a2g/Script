@@ -627,7 +627,7 @@ export function SingleBigSwitch(
               return happs;
             }
             break;
-          case _.OBTAIN_INV1_BY_INV2_WITH_INV3_LOSE_BOTH:
+          case _.OBTAIN_INV1_BY_COMBINING_INV2_WITH_INV3:
               happs.text = `The ${inv2} and the ${inv3} combine to form an ${inv1}`;
               happs.array.push(new Happening(Happen.InvAppears, inv1));
               happs.array.push(new Happening(Happen.InvGoes, inv2));
@@ -655,7 +655,7 @@ export function SingleBigSwitch(
               }
               break;
   
-          case _.OBTAIN_INV1_BY_INV2_WITH_PROP1_LOSE_BOTH:
+          case _.OBTAIN_INV1_BY_COMBINING_INV2_WITH_PROP1:
             happs.text = `By using the ${inv1} with the ${prop1} you have obtained the ${inv1}.`;
             happs.array.push(new Happening(Happen.InvAppears, inv1));
             happs.array.push(new Happening(Happen.InvGoes, inv2));
