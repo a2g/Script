@@ -634,9 +634,9 @@ export function SingleBigSwitch(
               happs.array.push(new Happening(Happen.InvGoes, inv3));
               if (piecesMappedByOutput != null) {
                 // losing all
-                const inputA = inv1;
-                const inputB = inv2;
-                const output = inv3;
+                const output = inv1;
+                const inputA = inv2;
+                const inputB = inv3;
                 piecesMappedByOutput.AddPiece(
                   new Piece(
                     id1,
