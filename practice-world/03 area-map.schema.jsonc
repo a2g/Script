@@ -7,10 +7,10 @@
       "type": "object",
       "properties": {
         "col": {
-          "$ref": "../jigsaw.json#/definitions/col_type"
+          "$ref": "../puzzle-piece-enums.json#/definitions/col_enum"
         },
         "row": {
-          "$ref": "../jigsaw.json#/definitions/row_type"
+          "$ref": "../puzzle-piece-enums.json#/definitions/row_enum"
         },
         "location": {
           "$ref": "03 enums.jsonc#/definitions/location_enum"

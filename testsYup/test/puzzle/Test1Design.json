@@ -7,7 +7,7 @@
       "type": "object",
       "allOf": [
         {
-          "$ref": "../jigsaw.json#/definitions/piece_type"
+          "$ref": "../../jigsaw/puzzle-piece-template#/definitions/piece_template"
         }
       ],
       "properties": {

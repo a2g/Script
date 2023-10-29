@@ -13,7 +13,7 @@
           "$ref": "03 enums.jsonc#/definitions/location_enum"
         },
         "access": {
-          "$ref": "../jigsaw.json#/definitions/access_type"
+          "$ref": "../puzzle-piece-enums.json#/definitions/access_enum"
         }
       }
     }

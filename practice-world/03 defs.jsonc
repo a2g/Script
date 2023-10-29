@@ -3,11 +3,11 @@
   "description": "This is the schema for the main Scenario file for the game. It basically a skeleton, pulling in other more substantial types from other files. It could be split up, but for now its easier managing three files Scenario, Schema and Objects",
   "type": "object",
   "definitions": {
-    "piece_type": {
+    "piece_enum": {
       "type": "object",
       "allOf": [
         {
-          "$ref": "../jigsaw.json#/definitions/piece_type"
+          "$ref": "../../jigsaw/puzzle-piece-template#/definitions/piece_template"
         }
       ],
       "properties": {
@@ -121,7 +121,7 @@
       "type": "array",
       "minItems": 0,
       "items": {
-        "$ref": "#/definitions/piece_type"
+        "$ref": "#/definitions/piece_enum"
       }
     }
   }

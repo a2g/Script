@@ -1,5 +1,5 @@
 import { readFileSync } from 'fs';
-import _ from '../../jigsaw.json';
+import _ from '../../puzzle-piece-enums.json';
 import { AlleviateBrackets } from './AlleviateBrackets';
 import { Box } from './Box';
 import { Happen } from './Happen';
@@ -628,33 +628,33 @@ export function SingleBigSwitch(
             }
             break;
           case _.INV1_OBTAINED_BY_COMBINING_INV2_WITH_INV3:
-              happs.text = `The ${inv2} and the ${inv3} combine to form an ${inv1}`;
-              happs.array.push(new Happening(Happen.InvAppears, inv1));
-              happs.array.push(new Happening(Happen.InvGoes, inv2));
-              happs.array.push(new Happening(Happen.InvGoes, inv3));
-              if (piecesMappedByOutput != null) {
-                // losing all
-                const output = inv1;
-                const inputA = inv2;
-                const inputB = inv3;
-                piecesMappedByOutput.AddPiece(
-                  new Piece(
-                    id1,
-                    null,
-                    output,
-                    pieceType,
-                    count,
-                    happs,
-                    restrictions,
-                    inputA,
-                    inputB
-                  )
-                );
-              } else if (objects.Match('Use', inv1, inv2)) {
-                return happs;
-              }
-              break;
-  
+            happs.text = `The ${inv2} and the ${inv3} combine to form an ${inv1}`;
+            happs.array.push(new Happening(Happen.InvAppears, inv1));
+            happs.array.push(new Happening(Happen.InvGoes, inv2));
+            happs.array.push(new Happening(Happen.InvGoes, inv3));
+            if (piecesMappedByOutput != null) {
+              // losing all
+              const output = inv1;
+              const inputA = inv2;
+              const inputB = inv3;
+              piecesMappedByOutput.AddPiece(
+                new Piece(
+                  id1,
+                  null,
+                  output,
+                  pieceType,
+                  count,
+                  happs,
+                  restrictions,
+                  inputA,
+                  inputB
+                )
+              );
+            } else if (objects.Match('Use', inv1, inv2)) {
+              return happs;
+            }
+            break;
+
           case _.INV1_OBTAINED_BY_COMBINING_INV2_WITH_PROP1:
             happs.text = `By using the ${inv1} with the ${prop1} you have obtained the ${inv1}.`;
             happs.array.push(new Happening(Happen.InvAppears, inv1));
@@ -812,32 +812,32 @@ export function SingleBigSwitch(
               return happs;
             }
             break;
-            case _.PROP1_APPEARS_BY_INV1_WITH_PROP2:
-              happs.text = `Using the ${inv1} with the ${prop2} has revealed a ${prop1}`;
-              happs.array.push(new Happening(Happen.PropAppears, prop1));
-              happs.array.push(new Happening(Happen.InvStays, inv1));
-              happs.array.push(new Happening(Happen.PropStays, prop2));
-              if (piecesMappedByOutput != null) {
-                const output = prop1;
-                const inputA = inv1;
-                const inputB = prop2;
-                piecesMappedByOutput.AddPiece(
-                  new Piece(
-                    id1,
-                    null,
-                    output,
-                    pieceType,
-                    count,
-                    happs,
-                    restrictions,
-                    inputA,
-                    inputB
-                  )
-                );
-              } else if (objects.Match('Use', inv1, prop1)) {
-                return happs;
-              }
-              break;
+          case _.PROP1_APPEARS_BY_INV1_WITH_PROP2:
+            happs.text = `Using the ${inv1} with the ${prop2} has revealed a ${prop1}`;
+            happs.array.push(new Happening(Happen.PropAppears, prop1));
+            happs.array.push(new Happening(Happen.InvStays, inv1));
+            happs.array.push(new Happening(Happen.PropStays, prop2));
+            if (piecesMappedByOutput != null) {
+              const output = prop1;
+              const inputA = inv1;
+              const inputB = prop2;
+              piecesMappedByOutput.AddPiece(
+                new Piece(
+                  id1,
+                  null,
+                  output,
+                  pieceType,
+                  count,
+                  happs,
+                  restrictions,
+                  inputA,
+                  inputB
+                )
+              );
+            } else if (objects.Match('Use', inv1, prop1)) {
+              return happs;
+            }
+            break;
           case _.PROP1_APPEARS_BY_LOSING_INV1_WITH_PROP2:
             happs.text = `Using the ${inv1} with the ${prop2} loses ${inv1} , but revaels a ${prop1}`;
             happs.array.push(new Happening(Happen.PropAppears, prop1));
