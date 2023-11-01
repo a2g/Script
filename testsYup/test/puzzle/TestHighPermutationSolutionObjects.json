@@ -3,7 +3,7 @@
   "$schema": "http://json-schema.org/draft-07/schema",
   "type": "object",
   "definitions": {
-    "character_type": {
+    "character_enum": {
       "enum": [
         "char1",
         "char2",
@@ -11,7 +11,7 @@
         "char4"
       ]
     },
-    "inventory_type": {
+    "inventory_enum": {
       "enum": [
         "inv_final_catalyst",
         "inv_tube_carrier",
@@ -23,7 +23,7 @@
         "inv_shared_toy"
       ]
     },
-    "prop_type": {
+    "prop_enum": {
       "enum": [
         "prop_accelerated_EasyTube™",
         "prop_switch1",

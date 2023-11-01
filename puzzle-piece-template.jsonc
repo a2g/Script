@@ -1,13 +1,13 @@
 {
-  "$id": "https:raw.githubusercontent.com/a2g/jigsaw/main/puzzle-piece-template.jsonc",
+  "$id": "https:raw.githubusercontent.com/a2g/puzzle-pieces/main/puzzle-piece-template.jsonc",
   "$schema": "http:json-schema.org/draft-07/schema",
   "description": "A puzzle dependency graph via json schema",
   "type": "object",
   "definitions": {
-    "piece_schema": {
+    "piece_template": {
       "properties": {
         "piece": {
-          "$ref": "../puzzle-piece-enums.json#/definitions/piece_enum"
+          "$ref": "./puzzle-piece-enums.json#/definitions/piece_enum"
         },
         "count": {
           "type": "number",

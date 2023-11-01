@@ -68,7 +68,7 @@
   },
   "include": [
     "src/**/*",
-    "jigsaw.ts",
+    "puzzle-pieces.ts",
     "Suffix.ts",
     "testsYup/**/*"
   ],

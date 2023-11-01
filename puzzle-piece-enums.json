@@ -1,5 +1,5 @@
 {
-  "$id": "https:raw.githubusercontent.com/a2g/jigsaw/main/puzzle-piece-enums.json",
+  "$id": "https:raw.githubusercontent.com/a2g/puzzle-pieces/main/puzzle-piece-enums.json",
   "$schema": "http:json-schema.org/draft-07/schema",
   "description": "A puzzle dependency graph via json schema.",
   "type": "object",

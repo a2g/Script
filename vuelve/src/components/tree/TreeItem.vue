@@ -11,7 +11,7 @@ export default {
     baseUrl: {
       type: String,
       default: "http://localhost:5000/jig/exclusive-worlds/Highschool/12/svg?"
-      //  default: "http://localhost:5000/jig/jigsaw/practice-world/03/svg?"
+      //  default: "http://localhost:5000/puz/puzzle-pieces/practice-world/03/svg?"
     },
     showModal: {
       type: Boolean,

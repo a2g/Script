@@ -1,5 +1,5 @@
 {
-  "$schema": "../jigsawCampaignFramework.json",
+  "$schema": "../oldCampaignFramework.json",
   "areas": [
     "./01 first.jsonc",
     "./02 first.jsonc",

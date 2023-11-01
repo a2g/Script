@@ -36,7 +36,7 @@ export function getPerformanceImprovementOnLastAccessTimeAsString (username, dur
 }
 
 
-const LOCAL_STORAGE_KEY = 'key-for-local-storage-jigsaw'
+const LOCAL_STORAGE_KEY = 'key-for-local-storage-puzzle-pieces'
 
 const getMapOfGithubAccessTimesFromLocalStorage = () => {
   try {

@@ -17,7 +17,7 @@ function main(): void {
   process.chdir('./..');
 
   const allFolders = new Array<string>();
-  allFolders.push('jigsaw/practice-world');
+  allFolders.push('puzzle-pieces/practice-world');
 
   // lets try adding more folders from 'private-world'
   // but that folder may not exist, so we try/catch it

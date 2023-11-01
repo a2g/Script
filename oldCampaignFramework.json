@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema",
-  "description": "Gate Campaign Framework - allows chaining of jigsaw.jsons together in to a campaign",
+  "description": "Gate Campaign Framework - allows chaining of puzzle-pieces.jsons together in to a campaign",
   "type": "object",
   "definitions": {
     "goal_enum_entity": {

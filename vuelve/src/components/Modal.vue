@@ -6,7 +6,7 @@ export default {
     displayString: String,
     svgProp:{
       type: String,
-      default: "http://localhost:5000/jig/jigsaw/WorldExample/Main/svg?paramA='prop_hurl'&paramB='prop_well'"
+      default: "http://localhost:5000/puz/puzzle-pieces/WorldExample/Main/svg?paramA='prop_hurl'&paramB='prop_well'"
     }
   },
   data() {

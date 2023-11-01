@@ -7,7 +7,7 @@
       "type": "object",
       "allOf": [
         {
-          "$ref": "../puzzle-piece-schema.json#/definitions/piece_schema"
+          "$ref": "../puzzle-piece-template.jsonc#/definitions/piece_template"
         }
       ],
       "properties": {
