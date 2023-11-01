@@ -25,9 +25,7 @@
               {
                 "properties": {
                   "piece": {
-                    "examples": [
-                      "all the combining ones"
-                    ],
+                    // e.g.  all the combining ones"
                     "const": "INV1_OBTAINED_BY_COMBINING_INV2_WITH_INV3"
                   }
                 }
@@ -35,9 +33,7 @@
               {
                 "properties": {
                   "piece": {
-                    "examples": [
-                      "eg FLAT BALL becomes INFLATED BALL via keeping PUMP"
-                    ],
+                    // e.g. FLAT BALL becomes INFLATED BALL via keeping PUMP"
                     "const": "INV1_BECOMES_INV2_BY_KEEPING_INV3"
                   }
                 }
@@ -45,9 +41,7 @@
               {
                 "properties": {
                   "piece": {
-                    "examples": [
-                      "eg broken amp becomes FIXED AMP via losing RADIO_TUBE"
-                    ],
+                    // e.g. broken amp becomes FIXED AMP via losing RADIO_TUBE"
                     "const": "INV1_BECOMES_INV2_BY_LOSING_INV3"
                   }
                 }
@@ -75,9 +69,7 @@
               {
                 "properties": {
                   "piece": {
-                    "examples": [
-                      "eg use inv with pumpkinmachine, and pickup result"
-                    ],
+                    // e.g. use inv with pumpkinmachine, and pickup result"
                     "const": "PROP1_APPEARS_BY_LOSING_INV1_WITH_PROP2"
                   }
                 }
@@ -85,9 +77,7 @@
               {
                 "properties": {
                   "piece": {
-                    "examples": [
-                      "eg use ball with backboard generate prop"
-                    ],
+                    // e.g. use ball with backboard generate prop"
                     "const": "PROP1_APPEARS_BY_INV1_WITH_PROP2"
                   }
                 }
@@ -95,9 +85,7 @@
               {
                 "properties": {
                   "piece": {
-                    "examples": [
-                      "powerpoint -> plugged-in-amp via losing INV_FIXEDAMP"
-                    ],
+                    // e.g. powerpoint -> plugged-in-amp via losing INV_FIXEDAMP"
                     "const": "PROP1_BECOMES_PROP2_BY_LOSING_INV1"
                   }
                 }
@@ -105,10 +93,8 @@
               {
                 "properties": {
                   "piece": {
-                    "examples": [
-                      "eg RAISEDBACKBOARD becomes LOWEREDBACKBOARD vie keeping POLEHOOK",
-                      "eg CLOSED_RADIO becomes  OPENED_RADIO_WITH_TUBE via keeping SCREWDRIVER"
-                    ],
+                    // e.g. RAISEDBACKBOARD becomes LOWEREDBACKBOARD vie keeping POLEHOOK",
+                    // e.g. CLOSED_RADIO becomes  OPENED_RADIO_WITH_TUBE via keeping SCREWDRIVER"
                     "const": "PROP1_BECOMES_PROP2_BY_KEEPING_INV1"
                   }
                 }
@@ -116,11 +102,9 @@
               {
                 "properties": {
                   "piece": {
-                    "description": "By using the A with B you are able to obtain the INV",
-                    "examples": [
-                      "powerpoint -> plugged-in-amp via losing INV_FIXEDAMP",
-                      "eg use radiation suit with the meteor"
-                    ],
+                    // eg By using the A with B you are able to obtain the INV",
+                    // eg powerpoint -> plugged-in-amp via losing INV_FIXEDAMP",
+                    // e.g. use radiation suit with the meteor"
                     "const": "INV1_OBTAINED_BY_PROP1_WITH_PROP2_LOSE_PROPS"
                   }
                 }
@@ -128,9 +112,7 @@
               {
                 "properties": {
                   "piece": {
-                    "examples": [
-                      "eg opened raio with radiotube becomes merely OPENED RADIO when you grab RADIOTUBE"
-                    ],
+                    // e.g. opened raio with radiotube becomes merely OPENED RADIO when you grab RADIOTUBE"
                     "const": "PROP1_BECOMES_PROP2_WHEN_GRAB_INV1"
                   }
                 }
@@ -138,10 +120,8 @@
               {
                 "properties": {
                   "piece": {
-                    "description": "By using the A with B you are able to obtain the INV",
-                    "examples": [
-                      "eg use radiation suit with the meteor"
-                    ],
+                    // by using the A with B you are able to obtain the INV",
+                    // e.g. use radiation suit with the meteor"
                     "const": "PROP1_CHANGES_STATE_TO_PROP2_BY_KEEPING_INV1"
                   }
                 }
@@ -162,9 +142,7 @@
               {
                 "properties": {
                   "piece": {
-                    "examples": [
-                      "eg open fridge, open window, open blind, open window"
-                    ],
+                    // e.g. open fridge, open window, open blind, open window"
                     "const": "TOGGLE_PROP1_REVEALS_PROP2_AS_IT_BECOMES_PROP3"
                   }
                 }
@@ -172,9 +150,7 @@
               {
                 "properties": {
                   "piece": {
-                    "examples": [
-                      "eg prop_crank appears when use use handle with well"
-                    ],
+                    // e.g. prop_crank appears when use use handle with well"
                     "const": "PROP1_APPEARS_WHEN_USE_INV1_WITH_PROP2"
                   }
                 }
@@ -182,9 +158,7 @@
               {
                 "properties": {
                   "piece": {
-                    "examples": [
-                      "eg none yet"
-                    ],
+                    // e.g. none yet"
                     "const": "PROP1_BECOMES_PROP2_BY_LOSING_PROP3"
                   }
                 }
@@ -205,9 +179,7 @@
               {
                 "properties": {
                   "piece": {
-                    "examples": [
-                      "eg grab coconut"
-                    ],
+                    // e.g. grab coconut"
                     "const": "PROP1_GOES_WHEN_GRAB_INV1"
                   }
                 }
@@ -215,9 +187,7 @@
               {
                 "properties": {
                   "piece": {
-                    "examples": [
-                      "eg grab pile of coconuts"
-                    ],
+                    // e.g. grab pile of coconuts"
                     "const": "PROP1_STAYS_WHEN_GRAB_INV1"
                   }
                 }
@@ -225,9 +195,7 @@
               {
                 "properties": {
                   "piece": {
-                    "examples": [
-                      "eg talk to woman"
-                    ],
+                    // e.g. talk to woman"
                     "const": "TALK_TO_PROP1_GETS_INV1"
                   }
                 }
@@ -235,9 +203,7 @@
               {
                 "properties": {
                   "piece": {
-                    "examples": [
-                      "eg I thought this happened in DD but I read the solution wrong"
-                    ],
+                    // e.g. I thought this happened in DD but I read the solution wrong"
                     "const": "EXAMINE_PROP1_YIELDS_INV1"
                   }
                 }
@@ -257,9 +223,7 @@
               {
                 "properties": {
                   "piece": {
-                    "examples": [
-                      "toggle magged up vacuum tubes"
-                    ],
+                    // e.g. toggle magged up vacuum tubes
                     "const": "TOGGLE_PROP1_BECOMES_PROP2"
                   }
                 }
@@ -267,10 +231,8 @@
               {
                 "properties": {
                   "piece": {
-                    "examples": [
-                      "eg toggle on to off",
-                      "eg activated to deactivated"
-                    ],
+                    // e.g. toggle on to off",
+                    // e.g. activated to deactivated"
                     "const": "TOGGLE_PROP1_CHANGES_STATE_TO_PROP2"
                   }
                 }
@@ -288,9 +250,7 @@
           "if": {
             "properties": {
               "piece": {
-                "examples": [
-                  "eg goal_access_thru_fireplace set by prop_fireplace_ladder"
-                ],
+                // e.g. goal_access_thru_fireplace set by prop_fireplace_ladder"
                 "const": "AUTO_GOAL1_MET_BY_PROPS"
               }
             }
@@ -305,9 +265,7 @@
           "if": {
             "properties": {
               "piece": {
-                "examples": [
-                  "eg goal_lit_torch set by inv_lit_torch"
-                ],
+                // e.g. goal_lit_torch set by inv_lit_torch"
                 "const": "AUTO_GOAL1_MET_BY_INVS"
               }
             }
@@ -323,9 +281,6 @@
           "if": {
             "properties": {
               "piece": {
-                "examples": [
-                  "search for it"
-                ],
                 "const": "AUTO_PROP1_BECOMES_PROP2_BY_PROPS"
               }
             }
@@ -341,9 +296,7 @@
           "if": {
             "properties": {
               "piece": {
-                "examples": [
-                  "eg goal_lit_torch set by inv_lit_torch"
-                ],
+                // e.g. goal_lit_torch set by inv_lit_torch"
                 "const": "AUTO_GOAL1_MET_BY_INVS"
               }
             }
@@ -358,9 +311,7 @@
           "if": {
             "properties": {
               "piece": {
-                "examples": [
-                  "eg use two invs together wins game"
-                ],
+                // e.g. use two invs together wins game"
                 "const": "GOAL1_MET_BY_USING_INV1_WITH_INV2"
               }
             }
@@ -377,9 +328,7 @@
           "if": {
             "properties": {
               "piece": {
-                "examples": [
-                  "eg win game using use silver with werewolf during lunar eclipse"
-                ],
+                // e.g. win game using use silver with werewolf during lunar eclipse"
                 "const": "GOAL1_MET_BY_USING_INV1_WITH_PROP1_NEED_GOALS"
               }
             }
@@ -399,10 +348,8 @@
               {
                 "properties": {
                   "piece": {
-                    "examples": [
-                      "eg toggle on to off",
-                      "eg activated to deactivated"
-                    ],
+                    // e.g. toggle on to off",
+                    // e.g. activated to deactivated"
                     "const": "GOAL1_MET_BY_USING_INV1_WITH_PROP1_LOSE_PROPS"
                   }
                 }
@@ -410,9 +357,7 @@
               {
                 "properties": {
                   "piece": {
-                    "examples": [
-                      "eg talk to woman after setting goal"
-                    ],
+                    // e.g. talk to woman after setting goal"
                     "const": "TALK_TO_PROP1_WITH_GOAL1_GETS_INV1"
                   }
                 }
@@ -420,9 +365,7 @@
               {
                 "properties": {
                   "piece": {
-                    "examples": [
-                      "eg goal is set when use cogs to fix dumbwaiter"
-                    ],
+                    // e.g. goal is set when use cogs to fix dumbwaiter"
                     "const": "GOAL1_MET_BY_LOSING_INV1_WHEN_USED_WITH_PROP1"
                   }
                 }
@@ -430,9 +373,7 @@
               {
                 "properties": {
                   "piece": {
-                    "examples": [
-                      "eg give gold to king completes game"
-                    ],
+                    // e.g. give gold to king completes game"
                     "const": "GOAL1_MET_BY_GIVING_INV1_TO_PROP1"
                   }
                 }
@@ -440,9 +381,7 @@
               {
                 "properties": {
                   "piece": {
-                    "examples": [
-                      "eg use sword with baddie wins game"
-                    ],
+                    // e.g. use sword with baddie wins game"
                     "const": "GOAL1_MET_BY_USING_INV1_WITH_PROP1"
                   }
                 }
@@ -450,9 +389,7 @@
               {
                 "properties": {
                   "piece": {
-                    "examples": [
-                      "eg grab pile of tyres, with goal set"
-                    ],
+                    // e.g. grab pile of tyres, with goal set"
                     "const": "PROP1_STAYS_WHEN_GRAB_INV1_WITH_GOAL1"
                   }
                 }
@@ -460,9 +397,7 @@
               {
                 "properties": {
                   "piece": {
-                    "examples": [
-                      "eg grab single tire, if goal set"
-                    ],
+                    // e.g. grab single tire, if goal set"
                     "const": "PROP1_GOES_WHEN_GRAB_INV1_WITH_GOAL1"
                   }
                 }
@@ -483,9 +418,7 @@
               {
                 "properties": {
                   "piece": {
-                    "examples": [
-                      "eg goal set by "
-                    ],
+                    // e.g. goal met by "
                     "const": "GOAL1_MET_BY_USING_PROP1_WITH_PROP2"
                   }
                 }
@@ -493,9 +426,7 @@
               {
                 "properties": {
                   "piece": {
-                    "examples": [
-                      "eg taxi appears when phone is used with electricity on"
-                    ],
+                    // e.g. taxi appears when phone is used with electricity on"
                     "const": "PROP1_APPEARS_WHEN_GRAB_PROP2_WITH_GOAL1"
                   }
                 }
@@ -516,9 +447,7 @@
               {
                 "properties": {
                   "piece": {
-                    "examples": [
-                      "eg key throw rock at apple in tree, obtains apple (lose rock and apple in tree)"
-                    ],
+                    // e.g. key throw rock at apple in tree, obtains apple (lose rock and apple in tree)"
                     "const": "THROW_INV1_AT_PROP1_GETS_INV2_LOSE_BOTH"
                   }
                 }
@@ -526,9 +455,7 @@
               {
                 "properties": {
                   "piece": {
-                    "examples": [
-                      "eg key throw rock at apple in tree, obtains apple (lose rock and apple in tree)"
-                    ],
+                    // e.g. key throw rock at apple in tree, obtains apple (lose rock and apple in tree)"
                     "const": "INV1_OBTAINED_BY_COMBINING_INV2_WITH_PROP1"
                   }
                 }
@@ -536,9 +463,7 @@
               {
                 "properties": {
                   "piece": {
-                    "examples": [
-                      "eg no example, but might need it"
-                    ],
+                    // e.g. no example, but might need it"
                     "const": "INV1_OBTAINED_BY_INV2_WITH_PROP1_LOSE_NONE"
                   }
                 }
@@ -546,9 +471,7 @@
               {
                 "properties": {
                   "piece": {
-                    "examples": [
-                      "eg manuscript b edited via typewriter by keeping prop"
-                    ],
+                    // e.g. manuscript b edited via typewriter by keeping prop"
                     "const": "INV1_BECOMES_INV2_BY_KEEPING_PROP"
                   }
                 }
@@ -556,9 +479,7 @@
               {
                 "properties": {
                   "piece": {
-                    "examples": [
-                      "eg manuscript b edited via typewriter by keeping prop"
-                    ],
+                    // e.g. manuscript b edited via typewriter by keeping prop"
                     "const": "GIVE_INV1_TO_PROP1_GETS_INV2"
                   }
                 }
@@ -566,9 +487,7 @@
               {
                 "properties": {
                   "piece": {
-                    "examples": [
-                      "eg obtain cogs when losing key in clock"
-                    ],
+                    // e.g. obtain cogs when losing key in clock"
                     "const": "INV1_OBTAINED_BY_LOSING_INV2_KEEPING_PROP1"
                   }
                 }
@@ -576,9 +495,7 @@
               {
                 "properties": {
                   "piece": {
-                    "examples": [
-                      "eg obtain crank when use hurl to knock it off the well"
-                    ],
+                    // e.g. obtain crank when use hurl to knock it off the well"
                     "const": "INV1_OBTAINED_BY_LOSING_PROP1_KEEPING_INV2"
                   }
                 }
