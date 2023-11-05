@@ -125,6 +125,15 @@
                     "const": "PROP1_CHANGES_STATE_TO_PROP2_BY_KEEPING_INV1"
                   }
                 }
+              },
+              {
+                "properties":{
+                  "piece": {
+                    // eg grab sword-in-stone
+                    // sword obtained, as sword-in-stone becomes stone
+                    "const": "INV1_OBTAINED_AS_GRABBED_PROP1_BECOMES_PROP2"
+                  }
+                }
               }
             ]
           },

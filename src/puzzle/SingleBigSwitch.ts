@@ -627,6 +627,33 @@ export function SingleBigSwitch(
               return happs;
             }
             break;
+          case _.INV1_OBTAINED_AS_GRABBED_PROP1_BECOMES_PROP2:
+            happs.text = `Grabbing the ${prop1} allows you to obtain the ${inv1} ( and it becomes ${prop2}) `;
+            happs.array.push(new Happening(Happen.InvAppears, inv1));
+            happs.array.push(new Happening(Happen.PropGoes, prop1));
+            happs.array.push(new Happening(Happen.PropAppears, prop2));
+            if (piecesMappedByOutput != null) {
+              // losing all
+              const output = inv1;
+              const inputA = prop1;
+              piecesMappedByOutput.AddPiece(
+                new Piece(
+                  id1,
+                  null,
+                  output,
+                  pieceType,
+                  count,
+                  happs,
+                  restrictions,
+                  inputA
+                )
+              );
+            } else if (objects.Match('Grab', prop1, '')) {
+              return happs;
+            }
+            break;
+
+            
           case _.INV1_OBTAINED_AS_PROP1_BECOMES_PROP2_KEEP_INV2:
             happs.text = `Using the ${inv2} on the ${prop1} allows you to obtain the ${inv1}`;
             happs.array.push(new Happening(Happen.InvAppears, inv1));
