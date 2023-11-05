@@ -653,7 +653,6 @@ export function SingleBigSwitch(
             }
             break;
 
-            
           case _.INV1_OBTAINED_AS_PROP1_BECOMES_PROP2_KEEP_INV2:
             happs.text = `Using the ${inv2} on the ${prop1} allows you to obtain the ${inv1}`;
             happs.array.push(new Happening(Happen.InvAppears, inv1));
@@ -987,8 +986,8 @@ export function SingleBigSwitch(
               // Another weird one, with two outputs - but only one output slot in the graph
               // We fill the graph with the main output of the puzzle, otherwise
               // the won't puzzle won't get solved.
-              const output = prop1;
-              const inputA = prop2;
+              const output = prop2;
+              const inputA = prop1;
               const inputB = inv1;
               piecesMappedByOutput.AddPiece(
                 new Piece(
