@@ -544,11 +544,22 @@
         },
         {
           "if": {
-            "properties": {
-              "piece": {
-                "const": "PROP1_BECOMES_PROP2_AS_INV1_BECOMES_INV2"
+            "anyOf": [
+              {
+                "properties": {
+                  "piece": {
+                    "const": "PROP1_BECOMES_PROP2_AS_INV1_BECOMES_INV2"
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "piece": {
+                    "const": "INV1_OBTAINED_AS_PROP1_BECOMES_PROP2_KEEP_INV2"
+                  }
+                }
               }
-            }
+            ]
           },
           "then": {
             "required": [

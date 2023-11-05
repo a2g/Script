@@ -627,6 +627,34 @@ export function SingleBigSwitch(
               return happs;
             }
             break;
+          case _.INV1_OBTAINED_AS_PROP1_BECOMES_PROP2_KEEP_INV2:
+            happs.text = `Using the ${inv2} on the ${prop1} allows you to obtain the ${inv1}`;
+            happs.array.push(new Happening(Happen.InvAppears, inv1));
+            happs.array.push(new Happening(Happen.InvStays, inv2));
+            happs.array.push(new Happening(Happen.PropGoes, prop1));
+            happs.array.push(new Happening(Happen.PropAppears, prop2));
+            if (piecesMappedByOutput != null) {
+              // losing all
+              const output = inv1;
+              const inputA = inv2;
+              const inputB = prop1;
+              piecesMappedByOutput.AddPiece(
+                new Piece(
+                  id1,
+                  null,
+                  output,
+                  pieceType,
+                  count,
+                  happs,
+                  restrictions,
+                  inputA,
+                  inputB
+                )
+              );
+            } else if (objects.Match('Use', inv2, prop1)) {
+              return happs;
+            }
+            break;
           case _.INV1_OBTAINED_BY_COMBINING_INV2_WITH_INV3:
             happs.text = `The ${inv2} and the ${inv3} combine to form an ${inv1}`;
             happs.array.push(new Happening(Happen.InvAppears, inv1));
