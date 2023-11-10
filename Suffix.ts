@@ -4,5 +4,5 @@ export const Suffix = {
   Connections: ' connections',
   Defs: ' defs',
   Enums: ' enums',
-  FirstBox: ' first',
+  FirstBox: ' starter',
 };
