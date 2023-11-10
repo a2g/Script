@@ -10,7 +10,7 @@ export default {
     theModelAsAProp: Object,
     baseUrl: {
       type: String,
-      default: "http://localhost:5000/jig/exclusive-worlds/Highschool/12/svg?"
+      default: "http://localhost:5000/jig/exclusive-worlds/Satanic/01/svg?"
       //  default: "http://localhost:5000/puz/puzzle-pieces/practice-world/03/svg?"
     },
     showModal: {

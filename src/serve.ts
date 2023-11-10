@@ -126,9 +126,7 @@ app.listen(PORT, () => {
   console.log(
     `http://localhost:${PORT}/puz/puzzle-pieces/practice-world/03/sols`
   );
-  console.log(
-    `http://localhost:${PORT}/jig/exclusive-worlds/Highschool/12/sols`
-  );
+  console.log(`http://localhost:${PORT}/jig/exclusive-worlds/Satanic/01/sols`);
 });
 
 module.exports = app;

@@ -31,8 +31,8 @@ export default {
   methods: {
     async awaitGetSolutionsAndSetToData () {
       const repo = 'exclusive-worlds'
-      const world = 'Highschool'
-      const area = '12'
+      const world = 'Satanic'
+      const area = '01'
       this.treeData2 = await this.getSolutions(repo, world, area)
 
       if (this.treeData2) {
