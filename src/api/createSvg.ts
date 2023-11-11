@@ -12,7 +12,7 @@ interface RequestQuery {
   paramB: string;
 }
 
-export async function svg(
+export async function createSvg(
   req: Request<RequestParams, ResponseBody, RequestBody, RequestQuery>,
   responseSender: Response,
   next: NextFunction

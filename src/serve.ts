@@ -7,8 +7,8 @@ import path from 'path';
 import { Box } from './puzzle/Box';
 import { SolverViaRootPiece } from './puzzle/SolverViaRootPiece';
 import { FormatText } from './puzzle/FormatText';
-import { solutions } from './api/solutions';
-import { svg } from './api/svg';
+import { getJsonOfSolutionsFromSolver } from './api/getJsonOfSolutionsFromSolver';
+import { createSvg } from './api/createSvg';
 import { existsSync } from 'fs';
 import { Suffix } from '../Suffix';
 
@@ -22,7 +22,6 @@ const redisClient: RedisClient = createClient({
 
 dotenv.config();
 
-// Make direct request to Github for data
 async function getSolutionsDirect(req: Request, responseSender: Response) {
   try {
     const repo = req.params.repo;
@@ -80,7 +79,7 @@ async function getSolutionsDirect(req: Request, responseSender: Response) {
         break;
       }
     }
-    const json = solutions(solver);
+    const json = getJsonOfSolutionsFromSolver(solver);
 
     responseSender.json(json);
   } catch (err) {
@@ -118,15 +117,18 @@ function getSolutionsFromRedis(
 }
 */
 //app.get('/solutions/:firstFile', getSolutionsFromRedis, getSolutionsDirect);
-app.get('/jig/:repo/:world/:area/sols', getSolutionsDirect);
-app.get('/jig/:repo/:world/:area/svg', svg);
+app.get('/puz/:repo/:world/:area/sols', getSolutionsDirect);
+app.get('/puz/:repo/:world/:area/svg', createSvg);
+app.get('/puz/', createSvg);
 
 app.listen(PORT, () => {
-  console.log(`App listening on port ${PORT}`);
+  console.log(
+    `Congratulations, the server has started. It's listening on ${PORT}`
+  );
   console.log(
     `http://localhost:${PORT}/puz/puzzle-pieces/practice-world/03/sols`
   );
-  console.log(`http://localhost:${PORT}/jig/exclusive-worlds/Satanic/01/sols`);
+  console.log(`http://localhost:${PORT}/puz/exclusive-worlds/Satanic/01/sols`);
 });
 
 module.exports = app;

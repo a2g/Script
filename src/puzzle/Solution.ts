@@ -12,17 +12,6 @@ import { VisibleThingsMap } from './VisibleThingsMap';
 
 /**
  * Solution needs to be cloned.
- * Where do you solve your jig-saws? Do you use the dinner table, or
- * do you have a special wooden board, so you can move it off the table when
- * you want to have dinner? That's what this its a dedicated surface for
- * storing the root pieces, which are your targets for adding pieces to,
- * and the pile of pieces you take the pieces from.
- *
- * Unlike your dining table, this SolvingBoard has the ability to clone
- * itself whenever we encounter something that you don't encounter with
- * a tabletop jig-saw:
- * when the knobs (output) of TWO pieces can fit into a given 'hole' (input)'.
- * This really breaks the puzzle solving analogy.
  */
 export class Solution {
   // important ones

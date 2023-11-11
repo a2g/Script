@@ -42,7 +42,7 @@ export default {
     
     async getSolutions (repo, world, area) {
       try {
-        const apiResp = await axios.get(`${API_BASE}/jig/${repo}/${world}/${area}/sols`)
+        const apiResp = await axios.get(`${API_BASE}/puz/${repo}/${world}/${area}/sols`)
        // const responseTime = apiResp.headers['x-response-time']
         const data = apiResp.data
 

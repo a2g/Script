@@ -9,7 +9,9 @@ interface $INameIsAGoalChildren {
   children: Array<Record<string, unknown>>;
 }
 
-export function solutions(solver: SolverViaRootPiece): Record<string, unknown> {
+export function getJsonOfSolutionsFromSolver(
+  solver: SolverViaRootPiece
+): Record<string, unknown> {
   return {
     name: 'Solutions',
     children: getJsonArrayOfSolutions(solver.GetSolutions()),
