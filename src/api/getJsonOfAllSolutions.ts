@@ -1,3 +1,7 @@
+import { existsSync } from 'fs';
+import { Suffix } from '../../Suffix';
+import { Box } from '../puzzle/Box';
+import { FormatText } from '../puzzle/FormatText';
 import { Piece } from '../puzzle/Piece';
 import { RawObjectsAndVerb } from '../puzzle/RawObjectsAndVerb';
 import { Solution } from '../puzzle/Solution';
@@ -9,7 +13,64 @@ interface $INameIsAGoalChildren {
   children: Array<Record<string, unknown>>;
 }
 
-export function getJsonOfSolutionsFromSolver(
+export function getJsonOfAllSolutions(
+  repo: string,
+  world: string,
+  area: string
+): Record<string, unknown> {
+  const path = `../${repo}/${world}/`;
+  const firstBoxFilename = `${area}${Suffix.FirstBox}.jsonc`;
+
+  if (!existsSync(path + firstBoxFilename)) {
+    throw Error(
+      `file doesn't exist ${path}${firstBoxFilename} ${process.cwd()}`
+    );
+  }
+
+  const firstBox = new Box(path, firstBoxFilename);
+  firstBox.Init();
+
+  const allBoxes = new Set<Box>();
+  firstBox.CollectAllReferencedBoxesRecursively(allBoxes);
+  const solver = new SolverViaRootPiece(firstBox);
+
+  for (let i = 0; i < 40; i++) {
+    solver.SolvePartiallyUntilCloning();
+    solver.MarkGoalsAsCompletedAndMergeIfNeeded();
+    const numberOfSolutions: number = solver.NumberOfSolutions();
+    console.warn('Dig in to goals');
+    console.warn('===============');
+    console.warn(`Number of solutions in solver = ${numberOfSolutions}`);
+
+    // display list
+    let incomplete = 0;
+    let listItemNumber = 0;
+    for (const solution of solver.GetSolutions()) {
+      console.warn(FormatText(solution.GetDisplayNamesConcatenated()));
+      console.warn(FormatText(solution.GetRootMap().CalculateListOfKeys()));
+      for (const array of solution.GetRootMap().GetValues()) {
+        for (const item of array) {
+          listItemNumber++;
+
+          // display list item
+          const status: string = item.firstNullInput;
+          const { output } = item.piece;
+          console.warn(`    ${listItemNumber}. ${output} (status=${status})`);
+          incomplete += status.length > 0 ? 1 : 0;
+        }
+      }
+    }
+
+    console.warn(`Number of goals incomplete ${incomplete}/${listItemNumber}`);
+    if (incomplete >= listItemNumber) {
+      break;
+    }
+  }
+  const json = getJsonOfSolutionsFromSolver(solver);
+  return json;
+}
+
+function getJsonOfSolutionsFromSolver(
   solver: SolverViaRootPiece
 ): Record<string, unknown> {
   return {

@@ -1,16 +1,14 @@
-import express, { Request, Response } from 'express';
 import dotenv from 'dotenv';
 //import { createClient, RedisClient } from 'redis';
 import responseTime from 'response-time';
 import cors from 'cors';
 import path from 'path';
-import { Box } from './puzzle/Box';
-import { SolverViaRootPiece } from './puzzle/SolverViaRootPiece';
-import { FormatText } from './puzzle/FormatText';
-import { getJsonOfSolutionsFromSolver } from './api/getJsonOfSolutionsFromSolver';
-import { createSvg } from './api/createSvg';
-import { existsSync } from 'fs';
-import { Suffix } from '../Suffix';
+import {
+  getJsonOfAllSolutionsApi,
+  getJsonOfStartersApi,
+  getSvgApi,
+} from './api/Api';
+import express from 'express';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -21,72 +19,6 @@ const redisClient: RedisClient = createClient({
 });*/
 
 dotenv.config();
-
-async function getSolutionsDirect(req: Request, responseSender: Response) {
-  try {
-    const repo = req.params.repo;
-    const world = req.params.world;
-    const area = req.params.area;
-
-    const path = `../${repo}/${world}/`;
-    const firstBoxFilename = `${area}${Suffix.FirstBox}.jsonc`;
-
-    if (!existsSync(path + firstBoxFilename)) {
-      console.log(
-        `file doesn't exist ${path}${firstBoxFilename} ${process.cwd()}`
-      );
-      return;
-    }
-
-    const firstBox = new Box(path, firstBoxFilename);
-    firstBox.Init();
-
-    const allBoxes = new Set<Box>();
-    firstBox.CollectAllReferencedBoxesRecursively(allBoxes);
-    const solver = new SolverViaRootPiece(firstBox);
-
-    for (let i = 0; i < 40; i++) {
-      solver.SolvePartiallyUntilCloning();
-      solver.MarkGoalsAsCompletedAndMergeIfNeeded();
-      const numberOfSolutions: number = solver.NumberOfSolutions();
-      console.warn('Dig in to goals');
-      console.warn('===============');
-      console.warn(`Number of solutions in solver = ${numberOfSolutions}`);
-
-      // display list
-      let incomplete = 0;
-      let listItemNumber = 0;
-      for (const solution of solver.GetSolutions()) {
-        console.warn(FormatText(solution.GetDisplayNamesConcatenated()));
-        console.warn(FormatText(solution.GetRootMap().CalculateListOfKeys()));
-        for (const array of solution.GetRootMap().GetValues()) {
-          for (const item of array) {
-            listItemNumber++;
-
-            // display list item
-            const status: string = item.firstNullInput;
-            const { output } = item.piece;
-            console.warn(`    ${listItemNumber}. ${output} (status=${status})`);
-            incomplete += status.length > 0 ? 1 : 0;
-          }
-        }
-      }
-
-      console.warn(
-        `Number of goals incomplete ${incomplete}/${listItemNumber}`
-      );
-      if (incomplete >= listItemNumber) {
-        break;
-      }
-    }
-    const json = getJsonOfSolutionsFromSolver(solver);
-
-    responseSender.json(json);
-  } catch (err) {
-    console.error(err);
-    responseSender.status(500);
-  }
-}
 
 app.use('/', express.static(path.join(__dirname, '../lib/src')));
 app.use(responseTime());
@@ -117,9 +49,9 @@ function getSolutionsFromRedis(
 }
 */
 //app.get('/solutions/:firstFile', getSolutionsFromRedis, getSolutionsDirect);
-app.get('/puz/:repo/:world/:area/sols', getSolutionsDirect);
-app.get('/puz/:repo/:world/:area/svg', createSvg);
-app.get('/puz/', createSvg);
+app.get('/puz/:repo/:world/:area/sols', getJsonOfAllSolutionsApi);
+app.get('/puz/:repo/:world/:area/svg', getSvgApi);
+app.get('/puz/', getJsonOfStartersApi);
 
 app.listen(PORT, () => {
   console.log(
