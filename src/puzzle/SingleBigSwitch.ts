@@ -49,6 +49,7 @@ export function SingleBigSwitch(
       const inv1 = Stringify(piece.inv1);
       const inv2 = Stringify(piece.inv2);
       const inv3 = Stringify(piece.inv3);
+      const inv4 = Stringify(piece.inv4);
       const isNoFile = piece.isNoFile;
       const happs = new Happenings();
       const { restrictions } = piece;
@@ -652,7 +653,34 @@ export function SingleBigSwitch(
               return happs;
             }
             break;
-
+          case _.INV1_OBTAINED_AS_INV2_BECOMES_INV3_LOSING_INV4:
+            happs.text = `Using the ${inv2} with the ${inv4} allows you to obtain the ${inv1}`;
+            happs.array.push(new Happening(Happen.InvAppears, inv1));
+            happs.array.push(new Happening(Happen.InvGoes, inv2));
+            happs.array.push(new Happening(Happen.InvAppears, inv3));
+            happs.array.push(new Happening(Happen.InvGoes, inv4));
+            if (piecesMappedByOutput != null) {
+              // losing all
+              const output = inv1;
+              const inputA = inv2;
+              const inputB = inv4;
+              piecesMappedByOutput.AddPiece(
+                new Piece(
+                  id1,
+                  null,
+                  output,
+                  pieceType,
+                  count,
+                  happs,
+                  restrictions,
+                  inputA,
+                  inputB
+                )
+              );
+            } else if (objects.Match('Use', inv2, inv4)) {
+              return happs;
+            }
+            break;
           case _.INV1_OBTAINED_AS_PROP1_BECOMES_PROP2_KEEP_INV2:
             happs.text = `Using the ${inv2} on the ${prop1} allows you to obtain the ${inv1}`;
             happs.array.push(new Happening(Happen.InvAppears, inv1));

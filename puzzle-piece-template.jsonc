@@ -127,7 +127,7 @@
                 }
               },
               {
-                "properties":{
+                "properties": {
                   "piece": {
                     // eg grab sword-in-stone
                     // sword obtained, as sword-in-stone becomes stone
@@ -638,6 +638,23 @@
             "required": [
               "prop1",
               "goal1"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "piece": {
+                "const": "INV1_OBTAINED_AS_INV2_BECOMES_INV3_LOSING_INV4"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "inv1",
+              "inv2",
+              "inv3",
+              "inv4"
             ]
           }
         }
