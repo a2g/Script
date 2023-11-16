@@ -18,13 +18,11 @@ export function getJsonOfAllSolutions(
   world: string,
   area: string
 ): Record<string, unknown> {
-  const path = `../${repo}/${world}/`;
+  const path = `${process.cwd()}/${repo}/${world}/`;
   const firstBoxFilename = `${area}${Suffix.FirstBox}.jsonc`;
 
   if (!existsSync(path + firstBoxFilename)) {
-    throw Error(
-      `file doesn't exist ${path}${firstBoxFilename} ${process.cwd()}`
-    );
+    throw Error(`file doesn't exist ${path}${firstBoxFilename}`);
   }
 
   const firstBox = new Box(path, firstBoxFilename);

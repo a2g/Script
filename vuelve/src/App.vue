@@ -3,12 +3,15 @@ import Tree from './components/Tree.vue'
 import Modal from './components/Modal.vue'
 
 export default {
+  // global awareness
   name: 'App',
-  
+
+  // template dependencies
   components: {
     Tree,
     Modal
   },
+  // local state
   data() {
     return {
       showModal: false
@@ -20,15 +23,15 @@ export default {
 <template>
   <div id="app">
     <h1>Title is set in App.vue </h1>
+
     <tree />
-   
+ 
     <!-- use the modal component, pass in the prop -->
     <modal :show="showModal" @close="showModal = false">
       <template #header>
         <h3>custom header</h3>
       </template>
     </modal>
-  
   </div>
 </template>
 

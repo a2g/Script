@@ -24,12 +24,12 @@ export function getSvg(
   paramA: string,
   paramB: string
 ): string {
-  const path = `../${repo}/${world}/`;
-  const areaMapFilename = `${area}${Suffix.AreaMap}.jsonc`;
+  const path = `${process.cwd()}/${repo}/${world}/`;
+  const areaMapFilename = `${area}${Suffix.FirstBox}.jsonc`;
   const connectionsFilename = `${area}${Suffix.Connections}.jsonc`;
   if (!existsSync(path + areaMapFilename)) {
     throw Error(
-      `file doesn't exist ${path}${areaMapFilename} ${process.cwd()}`
+      `file doesn't exist ${process.cwd()} ${path}${areaMapFilename}`
     );
   }
   const text = readFileSync(path + areaMapFilename, 'utf8');

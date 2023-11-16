@@ -55,7 +55,9 @@ export class Box implements IBoxReadOnlyWithFileMethods {
     this.path = path;
     this.filename = filename;
     if (!existsSync(path + filename)) {
-      throw new Error(`file doesn't exist ${path}${filename} ${process.cwd()}`);
+      throw new Error(
+        `file doesn't exist ${process.cwd()} ${path}${filename} `
+      );
     }
     const text = readFileSync(path + filename, 'utf8');
     const scenario = parse(text);

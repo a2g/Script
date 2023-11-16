@@ -3,13 +3,13 @@ import dotenv from 'dotenv';
 import responseTime from 'response-time';
 import cors from 'cors';
 import path from 'path';
+
+import express from 'express';
 import {
   getJsonOfAllSolutionsApi,
   getJsonOfStartersApi,
   getSvgApi,
-} from './api/Api';
-import express from 'express';
-
+} from './api/api';
 const app = express();
 const PORT = process.env.PORT || 5000;
 /*
@@ -51,16 +51,17 @@ function getSolutionsFromRedis(
 //app.get('/solutions/:firstFile', getSolutionsFromRedis, getSolutionsDirect);
 app.get('/puz/:repo/:world/:area/sols', getJsonOfAllSolutionsApi);
 app.get('/puz/:repo/:world/:area/svg', getSvgApi);
-app.get('/puz/', getJsonOfStartersApi);
+app.get('/puz/starters', getJsonOfStartersApi);
 
 app.listen(PORT, () => {
   console.log(
-    `Congratulations, the server has started. It's listening on ${PORT}`
+    `Congratulations, the backend server has started. It's listening on ${PORT}`
   );
+  console.log(`Some example calls:`);
+  console.log(`http://localhost:${PORT}/puz/exclusive-worlds/Satanic/01/sols`);
   console.log(
     `http://localhost:${PORT}/puz/puzzle-pieces/practice-world/03/sols`
   );
-  console.log(`http://localhost:${PORT}/puz/exclusive-worlds/Satanic/01/sols`);
 });
 
 module.exports = app;

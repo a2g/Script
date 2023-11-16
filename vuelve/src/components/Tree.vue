@@ -8,14 +8,18 @@ const API_BASE = location.hostname === 'localhost'
 
 
 export default {
+  // global awareness
   name: 'Tree',
 
+  // template dependencies
   components: {
     TreeItem
   },
 
+  // interface
   props: {
   },
+  // local state
   data() {
     return {
       treeData2: {
@@ -25,26 +29,40 @@ export default {
         paramB: 'also set in Tree.vue',
         children: [
         ]
-      }
+      },
+      starters: [ {
+        "name": "./puzzle-pieces/practice-world/03 starter.jsonc",
+        "repo": "puzzle-pieces",
+        "world": "practice-world",
+        "area": "03 starter.jsonc"
+      }]
     }
   },
+  // non-reactive properties
   methods: {
-    async awaitGetSolutionsAndSetToData () {
-      const repo = 'exclusive-worlds'
-      const world = 'Satanic'
-      const area = '01'
-      this.treeData2 = await this.getSolutions(repo, world, area)
+   
+    async awaitGetSolutionsAndSetToData (repoSlashWorldSlashArea) {
+      this.treeData2 = await this.getSolutions(repoSlashWorldSlashArea)
 
       if (this.treeData2) {
         this.history.unshift(this.treeData2)
       }
     },
-    
-    async getSolutions (repo, world, area) {
+
+    async awaitGetStartersAndSetToData () {
       try {
-        const apiResp = await axios.get(`${API_BASE}/puz/${repo}/${world}/${area}/sols`)
-       // const responseTime = apiResp.headers['x-response-time']
-        const data = apiResp.data
+        const response = await axios.get(`${API_BASE}/puz/starters`)
+        this.starters = response.data
+      } catch (err) {
+        console.log(err)
+      }
+    },
+    
+    async getSolutions (repoSlashWorldSlashArea) {
+      try {
+        const response = await axios.get(`${API_BASE}/puz/${repoSlashWorldSlashArea}/sols`)
+        // const responseTime = apiResp.headers['x-response-time']
+        const data = response.data
 
         if (!data.cached) {
           // storeGithubAccessTimeForUser(data.username, responseTime)
@@ -62,6 +80,12 @@ export default {
 
 <template>
   <div>
+    <button @click="awaitGetStartersAndSetToData">get Starters</button>
+    <ul>
+      <li v-for="starter in starters" :key="starter.name">  
+        <button @click="awaitGetSolutionsAndSetToData(starter.repoSlashWorldSlashArea)" :value="starter.repoSlashWorldSlashArea">{{ starter.repo}}</button>
+      </li>
+    </ul>
     <button @click="awaitGetSolutionsAndSetToData"> getSolutions </button>
   <ul>
     <td></td>
