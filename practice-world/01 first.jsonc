@@ -64,7 +64,7 @@
     },
     {
       "piece": "GOAL1_MET_BY_GIVING_INV1_TO_PROP1",
-      "goal1": "goal_win",
+      "goal1": "99_win",
       "inv1": "inv_one_irish_punt",
       "prop1": "prop_taxi"
     },
