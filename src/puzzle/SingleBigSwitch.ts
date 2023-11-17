@@ -60,7 +60,7 @@ export function SingleBigSwitch(
         if (isGoalRetrieval || piecesMappedByOutput == null) {
           let boxToMerge: Box | null = null;
           // merge file - unless it has been marked to avoid
-          if (!isNoFile && goal1 !== 'win_goal') {
+          if (!isNoFile && goal1 !== '99_win') {
             boxToMerge = new Box(path, `${goal1}.jsonc`);
           }
           switch (pieceType) {

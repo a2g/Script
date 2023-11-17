@@ -65,7 +65,7 @@ export class RootPieceMap implements IPileOrRootPieceMap {
       const winGoal = allWinGaols[0];
       GenerateMapOfLeavesTracingGoalsRecursively(
         winGoal.piece,
-        'win_goal',
+        '99_win',
         leaves,
         this
       );
@@ -114,11 +114,11 @@ export class RootPieceMap implements IPileOrRootPieceMap {
   }
 
   public GetAllWinGoals(): RootPiece[] | undefined {
-    return this.roots.get('win_goal');
+    return this.roots.get('99_win');
   }
 
   public RemoveAllWinGoals(): void {
-    this.roots.delete('win_goal');
+    this.roots.delete('99_win');
   }
 
   public RemovePieceById(id: number): void {

@@ -80,7 +80,7 @@
     },
     "goal_enum": {
       "enum": [
-        "win_goal",
+        "99_win",
         "03_access_to_greenhouse_goal",
         "03_access_to_icehouse_goal",
         "03_access_to_castle_goal",

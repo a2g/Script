@@ -6,11 +6,6 @@ import { ChooseDigIntoGoals } from './cli/ChooseDigIntoGoals';
 import { ChooseListOfLeaves } from './cli/ChooseListOfLeaves';
 import { ChooseOrderOfCommands } from './cli/ChooseOrderOfCommands';
 import { ChooseToFindUnused } from './cli/ChooseToFindUnused';
-import { readFileSync } from 'fs';
-import { Suffix } from '../Suffix';
-import { parse } from 'jsonc-parser';
-import * as fs from 'fs';
-import { assert } from 'console';
 import { $IStarter, getJsonOfStarters } from './api/getJsonOfStarters';
 const prompt = promptSync();
 
@@ -18,14 +13,13 @@ function main(): void {
   const starters: $IStarter[] = getJsonOfStarters();
 
   for (;;) {
-    for (let i = 0; i < starters.length; i++) {
-      const starter = starters[i];
-
+    for (let i = 1; i <= starters.length; i++) {
+      const starter = starters[i - 1];
       console.warn(`${i}. ${starter.world} ${starter.area}  ${i}`);
     }
 
     const indexAsString = prompt('Choose an area (b)ail): ').toLowerCase();
-    const index = Number(indexAsString);
+    const index = Number(indexAsString) - 1;
     switch (indexAsString) {
       case 'b':
         return;

@@ -61,7 +61,7 @@
     },
     {
       "piece": "AUTO_GOAL1_MET_BY_INVS",
-      "goal1": "win_goal",
+      "goal1": "99_win",
       "inv1": "inv_torch_lit"
     }
   ]
