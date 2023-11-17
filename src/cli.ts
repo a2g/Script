@@ -11,91 +11,32 @@ import { Suffix } from '../Suffix';
 import { parse } from 'jsonc-parser';
 import * as fs from 'fs';
 import { assert } from 'console';
+import { $IStarter, getJsonOfStarters } from './api/getJsonOfStarters';
 const prompt = promptSync();
 
 function main(): void {
-  process.chdir('./..');
-
-  const allFolders = new Array<string>();
-  allFolders.push('puzzle-pieces/practice-world');
-
-  // lets try adding more folders from 'private-world'
-  // but that folder may not exist, so we try/catch it
-  try {
-    const ignoreSet = new Set([
-      'settings.jsonc',
-      '.gitmodules',
-      '.gitignore',
-      'package.jsonc',
-      'tsconfig.jsonc',
-      '.git',
-    ]);
-    process.chdir('./exclusive-worlds');
-    const folders = fs.readdirSync('.');
-    for (const folder of folders) {
-      if (!ignoreSet.has(folder)) {
-        allFolders.push(`exclusive-worlds/${folder}`);
-      }
-    }
-    process.chdir('..');
-  } catch (Error) {
-    throw new EvalError('Check your file paths!');
-  }
+  const starters: $IStarter[] = getJsonOfStarters();
 
   for (;;) {
-    let i = 1;
-    for (const campaign of allFolders) {
-      console.warn(`${i}. ${campaign}  ${i}`);
-      i += 1;
-    }
+    for (let i = 0; i < starters.length; i++) {
+      const starter = starters[i];
 
-    const indexAsString = prompt('Choose an campaign (b)ail): ').toLowerCase();
-    const index = Number(indexAsString) - 1;
-    switch (indexAsString) {
-      case 'b':
-        return;
-      default:
-        if (index >= 0 && index < allFolders.length) {
-          ChooseArea(allFolders[index]);
-        }
-    }
-  }
-}
-
-function ChooseArea(folder: string) {
-  const text = readFileSync(`${folder}/${Suffix.Campaign}.jsonc`, 'utf-8');
-  const druids = parse(text);
-
-  for (;;) {
-    console.warn(process.cwd());
-    console.warn(' ');
-    console.warn(' Master Menu');
-    console.warn('==================');
-    console.warn('0. Play Campaign');
-
-    assert(Array.isArray(druids.areas));
-    const arrayOfFilenames: string[] = [];
-    // initialize the map with
-    let i = 1;
-    // const areas = new Map<string, Area>();
-    for (const firstBoxFile of druids.areas) {
-      arrayOfFilenames.push(firstBoxFile);
-      console.warn(`${i}. ${firstBoxFile}`);
-      i += 1;
+      console.warn(`${i}. ${starter.world} ${starter.area}  ${i}`);
     }
 
     const indexAsString = prompt('Choose an area (b)ail): ').toLowerCase();
-    const index = Number(indexAsString) - 1;
+    const index = Number(indexAsString);
     switch (indexAsString) {
       case 'b':
         return;
-      case '0':
-        return; //ChooseToPlayCampaign();
       default:
-        if (index >= 0 && index < arrayOfFilenames.length) {
+        if (index >= 0 && index < starters.length) {
           for (;;) {
-            const filename = arrayOfFilenames[index];
-            const firstBox = new Box(`${folder}/`, filename);
+            const starter = starters[index];
+            const firstBox = new Box(
+              starter.folderPathWithBackclash,
+              starter.file
+            );
             firstBox.Init();
 
             const allBoxes = new Set<Box>();
@@ -105,7 +46,7 @@ function ChooseArea(folder: string) {
             const solverPrimedWithCombined = new SolverViaRootPiece(combined);
             const solverPrimedWithFirstBox = new SolverViaRootPiece(firstBox);
 
-            console.warn(`\nSubMenu of ${filename}`);
+            console.warn(`\nSubMenu of ${starter.file}`);
             console.warn(
               `number of pieces = ${solverPrimedWithCombined
                 .GetSolutions()[0]

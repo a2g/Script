@@ -42,7 +42,7 @@ export function FormatText(
     if (!isColor) return single.slice(5);
     return Colors.Cyan + single.slice(5) + Colors.Reset;
   }
-  if (startsWithGoalNumber(single) ) {
+  if (startsWithGoalNumber(single)) {
     if (!isColor) return single.slice(1);
     return Colors.Green + single.slice(1) + Colors.Reset;
   }

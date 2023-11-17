@@ -1,12 +1,17 @@
 import * as fs from 'fs';
 import { Suffix } from '../../Suffix';
 
-interface $IStarter {
-  name: string;
+export interface $IStarter {
+  // used by CLI
+  file: string;
+  folderPathWithBackclash: string;
+  // used by web UI
   repo: string;
   world: string;
   area: string;
   repoSlashWorldSlashArea: string;
+  // used by both
+  displayName: string;
 }
 
 export function getJsonOfStarters(): Array<$IStarter> {
@@ -37,18 +42,25 @@ export function getJsonOfStarters(): Array<$IStarter> {
 
   const toReturn = new Array<$IStarter>();
   for (const folder of allFolders) {
-    process.chdir(`./${folder[0]}/${folder[1]}`);
+    const repo = folder[0];
+    const world = folder[1];
+    process.chdir(`./${repo}/${world}`);
     const files = fs.readdirSync('.');
     for (const file of files) {
       if (file.endsWith(`${Suffix.FirstBox}.jsonc`)) {
         const index = file.indexOf(Suffix.FirstBox);
-        const fileWithoutExtension = file.substring(0, index);
+        const area = file.substring(0, index);
         toReturn.push({
-          name: `./${folder[0]}/${folder[1]}/${fileWithoutExtension}`,
-          repo: folder[0],
-          world: folder[1],
+          // these are needed for CLI
+          file: file,
+          folderPathWithBackclash: `${repo}/${world}/`,
+          // used by web ui
+          repo: repo,
+          world: world,
           area: file,
-          repoSlashWorldSlashArea: `${folder[0]}/${folder[1]}/${fileWithoutExtension}`,
+          repoSlashWorldSlashArea: `${repo}/${world}/${area}`,
+          // used by both
+          displayName: `${repo}/${world}/${area}`,
         });
       }
     }
