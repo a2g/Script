@@ -1,4 +1,5 @@
 import { Happen } from './Happen';
+import { startsWithGoalNumber } from './startsWithGoalNumber';
 
 /*
 These are all the state changes that can occur
@@ -37,11 +38,11 @@ export class Happening {
       case Happen.GoalIsDecremented:
       case Happen.GoalIsIncremented:
       case Happen.GoalIsSet:
-        if (!item.endsWith('_goal')) {
+        if (!startsWithGoalNumber(item)) {
           console.warn(
             'Convention mismatch! the item (' +
               item +
-              ') does not end with "goal"'
+              ') does not begin with a goal number"'
           );
         }
         break;

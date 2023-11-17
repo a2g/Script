@@ -1,5 +1,6 @@
 import { AddBrackets } from './AddBrackets';
 import { Colors } from './Colors';
+import { startsWithGoalNumber } from './startsWithGoalNumber';
 
 export function FormatText(
   input: string | string[],
@@ -41,9 +42,9 @@ export function FormatText(
     if (!isColor) return single.slice(5);
     return Colors.Cyan + single.slice(5) + Colors.Reset;
   }
-  if (single.endsWith('.goal')) {
-    if (!isColor) return single.slice(0, single.length - 5);
-    return Colors.Green + single.slice(0, single.length - 5) + Colors.Reset;
+  if (startsWithGoalNumber(single) ) {
+    if (!isColor) return single.slice(1);
+    return Colors.Green + single.slice(1) + Colors.Reset;
   }
   if (single.startsWith('char_')) {
     if (!isColor) return AddBrackets(single.slice(5), isParenthesisNeeded);

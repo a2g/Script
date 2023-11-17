@@ -30,12 +30,7 @@ export default {
         children: [
         ]
       },
-      starters: [ {
-        "name": "./puzzle-pieces/practice-world/03 starter.jsonc",
-        "repo": "puzzle-pieces",
-        "world": "practice-world",
-        "area": "03 starter.jsonc"
-      }]
+      starters: []
     }
   },
   // non-reactive properties
@@ -83,10 +78,9 @@ export default {
     <button @click="awaitGetStartersAndSetToData">get Starters</button>
     <ul>
       <li v-for="starter in starters" :key="starter.name">  
-        <button @click="awaitGetSolutionsAndSetToData(starter.repoSlashWorldSlashArea)" :value="starter.repoSlashWorldSlashArea">{{ starter.repo}}</button>
+        <button @click="awaitGetSolutionsAndSetToData(starter.repoSlashWorldSlashArea)" :value="starter.repoSlashWorldSlashArea">{{starter.world}} {{starter.area}}</button>
       </li>
     </ul>
-    <button @click="awaitGetSolutionsAndSetToData"> getSolutions </button>
   <ul>
     <td></td>
     <TreeItem class="item" v-bind:theModelAsAProp="treeData2"></TreeItem>
