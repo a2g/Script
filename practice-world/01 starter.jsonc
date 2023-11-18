@@ -54,7 +54,8 @@
       "piece": "GOAL1_MET_BY_USING_INV1_WITH_PROP1",
       "goal1": "electricity_restored_goal",
       "inv1": "inv_bio-diesel",
-      "prop1": "prop_generator"
+      "prop1": "prop_generator",
+      "isNoFile": true
     },
     {
       "piece": "PROP1_APPEARS_WHEN_GRAB_PROP2_WITH_GOAL1",
