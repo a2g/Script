@@ -47,11 +47,11 @@ function main(): void {
                 .GetSize()}`
             );
             console.warn('---------------------------------------');
-            console.warn('1. Dig into Goals for COMBINED');
-            console.warn('2. Dig into Goals for First Box');
-            console.warn('3. List the Leaves for COMBINED.');
-            console.warn('4. List the Leaves for First Box`');
-            console.warn('5. Order of Commands for First Box solve');
+            console.warn('1. Dig all boxes at once');
+            console.warn('2. Dig a box-at-a-time');
+            console.warn('3. Leaves all boxes at once.');
+            console.warn('4. Leaves a box-at-a-time`');
+            console.warn('5. Order of Commands in solve');
             console.warn(
               '6. Check for unused props and invs <-- delete these from enums'
             );
