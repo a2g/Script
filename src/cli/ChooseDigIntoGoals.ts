@@ -33,7 +33,7 @@ export function ChooseDigIntoGoals(solver: SolverViaRootPiece): void {
         text.length > 8
           ? text + '<-- yellow is type of leaf, red is constraints'
           : NAME_NOT_DETERMINABLE;
-      console.warn(`${letter}. ${label}`);
+      console.warn(`${letter}. ${label} ${solution.getLastBranchingPoint()}`);
       for (const array of solution.GetRootMap().GetValues()) {
         for (const item of array) {
           listItemNumber++;

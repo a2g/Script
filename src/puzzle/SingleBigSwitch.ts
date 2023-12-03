@@ -161,6 +161,32 @@ export function SingleBigSwitch(
                 return happs;
               }
               break;
+            case _.GOAL1_MET_BY_LOSING_BOTH_INV1_AND_PROP1_WHEN_USED:
+              happs.text = `You use the ${inv1} with the ${prop1} and something good happens...`;
+              happs.array.push(new Happening(Happen.GoalIsSet, goal1));
+              happs.array.push(new Happening(Happen.InvGoes, inv1));
+              happs.array.push(new Happening(Happen.PropGoes, prop1));
+              if (piecesMappedByOutput != null) {
+                const output = goal1;
+                const inputA = inv1;
+                const inputB = prop1;
+                piecesMappedByOutput.AddPiece(
+                  new Piece(
+                    id1,
+                    boxToMerge,
+                    output,
+                    pieceType,
+                    count,
+                    happs,
+                    restrictions,
+                    inputA,
+                    inputB
+                  )
+                );
+              } else if (objects.Match('Use', inv1, prop1)) {
+                return happs;
+              }
+              break;
             case _.GOAL1_MET_BY_LOSING_INV1_WHEN_USED_WITH_PROP1:
               happs.text = `You use the ${inv1} with the ${prop1} and something good happens...`;
               happs.array.push(new Happening(Happen.GoalIsSet, goal1));

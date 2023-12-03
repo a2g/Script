@@ -18,7 +18,9 @@ function main(): void {
       console.warn(`${i}. ${starter.world} ${starter.area}  ${i}`);
     }
 
-    const indexAsString = prompt('Choose an area (b)ail): ').toLowerCase();
+    const indexAsString = prompt(
+      'Choose an area to Load (b)ail): '
+    ).toLowerCase();
     const index = Number(indexAsString) - 1;
     switch (indexAsString) {
       case 'b':

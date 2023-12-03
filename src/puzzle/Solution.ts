@@ -34,6 +34,8 @@ export class Solution {
 
   private readonly commandsCompletedInOrder: Array<RawObjectsAndVerb>;
 
+  private lastBranchingPoint: string;
+
   constructor(
     rootPieceMapToCopy: RootPieceMap | null,
     copyThisMapOfPieces: IPileOfPiecesReadOnly,
@@ -47,6 +49,7 @@ export class Solution {
     this.isMergingOk = isMergingOk;
     this.remainingPiecesRepo = new PileOfPieces(copyThisMapOfPieces);
     this.isArchived = false;
+    this.lastBranchingPoint = '';
 
     // starting things AND currentlyVisibleThings
     this.startingThings = new VisibleThingsMap(null);
@@ -297,5 +300,13 @@ export class Solution {
 
   public GetSize(): number {
     return this.remainingPiecesRepo.Size();
+  }
+
+  public setLastBranchingPoint(lastBranchingPoint: string): void {
+    this.lastBranchingPoint = lastBranchingPoint;
+  }
+
+  public getLastBranchingPoint(): string {
+    return this.lastBranchingPoint;
   }
 }

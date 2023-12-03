@@ -340,6 +340,14 @@ export class Piece {
           // many root pieces
 
           if (isCloneBeingUsed) {
+            let lastBranchingPoint = '';
+            for (const input of this.inputHints) {
+              lastBranchingPoint += input + ' ';
+            }
+
+            lastBranchingPoint += ' ' + this.GetOutput();
+
+            theSolution.setLastBranchingPoint(lastBranchingPoint);
             solutions.GetSolutions().push(theSolution);
           }
 
