@@ -91,9 +91,7 @@
         "03_button_pressed_goal",
         "03_used_crank_with_well_goal",
         "03_used_bucket_of_water_with_fire_goal",
-        "03_used_bucket_of_coal_with_furnace_goal",
-        "03_used_bucket_with_coal_bunker_goal"
-      ]
+        "03_used_bucket_of_coal_with_furnace_goal"     ]
     },
     "location_enum": {
       "enum": [

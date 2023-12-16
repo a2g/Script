@@ -86,16 +86,11 @@
       "inv3": "inv_rolling_pin"
     },
     {
-      "piece": "GOAL1_MET_BY_USING_INV1_WITH_PROP1",
-      "goal1": "03_used_bucket_with_coal_bunker_goal",
+      "piece": "INV1_OBTAINED_BY_LOSING_INV2_KEEPING_PROP1",
       "isNoFile": true,
-      "inv1": "inv_empty_bucket",
+      "inv1": "inv_bucket_of_coal",
+      "inv2": "inv_empty_bucket",
       "prop1": "prop_coal_bunker"
-    },
-    {
-      "piece": "AUTO_INV1_OBTAINED_VIA_GOAL1",
-      "goal1": "03_used_bucket_with_coal_bunker_goal",
-      "inv1": "inv_bucket_of_coal"
     },
     {
       "piece": "INV1_OBTAINED_BY_LOSING_PROP1_KEEPING_INV2",
