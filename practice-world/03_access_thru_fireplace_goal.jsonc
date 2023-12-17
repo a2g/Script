@@ -13,23 +13,10 @@
   ],
   "pieces": [
     {
-      "piece": "GOAL1_MET_BY_USING_INV1_WITH_PROP1",
-      "text": "use bucket of coal on furnace",
-      "goal1": "03_used_bucket_of_coal_with_furnace_goal",
-      "isNoFile": true,
+      "piece": "INV1_BECOMES_INV2_AS_PROP1_BECOMES_PROP2",
       "inv1": "inv_bucket_of_coal",
-      "prop1": "prop_furnace"
-    },
-    {
-      "piece": "AUTO_INV1_BECOMES_INV2_VIA_GOAL1",
-      "goal1": "03_used_bucket_of_coal_with_furnace_goal",
-      "inv1": "inv_bucket_of_coal",
-      "inv2": "inv_empty_bucket_after_coal"
-    },
-    {
-      "piece": "AUTO_PROP1_BECOMES_PROP2_VIA_GOAL1",
-      "goal1": "03_used_bucket_of_coal_with_furnace_goal",
       "prop1": "prop_furnace",
+      "inv2": "inv_empty_bucket_after_coal",
       "prop2": "prop_furnace_with_coal"
     },
     {

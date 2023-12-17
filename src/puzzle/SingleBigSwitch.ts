@@ -10,6 +10,10 @@ import { MixedObjectsAndVerb } from './MixedObjectsAndVerb';
 import { Piece } from './Piece';
 import { Stringify } from './Stringify';
 import { parse } from 'jsonc-parser';
+
+function makeGoal(partA: string, partB: string) {
+  return `${partA}_${partB}_goal`;
+}
 /**
  * Yup, this is the one location of these
  * And when the pieces are cloned, these ids get cloned too
@@ -570,6 +574,74 @@ export function SingleBigSwitch(
                 )
               );
             } else if (objects.Match('Give', inv1, prop1)) {
+              return happs;
+            }
+            break;
+          case _.INV1_BECOMES_INV2_AS_PROP1_BECOMES_PROP2:
+            happs.text = `Your ${inv1} has become a ${inv2} as the ${prop1} becomes a ${prop2}`;
+            happs.array.push(new Happening(Happen.InvGoes, inv1));
+            happs.array.push(new Happening(Happen.InvAppears, inv2));
+            happs.array.push(new Happening(Happen.PropGoes, prop1));
+            happs.array.push(new Happening(Happen.PropAppears, prop2));
+            if (piecesMappedByOutput != null) {
+              const newGoal = makeGoal(inv1, prop1);
+              const happs1 = new Happenings();
+              happs1.array.push(new Happening(Happen.GoalIsSet, newGoal));
+              const inputA1 = inv1;
+              const inputB1 = inv2;
+              const output1 = newGoal;
+              piecesMappedByOutput.AddPiece(
+                new Piece(
+                  id1,
+                  null,
+                  output1,
+                  _.GOAL1_MET_BY_USING_INV1_WITH_PROP1,
+                  count,
+                  happs1,
+                  restrictions,
+                  inputA1,
+                  inputB1
+                )
+              );
+              const happs2 = new Happenings();
+              happs2.array.push(new Happening(Happen.InvAppears, inv2));
+              happs2.array.push(new Happening(Happen.InvGoes, inv1));
+              const inputA2 = goal1;
+              const inputB2 = inv1;
+              const output2 = inv2;
+              piecesMappedByOutput.AddPiece(
+                new Piece(
+                  id1,
+                  null,
+                  output2,
+                  _.AUTO_INV1_BECOMES_INV2_VIA_GOAL1,
+                  count,
+                  happs2,
+                  restrictions,
+                  inputA2,
+                  inputB2
+                )
+              );
+              const happs3 = new Happenings();
+              happs3.array.push(new Happening(Happen.PropAppears, inv2));
+              happs3.array.push(new Happening(Happen.PropGoes, prop1));
+              const inputA3 = goal1;
+              const inputB3 = prop1;
+              const output3 = prop2;
+              piecesMappedByOutput.AddPiece(
+                new Piece(
+                  id1,
+                  null,
+                  output3,
+                  _.AUTO_PROP1_BECOMES_PROP2_VIA_GOAL1,
+                  count,
+                  happs3,
+                  restrictions,
+                  inputA3,
+                  inputB3
+                )
+              );
+            } else if (objects.Match('Use', inv1, prop1)) {
               return happs;
             }
             break;

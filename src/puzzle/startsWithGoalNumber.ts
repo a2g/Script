@@ -1,4 +1,4 @@
-export function startsWithGoalNumber(str: string) {
+export function startsWithGoalNumber(str: string): boolean {
   const c = str[0];
   return (
     c == '0' ||
