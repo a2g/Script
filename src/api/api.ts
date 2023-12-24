@@ -42,7 +42,7 @@ export async function getSvgApi(
 export async function getJsonOfAllSolutionsApi(
   req: Request<RequestParams, ResponseBody, RequestBody, RequestQuery>,
   responseSender: Response,
-  next: NextFunction
+  _next: NextFunction
 ): Promise<void> {
   try {
     const repo = req.params.repo;
@@ -59,9 +59,9 @@ export async function getJsonOfAllSolutionsApi(
 }
 
 export async function getJsonOfStartersApi(
-  req: Request<RequestParams, ResponseBody, RequestBody, RequestQuery>,
+  _req: Request<RequestParams, ResponseBody, RequestBody, RequestQuery>,
   responseSender: Response,
-  next: NextFunction
+  _next: NextFunction
 ): Promise<void> {
   try {
     const json = getJsonOfStarters();
