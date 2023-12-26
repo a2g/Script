@@ -89,7 +89,7 @@
       "piece": "INV1_OBTAINED_BY_LOSING_INV2_KEEPING_PROP1",
       "isNoFile": true,
       "inv1": "inv_bucket_of_coal",
-      "inv2": "inv_empty_bucket",
+      "inv2": "inv_empty_bucket_after_water",
       "prop1": "prop_coal_bunker"
     },
     {

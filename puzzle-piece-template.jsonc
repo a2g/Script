@@ -571,7 +571,7 @@
               {
                 "properties":{
                   "piece":{
-                    "const": "INV1_BECOMES_INV2_AS_PROP1_BECOMES_PROP2"
+                    "const": "INV1_BECOMES_INV2_AS_PROP1_BECOMES_PROP2_SUB"
                   }
                 }
               }

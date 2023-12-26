@@ -49,7 +49,7 @@
     {
       "piece": "AUTO_INV1_OBTAINED_VIA_GOAL1",
       "goal1": "goal_03_used_bucket_of_water_with_fire",
-      "inv1": "inv_empty_bucket"
+      "inv1": "inv_empty_bucket_after_water"
     },
     {
       "piece": "INV1_OBTAINED_BY_LOSING_INV2_KEEPING_PROP1",

@@ -6,7 +6,7 @@ import { Mix } from './Mix';
 import { MixedObjectsAndVerb } from './MixedObjectsAndVerb';
 import { PileOfPieces } from './PileOfPieces';
 import { RootPieceMap } from './RootPieceMap';
-import { SingleBigSwitch } from './SingleBigSwitch';
+import { SingleFile } from './SingleFile';
 import { VisibleThingsMap } from './VisibleThingsMap';
 
 /**
@@ -192,7 +192,8 @@ export class BigBoxViaSetOfBoxes implements IBoxReadOnly {
         '',
         'ScenePreAggregator'
       );
-      SingleBigSwitch(box.GetPath(), box.GetFilename(), notUsed, false, pile);
+      const file = new SingleFile(box.GetPath(), box.GetFilename());
+      file.bigSwitch(notUsed, false, pile);
     }
   }
 
@@ -207,9 +208,8 @@ export class BigBoxViaSetOfBoxes implements IBoxReadOnly {
 
   public FindHappeningsIfAny(command: MixedObjectsAndVerb): Happenings | null {
     for (const box of this.originalBoxes) {
-      const result = SingleBigSwitch(
-        box.GetPath(),
-        box.GetFilename(),
+      const file = new SingleFile(box.GetPath(), box.GetFilename());
+      const result = file.bigSwitch(
         command,
         false,
         null

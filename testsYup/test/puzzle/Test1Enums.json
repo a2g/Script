@@ -32,7 +32,7 @@
         "inv_rolling_pin",
         "inv_handle",
         "inv_bucket_of_water",
-        "inv_empty_bucket",
+        "inv_empty_bucket_after_water",
         "inv_empty_bucket_after_coal"
       ]
     },

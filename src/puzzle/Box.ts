@@ -7,7 +7,7 @@ import { Mix } from './Mix';
 import { MixedObjectsAndVerb } from './MixedObjectsAndVerb';
 import { PileOfPieces } from './PileOfPieces';
 import { RootPieceMap } from './RootPieceMap';
-import { SingleBigSwitch } from './SingleBigSwitch';
+import { SingleFile } from './SingleFile';
 import { Stringify } from './Stringify';
 import { VisibleThingsMap } from './VisibleThingsMap';
 import { parse } from 'jsonc-parser';
@@ -119,7 +119,10 @@ export class Box implements IBoxReadOnlyWithFileMethods {
       '',
       ''
     );
-    SingleBigSwitch(this.path, this.filename, notUsed, true, this.goals);
+
+    // collect all the goals from file
+    const singleFile = new SingleFile(this.path, this.filename);
+    singleFile.bigSwitch(notUsed, true, this.goals);
     // starting things is optional in the json
     if (
       scenario.startingThings !== undefined &&
@@ -168,13 +171,13 @@ export class Box implements IBoxReadOnlyWithFileMethods {
       '',
       ''
     );
-    await SingleBigSwitch(this.path, this.filename, notUsed, false, pile);
+    const file = new SingleFile(this.path, this.filename);
+    file.bigSwitch(notUsed, false, pile);
   }
 
   public FindHappeningsIfAny(objects: MixedObjectsAndVerb): Happenings | null {
-    const result = SingleBigSwitch(
-      this.path,
-      this.filename,
+    const singleFile = new SingleFile(this.path, this.filename);
+    const result = singleFile.bigSwitch(
       objects,
       false,
       null

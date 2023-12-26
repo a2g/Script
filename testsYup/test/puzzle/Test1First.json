@@ -88,7 +88,7 @@
     {
       "piece": "GOAL1_MET_BY_USING_INV1_WITH_PROP1",
       "goal1": "goal_used_bucket_with_coal_bunker",
-      "inv1": "inv_empty_bucket",
+      "inv1": "inv_empty_bucket_after_water",
       "prop1": "prop_coal_bunker"
     },
     {
