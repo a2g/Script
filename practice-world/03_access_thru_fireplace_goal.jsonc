@@ -21,11 +21,10 @@
       "isNoFile": true
     },
     {
-      "piece": "GOAL1_MET_BY_USING_INV1_WITH_PROP1",
-      "goal1": "03_sunstone_is_in_rocket_goal",
-      "isNoFile": true,
-      "inv1": "inv_sunstone",
-      "prop1": "prop_rocket"
+      "piece": "PROP1_BECOMES_PROP2_BY_LOSING_INV1",
+      "prop1": "prop_rocket",
+      "prop2": "prop_rocket_with_sunstone",
+      "inv1": "inv_sunstone"
     },
     {
       "piece": "TOGGLE_PROP1_BECOMES_PROP2",
@@ -36,7 +35,8 @@
       "piece": "AUTO_GOAL1_MET_BY_PROPS",
       "goal1": "03_button_pressed_goal",
       "prop1": "prop_button(pressed)",
-      "prop2": "prop_furnace_lit"
+      "prop2": "prop_furnace_lit",
+      "prop3": "prop_rocket_with_sunstone"
     },
     {
       "piece": "PROP1_BECOMES_PROP2_BY_KEEPING_INV1",

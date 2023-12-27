@@ -99,21 +99,12 @@
       "prop1": "prop_crank_attached_to_well"
     },
     {
-      "piece": "GOAL1_MET_BY_USING_INV1_WITH_PROP1",
-      "goal1": "03_used_crank_with_well_goal",
-      "isNoFile" : true,
-      "inv1": "inv_crank",
-      "prop1": "prop_well"
-    },
-    {
-      "piece": "AUTO_PROP1_APPEARS_VIA_GOAL1",
-      "goal1": "03_used_crank_with_well_goal",
-      "prop1": "prop_crank_attached_to_well"
-    },
-    {
-      "piece": "AUTO_INV1_OBTAINED_VIA_GOAL1",
-      "goal1": "03_used_crank_with_well_goal",
-      "inv1": "inv_bucket_of_water"
+      "piece": "INV1_OBTAINED_WHEN_LOSING_INV2_AND_PROP1_BECOMES_PROP2_SUB",
+      "inv1": "inv_bucket_of_water",
+      "inv2": "inv_crank",
+      "prop1": "prop_well",
+      "prop2": "prop_crank_attached_to_well",
+      "isNoFile": true
     }
   ]
 }

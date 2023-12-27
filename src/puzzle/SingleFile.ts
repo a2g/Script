@@ -506,6 +506,75 @@ export class SingleFile {
                 return happs;
               }
               break;
+            case _.INV1_OBTAINED_WHEN_LOSING_INV2_AND_PROP1_BECOMES_PROP2_SUB:
+              happs.text = `When you use the ${inv2} with the ${prop1}, you obtain an ${inv1} as the ${prop1} becomes a ${prop2}`;
+              happs.array.push(new Happening(Happen.InvGoes, inv2));
+              happs.array.push(new Happening(Happen.InvAppears, inv1));
+              happs.array.push(new Happening(Happen.PropGoes, prop1));
+              happs.array.push(new Happening(Happen.PropAppears, prop2));
+              if (piecesMappedByOutput != null) {
+                const newGoal = makeGoalNameDeterministically(inv2, prop1);
+                const happs1 = new Happenings();
+                happs1.array.push(new Happening(Happen.GoalIsSet, newGoal));
+                const inputA1 = inv2;
+                const inputB1 = prop1;
+                const output1 = newGoal;
+                piecesMappedByOutput.AddPiece(
+                  new Piece(
+                    id1,
+                    null,
+                    output1,
+                    _.GOAL1_MET_BY_USING_INV1_WITH_PROP1,
+                    count,
+                    happs1,
+                    restrictions,
+                    inputA1,
+                    inputB1
+                  )
+                );
+
+                if (!isGoalRetrieval) {
+                  const happs2 = new Happenings();
+                  happs2.array.push(new Happening(Happen.InvAppears, inv1));
+                  happs2.array.push(new Happening(Happen.InvGoes, inv2));
+                  const inputA2 = newGoal;
+                  const output2 = inv1;
+                  piecesMappedByOutput.AddPiece(
+                    new Piece(
+                      id1,
+                      null,
+                      output2,
+                      _.AUTO_INV1_OBTAINED_VIA_GOAL1,
+                      count,
+                      happs2,
+                      restrictions,
+                      inputA2
+                    )
+                  );
+                  const happs3 = new Happenings();
+                  happs3.array.push(new Happening(Happen.PropGoes, prop1));
+                  happs3.array.push(new Happening(Happen.PropAppears, prop2));
+                  const inputA3 = newGoal;
+                  const inputB3 = prop1;
+                  const output3 = prop2;
+                  piecesMappedByOutput.AddPiece(
+                    new Piece(
+                      id1,
+                      null,
+                      output3,
+                      _.AUTO_PROP1_BECOMES_PROP2_VIA_GOAL1,
+                      count,
+                      happs3,
+                      restrictions,
+                      inputA3,
+                      inputB3
+                    )
+                  );
+                }
+              } else if (objects.Match('Use', inv2, prop1)) {
+                return happs;
+              }
+              break;
             default:
               break;
           }
