@@ -157,6 +157,43 @@ export class SingleFile {
                 );
               }
               break;
+            case _.AUTO_INV1_OBTAINED_VIA_GOAL1:
+              happs.array.push(new Happening(Happen.InvAppears, inv1));
+              if (piecesMappedByOutput != null) {
+                const output = inv1;
+                const input1 = goal1;
+                piecesMappedByOutput.AddPiece(
+                  new Piece(
+                    id1,
+                    boxToMerge,
+                    output,
+                    pieceType,
+                    count,
+                    happs,
+                    restrictions,
+                    input1
+                  )
+                );
+              }
+              break;
+            case _.AUTO_PROP1_APPEARS_VIA_GOAL1:
+              if (piecesMappedByOutput != null) {
+                const output = prop1;
+                const input1 = goal1;
+                piecesMappedByOutput.AddPiece(
+                  new Piece(
+                    id1,
+                    boxToMerge,
+                    output,
+                    pieceType,
+                    count,
+                    happs,
+                    restrictions,
+                    input1
+                  )
+                );
+              }
+              break;
             case _.GOAL1_MET_BY_KEEPING_INV1_WHEN_USED_WITH_PROP1:
               happs.text = `You use the ${inv1} with the ${prop1} and something good happens...`;
               happs.array.push(new Happening(Happen.GoalIsSet, goal1));
@@ -467,7 +504,6 @@ export class SingleFile {
                   happs2.array.push(new Happening(Happen.InvAppears, inv2));
                   happs2.array.push(new Happening(Happen.InvGoes, inv1));
                   const inputA2 = newGoal;
-                  const inputB2 = inv1;
                   const output2 = inv2;
                   piecesMappedByOutput.AddPiece(
                     new Piece(
@@ -478,8 +514,7 @@ export class SingleFile {
                       count,
                       happs2,
                       restrictions,
-                      inputA2,
-                      inputB2
+                      inputA2
                     )
                   );
                   const happs3 = new Happenings();

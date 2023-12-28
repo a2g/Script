@@ -36,21 +36,12 @@
       "prop1": "prop_fireplace_ladder"
     },
     {
-      "piece": "GOAL1_MET_BY_USING_INV1_WITH_PROP1",
-      "goal1": "03_used_bucket_of_water_with_fire_goal",
+      "piece": "INV1_BECOMES_INV2_AS_PROP1_BECOMES_PROP2_SUB",
       "isNoFile": true,
       "inv1": "inv_bucket_of_water",
-      "prop1": "prop_fireplace(lit)"
-    },
-    {
-      "piece": "AUTO_PROP1_APPEARS_VIA_GOAL1",
-      "goal1": "03_used_bucket_of_water_with_fire_goal",
-      "prop1": "prop_fireplace_ladder"
-    },
-    {
-      "piece": "AUTO_INV1_OBTAINED_VIA_GOAL1",
-      "goal1": "03_used_bucket_of_water_with_fire_goal",
-      "inv1": "inv_empty_bucket_after_water"
+      "inv2": "inv_empty_bucket_after_water",
+      "prop1": "prop_fireplace(lit)",
+      "prop2": "prop_fireplace_ladder"
     },
     {
       "piece": "INV1_OBTAINED_BY_LOSING_INV2_KEEPING_PROP1",
