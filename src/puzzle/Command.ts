@@ -1,6 +1,6 @@
 import { Mix } from './Mix';
 
-export class MixedObjectsAndVerb {
+export class Command {
   public type: Mix;
 
   public verb: string;

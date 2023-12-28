@@ -1,6 +1,6 @@
 import { Happenings } from './Happenings';
 import { IPileOrRootPieceMap } from './IPileOrRootPieceMap';
-import { MixedObjectsAndVerb } from './MixedObjectsAndVerb';
+import { Command } from './Command';
 import { PileOfPieces } from './PileOfPieces';
 import { VisibleThingsMap } from './VisibleThingsMap';
 
@@ -32,7 +32,7 @@ export interface IBoxReadOnly {
   GetArrayOfCharacters: () => string[];
 
   // original-json-traversers
-  FindHappeningsIfAny: (objects: MixedObjectsAndVerb) => Happenings | null;
+  FindHappeningsIfAny: (objects: Command) => Happenings | null;
   CopyPiecesFromBoxToPile: (pile: PileOfPieces) => void; // its possible for this to be done on aggregate
   CopyGoalPiecesToContainer: (map: IPileOrRootPieceMap) => void;
   CollectAllReferencedBoxesRecursively: (array: Set<IBoxReadOnly>) => void;

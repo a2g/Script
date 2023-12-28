@@ -1,12 +1,12 @@
 import { Mix } from '../../../src/puzzle/Mix';
-import { MixedObjectsAndVerb } from '../../../src/puzzle/MixedObjectsAndVerb';
+import { Command } from '../../../src/puzzle/Command';
 import { SingleFile } from '../../../src/puzzle/SingleFile';
 import { expect, describe, test } from '@jest/globals';
 import { PileOfPieces } from '../../../src/puzzle/PileOfPieces';
 
 describe('SingleBigSwitch', () => {
   test('TestFirst', async () => {
-    const combo = new MixedObjectsAndVerb(
+    const combo = new Command(
       Mix.SingleVsProp,
       'Grab',
       'prop_loose_brick'
@@ -23,7 +23,7 @@ describe('SingleBigSwitch', () => {
 
   test('SingleBigSwitch', async () => {
     console.log(__dirname);
-    const combo = new MixedObjectsAndVerb(
+    const combo = new Command(
       Mix.SingleVsProp,
       'Grab',
       'prop_loose_brick'

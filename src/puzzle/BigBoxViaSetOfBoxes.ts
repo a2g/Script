@@ -3,7 +3,7 @@ import { IBoxReadOnly } from './IBoxReadOnly';
 import { IBoxReadOnlyWithFileMethods } from './IBoxReadOnlyWithFileMethods';
 import { IPileOrRootPieceMap } from './IPileOrRootPieceMap';
 import { Mix } from './Mix';
-import { MixedObjectsAndVerb } from './MixedObjectsAndVerb';
+import { Command } from './Command';
 import { PileOfPieces } from './PileOfPieces';
 import { RootPieceMap } from './RootPieceMap';
 import { SingleFile } from './SingleFile';
@@ -185,7 +185,7 @@ export class BigBoxViaSetOfBoxes implements IBoxReadOnly {
 
   public CopyPiecesFromBoxToPile(pile: PileOfPieces): void {
     for (const box of this.originalBoxes) {
-      const notUsed = new MixedObjectsAndVerb(
+      const notUsed = new Command(
         Mix.ErrorVerbNotIdentified,
         '',
         '',
@@ -206,7 +206,7 @@ export class BigBoxViaSetOfBoxes implements IBoxReadOnly {
     }
   }
 
-  public FindHappeningsIfAny(command: MixedObjectsAndVerb): Happenings | null {
+  public FindHappeningsIfAny(command: Command): Happenings | null {
     for (const box of this.originalBoxes) {
       const file = new SingleFile(box.GetPath(), box.GetFilename());
       const result = file.bigSwitch(

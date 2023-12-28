@@ -1,7 +1,7 @@
 import { Happen } from './Happen';
 import { IBoxReadOnly } from './IBoxReadOnly';
 import { IHappenerCallbacks } from './IHappenerCallbacks';
-import { MixedObjectsAndVerb } from './MixedObjectsAndVerb';
+import { Command } from './Command';
 import { PlayerAI } from './PlayerAI';
 
 // April 2021
@@ -90,7 +90,7 @@ export class Happener {
     this.arrayOfPropVisibilities[index] = value;
   }
 
-  public ExecuteCommand(objects: MixedObjectsAndVerb): void {
+  public ExecuteCommand(objects: Command): void {
     const happenings = this.box.FindHappeningsIfAny(objects);
     if (happenings != null) {
       console.warn(happenings.text);

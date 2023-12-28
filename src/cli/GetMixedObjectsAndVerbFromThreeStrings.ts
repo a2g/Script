@@ -1,11 +1,11 @@
 import { Happener } from '../puzzle/Happener';
 import { Mix } from '../puzzle/Mix';
-import { MixedObjectsAndVerb } from '../puzzle/MixedObjectsAndVerb';
+import { Command } from '../puzzle/Command';
 
 export function ParseTokenizedCommandLineFromFromThreeStrings(
   strings: string[],
   happener: Happener
-): MixedObjectsAndVerb {
+): Command {
   const verb = strings[0].toLowerCase();
 
   const is1InPropsRaw = happener.GetArrayOfProps().includes(strings[1]);
@@ -28,17 +28,17 @@ export function ParseTokenizedCommandLineFromFromThreeStrings(
   if (verb === 'grab') {
     /* no combinations needed */
     if (is1InPropsRaw) {
-      return new MixedObjectsAndVerb(Mix.SingleVsProp, verb, strings[1]);
+      return new Command(Mix.SingleVsProp, verb, strings[1]);
     }
 
     if (is1InPropsPrefixed) {
-      return new MixedObjectsAndVerb(
+      return new Command(
         Mix.SingleVsProp,
         verb,
         `prop_${strings[1]}`
       );
     }
-    return new MixedObjectsAndVerb(
+    return new Command(
       Mix.ErrorGrabButNoProp,
       '',
       '',
@@ -49,26 +49,26 @@ export function ParseTokenizedCommandLineFromFromThreeStrings(
   if (verb === 'toggle') {
     /* no combinations needed */
     if (is1InPropsRaw) {
-      return new MixedObjectsAndVerb(Mix.SingleVsProp, verb, strings[1]);
+      return new Command(Mix.SingleVsProp, verb, strings[1]);
     }
     if (is1InPropsPrefixed) {
-      return new MixedObjectsAndVerb(
+      return new Command(
         Mix.SingleVsProp,
         verb,
         `prop_${strings[1]}`
       );
     }
     if (is1InInvsRaw) {
-      return new MixedObjectsAndVerb(Mix.SingleVsInv, verb, strings[1]);
+      return new Command(Mix.SingleVsInv, verb, strings[1]);
     }
     if (is1InInvsPrefixed) {
-      return new MixedObjectsAndVerb(
+      return new Command(
         Mix.SingleVsInv,
         verb,
         `inv_${strings[1]}`
       );
     }
-    return new MixedObjectsAndVerb(
+    return new Command(
       Mix.ErrorToggleButNoInvOrProp,
       '',
       '',
@@ -80,7 +80,7 @@ export function ParseTokenizedCommandLineFromFromThreeStrings(
     /* pure raw */
     if (is1InInvsRaw && is2InInvsRaw) {
       /* a */
-      return new MixedObjectsAndVerb(
+      return new Command(
         Mix.InvVsInv,
         verb,
         strings[1],
@@ -89,7 +89,7 @@ export function ParseTokenizedCommandLineFromFromThreeStrings(
     }
     if (is1InInvsRaw && is2InPropsRaw) {
       /* b */
-      return new MixedObjectsAndVerb(
+      return new Command(
         Mix.InvVsProp,
         verb,
         strings[1],
@@ -98,7 +98,7 @@ export function ParseTokenizedCommandLineFromFromThreeStrings(
     }
     if (is2InInvsRaw && is1InPropsRaw) {
       /* c */
-      return new MixedObjectsAndVerb(
+      return new Command(
         Mix.InvVsProp,
         verb,
         strings[2],
@@ -107,7 +107,7 @@ export function ParseTokenizedCommandLineFromFromThreeStrings(
     }
     if (is1InPropsRaw && is2InPropsRaw) {
       /* d */
-      return new MixedObjectsAndVerb(
+      return new Command(
         Mix.PropVsProp,
         verb,
         strings[1],
@@ -116,7 +116,7 @@ export function ParseTokenizedCommandLineFromFromThreeStrings(
     }
     /* pure prefixed */ if (is1InInvsPrefixed && is2InInvsPrefixed) {
       /* a */
-      return new MixedObjectsAndVerb(
+      return new Command(
         Mix.InvVsInv,
         verb,
         `inv_${strings[1]}`,
@@ -125,7 +125,7 @@ export function ParseTokenizedCommandLineFromFromThreeStrings(
     }
     if (is1InInvsPrefixed && is2InPropsPrefixed) {
       /* b */
-      return new MixedObjectsAndVerb(
+      return new Command(
         Mix.InvVsProp,
         verb,
         `inv_${strings[1]}`,
@@ -134,7 +134,7 @@ export function ParseTokenizedCommandLineFromFromThreeStrings(
     }
     if (is2InInvsPrefixed && is1InPropsPrefixed) {
       /* c */
-      return new MixedObjectsAndVerb(
+      return new Command(
         Mix.InvVsProp,
         verb,
         `inv_${strings[2]}`,
@@ -143,7 +143,7 @@ export function ParseTokenizedCommandLineFromFromThreeStrings(
     }
     if (is1InPropsPrefixed && is2InPropsPrefixed) {
       /* d */
-      return new MixedObjectsAndVerb(
+      return new Command(
         Mix.PropVsProp,
         verb,
         `prop_${strings[1]}`,
@@ -153,7 +153,7 @@ export function ParseTokenizedCommandLineFromFromThreeStrings(
     }
     if (is1InInvsRaw && is2InInvsPrefixed) {
       /* a */
-      return new MixedObjectsAndVerb(
+      return new Command(
         Mix.InvVsInv,
         verb,
         strings[1],
@@ -162,7 +162,7 @@ export function ParseTokenizedCommandLineFromFromThreeStrings(
     }
     if (is1InInvsPrefixed && is2InInvsRaw) {
       /* a */
-      return new MixedObjectsAndVerb(
+      return new Command(
         Mix.InvVsInv,
         verb,
         `inv_${strings[1]}`,
@@ -172,7 +172,7 @@ export function ParseTokenizedCommandLineFromFromThreeStrings(
     }
     if (is1InInvsRaw && is2InPropsPrefixed) {
       /* b */
-      return new MixedObjectsAndVerb(
+      return new Command(
         Mix.InvVsProp,
         verb,
         strings[1],
@@ -181,7 +181,7 @@ export function ParseTokenizedCommandLineFromFromThreeStrings(
     }
     if (is1InInvsPrefixed && is2InPropsRaw) {
       /* b */
-      return new MixedObjectsAndVerb(
+      return new Command(
         Mix.InvVsProp,
         verb,
         `inv_${strings[1]}`,
@@ -191,7 +191,7 @@ export function ParseTokenizedCommandLineFromFromThreeStrings(
     }
     if (is2InInvsRaw && is1InPropsPrefixed) {
       /* c */
-      return new MixedObjectsAndVerb(
+      return new Command(
         Mix.InvVsProp,
         verb,
         strings[2],
@@ -200,7 +200,7 @@ export function ParseTokenizedCommandLineFromFromThreeStrings(
     }
     if (is2InInvsPrefixed && is1InPropsRaw) {
       /* c */
-      return new MixedObjectsAndVerb(
+      return new Command(
         Mix.InvVsProp,
         verb,
         `inv_${strings[2]}`,
@@ -210,7 +210,7 @@ export function ParseTokenizedCommandLineFromFromThreeStrings(
     }
     if (is1InPropsRaw && is2InPropsPrefixed) {
       // d
-      return new MixedObjectsAndVerb(
+      return new Command(
         Mix.PropVsProp,
         verb,
         strings[1],
@@ -219,14 +219,14 @@ export function ParseTokenizedCommandLineFromFromThreeStrings(
     }
     if (is1InPropsPrefixed && is2InPropsRaw) {
       // d
-      return new MixedObjectsAndVerb(
+      return new Command(
         Mix.PropVsProp,
         verb,
         `prop_${strings[1]}`,
         strings[2]
       );
     }
-    return new MixedObjectsAndVerb(
+    return new Command(
       Mix.ErrorUseButNoInvOrProp,
       '',
       '',
@@ -234,7 +234,7 @@ export function ParseTokenizedCommandLineFromFromThreeStrings(
       `Couldn't recognize '${strings[1]}' '${strings[2]}' as something to use`
     );
   }
-  return new MixedObjectsAndVerb(
+  return new Command(
     Mix.ErrorVerbNotIdentified,
     '',
     '',

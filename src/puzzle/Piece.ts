@@ -1,6 +1,7 @@
 import { Happen } from './Happen';
 import { Happenings } from './Happenings';
 import { IBoxReadOnlyWithFileMethods } from './IBoxReadOnlyWithFileMethods';
+import { Command } from './Command';
 import { Solution } from './Solution';
 import { SolverViaRootPiece } from './SolverViaRootPiece';
 import { SpecialTypes } from './SpecialTypes';
@@ -33,6 +34,7 @@ export class Piece {
     output: string,
     type = 'undefined',
     reuseCount = 1, // put it here so all the tests don't need to specify it.
+    command: Command,
     happenings: Happenings | null = null,
     restrictions: Array<{ character: string }> | null | undefined = null, // put it here so all the tests don't need to specify it.
     inputA = 'undefined',

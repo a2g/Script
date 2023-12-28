@@ -4,7 +4,7 @@ import { IBoxReadOnly } from './IBoxReadOnly';
 import { IBoxReadOnlyWithFileMethods } from './IBoxReadOnlyWithFileMethods';
 import { IPileOrRootPieceMap } from './IPileOrRootPieceMap';
 import { Mix } from './Mix';
-import { MixedObjectsAndVerb } from './MixedObjectsAndVerb';
+import { Command } from './Command';
 import { PileOfPieces } from './PileOfPieces';
 import { RootPieceMap } from './RootPieceMap';
 import { SingleFile } from './SingleFile';
@@ -112,7 +112,7 @@ export class Box implements IBoxReadOnlyWithFileMethods {
     this.mapOfStartingThings = new VisibleThingsMap(null);
     // this copies them to the container, and turns filenames in to boxes
     this.goals = new RootPieceMap(null);
-    const notUsed = new MixedObjectsAndVerb(
+    const notUsed = new Command(
       Mix.ErrorVerbNotIdentified,
       '',
       '',
@@ -164,7 +164,7 @@ export class Box implements IBoxReadOnlyWithFileMethods {
   }
 
   public async CopyPiecesFromBoxToPile(pile: PileOfPieces): Promise<void> {
-    const notUsed = new MixedObjectsAndVerb(
+    const notUsed = new Command(
       Mix.ErrorVerbNotIdentified,
       '',
       '',
@@ -175,7 +175,7 @@ export class Box implements IBoxReadOnlyWithFileMethods {
     file.bigSwitch(notUsed, false, pile);
   }
 
-  public FindHappeningsIfAny(objects: MixedObjectsAndVerb): Happenings | null {
+  public FindHappeningsIfAny(objects: Command): Happenings | null {
     const singleFile = new SingleFile(this.path, this.filename);
     const result = singleFile.bigSwitch(
       objects,

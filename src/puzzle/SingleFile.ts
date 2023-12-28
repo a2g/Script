@@ -6,7 +6,7 @@ import { Happen } from './Happen';
 import { Happening } from './Happening';
 import { Happenings } from './Happenings';
 import { IPileOrRootPieceMap } from './IPileOrRootPieceMap';
-import { MixedObjectsAndVerb } from './MixedObjectsAndVerb';
+import { Command } from './Command';
 import { Piece } from './Piece';
 import { Stringify } from './Stringify';
 import { parse } from 'jsonc-parser';
@@ -34,8 +34,8 @@ export class SingleFile {
   }
 
   public bigSwitch(
-    objects: MixedObjectsAndVerb,
-    isGoalRetrieval: boolean,
+    objects: Command,
+    isGoalPieceRetrievalCall: boolean,
     piecesMappedByOutput: IPileOrRootPieceMap | null
   ): Happenings | null {
     for (const piece of this.scenario.pieces) {
@@ -67,16 +67,16 @@ export class SingleFile {
       const isNoFile = piece.isNoFile;
       const { restrictions } = piece;
       const happs = new Happenings();
-      const isStartsWithGoal1Met =
+      const isPieceStartingWithGoal1Met =
         pieceType.startsWith('GOAL1_MET') ||
         pieceType.startsWith('AUTO_GOAL1_MET');
-      if (isStartsWithGoal1Met || pieceType.endsWith('SUB')) {
+      if (isPieceStartingWithGoal1Met || pieceType.endsWith('SUB')) {
         let boxToMerge: Box | null = null;
 
         // load and deliver the box to merge, with the piece
         // if its a goal retrieval AND its one of the goal1
         // met goals.
-        if (isGoalRetrieval && isStartsWithGoal1Met) {
+        if (isGoalPieceRetrievalCall && isPieceStartingWithGoal1Met) {
           if (!isNoFile && goal1 !== '99_win') {
             const path = this.path + `${goal1}.jsonc`;
             if (!existsSync(path)) {
@@ -502,7 +502,7 @@ export class SingleFile {
                 )
               );
 
-              if (!isGoalRetrieval) {
+              if (!isGoalPieceRetrievalCall) {
                 const happs2 = new Happenings();
                 happs2.array.push(new Happening(Happen.InvAppears, inv2));
                 happs2.array.push(new Happening(Happen.InvGoes, inv1));
@@ -571,7 +571,7 @@ export class SingleFile {
                 )
               );
 
-              if (!isGoalRetrieval) {
+              if (!isGoalPieceRetrievalCall) {
                 const happs2 = new Happenings();
                 happs2.array.push(new Happening(Happen.InvAppears, inv1));
                 happs2.array.push(new Happening(Happen.InvGoes, inv2));
@@ -616,7 +616,7 @@ export class SingleFile {
           default:
             break;
         }
-      } else if (!isGoalRetrieval || piecesMappedByOutput == null) {
+      } else if (!isGoalPieceRetrievalCall || piecesMappedByOutput == null) {
         switch (pieceType) {
           case _.AUTO_PROP1_BECOMES_PROP2_BY_PROPS:
             if (piecesMappedByOutput != null) {

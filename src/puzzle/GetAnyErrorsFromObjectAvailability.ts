@@ -1,8 +1,8 @@
 import { Mix } from './Mix';
-import { MixedObjectsAndVerb } from './MixedObjectsAndVerb';
+import { Command } from './Command';
 
 export function GetAnyErrorsFromObjectAvailability(
-  objects: MixedObjectsAndVerb,
+  objects: Command,
   visibleProps: string[],
   visibleInvs: string[]
 ): string {
