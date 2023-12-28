@@ -67,14 +67,16 @@ export class SingleFile {
       const isNoFile = piece.isNoFile;
       const { restrictions } = piece;
       const happs = new Happenings();
-      if (
+      const isStartsWithGoal1Met =
         pieceType.startsWith('GOAL1_MET') ||
-        pieceType.startsWith('AUTO_GOAL1_MET') ||
-        pieceType.endsWith('SUB')
-      ) {
+        pieceType.startsWith('AUTO_GOAL1_MET');
+      if (isStartsWithGoal1Met || pieceType.endsWith('SUB')) {
         let boxToMerge: Box | null = null;
-        if (isGoalRetrieval || piecesMappedByOutput == null) {
-          // merge file - unless it has been marked to avoid
+
+        // load and deliver the box to merge, with the piece
+        // if its a goal retrieval AND its one of the goal1
+        // met goals.
+        if (isGoalRetrieval && isStartsWithGoal1Met) {
           if (!isNoFile && goal1 !== '99_win') {
             const path = this.path + `${goal1}.jsonc`;
             if (!existsSync(path)) {
@@ -85,6 +87,7 @@ export class SingleFile {
             boxToMerge = new Box(this.path, `${goal1}.jsonc`);
           }
         }
+
         switch (pieceType) {
           case _.AUTO_GOAL1_MET_BY_GOALS:
             if (piecesMappedByOutput != null) {
