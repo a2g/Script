@@ -1,9 +1,9 @@
 import { Mix } from './Mix';
+import { Verb } from './Verb';
 
 export class Command {
+  public verb: Verb;
   public type: Mix;
-
-  public verb: string;
 
   public object1: string;
 
@@ -12,14 +12,14 @@ export class Command {
   public error: string;
 
   constructor(
+    verb: Verb,
     type: Mix,
-    verb: string,
     object1: string,
     object2 = '',
     error = ''
   ) {
     this.type = type;
-    this.verb = verb.toLowerCase();
+    this.verb = verb;
     this.object1 = object1;
     this.object2 = object2;
     this.error = error;

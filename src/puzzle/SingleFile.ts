@@ -10,6 +10,8 @@ import { Command } from './Command';
 import { Piece } from './Piece';
 import { Stringify } from './Stringify';
 import { parse } from 'jsonc-parser';
+import { Mix } from './Mix';
+import { Verb } from './Verb';
 
 function makeGoalNameDeterministically(partA: string, partB: string) {
   return `00_dyn_${partA}_${partB}_goal`;
@@ -36,7 +38,7 @@ export class SingleFile {
   public bigSwitch(
     objects: Command,
     isGoalPieceRetrievalCall: boolean,
-    piecesMappedByOutput: IPileOrRootPieceMap | null
+    piecesMappedByOutput: IPileOrRootPieceMap
   ): Happenings | null {
     for (const piece of this.scenario.pieces) {
       const id1 = globalId;
@@ -99,6 +101,7 @@ export class SingleFile {
                   output,
                   pieceType,
                   count,
+                  new Command(Verb.Auto,Mix.AutoDoesntNeedAnything,''),
                   happs,
                   restrictions,
                   goal2,
@@ -126,6 +129,7 @@ export class SingleFile {
                   output,
                   pieceType,
                   count,
+                  new Command(Verb.Auto, Mix.AutoDoesntNeedAnything, ''),
                   happs,
                   restrictions,
                   input1,
@@ -151,6 +155,7 @@ export class SingleFile {
                   output,
                   pieceType,
                   count,
+                  new Command(Verb.Auto, Mix.AutoDoesntNeedAnything,''),
                   happs,
                   restrictions,
                   input1,
@@ -172,6 +177,7 @@ export class SingleFile {
                   output,
                   pieceType,
                   count,
+                  new Command(Verb.Auto, Mix.AutoDoesntNeedAnything, ''),
                   happs,
                   restrictions,
                   input1
@@ -190,6 +196,7 @@ export class SingleFile {
                   output,
                   pieceType,
                   count,
+                  new Command(Verb.Auto, Mix.AutoDoesntNeedAnything,''),
                   happs,
                   restrictions,
                   input1
@@ -213,6 +220,7 @@ export class SingleFile {
                   output,
                   pieceType,
                   count,
+                  new Command(Verb.Use, Mix.InvVsProp, inv1, prop1),
                   happs,
                   restrictions,
                   inputA,
@@ -239,6 +247,7 @@ export class SingleFile {
                   output,
                   pieceType,
                   count,
+                  new Command(Verb.Use, Mix.InvVsProp, inv1, prop1),
                   happs,
                   restrictions,
                   inputA,
@@ -254,7 +263,7 @@ export class SingleFile {
             happs.array.push(new Happening(Happen.GoalIsSet, goal1));
             happs.array.push(new Happening(Happen.InvGoes, inv1));
             happs.array.push(new Happening(Happen.PropStays, prop1));
-            if (piecesMappedByOutput != null) {
+            
               const output = goal1;
               const inputA = inv1;
               const inputB = prop1;
@@ -265,15 +274,14 @@ export class SingleFile {
                   output,
                   pieceType,
                   count,
+                  new Command(Verb.Use, Mix.InvVsProp, inv1, prop1),
                   happs,
                   restrictions,
                   inputA,
                   inputB
                 )
               );
-            } else if (objects.Match('Use', inv1, prop1)) {
-              return happs;
-            }
+         
             break;
           case _.GOAL1_MET_BY_LOSING_INV1_USED_WITH_PROP1_AND_PROPS:
             happs.text = `With everything set up correctly, you use the ${inv1} with the ${prop1} and something good happens...`;
@@ -299,6 +307,7 @@ export class SingleFile {
                   output,
                   pieceType,
                   count,
+                  new Command(Verb.Use, Mix.InvVsProp, inv1, prop1),
                   happs,
                   restrictions,
                   inputA,
@@ -327,6 +336,7 @@ export class SingleFile {
                   output,
                   pieceType,
                   count,
+                  new Command(Verb.Use, Mix.InvVsInv, inv1, inv2),
                   happs,
                   restrictions,
                   inputA,
@@ -353,6 +363,7 @@ export class SingleFile {
                   output,
                   pieceType,
                   count,
+                  new Command(Verb.Use, Mix.InvVsProp, inv1, prop1),
                   happs,
                   restrictions,
                   inputA,
@@ -584,6 +595,7 @@ export class SingleFile {
                     output2,
                     _.AUTO_INV1_OBTAINED_VIA_GOAL1,
                     count,
+                    new Command(
                     happs2,
                     restrictions,
                     inputA2
