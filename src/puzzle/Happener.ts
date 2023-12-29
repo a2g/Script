@@ -1,7 +1,7 @@
+import { Command } from './Command';
 import { Happen } from './Happen';
 import { IBoxReadOnly } from './IBoxReadOnly';
 import { IHappenerCallbacks } from './IHappenerCallbacks';
-import { Command } from './Command';
 import { PlayerAI } from './PlayerAI';
 
 // April 2021

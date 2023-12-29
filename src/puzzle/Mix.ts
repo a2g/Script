@@ -11,5 +11,5 @@ export enum Mix {
   VerbvsProp,
   VerbvsInv,
   PropVsProp,
-  GoalOrGoals
+  AutoDoesntNeedAnything,
 }

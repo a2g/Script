@@ -1,5 +1,5 @@
-import { Mix } from './Mix';
 import { Command } from './Command';
+import { Mix } from './Mix';
 
 export function GetAnyErrorsFromObjectAvailability(
   objects: Command,

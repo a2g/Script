@@ -1,7 +1,7 @@
+import { Command } from './Command';
 import { Happen } from './Happen';
 import { Happenings } from './Happenings';
 import { IBoxReadOnlyWithFileMethods } from './IBoxReadOnlyWithFileMethods';
-import { Command } from './Command';
 import { Solution } from './Solution';
 import { SolverViaRootPiece } from './SolverViaRootPiece';
 import { SpecialTypes } from './SpecialTypes';
@@ -28,13 +28,15 @@ export class Piece {
 
   public happenings: Happenings | null;
 
+  public command: Command | null;
+
   constructor(
     id: number,
     merge: IBoxReadOnlyWithFileMethods | null,
     output: string,
     type = 'undefined',
     reuseCount = 1, // put it here so all the tests don't need to specify it.
-    command: Command,
+    command: Command | null = null,
     happenings: Happenings | null = null,
     restrictions: Array<{ character: string }> | null | undefined = null, // put it here so all the tests don't need to specify it.
     inputA = 'undefined',
@@ -50,6 +52,7 @@ export class Piece {
     this.reuseCount = reuseCount;
     this.output = output;
     this.type = type;
+    this.command = command;
     this.happenings = happenings;
     this.characterRestrictions = [];
     if (typeof restrictions !== 'undefined' && restrictions !== null) {

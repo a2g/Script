@@ -112,13 +112,7 @@ export class Box implements IBoxReadOnlyWithFileMethods {
     this.mapOfStartingThings = new VisibleThingsMap(null);
     // this copies them to the container, and turns filenames in to boxes
     this.goals = new RootPieceMap(null);
-    const notUsed = new Command(
-      Mix.ErrorVerbNotIdentified,
-      '',
-      '',
-      '',
-      ''
-    );
+    const notUsed = new Command(Mix.ErrorVerbNotIdentified, '', '', '', '');
 
     // collect all the goals from file
     const singleFile = new SingleFile(this.path, this.filename);
@@ -164,13 +158,7 @@ export class Box implements IBoxReadOnlyWithFileMethods {
   }
 
   public async CopyPiecesFromBoxToPile(pile: PileOfPieces): Promise<void> {
-    const notUsed = new Command(
-      Mix.ErrorVerbNotIdentified,
-      '',
-      '',
-      '',
-      ''
-    );
+    const notUsed = new Command(Mix.ErrorVerbNotIdentified, '', '', '', '');
     const file = new SingleFile(this.path, this.filename);
     file.bigSwitch(notUsed, false, pile);
   }

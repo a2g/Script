@@ -6,11 +6,7 @@ import { PileOfPieces } from '../../../src/puzzle/PileOfPieces';
 
 describe('SingleBigSwitch', () => {
   test('TestFirst', async () => {
-    const combo = new Command(
-      Mix.SingleVsProp,
-      'Grab',
-      'prop_loose_brick'
-    );
+    const combo = new Command(Mix.SingleVsProp, 'Grab', 'prop_loose_brick');
     const isReturnHappenings = false;
     const file = new SingleFile('/../../../testsYup/', 'Test1First.jsonc');
     const happenings = await file.bigSwitch(combo, isReturnHappenings, null);
@@ -23,11 +19,7 @@ describe('SingleBigSwitch', () => {
 
   test('SingleBigSwitch', async () => {
     console.log(__dirname);
-    const combo = new Command(
-      Mix.SingleVsProp,
-      'Grab',
-      'prop_loose_brick'
-    );
+    const combo = new Command(Mix.SingleVsProp, 'Grab', 'prop_loose_brick');
     const isGoalRetrieval = true;
     const file = new SingleFile(
       __dirname + '/../../../practice-world/',
