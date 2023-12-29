@@ -640,21 +640,6 @@ export class SingleFile {
             inputB = inv1;
             command = new Command(Verb.Use, Mix.InvVsProp, inv1, prop2)
             break;
-          case _.PROP1_BECOMES_PROP2_AS_INV1_BECOMES_INV2:
-            happs.text = `The ${prop1} has become a ${prop2}. And your ${inv1} has become a ${inv2}.`;
-            // ly don't mention what happen to the prop you clicked on.  "\n You notice the " + prop1 + " has now become a " + prop2;
-            happs.array.push(new Happening(Happen.PropGoes, prop1));
-            happs.array.push(new Happening(Happen.PropAppears, prop2));
-            happs.array.push(new Happening(Happen.InvGoes, inv1));
-            happs.array.push(new Happening(Happen.InvAppears, inv2));
-            // Another weird one, with two outputs - but only one output slot in the graph
-            // We fill the graph with the main output of the puzzle, otherwise
-            // the won't puzzle won't get solved.
-            output = prop2;
-            inputA = prop1;
-            inputB = inv1;
-            command = new Command(Verb.Use, Mix.InvVsProp, inv1, prop1)
-            break;
           case _.PROP1_BECOMES_PROP2_BY_KEEPING_INV1:
             happs.text = `You use the ${inv1}, and the ${prop1} becomes a ${inv2}`;
             happs.array.push(new Happening(Happen.PropGoes, prop1));
