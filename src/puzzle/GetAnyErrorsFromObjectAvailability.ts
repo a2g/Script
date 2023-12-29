@@ -27,9 +27,9 @@ export function GetAnyErrorsFromObjectAvailability(
       return 'One of those props is not visible!';
     }
   }
-  if (type === Mix.SingleVsInv && !isObject1InVisibleInvs) {
+  if (type === Mix.Inv && !isObject1InVisibleInvs) {
     return 'That inv is not visible!';
-  } else if (type === Mix.SingleVsProp && !isObject1InVisibleProps) {
+  } else if (type === Mix.Prop && !isObject1InVisibleProps) {
     return 'That prop is not visible!';
   }
 

@@ -28,11 +28,11 @@ export function ParseTokenizedCommandLineFromFromThreeStrings(
   if (verb === 'grab') {
     /* no combinations needed */
     if (is1InPropsRaw) {
-      return new Command(Mix.SingleVsProp, verb, strings[1]);
+      return new Command(Mix.Prop, verb, strings[1]);
     }
 
     if (is1InPropsPrefixed) {
-      return new Command(Mix.SingleVsProp, verb, `prop_${strings[1]}`);
+      return new Command(Mix.Prop, verb, `prop_${strings[1]}`);
     }
     return new Command(
       Mix.ErrorGrabButNoProp,
@@ -45,16 +45,16 @@ export function ParseTokenizedCommandLineFromFromThreeStrings(
   if (verb === 'toggle') {
     /* no combinations needed */
     if (is1InPropsRaw) {
-      return new Command(Mix.SingleVsProp, verb, strings[1]);
+      return new Command(Mix.Prop, verb, strings[1]);
     }
     if (is1InPropsPrefixed) {
-      return new Command(Mix.SingleVsProp, verb, `prop_${strings[1]}`);
+      return new Command(Mix.Prop, verb, `prop_${strings[1]}`);
     }
     if (is1InInvsRaw) {
-      return new Command(Mix.SingleVsInv, verb, strings[1]);
+      return new Command(Mix.Inv, verb, strings[1]);
     }
     if (is1InInvsPrefixed) {
-      return new Command(Mix.SingleVsInv, verb, `inv_${strings[1]}`);
+      return new Command(Mix.Inv, verb, `inv_${strings[1]}`);
     }
     return new Command(
       Mix.ErrorToggleButNoInvOrProp,

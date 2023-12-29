@@ -6,7 +6,7 @@ import { describe, it, test, expect } from '@jest/globals';
 describe('GetAnyErrorsFromObjectAvailability', () => {
   test('SingleVsInv', () => {
     // this test is here because it used to fail!
-    const mix = new Command(Mix.SingleVsProp, 'grab', 'a', '');
+    const mix = new Command(Mix.Prop, 'grab', 'a', '');
     const result = GetAnyErrorsFromObjectAvailability(mix, ['a'], []);
     expect(result).toEqual('');
   });
@@ -30,13 +30,13 @@ describe('GetAnyErrorsFromObjectAvailability', () => {
   });
 
   test('Trigger That inv is not visible!', () => {
-    const mix = new Command(Mix.SingleVsInv, 'toggle', 'a', '');
+    const mix = new Command(Mix.Inv, 'toggle', 'a', '');
     const result = GetAnyErrorsFromObjectAvailability(mix, ['a'], []);
     expect(result).toContain('inv is not visible');
   });
 
   it('Trigger That prop is not visible!', () => {
-    const mix = new Command(Mix.SingleVsProp, 'grab', 'b', '');
+    const mix = new Command(Mix.Prop, 'grab', 'b', '');
     const result = GetAnyErrorsFromObjectAvailability(mix, ['a'], []);
     expect(result).toContain('prop is not visible');
   });
