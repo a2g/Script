@@ -100,197 +100,66 @@ export class SingleFile {
 
         switch (pieceType) {
           case _.AUTO_GOAL1_MET_BY_GOALS:
-            if (piecesMappedByOutput != null) {
-              const output = goal1;
-              piecesMappedByOutput.AddPiece(
-                new Piece(
-                  id1,
-                  boxToMerge,
-                  output,
-                  pieceType,
-                  count,
-                  new Command(Verb.Auto, Mix.AutoDoesntNeedAnything, ''),
-                  happs,
-                  restrictions,
-                  goal2,
-                  goal3,
-                  goal4,
-                  goal5,
-                  goal6
-                )
-              );
-            }
+            output = goal1;
+            command = new Command(Verb.Auto, Mix.AutoDoesntNeedAnything, '');
             break;
           case _.AUTO_GOAL1_MET_BY_PROPS:
-            if (piecesMappedByOutput != null) {
-              const output = goal1;
-              const input1 = prop1;
-              const input2 = prop2;
-              const input3 = prop3;
-              const input4 = prop4;
-              const input5 = prop5;
-              const input6 = prop6;
-              piecesMappedByOutput.AddPiece(
-                new Piece(
-                  id1,
-                  boxToMerge,
-                  output,
-                  pieceType,
-                  count,
-                  new Command(Verb.Auto, Mix.AutoDoesntNeedAnything, ''),
-                  happs,
-                  restrictions,
-                  input1,
-                  input2,
-                  input3,
-                  input4,
-                  input5,
-                  input6
-                )
-              );
-            }
+            output = goal1;
+            inputA = prop1;
+            inputB = prop2;
+            inputC = prop3;
+            inputD = prop4;
+            inputE = prop5;
+            inputF = prop6;
+            command = new Command(Verb.Auto, Mix.AutoDoesntNeedAnything, '');
             break;
           case _.AUTO_GOAL1_MET_BY_INVS:
-            if (piecesMappedByOutput != null) {
-              const output = goal1;
-              const input1 = inv1;
-              const input2 = inv2;
-              const input3 = inv3;
-              piecesMappedByOutput.AddPiece(
-                new Piece(
-                  id1,
-                  boxToMerge,
-                  output,
-                  pieceType,
-                  count,
-                  new Command(Verb.Auto, Mix.AutoDoesntNeedAnything, ''),
-                  happs,
-                  restrictions,
-                  input1,
-                  input2,
-                  input3
-                )
-              );
-            }
+            output = goal1;
+            inputA = inv1;
+            inputB = inv2;
+            inputC = inv3;
+            command = new Command(Verb.Auto, Mix.AutoDoesntNeedAnything, '');
             break;
           case _.AUTO_INV1_OBTAINED_VIA_GOAL1:
             happs.array.push(new Happening(Happen.InvAppears, inv1));
-            if (piecesMappedByOutput != null) {
-              const output = inv1;
-              const input1 = goal1;
-              piecesMappedByOutput.AddPiece(
-                new Piece(
-                  id1,
-                  boxToMerge,
-                  output,
-                  pieceType,
-                  count,
-                  new Command(Verb.Auto, Mix.AutoDoesntNeedAnything, ''),
-                  happs,
-                  restrictions,
-                  input1
-                )
-              );
-            }
+            output = inv1;
+            inputA = goal1;
+            command = new Command(Verb.Auto, Mix.AutoDoesntNeedAnything, '');
             break;
-          case _.AUTO_PROP1_APPEARS_VIA_GOAL1:
-            if (piecesMappedByOutput != null) {
-              const output = prop1;
-              const input1 = goal1;
-              piecesMappedByOutput.AddPiece(
-                new Piece(
-                  id1,
-                  boxToMerge,
-                  output,
-                  pieceType,
-                  count,
-                  new Command(Verb.Auto, Mix.AutoDoesntNeedAnything, ''),
-                  happs,
-                  restrictions,
-                  input1
-                )
-              );
-            }
+          case _.AUTO_PROP1_APPEARS_VIA_GOAL1: 
+            output = prop1;
+            inputA = goal1;
+            command = new Command(Verb.Auto, Mix.AutoDoesntNeedAnything, '')
             break;
           case _.GOAL1_MET_BY_KEEPING_INV1_WHEN_USED_WITH_PROP1:
             happs.text = `You use the ${inv1} with the ${prop1} and something good happens...`;
             happs.array.push(new Happening(Happen.GoalIsSet, goal1));
             happs.array.push(new Happening(Happen.InvStays, inv1));
             happs.array.push(new Happening(Happen.PropStays, prop1));
-            if (piecesMappedByOutput != null) {
-              const output = goal1;
-              const inputA = inv1;
-              const inputB = prop1;
-              piecesMappedByOutput.AddPiece(
-                new Piece(
-                  id1,
-                  boxToMerge,
-                  output,
-                  pieceType,
-                  count,
-                  new Command(Verb.Use, Mix.InvVsProp, inv1, prop1),
-                  happs,
-                  restrictions,
-                  inputA,
-                  inputB
-                )
-              );
-            } else if (objects.Match('Use', inv1, prop1)) {
-              return happs;
-            }
+            output = goal1;
+            inputA = inv1;
+            inputB = prop1;
+            command = new Command(Verb.Use, Mix.InvVsProp, inv1, prop1);
             break;
           case _.GOAL1_MET_BY_LOSING_BOTH_INV1_AND_PROP1_WHEN_USED:
             happs.text = `You use the ${inv1} with the ${prop1} and something good happens...`;
             happs.array.push(new Happening(Happen.GoalIsSet, goal1));
             happs.array.push(new Happening(Happen.InvGoes, inv1));
             happs.array.push(new Happening(Happen.PropGoes, prop1));
-            if (piecesMappedByOutput != null) {
-              const output = goal1;
-              const inputA = inv1;
-              const inputB = prop1;
-              piecesMappedByOutput.AddPiece(
-                new Piece(
-                  id1,
-                  boxToMerge,
-                  output,
-                  pieceType,
-                  count,
-                  new Command(Verb.Use, Mix.InvVsProp, inv1, prop1),
-                  happs,
-                  restrictions,
-                  inputA,
-                  inputB
-                )
-              );
-            } else if (objects.Match('Use', inv1, prop1)) {
-              return happs;
-            }
+            output = goal1;
+            inputA = inv1;
+            inputB = prop1;
+            command = new Command(Verb.Use, Mix.InvVsProp, inv1, prop1);
             break;
           case _.GOAL1_MET_BY_LOSING_INV1_WHEN_USED_WITH_PROP1:
-            {
-              happs.text = `You use the ${inv1} with the ${prop1} and something good happens...`;
-              happs.array.push(new Happening(Happen.GoalIsSet, goal1));
-              happs.array.push(new Happening(Happen.InvGoes, inv1));
-              happs.array.push(new Happening(Happen.PropStays, prop1));
-
-              const output = goal1;
-              const inputA = inv1;
-              const inputB = prop1;
-              piecesMappedByOutput.AddPiece(
-                new Piece(
-                  id1,
-                  boxToMerge,
-                  output,
-                  pieceType,
-                  count,
-                  new Command(Verb.Use, Mix.InvVsProp, inv1, prop1),
-                  happs,
-                  restrictions,
-                  inputA,
-                  inputB
-                )
-              );
-            }
+            happs.text = `You use the ${inv1} with the ${prop1} and something good happens...`;
+            happs.array.push(new Happening(Happen.GoalIsSet, goal1));
+            happs.array.push(new Happening(Happen.InvGoes, inv1));
+            happs.array.push(new Happening(Happen.PropStays, prop1));
+            output = goal1;
+            inputA = inv1;
+            inputB = prop1;
+            command = new Command(Verb.Use, Mix.InvVsProp, inv1, prop1);
             break;
           case _.GOAL1_MET_BY_LOSING_INV1_USED_WITH_PROP1_AND_PROPS:
             happs.text = `With everything set up correctly, you use the ${inv1} with the ${prop1} and something good happens...`;
@@ -303,201 +172,76 @@ export class SingleFile {
             if (prop3.length > 0) {
               happs.array.push(new Happening(Happen.PropStays, prop3));
             }
-            if (piecesMappedByOutput != null) {
-              const output = goal1;
-              const inputA = inv1;
-              const inputB = prop1;
-              const inputC = prop2;
-              const inputD = prop3;
-              piecesMappedByOutput.AddPiece(
-                new Piece(
-                  id1,
-                  boxToMerge,
-                  output,
-                  pieceType,
-                  count,
-                  new Command(Verb.Use, Mix.InvVsProp, inv1, prop1),
-                  happs,
-                  restrictions,
-                  inputA,
-                  inputB,
-                  inputC,
-                  inputD
-                )
-              );
-            } else if (objects.Match('Use', inv1, prop1)) {
-              return happs;
-            }
+            output = goal1;
+            inputA = inv1;
+            inputB = prop1;
+            inputC = prop2;
+            inputD = prop3;
+            command = new Command(Verb.Use, Mix.InvVsProp, inv1, prop1)
             break;
           case _.GOAL1_MET_BY_USING_INV1_WITH_INV2:
             happs.text = `You use the ${inv1} with the ${inv2} and something good happens...`;
             happs.array.push(new Happening(Happen.InvStays, inv1));
             happs.array.push(new Happening(Happen.InvStays, inv2));
             happs.array.push(new Happening(Happen.GoalIsSet, goal1));
-            if (piecesMappedByOutput != null) {
-              const inputA = inv1;
-              const inputB = inv2;
-              const output = goal1;
-              piecesMappedByOutput.AddPiece(
-                new Piece(
-                  id1,
-                  boxToMerge,
-                  output,
-                  pieceType,
-                  count,
-                  new Command(Verb.Use, Mix.InvVsInv, inv1, inv2),
-                  happs,
-                  restrictions,
-                  inputA,
-                  inputB
-                )
-              );
-            } else if (objects.Match('Use', inv1, inv2)) {
-              return happs;
-            }
+            inputA = inv1;
+            inputB = inv2;
+            output = goal1;
+            command = new Command(Verb.Use, Mix.InvVsInv, inv1, inv2);
             break;
           case _.GOAL1_MET_BY_USING_INV1_WITH_PROP1:
             happs.text = `You use the ${inv1} with the ${prop1} and something good happens...`;
             happs.array.push(new Happening(Happen.InvStays, inv1));
             happs.array.push(new Happening(Happen.PropStays, prop1));
             happs.array.push(new Happening(Happen.GoalIsSet, goal1));
-            if (piecesMappedByOutput != null) {
-              const inputA = inv1;
-              const inputB = prop1;
-              const output = goal1;
-              piecesMappedByOutput.AddPiece(
-                new Piece(
-                  id1,
-                  boxToMerge,
-                  output,
-                  pieceType,
-                  count,
-                  new Command(Verb.Use, Mix.InvVsProp, inv1, prop1),
-                  happs,
-                  restrictions,
-                  inputA,
-                  inputB
-                )
-              );
-            } else if (objects.Match('Use', inv1, prop1)) {
-              return happs;
-            }
+            inputA = inv1;
+            inputB = prop1;
+            output = goal1;
+            command = new Command(Verb.Use, Mix.InvVsProp, inv1, prop1)
             break;
           case _.GOAL1_MET_BY_USING_INV1_WITH_PROP1_LOSE_PROPS:
             happs.text = `You use the ${inv1} with the  ${prop1} and something good happens...`;
             happs.array.push(new Happening(Happen.InvStays, inv1));
             happs.array.push(new Happening(Happen.PropGoes, prop1));
             happs.array.push(new Happening(Happen.GoalIsSet, goal1));
-            if (piecesMappedByOutput != null) {
-              const inputA = inv1;
-              const inputB = prop1;
-              const output = goal1;
-              piecesMappedByOutput.AddPiece(
-                new Piece(
-                  id1,
-                  boxToMerge,
-                  output,
-                  pieceType,
-                  count,
-                  new Command(Verb.Use, Mix.InvVsProp, inv1, prop1),
-                  happs,
-                  restrictions,
-                  inputA,
-                  inputB
-                )
-              );
-            } else if (objects.Match('Use', inv1, prop1)) {
-              return happs;
-            }
+            command = new Command(Verb.Use, Mix.InvVsProp, inv1, prop1);
+            inputA = inv1;
+            inputB = prop1;
+            output = goal1;
             break;
           case _.GOAL1_MET_BY_USING_INV1_WITH_PROP1_NEED_GOALS:
             happs.text = `You use the ${inv1} with the  ${prop1} and something good happens...`;
             happs.array.push(new Happening(Happen.InvStays, inv1));
             happs.array.push(new Happening(Happen.PropStays, prop1));
             happs.array.push(new Happening(Happen.GoalIsSet, goal1));
-            if (piecesMappedByOutput != null) {
-              const output = goal1;
-              const inputA = inv1;
-              const inputB = prop1;
-              const inputC = goal2;
-              const inputD = goal3;
-              const inputE = goal4;
-              const inputF = goal5;
-              piecesMappedByOutput.AddPiece(
-                new Piece(
-                  id1,
-                  boxToMerge,
-                  output,
-                  pieceType,
-                  count,
-                  new Command(Verb.Use, Mix.InvVsProp, inv1, prop1),
-                  happs,
-                  restrictions,
-                  inputA,
-                  inputB,
-                  inputC,
-                  inputD,
-                  inputE,
-                  inputF
-                )
-              );
-            } else if (objects.Match('Use', inv1, prop1)) {
-              return happs;
-            }
+            output = goal1;
+            inputA = inv1;
+            inputB = prop1;
+            inputC = goal2;
+            inputD = goal3;
+            inputE = goal4;
+            inputF = goal5;
+            command = new Command(Verb.Use, Mix.InvVsProp, inv1, prop1)
             break;
           case _.GOAL1_MET_BY_USING_PROP1_WITH_PROP2:
             happs.text = `You use the ${prop1} with the ${prop2} and something good happens...`;
             happs.array.push(new Happening(Happen.PropStays, prop1));
             happs.array.push(new Happening(Happen.PropStays, prop2));
             happs.array.push(new Happening(Happen.GoalIsSet, goal1));
-            if (piecesMappedByOutput != null) {
-              const inputA = prop1;
-              const inputB = prop2;
-              const output = goal1;
-              piecesMappedByOutput.AddPiece(
-                new Piece(
-                  id1,
-                  boxToMerge,
-                  output,
-                  pieceType,
-                  count,
-                  new Command(Verb.Use, Mix.PropVsProp, prop1, prop2),
-                  happs,
-                  restrictions,
-                  inputA,
-                  inputB
-                )
-              );
-            } else if (objects.Match('Use', prop1, prop2)) {
-              return happs;
-            }
+            inputA = prop1;
+            inputB = prop2;
+            output = goal1;
+            command = new Command(Verb.Use, Mix.PropVsProp, prop1, prop2)
             break;
           case _.GOAL1_MET_BY_GIVING_INV1_TO_PROP1:
             happs.text = `Goal is set ${goal1}`;
             happs.array.push(new Happening(Happen.InvGoes, inv1));
             happs.array.push(new Happening(Happen.PropStays, prop1));
             happs.array.push(new Happening(Happen.GoalIsSet, goal1));
-            if (piecesMappedByOutput != null) {
-              const inputA = inv1;
-              const inputB = prop1;
-              const output = goal1;
-              piecesMappedByOutput.AddPiece(
-                new Piece(
-                  id1,
-                  boxToMerge,
-                  output,
-                  pieceType,
-                  count,
-                  new Command(Verb.Give, Mix.InvVsProp, inv1, prop1),
-                  happs,
-                  restrictions,
-                  inputA,
-                  inputB
-                )
-              );
-            } else if (objects.Match('Give', inv1, prop1)) {
-              return happs;
-            }
+            inputA = inv1;
+            inputB = prop1;
+            output = goal1;
+            command = new Command(Verb.Give, Mix.InvVsProp, inv1, prop1)
             break;
           case _.INV1_BECOMES_INV2_AS_PROP1_BECOMES_PROP2_SUB:
             happs.text = `Your ${inv1} has become a ${inv2} as the ${prop1} becomes a ${prop2}`;
@@ -639,10 +383,30 @@ export class SingleFile {
                 );
               }
             }
-            break;
+            return;
           default:
-            break;
+            return;
         }
+        // Space saving measure - to do this here, instead
+        // of having it in every case statement
+        piecesMappedByOutput.AddPiece(
+          new Piece(
+            id1,
+            null,
+            output,
+            pieceType,
+            count,
+            command,
+            happs,
+            restrictions,
+            inputA,
+            inputB,
+            inputC,
+            inputD,
+            inputE,
+            inputF
+          )
+        );
       } else if (!isGoalPieceRetrievalCall || piecesMappedByOutput == null) {
         switch (pieceType) {
           case _.AUTO_PROP1_BECOMES_PROP2_BY_PROPS:
