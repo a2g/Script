@@ -11,8 +11,6 @@ import { VisibleThingsMap } from './VisibleThingsMap';
 export interface IBoxReadOnlyWithFileMethods extends IBoxReadOnly {
   // methods that only a real file can implement
   GetFilename: () => string;
-
-  // methods that only a real file can implement
   GetPath: () => string;
 
   // copiers

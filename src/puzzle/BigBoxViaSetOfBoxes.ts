@@ -2,7 +2,6 @@ import { Happenings } from './Happenings';
 import { IBoxReadOnly } from './IBoxReadOnly';
 import { IBoxReadOnlyWithFileMethods } from './IBoxReadOnlyWithFileMethods';
 import { IPileOrRootPieceMap } from './IPileOrRootPieceMap';
-import { Mix } from './Mix';
 import { Command } from './Command';
 import { PileOfPieces } from './PileOfPieces';
 import { RootPieceMap } from './RootPieceMap';
@@ -185,15 +184,8 @@ export class BigBoxViaSetOfBoxes implements IBoxReadOnly {
 
   public CopyPiecesFromBoxToPile(pile: PileOfPieces): void {
     for (const box of this.originalBoxes) {
-      const notUsed = new Command(
-        Mix.ErrorVerbNotIdentified,
-        '',
-        '',
-        '',
-        'ScenePreAggregator'
-      );
       const file = new SingleFile(box.GetPath(), box.GetFilename());
-      file.bigSwitch(notUsed, false, pile);
+      file.copyPiecesToContainer(false, pile);
     }
   }
 
@@ -208,12 +200,7 @@ export class BigBoxViaSetOfBoxes implements IBoxReadOnly {
 
   public FindHappeningsIfAny(command: Command): Happenings | null {
     for (const box of this.originalBoxes) {
-      const file = new SingleFile(box.GetPath(), box.GetFilename());
-      const result = file.bigSwitch(
-        command,
-        false,
-        null
-      ) as unknown as Happenings | null;
+      const result = box.FindHappeningsIfAny(command)
       if (result != null) {
         return result;
       }

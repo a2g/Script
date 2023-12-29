@@ -112,11 +112,10 @@ export class Box implements IBoxReadOnlyWithFileMethods {
     this.mapOfStartingThings = new VisibleThingsMap(null);
     // this copies them to the container, and turns filenames in to boxes
     this.goals = new RootPieceMap(null);
-    const notUsed = new Command(Mix.ErrorVerbNotIdentified, '', '', '', '');
 
     // collect all the goals from file
     const singleFile = new SingleFile(this.path, this.filename);
-    singleFile.bigSwitch(notUsed, true, this.goals);
+    singleFile.copyPiecesToContainer(true, this.goals);
     // starting things is optional in the json
     if (
       scenario.startingThings !== undefined &&
@@ -158,19 +157,14 @@ export class Box implements IBoxReadOnlyWithFileMethods {
   }
 
   public async CopyPiecesFromBoxToPile(pile: PileOfPieces): Promise<void> {
-    const notUsed = new Command(Mix.ErrorVerbNotIdentified, '', '', '', '');
     const file = new SingleFile(this.path, this.filename);
-    file.bigSwitch(notUsed, false, pile);
+    file.copyPiecesToContainer(false, pile);
   }
 
   public FindHappeningsIfAny(objects: Command): Happenings | null {
-    const singleFile = new SingleFile(this.path, this.filename);
-    const result = singleFile.bigSwitch(
-      objects,
-      false,
-      null
-    ) as unknown as Happenings | null;
-    return result;
+    // 
+    const happenings = new Happenings()
+    return happenings;
   }
 
   public CopyStartingPropsToGivenSet(givenSet: Set<string>): void {
