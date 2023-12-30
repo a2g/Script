@@ -1,8 +1,6 @@
-import { Happenings } from './Happenings';
 import { IBoxReadOnly } from './IBoxReadOnly';
 import { IBoxReadOnlyWithFileMethods } from './IBoxReadOnlyWithFileMethods';
 import { IPileOrRootPieceMap } from './IPileOrRootPieceMap';
-import { Command } from './Command';
 import { PileOfPieces } from './PileOfPieces';
 import { RootPieceMap } from './RootPieceMap';
 import { SingleFile } from './SingleFile';

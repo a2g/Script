@@ -1,6 +1,4 @@
-import { Happenings } from './Happenings';
 import { IPileOrRootPieceMap } from './IPileOrRootPieceMap';
-import { Command } from './Command';
 import { PileOfPieces } from './PileOfPieces';
 import { VisibleThingsMap } from './VisibleThingsMap';
 
