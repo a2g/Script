@@ -12,7 +12,7 @@ describe('ReactionMap', () => {
 
     // do it!
     pile.AddPiece(
-      new Piece(0, null, 'outputA', 'type', 1, null, null, 'A', 'B')
+      new Piece(0, null, 'outputA', 'type', 1, null, null, null, 'A', 'B')
     );
 
     // test that it has added a set for the new piece
@@ -27,7 +27,7 @@ describe('ReactionMap', () => {
     const blah = new PileOfPieces(null);
     for (let i = 0; i < 3; i += 1) {
       blah.AddPiece(
-        new Piece(0, null, 'outputA', 'piffle', 1, null, null, 'A', 'B')
+        new Piece(0, null, 'outputA', 'piffle', 1, null, null, null, 'A', 'B')
       );
     }
     const theOneToRemove = new Piece(
@@ -36,6 +36,7 @@ describe('ReactionMap', () => {
       'outputA',
       'piffle',
       1,
+      null,
       null,
       null,
       'A',
@@ -60,9 +61,15 @@ describe('ReactionMap', () => {
   test('test Clone works', () => {
     // create original entries
     const array = new Array<Piece>();
-    array.push(new Piece(0, null, 'blah', 'outputA', 1, null, null, 'a', 'a'));
-    array.push(new Piece(0, null, 'blah', 'outputA', 1, null, null, 'b', 'b'));
-    array.push(new Piece(0, null, 'blah', 'outputA', 1, null, null, 'c', 'c'));
+    array.push(
+      new Piece(0, null, 'blah', 'outputA', 1, null, null, null, 'a', 'a')
+    );
+    array.push(
+      new Piece(0, null, 'blah', 'outputA', 1, null, null, null, 'b', 'b')
+    );
+    array.push(
+      new Piece(0, null, 'blah', 'outputA', 1, null, null, null, 'c', 'c')
+    );
 
     // put them in a map
     const tmap = new PileOfPieces(null);

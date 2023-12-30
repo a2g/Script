@@ -10,8 +10,6 @@ import { VisibleThingsMap } from './VisibleThingsMap';
  * an aggregate of boxes all together (ie BigBoxViaArrayOfBoxes) - so all the analysis are made
  * to operate on this subset of the interface and, BigBoxViaArrayOfBoxes implements this.
  *
- * Incidentally BigBoxViaArrayOfBoxes implements FindHappeningsIfAny by keeping a copy of all the
- * original boxes, and iterating through them calling FindHappeningsIfAny() directly against the json
  */
 
 export interface IBoxReadOnly {
@@ -32,7 +30,6 @@ export interface IBoxReadOnly {
   GetArrayOfCharacters: () => string[];
 
   // original-json-traversers
-  FindHappeningsIfAny: (objects: Command) => Happenings | null;
   CopyPiecesFromBoxToPile: (pile: PileOfPieces) => void; // its possible for this to be done on aggregate
   CopyGoalPiecesToContainer: (map: IPileOrRootPieceMap) => void;
   CollectAllReferencedBoxesRecursively: (array: Set<IBoxReadOnly>) => void;

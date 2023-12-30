@@ -1,10 +1,7 @@
 import { existsSync, readFileSync } from 'fs';
-import { Happenings } from './Happenings';
 import { IBoxReadOnly } from './IBoxReadOnly';
 import { IBoxReadOnlyWithFileMethods } from './IBoxReadOnlyWithFileMethods';
 import { IPileOrRootPieceMap } from './IPileOrRootPieceMap';
-import { Mix } from './Mix';
-import { Command } from './Command';
 import { PileOfPieces } from './PileOfPieces';
 import { RootPieceMap } from './RootPieceMap';
 import { SingleFile } from './SingleFile';
@@ -159,12 +156,6 @@ export class Box implements IBoxReadOnlyWithFileMethods {
   public async CopyPiecesFromBoxToPile(pile: PileOfPieces): Promise<void> {
     const file = new SingleFile(this.path, this.filename);
     file.copyPiecesToContainer(false, pile);
-  }
-
-  public FindHappeningsIfAny(objects: Command): Happenings | null {
-    // 
-    const happenings = new Happenings()
-    return happenings;
   }
 
   public CopyStartingPropsToGivenSet(givenSet: Set<string>): void {

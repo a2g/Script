@@ -67,16 +67,16 @@ export class SingleFile {
       const inv4 = Stringify(piece.inv4);
       const isNoFile = piece.isNoFile;
       const { restrictions } = piece;
-      let output = 'undefined'
-      let inputA = 'undefined'
-      let inputB = 'undefined'
-      let inputC = 'undefined'
-      let inputD = 'undefined'
-      let inputE = 'undefined'
-      let inputF = 'undefined'
+      let output = 'undefined';
+      let inputA = 'undefined';
+      let inputB = 'undefined';
+      let inputC = 'undefined';
+      let inputD = 'undefined';
+      let inputE = 'undefined';
+      let inputF = 'undefined';
       const happs = new Happenings();
       let boxToMerge: Box | null = null;
-      let command = null
+      let command = null;
       const isPieceStartingWithGoal1Met =
         pieceType.startsWith('GOAL1_MET') ||
         pieceType.startsWith('AUTO_GOAL1_MET');
@@ -124,10 +124,10 @@ export class SingleFile {
             inputA = goal1;
             command = new Command(Verb.Auto, Mix.AutoDoesntNeedAnything, '');
             break;
-          case _.AUTO_PROP1_APPEARS_VIA_GOAL1: 
+          case _.AUTO_PROP1_APPEARS_VIA_GOAL1:
             output = prop1;
             inputA = goal1;
-            command = new Command(Verb.Auto, Mix.AutoDoesntNeedAnything, '')
+            command = new Command(Verb.Auto, Mix.AutoDoesntNeedAnything, '');
             break;
           case _.GOAL1_MET_BY_KEEPING_INV1_WHEN_USED_WITH_PROP1:
             happs.text = `You use the ${inv1} with the ${prop1} and something good happens...`;
@@ -175,7 +175,7 @@ export class SingleFile {
             inputB = prop1;
             inputC = prop2;
             inputD = prop3;
-            command = new Command(Verb.Use, Mix.InvVsProp, inv1, prop1)
+            command = new Command(Verb.Use, Mix.InvVsProp, inv1, prop1);
             break;
           case _.GOAL1_MET_BY_USING_INV1_WITH_INV2:
             happs.text = `You use the ${inv1} with the ${inv2} and something good happens...`;
@@ -195,7 +195,7 @@ export class SingleFile {
             inputA = inv1;
             inputB = prop1;
             output = goal1;
-            command = new Command(Verb.Use, Mix.InvVsProp, inv1, prop1)
+            command = new Command(Verb.Use, Mix.InvVsProp, inv1, prop1);
             break;
           case _.GOAL1_MET_BY_USING_INV1_WITH_PROP1_LOSE_PROPS:
             happs.text = `You use the ${inv1} with the  ${prop1} and something good happens...`;
@@ -219,7 +219,7 @@ export class SingleFile {
             inputD = goal3;
             inputE = goal4;
             inputF = goal5;
-            command = new Command(Verb.Use, Mix.InvVsProp, inv1, prop1)
+            command = new Command(Verb.Use, Mix.InvVsProp, inv1, prop1);
             break;
           case _.GOAL1_MET_BY_USING_PROP1_WITH_PROP2:
             happs.text = `You use the ${prop1} with the ${prop2} and something good happens...`;
@@ -229,7 +229,7 @@ export class SingleFile {
             inputA = prop1;
             inputB = prop2;
             output = goal1;
-            command = new Command(Verb.Use, Mix.PropVsProp, prop1, prop2)
+            command = new Command(Verb.Use, Mix.PropVsProp, prop1, prop2);
             break;
           case _.GOAL1_MET_BY_GIVING_INV1_TO_PROP1:
             happs.text = `Goal is set ${goal1}`;
@@ -239,15 +239,16 @@ export class SingleFile {
             inputA = inv1;
             inputB = prop1;
             output = goal1;
-            command = new Command(Verb.Give, Mix.InvVsProp, inv1, prop1)
+            command = new Command(Verb.Give, Mix.InvVsProp, inv1, prop1);
             break;
           case _.INV1_BECOMES_INV2_AS_PROP1_BECOMES_PROP2_SUB:
-            happs.text = `Your ${inv1} has become a ${inv2} as the ${prop1} becomes a ${prop2}`;
-            happs.array.push(new Happening(Happen.InvGoes, inv1));
-            happs.array.push(new Happening(Happen.InvAppears, inv2));
-            happs.array.push(new Happening(Happen.PropGoes, prop1));
-            happs.array.push(new Happening(Happen.PropAppears, prop2));
-            
+            {
+              happs.text = `Your ${inv1} has become a ${inv2} as the ${prop1} becomes a ${prop2}`;
+              happs.array.push(new Happening(Happen.InvGoes, inv1));
+              happs.array.push(new Happening(Happen.InvAppears, inv2));
+              happs.array.push(new Happening(Happen.PropGoes, prop1));
+              happs.array.push(new Happening(Happen.PropAppears, prop2));
+
               const newGoal = makeGoalNameDeterministically(inv1, prop1);
               const happs1 = new Happenings();
               happs1.array.push(new Happening(Happen.GoalIsSet, newGoal));
@@ -309,7 +310,7 @@ export class SingleFile {
                   )
                 );
               }
-           
+            }
             break;
           case _.INV1_OBTAINED_WHEN_LOSING_INV2_AND_PROP1_BECOMES_PROP2_SUB:
             {
@@ -415,29 +416,29 @@ export class SingleFile {
             inputD = prop5;
             inputE = prop6;
             inputF = prop7;
-            command = new Command(Verb.Auto, Mix.AutoDoesntNeedAnything, '')
+            command = new Command(Verb.Auto, Mix.AutoDoesntNeedAnything, '');
             break;
           case _.AUTO_INV1_BECOMES_INV2_VIA_GOAL1:
             inputA = goal1;
             inputB = inv1;
             output = inv2;
-            command = new Command(Verb.Auto, Mix.AutoDoesntNeedAnything, '')
+            command = new Command(Verb.Auto, Mix.AutoDoesntNeedAnything, '');
             break;
           case _.AUTO_PROP1_BECOMES_PROP2_VIA_GOAL1:
             inputA = goal1;
             inputB = prop1;
             output = prop2;
-            command = new Command(Verb.Auto, Mix.AutoDoesntNeedAnything, '')
+            command = new Command(Verb.Auto, Mix.AutoDoesntNeedAnything, '');
             break;
           case _.AUTO_PROP1_APPEARS_VIA_GOAL1:
             output = prop1;
             inputA = goal1;
-            command = new Command(Verb.Auto, Mix.AutoDoesntNeedAnything, '')
+            command = new Command(Verb.Auto, Mix.AutoDoesntNeedAnything, '');
             break;
           case _.AUTO_INV1_OBTAINED_VIA_GOAL1:
             output = inv1;
             inputA = goal1;
-            command = new Command(Verb.Auto, Mix.AutoDoesntNeedAnything, '')
+            command = new Command(Verb.Auto, Mix.AutoDoesntNeedAnything, '');
             break;
           case _.EXAMINE_PROP1_YIELDS_INV1:
             happs.text = `You examine the ${prop1} and find a ${inv1}`;
@@ -445,7 +446,7 @@ export class SingleFile {
             happs.array.push(new Happening(Happen.InvAppears, inv1));
             output = inv1;
             inputA = prop1;
-            command = new Command(Verb.Examine, Mix.Prop, prop1)
+            command = new Command(Verb.Examine, Mix.Prop, prop1);
             break;
           case _.GIVE_INV1_TO_PROP1_GETS_INV2:
             happs.text = `You give the ${inv1} to the ${prop1} and you get the ${inv2} in return`;
@@ -456,7 +457,7 @@ export class SingleFile {
             inputA = inv1;
             inputB = prop1;
             output = inv2;
-            command = new Command(Verb.Give, Mix.InvVsProp, inv1, prop1)
+            command = new Command(Verb.Give, Mix.InvVsProp, inv1, prop1);
             break;
           case _.INV1_BECOMES_INV2_BY_KEEPING_INV3:
             happs.text = `Your ${inv1} has become a ${inv2}`;
@@ -467,7 +468,7 @@ export class SingleFile {
             output = inv2;
             inputA = inv1;
             inputB = inv3;
-            command = new Command(Verb.Use, Mix.InvVsInv, inv1, inv2)
+            command = new Command(Verb.Use, Mix.InvVsInv, inv1, inv2);
             break;
           case _.INV1_BECOMES_INV2_BY_KEEPING_PROP1:
             happs.text = `Your ${inv1} has become a ${inv2}`;
@@ -478,7 +479,7 @@ export class SingleFile {
             inputA = inv1;
             output = inv2;
             inputB = prop1;
-            command = new Command(Verb.Use, Mix.InvVsProp, inv1, prop1)
+            command = new Command(Verb.Use, Mix.InvVsProp, inv1, prop1);
             break;
           case _.INV1_BECOMES_INV2_BY_LOSING_INV3:
             happs.text = `The ${inv1} has become a  ${inv2}`;
@@ -489,7 +490,7 @@ export class SingleFile {
             inputA = inv1;
             output = inv2;
             inputB = inv3;
-            command = new Command(Verb.Use, Mix.InvVsInv, inv1, inv3)
+            command = new Command(Verb.Use, Mix.InvVsInv, inv1, inv3);
             break;
           case _.INV1_OBTAINED_AS_GRABBED_PROP1_BECOMES_PROP2:
             happs.text = `Grabbing the ${prop1} allows you to obtain the ${inv1} ( and it becomes ${prop2}) `;
@@ -498,7 +499,7 @@ export class SingleFile {
             happs.array.push(new Happening(Happen.PropAppears, prop2));
             output = inv1;
             inputA = prop1;
-            command = new Command(Verb.Grab, Mix.Prop, prop1)
+            command = new Command(Verb.Grab, Mix.Prop, prop1);
             break;
           case _.INV1_OBTAINED_AS_INV2_BECOMES_INV3_LOSING_INV4:
             happs.text = `Using the ${inv2} with the ${inv4} allows you to obtain the ${inv1}`;
@@ -509,7 +510,7 @@ export class SingleFile {
             output = inv1;
             inputA = inv2;
             inputB = inv4;
-            command = new Command(Verb.Use, Mix.VerbvsInv, inv2, inv4)
+            command = new Command(Verb.Use, Mix.VerbvsInv, inv2, inv4);
             break;
           case _.INV1_OBTAINED_AS_PROP1_BECOMES_PROP2_KEEP_INV2:
             happs.text = `Using the ${inv2} on the ${prop1} allows you to obtain the ${inv1}`;
@@ -520,7 +521,7 @@ export class SingleFile {
             output = inv1;
             inputA = inv2;
             inputB = prop1;
-            command = new Command(Verb.Use, Mix.InvVsProp, inv2, prop1)
+            command = new Command(Verb.Use, Mix.InvVsProp, inv2, prop1);
             break;
           case _.INV1_OBTAINED_BY_COMBINING_INV2_WITH_INV3:
             happs.text = `The ${inv2} and the ${inv3} combine to form an ${inv1}`;
@@ -530,7 +531,7 @@ export class SingleFile {
             output = inv1;
             inputA = inv2;
             inputB = inv3;
-            command = new Command(Verb.Use, Mix.InvVsInv, inv2, inv3)
+            command = new Command(Verb.Use, Mix.InvVsInv, inv2, inv3);
             break;
           case _.INV1_OBTAINED_BY_COMBINING_INV2_WITH_PROP1:
             happs.text = `By using the ${inv1} with the ${prop1} you have obtained the ${inv1}.`;
@@ -540,7 +541,7 @@ export class SingleFile {
             output = inv1;
             inputA = inv2;
             inputB = prop1;
-            command = new Command(Verb.Use, Mix.InvVsProp, inv2, prop1)
+            command = new Command(Verb.Use, Mix.InvVsProp, inv2, prop1);
             break;
           case _.INV1_OBTAINED_BY_INV2_WITH_PROP1_LOSE_NONE:
             happs.text = `By using the ${inv2} with the ${prop1} you have obtained the ${inv1}.`;
@@ -550,7 +551,7 @@ export class SingleFile {
             output = inv1;
             inputA = inv2;
             inputB = prop1;
-            command = new Command(Verb.Use, Mix.InvVsProp, inv2, prop1)      
+            command = new Command(Verb.Use, Mix.InvVsProp, inv2, prop1);
             break;
           case _.INV1_OBTAINED_BY_LOSING_INV2_KEEPING_PROP1:
             happs.text = `By using the ${inv2} with the ${prop1} you have obtained the ${inv1}.`;
@@ -560,7 +561,7 @@ export class SingleFile {
             output = inv1;
             inputA = inv2;
             inputB = prop1;
-            command = new Command(Verb.Use, Mix.InvVsProp, inv2, prop1)
+            command = new Command(Verb.Use, Mix.InvVsProp, inv2, prop1);
             break;
           case _.INV1_OBTAINED_BY_LOSING_PROP1_KEEPING_INV2:
             happs.text = `By using the ${inv2} with the ${prop1} you have obtained the ${inv1}.`;
@@ -570,7 +571,7 @@ export class SingleFile {
             output = inv1;
             inputA = inv2;
             inputB = prop1;
-            command = new Command(Verb.Open, Mix.InvVsProp, inv2, prop1)
+            command = new Command(Verb.Open, Mix.InvVsProp, inv2, prop1);
             break;
           case _.INV1_OBTAINED_BY_OPENING_INV2_WHICH_BECOMES_INV3:
             // eg open radio...BATTERIES!
@@ -580,7 +581,7 @@ export class SingleFile {
             happs.array.push(new Happening(Happen.InvAppears, inv3));
             output = inv1;
             inputA = inv2;
-            command = new Command(Verb.Open, Mix.Inv, inv2)
+            command = new Command(Verb.Open, Mix.Inv, inv2);
             break;
           case _.INV1_OBTAINED_BY_PROP1_WITH_PROP2_LOSE_PROPS:
             // eg obtain inv_meteor via radiation suit with the meteor.
@@ -592,7 +593,7 @@ export class SingleFile {
             output = inv1;
             inputA = prop1;
             inputB = prop2;
-            command = new Command(Verb.Open, Mix.PropVsProp, prop1, prop2)
+            command = new Command(Verb.Open, Mix.PropVsProp, prop1, prop2);
             break;
           case _.PROP1_APPEARS_BY_INV1_WITH_PROP2:
             happs.text = `Using the ${inv1} with the ${prop2} has revealed a ${prop1}`;
@@ -602,7 +603,7 @@ export class SingleFile {
             output = prop1;
             inputA = inv1;
             inputB = prop2;
-            command = new Command(Verb.Open, Mix.InvVsProp, inv1, prop2)
+            command = new Command(Verb.Open, Mix.InvVsProp, inv1, prop2);
             break;
           case _.PROP1_APPEARS_BY_LOSING_INV1_WITH_PROP2:
             happs.text = `Using the ${inv1} with the ${prop2} loses ${inv1} , but revaels a ${prop1}`;
@@ -612,12 +613,12 @@ export class SingleFile {
             output = prop1;
             inputA = inv1;
             inputB = prop2;
-            command = new Command(Verb.Open, Mix.InvVsProp, inv1, prop2)
+            command = new Command(Verb.Open, Mix.InvVsProp, inv1, prop2);
             break;
           case _.PROP1_APPEARS_WHEN_GRAB_PROP2_WITH_GOAL1:
             happs.text = `You use the ${prop2} and, somewhere, a ${prop1} appears`;
             happs.array.push(new Happening(Happen.PropAppears, prop1));
-            command = new Command(Verb.Open, Mix.Inv, inv2)
+            command = new Command(Verb.Open, Mix.Inv, inv2);
             output = prop1;
             // the prop you grab (ie phone) must be input A - the solution creator
             // always constructs the solution as "grab inputA"
@@ -636,7 +637,7 @@ export class SingleFile {
             // so it needs to be input A
             inputA = prop2;
             inputB = inv1;
-            command = new Command(Verb.Use, Mix.InvVsProp, inv1, prop2)
+            command = new Command(Verb.Use, Mix.InvVsProp, inv1, prop2);
             break;
           case _.PROP1_BECOMES_PROP2_BY_KEEPING_INV1:
             happs.text = `You use the ${inv1}, and the ${prop1} becomes a ${inv2}`;
@@ -646,7 +647,7 @@ export class SingleFile {
             inputA = prop1;
             output = prop2;
             inputB = inv1;
-            command = new Command(Verb.Use, Mix.InvVsProp, inv1, prop1)
+            command = new Command(Verb.Use, Mix.InvVsProp, inv1, prop1);
             break;
           case _.PROP1_BECOMES_PROP2_BY_KEEPING_PROP3:
             happs.text = `You use the ${prop3}, and the ${prop1} becomes a ${prop2}`;
@@ -655,17 +656,17 @@ export class SingleFile {
             inputA = prop1;
             output = prop2;
             inputB = prop3;
-            command = new Command(Verb.Use, Mix.PropVsProp, prop1, prop3)
+            command = new Command(Verb.Use, Mix.PropVsProp, prop1, prop3);
             break;
           case _.PROP1_BECOMES_PROP2_BY_LOSING_INV1:
             happs.text = `You use the ${inv1}, and the ${prop1} becomes a ${prop2}}`;
             happs.array.push(new Happening(Happen.PropGoes, prop1));
             happs.array.push(new Happening(Happen.PropAppears, prop2));
-            happs.array.push(new Happening(Happen.InvGoes, inv1));    
+            happs.array.push(new Happening(Happen.InvGoes, inv1));
             inputA = prop1;
             output = prop2;
             inputB = inv1;
-            command =   new Command(Verb.Use, Mix.InvVsProp, inv1, prop1)
+            command = new Command(Verb.Use, Mix.InvVsProp, inv1, prop1);
             break;
           case _.PROP1_BECOMES_PROP2_BY_LOSING_PROP3:
             happs.text = `You use the ${prop3}, and the ${prop1} becomes a ${prop2}`;
@@ -675,7 +676,7 @@ export class SingleFile {
             inputA = prop1;
             output = prop2;
             inputB = prop3;
-            command = new Command(Verb.Use, Mix.PropVsProp, prop1, prop3)
+            command = new Command(Verb.Use, Mix.PropVsProp, prop1, prop3);
             break;
           case _.PROP1_BECOMES_PROP2_WHEN_GRAB_INV1:
             happs.text = `You now have a ${inv1}`;
@@ -688,7 +689,7 @@ export class SingleFile {
             inputA = prop1;
             // const inputB, count = "" + reactionsFile.pieces[i].prop2;
             output = inv1;
-            command = new Command(Verb.Grab, Mix.Prop, prop1)
+            command = new Command(Verb.Grab, Mix.Prop, prop1);
             break;
           case _.PROP1_CHANGES_STATE_TO_PROP2_BY_KEEPING_INV1:
             happs.text = `You use the ${inv1}, and the ${prop1} is now ${AlleviateBrackets(
@@ -700,14 +701,14 @@ export class SingleFile {
             inputA = prop1;
             output = prop2;
             inputB = inv1;
-            command = new Command(Verb.Open, Mix.InvVsProp, inv1, prop1)
+            command = new Command(Verb.Open, Mix.InvVsProp, inv1, prop1);
             break;
           case _.PROP1_GOES_WHEN_GRAB_INV1:
             happs.text = `You now have a ${inv1}`;
             // ly don't mention what happen to the prop you clicked on.  "\n You notice the " + prop1 + " has now become a " + prop2;
             happs.array.push(new Happening(Happen.PropGoes, prop1));
             happs.array.push(new Happening(Happen.InvAppears, inv1));
-            command = new Command(Verb.Grab, Mix.Prop, prop1)
+            command = new Command(Verb.Grab, Mix.Prop, prop1);
             output = inv1;
             inputA = prop1;
             break;
@@ -717,15 +718,15 @@ export class SingleFile {
             happs.array.push(new Happening(Happen.InvAppears, inv1));
             output = inv1;
             inputA = prop1;
-            command =   new Command(Verb.Grab, Mix.Prop, prop1)
+            command = new Command(Verb.Grab, Mix.Prop, prop1);
             break;
           case _.PROP1_GOES_WHEN_GRAB_INV1_WITH_GOAL1:
             happs.text = `You now have a ${inv1}`;
             // ly don't mention what happen to the prop you clicked on.  "\n You notice the " + prop1 + " has now become a " + prop2;
             happs.array.push(new Happening(Happen.PropGoes, prop1));
             happs.array.push(new Happening(Happen.InvAppears, inv1));
-            command =   new Command(Verb.Grab, Mix.Prop, prop1),
-            output = inv1;
+            (command = new Command(Verb.Grab, Mix.Prop, prop1)),
+              (output = inv1);
             inputA = prop1;
             inputB = goal1;
             break;
@@ -736,14 +737,14 @@ export class SingleFile {
             output = inv1;
             inputA = prop1;
             inputB = goal1;
-            command = new Command(Verb.Grab, Mix.Prop, prop1)
+            command = new Command(Verb.Grab, Mix.Prop, prop1);
             break;
           case _.TALK_TO_PROP1_GETS_INV1:
             happs.text = `You now have a ${inv1}`;
             happs.array.push(new Happening(Happen.InvAppears, inv1));
             output = inv1;
             inputA = prop1;
-            command = new Command(Verb.Talk, Mix.Prop, prop1)
+            command = new Command(Verb.Talk, Mix.Prop, prop1);
             break;
           case _.TALK_TO_PROP1_WITH_GOAL1_GETS_INV1:
             happs.text = `You talked with goal and now have a ${inv1}`;
@@ -751,7 +752,7 @@ export class SingleFile {
             output = inv1;
             inputA = prop1;
             inputB = goal1;
-            command = new Command(Verb.Talk, Mix.Prop, prop1)
+            command = new Command(Verb.Talk, Mix.Prop, prop1);
             break;
           case _.THROW_INV1_AT_PROP1_GETS_INV2_LOSE_BOTH:
             happs.text = `Throw the ${inv1} at the ${prop1} gets you the ${inv2}.`;
@@ -761,21 +762,21 @@ export class SingleFile {
             output = inv2;
             inputA = prop1;
             inputB = inv1;
-            command = new Command(Verb.Throw, Mix.InvVsProp, inv1, prop1)
-            break
+            command = new Command(Verb.Throw, Mix.InvVsProp, inv1, prop1);
+            break;
           case _.TOGGLE_PROP1_BECOMES_PROP2:
             happs.text = `The ${prop1} has become a ${prop2}`;
             happs.array.push(new Happening(Happen.PropGoes, prop1));
             happs.array.push(new Happening(Happen.PropAppears, prop2));
             inputA = prop1;
             output = prop2;
-            command =  new Command(Verb.Toggle, Mix.Prop, prop1)
+            command = new Command(Verb.Toggle, Mix.Prop, prop1);
             break;
           case _.TOGGLE_PROP1_CHANGES_STATE_TO_PROP2:
             happs.text = `The ${prop1} is now ${AlleviateBrackets(prop2)}`;
             happs.array.push(new Happening(Happen.PropGoes, prop1));
             happs.array.push(new Happening(Happen.PropAppears, prop2));
-            command =  new Command(Verb.Toggle, Mix.Prop, prop1)
+            command = new Command(Verb.Toggle, Mix.Prop, prop1);
             inputA = prop1;
             output = prop2;
             break;
@@ -793,7 +794,7 @@ export class SingleFile {
               `We did not handle a pieceType that we"re supposed to. Check to see if constant names are the same as their values in the schema. ${pieceType}`
             );
             return;
-        }//end switch
+        } //end switch
         piecesMappedByOutput.AddPiece(
           new Piece(
             id1,

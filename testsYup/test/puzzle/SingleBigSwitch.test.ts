@@ -1,12 +1,11 @@
 import { SingleFile } from '../../../src/puzzle/SingleFile';
 import { expect, describe, test } from '@jest/globals';
 import { PileOfPieces } from '../../../src/puzzle/PileOfPieces';
- 
- 
+
 describe('SingleBigSwitch', () => {
   test('SingleBigSwitch', async () => {
     console.log(__dirname);
-     const isGoalRetrieval = true;
+    const isGoalRetrieval = true;
     const file = new SingleFile(
       __dirname + '/../../../practice-world/',
       '03_access_thru_fireplace_goal.jsonc'

@@ -91,6 +91,7 @@ export class Happener {
   }
 
   public ExecuteCommand(objects: Command): void {
+    /*
     const happenings = this.box.FindHappeningsIfAny(objects);
     if (happenings != null) {
       console.warn(happenings.text);
@@ -166,6 +167,7 @@ export class Happener {
     } else {
       console.warn('Nothing happened');
     }
+    */
   }
 
   public GetIndexOfVerb(verb: string): number {

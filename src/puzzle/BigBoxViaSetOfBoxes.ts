@@ -198,16 +198,6 @@ export class BigBoxViaSetOfBoxes implements IBoxReadOnly {
     }
   }
 
-  public FindHappeningsIfAny(command: Command): Happenings | null {
-    for (const box of this.originalBoxes) {
-      const result = box.FindHappeningsIfAny(command)
-      if (result != null) {
-        return result;
-      }
-    }
-    return null;
-  }
-
   public CollectAllReferencedBoxesRecursively(set: Set<IBoxReadOnly>): void {
     // We don't want to go: set.add(this);
     // Because *event hough* this big box via set of big boxes can
