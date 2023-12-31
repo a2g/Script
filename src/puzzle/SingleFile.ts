@@ -14,7 +14,7 @@ import { Verb } from './Verb';
 import { AlleviateBrackets } from './AlleviateBrackets';
 
 function makeGoalNameDeterministically(partA: string, partB: string) {
-  return `0Dyn_${partA}_${partB}_goal`;
+  return `00_dyn_${partA}_${partB}_goal`;
 }
 /**
  * Yup, this is the one location of these
@@ -311,7 +311,7 @@ export class SingleFile {
                 );
               }
             }
-            break;
+            continue;
           case _.INV1_OBTAINED_WHEN_LOSING_INV2_AND_PROP1_BECOMES_PROP2_SUB:
             {
               happs.text = `When you use the ${inv2} with the ${prop1}, you obtain an ${inv1} as the ${prop1} becomes a ${prop2}`;
@@ -382,9 +382,9 @@ export class SingleFile {
                 );
               }
             }
-            return;
+            continue;
           default:
-            return;
+            continue;
         }
         // Space saving measure - to do this here, instead
         // of having it in every case statement
@@ -790,8 +790,8 @@ export class SingleFile {
             command = new Command(Verb.Toggle, Mix.Prop, prop1);
             break;
           default:
-            console.warn(
-              `We did not handle a pieceType that we"re supposed to. Check to see if constant names are the same as their values in the schema. ${pieceType}`
+            console.error(
+              `Fatal Error: We did not handle a pieceType that we"re supposed to. Check to see if constant names are the same as their values in the schema. ${pieceType}`
             );
             return;
         } //end switch
@@ -815,6 +815,5 @@ export class SingleFile {
         );
       }
     }
-    return;
   }
 }
