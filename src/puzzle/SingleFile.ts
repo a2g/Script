@@ -60,7 +60,7 @@ export class SingleFile {
       const goal3 = Stringify(piece.goal3);
       const goal4 = Stringify(piece.goal4);
       const goal5 = Stringify(piece.goal5);
-      const goal6 = Stringify(piece.goal6);
+      //const goal6 = Stringify(piece.goal6);
       const inv1 = Stringify(piece.inv1);
       const inv2 = Stringify(piece.inv2);
       const inv3 = Stringify(piece.inv3);

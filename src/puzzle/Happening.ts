@@ -7,41 +7,55 @@ Possible new name: StateChangeEvent
 Possible new name: StateChange
 */
 export class Happening {
-  public item: string;
-  public happen: Happen;
+  public type: Happen;
+  public itemA: string;
+  public itemB: string;
 
-  constructor(play: Happen, item: string) {
-    if (item.length === 0) {
+  constructor(type: Happen, itemA: string, itemB = '') {
+    if (itemA.length === 0) {
       throw new Error('item needs to be non null');
     }
-    this.happen = play;
-    this.item = item;
-    switch (play) {
+    this.type = type;
+    this.itemA = itemA;
+    this.itemB = itemB;
+    switch (type) {
       case Happen.InvGoes:
       case Happen.InvStays:
       case Happen.InvAppears:
-        if (!item.startsWith('inv')) {
+      case Happen.InvTransitionsToInv:
+        if (!itemA.startsWith('inv')) {
           console.warn(
-            'Mismatch! the item (' + item + ') doesn"t start with "inv"'
+            'Mismatch! the item (' + itemA + ') doesn"t start with "inv"'
+          );
+        }
+        if (itemB !== '' && !itemB.startsWith('inv')) {
+          console.warn(
+            'Mismatch! the item (' + itemB + ') doesn"t start with "inv"'
           );
         }
         break;
       case Happen.PropGoes:
       case Happen.PropStays:
       case Happen.PropAppears:
-        if (!item.startsWith('prop')) {
+      case Happen.PropTransitionsToProp:
+        if (!itemA.startsWith('prop')) {
           console.warn(
-            'Mismatch! the item (' + item + ') does not start with "prop"'
+            'Mismatch! the item (' + itemA + ') does not start with "prop"'
+          );
+        }
+        if (itemB !== '' && !itemB.startsWith('prop')) {
+          console.warn(
+            'Mismatch! the item (' + itemB + ') does not start with "prop"'
           );
         }
         break;
       case Happen.GoalIsDecremented:
       case Happen.GoalIsIncremented:
       case Happen.GoalIsSet:
-        if (!startsWithGoalNumber(item)) {
+        if (!startsWithGoalNumber(itemA)) {
           console.warn(
             'Convention mismatch! the item (' +
-              item +
+              itemA +
               ') does not begin with a goal number"'
           );
         }

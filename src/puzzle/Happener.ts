@@ -1,7 +1,5 @@
 import { Command } from './Command';
 import { IBoxReadOnly } from './IBoxReadOnly';
-import { IHappenerCallbacks } from './IHappenerCallbacks';
-import { PlayerAI } from './PlayerAI';
 
 // April 2021
 // The blind / location - agnostic way to find solutions is to have an inv vs props table, and inv vs inv table, and a verb vs props table, and a verb vs invs table, then
@@ -39,9 +37,9 @@ export class Happener {
 
   private arrayOfGoalValues: number[];
 
-  private readonly box: IBoxReadOnly;
+  // private readonly _box: IBoxReadOnly;
 
-  private callbacks: IHappenerCallbacks;
+  //private _callbacks: IHappenerCallbacks;
 
   constructor(box: IBoxReadOnly) {
     // yes, all of these need to be initialized to harmless values due to PlayerAI below
@@ -52,12 +50,12 @@ export class Happener {
     this.arrayOfInventoryVisibilities = [];
     this.arrayOfPropVisibilities = [];
     this.arrayOfGoalValues = [];
-    this.box = box;
+    //this._box = box;
     // PlayerAI needs to be initialized last, because for
     // the first parameter it passes this - and the PlayerAI
     // constructor expects a fully constructed item to be
     // passed to it.
-    this.callbacks = new PlayerAI(this, 0);
+    // this._callbacks = new PlayerAI(this, 0);
 
     this.arrayOfInvNames = box.GetArrayOfInvs();
     this.arrayOfGoalNames = box.GetArrayOfGoals();
@@ -89,7 +87,7 @@ export class Happener {
     this.arrayOfPropVisibilities[index] = value;
   }
 
-  public ExecuteCommand(objects: Command): void {
+  public ExecuteCommand(_objects: Command): void {
     /*
     const happenings = this.box.FindHappeningsIfAny(objects);
     if (happenings != null) {
@@ -212,9 +210,9 @@ export class Happener {
     return name;
   }
 
-  public SubscribeToCallbacks(callbacks: IHappenerCallbacks): void {
-    this.callbacks = callbacks;
-  }
+  //public SubscribeToCallbacks(callbacks: IHappenerCallbacks): void {
+  // this._callbacks = callbacks;
+  //}
 
   public GetVerbsExcludingUse(): Array<[string, boolean]> {
     const toReturn: Array<[string, boolean]> = [];

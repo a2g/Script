@@ -42,7 +42,7 @@ export class PlayerAI implements IHappenerCallbacks {
     this.invVsProp = new LogicGrid(invs, props);
     this.propVsVerb = new LogicGrid(props, verbs);
     this.propVsProp = new LogicGrid(props, props);
-    this.game.SubscribeToCallbacks(this);
+    //this.game.SubscribeToCallbacks(this);
 
     // since use same with same is illegal move, we block these out
     for (let i = 0; i < invs.length; i += 1) {

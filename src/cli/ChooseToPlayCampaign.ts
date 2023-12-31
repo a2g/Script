@@ -34,7 +34,7 @@ export function ChooseToPlayCampaign(): void {
       let location = locations.get(goal.location);
       if (location !== undefined) {
         let box = new ReadOnlyJsonMultipleCombined(location.fileSet);
-        let happener = new Happener(box);
+        let happener = new Happener(pileOfPieces);
         let s = new GoalSession(happener, box.GetMapOfAllStartingThings(), box.CopyPiecesFromBoxToPile());
         s.prerequisiteGoals = goal.prerequisiteGoals;
         s.prerequisiteType = goal.prerequisiteType;

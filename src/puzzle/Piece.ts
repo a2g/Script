@@ -231,16 +231,16 @@ export class Piece {
   public UpdateVisibleWithOutcomes(visiblePieces: VisibleThingsMap): void {
     if (this.happenings != null) {
       for (const happening of this.happenings.array) {
-        switch (happening.happen) {
+        switch (happening.type) {
           case Happen.GoalIsSet:
           case Happen.InvAppears:
           case Happen.PropAppears:
-            visiblePieces.Set(happening.item, new Set<string>());
+            visiblePieces.Set(happening.itemA, new Set<string>());
             break;
           case Happen.InvGoes:
           case Happen.PropGoes:
           default:
-            visiblePieces.Delete(happening.item);
+            visiblePieces.Delete(happening.itemA);
             break;
         }
       }
