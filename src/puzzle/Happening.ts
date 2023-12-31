@@ -22,7 +22,7 @@ export class Happening {
       case Happen.InvGoes:
       case Happen.InvStays:
       case Happen.InvAppears:
-      case Happen.InvTransitionsToInv:
+      case Happen.InvTransitions:
         if (!itemA.startsWith('inv')) {
           console.warn(
             'Mismatch! the item (' + itemA + ') doesn"t start with "inv"'
@@ -37,7 +37,7 @@ export class Happening {
       case Happen.PropGoes:
       case Happen.PropStays:
       case Happen.PropAppears:
-      case Happen.PropTransitionsToProp:
+      case Happen.PropTransitions:
         if (!itemA.startsWith('prop')) {
           console.warn(
             'Mismatch! the item (' + itemA + ') does not start with "prop"'

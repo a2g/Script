@@ -99,7 +99,7 @@ export class SingleFile {
         switch (pieceType) {
           case _.AUTO_GOAL1_MET_BY_GOALS:
             output = goal1;
-            command = new Command(Verb.Auto, Mix.AutoDoesntNeedAnything, '');
+            command = new Command(Verb.Auto, Mix.AutoNeedsNothing, '');
             break;
           case _.AUTO_GOAL1_MET_BY_PROPS:
             output = goal1;
@@ -109,25 +109,25 @@ export class SingleFile {
             inputD = prop4;
             inputE = prop5;
             inputF = prop6;
-            command = new Command(Verb.Auto, Mix.AutoDoesntNeedAnything, '');
+            command = new Command(Verb.Auto, Mix.AutoNeedsNothing, '');
             break;
           case _.AUTO_GOAL1_MET_BY_INVS:
             output = goal1;
             inputA = inv1;
             inputB = inv2;
             inputC = inv3;
-            command = new Command(Verb.Auto, Mix.AutoDoesntNeedAnything, '');
+            command = new Command(Verb.Auto, Mix.AutoNeedsNothing, '');
             break;
           case _.AUTO_INV1_OBTAINED_VIA_GOAL1:
             happs.array.push(new Happening(Happen.InvAppears, inv1));
             output = inv1;
             inputA = goal1;
-            command = new Command(Verb.Auto, Mix.AutoDoesntNeedAnything, '');
+            command = new Command(Verb.Auto, Mix.AutoNeedsNothing, '');
             break;
           case _.AUTO_PROP1_APPEARS_VIA_GOAL1:
             output = prop1;
             inputA = goal1;
-            command = new Command(Verb.Auto, Mix.AutoDoesntNeedAnything, '');
+            command = new Command(Verb.Auto, Mix.AutoNeedsNothing, '');
             break;
           case _.GOAL1_MET_BY_KEEPING_INV1_WHEN_USED_WITH_PROP1:
             happs.text = `You use the ${inv1} with the ${prop1} and something good happens...`;
@@ -243,12 +243,6 @@ export class SingleFile {
             break;
           case _.INV1_BECOMES_INV2_AS_PROP1_BECOMES_PROP2_SUB:
             {
-              happs.text = `Your ${inv1} has become a ${inv2} as the ${prop1} becomes a ${prop2}`;
-              happs.array.push(new Happening(Happen.InvGoes, inv1));
-              happs.array.push(new Happening(Happen.InvAppears, inv2));
-              happs.array.push(new Happening(Happen.PropGoes, prop1));
-              happs.array.push(new Happening(Happen.PropAppears, prop2));
-
               const newGoal = makeGoalNameDeterministically(inv1, prop1);
               const happs1 = new Happenings();
               happs1.array.push(new Happening(Happen.GoalIsSet, newGoal));
@@ -272,8 +266,7 @@ export class SingleFile {
 
               if (!isCopyRootPiecesOnly) {
                 const happs2 = new Happenings();
-                happs2.array.push(new Happening(Happen.InvAppears, inv2));
-                happs2.array.push(new Happening(Happen.InvGoes, inv1));
+                happs2.array.push(new Happening(Happen.InvTransitions, inv1, inv2));
                 const inputA2 = newGoal;
                 const output2 = inv2;
                 piecesMappedByOutput.AddPiece(
@@ -283,15 +276,14 @@ export class SingleFile {
                     output2,
                     _.AUTO_INV1_BECOMES_INV2_VIA_GOAL1,
                     count,
-                    new Command(Verb.Auto, Mix.AutoDoesntNeedAnything, ''),
+                    new Command(Verb.Auto, Mix.AutoNeedsNothing, ''),
                     happs2,
                     restrictions,
                     inputA2
                   )
                 );
                 const happs3 = new Happenings();
-                happs3.array.push(new Happening(Happen.PropAppears, prop2));
-                happs3.array.push(new Happening(Happen.PropGoes, prop1));
+                happs3.array.push(new Happening(Happen.PropTransitions, prop1, prop2));
                 const inputA3 = newGoal;
                 const inputB3 = prop1;
                 const output3 = prop2;
@@ -302,7 +294,7 @@ export class SingleFile {
                     output3,
                     _.AUTO_PROP1_BECOMES_PROP2_VIA_GOAL1,
                     count,
-                    new Command(Verb.Auto, Mix.AutoDoesntNeedAnything, ''),
+                    new Command(Verb.Auto, Mix.AutoNeedsNothing, ''),
                     happs3,
                     restrictions,
                     inputA3,
@@ -354,7 +346,7 @@ export class SingleFile {
                     output2,
                     _.AUTO_INV1_OBTAINED_VIA_GOAL1,
                     count,
-                    new Command(Verb.Auto, Mix.AutoDoesntNeedAnything, ''),
+                    new Command(Verb.Auto, Mix.AutoNeedsNothing, ''),
                     happs2,
                     restrictions,
                     inputA2
@@ -373,7 +365,7 @@ export class SingleFile {
                     output3,
                     _.AUTO_PROP1_BECOMES_PROP2_VIA_GOAL1,
                     count,
-                    new Command(Verb.Auto, Mix.AutoDoesntNeedAnything, ''),
+                    new Command(Verb.Auto, Mix.AutoNeedsNothing, ''),
                     happs3,
                     restrictions,
                     inputA3,
@@ -416,29 +408,29 @@ export class SingleFile {
             inputD = prop5;
             inputE = prop6;
             inputF = prop7;
-            command = new Command(Verb.Auto, Mix.AutoDoesntNeedAnything, '');
+            command = new Command(Verb.Auto, Mix.AutoNeedsNothing, '');
             break;
           case _.AUTO_INV1_BECOMES_INV2_VIA_GOAL1:
             inputA = goal1;
             inputB = inv1;
             output = inv2;
-            command = new Command(Verb.Auto, Mix.AutoDoesntNeedAnything, '');
+            command = new Command(Verb.Auto, Mix.AutoNeedsNothing, '');
             break;
           case _.AUTO_PROP1_BECOMES_PROP2_VIA_GOAL1:
             inputA = goal1;
             inputB = prop1;
             output = prop2;
-            command = new Command(Verb.Auto, Mix.AutoDoesntNeedAnything, '');
+            command = new Command(Verb.Auto, Mix.AutoNeedsNothing, '');
             break;
           case _.AUTO_PROP1_APPEARS_VIA_GOAL1:
             output = prop1;
             inputA = goal1;
-            command = new Command(Verb.Auto, Mix.AutoDoesntNeedAnything, '');
+            command = new Command(Verb.Auto, Mix.AutoNeedsNothing, '');
             break;
           case _.AUTO_INV1_OBTAINED_VIA_GOAL1:
             output = inv1;
             inputA = goal1;
-            command = new Command(Verb.Auto, Mix.AutoDoesntNeedAnything, '');
+            command = new Command(Verb.Auto, Mix.AutoNeedsNothing, '');
             break;
           case _.EXAMINE_PROP1_YIELDS_INV1:
             happs.text = `You examine the ${prop1} and find a ${inv1}`;

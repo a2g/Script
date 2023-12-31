@@ -6,12 +6,12 @@ export enum Happen {
   InvGoes,
   InvStays,
   InvAppears,
-  InvTransitionsToInv,
+  InvTransitions,
 
   PropGoes,
   PropStays,
   PropAppears,
-  PropTransitionsToProp,
+  PropTransitions,
 
   GoalIsSet,
   GoalIsIncremented,
