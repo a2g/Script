@@ -1,4 +1,4 @@
-/* 
+/*
 import Campaign from '../../practice-world/Campaign.jsonc';
 import { Area } from './Area';
 
@@ -68,6 +68,6 @@ export function ChooseToPlayCampaign(): void {
       PlayPlayable(session.playable);
 
     }// end while true of selecting a section
-  
+
 }
 */

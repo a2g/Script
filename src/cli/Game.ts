@@ -1,13 +1,13 @@
-import { GameReporter } from './GameReporter';
+import { GameReporter } from './GameReporter'
 
 export class Game {
-  public static instance: Game | null;
+  public static instance: Game | null
 
-  public static GetInstance(): Game {
+  public static GetInstance (): Game {
     if (Game.instance == null) {
-      Game.instance = new Game();
+      Game.instance = new Game()
     }
-    return Game.instance;
+    return Game.instance
   }
   /*
   public Show(itemName: string) {
@@ -21,9 +21,9 @@ export class Game {
       // could be just an object transformation, so don't say anything.
   } */
 
-  public Say(speech: string): void {
+  public Say (speech: string): void {
     // enforcer's don't care about saying stuff som much.
     // this.enforcer.Say(itemName);
-    GameReporter.GetInstance().Say(speech);
+    GameReporter.GetInstance().Say(speech)
   }
 }
