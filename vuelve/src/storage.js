@@ -1,26 +1,24 @@
-
-
+/*
 export function storeGithubAccessTimeForUser (username, duration) {
   // get whole map..
   const storage = getMapOfGithubAccessTimesFromLocalStorage()
-  
+
   // change just the entry we desier...
   storage[username] = duration
-  
+
   // set the storage back
   setMapOfGithubAccessTimesToLocalStorage(storage)
 }
 
-
 export function getGithubAccessTimeForUser (username) {
   const storage = getMapOfGithubAccessTimesFromLocalStorage()
-  
+
   return storage[username]
 }
 
 export function getPerformanceImprovementOnLastAccessTimeAsString (username, duration) {
   const prevDuration = getGithubAccessTimeForUser(username)
-  
+
   if (!prevDuration) {
     return ''
   }
@@ -34,7 +32,6 @@ export function getPerformanceImprovementOnLastAccessTimeAsString (username, dur
     return ''
   }
 }
-
 
 const LOCAL_STORAGE_KEY = 'key-for-local-storage-puzzle-pieces'
 
@@ -54,7 +51,6 @@ const setMapOfGithubAccessTimesToLocalStorage = (storage) => {
   }
 }
 
-
 const trimMillisec = (duration) => {
   if (!duration) {
     return 0
@@ -62,3 +58,4 @@ const trimMillisec = (duration) => {
     return +duration.slice(0, duration.length - 2)
   }
 }
+*/
