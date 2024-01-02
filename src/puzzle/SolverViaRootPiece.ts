@@ -44,7 +44,7 @@ export class SolverViaRootPiece {
         newRootMap,
         box.GetNewPileOfPieces(),
         box.GetMapOfAllStartingThings(),
-        box.IsMergingOk()
+        box.IsNotMergingAnymoreBoxes()
       );
       this.solutions.push(firstSolution);
     }

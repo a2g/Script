@@ -10,7 +10,7 @@ import { VisibleThingsMap } from './VisibleThingsMap';
 export class Piece {
   public id: number;
 
-  public merge: IBoxReadOnlyWithFileMethods | null;
+  public boxToMerge: IBoxReadOnlyWithFileMethods | null;
 
   public type: string;
 
@@ -32,7 +32,7 @@ export class Piece {
 
   constructor(
     id: number,
-    merge: IBoxReadOnlyWithFileMethods | null,
+    boxToMerge: IBoxReadOnlyWithFileMethods | null,
     output: string,
     type = 'undefined',
     reuseCount = 1, // put it here so all the tests don't need to specify it.
@@ -47,7 +47,7 @@ export class Piece {
     inputF = 'undefined' // no statics in typescript, so this seemed preferable than global let Null = "Null";
   ) {
     this.id = id;
-    this.merge = merge;
+    this.boxToMerge = boxToMerge;
     this.parent = null;
     this.reuseCount = reuseCount;
     this.output = output;
@@ -98,7 +98,7 @@ export class Piece {
     clone.type = this.type;
     clone.reuseCount = this.reuseCount;
     clone.output = this.output;
-    clone.merge = this.merge;
+    clone.boxToMerge = this.boxToMerge;
 
     // the hints
     for (const inputHint of this.inputHints) {

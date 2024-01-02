@@ -33,6 +33,6 @@ export interface IBoxReadOnly {
   CollectAllReferencedBoxesRecursively: (
     map: Map<string, IBoxReadOnly>
   ) => void;
-  IsMergingOk: () => boolean;
+  IsNotMergingAnymoreBoxes: () => boolean;
   GetNewPileOfPieces: () => PileOfPieces;
 }

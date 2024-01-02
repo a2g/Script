@@ -9,6 +9,7 @@ import { LeafToRootTraverser } from './LeafToRootTraverser';
 import { RootPieceMap } from './RootPieceMap';
 import { SolverViaRootPiece } from './SolverViaRootPiece';
 import { VisibleThingsMap } from './VisibleThingsMap';
+import { IBoxReadOnlyWithFileMethods } from './IBoxReadOnlyWithFileMethods';
 
 /**
  * Solution needs to be cloned.
@@ -30,7 +31,7 @@ export class Solution {
 
   private isArchived: boolean;
 
-  private readonly isMergingOk: boolean;
+  private readonly isNotMergingAnyMoreBoxes: boolean;
 
   private readonly commandsCompletedInOrder: Array<RawObjectsAndVerb>;
 
@@ -40,13 +41,13 @@ export class Solution {
     rootPieceMapToCopy: RootPieceMap | null,
     copyThisMapOfPieces: IPileOfPiecesReadOnly,
     startingThingsPassedIn: VisibleThingsMap,
-    isMergingOk = false,
+    isNotMergingAnyMoreBoxes: boolean,
     commandsCompletedInOrder: Array<RawObjectsAndVerb> | null = null,
     restrictions: Set<string> | null = null,
     nameSegments: string[] | null = null
   ) {
     this.rootPieces = new RootPieceMap(rootPieceMapToCopy);
-    this.isMergingOk = isMergingOk;
+    this.isNotMergingAnyMoreBoxes = isNotMergingAnyMoreBoxes;
     this.remainingPiecesRepo = new PileOfPieces(copyThisMapOfPieces);
     this.isArchived = false;
     this.lastBranchingPoint = '';
@@ -100,7 +101,7 @@ export class Solution {
       clonedRootPieceMap,
       this.remainingPiecesRepo,
       this.startingThings,
-      this.isMergingOk,
+      this.isNotMergingAnyMoreBoxes,
       this.commandsCompletedInOrder,
       this.restrictionsEncounteredDuringSolving,
       this.solutionNameSegments
@@ -211,19 +212,22 @@ export class Solution {
             goal.firstNullInput = '';
             //
             this.GenerateCommandsAndAddToMap(goal.piece);
-            if (goal.piece.merge != null && this.isMergingOk) {
-              goal.piece.merge.CopyPiecesFromBoxToPile(this.GetPile());
-              goal.piece.merge.CopyStartingThingCharsToGivenMap(
-                this.startingThings
-              );
-              goal.piece.merge.CopyStartingThingCharsToGivenMap(
-                this.currentlyVisibleThings
-              );
+            if (
+              goal.piece.boxToMerge != null &&
+              !this.isNotMergingAnyMoreBoxes
+            ) {
+              this.MergeBox(goal.piece.boxToMerge);
             }
           }
         }
       }
     }
+  }
+
+  public MergeBox(boxToMerge: IBoxReadOnlyWithFileMethods) {
+    boxToMerge.CopyPiecesFromBoxToPile(this.GetPile());
+    boxToMerge.CopyStartingThingCharsToGivenMap(this.startingThings);
+    boxToMerge.CopyStartingThingCharsToGivenMap(this.currentlyVisibleThings);
   }
 
   public GenerateCommandsAndAddToMap(piece: Piece): void {

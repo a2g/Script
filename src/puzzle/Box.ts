@@ -149,7 +149,7 @@ export class Box implements IBoxReadOnlyWithFileMethods {
     // this was here in case we couldn't load the file in the constructor - but now we can.
   }
 
-  public IsMergingOk(): boolean {
+  public IsNotMergingAnymoreBoxes(): boolean {
     return this.isMergingOk;
   }
 
@@ -315,8 +315,8 @@ export class Box implements IBoxReadOnlyWithFileMethods {
     map.set(this.filename, this);
     for (const array of this.goals.GetValues()) {
       for (const goal of array) {
-        if (goal.piece.merge != null) {
-          goal.piece.merge.CollectAllReferencedBoxesRecursively(map);
+        if (goal.piece.boxToMerge != null) {
+          goal.piece.boxToMerge.CollectAllReferencedBoxesRecursively(map);
         }
       }
     }

@@ -40,13 +40,16 @@ export class BigBoxViaSetOfBoxes implements IBoxReadOnly {
 
   public readonly goals: RootPieceMap;
 
-  public readonly isMergingOk: boolean = true;
+  public readonly isNotMergingAnymoreBoxes: boolean;
 
-  constructor(mapOfBoxes: Map<string, IBoxReadOnlyWithFileMethods>) {
+  constructor(
+    mapOfBoxes: Map<string, IBoxReadOnlyWithFileMethods>,
+    isNotMergingAnymoreBoxes: boolean
+  ) {
     // we keep the original boxes, because we need to call
     // Big Switch on them numerous times
     this.originalBoxes = mapOfBoxes;
-
+    this.isNotMergingAnymoreBoxes = isNotMergingAnymoreBoxes;
     // create sets for the 3 member and 4 indirect sets
     this.mapOfStartingThingsWithChars = new VisibleThingsMap(null);
     this.startingPropSet = new Set<string>();
@@ -88,8 +91,8 @@ export class BigBoxViaSetOfBoxes implements IBoxReadOnly {
     this.allChars = Array.from(setChars.values());
   }
 
-  public IsMergingOk(): boolean {
-    return this.isMergingOk; // doesn't need to merge, because it already includes all
+  public IsNotMergingAnymoreBoxes(): boolean {
+    return this.isNotMergingAnymoreBoxes; // doesn't need to merge, because it already includes all
   }
 
   public GetArrayOfProps(): string[] {
@@ -212,8 +215,8 @@ export class BigBoxViaSetOfBoxes implements IBoxReadOnly {
     // then we don't need to recurse further here.
     for (const array of this.goals.GetValues()) {
       for (const goal of array) {
-        if (goal.piece.merge != null) {
-          const merge = goal.piece.merge;
+        if (goal.piece.boxToMerge != null) {
+          const merge = goal.piece.boxToMerge;
           map.set(merge.GetFilename(), merge);
         }
       }
