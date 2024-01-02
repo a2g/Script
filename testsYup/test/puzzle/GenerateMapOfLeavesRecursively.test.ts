@@ -17,7 +17,7 @@ test('GenerateMapOfLeavesRecursively', () => {
     'a',
     'b'
   ) // eslint-disable-line no-return-assign, no-param-reassign
-  GenerateMapOfLeavesRecursively(piece, '', map)
+  GenerateMapOfLeavesRecursively(piece, '', false, map)
 
   expect(map.size).toBe(3)
   expect(map.get('/a')).toBe(null)

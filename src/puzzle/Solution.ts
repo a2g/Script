@@ -233,7 +233,7 @@ export class Solution {
   public GenerateCommandsAndAddToMap (piece: Piece): void {
     // push the commands
     const leaves = new Map<string, Piece | null>()
-    GenerateMapOfLeavesRecursively(piece, '', leaves)
+    GenerateMapOfLeavesRecursively(piece, '', false, leaves)
     const leafToRootTraverser = new LeafToRootTraverser(
       this.currentlyVisibleThings,
       leaves
@@ -291,7 +291,7 @@ export class Solution {
     // I would like to return a read only array here.
     // I can't do that, so instead, I will clone.
     // The best way to clone in is using 'map'
-    return this.commandsCompletedInOrder.map(x => x)
+    return this.commandsCompletedInOrder.map((x) => x)
   }
 
   public GetVisibleThingsAtTheMoment (): VisibleThingsMap {

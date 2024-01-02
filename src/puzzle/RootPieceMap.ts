@@ -45,14 +45,16 @@ export class RootPieceMap implements IPileOrRootPieceMap {
 
   /**
    * this is only here for the ui method.
-   *
+   * @isOnlyNulls if its only null leaves to be returned
    * @returns unsolved root nodes
    */
-  public GenerateMapOfLeavesFromAllRoots (): Map<string, Piece> {
+  public GenerateMapOfLeavesFromAllRoots (
+    isOnlyNulls: boolean
+  ): Map<string, Piece> {
     const leaves = new Map<string, Piece>()
     for (const array of this.GetValues()) {
       for (const root of array) {
-        GenerateMapOfLeavesRecursively(root.piece, '', leaves)
+        GenerateMapOfLeavesRecursively(root.piece, '', isOnlyNulls, leaves)
       }
     }
     return leaves

@@ -4,6 +4,7 @@ import { SpecialTypes } from './SpecialTypes'
 export function GenerateMapOfLeavesRecursively (
   piece: Piece,
   path: string,
+  isOnlyNulls: boolean,
   map: Map<string, Piece | null>
 ): void {
   for (let i = 0; i < piece.inputs.length; i += 1) {
@@ -15,6 +16,9 @@ export function GenerateMapOfLeavesRecursively (
       case SpecialTypes.ExistsFromBeginning:
       case SpecialTypes.VerifiedLeaf:
       case 'null':
+        if (isOnlyNulls && inputType != null) {
+          continue
+        }
         map.set(`${path}/${piece.inputHints[i]}`, input)
         break
     }
@@ -24,6 +28,7 @@ export function GenerateMapOfLeavesRecursively (
       GenerateMapOfLeavesRecursively(
         input,
         `${path}/${piece.inputHints[i]}`,
+        isOnlyNulls,
         map
       )
     }
