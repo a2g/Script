@@ -1,10 +1,10 @@
-import { IBoxReadOnly } from './IBoxReadOnly';
-import { IBoxReadOnlyWithFileMethods } from './IBoxReadOnlyWithFileMethods';
-import { IPileOrRootPieceMap } from './IPileOrRootPieceMap';
-import { PileOfPieces } from './PileOfPieces';
-import { RootPieceMap } from './RootPieceMap';
-import { SingleFile } from './SingleFile';
-import { VisibleThingsMap } from './VisibleThingsMap';
+import { IBoxReadOnly } from './IBoxReadOnly'
+import { IBoxReadOnlyWithFileMethods } from './IBoxReadOnlyWithFileMethods'
+import { IPileOrRootPieceMap } from './IPileOrRootPieceMap'
+import { PileOfPieces } from './PileOfPieces'
+import { RootPieceMap } from './RootPieceMap'
+import { SingleFile } from './SingleFile'
+import { VisibleThingsMap } from './VisibleThingsMap'
 
 /**
  * So the most important part of this class is that the data
@@ -13,193 +13,193 @@ import { VisibleThingsMap } from './VisibleThingsMap';
  * in this case multiple, so that goes in there too.
  */
 export class BigBoxViaSetOfBoxes implements IBoxReadOnly {
-  public static GetArrayOfSingleObjectVerbs(): string[] {
-    return ['grab', 'toggle'];
+  public static GetArrayOfSingleObjectVerbs (): string[] {
+    return ['grab', 'toggle']
   }
 
-  public static GetArrayOfInitialStatesOfSingleObjectVerbs(): boolean[] {
-    return [true, true];
+  public static GetArrayOfInitialStatesOfSingleObjectVerbs (): boolean[] {
+    return [true, true]
   }
-  public readonly allProps: string[];
 
-  public readonly allGoals: string[];
+  public readonly allProps: string[]
 
-  public readonly allInvs: string[];
+  public readonly allGoals: string[]
 
-  public readonly allChars: string[];
+  public readonly allInvs: string[]
 
-  public readonly mapOfStartingThingsWithChars: VisibleThingsMap;
+  public readonly allChars: string[]
 
-  public readonly startingInvSet: Set<string>;
+  public readonly mapOfStartingThingsWithChars: VisibleThingsMap
 
-  public readonly startingPropSet: Set<string>;
+  public readonly startingInvSet: Set<string>
 
-  public readonly startingGoalSet: Set<string>;
+  public readonly startingPropSet: Set<string>
 
-  public readonly originalBoxes: Map<string, IBoxReadOnlyWithFileMethods>;
+  public readonly startingGoalSet: Set<string>
 
-  public readonly goals: RootPieceMap;
+  public readonly originalBoxes: Map<string, IBoxReadOnlyWithFileMethods>
 
-  public readonly isNotMergingAnymoreBoxes: boolean;
+  public readonly goals: RootPieceMap
 
-  constructor(
-    mapOfBoxes: Map<string, IBoxReadOnlyWithFileMethods>,
-    isNotMergingAnymoreBoxes: boolean
+  public readonly isNotMergingAnymoreBoxes: boolean
+
+  constructor (
+    mapOfBoxes: Map<string, IBoxReadOnlyWithFileMethods>
   ) {
     // we keep the original boxes, because we need to call
     // Big Switch on them numerous times
-    this.originalBoxes = mapOfBoxes;
-    this.isNotMergingAnymoreBoxes = isNotMergingAnymoreBoxes;
+    this.originalBoxes = mapOfBoxes
+    this.isNotMergingAnymoreBoxes = true
     // create sets for the 3 member and 4 indirect sets
-    this.mapOfStartingThingsWithChars = new VisibleThingsMap(null);
-    this.startingPropSet = new Set<string>();
-    this.startingInvSet = new Set<string>();
-    this.startingGoalSet = new Set<string>();
-    this.goals = new RootPieceMap(null);
-    const setProps = new Set<string>();
-    const setGoals = new Set<string>();
-    const setInvs = new Set<string>();
-    const setChars = new Set<string>();
+    this.mapOfStartingThingsWithChars = new VisibleThingsMap(null)
+    this.startingPropSet = new Set<string>()
+    this.startingInvSet = new Set<string>()
+    this.startingGoalSet = new Set<string>()
+    this.goals = new RootPieceMap(null)
+    const setProps = new Set<string>()
+    const setGoals = new Set<string>()
+    const setInvs = new Set<string>()
+    const setChars = new Set<string>()
 
     // collate the 3 member and 4 indirect sets
     for (const box of this.originalBoxes.values()) {
-      box.CopyStartingThingCharsToGivenMap(this.mapOfStartingThingsWithChars);
-      box.CopyStartingPropsToGivenSet(this.startingPropSet);
-      box.CopyStartingInvsToGivenSet(this.startingInvSet);
-      box.CopyStartingGoalsToGivenSet(this.startingGoalSet);
-      box.CopyGoalPiecesToContainer(this.goals);
-      box.CopyPropsToGivenSet(setProps);
-      box.CopyGoalsToGivenSet(setGoals);
-      box.CopyInvsToGivenSet(setInvs);
-      box.CopyCharsToGivenSet(setChars);
+      box.CopyStartingThingCharsToGivenMap(this.mapOfStartingThingsWithChars)
+      box.CopyStartingPropsToGivenSet(this.startingPropSet)
+      box.CopyStartingInvsToGivenSet(this.startingInvSet)
+      box.CopyStartingGoalsToGivenSet(this.startingGoalSet)
+      box.CopyGoalPiecesToContainer(this.goals)
+      box.CopyPropsToGivenSet(setProps)
+      box.CopyGoalsToGivenSet(setGoals)
+      box.CopyInvsToGivenSet(setInvs)
+      box.CopyCharsToGivenSet(setChars)
     }
 
     // clean 3 member and 4 indirect sets
-    this.startingPropSet.delete('');
-    this.startingInvSet.delete('');
-    this.mapOfStartingThingsWithChars.Delete('');
-    this.startingGoalSet.delete('');
-    setChars.delete('');
-    setProps.delete('');
-    setGoals.delete('');
-    setInvs.delete('');
+    this.startingPropSet.delete('')
+    this.startingInvSet.delete('')
+    this.mapOfStartingThingsWithChars.Delete('')
+    this.startingGoalSet.delete('')
+    setChars.delete('')
+    setProps.delete('')
+    setGoals.delete('')
+    setInvs.delete('')
 
     // finally set arrays for the four
-    this.allProps = Array.from(setProps.values());
-    this.allGoals = Array.from(setGoals.values());
-    this.allInvs = Array.from(setInvs.values());
-    this.allChars = Array.from(setChars.values());
+    this.allProps = Array.from(setProps.values())
+    this.allGoals = Array.from(setGoals.values())
+    this.allInvs = Array.from(setInvs.values())
+    this.allChars = Array.from(setChars.values())
   }
 
-  public IsNotMergingAnymoreBoxes(): boolean {
-    return this.isNotMergingAnymoreBoxes; // doesn't need to merge, because it already includes all
+  public IsNotMergingAnymoreBoxes (): boolean {
+    return this.isNotMergingAnymoreBoxes // doesn't need to merge, because it already includes all
   }
 
-  public GetArrayOfProps(): string[] {
-    return this.allProps;
+  public GetArrayOfProps (): string[] {
+    return this.allProps
   }
 
-  public GetArrayOfInvs(): string[] {
-    return this.allInvs;
+  public GetArrayOfInvs (): string[] {
+    return this.allInvs
   }
 
-  public GetArrayOfGoals(): string[] {
-    return this.allGoals;
+  public GetArrayOfGoals (): string[] {
+    return this.allGoals
   }
 
-  public GetArrayOfSingleObjectVerbs(): string[] {
-    return this.GetArrayOfSingleObjectVerbs();
+  public GetArrayOfSingleObjectVerbs (): string[] {
+    return this.GetArrayOfSingleObjectVerbs()
   }
 
-  public GetArrayOfInitialStatesOfSingleObjectVerbs(): boolean[] {
-    return this.GetArrayOfInitialStatesOfSingleObjectVerbs();
+  public GetArrayOfInitialStatesOfSingleObjectVerbs (): boolean[] {
+    return this.GetArrayOfInitialStatesOfSingleObjectVerbs()
   }
 
-  public GetArrayOfInitialStatesOfGoals(): number[] {
-    const array: number[] = [];
+  public GetArrayOfInitialStatesOfGoals (): number[] {
+    const array: number[] = []
     for (const goal of this.allGoals) {
-      array.push(goal.length > 0 ? 0 : 0); // I used value.length>0 to get rid of the unused variable warnin
+      array.push(goal.length > 0 ? 0 : 0) // I used value.length>0 to get rid of the unused variable warnin
     }
-    return array;
+    return array
   }
 
-  public GetSetOfStartingGoals(): Set<string> {
-    return this.startingGoalSet;
+  public GetSetOfStartingGoals (): Set<string> {
+    return this.startingGoalSet
   }
 
-  public GetSetOfStartingProps(): Set<string> {
-    return this.startingPropSet;
+  public GetSetOfStartingProps (): Set<string> {
+    return this.startingPropSet
   }
 
-  public GetSetOfStartingInvs(): Set<string> {
-    return this.startingInvSet;
+  public GetSetOfStartingInvs (): Set<string> {
+    return this.startingInvSet
   }
 
-  public GetMapOfAllStartingThings(): VisibleThingsMap {
-    return this.mapOfStartingThingsWithChars;
+  public GetMapOfAllStartingThings (): VisibleThingsMap {
+    return this.mapOfStartingThingsWithChars
   }
 
-  public GetStartingThingsForCharacter(charName: string): Set<string> {
-    const startingThingSet = new Set<string>();
+  public GetStartingThingsForCharacter (charName: string): Set<string> {
+    const startingThingSet = new Set<string>()
     for (const startingThing of this.mapOfStartingThingsWithChars.GetIterableIterator()) {
-      const key = startingThing[0];
-      const value = startingThing[1];
+      const key = startingThing[0]
+      const value = startingThing[1]
       for (const item of value) {
         if (item === charName) {
-          startingThingSet.add(key);
-          break;
+          startingThingSet.add(key)
+          break
         }
       }
     }
 
-    return startingThingSet;
+    return startingThingSet
   }
 
-  public GetArrayOfInitialStatesOfProps(): boolean[] {
+  public GetArrayOfInitialStatesOfProps (): boolean[] {
     // construct array of booleans in exact same order as ArrayOfProps - so they can be correlated
-    const startingSet = this.GetSetOfStartingProps();
-    const visibilities: boolean[] = [];
+    const startingSet = this.GetSetOfStartingProps()
+    const visibilities: boolean[] = []
     for (const prop of this.allProps) {
-      const isVisible = startingSet.has(prop);
-      visibilities.push(isVisible);
+      const isVisible = startingSet.has(prop)
+      visibilities.push(isVisible)
     }
 
-    return visibilities;
+    return visibilities
   }
 
-  public GetArrayOfInitialStatesOfInvs(): boolean[] {
+  public GetArrayOfInitialStatesOfInvs (): boolean[] {
     // construct array of booleans in exact same order as ArrayOfProps - so they can be correlated
-    const startingSet = this.GetSetOfStartingInvs();
-    const visibilities: boolean[] = [];
+    const startingSet = this.GetSetOfStartingInvs()
+    const visibilities: boolean[] = []
     for (const inv of this.allInvs) {
-      const isVisible = startingSet.has(inv);
-      visibilities.push(isVisible);
+      const isVisible = startingSet.has(inv)
+      visibilities.push(isVisible)
     }
 
-    return visibilities;
+    return visibilities
   }
 
-  public GetArrayOfCharacters(): string[] {
-    return this.allChars;
+  public GetArrayOfCharacters (): string[] {
+    return this.allChars
   }
 
-  public CopyPiecesFromBoxToPile(pile: PileOfPieces): void {
+  public CopyPiecesFromBoxToPile (pile: PileOfPieces): void {
     for (const box of this.originalBoxes.values()) {
-      const file = new SingleFile(box.GetPath(), box.GetFilename());
-      file.copyPiecesToContainer(false, pile);
+      const file = new SingleFile(box.GetPath(), box.GetFilename())
+      file.copyPiecesToContainer(false, pile)
     }
   }
 
-  public CopyGoalPiecesToContainer(map: IPileOrRootPieceMap): void {
+  public CopyGoalPiecesToContainer (map: IPileOrRootPieceMap): void {
     for (const array of this.goals.GetValues()) {
       for (const goal of array) {
-        const clonedPiece = goal.piece.ClonePieceAndEntireTree();
-        map.AddPiece(clonedPiece);
+        const clonedPiece = goal.piece.ClonePieceAndEntireTree()
+        map.AddPiece(clonedPiece)
       }
     }
   }
 
-  public CollectAllReferencedBoxesRecursively(
+  public CollectAllReferencedBoxesRecursively (
     map: Map<string, IBoxReadOnly>
   ): void {
     // We don't want to go: set.add(this);
@@ -208,7 +208,7 @@ export class BigBoxViaSetOfBoxes implements IBoxReadOnly {
     // *genuine* only boxes in the list, otherwise pieces will
     // get added twice.
     for (const box of this.originalBoxes.values()) {
-      map.set(box.GetFilename(), box);
+      map.set(box.GetFilename(), box)
     }
 
     // since this map of goal pieces already has been obtained recursively
@@ -216,16 +216,16 @@ export class BigBoxViaSetOfBoxes implements IBoxReadOnly {
     for (const array of this.goals.GetValues()) {
       for (const goal of array) {
         if (goal.piece.boxToMerge != null) {
-          const merge = goal.piece.boxToMerge;
-          map.set(merge.GetFilename(), merge);
+          const merge = goal.piece.boxToMerge
+          map.set(merge.GetFilename(), merge)
         }
       }
     }
   }
 
-  public GetNewPileOfPieces(): PileOfPieces {
-    const pile = new PileOfPieces(null);
-    this.CopyPiecesFromBoxToPile(pile);
-    return pile;
+  public GetNewPileOfPieces (): PileOfPieces {
+    const pile = new PileOfPieces(null)
+    this.CopyPiecesFromBoxToPile(pile)
+    return pile
   }
 }
