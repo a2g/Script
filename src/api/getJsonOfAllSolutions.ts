@@ -1,168 +1,168 @@
-import { existsSync } from 'fs';
-import { Suffix } from '../../Suffix';
-import { Box } from '../puzzle/Box';
-import { FormatText } from '../puzzle/FormatText';
-import { Piece } from '../puzzle/Piece';
-import { RawObjectsAndVerb } from '../puzzle/RawObjectsAndVerb';
-import { Solution } from '../puzzle/Solution';
-import { SolverViaRootPiece } from '../puzzle/SolverViaRootPiece';
+import { existsSync } from 'fs'
+import { Suffix } from '../../Suffix'
+import { Box } from '../puzzle/Box'
+import { FormatText } from '../puzzle/FormatText'
+import { Piece } from '../puzzle/Piece'
+import { RawObjectsAndVerb } from '../puzzle/RawObjectsAndVerb'
+import { Solution } from '../puzzle/Solution'
+import { SolverViaRootPiece } from '../puzzle/SolverViaRootPiece'
 
 interface $INameIsAGoalChildren {
-  name: string;
-  isAGoalOrAuto: boolean;
-  children: Array<Record<string, unknown>>;
+  name: string
+  isAGoalOrAuto: boolean
+  children: Array<Record<string, unknown>>
 }
 
-export function getJsonOfAllSolutions(
+export function getJsonOfAllSolutions (
   repo: string,
   world: string,
   area: string
 ): Record<string, unknown> {
-  const path = `${process.cwd()}/${repo}/${world}/`;
-  const firstBoxFilename = `${area}${Suffix.FirstBox}.jsonc`;
+  const path = `${process.cwd()}/${repo}/${world}/`
+  const firstBoxFilename = `${area}${Suffix.FirstBox}.jsonc`
 
   if (!existsSync(path + firstBoxFilename)) {
-    throw Error(`file doesn't exist ${path}${firstBoxFilename}`);
+    throw Error(`file doesn't exist ${path}${firstBoxFilename}`)
   }
 
-  const firstBox = new Box(path, firstBoxFilename);
-  firstBox.Init();
+  const firstBox = new Box(path, firstBoxFilename)
+  firstBox.Init()
 
-  const allBoxes = new Map<string, Box>();
-  firstBox.CollectAllReferencedBoxesRecursively(allBoxes);
-  const solver = new SolverViaRootPiece(firstBox);
+  const allBoxes = new Map<string, Box>()
+  firstBox.CollectAllReferencedBoxesRecursively(allBoxes)
+  const solver = new SolverViaRootPiece(firstBox)
 
   for (let i = 0; i < 40; i++) {
-    solver.SolvePartiallyUntilCloning();
-    solver.MarkGoalsAsCompletedAndMergeIfNeeded();
-    const numberOfSolutions: number = solver.NumberOfSolutions();
-    console.warn('Dig in to goals');
-    console.warn('===============');
-    console.warn(`Number of solutions in solver = ${numberOfSolutions}`);
+    solver.SolvePartiallyUntilCloning()
+    solver.MarkGoalsAsCompletedAndMergeIfNeeded()
+    const numberOfSolutions: number = solver.NumberOfSolutions()
+    console.warn('Dig in to goals')
+    console.warn('===============')
+    console.warn(`Number of solutions in solver = ${numberOfSolutions}`)
 
     // display list
-    let incomplete = 0;
-    let listItemNumber = 0;
+    let incomplete = 0
+    let listItemNumber = 0
     for (const solution of solver.GetSolutions()) {
-      console.warn(FormatText(solution.GetDisplayNamesConcatenated()));
-      console.warn(FormatText(solution.GetRootMap().CalculateListOfKeys()));
+      console.warn(FormatText(solution.GetDisplayNamesConcatenated()))
+      console.warn(FormatText(solution.GetRootMap().CalculateListOfKeys()))
       for (const array of solution.GetRootMap().GetValues()) {
         for (const item of array) {
-          listItemNumber++;
+          listItemNumber++
 
           // display list item
-          const status: string = item.firstNullInput;
-          const { output } = item.piece;
-          console.warn(`    ${listItemNumber}. ${output} (status=${status})`);
-          incomplete += status.length > 0 ? 1 : 0;
+          const status: string = item.firstNullInput
+          const { output } = item.piece
+          console.warn(`    ${listItemNumber}. ${output} (status=${status})`)
+          incomplete += status.length > 0 ? 1 : 0
         }
       }
     }
 
-    console.warn(`Number of goals incomplete ${incomplete}/${listItemNumber}`);
+    console.warn(`Number of goals incomplete ${incomplete}/${listItemNumber}`)
     if (incomplete >= listItemNumber) {
-      break;
+      break
     }
   }
-  const json = getJsonOfSolutionsFromSolver(solver);
-  return json;
+  const json = getJsonOfSolutionsFromSolver(solver)
+  return json
 }
 
-function getJsonOfSolutionsFromSolver(
+function getJsonOfSolutionsFromSolver (
   solver: SolverViaRootPiece
 ): Record<string, unknown> {
   return {
     name: 'Solutions',
-    children: getJsonArrayOfSolutions(solver.GetSolutions()),
-  };
+    children: getJsonArrayOfSolutions(solver.GetSolutions())
+  }
 }
 
-function getJsonArrayOfSolutions(
+function getJsonArrayOfSolutions (
   solutions: Solution[]
-): Array<$INameIsAGoalChildren> {
-  const toReturn = new Array<$INameIsAGoalChildren>();
-  let i = 0;
+): $INameIsAGoalChildren[] {
+  const toReturn = new Array<$INameIsAGoalChildren>()
+  let i = 0
   for (const solution of solutions) {
-    i += 1;
+    i += 1
     toReturn.push({
       name: `Solution ${i}`,
       isAGoalOrAuto: false,
-      children: getJsonArrayOfRootPieces(solution),
-    });
+      children: getJsonArrayOfRootPieces(solution)
+    })
   }
 
-  return toReturn;
+  return toReturn
 }
 
-function getJsonArrayOfRootPieces(
+function getJsonArrayOfRootPieces (
   solution: Solution
 ): Array<Record<string, unknown>> {
-  const toReturn = new Array<Record<string, unknown>>();
+  const toReturn = new Array<Record<string, unknown>>()
 
   // first we push this
-  const listOfRootPieceArrays = solution.GetRootMap().GetValues();
+  const listOfRootPieceArrays = solution.GetRootMap().GetValues()
   for (const rootPieceArray of listOfRootPieceArrays) {
     for (const rootPiece of rootPieceArray) {
       toReturn.push({
         name: rootPiece.piece.GetOutput(),
         isAGoalOrAuto: false,
-        children: getJsonArrayOfAllSubPieces(rootPiece.piece),
-      });
+        children: getJsonArrayOfAllSubPieces(rootPiece.piece)
+      })
     }
   }
 
   // then we push the actual order of commands
   toReturn.push({
-    name: `List of Commands`,
+    name: 'List of Commands',
     isAGoalOrAuto: false,
-    children: getJsonArrayOfOrderedSteps(solution.GetOrderOfCommands()),
-  });
-  return toReturn;
+    children: getJsonArrayOfOrderedSteps(solution.GetOrderOfCommands())
+  })
+  return toReturn
 }
 
-function getJsonArrayOfAllSubPieces(piece: Piece): Array<unknown> {
-  const toReturn = new Array<unknown>();
-  let i = -1;
+function getJsonArrayOfAllSubPieces (piece: Piece): unknown[] {
+  const toReturn = new Array<unknown>()
+  let i = -1
   for (const hint of piece.inputHints) {
-    i++;
-    const pieceOrNull = piece.inputs[i];
+    i++
+    const pieceOrNull = piece.inputs[i]
     if (pieceOrNull != null) {
       toReturn.push({
         name: hint,
         isAGoalOrAuto: false,
-        children: getJsonArrayOfAllSubPieces(pieceOrNull),
-      });
+        children: getJsonArrayOfAllSubPieces(pieceOrNull)
+      })
     } else {
       toReturn.push({
         name: hint,
-        isAGoalOrAuto: false,
-      });
+        isAGoalOrAuto: false
+      })
     }
   }
-  if (i == -1) {
+  if (i === -1) {
     toReturn.push({
       name: piece.output,
-      isAGoalOrAuto: false,
-    });
+      isAGoalOrAuto: false
+    })
   }
-  return toReturn;
+  return toReturn
 }
 
-function getJsonArrayOfOrderedSteps(
-  steps: Array<RawObjectsAndVerb>
-): Array<unknown> {
-  const toReturn = new Array<unknown>();
-  let lastLocation = '';
+function getJsonArrayOfOrderedSteps (
+  steps: RawObjectsAndVerb[]
+): unknown[] {
+  const toReturn = new Array<unknown>()
+  let lastLocation = ''
   for (const step of steps) {
     // big writing about why its bad
     //
     //
     //
-    let newLocation = lastLocation; // default to last
+    let newLocation = lastLocation // default to last
     if (step.objectA.startsWith('prop_')) {
-      newLocation = step.objectA;
+      newLocation = step.objectA
     } else if (step.objectB.startsWith('prop_')) {
-      newLocation = step.objectB;
+      newLocation = step.objectB
     }
 
     toReturn.push({
@@ -170,9 +170,9 @@ function getJsonArrayOfOrderedSteps(
       isAGoalOrAuto: step.isAGoalOrAuto(),
       paramA: lastLocation,
       paramB: newLocation,
-      children: [],
-    });
-    lastLocation = newLocation;
+      children: []
+    })
+    lastLocation = newLocation
   }
-  return toReturn;
+  return toReturn
 }
