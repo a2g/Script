@@ -1,98 +1,98 @@
-import { FormatText } from './FormatText';
-import { GenerateMapOfLeavesRecursively } from './GenerateMapOfLeavesRecursively';
-import { IPileOfPiecesReadOnly } from './IPileOfPiecesReadOnly';
-import { Piece } from './Piece';
-import { PileOfPieces } from './PileOfPieces';
-import { Raw } from './Raw';
-import { RawObjectsAndVerb } from './RawObjectsAndVerb';
-import { LeafToRootTraverser } from './LeafToRootTraverser';
-import { RootPieceMap } from './RootPieceMap';
-import { SolverViaRootPiece } from './SolverViaRootPiece';
-import { VisibleThingsMap } from './VisibleThingsMap';
-import { IBoxReadOnlyWithFileMethods } from './IBoxReadOnlyWithFileMethods';
+import { FormatText } from './FormatText'
+import { GenerateMapOfLeavesRecursively } from './GenerateMapOfLeavesRecursively'
+import { IPileOfPiecesReadOnly } from './IPileOfPiecesReadOnly'
+import { Piece } from './Piece'
+import { PileOfPieces } from './PileOfPieces'
+import { Raw } from './Raw'
+import { RawObjectsAndVerb } from './RawObjectsAndVerb'
+import { LeafToRootTraverser } from './LeafToRootTraverser'
+import { RootPieceMap } from './RootPieceMap'
+import { SolverViaRootPiece } from './SolverViaRootPiece'
+import { VisibleThingsMap } from './VisibleThingsMap'
+import { IBoxReadOnlyWithFileMethods } from './IBoxReadOnlyWithFileMethods'
 
 /**
  * Solution needs to be cloned.
  */
 export class Solution {
   // important ones
-  private readonly rootPieces: RootPieceMap;
+  private readonly rootPieces: RootPieceMap
 
-  private readonly remainingPiecesRepo: PileOfPieces;
+  private readonly remainingPiecesRepo: PileOfPieces
 
   // less important
-  private readonly startingThings: VisibleThingsMap; // once, this was updated dynamically in GetNextDoableCommandAndDesconstructTree
+  private readonly startingThings: VisibleThingsMap // once, this was updated dynamically in GetNextDoableCommandAndDesconstructTree
 
-  private readonly currentlyVisibleThings: VisibleThingsMap;
+  private readonly currentlyVisibleThings: VisibleThingsMap
 
-  private readonly restrictionsEncounteredDuringSolving: Set<string>; // yup these are added to
+  private readonly restrictionsEncounteredDuringSolving: Set<string> // yup these are added to
 
-  private readonly solutionNameSegments: string[]; // these get assigned by SolverViaRootPiece.GenerateNames
+  private readonly solutionNameSegments: string[] // these get assigned by SolverViaRootPiece.GenerateNames
 
-  private isArchived: boolean;
+  private isArchived: boolean
 
-  private readonly isNotMergingAnyMoreBoxes: boolean;
+  private readonly isNotMergingAnyMoreBoxes: boolean
 
-  private readonly commandsCompletedInOrder: Array<RawObjectsAndVerb>;
+  private readonly commandsCompletedInOrder: RawObjectsAndVerb[]
 
-  private lastBranchingPoint: string;
+  private lastBranchingPoint: string
 
-  constructor(
+  constructor (
     rootPieceMapToCopy: RootPieceMap | null,
     copyThisMapOfPieces: IPileOfPiecesReadOnly,
     startingThingsPassedIn: VisibleThingsMap,
     isNotMergingAnyMoreBoxes: boolean,
-    commandsCompletedInOrder: Array<RawObjectsAndVerb> | null = null,
+    commandsCompletedInOrder: RawObjectsAndVerb[] | null = null,
     restrictions: Set<string> | null = null,
     nameSegments: string[] | null = null
   ) {
-    this.rootPieces = new RootPieceMap(rootPieceMapToCopy);
-    this.isNotMergingAnyMoreBoxes = isNotMergingAnyMoreBoxes;
-    this.remainingPiecesRepo = new PileOfPieces(copyThisMapOfPieces);
-    this.isArchived = false;
-    this.lastBranchingPoint = '';
+    this.rootPieces = new RootPieceMap(rootPieceMapToCopy)
+    this.isNotMergingAnyMoreBoxes = isNotMergingAnyMoreBoxes
+    this.remainingPiecesRepo = new PileOfPieces(copyThisMapOfPieces)
+    this.isArchived = false
+    this.lastBranchingPoint = ''
 
     // starting things AND currentlyVisibleThings
-    this.startingThings = new VisibleThingsMap(null);
-    this.currentlyVisibleThings = new VisibleThingsMap(null);
+    this.startingThings = new VisibleThingsMap(null)
+    this.currentlyVisibleThings = new VisibleThingsMap(null)
     if (startingThingsPassedIn != null) {
       for (const item of startingThingsPassedIn.GetIterableIterator()) {
-        this.startingThings.Set(item[0], item[1]);
-        this.currentlyVisibleThings.Set(item[0], item[1]);
+        this.startingThings.Set(item[0], item[1])
+        this.currentlyVisibleThings.Set(item[0], item[1])
       }
     }
 
     // if commandsCompletedInOrder is passed in, we deep copy it
-    this.commandsCompletedInOrder = [];
-    if (commandsCompletedInOrder) {
+    this.commandsCompletedInOrder = []
+    if (commandsCompletedInOrder != null) {
       for (const command of commandsCompletedInOrder) {
-        this.commandsCompletedInOrder.push(command);
+        this.commandsCompletedInOrder.push(command)
       }
     }
 
     // if solutionNameSegments is passed in, we deep copy it
-    this.solutionNameSegments = [];
+    this.solutionNameSegments = []
     if (nameSegments != null) {
       for (const segment of nameSegments) {
-        this.solutionNameSegments.push(segment);
+        this.solutionNameSegments.push(segment)
       }
     }
 
     // its restrictionsEncounteredDuringSolving is passed in we deep copy it
-    this.restrictionsEncounteredDuringSolving = new Set<string>();
+    this.restrictionsEncounteredDuringSolving = new Set<string>()
     if (restrictions != null) {
       for (const restriction of restrictions) {
-        this.restrictionsEncounteredDuringSolving.add(restriction);
+        this.restrictionsEncounteredDuringSolving.add(restriction)
       }
     }
   }
 
-  public Clone(): Solution {
+  public Clone (): Solution {
     // the weird order of this is because Solution constructor is used
     // primarily to construct, so passing in root piece is needed..
     // so we clone the whole tree and pass it in
     const clonedRootPieceMap =
-      this.rootPieces.CloneAllRootPiecesAndTheirTrees();
+      this.rootPieces.CloneAllRootPiecesAndTheirTrees()
 
     // When we clone we generally give everything new ids
     // but
@@ -105,22 +105,22 @@ export class Solution {
       this.commandsCompletedInOrder,
       this.restrictionsEncounteredDuringSolving,
       this.solutionNameSegments
-    );
-    return clonedSolution;
+    )
+    return clonedSolution
   }
 
-  public ProcessUntilCloning(solutions: SolverViaRootPiece): boolean {
-    let isBreakingDueToSolutionCloning = false;
+  public ProcessUntilCloning (solutions: SolverViaRootPiece): boolean {
+    let isBreakingDueToSolutionCloning = false
     for (const array of this.rootPieces.GetValues()) {
       for (const goal of array) {
         if (goal.piece.ProcessUntilCloning(this, solutions, '/')) {
-          isBreakingDueToSolutionCloning = true;
-          break;
+          isBreakingDueToSolutionCloning = true
+          break
         }
       }
     }
 
-    return isBreakingDueToSolutionCloning;
+    return isBreakingDueToSolutionCloning
   }
 
   /**
@@ -131,92 +131,92 @@ export class Solution {
     return this.incompletePieces
   } */
 
-  public GetDisplayNamesConcatenated(): string {
-    let result = '';
+  public GetDisplayNamesConcatenated (): string {
+    let result = ''
     for (let i = 0; i < this.solutionNameSegments.length; i += 1) {
-      const symbol = i === 0 ? '' : '/';
-      result += symbol + FormatText(this.solutionNameSegments[i]);
+      const symbol = i === 0 ? '' : '/'
+      result += symbol + FormatText(this.solutionNameSegments[i])
     }
-    return result;
+    return result
   }
 
-  public AddRestrictions(restrictions: string[]): void {
+  public AddRestrictions (restrictions: string[]): void {
     for (const restriction of restrictions) {
-      this.restrictionsEncounteredDuringSolving.add(restriction);
+      this.restrictionsEncounteredDuringSolving.add(restriction)
     }
   }
 
-  public GetAccumulatedRestrictions(): Set<string> {
-    return this.restrictionsEncounteredDuringSolving;
+  public GetAccumulatedRestrictions (): Set<string> {
+    return this.restrictionsEncounteredDuringSolving
   }
 
-  public GetPile(): PileOfPieces {
+  public GetPile (): PileOfPieces {
     // we already remove pieces from this when we use them up
     // so returning the current piece map is ok
-    return this.remainingPiecesRepo;
+    return this.remainingPiecesRepo
   }
 
-  public SetAsArchived(): void {
-    this.isArchived = true;
+  public SetAsArchived (): void {
+    this.isArchived = true
   }
 
-  public IsArchived(): boolean {
-    return this.isArchived;
+  public IsArchived (): boolean {
+    return this.isArchived
   }
 
-  public GetLastDisplayNameSegment(): string {
-    return this.solutionNameSegments[this.solutionNameSegments.length - 1];
+  public GetLastDisplayNameSegment (): string {
+    return this.solutionNameSegments[this.solutionNameSegments.length - 1]
   }
 
-  public CopyNameToVirginSolution(virginSolution: Solution): void {
+  public CopyNameToVirginSolution (virginSolution: Solution): void {
     for (const nameSegment of this.solutionNameSegments) {
-      virginSolution.PushNameSegment(nameSegment);
+      virginSolution.PushNameSegment(nameSegment)
     }
   }
 
-  public PushNameSegment(solutionName: string): void {
-    this.solutionNameSegments.push(solutionName);
+  public PushNameSegment (solutionName: string): void {
+    this.solutionNameSegments.push(solutionName)
   }
 
-  public ClearNameSegments(): void {
-    this.solutionNameSegments.length = 0;
+  public ClearNameSegments (): void {
+    this.solutionNameSegments.length = 0
   }
 
-  public FindAnyPieceMatchingIdRecursively(id: number): Piece | null {
+  public FindAnyPieceMatchingIdRecursively (id: number): Piece | null {
     for (const array of this.rootPieces.GetValues()) {
       for (const goal of array) {
-        const result = goal.piece.FindAnyPieceMatchingIdRecursively(id);
+        const result = goal.piece.FindAnyPieceMatchingIdRecursively(id)
         if (result != null) {
-          return result;
+          return result
         }
       }
     }
-    return null;
+    return null
   }
 
-  public GetRootMap(): RootPieceMap {
-    return this.rootPieces;
+  public GetRootMap (): RootPieceMap {
+    return this.rootPieces
   }
 
-  public GetStartingThings(): VisibleThingsMap {
-    return this.startingThings;
+  public GetStartingThings (): VisibleThingsMap {
+    return this.startingThings
   }
 
-  public MarkGoalsAsContainingNullsAndMergeIfNeeded(): void {
+  public MarkGoalsAsContainingNullsAndMergeIfNeeded (): void {
     for (const array of this.rootPieces.GetValues()) {
       for (const goal of array) {
-        const firstMissingPiece = goal.piece.ReturnTheFirstNullInputHint();
+        const firstMissingPiece = goal.piece.ReturnTheFirstNullInputHint()
         if (firstMissingPiece === '') {
           // there are no missing pieces - yay!
           if (goal.firstNullInput !== '') {
-            goal.firstNullInput = '';
+            goal.firstNullInput = ''
             //
-            this.GenerateCommandsAndAddToMap(goal.piece);
+            this.GenerateCommandsAndAddToMap(goal.piece)
             if (
               goal.piece.boxToMerge != null &&
               !this.isNotMergingAnyMoreBoxes
             ) {
-              this.MergeBox(goal.piece.boxToMerge);
+              this.MergeBox(goal.piece.boxToMerge)
             }
           }
         }
@@ -224,30 +224,30 @@ export class Solution {
     }
   }
 
-  public MergeBox(boxToMerge: IBoxReadOnlyWithFileMethods) {
-    boxToMerge.CopyPiecesFromBoxToPile(this.GetPile());
-    boxToMerge.CopyStartingThingCharsToGivenMap(this.startingThings);
-    boxToMerge.CopyStartingThingCharsToGivenMap(this.currentlyVisibleThings);
+  public MergeBox (boxToMerge: IBoxReadOnlyWithFileMethods): void {
+    boxToMerge.CopyPiecesFromBoxToPile(this.GetPile())
+    boxToMerge.CopyStartingThingCharsToGivenMap(this.startingThings)
+    boxToMerge.CopyStartingThingCharsToGivenMap(this.currentlyVisibleThings)
   }
 
-  public GenerateCommandsAndAddToMap(piece: Piece): void {
+  public GenerateCommandsAndAddToMap (piece: Piece): void {
     // push the commands
-    const leaves = new Map<string, Piece | null>();
-    GenerateMapOfLeavesRecursively(piece, '', leaves);
+    const leaves = new Map<string, Piece | null>()
+    GenerateMapOfLeavesRecursively(piece, '', leaves)
     const leafToRootTraverser = new LeafToRootTraverser(
       this.currentlyVisibleThings,
       leaves
-    );
-    let rawObjectsAndVerb: RawObjectsAndVerb | null = null;
+    )
+    let rawObjectsAndVerb: RawObjectsAndVerb | null = null
     for (let j = 0; j < 200; j += 1) {
       rawObjectsAndVerb =
-        leafToRootTraverser.GetNextDoableCommandAndDeconstructTree();
+        leafToRootTraverser.GetNextDoableCommandAndDeconstructTree()
       if (rawObjectsAndVerb == null) {
         // all out of moves!
         // for debugging
         rawObjectsAndVerb =
-          leafToRootTraverser.GetNextDoableCommandAndDeconstructTree();
-        break;
+          leafToRootTraverser.GetNextDoableCommandAndDeconstructTree()
+        break
       }
 
       /*
@@ -263,54 +263,54 @@ export class Solution {
 
       if (rawObjectsAndVerb.type !== Raw.None) {
         // this is just here for debugging!
-        this.commandsCompletedInOrder.push(rawObjectsAndVerb);
+        this.commandsCompletedInOrder.push(rawObjectsAndVerb)
       }
     }
 
     // set the goal as visible in the currently visible things
-    this.currentlyVisibleThings.Set(piece.output, new Set<string>());
+    this.currentlyVisibleThings.Set(piece.output, new Set<string>())
 
     // then write the goal we just completed
     this.commandsCompletedInOrder.push(
       new RawObjectsAndVerb(Raw.Goal, `completed (${piece.output})`, '', [], '')
-    );
+    )
   }
 
-  public AreAnyInputsNull(): boolean {
+  public AreAnyInputsNull (): boolean {
     for (const array of this.rootPieces.GetValues()) {
       for (const goal of array) {
         if (goal.firstNullInput.length > 0) {
-          return true;
+          return true
         }
       }
     }
-    return false;
+    return false
   }
 
-  public GetOrderOfCommands(): Array<RawObjectsAndVerb> {
+  public GetOrderOfCommands (): RawObjectsAndVerb[] {
     // I would like to return a read only array here.
     // I can't do that, so instead, I will clone.
     // The best way to clone in is using 'map'
-    return this.commandsCompletedInOrder.map(x => x);
+    return this.commandsCompletedInOrder.map(x => x)
   }
 
-  public GetVisibleThingsAtTheMoment(): VisibleThingsMap {
-    return this.currentlyVisibleThings;
+  public GetVisibleThingsAtTheMoment (): VisibleThingsMap {
+    return this.currentlyVisibleThings
   }
 
-  public GetVisibleThingsAtTheStart(): VisibleThingsMap {
-    return this.startingThings;
+  public GetVisibleThingsAtTheStart (): VisibleThingsMap {
+    return this.startingThings
   }
 
-  public GetSize(): number {
-    return this.remainingPiecesRepo.Size();
+  public GetSize (): number {
+    return this.remainingPiecesRepo.Size()
   }
 
-  public setLastBranchingPoint(lastBranchingPoint: string): void {
-    this.lastBranchingPoint = lastBranchingPoint;
+  public setLastBranchingPoint (lastBranchingPoint: string): void {
+    this.lastBranchingPoint = lastBranchingPoint
   }
 
-  public getLastBranchingPoint(): string {
-    return this.lastBranchingPoint;
+  public getLastBranchingPoint (): string {
+    return this.lastBranchingPoint
   }
 }

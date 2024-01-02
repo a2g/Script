@@ -5,9 +5,9 @@
  * @param isParenthesisNeeded decides whether or not it does
  * @returns the resultant string
  */
-export function AddBrackets(input: string, isParenthesisNeeded = true): string {
+export function AddBrackets (input: string, isParenthesisNeeded = true): string {
   if (isParenthesisNeeded) {
-    return `( ${input} )`;
+    return `( ${input} )`
   }
-  return input;
+  return input
 }

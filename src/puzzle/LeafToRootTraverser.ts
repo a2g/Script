@@ -1,63 +1,63 @@
-import assert from 'assert';
-import { Piece } from './Piece';
-import { Raw } from './Raw';
-import { RawObjectsAndVerb } from './RawObjectsAndVerb';
-import { Solution } from './Solution';
-import { SpecialTypes } from './SpecialTypes';
-import { Stringify } from './Stringify';
-import { VisibleThingsMap } from './VisibleThingsMap';
+import assert from 'assert'
+import { Piece } from './Piece'
+import { Raw } from './Raw'
+import { RawObjectsAndVerb } from './RawObjectsAndVerb'
+import { Solution } from './Solution'
+import { SpecialTypes } from './SpecialTypes'
+import { Stringify } from './Stringify'
+import { VisibleThingsMap } from './VisibleThingsMap'
 
 export class LeafToRootTraverser {
-  public leavesForTraversal: Map<string, Piece | null>;
-  public currentlyVisibleThings: VisibleThingsMap;
+  public leavesForTraversal: Map<string, Piece | null>
+  public currentlyVisibleThings: VisibleThingsMap
 
-  public constructor(
+  public constructor (
     visibleThings: VisibleThingsMap,
     leaves: Map<string, Piece | null>
   ) {
     // interestingly, leaf pieces don't get cloned
     // but it doesn't matter that much because they are just used
     // when doing a leaf-to-root traversal
-    this.leavesForTraversal = leaves;
-    this.currentlyVisibleThings = visibleThings;
+    this.leavesForTraversal = leaves
+    this.currentlyVisibleThings = visibleThings
   }
 
-  public GetNextDoableCommandAndDeconstructTree(): RawObjectsAndVerb | null {
+  public GetNextDoableCommandAndDeconstructTree (): RawObjectsAndVerb | null {
     for (const input of this.leavesForTraversal) {
-      const key: string = input[0];
-      const piece: Piece | null = input[1];
-      let areAllInputsAvailable = true;
+      const key: string = input[0]
+      const piece: Piece | null = input[1]
+      let areAllInputsAvailable = true
 
       if (piece != null) {
         // inputs are nearly always 2, but in one case they can be 6.. using for(;;) isn't such a useful optimizaiton here             // for (let i = 0; i < piece.inputs.length; i++) {
         for (const name of piece.inputHints) {
           if (!this.currentlyVisibleThings.Has(name)) {
-            areAllInputsAvailable = false;
+            areAllInputsAvailable = false
           }
         }
 
         if (areAllInputsAvailable) {
           // first we give them the output
           if (piece.type !== SpecialTypes.VerifiedLeaf) {
-            this.AddToMapOfVisibleThings(piece.output);
+            this.AddToMapOfVisibleThings(piece.output)
           }
           // .. we don't remove the input, because some piece types don't remove
           // and this little algorithm doesn't know how yet
 
-          const pathOfThis = this.GeneratePath(piece);
-          const pathOfParent = this.GeneratePath(piece.parent);
-          const isGrab: boolean = piece.type.toLowerCase().includes('grab');
-          const isTalk: boolean = piece.type.toLowerCase().includes('talk');
-          const isToggle: boolean = piece.type.toLowerCase().includes('toggle');
-          const isAuto: boolean = piece.type.toLowerCase().includes('auto');
-          const isUse: boolean = piece.type.toLowerCase().includes('use');
-          const isOpen: boolean = piece.type.toLowerCase().includes('open');
+          const pathOfThis = this.GeneratePath(piece)
+          const pathOfParent = this.GeneratePath(piece.parent)
+          const isGrab: boolean = piece.type.toLowerCase().includes('grab')
+          const isTalk: boolean = piece.type.toLowerCase().includes('talk')
+          const isToggle: boolean = piece.type.toLowerCase().includes('toggle')
+          const isAuto: boolean = piece.type.toLowerCase().includes('auto')
+          const isUse: boolean = piece.type.toLowerCase().includes('use')
+          const isOpen: boolean = piece.type.toLowerCase().includes('open')
           // then we remove this key as a leaf piece..
-          this.leavesForTraversal.delete(key);
+          this.leavesForTraversal.delete(key)
 
           // ... and add a parent in its place
           if (piece.parent != null) {
-            this.leavesForTraversal.set(pathOfParent, piece.parent);
+            this.leavesForTraversal.set(pathOfParent, piece.parent)
           }
 
           if (piece.inputs.length === 0) {
@@ -67,7 +67,7 @@ export class LeafToRootTraverser {
               '',
               piece.getRestrictions(),
               piece.type
-            );
+            )
           } else if (isGrab) {
             return new RawObjectsAndVerb(
               Raw.Grab,
@@ -75,7 +75,7 @@ export class LeafToRootTraverser {
               '',
               piece.getRestrictions(),
               piece.type
-            );
+            )
           } else if (isTalk) {
             return new RawObjectsAndVerb(
               Raw.Talk,
@@ -83,7 +83,7 @@ export class LeafToRootTraverser {
               '',
               piece.getRestrictions(),
               piece.type
-            );
+            )
           } else if (isOpen) {
             return new RawObjectsAndVerb(
               Raw.Open,
@@ -91,7 +91,7 @@ export class LeafToRootTraverser {
               '',
               piece.getRestrictions(),
               piece.type
-            );
+            )
           } else if (isToggle) {
             return new RawObjectsAndVerb(
               Raw.Toggle,
@@ -99,22 +99,22 @@ export class LeafToRootTraverser {
               piece.output,
               piece.getRestrictions(),
               piece.type
-            );
+            )
           } else if (isAuto) {
-            let text = 'auto using (';
+            let text = 'auto using ('
             for (const inputName of piece.inputHints) {
-              const inputName2: string = inputName;
-              text += `${inputName2} `;
+              const inputName2: string = inputName
+              text += `${inputName2} `
             }
-            console.warn(pathOfThis);
-            console.warn(text);
+            console.warn(pathOfThis)
+            console.warn(text)
             return new RawObjectsAndVerb(
               Raw.Auto,
               piece.inputHints[0],
               piece.output,
               piece.getRestrictions(),
               piece.type
-            );
+            )
           } else if (isUse) {
             // then its nearly definitely "use", unless I messed up
             return new RawObjectsAndVerb(
@@ -123,7 +123,7 @@ export class LeafToRootTraverser {
               piece.inputHints[1],
               piece.getRestrictions(),
               piece.type
-            );
+            )
           } else if (piece.inputs.length === 2) {
             // if they mis-type the verb, then we default to use
             return new RawObjectsAndVerb(
@@ -132,39 +132,39 @@ export class LeafToRootTraverser {
               piece.inputHints[1],
               piece.getRestrictions(),
               piece.type
-            );
+            )
           } else if (piece.parent == null) {
             // I think this means tha the root piece isn't set properly!
             // so we need to set breakpoint on this return, and debug.
-            assert(false);
+            assert(false)
           } else {
             // assert(false && " type not identified");
             const maybePieceInputs1: string = Stringify(
               piece.inputs.length > 1 ? piece.inputs[0] : ''
-            );
-            const pieceInputs0: string = Stringify(piece.inputs[0]);
-            const pieceType: string = Stringify(piece.type);
-            const warning = `Assertion because of type not Identified!: ${pieceType} ${pieceInputs0} ${maybePieceInputs1}`;
-            console.warn(warning);
+            )
+            const pieceInputs0: string = Stringify(piece.inputs[0])
+            const pieceType: string = Stringify(piece.type)
+            const warning = `Assertion because of type not Identified!: ${pieceType} ${pieceInputs0} ${maybePieceInputs1}`
+            console.warn(warning)
           }
         }
       }
     }
 
-    return null;
+    return null
   }
 
-  public GeneratePath(piece: Piece | null): string {
-    let path = '';
+  public GeneratePath (piece: Piece | null): string {
+    let path = ''
     while (piece != null) {
-      const pieceOutput: string = piece.output;
-      path = `${pieceOutput}/${path}`;
-      piece = piece.GetParent();
+      const pieceOutput: string = piece.output
+      path = `${pieceOutput}/${path}`
+      piece = piece.GetParent()
     }
-    return `/${path}`;
+    return `/${path}`
   }
 
-  public UpdateMapOfVisibleThingsWithLeafToRootTraversal(
+  public UpdateMapOfVisibleThingsWithLeafToRootTraversal (
     solution: Solution
   ): void {
     // 21/Aug/2022 hmmn..have just come to this
@@ -175,7 +175,7 @@ export class LeafToRootTraverser {
     // we were able to get all the starting items at the end of the array.
     // Now that we have RootPieceMap, we have an extra dimension..
     // but we still
-    const container = new Array<Piece>();
+    const container = new Array<Piece>()
 
     // we do this width first recursively to get order from root to leaves
     for (const array of solution.GetRootMap().GetValues()) {
@@ -183,38 +183,38 @@ export class LeafToRootTraverser {
         this.CollectArrayOfPiecesInAWidthFirstRecursively(
           rootPiece.piece,
           container
-        );
+        )
       }
     }
 
     // then we traverse the array backwards - from oldest to newest
     for (let i = container.length - 1; i >= 0; i--) {
-      const piece = container[i];
-      piece.UpdateVisibleWithOutcomes(this.currentlyVisibleThings);
+      const piece = container[i]
+      piece.UpdateVisibleWithOutcomes(this.currentlyVisibleThings)
     }
   }
 
-  public GetLeavesForLeafToRootTraversal(): ReadonlyMap<string, Piece | null> {
-    return this.leavesForTraversal;
+  public GetLeavesForLeafToRootTraversal (): ReadonlyMap<string, Piece | null> {
+    return this.leavesForTraversal
   }
 
-  private AddToMapOfVisibleThings(thing: string): void {
+  private AddToMapOfVisibleThings (thing: string): void {
     if (!this.currentlyVisibleThings.Has(thing)) {
-      this.currentlyVisibleThings.Set(thing, new Set<string>());
+      this.currentlyVisibleThings.Set(thing, new Set<string>())
     }
   }
 
-  private CollectArrayOfPiecesInAWidthFirstRecursively(
+  private CollectArrayOfPiecesInAWidthFirstRecursively (
     n: Piece,
     array: Array<Piece | null>
   ): void {
     for (const input of n.inputs) {
-      array.push(input);
+      array.push(input)
     }
 
     for (const input of n.inputs) {
       if (input != null) {
-        this.CollectArrayOfPiecesInAWidthFirstRecursively(input, array);
+        this.CollectArrayOfPiecesInAWidthFirstRecursively(input, array)
       }
     }
   }

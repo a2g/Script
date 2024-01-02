@@ -1,32 +1,33 @@
 export class Point {
-  public static getMidPoint(a: Point, b: Point): Point {
+  public static getMidPoint (a: Point, b: Point): Point {
     return new Point(
       a.getX() * 0.5 + b.getX() * 0.5,
       a.getY() * 0.5 + b.getY() * 0.5
-    );
-  }
-  private x: number;
-
-  private y: number;
-
-  constructor(x: number, y: number) {
-    this.x = x;
-    this.y = y;
+    )
   }
 
-  public getX(): number {
-    return this.x;
+  private x: number
+
+  private y: number
+
+  constructor (x: number, y: number) {
+    this.x = x
+    this.y = y
   }
 
-  public getY(): number {
-    return this.y;
+  public getX (): number {
+    return this.x
   }
 
-  public setX(x: number): void {
-    this.x = x;
+  public getY (): number {
+    return this.y
   }
 
-  public setY(y: number): void {
-    this.y = y;
+  public setX (x: number): void {
+    this.x = x
+  }
+
+  public setY (y: number): void {
+    this.y = y
   }
 }

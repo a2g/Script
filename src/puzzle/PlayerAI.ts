@@ -1,9 +1,9 @@
-import promptSync from 'prompt-sync';
-import { GetThreeStringsFromInput } from './GetThreeStringsFromInput';
-import { Happener } from './Happener';
-import { IHappenerCallbacks } from './IHappenerCallbacks';
-import { LogicGrid } from './LogicGrid';
-const prompt = promptSync();
+import promptSync from 'prompt-sync'
+import { GetThreeStringsFromInput } from './GetThreeStringsFromInput'
+import { Happener } from './Happener'
+import { IHappenerCallbacks } from './IHappenerCallbacks'
+import { LogicGrid } from './LogicGrid'
+const prompt = promptSync()
 
 // const result = prompt(message);
 
@@ -22,143 +22,143 @@ const prompt = promptSync();
 //
 
 export class PlayerAI implements IHappenerCallbacks {
-  public invVsInv: LogicGrid;
-  public invVsVerb: LogicGrid;
-  public invVsProp: LogicGrid;
-  public propVsVerb: LogicGrid;
-  public propVsProp: LogicGrid;
-  public game: Happener;
-  public autoCount: number;
+  public invVsInv: LogicGrid
+  public invVsVerb: LogicGrid
+  public invVsProp: LogicGrid
+  public propVsVerb: LogicGrid
+  public propVsProp: LogicGrid
+  public game: Happener
+  public autoCount: number
 
-  constructor(game: Happener, numberOfAutopilotTurns: number) {
-    this.game = game;
-    this.autoCount = numberOfAutopilotTurns;
-    const verbs = game.GetVerbsExcludingUse();
-    const invs = game.GetEntireInvSuite();
-    const props = game.GetEntirePropSuite();
+  constructor (game: Happener, numberOfAutopilotTurns: number) {
+    this.game = game
+    this.autoCount = numberOfAutopilotTurns
+    const verbs = game.GetVerbsExcludingUse()
+    const invs = game.GetEntireInvSuite()
+    const props = game.GetEntirePropSuite()
 
-    this.invVsInv = new LogicGrid(invs, invs);
-    this.invVsVerb = new LogicGrid(invs, verbs);
-    this.invVsProp = new LogicGrid(invs, props);
-    this.propVsVerb = new LogicGrid(props, verbs);
-    this.propVsProp = new LogicGrid(props, props);
-    //this.game.SubscribeToCallbacks(this);
+    this.invVsInv = new LogicGrid(invs, invs)
+    this.invVsVerb = new LogicGrid(invs, verbs)
+    this.invVsProp = new LogicGrid(invs, props)
+    this.propVsVerb = new LogicGrid(props, verbs)
+    this.propVsProp = new LogicGrid(props, props)
+    // this.game.SubscribeToCallbacks(this);
 
     // since use same with same is illegal move, we block these out
     for (let i = 0; i < invs.length; i += 1) {
       // classic forloop useful because shared index
-      this.invVsInv.SetColumnRow(i, i);
+      this.invVsInv.SetColumnRow(i, i)
     }
     // since use same with same is illegal move, we block these out
     for (let i = 0; i < props.length; i += 1) {
       // classic forloop useful because shared index
-      this.propVsProp.SetColumnRow(i, i);
+      this.propVsProp.SetColumnRow(i, i)
     }
   }
 
-  public GetNextCommand(): string[] {
+  public GetNextCommand (): string[] {
     for (;;) {
       if (this.autoCount > 0) {
-        this.autoCount -= 1;
+        this.autoCount -= 1
 
         // 1. Check the invs vs invs ? this is the lowest hanging fruit
-        const useInvOnInv = this.invVsInv.GetNextGuess();
+        const useInvOnInv = this.invVsInv.GetNextGuess()
         if (useInvOnInv[0] !== -1) {
-          this.invVsInv.SetColumnRow(useInvOnInv[0], useInvOnInv[1]);
-          this.invVsInv.SetColumnRow(useInvOnInv[1], useInvOnInv[0]);
+          this.invVsInv.SetColumnRow(useInvOnInv[0], useInvOnInv[1])
+          this.invVsInv.SetColumnRow(useInvOnInv[1], useInvOnInv[0])
           return [
             'use',
             this.game.GetInv(useInvOnInv[0]),
-            this.game.GetInv(useInvOnInv[1]),
-          ];
+            this.game.GetInv(useInvOnInv[1])
+          ]
         }
         // 2. Check the verbs vs invs ? this is the second lowest hanging fruit - if find something then go to 1.
-        const invVsVerb = this.invVsVerb.GetNextGuess();
+        const invVsVerb = this.invVsVerb.GetNextGuess()
         if (invVsVerb[0] !== -1) {
-          this.invVsVerb.SetColumnRow(invVsVerb[0], invVsVerb[1]);
+          this.invVsVerb.SetColumnRow(invVsVerb[0], invVsVerb[1])
           return [
             this.game.GetVerb(invVsVerb[1]),
             this.game.GetInv(invVsVerb[0]),
-            '',
-          ];
+            ''
+          ]
         }
         // 3. Check the invs vs props ? this is the third lowest hanging fruit - if find a new inv, then go to 1.
-        const useInvOnProp = this.invVsInv.GetNextGuess();
+        const useInvOnProp = this.invVsInv.GetNextGuess()
         if (useInvOnProp[0] !== -1) {
-          this.invVsInv.SetColumnRow(useInvOnProp[0], useInvOnProp[1]);
-          this.invVsInv.SetColumnRow(useInvOnProp[1], useInvOnProp[0]);
+          this.invVsInv.SetColumnRow(useInvOnProp[0], useInvOnProp[1])
+          this.invVsInv.SetColumnRow(useInvOnProp[1], useInvOnProp[0])
           return [
             'use',
             this.game.GetInv(useInvOnProp[0]),
-            this.game.GetProp(useInvOnProp[1]),
-          ];
+            this.game.GetProp(useInvOnProp[1])
+          ]
         }
         // 4. Check the verbs vs props ? this is the fourth lowest hanging truit - if find something, then go to 1.
-        const propVsVerb = this.propVsVerb.GetNextGuess();
+        const propVsVerb = this.propVsVerb.GetNextGuess()
         if (propVsVerb[0] !== -1) {
-          this.propVsVerb.SetColumnRow(propVsVerb[0], propVsVerb[1]);
+          this.propVsVerb.SetColumnRow(propVsVerb[0], propVsVerb[1])
           return [
             this.game.GetVerb(propVsVerb[1]),
             this.game.GetProp(propVsVerb[0]),
-            '',
-          ];
+            ''
+          ]
         }
         // 5. Ensure there is no PROPS VS PROPS because:
-        const usePropOnProp = this.propVsProp.GetNextGuess();
+        const usePropOnProp = this.propVsProp.GetNextGuess()
         if (usePropOnProp[0] !== -1) {
-          this.propVsProp.SetColumnRow(usePropOnProp[0], usePropOnProp[1]);
-          this.propVsProp.SetColumnRow(usePropOnProp[1], usePropOnProp[0]);
+          this.propVsProp.SetColumnRow(usePropOnProp[0], usePropOnProp[1])
+          this.propVsProp.SetColumnRow(usePropOnProp[1], usePropOnProp[0])
           return [
             'use',
             this.game.GetProp(usePropOnProp[0]),
-            this.game.GetProp(usePropOnProp[1]),
-          ];
+            this.game.GetProp(usePropOnProp[1])
+          ]
         }
       } else {
         const input = prompt(
           'Enter a command with two or three terms (b)ack: '
-        );
+        )
         if (input !== null) {
           if (input === 'b') {
-            return ['b'];
+            return ['b']
           }
-          const items: string[] = GetThreeStringsFromInput(input);
+          const items: string[] = GetThreeStringsFromInput(input)
 
           if (
             items.length === 2 &&
             items[0].toUpperCase() === 'DO' &&
             Number(items[1]) > 0
           ) {
-            this.autoCount = Number(items[1]);
+            this.autoCount = Number(items[1])
             console.warn(
               `Auto count has been given ${this.autoCount} operations.`
-            );
+            )
           } else if (items.length !== 3) {
-            console.warn(`Please enter 3 words (not ${items.length} )`);
+            console.warn(`Please enter 3 words (not ${items.length} )`)
           } else {
-            return items;
+            return items
           }
         } else {
-          console.warn('At least enter something');
+          console.warn('At least enter something')
         }
       }
     }
   }
 
-  public OnInvVisbilityChange(
+  public OnInvVisbilityChange (
     theNumber: number,
     newValue: boolean,
     nameForDebugging: string
   ): void {
     // the convention for the array is x then y, or column then row.
     // so Set..Column sets the first t
-    this.invVsVerb.SetVisibilityOfColumn(theNumber, newValue, nameForDebugging);
-    this.invVsProp.SetVisibilityOfColumn(theNumber, newValue, nameForDebugging);
-    this.invVsInv.SetVisibilityOfRow(theNumber, newValue, nameForDebugging);
-    this.invVsInv.SetVisibilityOfColumn(theNumber, newValue, nameForDebugging);
+    this.invVsVerb.SetVisibilityOfColumn(theNumber, newValue, nameForDebugging)
+    this.invVsProp.SetVisibilityOfColumn(theNumber, newValue, nameForDebugging)
+    this.invVsInv.SetVisibilityOfRow(theNumber, newValue, nameForDebugging)
+    this.invVsInv.SetVisibilityOfColumn(theNumber, newValue, nameForDebugging)
   }
 
-  public OnPropVisbilityChange(
+  public OnPropVisbilityChange (
     theNumber: number,
     newValue: boolean,
     nameForDebugging: string
@@ -169,17 +169,17 @@ export class PlayerAI implements IHappenerCallbacks {
       theNumber,
       newValue,
       nameForDebugging
-    );
-    this.invVsProp.SetVisibilityOfRow(theNumber, newValue, nameForDebugging);
-    this.propVsProp.SetVisibilityOfRow(theNumber, newValue, nameForDebugging);
+    )
+    this.invVsProp.SetVisibilityOfRow(theNumber, newValue, nameForDebugging)
+    this.propVsProp.SetVisibilityOfRow(theNumber, newValue, nameForDebugging)
     this.propVsProp.SetVisibilityOfColumn(
       theNumber,
       newValue,
       nameForDebugging
-    );
+    )
   }
 
-  public OnGoalValueChange(
+  public OnGoalValueChange (
     theNumber: number,
     newValue: number,
     nameForDebugging: string
@@ -190,21 +190,21 @@ export class PlayerAI implements IHappenerCallbacks {
       theNumber,
       newValue > 0,
       nameForDebugging
-    );
+    )
     this.invVsProp.SetVisibilityOfRow(
       theNumber,
       newValue > 0,
       nameForDebugging
-    );
+    )
     this.propVsProp.SetVisibilityOfRow(
       theNumber,
       newValue > 0,
       nameForDebugging
-    );
+    )
     this.propVsProp.SetVisibilityOfColumn(
       theNumber,
       newValue > 0,
       nameForDebugging
-    );
+    )
   }
 }

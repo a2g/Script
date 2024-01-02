@@ -1,6 +1,6 @@
-import { IPileOrRootPieceMap } from './IPileOrRootPieceMap';
-import { PileOfPieces } from './PileOfPieces';
-import { VisibleThingsMap } from './VisibleThingsMap';
+import { IPileOrRootPieceMap } from './IPileOrRootPieceMap'
+import { PileOfPieces } from './PileOfPieces'
+import { VisibleThingsMap } from './VisibleThingsMap'
 
 /**
  * This is needed because there are all these analysis steps that are performed on a single box
@@ -12,27 +12,27 @@ import { VisibleThingsMap } from './VisibleThingsMap';
 
 export interface IBoxReadOnly {
   // getters
-  GetArrayOfProps: () => string[];
-  GetArrayOfInvs: () => string[];
-  GetArrayOfGoals: () => string[];
-  GetArrayOfSingleObjectVerbs: () => string[];
-  GetArrayOfInitialStatesOfSingleObjectVerbs: () => boolean[];
-  GetArrayOfInitialStatesOfGoals: () => number[];
-  GetSetOfStartingGoals: () => Set<string>;
-  GetSetOfStartingProps: () => Set<string>;
-  GetSetOfStartingInvs: () => Set<string>;
-  GetMapOfAllStartingThings: () => VisibleThingsMap;
-  GetStartingThingsForCharacter: (charName: string) => Set<string>;
-  GetArrayOfInitialStatesOfProps: () => boolean[];
-  GetArrayOfInitialStatesOfInvs: () => boolean[];
-  GetArrayOfCharacters: () => string[];
+  GetArrayOfProps: () => string[]
+  GetArrayOfInvs: () => string[]
+  GetArrayOfGoals: () => string[]
+  GetArrayOfSingleObjectVerbs: () => string[]
+  GetArrayOfInitialStatesOfSingleObjectVerbs: () => boolean[]
+  GetArrayOfInitialStatesOfGoals: () => number[]
+  GetSetOfStartingGoals: () => Set<string>
+  GetSetOfStartingProps: () => Set<string>
+  GetSetOfStartingInvs: () => Set<string>
+  GetMapOfAllStartingThings: () => VisibleThingsMap
+  GetStartingThingsForCharacter: (charName: string) => Set<string>
+  GetArrayOfInitialStatesOfProps: () => boolean[]
+  GetArrayOfInitialStatesOfInvs: () => boolean[]
+  GetArrayOfCharacters: () => string[]
 
   // original-json-traversers
-  CopyPiecesFromBoxToPile: (pile: PileOfPieces) => void; // its possible for this to be done on aggregate
-  CopyGoalPiecesToContainer: (map: IPileOrRootPieceMap) => void;
+  CopyPiecesFromBoxToPile: (pile: PileOfPieces) => void // its possible for this to be done on aggregate
+  CopyGoalPiecesToContainer: (map: IPileOrRootPieceMap) => void
   CollectAllReferencedBoxesRecursively: (
     map: Map<string, IBoxReadOnly>
-  ) => void;
-  IsNotMergingAnymoreBoxes: () => boolean;
-  GetNewPileOfPieces: () => PileOfPieces;
+  ) => void
+  IsNotMergingAnymoreBoxes: () => boolean
+  GetNewPileOfPieces: () => PileOfPieces
 }

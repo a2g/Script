@@ -1,8 +1,8 @@
-import { GenerateMapOfLeavesRecursively } from './GenerateMapOfLeavesRecursively';
-import { GenerateMapOfLeavesTracingGoalsRecursively } from './GenerateMapOfLeavesTraccingGoalsRecursively';
-import { IPileOrRootPieceMap } from './IPileOrRootPieceMap';
-import { Piece } from './Piece';
-import { RootPiece } from './RootPiece';
+import { GenerateMapOfLeavesRecursively } from './GenerateMapOfLeavesRecursively'
+import { GenerateMapOfLeavesTracingGoalsRecursively } from './GenerateMapOfLeavesTraccingGoalsRecursively'
+import { IPileOrRootPieceMap } from './IPileOrRootPieceMap'
+import { Piece } from './Piece'
+import { RootPiece } from './RootPiece'
 /**
  * This started out simpler that PileOfPieces, because there
  * was only ever one piece that outputted a particular goal.
@@ -15,32 +15,32 @@ import { RootPiece } from './RootPiece';
  *
  */
 export class RootPieceMap implements IPileOrRootPieceMap {
-  private readonly roots: Map<string, RootPiece[]>;
+  private readonly roots: Map<string, RootPiece[]>
 
-  constructor(deepCopyFromMe: RootPieceMap | null) {
-    this.roots = new Map<string, RootPiece[]>();
+  constructor (deepCopyFromMe: RootPieceMap | null) {
+    this.roots = new Map<string, RootPiece[]>()
     if (deepCopyFromMe != null) {
       for (const pair of deepCopyFromMe.roots) {
-        const key = pair[0];
-        const value = pair[1];
-        const array = new Array<RootPiece>();
-        this.roots.set(key, []);
+        const key = pair[0]
+        const value = pair[1]
+        const array = new Array<RootPiece>()
+        this.roots.set(key, [])
         for (const rootPiece of value) {
-          const clonedTree: Piece = rootPiece.piece.ClonePieceAndEntireTree();
-          array.push(new RootPiece(clonedTree, rootPiece.firstNullInput));
+          const clonedTree: Piece = rootPiece.piece.ClonePieceAndEntireTree()
+          array.push(new RootPiece(clonedTree, rootPiece.firstNullInput))
         }
-        this.roots.set(key, array);
+        this.roots.set(key, array)
       }
     }
   }
 
-  public AddPiece(piece: Piece): void {
+  public AddPiece (piece: Piece): void {
     // initialize array, if it hasn't yet been
     if (this.roots.get(piece.output) == null) {
-      this.roots.set(piece.output, new Array<RootPiece>());
+      this.roots.set(piece.output, new Array<RootPiece>())
     }
     // always add to list
-    this.roots.get(piece.output)?.push(new RootPiece(piece, 'Unsolved'));
+    this.roots.get(piece.output)?.push(new RootPiece(piece, 'Unsolved'))
   }
 
   /**
@@ -48,87 +48,88 @@ export class RootPieceMap implements IPileOrRootPieceMap {
    *
    * @returns unsolved root nodes
    */
-  public GenerateMapOfLeavesFromAllRoots(): Map<string, Piece> {
-    const leaves = new Map<string, Piece>();
+  public GenerateMapOfLeavesFromAllRoots (): Map<string, Piece> {
+    const leaves = new Map<string, Piece>()
     for (const array of this.GetValues()) {
       for (const root of array) {
-        GenerateMapOfLeavesRecursively(root.piece, '', leaves);
+        GenerateMapOfLeavesRecursively(root.piece, '', leaves)
       }
     }
-    return leaves;
+    return leaves
   }
 
-  public GenerateMapOfLeavesFromWinGoal(): Map<string, Piece> {
-    const allWinGaols = this.GetAllWinGoals();
-    const leaves = new Map<string, Piece>();
-    if (allWinGaols?.length == 1) {
-      const winGoal = allWinGaols[0];
+  public GenerateMapOfLeavesFromWinGoal (): Map<string, Piece> {
+    const allWinGaols = this.GetAllWinGoals()
+    const leaves = new Map<string, Piece>()
+    if (allWinGaols?.length === 1) {
+      const winGoal = allWinGaols[0]
       GenerateMapOfLeavesTracingGoalsRecursively(
         winGoal.piece,
         '99_win',
         leaves,
         this
-      );
+      )
     }
-    return leaves;
+    return leaves
   }
 
-  public GetRootPieceArrayByName(name: string): RootPiece[] {
-    const root = this.roots.get(name);
+  public GetRootPieceArrayByName (name: string): RootPiece[] {
+    const root = this.roots.get(name)
     if (typeof root === 'undefined' || root === null) {
-      throw new Error(`rootPiece of that name doesn't exist ${name}`);
+      throw new Error(`rootPiece of that name doesn't exist ${name}`)
     }
-    return root;
+    return root
   }
 
-  public RemoveAllWithName(name: string): void {
-    this.roots.delete(name);
+  public RemoveAllWithName (name: string): void {
+    this.roots.delete(name)
   }
 
-  public CalculateListOfKeys(): string[] {
-    const array: string[] = [];
+  public CalculateListOfKeys (): string[] {
+    const array: string[] = []
     for (const key of this.roots.keys()) {
-      array.push(key);
+      array.push(key)
     }
-    return array;
+    return array
   }
 
-  public Size(): number {
-    return this.roots.size;
+  public Size (): number {
+    return this.roots.size
   }
 
-  public GetValues(): IterableIterator<RootPiece[]> {
-    return this.roots.values();
+  public GetValues (): IterableIterator<RootPiece[]> {
+    return this.roots.values()
   }
 
-  public CloneAllRootPiecesAndTheirTrees(): RootPieceMap {
-    return new RootPieceMap(this);
+  public CloneAllRootPiecesAndTheirTrees (): RootPieceMap {
+    return new RootPieceMap(this)
   }
 
-  public Has(goalToObtain: string): boolean {
-    return this.roots.has(goalToObtain);
+  public Has (goalToObtain: string): boolean {
+    return this.roots.has(goalToObtain)
   }
 
-  public GetRootPieceArrayByNameNoThrow(goal: string): RootPiece[] | undefined {
-    return this.roots.get(goal);
+  public GetRootPieceArrayByNameNoThrow (goal: string): RootPiece[] | undefined {
+    return this.roots.get(goal)
   }
 
-  public GetAllWinGoals(): RootPiece[] | undefined {
-    return this.roots.get('99_win');
+  public GetAllWinGoals (): RootPiece[] | undefined {
+    return this.roots.get('99_win')
   }
 
-  public RemoveAllWinGoals(): void {
-    this.roots.delete('99_win');
+  public RemoveAllWinGoals (): void {
+    this.roots.delete('99_win')
   }
 
-  public RemovePieceById(id: number): void {
+  public RemovePieceById (id: number): void {
     for (const array of this.roots.values()) {
-      for (let i = 0; i < array.length; i++)
-        if (array[i].piece.id == id) {
-          array.splice(i, 1);
-          return;
+      for (let i = 0; i < array.length; i++) {
+        if (array[i].piece.id === id) {
+          array.splice(i, 1)
+          return
         }
+      }
     }
-    throw new Error("Id was not found, and couldn't remove");
+    throw new Error("Id was not found, and couldn't remove")
   }
 }

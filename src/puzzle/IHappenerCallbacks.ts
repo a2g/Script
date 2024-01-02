@@ -3,15 +3,15 @@ export interface IHappenerCallbacks {
     numberOfObjectWhoseVisibilityChanged: number,
     newValue: boolean,
     nameForDebugging: string
-  ) => void;
+  ) => void
   OnInvVisbilityChange: (
     numberOfObjectWhoseVisibilityChanged: number,
     newValue: boolean,
     nameForDebugging: string
-  ) => void;
+  ) => void
   OnGoalValueChange: (
     numberOfObjectWhoseVisibilityChanged: number,
     newValue: number,
     nameForDebugging: string
-  ) => void;
+  ) => void
 }

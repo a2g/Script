@@ -1,50 +1,50 @@
-import { Mix } from './Mix';
-import { Verb } from './Verb';
+import { Mix } from './Mix'
+import { Verb } from './Verb'
 
 export class Command {
-  public verb: Verb;
-  public type: Mix;
+  public verb: Verb
+  public type: Mix
 
-  public object1: string;
+  public object1: string
 
-  public object2: string;
+  public object2: string
 
-  public error: string;
+  public error: string
 
-  constructor(
+  constructor (
     verb: Verb,
     type: Mix,
     object1: string,
     object2 = '',
     error = ''
   ) {
-    this.type = type;
-    this.verb = verb;
-    this.object1 = object1;
-    this.object2 = object2;
-    this.error = error;
+    this.type = type
+    this.verb = verb
+    this.object1 = object1
+    this.object2 = object2
+    this.error = error
   }
 
-  public Match(
+  public Match (
     verbIncoming: string,
     object1: string | undefined,
     object2: string | undefined
   ): boolean {
-    const verb = verbIncoming.toLowerCase();
+    const verb = verbIncoming.toLowerCase()
     if (
       this.verb === verb &&
       this.object1 === object1 &&
       this.object2 === object2
     ) {
-      return true;
+      return true
     }
     if (
       this.verb === verb &&
       this.object1 === object2 &&
       this.object2 === object1
     ) {
-      return true;
+      return true
     }
-    return false;
+    return false
   }
 }

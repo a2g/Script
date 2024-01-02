@@ -1,5 +1,5 @@
-import { IPileOfPiecesReadOnly } from './IPileOfPiecesReadOnly';
-import { Piece } from './Piece';
+import { IPileOfPiecesReadOnly } from './IPileOfPiecesReadOnly'
+import { Piece } from './Piece'
 
 /**
  * This is basically wraps a multimap - no extra data -
@@ -14,76 +14,76 @@ import { Piece } from './Piece';
  * - GetSinglePieceById matches by id
  */
 export class PileOfPieces implements IPileOfPiecesReadOnly {
-  private readonly piecesMappedByOutput: Map<string, Set<Piece>>;
+  private readonly piecesMappedByOutput: Map<string, Set<Piece>>
 
-  constructor(cloneFromMe: IPileOfPiecesReadOnly | null) {
-    this.piecesMappedByOutput = new Map<string, Set<Piece>>();
+  constructor (cloneFromMe: IPileOfPiecesReadOnly | null) {
+    this.piecesMappedByOutput = new Map<string, Set<Piece>>()
     if (cloneFromMe != null) {
       for (const set of cloneFromMe.GetIterator()) {
         if (set.size > 0) {
-          const clonedSet = new Set<Piece>();
-          let outputName = '';
+          const clonedSet = new Set<Piece>()
+          let outputName = ''
           for (const piece of set) {
-            const clonedPiece = piece.ClonePieceAndEntireTree();
-            clonedSet.add(clonedPiece);
-            outputName = clonedPiece.output;
+            const clonedPiece = piece.ClonePieceAndEntireTree()
+            clonedSet.add(clonedPiece)
+            outputName = clonedPiece.output
           }
-          this.piecesMappedByOutput.set(outputName, clonedSet);
+          this.piecesMappedByOutput.set(outputName, clonedSet)
         }
       }
     }
   }
 
-  public RemovePiece(piece: Piece): void {
+  public RemovePiece (piece: Piece): void {
     if (piece.reuseCount - 1 <= 0) {
-      const key = piece.output;
+      const key = piece.output
       if (this.piecesMappedByOutput.has(key)) {
-        const oldSet = this.piecesMappedByOutput.get(key);
+        const oldSet = this.piecesMappedByOutput.get(key)
         if (oldSet != null) {
           // console.warn(" old size = "+oldSet.size);
-          oldSet.delete(piece);
+          oldSet.delete(piece)
           // console.warn(" newSize = "+oldSet.size);
         }
       } else {
-        piece.SetCount(piece.reuseCount - 1);
-        console.warn(`trans.count is now ${piece.reuseCount}`);
+        piece.SetCount(piece.reuseCount - 1)
+        console.warn(`trans.count is now ${piece.reuseCount}`)
       }
     }
   }
 
-  public GetAutos(): Piece[] {
-    const toReturn: Piece[] = [];
+  public GetAutos (): Piece[] {
+    const toReturn: Piece[] = []
     this.piecesMappedByOutput.forEach((setOfPieces: Set<Piece>) => {
       setOfPieces.forEach((piece: Piece) => {
         if (piece.type.startsWith('AUTO')) {
-          toReturn.push(piece);
+          toReturn.push(piece)
         }
-      });
-    });
-    return toReturn;
+      })
+    })
+    return toReturn
   }
 
-  public AddPiece(piece: Piece): void {
+  public AddPiece (piece: Piece): void {
     // initialize array, if it hasn't yet been
     if (!this.piecesMappedByOutput.has(piece.output)) {
-      this.piecesMappedByOutput.set(piece.output, new Set<Piece>());
+      this.piecesMappedByOutput.set(piece.output, new Set<Piece>())
     }
     // always add to list
-    this.piecesMappedByOutput.get(piece.output)?.add(piece);
+    this.piecesMappedByOutput.get(piece.output)?.add(piece)
   }
 
-  public GetSinglePieceById(idToMatch: number): Piece | null {
+  public GetSinglePieceById (idToMatch: number): Piece | null {
     for (const set of this.piecesMappedByOutput.values()) {
       for (const piece of set) {
         if (piece.id === idToMatch) {
-          return piece;
+          return piece
         }
       }
     }
-    return null;
+    return null
   }
 
-  public GetPiecesThatOutputString(objectToObtain: string): Set<Piece> {
+  public GetPiecesThatOutputString (objectToObtain: string): Set<Piece> {
     // since the remainingPieces are a map index by output piece
     // then a remainingPieces.Get will retrieve all matching pieces.
     // BUT...
@@ -92,29 +92,29 @@ export class PileOfPieces implements IPileOfPiecesReadOnly {
     // iteration through the map to match - possibly for debugging.
     for (const pair of this.piecesMappedByOutput) {
       if (pair[0] === objectToObtain) {
-        return pair[1];
+        return pair[1]
       }
     }
-    return new Set<Piece>();
+    return new Set<Piece>()
   }
 
-  public Size(): number {
-    let count = 0;
+  public Size (): number {
+    let count = 0
     for (const set of this.piecesMappedByOutput.values()) {
-      count += set.size;
+      count += set.size
     }
-    return count;
+    return count
   }
 
-  public Has(givenOutput: string): boolean {
-    return this.piecesMappedByOutput.has(givenOutput);
+  public Has (givenOutput: string): boolean {
+    return this.piecesMappedByOutput.has(givenOutput)
   }
 
-  public Get(givenOutput: string): Set<Piece> | undefined {
-    return this.piecesMappedByOutput.get(givenOutput);
+  public Get (givenOutput: string): Set<Piece> | undefined {
+    return this.piecesMappedByOutput.get(givenOutput)
   }
 
-  public GetIterator(): IterableIterator<Set<Piece>> {
-    return this.piecesMappedByOutput.values();
+  public GetIterator (): IterableIterator<Set<Piece>> {
+    return this.piecesMappedByOutput.values()
   }
 }
