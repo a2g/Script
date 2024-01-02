@@ -1,20 +1,20 @@
 module.exports = {
   extends: [
-    "eslint:recommended",
-    "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended"
+    'eslint:recommended',
+    'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:@typescript-eslint/recommended'
   ],
-  parser: "@typescript-eslint/parser",
+  parser: '@typescript-eslint/parser',
   plugins: [
-    "@typescript-eslint"
+    '@typescript-eslint'
   ],
   parserOptions: {
-    project: "./tsconfig.json",
+    project: './tsconfig.json',
     tsconfigRootDir: __dirname,
     sourceType: 'module'
   },
   rules: {
-    "restrict-template-expressions": "off",
-    "@typescript-eslint/no-empty-interface": "off"
-  },
-};
+    'restrict-template-expressions': 'off',
+    '@typescript-eslint/no-empty-interface': 'off'
+  }
+}

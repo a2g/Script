@@ -28,8 +28,10 @@
     "coverage": "jest --coverage",
     "format-old": "prettier --write \"{src,testsYup}/**/*.ts\" --single-quote --trailing-comma es5",
     "lint-old": "eslint -c .eslintrc.js --ext .ts src/**/*.ts",
-    "lint": "eslint --ext .ts,.html . --ignore-path .gitignore && prettier \"**/*.ts\" --check --ignore-path .gitignore",
-    "format": "eslint --ext .ts,.html . --fix --ignore-path .gitignore && prettier \"**/*.ts\" --write --ignore-path .gitignore",
+    "lint-eslint": "eslint --ext .ts,.html . --ignore-path .gitignore && prettier \"**/*.ts\" --check --ignore-path .gitignore",
+    "format=eslint": "eslint --ext .ts,.html . --fix --ignore-path .gitignore && prettier \"**/*.ts\" --write --ignore-path .gitignore",
+    "lint": "ts-standard",
+    "format": "ts-standard --fix",
     "cli:lint": "tsc --pretty && node lib/src/cli.js",
     "cli": "node lib/src/cli.js",
     "prepublishOnly": "npm run build",
@@ -58,7 +60,6 @@
     "coveralls": "^3.0.2",
     "eslint": "^7.32.0",
     "jest": "^29.5.0",
-    "prettier": "^2.4.1",
     "prompt-sync": "^4.2.0",
     "rimraf": "^2.6.2",
     "ts-jest": "^29.0.5",
@@ -90,8 +91,7 @@
   "eslintConfig": {
     "parser": "@typescript-eslint/parser",
     "extends": [
-      "@open-wc",
-      "prettier"
+      "@open-wc"
     ],
     "plugins": [
       "@typescript-eslint"
@@ -111,14 +111,10 @@
       ]
     }
   },
-  "prettier": {
-    "singleQuote": true,
-    "arrowParens": "avoid"
-  },
+
   "lint-staged": {
     "*.ts": [
-      "eslint --fix",
-      "prettier --write"
+      "ts-standard --fix"
     ]
   }
 }
