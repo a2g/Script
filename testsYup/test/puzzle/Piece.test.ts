@@ -1,13 +1,13 @@
 // Typescript Unit test
-import { Piece } from '../../../src/puzzle/Piece';
-import { SpecialTypes } from '../../../src/puzzle/SpecialTypes';
-import { describe, expect, test } from '@jest/globals';
+import { Piece } from '../../../src/puzzle/Piece'
+import { SpecialTypes } from '../../../src/puzzle/SpecialTypes'
+import { describe, expect, test } from '@jest/globals'
 describe('Solution', () => {
   test('Test of a none clone piece', () => {
-    const root = new Piece(0, null, 'root', '', 1, null, null, null, 'A');
-    const segA = new Piece(0, null, 'A', '', 1, null, null, null, 'B');
-    const segB = new Piece(0, null, 'B', '', 1, null, null, null, 'C');
-    const segC = new Piece(0, null, 'C', '', 1, null, null, null, 'D');
+    const root = new Piece(0, null, 'root', '', 1, null, null, null, 'A')
+    const segA = new Piece(0, null, 'A', '', 1, null, null, null, 'B')
+    const segB = new Piece(0, null, 'B', '', 1, null, null, null, 'C')
+    const segC = new Piece(0, null, 'C', '', 1, null, null, null, 'D')
     const segD = new Piece(
       0,
       null,
@@ -18,16 +18,16 @@ describe('Solution', () => {
       null,
       null,
       'E'
-    );
+    )
 
-    const clone = root.ClonePieceAndEntireTree();
-    expect('A').toEqual(segA.output);
-    expect('B').toEqual(segB.output);
-    expect('C').toEqual(segC.output);
-    expect('D').toEqual(segD.output);
-    expect('root').toEqual(clone.GetOutput());
-    expect(null).toEqual(segC.GetParent());
-  });
+    const clone = root.ClonePieceAndEntireTree()
+    expect('A').toEqual(segA.output)
+    expect('B').toEqual(segB.output)
+    expect('C').toEqual(segC.output)
+    expect('D').toEqual(segD.output)
+    expect('root').toEqual(clone.GetOutput())
+    expect(null).toEqual(segC.GetParent())
+  })
   /*
     it("Test of a non cloning five step", () => {
         const box = new SceneSingle("test/puzzle/Test1First.jsonc");
@@ -93,10 +93,10 @@ describe('Solution', () => {
        A test could be added for this too.  */
 
   test('Test cloning with High Permutation scene2', () => {
-    const root = new Piece(0, null, 'root', '', 1, null, null, null, 'A');
-    const segA = new Piece(0, null, 'A', '', 1, null, null, null, 'B');
-    const segB = new Piece(0, null, 'B', '', 1, null, null, null, 'C');
-    const segC = new Piece(0, null, 'C', '', 1, null, null, null, 'D');
+    const root = new Piece(0, null, 'root', '', 1, null, null, null, 'A')
+    const segA = new Piece(0, null, 'A', '', 1, null, null, null, 'B')
+    const segB = new Piece(0, null, 'B', '', 1, null, null, null, 'C')
+    const segC = new Piece(0, null, 'C', '', 1, null, null, null, 'D')
     const segD = new Piece(
       0,
       null,
@@ -107,17 +107,17 @@ describe('Solution', () => {
       null,
       null,
       'E'
-    );
-    root.inputs.push(segA);
-    segA.inputs.push(segB);
-    segB.inputs.push(segC);
-    segC.inputs.push(segD);
+    )
+    root.inputs.push(segA)
+    segA.inputs.push(segB)
+    segB.inputs.push(segC)
+    segC.inputs.push(segD)
 
-    root.inputHints.push('A');
-    root.inputHints.push('B');
-    root.inputHints.push('C');
-    root.inputHints.push('B');
+    root.inputHints.push('A')
+    root.inputHints.push('B')
+    root.inputHints.push('C')
+    root.inputHints.push('B')
 
     // assert.strictEqual("", segC.G)
-  });
-});
+  })
+})

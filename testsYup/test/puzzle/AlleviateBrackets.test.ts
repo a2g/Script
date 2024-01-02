@@ -1,5 +1,5 @@
-import { expect, test } from '@jest/globals';
-import { AlleviateBrackets } from '../../../src/puzzle/AlleviateBrackets';
+import { expect, test } from '@jest/globals'
+import { AlleviateBrackets } from '../../../src/puzzle/AlleviateBrackets'
 test('AddBrackets', () => {
-  expect(AlleviateBrackets('(blah)')).toBe('blah');
-});
+  expect(AlleviateBrackets('(blah)')).toBe('blah')
+})
