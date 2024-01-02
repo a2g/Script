@@ -1,6 +1,6 @@
-export function IsOk(result: string): boolean {
+export function IsOk (result: string): boolean {
   if (result.trim() === 'ok') {
-    return true;
+    return true
   }
-  return false;
+  return false
 }
