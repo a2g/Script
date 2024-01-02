@@ -30,7 +30,9 @@ export interface IBoxReadOnly {
   // original-json-traversers
   CopyPiecesFromBoxToPile: (pile: PileOfPieces) => void; // its possible for this to be done on aggregate
   CopyGoalPiecesToContainer: (map: IPileOrRootPieceMap) => void;
-  CollectAllReferencedBoxesRecursively: (array: Set<IBoxReadOnly>) => void;
+  CollectAllReferencedBoxesRecursively: (
+    map: Map<string, IBoxReadOnly>
+  ) => void;
   IsMergingOk: () => boolean;
   GetNewPileOfPieces: () => PileOfPieces;
 }

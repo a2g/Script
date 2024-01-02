@@ -35,7 +35,7 @@ function main(): void {
             );
             firstBox.Init();
 
-            const allBoxes = new Set<Box>();
+            const allBoxes = new Map<string, Box>();
             firstBox.CollectAllReferencedBoxesRecursively(allBoxes);
             const combined = new BigBoxViaSetOfBoxes(allBoxes);
 

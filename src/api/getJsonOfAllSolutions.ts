@@ -28,7 +28,7 @@ export function getJsonOfAllSolutions(
   const firstBox = new Box(path, firstBoxFilename);
   firstBox.Init();
 
-  const allBoxes = new Set<Box>();
+  const allBoxes = new Map<string, Box>();
   firstBox.CollectAllReferencedBoxesRecursively(allBoxes);
   const solver = new SolverViaRootPiece(firstBox);
 
@@ -99,9 +99,10 @@ function getJsonArrayOfRootPieces(
 ): Array<Record<string, unknown>> {
   const toReturn = new Array<Record<string, unknown>>();
 
-  const rootPieces = solution.GetRootMap().GetValues();
-  for (const array of rootPieces) {
-    for (const rootPiece of array) {
+  // first we push this
+  const listOfRootPieceArrays = solution.GetRootMap().GetValues();
+  for (const rootPieceArray of listOfRootPieceArrays) {
+    for (const rootPiece of rootPieceArray) {
       toReturn.push({
         name: rootPiece.piece.GetOutput(),
         isAGoalOrAuto: false,
@@ -109,6 +110,8 @@ function getJsonArrayOfRootPieces(
       });
     }
   }
+
+  // then we push the actual order of commands
   toReturn.push({
     name: `List of Commands`,
     isAGoalOrAuto: false,

@@ -36,16 +36,16 @@ export class BigBoxViaSetOfBoxes implements IBoxReadOnly {
 
   public readonly startingGoalSet: Set<string>;
 
-  public readonly originalBoxes: Set<IBoxReadOnlyWithFileMethods>;
+  public readonly originalBoxes: Map<string, IBoxReadOnlyWithFileMethods>;
 
   public readonly goals: RootPieceMap;
 
   public readonly isMergingOk: boolean = true;
 
-  constructor(setOfBoxes: Set<IBoxReadOnlyWithFileMethods>) {
+  constructor(mapOfBoxes: Map<string, IBoxReadOnlyWithFileMethods>) {
     // we keep the original boxes, because we need to call
     // Big Switch on them numerous times
-    this.originalBoxes = setOfBoxes;
+    this.originalBoxes = mapOfBoxes;
 
     // create sets for the 3 member and 4 indirect sets
     this.mapOfStartingThingsWithChars = new VisibleThingsMap(null);
@@ -181,7 +181,7 @@ export class BigBoxViaSetOfBoxes implements IBoxReadOnly {
   }
 
   public CopyPiecesFromBoxToPile(pile: PileOfPieces): void {
-    for (const box of this.originalBoxes) {
+    for (const box of this.originalBoxes.values()) {
       const file = new SingleFile(box.GetPath(), box.GetFilename());
       file.copyPiecesToContainer(false, pile);
     }
@@ -196,14 +196,16 @@ export class BigBoxViaSetOfBoxes implements IBoxReadOnly {
     }
   }
 
-  public CollectAllReferencedBoxesRecursively(set: Set<IBoxReadOnly>): void {
+  public CollectAllReferencedBoxesRecursively(
+    map: Map<string, IBoxReadOnly>
+  ): void {
     // We don't want to go: set.add(this);
     // Because *event hough* this big box via set of big boxes can
     // proxy as an IBoxReadonly - we really want the actual
     // *genuine* only boxes in the list, otherwise pieces will
     // get added twice.
-    for (const box of this.originalBoxes) {
-      set.add(box);
+    for (const box of this.originalBoxes.values()) {
+      map.set(box.GetFilename(), box);
     }
 
     // since this map of goal pieces already has been obtained recursively
@@ -211,7 +213,8 @@ export class BigBoxViaSetOfBoxes implements IBoxReadOnly {
     for (const array of this.goals.GetValues()) {
       for (const goal of array) {
         if (goal.piece.merge != null) {
-          set.add(goal.piece.merge);
+          const merge = goal.piece.merge;
+          map.set(merge.GetFilename(), merge);
         }
       }
     }

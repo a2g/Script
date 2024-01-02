@@ -22,9 +22,9 @@ export class SolverViaRootPiece {
     // we collect the other boxes, but only for
     // collecting all rootmap
     const rootMap = new RootPieceMap(null);
-    const boxes = new Set<IBoxReadOnly>();
+    const boxes = new Map<string, IBoxReadOnly>();
     box.CollectAllReferencedBoxesRecursively(boxes);
-    for (const subBox of boxes) {
+    for (const subBox of boxes.values()) {
       subBox.CopyGoalPiecesToContainer(rootMap);
     }
 

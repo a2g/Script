@@ -309,12 +309,14 @@ export class Box implements IBoxReadOnlyWithFileMethods {
     }
   }
 
-  public CollectAllReferencedBoxesRecursively(set: Set<IBoxReadOnly>): void {
-    set.add(this);
+  public CollectAllReferencedBoxesRecursively(
+    map: Map<string, IBoxReadOnly>
+  ): void {
+    map.set(this.filename, this);
     for (const array of this.goals.GetValues()) {
       for (const goal of array) {
         if (goal.piece.merge != null) {
-          goal.piece.merge.CollectAllReferencedBoxesRecursively(set);
+          goal.piece.merge.CollectAllReferencedBoxesRecursively(map);
         }
       }
     }

@@ -286,7 +286,7 @@ export class Solution {
   public GetOrderOfCommands(): Array<RawObjectsAndVerb> {
     // I would like to return a read only array here.
     // I can't do that, so instead, I will clone.
-    // The following is how to clone in js
+    // The best way to clone in is using 'map'
     return this.commandsCompletedInOrder.map(x => x);
   }
 

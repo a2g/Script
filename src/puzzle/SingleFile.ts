@@ -266,7 +266,9 @@ export class SingleFile {
 
               if (!isCopyRootPiecesOnly) {
                 const happs2 = new Happenings();
-                happs2.array.push(new Happening(Happen.InvTransitions, inv1, inv2));
+                happs2.array.push(
+                  new Happening(Happen.InvTransitions, inv1, inv2)
+                );
                 const inputA2 = newGoal;
                 const output2 = inv2;
                 piecesMappedByOutput.AddPiece(
@@ -283,7 +285,9 @@ export class SingleFile {
                   )
                 );
                 const happs3 = new Happenings();
-                happs3.array.push(new Happening(Happen.PropTransitions, prop1, prop2));
+                happs3.array.push(
+                  new Happening(Happen.PropTransitions, prop1, prop2)
+                );
                 const inputA3 = newGoal;
                 const inputB3 = prop1;
                 const output3 = prop2;
