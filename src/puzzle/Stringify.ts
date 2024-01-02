@@ -1,6 +1,8 @@
-export function Stringify(blah: unknown): string {
+export function Stringify (blah: unknown): string {
   if (blah != null) {
-    return blah.toString();
+    if (typeof blah === 'string') {
+      return blah.toString()
+    }
   }
-  return '';
+  return ''
 }
