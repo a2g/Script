@@ -2,7 +2,6 @@ import assert from 'assert'
 import { Piece } from './Piece'
 import { Raw } from './Raw'
 import { RawObjectsAndVerb } from './RawObjectsAndVerb'
-import { Solution } from './Solution'
 import { SpecialTypes } from './SpecialTypes'
 import { Stringify } from './Stringify'
 import { VisibleThingsMap } from './VisibleThingsMap'
@@ -154,7 +153,7 @@ export class LeafToRootTraverser {
     return null
   }
 
-  public GeneratePath (piece: Piece | null): string {
+  private GeneratePath (piece: Piece | null): string {
     let path = ''
     while (piece != null) {
       const pieceOutput: string = piece.output
@@ -164,58 +163,9 @@ export class LeafToRootTraverser {
     return `/${path}`
   }
 
-  public UpdateMapOfVisibleThingsWithLeafToRootTraversal (
-    solution: Solution
-  ): void {
-    // 21/Aug/2022 hmmn..have just come to this
-    // and I'm not exactly sure how to do it with the rootpiecemap approach
-    //
-    // 26/Aug/2022 hmmn...this is going to get nasty.
-    // in the old days, this was crude, but by simply going width first
-    // we were able to get all the starting items at the end of the array.
-    // Now that we have RootPieceMap, we have an extra dimension..
-    // but we still
-    const container = new Array<Piece>()
-
-    // we do this width first recursively to get order from root to leaves
-    for (const array of solution.GetRootMap().GetValues()) {
-      for (const rootPiece of array) {
-        this.CollectArrayOfPiecesInAWidthFirstRecursively(
-          rootPiece.piece,
-          container
-        )
-      }
-    }
-
-    // then we traverse the array backwards - from oldest to newest
-    for (let i = container.length - 1; i >= 0; i--) {
-      const piece = container[i]
-      piece.UpdateVisibleWithOutcomes(this.currentlyVisibleThings)
-    }
-  }
-
-  public GetLeavesForLeafToRootTraversal (): ReadonlyMap<string, Piece | null> {
-    return this.leavesForTraversal
-  }
-
   private AddToMapOfVisibleThings (thing: string): void {
     if (!this.currentlyVisibleThings.Has(thing)) {
       this.currentlyVisibleThings.Set(thing, new Set<string>())
-    }
-  }
-
-  private CollectArrayOfPiecesInAWidthFirstRecursively (
-    n: Piece,
-    array: Array<Piece | null>
-  ): void {
-    for (const input of n.inputs) {
-      array.push(input)
-    }
-
-    for (const input of n.inputs) {
-      if (input != null) {
-        this.CollectArrayOfPiecesInAWidthFirstRecursively(input, array)
-      }
     }
   }
 }
