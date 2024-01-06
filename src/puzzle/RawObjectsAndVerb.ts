@@ -54,8 +54,7 @@ export class RawObjectsAndVerb {
           joiner = ' to '
           break
         case Raw.Auto:
-          joiner = ' becomes '
-          break
+          return `${objectB} appears.... ` + restriction + ' ' + objectA
       }
       return verb + ' ' + objectA + joiner + objectB + ' ' + restriction
     } else {
