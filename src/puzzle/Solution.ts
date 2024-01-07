@@ -18,7 +18,7 @@ import { IBoxReadOnlyWithFileMethods } from './IBoxReadOnlyWithFileMethods'
 export class Solution {
   // important ones
   private readonly rootPieces: RootPieceMap
-  private readonly solvingOrderForRootPieceKeys: string[]
+  private readonly rootPieceKeysInSolvingOrder: string[]
 
   private readonly remainingPiecesRepo: PileOfPieces
 
@@ -51,7 +51,7 @@ export class Solution {
     this.remainingPiecesRepo = new PileOfPieces(copyThisMapOfPieces)
     this.isArchived = false
     this.lastBranchingPoint = ''
-    this.solvingOrderForRootPieceKeys = solvingOrderForRootPieceKeys.slice()
+    this.rootPieceKeysInSolvingOrder = solvingOrderForRootPieceKeys.slice()
 
     // starting things AND currentlyVisibleThings
     this.startingThings = new VisibleThingsMap(null)
@@ -93,7 +93,7 @@ export class Solution {
     const clonedSolution = new Solution(
       clonedRootPieceMap,
       this.remainingPiecesRepo,
-      this.solvingOrderForRootPieceKeys,
+      this.rootPieceKeysInSolvingOrder,
       this.startingThings,
       this.isNotMergingAnyMoreBoxes,
       this.restrictionsEncounteredDuringSolving,
@@ -116,17 +116,9 @@ export class Solution {
     return isBreakingDueToSolutionCloning
   }
 
-  /**
-   * This method is only for debugging. I should remove it completely?
-   */
-  /*
-  GetIncompletePieces (): Set<Piece> {
-    return this.incompletePieces
-  } */
-
   GetOrderOfCommands (): RawObjectsAndVerb[] {
     const toReturn: RawObjectsAndVerb[] = []
-    for (const key of this.solvingOrderForRootPieceKeys) {
+    for (const key of this.rootPieceKeysInSolvingOrder) {
       const rootGoalArray = this.GetRootMap().GetRootPieceArrayByName(key)
       for (const goalPiece of rootGoalArray) {
         const at = toReturn.length
@@ -285,7 +277,20 @@ export class Solution {
     )
 
     // also tell the solution what order the goal was reached
-    this.solvingOrderForRootPieceKeys.push(goal.piece.output)
+    this.rootPieceKeysInSolvingOrder.push(goal.piece.output)
+
+    // Sse if any autos depend on the newly completed goal - if so execute them
+    for (const piece of this.remainingPiecesRepo.GetAutos()) {
+      if (piece.inputHints.length === 2 && piece.inputHints[0] === goal.piece.output) {
+        const command = LeafToRootTraverser.getCommandFromAutoPiece(piece)
+        goal.commandsCompletedInOrder.push(command)
+
+        // TODO: Need to now go and hunt through all the goal chains,
+        // and find where those auto pieces should be played
+        // then play them, adjust the visibility map, and then remove
+        // that piece from the repo
+      }
+    }
   }
 
   public AreAnyInputsNull (): boolean {

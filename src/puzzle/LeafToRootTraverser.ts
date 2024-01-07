@@ -106,20 +106,8 @@ export class LeafToRootTraverser {
             )
             break
           } else if (isAuto) {
-            let text = 'auto using ('
-            for (const inputName of piece.inputHints) {
-              const inputName2: string = inputName
-              text += `${inputName2} `
-            }
             console.warn(pathOfThis)
-            console.warn(text)
-            toReturn = new RawObjectsAndVerb(
-              Raw.Auto,
-              piece.inputHints[0],
-              piece.output,
-              piece.getRestrictions(),
-              piece.type
-            )
+            toReturn = LeafToRootTraverser.getCommandFromAutoPiece(piece)
             break
           } else if (isUse) {
             // then its nearly definitely "use", unless I messed up
@@ -176,5 +164,22 @@ export class LeafToRootTraverser {
     if (!this.currentlyVisibleThings.Has(thing)) {
       this.currentlyVisibleThings.Set(thing, new Set<string>())
     }
+  }
+
+  public static getCommandFromAutoPiece (piece: Piece): RawObjectsAndVerb {
+    let text = 'auto using ('
+    for (const inputName of piece.inputHints) {
+      const inputName2: string = inputName
+      text += `${inputName2} `
+    }
+    console.warn(text)
+
+    return new RawObjectsAndVerb(
+      Raw.Auto,
+      piece.inputHints[0],
+      piece.output,
+      piece.getRestrictions(),
+      piece.type
+    )
   }
 }
