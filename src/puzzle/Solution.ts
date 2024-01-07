@@ -287,8 +287,8 @@ export class Solution {
 
         // TODO: Need to now go and hunt through all the goal chains,
         // and find where those auto pieces should be played
-        // then play them, adjust the visibility map, and then remove
-        // that piece from the repo
+        // then play them, update the leafs, adjust the visibility map, 
+        // and then remove that piece from the repo
       }
     }
   }
