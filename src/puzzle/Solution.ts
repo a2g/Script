@@ -18,6 +18,7 @@ import { IBoxReadOnlyWithFileMethods } from './IBoxReadOnlyWithFileMethods'
 export class Solution {
   // important ones
   private readonly rootPieces: RootPieceMap
+  private readonly solvingOrderForRootPieceKeys: string[]
 
   private readonly remainingPiecesRepo: PileOfPieces
 
@@ -34,16 +35,14 @@ export class Solution {
 
   private readonly isNotMergingAnyMoreBoxes: boolean
 
-  private readonly commandsCompletedInOrder: RawObjectsAndVerb[]
-
   private lastBranchingPoint: string
 
   constructor (
     rootPieceMapToCopy: RootPieceMap | null,
     copyThisMapOfPieces: IPileOfPiecesReadOnly,
+    solvingOrderForRootPieceKeys: string[],
     startingThingsPassedIn: VisibleThingsMap,
     isNotMergingAnyMoreBoxes: boolean,
-    commandsCompletedInOrder: RawObjectsAndVerb[] | null = null,
     restrictions: Set<string> | null = null,
     nameSegments: string[] | null = null
   ) {
@@ -52,6 +51,7 @@ export class Solution {
     this.remainingPiecesRepo = new PileOfPieces(copyThisMapOfPieces)
     this.isArchived = false
     this.lastBranchingPoint = ''
+    this.solvingOrderForRootPieceKeys = solvingOrderForRootPieceKeys.slice()
 
     // starting things AND currentlyVisibleThings
     this.startingThings = new VisibleThingsMap(null)
@@ -60,14 +60,6 @@ export class Solution {
       for (const item of startingThingsPassedIn.GetIterableIterator()) {
         this.startingThings.Set(item[0], item[1])
         this.currentlyVisibleThings.Set(item[0], item[1])
-      }
-    }
-
-    // if commandsCompletedInOrder is passed in, we deep copy it
-    this.commandsCompletedInOrder = []
-    if (commandsCompletedInOrder != null) {
-      for (const command of commandsCompletedInOrder) {
-        this.commandsCompletedInOrder.push(command)
       }
     }
 
@@ -101,9 +93,9 @@ export class Solution {
     const clonedSolution = new Solution(
       clonedRootPieceMap,
       this.remainingPiecesRepo,
+      this.solvingOrderForRootPieceKeys,
       this.startingThings,
       this.isNotMergingAnyMoreBoxes,
-      this.commandsCompletedInOrder,
       this.restrictionsEncounteredDuringSolving,
       this.solutionNameSegments
     )
@@ -131,6 +123,19 @@ export class Solution {
   GetIncompletePieces (): Set<Piece> {
     return this.incompletePieces
   } */
+
+  GetOrderOfCommands (): RawObjectsAndVerb[] {
+    const toReturn: RawObjectsAndVerb[] = []
+    for (const key of this.solvingOrderForRootPieceKeys) {
+      const rootGoalArray = this.GetRootMap().GetRootPieceArrayByName(key)
+      for (const goalPiece of rootGoalArray) {
+        const at = toReturn.length
+        // const n = goalPiece.commandsCompletedInOrder.length
+        toReturn.splice(at, 0, ...goalPiece.commandsCompletedInOrder)
+      }
+    }
+    return toReturn
+  }
 
   public GetDisplayNamesConcatenated (): string {
     let result = ''
@@ -233,8 +238,8 @@ export class Solution {
     boxToMerge.CopyStartingThingCharsToGivenMap(this.currentlyVisibleThings)
   }
 
-  public AddCommandsToReachGoalToList (root: RootPiece): void {
-    const piece = root.piece
+  public AddCommandsToReachGoalToList (goal: RootPiece): void {
+    const piece = goal.piece
     // push the commands
     const leaves = new Map<string, Piece | null>()
     GenerateMapOfLeavesRecursively(piece, '', false, leaves)
@@ -267,7 +272,7 @@ export class Solution {
 
       if (rawObjectsAndVerb.type !== Raw.None) {
         // this is just here for debugging!
-        this.commandsCompletedInOrder.push(rawObjectsAndVerb)
+        goal.commandsCompletedInOrder.push(rawObjectsAndVerb)
       }
     }
 
@@ -275,9 +280,12 @@ export class Solution {
     this.currentlyVisibleThings.Set(piece.output, new Set<string>())
 
     // then write the goal we just completed
-    this.commandsCompletedInOrder.push(
+    goal.commandsCompletedInOrder.push(
       new RawObjectsAndVerb(Raw.Goal, `completed (${piece.output})`, '', [], '')
     )
+
+    // also tell the solution what order the goal was reached
+    this.solvingOrderForRootPieceKeys.push(goal.piece.output)
   }
 
   public AreAnyInputsNull (): boolean {
@@ -289,13 +297,6 @@ export class Solution {
       }
     }
     return false
-  }
-
-  public GetOrderOfCommands (): RawObjectsAndVerb[] {
-    // I would like to return a read only array here.
-    // I can't do that, so instead, I will clone.
-    // The best way to clone in is using 'map'
-    return this.commandsCompletedInOrder.map((x) => x)
   }
 
   public GetVisibleThingsAtTheMoment (): VisibleThingsMap {

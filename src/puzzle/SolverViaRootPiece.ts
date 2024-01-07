@@ -44,6 +44,7 @@ export class SolverViaRootPiece {
       const firstSolution = new Solution(
         newRootMap,
         box.GetNewPileOfPieces(),
+        [],
         box.GetMapOfAllStartingThings(),
         box.IsNotMergingAnymoreBoxes()
       )

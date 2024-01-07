@@ -12,6 +12,8 @@ import { RootPiece } from './RootPiece'
  * rather than piece. RootPiece just wraps a Piece and adds a
  * cached version of 'firstNullInput' <-- why can't we just calculate?
  * yeah, that seems dodgy and subject to bugs.
+ * Jan'24 - now that RootPiece has the ordered list of commands, its more
+ * justifiable to have the concept of RootPiece.
  *
  */
 export class RootPieceMap implements IPileOrRootPieceMap {
@@ -27,7 +29,7 @@ export class RootPieceMap implements IPileOrRootPieceMap {
         this.roots.set(key, [])
         for (const rootPiece of value) {
           const clonedTree: Piece = rootPiece.piece.ClonePieceAndEntireTree()
-          array.push(new RootPiece(clonedTree, rootPiece.firstNullInput))
+          array.push(new RootPiece(clonedTree, rootPiece.firstNullInput, rootPiece.commandsCompletedInOrder))
         }
         this.roots.set(key, array)
       }
@@ -40,7 +42,7 @@ export class RootPieceMap implements IPileOrRootPieceMap {
       this.roots.set(piece.output, new Array<RootPiece>())
     }
     // always add to list
-    this.roots.get(piece.output)?.push(new RootPiece(piece, 'Unsolved'))
+    this.roots.get(piece.output)?.push(new RootPiece(piece, 'Unsolved', []))
   }
 
   /**
