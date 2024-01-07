@@ -22,6 +22,7 @@ export class LeafToRootTraverser {
   }
 
   public GetNextDoableCommandAndDeconstructTree (): RawObjectsAndVerb | null {
+    let toReturn: RawObjectsAndVerb | null = null
     for (const input of this.leavesForTraversal) {
       const key: string = input[0]
       const piece: Piece | null = input[1]
@@ -60,45 +61,50 @@ export class LeafToRootTraverser {
           }
 
           if (piece.inputs.length === 0) {
-            return new RawObjectsAndVerb(
+            toReturn = new RawObjectsAndVerb(
               Raw.None,
               '',
               '',
               piece.getRestrictions(),
               piece.type
             )
+            break
           } else if (isGrab) {
-            return new RawObjectsAndVerb(
+            toReturn = new RawObjectsAndVerb(
               Raw.Grab,
               piece.inputHints[0],
               '',
               piece.getRestrictions(),
               piece.type
             )
+            break
           } else if (isTalk) {
-            return new RawObjectsAndVerb(
+            toReturn = new RawObjectsAndVerb(
               Raw.Talk,
               piece.inputHints[0],
               '',
               piece.getRestrictions(),
               piece.type
             )
+            break
           } else if (isOpen) {
-            return new RawObjectsAndVerb(
+            toReturn = new RawObjectsAndVerb(
               Raw.Open,
               piece.inputHints[0],
               '',
               piece.getRestrictions(),
               piece.type
             )
+            break
           } else if (isToggle) {
-            return new RawObjectsAndVerb(
+            toReturn = new RawObjectsAndVerb(
               Raw.Toggle,
               piece.inputHints[0],
               piece.output,
               piece.getRestrictions(),
               piece.type
             )
+            break
           } else if (isAuto) {
             let text = 'auto using ('
             for (const inputName of piece.inputHints) {
@@ -107,31 +113,34 @@ export class LeafToRootTraverser {
             }
             console.warn(pathOfThis)
             console.warn(text)
-            return new RawObjectsAndVerb(
+            toReturn = new RawObjectsAndVerb(
               Raw.Auto,
               piece.inputHints[0],
               piece.output,
               piece.getRestrictions(),
               piece.type
             )
+            break
           } else if (isUse) {
             // then its nearly definitely "use", unless I messed up
-            return new RawObjectsAndVerb(
+            toReturn = new RawObjectsAndVerb(
               Raw.Use,
               piece.inputHints[0],
               piece.inputHints[1],
               piece.getRestrictions(),
               piece.type
             )
+            break
           } else if (piece.inputs.length === 2) {
             // if they mis-type the verb, then we default to use
-            return new RawObjectsAndVerb(
+            toReturn = new RawObjectsAndVerb(
               Raw.Use,
               piece.inputHints[0],
               piece.inputHints[1],
               piece.getRestrictions(),
               piece.type
             )
+            break
           } else if (piece.parent == null) {
             // I think this means tha the root piece isn't set properly!
             // so we need to set breakpoint on this return, and debug.
@@ -150,7 +159,7 @@ export class LeafToRootTraverser {
       }
     }
 
-    return null
+    return toReturn
   }
 
   private GeneratePath (piece: Piece | null): string {

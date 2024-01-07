@@ -5,6 +5,7 @@ import { Piece } from './Piece'
 import { PileOfPieces } from './PileOfPieces'
 import { Raw } from './Raw'
 import { RawObjectsAndVerb } from './RawObjectsAndVerb'
+import { RootPiece } from './RootPiece'
 import { LeafToRootTraverser } from './LeafToRootTraverser'
 import { RootPieceMap } from './RootPieceMap'
 import { SolverViaRootPiece } from './SolverViaRootPiece'
@@ -203,15 +204,17 @@ export class Solution {
   }
 
   public MarkGoalsAsContainingNullsAndMergeIfNeeded (): void {
+    // go through all the goal pieces
     for (const array of this.rootPieces.GetValues()) {
       for (const goal of array) {
+        // if there are no
         const firstMissingPiece = goal.piece.ReturnTheFirstNullInputHint()
         if (firstMissingPiece === '') {
           // there are no missing pieces - yay!
           if (goal.firstNullInput !== '') {
             goal.firstNullInput = ''
             //
-            this.GenerateCommandsAndAddToMap(goal.piece)
+            this.AddCommandsToReachGoalToList(goal)
             if (
               goal.piece.boxToMerge != null &&
               !this.isNotMergingAnyMoreBoxes
@@ -230,7 +233,8 @@ export class Solution {
     boxToMerge.CopyStartingThingCharsToGivenMap(this.currentlyVisibleThings)
   }
 
-  public GenerateCommandsAndAddToMap (piece: Piece): void {
+  public AddCommandsToReachGoalToList (root: RootPiece): void {
+    const piece = root.piece
     // push the commands
     const leaves = new Map<string, Piece | null>()
     GenerateMapOfLeavesRecursively(piece, '', false, leaves)
