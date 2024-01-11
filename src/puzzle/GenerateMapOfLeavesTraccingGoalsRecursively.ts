@@ -1,7 +1,25 @@
 import { Piece } from './Piece'
 import { RootPieceMap } from './RootPieceMap'
 import { SpecialTypes } from './SpecialTypes'
-
+/**
+ * #### Description
+ * Drills down on a piece, and generates map of leaves tracing goals recursively.
+ * The difference between this and @ref GenerateMapOfLeavesRecursively is that
+ * the latter does not drill down on pieces of type CompletedElsewhere - this one does
+ * #### Example
+ * eg GenerateMapOfLeavesTracingGoalsRecursively(
+        winGoal.piece,
+        '99_win',
+        leaves,
+        theRootPieceMap
+      )
+ * #### Links
+ * See also @ref GenerateMapOfLeavesRecursively
+ * @param piece the piece to drill down on
+ * @param path this is a helper for telling where we are in the recursion
+ * @param map any discovered leaves are put in here, keyed by path
+ * @param rootPieceMap this is what it uses to drill down to other goals
+ */
 export function GenerateMapOfLeavesTracingGoalsRecursively (
   piece: Piece,
   path: string,
