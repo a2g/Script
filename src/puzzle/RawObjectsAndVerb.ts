@@ -28,38 +28,33 @@ export class RawObjectsAndVerb {
   }
 
   public AsDisplayString (isColor = true): string {
-    const enumAsInt = parseInt(this.type.toString(), 10)
-    if (enumAsInt >= 0) {
-      const verb = FormatText(Raw[enumAsInt], isColor)
-      const objectA =
-        FormatText(this.objectA, isColor) +
-        FormatText(this.startingCharacterForA, isColor, true)
-      if (this.objectB === undefined) {
-        this.dumpRaw()
-      }
-      const objectB =
-        FormatText(this.objectB, isColor) +
-        FormatText(this.startingCharacterForB, isColor, true)
-
-      const restriction =
-        this.restrictions.length > 0
-          ? AddBrackets(FormatText(this.restrictions, isColor))
-          : ''
-      let joiner = ' '
-      switch (enumAsInt) {
-        case Raw.Use:
-          joiner = ' with '
-          break
-        case Raw.Toggle:
-          joiner = ' to '
-          break
-        case Raw.Auto:
-          return `${objectB} appears.... ` + restriction + ' ' + objectA
-      }
-      return verb + ' ' + objectA + joiner + objectB + ' ' + restriction
-    } else {
-      return 'Raw type was invalid'
+    const verb = FormatText(this.type, isColor)
+    const objectA =
+      FormatText(this.objectA, isColor) +
+      FormatText(this.startingCharacterForA, isColor, true)
+    if (this.objectB === undefined) {
+      this.dumpRaw()
     }
+    const objectB =
+      FormatText(this.objectB, isColor) +
+      FormatText(this.startingCharacterForB, isColor, true)
+
+    const restriction =
+      this.restrictions.length > 0
+        ? AddBrackets(FormatText(this.restrictions, isColor))
+        : ''
+    let joiner = ' '
+    switch (this.type) {
+      case Raw.Use:
+        joiner = ' with '
+        break
+      case Raw.Toggle:
+        joiner = ' to '
+        break
+      case Raw.Auto:
+        return `${objectB} appears.... ` + restriction + ' ' + objectA
+    }
+    return verb + ' ' + objectA + joiner + objectB + ' ' + restriction
   }
 
   public appendStartingCharacterForA (startingCharacterForA: string): void {

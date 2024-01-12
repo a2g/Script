@@ -1,5 +1,4 @@
 import { FormatText } from './FormatText'
-import { GenerateMapOfLeavesRecursively } from './GenerateMapOfLeavesRecursively'
 import { IPileOfPiecesReadOnly } from './IPileOfPiecesReadOnly'
 import { Piece } from './Piece'
 import { PileOfPieces } from './PileOfPieces'
@@ -11,6 +10,7 @@ import { RootPieceMap } from './RootPieceMap'
 import { SolverViaRootPiece } from './SolverViaRootPiece'
 import { VisibleThingsMap } from './VisibleThingsMap'
 import { IBoxReadOnlyWithFileMethods } from './IBoxReadOnlyWithFileMethods'
+import { SpecialTypes } from './SpecialTypes'
 
 /**
  * Solution needs to be cloned.
@@ -204,10 +204,10 @@ export class Solution {
     // go through all the goal pieces
     for (const array of this.rootPieces.GetValues()) {
       for (const goal of array) {
-        // if there are no
+        // if there are no places to attach pieces it will return null
         const firstMissingPiece = goal.piece.ReturnTheFirstNullInputHint()
         if (firstMissingPiece === '') {
-          // there are no missing pieces - yay!
+          // there are no pieces in the tree that are not yet placed - yay!
           if (goal.firstNullInput !== '') {
             goal.firstNullInput = ''
             //
@@ -230,14 +230,23 @@ export class Solution {
     boxToMerge.CopyStartingThingCharsToGivenMap(this.currentlyVisibleThings)
   }
 
+  /**
+   * #### So by this stage, the root hs been entirely filled out
+   *
+   * #### Version
+   * since: V1.0.0
+   * #### Example
+   *
+   * #### Links
+   *
+   *
+   * Adds commands to reach goal to list
+   * @param goal
+   */
   public AddCommandsToReachGoalToList (goal: RootPiece): void {
-    const piece = goal.piece
     // push the commands
-    const leaves = new Map<string, Piece | null>()
-    GenerateMapOfLeavesRecursively(piece, '', false, leaves)
     const leafToRootTraverser = new LeafToRootTraverser(
-      this.currentlyVisibleThings,
-      leaves
+      goal, this.currentlyVisibleThings
     )
     let rawObjectsAndVerb: RawObjectsAndVerb | null = null
     for (let j = 0; j < 200; j += 1) {
@@ -268,12 +277,12 @@ export class Solution {
       }
     }
 
-    // set the goal as visible in the currently visible things
-    this.currentlyVisibleThings.Set(piece.output, new Set<string>())
+    // set the goal as completed in the currently visible things
+    this.currentlyVisibleThings.Set(goal.piece.output, new Set<string>())
 
     // then write the goal we just completed
     goal.commandsCompletedInOrder.push(
-      new RawObjectsAndVerb(Raw.Goal, `completed (${piece.output})`, '', [], '')
+      new RawObjectsAndVerb(Raw.Goal, `completed (${goal.piece.output})`, '', [], '')
     )
 
     // also tell the solution what order the goal was reached
@@ -284,10 +293,38 @@ export class Solution {
       if (piece.inputHints.length === 2 && piece.inputHints[0] === goal.piece.output) {
         const command = LeafToRootTraverser.getCommandFromAutoPiece(piece)
         goal.commandsCompletedInOrder.push(command)
-
+        for (const unusedPieceArray of this.GetPile().GetIterator()) {
+          for (const unusedPiece of unusedPieceArray) {
+            for (let k = 0; k < unusedPiece.inputHints.length; k++) {
+              const hint = unusedPiece.inputHints[k]
+              if (hint === goal.piece.output) {
+                piece.StubOutInputK(k, SpecialTypes.CompletedElsewhere)
+              }
+            }
+          }
+        }
+        /*
+        for (const rootArray of this.GetRootMap().GetValues()) {
+          for (const root of rootArray) {
+            const path = '/'
+            const map = new Map<string, Piece|null>()
+            GenerateMapOfLeavesRecursively(root.piece, path, true, map)
+            for (const piece of map.values()) {
+              if (piece != null) {
+                for (let k = 0; k < piece.inputHints.length; k++) {
+                  const hint = piece.inputHints[k]
+                  if (hint === goal.piece.output) {
+                    piece.StubOutInputK(k, SpecialTypes.CompletedElsewhere)
+                  }
+                }
+              }
+            }
+          }
+        }
+        */
         // TODO: Need to now go and hunt through all the goal chains,
         // and find where those auto pieces should be played
-        // then play them, update the leafs, adjust the visibility map, 
+        // then play them, update the leafs, adjust the visibility map,
         // and then remove that piece from the repo
       }
     }

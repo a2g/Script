@@ -16,6 +16,8 @@ export class Piece {
 
   public output: string
 
+  public displayOutput: string
+
   public inputs: Array<Piece | null>
 
   public inputHints: string[]
@@ -51,6 +53,7 @@ export class Piece {
     this.parent = null
     this.reuseCount = reuseCount
     this.output = output
+    this.displayOutput = `${output}       (${type}))`
     this.type = type
     this.command = command
     this.happenings = happenings
@@ -123,6 +126,12 @@ export class Piece {
     return clone
   }
 
+  AddChildAndSetParent (child: Piece): void {
+    this.inputs.push(child)
+    this.inputHints.push(child.output)
+    child.SetParent(this)
+  }
+
   public FindAnyPieceMatchingIdRecursively (id: number): Piece | null {
     if (this.id === id) {
       return this
@@ -156,7 +165,7 @@ export class Piece {
     const newLeaf = new Piece(
       0,
       null,
-      `${objectToObtain}       (${type}))`,
+      objectToObtain,
       type
     )
     newLeaf.parent = this
