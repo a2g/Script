@@ -6,13 +6,12 @@ import { join } from 'path'
 describe('SingleBigSwitch', () => {
   test('SingleBigSwitch', async () => {
     console.log(__dirname)
-    const isGoalRetrieval = true
     const file = new SingleFile(
       join(__dirname, '/../../../practice-world/'),
       '03_access_thru_fireplace_goal.jsonc'
     )
     const pile = new PileOfPieces(null)
-    await file.copyPiecesToContainer(isGoalRetrieval, pile)
+    await file.copyTheRestToContainer(pile)
     const size = pile.Size()
     expect(size).toBe(3)
     // expect(happenings).not.toEqual(null);

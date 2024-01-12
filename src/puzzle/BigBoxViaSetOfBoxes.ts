@@ -67,7 +67,7 @@ export class BigBoxViaSetOfBoxes implements IBoxReadOnly {
       box.CopyStartingPropsToGivenSet(this.startingPropSet)
       box.CopyStartingInvsToGivenSet(this.startingInvSet)
       box.CopyStartingGoalsToGivenSet(this.startingGoalSet)
-      box.CopyGoalPiecesToContainer(this.goals)
+      box.CopyFullGoalPiecesTreesToContainer(this.goals)
       box.CopyPropsToGivenSet(setProps)
       box.CopyGoalsToGivenSet(setGoals)
       box.CopyInvsToGivenSet(setInvs)
@@ -183,14 +183,14 @@ export class BigBoxViaSetOfBoxes implements IBoxReadOnly {
     return this.allChars
   }
 
-  public CopyPiecesFromBoxToPile (pile: PileOfPieces): void {
+  public CopyAllOtherPiecesFromBoxToPile (pile: PileOfPieces): void {
     for (const box of this.originalBoxes.values()) {
       const file = new SingleFile(box.GetPath(), box.GetFilename())
-      file.copyPiecesToContainer(false, pile)
+      file.copyTheRestToContainer(pile)
     }
   }
 
-  public CopyGoalPiecesToContainer (map: IPileOrRootPieceMap): void {
+  public CopyFullGoalPiecesTreesToContainer (map: IPileOrRootPieceMap): void {
     for (const array of this.goals.GetValues()) {
       for (const goal of array) {
         const clonedPiece = goal.piece.ClonePieceAndEntireTree()
@@ -225,7 +225,7 @@ export class BigBoxViaSetOfBoxes implements IBoxReadOnly {
 
   public GetNewPileOfPieces (): PileOfPieces {
     const pile = new PileOfPieces(null)
-    this.CopyPiecesFromBoxToPile(pile)
+    this.CopyAllOtherPiecesFromBoxToPile(pile)
     return pile
   }
 }

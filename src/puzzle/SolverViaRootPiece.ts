@@ -26,7 +26,7 @@ export class SolverViaRootPiece {
     const boxes = new Map<string, IBoxReadOnly>()
     box.CollectAllReferencedBoxesRecursively(boxes)
     for (const subBox of boxes.values()) {
-      subBox.CopyGoalPiecesToContainer(rootMap)
+      subBox.CopyFullGoalPiecesTreesToContainer(rootMap)
     }
 
     const allWinGoal = rootMap.GetAllWinGoals()

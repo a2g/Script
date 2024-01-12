@@ -210,7 +210,9 @@ export class Solution {
           // there are no pieces in the tree that are not yet placed - yay!
           if (goal.firstNullInput !== '') {
             goal.firstNullInput = ''
-            //
+            // we do this before merging boxes, because it
+            // has a step where it goes through all the boxes
+            // yet to be merged - and modifies them!
             this.AddCommandsToReachGoalToList(goal)
             if (
               goal.piece.boxToMerge != null &&
@@ -225,7 +227,7 @@ export class Solution {
   }
 
   public MergeBox (boxToMerge: IBoxReadOnlyWithFileMethods): void {
-    boxToMerge.CopyPiecesFromBoxToPile(this.GetPile())
+    boxToMerge.CopyAllOtherPiecesFromBoxToPile(this.GetPile())
     boxToMerge.CopyStartingThingCharsToGivenMap(this.startingThings)
     boxToMerge.CopyStartingThingCharsToGivenMap(this.currentlyVisibleThings)
   }
@@ -246,7 +248,8 @@ export class Solution {
   public AddCommandsToReachGoalToList (goal: RootPiece): void {
     // push the commands
     const leafToRootTraverser = new LeafToRootTraverser(
-      goal, this.currentlyVisibleThings
+      goal,
+      this.currentlyVisibleThings
     )
     let rawObjectsAndVerb: RawObjectsAndVerb | null = null
     for (let j = 0; j < 200; j += 1) {
@@ -282,7 +285,13 @@ export class Solution {
 
     // then write the goal we just completed
     goal.commandsCompletedInOrder.push(
-      new RawObjectsAndVerb(Raw.Goal, `completed (${goal.piece.output})`, '', [], '')
+      new RawObjectsAndVerb(
+        Raw.Goal,
+        `completed (${goal.piece.output})`,
+        '',
+        [],
+        ''
+      )
     )
 
     // also tell the solution what order the goal was reached
@@ -290,7 +299,10 @@ export class Solution {
 
     // Sse if any autos depend on the newly completed goal - if so execute them
     for (const piece of this.remainingPiecesRepo.GetAutos()) {
-      if (piece.inputHints.length === 2 && piece.inputHints[0] === goal.piece.output) {
+      if (
+        piece.inputHints.length === 2 &&
+        piece.inputHints[0] === goal.piece.output
+      ) {
         const command = LeafToRootTraverser.getCommandFromAutoPiece(piece)
         goal.commandsCompletedInOrder.push(command)
         for (const unusedPieceArray of this.GetPile().GetIterator()) {
@@ -303,30 +315,48 @@ export class Solution {
             }
           }
         }
-        /*
-        for (const rootArray of this.GetRootMap().GetValues()) {
-          for (const root of rootArray) {
-            const path = '/'
-            const map = new Map<string, Piece|null>()
-            GenerateMapOfLeavesRecursively(root.piece, path, true, map)
-            for (const piece of map.values()) {
-              if (piece != null) {
-                for (let k = 0; k < piece.inputHints.length; k++) {
-                  const hint = piece.inputHints[k]
-                  if (hint === goal.piece.output) {
-                    piece.StubOutInputK(k, SpecialTypes.CompletedElsewhere)
-                  }
-                }
-              }
-            }
-          }
-        }
-        */
-        // TODO: Need to now go and hunt through all the goal chains,
-        // and find where those auto pieces should be played
-        // then play them, update the leafs, adjust the visibility map,
-        // and then remove that piece from the repo
+        // ok leafToRootTraverseer is used up, don't need that anymore
+        // but we do need to search other boxes, not yet merged.
+        // we do this in the same way:
+        // How do we find all the boxes, yet to merge?
+        // easy!
+        // go through the root pieces, iterate through the box to merge
+        // goal.piece.boxToMerge
+        // need to change so when boxes are created they vacuum all the
+        // pieces and store them in the Pile that is inside the box
+        //   public MergeBox (boxToMerge: IBoxReadOnlyWithFileMethods): void {
+        //   boxToMerge.CopyPiecesFromBoxToPile(this.GetPile())
+        //  boxToMerge.CopyStartingThingCharsToGivenMap(this.startingThings)
+        // boxToMerge.CopyStartingThingCharsToGivenMap(this.currentlyVisibleThings)
+        // so yes, a pile of pieces inside every box?
+        // or have a simple vector of pieces
+        // we use it once when we get the pieces filename in the constructor
+        // then get rid of the filename
+        // then after we do that, we should add a method on it where you can iterate thru
+        // the pieces, and then go through one by one modifying them
+        // computationally expensive, but simple to begin with.
       }
+      // for (const rootArray of this.GetRootMap().GetValues()) {
+      //   for (const root of rootArray) {
+      //       const boxToModify = root.piece.boxToMerge;
+      //       if (boxToModify!=null){
+      //         const pile = new PileOfPieces()
+      //         boxToModify.CopyPiecesFromBoxToPile
+      //         const path = '/'
+      //       const map = new Map<string, Piece|null>()
+      //       GenerateMapOfLeavesRecursively(root.piece, path, true, map)
+      //       for (const piece of .values()) {
+      //         if (piece != null) {
+      //           for (let k = 0; k < piece.inputHints.length; k++) {
+      //             const hint = piece.inputHints[k]
+      //             if (hint === goal.piece.output) {
+      //               piece.StubOutInputK(k, SpecialTypes.CompletedElsewhere)
+      //             }
+      //           }
+      //         }
+      //       }
+      //     }
+      // }
     }
   }
 

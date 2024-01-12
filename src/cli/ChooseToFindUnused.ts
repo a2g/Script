@@ -6,8 +6,8 @@ export function ChooseToFindUnused (box: IBoxReadOnly): void {
   const invs = box.GetArrayOfInvs()
   const props = box.GetArrayOfProps()
   const pile = new PileOfPieces(null)
-  box.CopyPiecesFromBoxToPile(pile)
-  box.CopyGoalPiecesToContainer(pile)
+  box.CopyAllOtherPiecesFromBoxToPile(pile)
+  box.CopyFullGoalPiecesTreesToContainer(pile)
   // eslint-disable-next-line no-undef
   const it: IterableIterator<Set<Piece>> = pile.GetIterator()
 

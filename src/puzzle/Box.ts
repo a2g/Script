@@ -44,7 +44,7 @@ export class Box implements IBoxReadOnlyWithFileMethods {
 
   private readonly path: string
 
-  private readonly goals: RootPieceMap
+  private readonly goalPieceMap: RootPieceMap
 
   private readonly isNotMergingAnymoreBoxes: boolean
 
@@ -109,11 +109,11 @@ export class Box implements IBoxReadOnlyWithFileMethods {
     this.startingPropSet = new Set<string>()
     this.mapOfStartingThings = new VisibleThingsMap(null)
     // this copies them to the container, and turns filenames in to boxes
-    this.goals = new RootPieceMap(null)
+    this.goalPieceMap = new RootPieceMap(null)
 
     // collect all the goals from file
     const singleFile = new SingleFile(this.path, this.filename)
-    singleFile.copyPiecesToContainer(true, this.goals)
+    singleFile.copyOnlySpecialPiecesToContainer(this.goalPieceMap)
     // starting things is optional in the json
     if (
       scenario.startingThings !== undefined &&
@@ -154,9 +154,9 @@ export class Box implements IBoxReadOnlyWithFileMethods {
     return this.isNotMergingAnymoreBoxes
   }
 
-  public CopyPiecesFromBoxToPile (pile: PileOfPieces): void {
+  public CopyAllOtherPiecesFromBoxToPile (pile: PileOfPieces): void {
     const file = new SingleFile(this.path, this.filename)
-    file.copyPiecesToContainer(false, pile)
+    file.copyTheRestToContainer(pile)
   }
 
   public CopyStartingPropsToGivenSet (givenSet: Set<string>): void {
@@ -301,8 +301,8 @@ export class Box implements IBoxReadOnlyWithFileMethods {
     return this.path
   }
 
-  public CopyGoalPiecesToContainer (map: IPileOrRootPieceMap): void {
-    for (const array of this.goals.GetValues()) {
+  public CopyFullGoalPiecesTreesToContainer (map: IPileOrRootPieceMap): void {
+    for (const array of this.goalPieceMap.GetValues()) {
       for (const goal of array) {
         const clonedPiece = goal.piece.ClonePieceAndEntireTree()
         map.AddPiece(clonedPiece)
@@ -314,7 +314,7 @@ export class Box implements IBoxReadOnlyWithFileMethods {
     map: Map<string, IBoxReadOnly>
   ): void {
     map.set(this.filename, this)
-    for (const array of this.goals.GetValues()) {
+    for (const array of this.goalPieceMap.GetValues()) {
       for (const goal of array) {
         if (goal.piece.boxToMerge != null) {
           goal.piece.boxToMerge.CollectAllReferencedBoxesRecursively(map)
@@ -325,7 +325,7 @@ export class Box implements IBoxReadOnlyWithFileMethods {
 
   public GetNewPileOfPieces (): PileOfPieces {
     const pile = new PileOfPieces(null)
-    this.CopyPiecesFromBoxToPile(pile)
+    this.CopyAllOtherPiecesFromBoxToPile(pile)
     return pile
   }
 }

@@ -28,8 +28,8 @@ export interface IBoxReadOnly {
   GetArrayOfCharacters: () => string[]
 
   // original-json-traversers
-  CopyPiecesFromBoxToPile: (pile: PileOfPieces) => void // its possible for this to be done on aggregate
-  CopyGoalPiecesToContainer: (map: IPileOrRootPieceMap) => void
+  CopyAllOtherPiecesFromBoxToPile: (pile: PileOfPieces) => void // its possible for this to be done on aggregate
+  CopyFullGoalPiecesTreesToContainer: (map: IPileOrRootPieceMap) => void
   CollectAllReferencedBoxesRecursively: (
     map: Map<string, IBoxReadOnly>
   ) => void

@@ -36,6 +36,7 @@ function main (): void {
             firstBox.Init()
 
             const allBoxes = new Map<string, Box>()
+            // this is how we prime the special pieces only
             firstBox.CollectAllReferencedBoxesRecursively(allBoxes)
             const combined = new BigBoxViaSetOfBoxes(allBoxes)
 

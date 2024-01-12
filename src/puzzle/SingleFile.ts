@@ -35,7 +35,19 @@ export class SingleFile {
     this.file = filename
   }
 
-  public copyPiecesToContainer (
+  public copyOnlySpecialPiecesToContainer (
+    piecesMappedByOutput: IPileOrRootPieceMap
+  ): void {
+    return this.copyPiecesToContainer(true, piecesMappedByOutput)
+  }
+
+  public copyTheRestToContainer (
+    piecesMappedByOutput: IPileOrRootPieceMap
+  ): void {
+    return this.copyPiecesToContainer(false, piecesMappedByOutput)
+  }
+
+  private copyPiecesToContainer (
     isCopyRootPiecesOnly: boolean,
     piecesMappedByOutput: IPileOrRootPieceMap
   ): void {

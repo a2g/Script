@@ -87,7 +87,7 @@ describe('Solution', () => {
       box.CopyPiecesFromBoxToPile(pile)
 
       const rootMap = new RootPieceMap(null)
-      box.CopyGoalPiecesToContainer(rootMap)
+      box.CopyFullGoalPiecesTreesToContainer(rootMap)
       const solution = new Solution(rootMap, pile, startingThings)
 
       const collection = new SolverViaRootPiece(solution)
