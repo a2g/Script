@@ -84,7 +84,7 @@ export function ChooseOrderOfCommands (solver: SolverViaRootPiece): void {
           solution.GetOrderOfCommands()
         for (const command of commands) {
           listItemNumber++
-          console.warn(`    ${listItemNumber}. ${command.AsDisplayString()}`)
+          console.warn(`    ${listItemNumber}. ${command.AsDisplayString()} via  ${command.typeJustForDebugging}`)
         }
       }
     }
