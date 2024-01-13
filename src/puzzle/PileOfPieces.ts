@@ -64,12 +64,14 @@ export class PileOfPieces implements IPileOfPiecesReadOnly {
   }
 
   public AddPiece (piece: Piece): void {
-    // initialize array, if it hasn't yet been
-    if (!this.piecesMappedByOutput.has(piece.output)) {
-      this.piecesMappedByOutput.set(piece.output, new Set<Piece>())
+    if (!piece.type.startsWith('AUTO_GOAL1_MET')) {
+      // initialize array, if it hasn't yet been
+      if (!this.piecesMappedByOutput.has(piece.output)) {
+        this.piecesMappedByOutput.set(piece.output, new Set<Piece>())
+      }
+      // always add to list
+      this.piecesMappedByOutput.get(piece.output)?.add(piece)
     }
-    // always add to list
-    this.piecesMappedByOutput.get(piece.output)?.add(piece)
   }
 
   public GetSinglePieceById (idToMatch: number): Piece | null {
@@ -116,5 +118,13 @@ export class PileOfPieces implements IPileOfPiecesReadOnly {
 
   public GetIterator (): IterableIterator<Set<Piece>> {
     return this.piecesMappedByOutput.values()
+  }
+
+  public CopyAllPiecesToPile (destinationPile: PileOfPieces): void {
+    this.piecesMappedByOutput.forEach((setOfPieces: Set<Piece>) => {
+      setOfPieces.forEach((piece: Piece) => {
+        destinationPile.AddPiece(piece)
+      })
+    })
   }
 }

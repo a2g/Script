@@ -3,7 +3,6 @@ import { IBoxReadOnlyWithFileMethods } from './IBoxReadOnlyWithFileMethods'
 import { IPileOrRootPieceMap } from './IPileOrRootPieceMap'
 import { PileOfPieces } from './PileOfPieces'
 import { RootPieceMap } from './RootPieceMap'
-import { SingleFile } from './SingleFile'
 import { VisibleThingsMap } from './VisibleThingsMap'
 
 /**
@@ -185,8 +184,7 @@ export class BigBoxViaSetOfBoxes implements IBoxReadOnly {
 
   public CopyAllOtherPiecesFromBoxToPile (pile: PileOfPieces): void {
     for (const box of this.originalBoxes.values()) {
-      const file = new SingleFile(box.GetPath(), box.GetFilename())
-      file.copyTheRestToContainer(pile)
+      box.CopyAllOtherPiecesFromBoxToPile(pile)
     }
   }
 

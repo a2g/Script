@@ -11,7 +11,7 @@ describe('SingleBigSwitch', () => {
       '03_access_thru_fireplace_goal.jsonc'
     )
     const pile = new PileOfPieces(null)
-    await file.copyTheRestToContainer(pile)
+    await file.copyAllPiecesToContainer(pile)
     const size = pile.Size()
     expect(size).toBe(3)
     // expect(happenings).not.toEqual(null);

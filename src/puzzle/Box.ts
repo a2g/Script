@@ -48,6 +48,8 @@ export class Box implements IBoxReadOnlyWithFileMethods {
 
   private readonly isNotMergingAnymoreBoxes: boolean
 
+  private readonly pieces: PileOfPieces
+
   constructor (path: string, filename: string) {
     this.isNotMergingAnymoreBoxes = false
     this.path = path
@@ -58,6 +60,7 @@ export class Box implements IBoxReadOnlyWithFileMethods {
       )
     }
     const text = readFileSync(path + filename, 'utf8')
+
     const scenario = parse(text)
     const setProps = new Set<string>()
     const setGoals = new Set<string>()
@@ -108,12 +111,14 @@ export class Box implements IBoxReadOnlyWithFileMethods {
     this.startingGoalSet = new Set<string>()
     this.startingPropSet = new Set<string>()
     this.mapOfStartingThings = new VisibleThingsMap(null)
-    // this copies them to the container, and turns filenames in to boxes
+    this.pieces = new PileOfPieces(null)
     this.goalPieceMap = new RootPieceMap(null)
 
-    // collect all the goals from file
+    // collect all the goals and pieces file
     const singleFile = new SingleFile(this.path, this.filename)
-    singleFile.copyOnlySpecialPiecesToContainer(this.goalPieceMap)
+    singleFile.copyAllPiecesToContainer(this.goalPieceMap)
+    singleFile.copyAllPiecesToContainer(this.pieces)
+
     // starting things is optional in the json
     if (
       scenario.startingThings !== undefined &&
@@ -155,8 +160,7 @@ export class Box implements IBoxReadOnlyWithFileMethods {
   }
 
   public CopyAllOtherPiecesFromBoxToPile (pile: PileOfPieces): void {
-    const file = new SingleFile(this.path, this.filename)
-    file.copyTheRestToContainer(pile)
+    this.pieces.CopyAllPiecesToPile(pile)
   }
 
   public CopyStartingPropsToGivenSet (givenSet: Set<string>): void {

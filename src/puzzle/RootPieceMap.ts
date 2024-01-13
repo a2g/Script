@@ -37,12 +37,14 @@ export class RootPieceMap implements IPileOrRootPieceMap {
   }
 
   public AddPiece (piece: Piece): void {
-    // initialize array, if it hasn't yet been
-    if (this.roots.get(piece.output) == null) {
-      this.roots.set(piece.output, new Array<RootPiece>())
+    if (piece.type.startsWith('AUTO_GOAL1_MET')) {
+      // initialize array, if it hasn't yet been
+      if (this.roots.get(piece.output) == null) {
+        this.roots.set(piece.output, new Array<RootPiece>())
+      }
+      // always add to list
+      this.roots.get(piece.output)?.push(new RootPiece(piece, 'Unsolved', []))
     }
-    // always add to list
-    this.roots.get(piece.output)?.push(new RootPiece(piece, 'Unsolved', []))
   }
 
   /**
