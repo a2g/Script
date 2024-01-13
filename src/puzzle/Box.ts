@@ -151,10 +151,6 @@ export class Box implements IBoxReadOnlyWithFileMethods {
     }
   }
 
-  public Init (): void {
-    // this was here in case we couldn't load the file in the constructor - but now we can.
-  }
-
   public IsNotMergingAnymoreBoxes (): boolean {
     return this.isNotMergingAnymoreBoxes
   }
@@ -309,7 +305,7 @@ export class Box implements IBoxReadOnlyWithFileMethods {
     for (const array of this.goalPieceMap.GetValues()) {
       for (const goal of array) {
         const clonedPiece = goal.piece.ClonePieceAndEntireTree()
-        map.AddPiece(clonedPiece)
+        map.AddPiece(clonedPiece, '', true)
       }
     }
   }

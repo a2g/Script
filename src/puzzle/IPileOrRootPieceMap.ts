@@ -1,5 +1,5 @@
 import { Piece } from './Piece'
 
 export interface IPileOrRootPieceMap {
-  AddPiece: (piece: Piece) => void
+  AddPiece: (piece: Piece, folder: string, isNoFile: boolean) => void
 }

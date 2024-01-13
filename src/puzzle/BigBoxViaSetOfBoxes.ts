@@ -192,7 +192,7 @@ export class BigBoxViaSetOfBoxes implements IBoxReadOnly {
     for (const array of this.goals.GetValues()) {
       for (const goal of array) {
         const clonedPiece = goal.piece.ClonePieceAndEntireTree()
-        map.AddPiece(clonedPiece)
+        map.AddPiece(clonedPiece, '', true)
       }
     }
   }

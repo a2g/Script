@@ -29,11 +29,7 @@ function main (): void {
         if (index >= 0 && index < starters.length) {
           for (;;) {
             const starter = starters[index]
-            const firstBox = new Box(
-              starter.folderPathWithBackslash,
-              starter.file
-            )
-            firstBox.Init()
+            const firstBox = new Box(starter.folder, starter.file)
 
             const allBoxes = new Map<string, Box>()
             // this is how we prime the special pieces only

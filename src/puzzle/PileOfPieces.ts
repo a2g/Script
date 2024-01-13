@@ -63,7 +63,7 @@ export class PileOfPieces implements IPileOfPiecesReadOnly {
     return toReturn
   }
 
-  public AddPiece (piece: Piece): void {
+  public AddPiece (piece: Piece, _folder = '', _isNoFile = true): void {
     if (!piece.type.startsWith('AUTO_GOAL1_MET')) {
       // initialize array, if it hasn't yet been
       if (!this.piecesMappedByOutput.has(piece.output)) {
@@ -123,7 +123,7 @@ export class PileOfPieces implements IPileOfPiecesReadOnly {
   public CopyAllPiecesToPile (destinationPile: PileOfPieces): void {
     this.piecesMappedByOutput.forEach((setOfPieces: Set<Piece>) => {
       setOfPieces.forEach((piece: Piece) => {
-        destinationPile.AddPiece(piece)
+        destinationPile.AddPiece(piece, '', true)
       })
     })
   }

@@ -71,6 +71,7 @@ export class SingleFile {
       const inv2 = Stringify(piece.inv2)
       const inv3 = Stringify(piece.inv3)
       const inv4 = Stringify(piece.inv4)
+      const isNoFile = piece.isNoFile === undefined ? false : piece.isNoFile as boolean
       const { restrictions } = piece
       let output = 'undefined'
       let inputA = 'undefined'
@@ -288,7 +289,9 @@ export class SingleFile {
                 restrictions,
                 inputA1,
                 inputB1
-              )
+              ),
+              this.path,
+              isNoFile
             )
 
             if (!isCopyRootPiecesOnly) {
@@ -309,7 +312,9 @@ export class SingleFile {
                   happs2,
                   restrictions,
                   inputA2
-                )
+                ),
+                this.path,
+                isNoFile
               )
               const happs3 = new Happenings()
               happs3.array.push(
@@ -330,7 +335,9 @@ export class SingleFile {
                   restrictions,
                   inputA3,
                   inputB3
-                )
+                ),
+                this.path,
+                isNoFile
               )
             }
           }
@@ -497,7 +504,9 @@ export class SingleFile {
                 restrictions,
                 inputA1,
                 inputB1
-              )
+              ),
+              this.path,
+              isNoFile
             )
 
             if (!isCopyRootPiecesOnly) {
@@ -517,7 +526,9 @@ export class SingleFile {
                   happs2,
                   restrictions,
                   inputA2
-                )
+                ),
+                this.path,
+                isNoFile
               )
               const happs3 = new Happenings()
               happs3.array.push(new Happening(Happen.PropGoes, prop1))
@@ -537,7 +548,9 @@ export class SingleFile {
                   restrictions,
                   inputA3,
                   inputB3
-                )
+                ),
+                this.path,
+                isNoFile
               )
             }
           }
@@ -758,7 +771,9 @@ export class SingleFile {
           inputD,
           inputE,
           inputF
-        )
+        ),
+        this.path,
+        isNoFile
       )
     }
   }

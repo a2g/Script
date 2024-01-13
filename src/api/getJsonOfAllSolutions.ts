@@ -26,7 +26,6 @@ export function getJsonOfAllSolutions (
   }
 
   const firstBox = new Box(path, firstBoxFilename)
-  firstBox.Init()
 
   const allBoxes = new Map<string, Box>()
   firstBox.CollectAllReferencedBoxesRecursively(allBoxes)

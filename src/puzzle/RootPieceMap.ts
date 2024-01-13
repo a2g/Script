@@ -1,3 +1,5 @@
+import { existsSync } from 'fs'
+import { Box } from './Box'
 import { GenerateMapOfLeavesRecursively } from './GenerateMapOfLeavesRecursively'
 import { GenerateMapOfLeavesTracingGoalsRecursively } from './GenerateMapOfLeavesTraccingGoalsRecursively'
 import { IPileOrRootPieceMap } from './IPileOrRootPieceMap'
@@ -36,8 +38,20 @@ export class RootPieceMap implements IPileOrRootPieceMap {
     }
   }
 
-  public AddPiece (piece: Piece): void {
-    if (piece.type.startsWith('AUTO_GOAL1_MET')) {
+  public AddPiece (piece: Piece, folder = '', isNoFile = true): void {
+    if (piece.type.startsWith('AUTO_GOAL1_MET') ||
+    piece.type.startsWith('GOAL1_MET')) {
+      const goal1 = piece.output
+      if (goal1 !== '99_win' && !isNoFile) {
+        const file = `${goal1}.jsonc`
+        if (!existsSync(folder + file)) {
+          throw new Error(
+             `Ensure "isNoFile" is marked for goal ${goal1} of ${piece.type} in ${goal1}, because the following file doesn't exist ${folder}`
+          )
+        }
+        piece.boxToMerge = new Box(folder, file)
+      }
+
       // initialize array, if it hasn't yet been
       if (this.roots.get(piece.output) == null) {
         this.roots.set(piece.output, new Array<RootPiece>())

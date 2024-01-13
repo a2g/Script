@@ -5,7 +5,7 @@ import { Suffix } from '../../Suffix'
 export interface $IStarter {
   // used by CLI
   file: string
-  folderPathWithBackslash: string
+  folder: string
   // used by web UI
   repo: string
   world: string
@@ -54,7 +54,7 @@ export function getJsonOfStarters (): $IStarter[] {
         toReturn.push({
           // these are needed for CLI
           file,
-          folderPathWithBackslash: `${repo}/${world}/`,
+          folder: `${repo}/${world}/`,
           // used by web ui
           repo,
           world,
