@@ -46,7 +46,7 @@ export class RootPieceMap implements IPileOrRootPieceMap {
         const file = `${goal1}.jsonc`
         if (!existsSync(folder + file)) {
           throw new Error(
-             `Ensure "isNoFile" is marked for goal ${goal1} of ${piece.type} in ${goal1}, because the following file doesn't exist ${folder}`
+      `Ensure "isNoFile" needs to be marked for goal ${goal1} of ${piece.type} in ${goal1}, because the following file doesn't exist ${folder}`
           )
         }
         piece.boxToMerge = new Box(folder, file)
