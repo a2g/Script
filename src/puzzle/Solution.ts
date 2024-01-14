@@ -10,7 +10,6 @@ import { RootPieceMap } from './RootPieceMap'
 import { SolverViaRootPiece } from './SolverViaRootPiece'
 import { VisibleThingsMap } from './VisibleThingsMap'
 import { IBoxReadOnlyWithFileMethods } from './IBoxReadOnlyWithFileMethods'
-import { SpecialTypes } from './SpecialTypes'
 
 /**
  * Solution needs to be cloned.
@@ -245,7 +244,7 @@ export class Solution {
    * Adds commands to reach goal to list
    * @param goal
    */
-  public AddCommandsToReachGoalToList (goal: RootPiece): number {
+  public AddCommandsToReachGoalToList (goal: RootPiece): void {
     // push the commands
     const leafToRootTraverser = new LeafToRootTraverser(
       goal,
@@ -297,7 +296,6 @@ export class Solution {
     // also tell the solution what order the goal was reached
     this.rootPieceKeysInSolvingOrder.push(goal.piece.output)
 
-    let stubbings = 0
     // Sse if any autos depend on the newly completed goal - if so execute them
     for (const piece of this.remainingPiecesRepo.GetAutos()) {
       if (
@@ -306,49 +304,8 @@ export class Solution {
       ) {
         const command = LeafToRootTraverser.getCommandFromAutoPiece(piece)
         goal.commandsCompletedInOrder.push(command)
-        for (const unusedPieceArray of this.GetPile().GetIterator()) {
-          for (const unusedPiece of unusedPieceArray) {
-            for (let k = 0; k < unusedPiece.inputHints.length; k++) {
-              if (unusedPiece.inputHints[k] === goal.piece.output) {
-                piece.StubOutInputK(k, SpecialTypes.CompletedElsewhere)
-                // can't simply only remove this piece as
-                // this.remainingPiecesRepo.RemovePiece(piece)
-                // we need to find where that piece is used, and then change
-                // the input into a goal
-                for (const rootArray of this.GetRootMap().GetValues()) {
-                  for (const root of rootArray) {
-                    if (root.piece.boxToMerge != null) {
-                      stubbings += root.piece.boxToMerge.ReplaceInputsThatMatchAWithB(piece.output, goal.piece.output)
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-        // ok leafToRootTraverseer is used up, don't need that anymore
-        // but we do need to search other boxes, not yet merged.
-        // we do this in the same way:
-        // How do we find all the boxes, yet to merge?
-        // easy!
-        // go through the root pieces, iterate through the box to merge
-        // goal.piece.boxToMerge
-        // need to change so when boxes are created they vacuum all the
-        // pieces and store them in the Pile that is inside the box
-        //   public MergeBox (boxToMerge: IBoxReadOnlyWithFileMethods): void {
-        //   boxToMerge.CopyPiecesFromBoxToPile(this.GetPile())
-        //  boxToMerge.CopyStartingThingCharsToGivenMap(this.startingThings)
-        // boxToMerge.CopyStartingThingCharsToGivenMap(this.currentlyVisibleThings)
-        // so yes, a pile of pieces inside every box?
-        // or have a simple vector of pieces
-        // we use it once when we get the pieces filename in the constructor
-        // then get rid of the filename
-        // then after we do that, we should add a method on it where you can iterate thru
-        // the pieces, and then go through one by one modifying them
-        // computationally expensive, but simple to begin with.
       }
     }
-    return stubbings
   }
 
   public AreAnyInputsNull (): boolean {
