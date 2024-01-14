@@ -312,6 +312,8 @@ export class Solution {
               const hint = unusedPiece.inputHints[k]
               if (hint === goal.piece.output) {
                 piece.StubOutInputK(k, SpecialTypes.CompletedElsewhere)
+                // don't forget to remove it, or it will get used again!
+                this.remainingPiecesRepo.RemovePiece(piece)
               }
             }
           }
