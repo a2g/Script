@@ -165,7 +165,7 @@ function getJsonArrayOfOrderedSteps (
     }
 
     toReturn.push({
-      name: step.AsDisplayString(false),
+      name: step.PopulateSpielFields(false),
       isAGoalOrAuto: step.isAGoalOrAuto(),
       paramA: lastLocation,
       paramB: newLocation,

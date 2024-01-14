@@ -1,6 +1,5 @@
 import { IPileOfPiecesReadOnly } from './IPileOfPiecesReadOnly'
 import { Piece } from './Piece'
-import { SpecialTypes } from './SpecialTypes'
 
 /**
  * This is basically wraps a multimap - no extra data -
@@ -130,15 +129,14 @@ export class PileOfPieces implements IPileOfPiecesReadOnly {
     })
   }
 
-  public StubOutInputsWithInputHint (hintToMatch: string): number {
-    console.assert(hintToMatch.endsWith('_goal'), 'should end with goal')
+  public ReplaceInputsThatMatchAWithB (a: string, b: string): number {
     let stubbings = 0
     this.piecesMappedByOutput.forEach((setOfPieces: Set<Piece>) => {
       setOfPieces.forEach((unusedPiece: Piece) => {
         for (let k = 0; k < unusedPiece.inputHints.length; k++) {
-          if (unusedPiece.inputHints[k] === hintToMatch) {
-            console.log(`Stubbed out ${hintToMatch} in ${unusedPiece.type} in ${this.displayName}`)
-            unusedPiece.StubOutInputK(k, SpecialTypes.CompletedElsewhere)
+          if (unusedPiece.inputHints[k] === a) {
+            console.log(`Stubbed out ${a} in ${unusedPiece.type} in ${this.displayName}`)
+            unusedPiece.inputHints[k] = b
             stubbings += 1
           }
         }

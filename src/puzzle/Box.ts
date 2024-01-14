@@ -329,7 +329,7 @@ export class Box implements IBoxReadOnlyWithFileMethods {
     return pile
   }
 
-  public StubOutInputsWithInputHint (hintToMatch: string): number {
-    return this.pieces.StubOutInputsWithInputHint(hintToMatch)
+  public ReplaceInputsThatMatchAWithB (a: string, b: string): number {
+    return this.pieces.ReplaceInputsThatMatchAWithB(a, b)
   }
 }

@@ -22,5 +22,5 @@ export interface IBoxReadOnlyWithFileMethods extends IBoxReadOnly {
   CopyGoalsToGivenSet: (givenSet: Set<string>) => void
   CopyInvsToGivenSet: (givenSet: Set<string>) => void
   CopyCharsToGivenSet: (givenSet: Set<string>) => void
-  StubOutInputsWithInputHint: (hintToStub: string) => number
+  ReplaceInputsThatMatchAWithB: (a: string, b: string) => number
 }

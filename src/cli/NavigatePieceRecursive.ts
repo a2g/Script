@@ -8,7 +8,7 @@ export function NavigatePieceRecursive (
   rootPieceMap: RootPieceMap
 ): void {
   for (;;) {
-    const output: string = piece.output
+    const output: string = piece.displayOutput
     console.warn(`output: ${output}`)
     const targets = new Array<Piece | null>()
     for (let i = 0; i < piece.inputs.length; i++) {

@@ -10,6 +10,12 @@ export class RawObjectsAndVerb {
   public startingCharacterForB: string
   public restrictions: string[]
   public typeJustForDebugging: string
+  public goalSpiel: string
+  mainSpiel: string
+  restrictionSpiel: string
+  // other ideas for debugging fields to add
+  // - the box the command came out of
+  // - the id of the command
 
   constructor (
     type: Raw,
@@ -24,10 +30,13 @@ export class RawObjectsAndVerb {
     this.startingCharacterForA = ''
     this.startingCharacterForB = ''
     this.restrictions = restrictions
+    this.mainSpiel = ''
+    this.goalSpiel = ''
+    this.restrictionSpiel = ''
     this.typeJustForDebugging = typeJustForDebugging
   }
 
-  public AsDisplayString (isColor = true): string {
+  public PopulateSpielFields (isColor = true): void {
     const verb = FormatText(this.type, isColor)
     const objectA =
       FormatText(this.objectA, isColor) +
@@ -39,10 +48,11 @@ export class RawObjectsAndVerb {
       FormatText(this.objectB, isColor) +
       FormatText(this.startingCharacterForB, isColor, true)
 
-    const restriction =
+    this.restrictionSpiel =
       this.restrictions.length > 0
         ? AddBrackets(FormatText(this.restrictions, isColor))
         : ''
+
     let joiner = ' '
     switch (this.type) {
       case Raw.Use:
@@ -53,14 +63,21 @@ export class RawObjectsAndVerb {
         break
       case Raw.Auto:
         if (this.objectB.startsWith('inv_')) {
-          return `You obtain a ${objectB} ....` + restriction + ' ' + objectA
+          this.mainSpiel = `You obtain a ${objectB}`
+          this.goalSpiel = `as a result of goal ${objectA}`
         } else if (this.objectB.startsWith('prop_')) {
-          return `You now see a ${objectB} ....` + restriction + ' ' + objectA
+          this.mainSpiel = `You now see a ${objectB}`
+          this.goalSpiel = `as a result of goal ${objectA}`
+        } else if (this.objectB.endsWith('_goal')) {
+          this.type = Raw.Goal
+          this.mainSpiel = `Goal complete ${objectB}`
+          this.goalSpiel = `as a result of goal ${objectA}`
         } else {
-          return `${objectB} appears.... ` + restriction + ' ' + objectA
+          this.mainSpiel = `${objectB} appears.... `
         }
+        return
     }
-    return verb + ' ' + objectA + joiner + objectB + ' ' + restriction
+    this.mainSpiel = verb + ' ' + objectA + joiner + objectB + ' '
   }
 
   public appendStartingCharacterForA (startingCharacterForA: string): void {

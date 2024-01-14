@@ -2,6 +2,7 @@ import promptSync from 'prompt-sync'
 import { FormatText } from '../puzzle/FormatText'
 import { SolverViaRootPiece } from '../puzzle/SolverViaRootPiece'
 import { RawObjectsAndVerb } from '../puzzle/RawObjectsAndVerb'
+import { Raw } from '../puzzle/Raw'
 const prompt = promptSync({})
 
 export function ChooseOrderOfCommands (solver: SolverViaRootPiece): void {
@@ -84,8 +85,13 @@ export function ChooseOrderOfCommands (solver: SolverViaRootPiece): void {
         const commands: RawObjectsAndVerb[] =
           solution.GetOrderOfCommands()
         for (const command of commands) {
+          // 0 is cleanest, later numbers are more detailsed
+          if (command.type === Raw.Goal && infoLevel < 3) {
+            continue
+          }
           listItemNumber++
-          console.warn(`    ${listItemNumber}. ${command.AsDisplayString()} via  ${command.typeJustForDebugging}`)
+          const formattedCommand = FormatCommand(command, infoLevel)
+          console.warn(`    ${listItemNumber}. ${formattedCommand}`)
         }
       }
     }
@@ -97,9 +103,32 @@ export function ChooseOrderOfCommands (solver: SolverViaRootPiece): void {
     } else {
       // show map entry for chosen item
       const theNumber2 = Number(input2)
-      if (theNumber >= 1 && theNumber <= 9) {
-       infoLevel = theNumber
+      if (theNumber2 >= 1 && theNumber <= 9) {
+        infoLevel = theNumber2
       }
     }
   }
+}
+
+function FormatCommand (raw: RawObjectsAndVerb, infoLevel: number): string {
+  raw.PopulateSpielFields()
+  let toReturn = ''
+  switch (infoLevel) {
+    case 1:
+    case 2:
+    case 3:
+      toReturn = `${raw.mainSpiel}`
+      break
+    case 4:
+    case 5:
+    case 6:
+      toReturn = `${raw.mainSpiel}  ${raw.goalSpiel}`
+      break
+    case 7:
+    case 8:
+    case 9:
+      toReturn = `${raw.mainSpiel}  ${raw.goalSpiel} ${raw.restrictionSpiel} ${raw.typeJustForDebugging}`
+      break
+  }
+  return toReturn
 }

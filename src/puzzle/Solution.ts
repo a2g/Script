@@ -309,11 +309,19 @@ export class Solution {
         for (const unusedPieceArray of this.GetPile().GetIterator()) {
           for (const unusedPiece of unusedPieceArray) {
             for (let k = 0; k < unusedPiece.inputHints.length; k++) {
-              const hint = unusedPiece.inputHints[k]
-              if (hint === goal.piece.output) {
+              if (unusedPiece.inputHints[k] === goal.piece.output) {
                 piece.StubOutInputK(k, SpecialTypes.CompletedElsewhere)
-                // don't forget to remove it, or it will get used again!
-                this.remainingPiecesRepo.RemovePiece(piece)
+                // can't simply only remove this piece as
+                // this.remainingPiecesRepo.RemovePiece(piece)
+                // we need to find where that piece is used, and then change
+                // the input into a goal
+                for (const rootArray of this.GetRootMap().GetValues()) {
+                  for (const root of rootArray) {
+                    if (root.piece.boxToMerge != null) {
+                      stubbings += root.piece.boxToMerge.ReplaceInputsThatMatchAWithB(piece.output, goal.piece.output)
+                    }
+                  }
+                }
               }
             }
           }
@@ -338,14 +346,6 @@ export class Solution {
         // then after we do that, we should add a method on it where you can iterate thru
         // the pieces, and then go through one by one modifying them
         // computationally expensive, but simple to begin with.
-      }
-
-      for (const rootArray of this.GetRootMap().GetValues()) {
-        for (const root of rootArray) {
-          if (root.piece.boxToMerge != null) {
-            stubbings += root.piece.boxToMerge.StubOutInputsWithInputHint(goal.piece.output)
-          }
-        }
       }
     }
     return stubbings
