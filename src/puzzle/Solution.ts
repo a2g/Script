@@ -245,7 +245,7 @@ export class Solution {
    * Adds commands to reach goal to list
    * @param goal
    */
-  public AddCommandsToReachGoalToList (goal: RootPiece): void {
+  public AddCommandsToReachGoalToList (goal: RootPiece): number {
     // push the commands
     const leafToRootTraverser = new LeafToRootTraverser(
       goal,
@@ -297,6 +297,7 @@ export class Solution {
     // also tell the solution what order the goal was reached
     this.rootPieceKeysInSolvingOrder.push(goal.piece.output)
 
+    let stubbings = 0
     // Sse if any autos depend on the newly completed goal - if so execute them
     for (const piece of this.remainingPiecesRepo.GetAutos()) {
       if (
@@ -336,28 +337,16 @@ export class Solution {
         // the pieces, and then go through one by one modifying them
         // computationally expensive, but simple to begin with.
       }
-      // for (const rootArray of this.GetRootMap().GetValues()) {
-      //   for (const root of rootArray) {
-      //       const boxToModify = root.piece.boxToMerge;
-      //       if (boxToModify!=null){
-      //         const pile = new PileOfPieces()
-      //         boxToModify.CopyPiecesFromBoxToPile
-      //         const path = '/'
-      //       const map = new Map<string, Piece|null>()
-      //       GenerateMapOfLeavesRecursively(root.piece, path, true, map)
-      //       for (const piece of .values()) {
-      //         if (piece != null) {
-      //           for (let k = 0; k < piece.inputHints.length; k++) {
-      //             const hint = piece.inputHints[k]
-      //             if (hint === goal.piece.output) {
-      //               piece.StubOutInputK(k, SpecialTypes.CompletedElsewhere)
-      //             }
-      //           }
-      //         }
-      //       }
-      //     }
-      // }
+
+      for (const rootArray of this.GetRootMap().GetValues()) {
+        for (const root of rootArray) {
+          if (root.piece.boxToMerge != null) {
+            stubbings += root.piece.boxToMerge.StubOutInputsWithInputHint(goal.piece.output)
+          }
+        }
+      }
     }
+    return stubbings
   }
 
   public AreAnyInputsNull (): boolean {

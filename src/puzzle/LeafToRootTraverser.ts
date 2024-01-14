@@ -74,6 +74,14 @@ export class LeafToRootTraverser {
         }
       }
 
+      // When we solve goals, we sometimes want the happening that result
+      // from them to execute straight away. But sometimes there are
+      // autos in the unused pieces pile that take the goal as input
+      // so we want to dig through the pile, find them, and stub their inputs.
+      // But sometimes the inputs are all nulled...Maybe in this case
+      // we should not say anything is done, and simply limit our response
+      // to what we've already done - ie kill the node
+
       // now lets return the piece
       if (piece.type === SpecialTypes.CompletedElsewhere) {
         toReturn = new RawObjectsAndVerb(

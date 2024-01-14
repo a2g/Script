@@ -52,7 +52,13 @@ export class RawObjectsAndVerb {
         joiner = ' to '
         break
       case Raw.Auto:
-        return `${objectB} appears.... ` + restriction + ' ' + objectA
+        if (this.objectB.startsWith('inv_')) {
+          return `You obtain a ${objectB} ....` + restriction + ' ' + objectA
+        } else if (this.objectB.startsWith('prop_')) {
+          return `You now see a ${objectB} ....` + restriction + ' ' + objectA
+        } else {
+          return `${objectB} appears.... ` + restriction + ' ' + objectA
+        }
     }
     return verb + ' ' + objectA + joiner + objectB + ' ' + restriction
   }

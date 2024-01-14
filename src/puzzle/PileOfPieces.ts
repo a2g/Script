@@ -1,5 +1,6 @@
 import { IPileOfPiecesReadOnly } from './IPileOfPiecesReadOnly'
 import { Piece } from './Piece'
+import { SpecialTypes } from './SpecialTypes'
 
 /**
  * This is basically wraps a multimap - no extra data -
@@ -15,8 +16,9 @@ import { Piece } from './Piece'
  */
 export class PileOfPieces implements IPileOfPiecesReadOnly {
   private readonly piecesMappedByOutput: Map<string, Set<Piece>>
-
-  constructor (cloneFromMe: IPileOfPiecesReadOnly | null) {
+  private readonly displayName: string
+  constructor (cloneFromMe: IPileOfPiecesReadOnly | null, displayName = '') {
+    this.displayName = displayName
     this.piecesMappedByOutput = new Map<string, Set<Piece>>()
     if (cloneFromMe != null) {
       for (const set of cloneFromMe.GetIterator()) {
@@ -126,5 +128,22 @@ export class PileOfPieces implements IPileOfPiecesReadOnly {
         destinationPile.AddPiece(piece, '', true)
       })
     })
+  }
+
+  public StubOutInputsWithInputHint (hintToMatch: string): number {
+    console.assert(hintToMatch.endsWith('_goal'), 'should end with goal')
+    let stubbings = 0
+    this.piecesMappedByOutput.forEach((setOfPieces: Set<Piece>) => {
+      setOfPieces.forEach((unusedPiece: Piece) => {
+        for (let k = 0; k < unusedPiece.inputHints.length; k++) {
+          if (unusedPiece.inputHints[k] === hintToMatch) {
+            console.log(`Stubbed out ${hintToMatch} in ${unusedPiece.type} in ${this.displayName}`)
+            unusedPiece.StubOutInputK(k, SpecialTypes.CompletedElsewhere)
+            stubbings += 1
+          }
+        }
+      })
+    })
+    return stubbings
   }
 }

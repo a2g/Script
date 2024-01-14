@@ -7,6 +7,7 @@ const prompt = promptSync({})
 export function ChooseOrderOfCommands (solver: SolverViaRootPiece): void {
   console.warn(' ')
 
+  let infoLevel = 1
   for (;;) {
     for (let i = 0; i < 200; i++) {
       solver.SolvePartiallyUntilCloning()
@@ -90,31 +91,14 @@ export function ChooseOrderOfCommands (solver: SolverViaRootPiece): void {
     }
 
     // allow user to choose item
-    const input2 = prompt('Choose a step (b)ack, (r)e-run: ').toLowerCase()
+    const input2 = prompt('Choose a step (b)ack, (r)e-run:, debug-level(1-9) ').toLowerCase()
     if (input2 === null || input2 === 'b') {
       return
     } else {
       // show map entry for chosen item
       const theNumber2 = Number(input2)
-      if (theNumber > 0 && theNumber <= listItemNumber) {
-        let j = 0
-        for (let i = 0; i < solver.GetSolutions().length; i++) {
-          const solution = solver.GetSolutions()[i]
-          if (theNumber === 0 || theNumber === i) {
-            const commands: RawObjectsAndVerb[] =
-              solution.GetOrderOfCommands()
-            for (const command of commands) {
-              j++
-              if (j === theNumber2) {
-                console.log(
-                  `Command info: ${command.type} ${command.objectA} ${command.objectB}`
-                )
-                prompt('Hit a key to continue')
-                break
-              }
-            }
-          }
-        }
+      if (theNumber >= 1 && theNumber <= 9) {
+       infoLevel = theNumber
       }
     }
   }

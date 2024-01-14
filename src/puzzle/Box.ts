@@ -111,7 +111,7 @@ export class Box implements IBoxReadOnlyWithFileMethods {
     this.startingGoalSet = new Set<string>()
     this.startingPropSet = new Set<string>()
     this.mapOfStartingThings = new VisibleThingsMap(null)
-    this.pieces = new PileOfPieces(null)
+    this.pieces = new PileOfPieces(null, this.filename)
     this.goalPieceMap = new RootPieceMap(null)
 
     // collect all the goals and pieces file
@@ -327,5 +327,9 @@ export class Box implements IBoxReadOnlyWithFileMethods {
     const pile = new PileOfPieces(null)
     this.CopyAllOtherPiecesFromBoxToPile(pile)
     return pile
+  }
+
+  public StubOutInputsWithInputHint (hintToMatch: string): number {
+    return this.pieces.StubOutInputsWithInputHint(hintToMatch)
   }
 }
