@@ -7,12 +7,13 @@ import { ChooseListOfLeaves } from './cli/ChooseListOfLeaves'
 import { ChooseOrderOfCommands } from './cli/ChooseOrderOfCommands'
 import { ChooseToFindUnused } from './cli/ChooseToFindUnused'
 import { $IStarter, getJsonOfStarters } from './api/getJsonOfStarters'
+import { ChooseDigIntoGoals2 } from './cli/ChooseDigIntoGoals2'
 const prompt = promptSync()
 
 function main (): void {
   const starters: $IStarter[] = getJsonOfStarters()
 
-  for (;;) {
+  for (; ;) {
     for (let i = 1; i <= starters.length; i++) {
       const starter = starters[i - 1]
       console.warn(`${i}. ${starter.world} ${starter.area}  ${i}`)
@@ -27,7 +28,7 @@ function main (): void {
         return
       default:
         if (index >= 0 && index < starters.length) {
-          for (;;) {
+          for (; ;) {
             const starter = starters[index]
             const firstBox = new Box(starter.folder, starter.file)
 
@@ -51,9 +52,8 @@ function main (): void {
             console.warn('3. Leaves all boxes at once.')
             console.warn('4. Leaves a box-at-a-time`')
             console.warn('5. Order of Commands in solve')
-            console.warn(
-              '6. Check for unused props and invs <-- delete these from enums'
-            )
+            console.warn('6. Choose Dig into goals 2')
+            console.warn('7. Check for unused props and invs <-- delete these from enums')
             console.warn('8. Play')
 
             const choice = prompt('Choose an option (b)ack: ').toLowerCase()
@@ -77,6 +77,9 @@ function main (): void {
                 ChooseOrderOfCommands(solverPrimedWithFirstBox)
                 break
               case '6':
+                ChooseDigIntoGoals2(solverPrimedWithFirstBox)
+                break
+              case '7':
                 ChooseToFindUnused(combined)
                 break
               default:

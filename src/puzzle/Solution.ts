@@ -209,6 +209,7 @@ export class Solution {
           // there are no pieces in the tree that are not yet placed - yay!
           if (goal.firstNullInput !== '') {
             goal.firstNullInput = ''
+            goal.isUnsolved = false
             // we do this before merging boxes, because it
             // has a step where it goes through all the boxes
             // yet to be merged - and modifies them!

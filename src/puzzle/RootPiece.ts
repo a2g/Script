@@ -5,12 +5,14 @@ export class RootPiece {
   public piece: Piece
 
   public firstNullInput: string
+  public isUnsolved: boolean
 
   public readonly commandsCompletedInOrder: RawObjectsAndVerb[]
 
   constructor (piece: Piece, firstIncompleteInput: string, commandsCompletedInOrder: RawObjectsAndVerb[]) {
     this.piece = piece// TODO: should be
     this.firstNullInput = firstIncompleteInput
+    this.isUnsolved = true
 
     // if commandsCompletedInOrder is passed in, we deep copy it
     this.commandsCompletedInOrder = []
