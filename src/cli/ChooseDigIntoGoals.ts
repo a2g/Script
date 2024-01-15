@@ -10,7 +10,7 @@ const prompt = promptSync({})
 export function ChooseDigIntoGoals (solver: SolverViaRootPiece): void {
   console.warn('ChooseDigIntoGoals... ')
 
-  for (;;) {
+  for (; ;) {
     solver.MarkGoalsAsCompletedAndMergeIfNeeded()
     const numberOfSolutions: number = solver.NumberOfSolutions()
     console.warn('Dig in to goals')
@@ -42,8 +42,8 @@ export function ChooseDigIntoGoals (solver: SolverViaRootPiece): void {
           const status: string = item.firstNullInput
           const { output } = item.piece
           let inputs = ''
-          for (const input of item.piece.inputHints) {
-            inputs += `${FormatText(input)},`
+          for (const inputSpiel of item.piece.inputSpiels) {
+            inputs += `${FormatText(inputSpiel)},`
           }
           console.warn(
             `    ${listItemNumber}. ${FormatText(output)} ${AddBrackets(

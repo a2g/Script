@@ -7,14 +7,14 @@ export function NavigatePieceRecursive (
   piece: Piece,
   rootPieceMap: RootPieceMap
 ): void {
-  for (;;) {
-    const output: string = piece.displayOutput
+  for (; ;) {
+    const output: string = piece.spielOutput
     console.warn(`output: ${output}`)
     const targets = new Array<Piece | null>()
     for (let i = 0; i < piece.inputs.length; i++) {
       targets.push(piece.inputs[i])
-      const inputHint: string = piece.inputHints[i]
-      console.warn(`input: ${i + 1}. ${inputHint}`)
+      const inputSpiel: string = piece.inputSpiels[i]
+      console.warn(`input: ${i + 1}. ${inputSpiel}`)
     }
 
     // allow user to choose item

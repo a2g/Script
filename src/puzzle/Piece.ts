@@ -16,7 +16,7 @@ export class Piece {
 
   public output: string
 
-  public displayOutput: string
+  public spielOutput: string
 
   public inputs: Array<Piece | null>
 
@@ -55,7 +55,7 @@ export class Piece {
     this.parent = null
     this.reuseCount = reuseCount
     this.output = output
-    this.displayOutput = `${output}       (${type}))`
+    this.spielOutput = `${output}`
     this.type = type
     this.command = command
     this.happenings = happenings
@@ -177,11 +177,11 @@ export class Piece {
 
   public StubOutInputK (k: number, type: SpecialTypes): void {
     const objectToObtain = this.inputHints[k]
+    //  update the display string - for easier browsing!
+    this.inputSpiels[k] = `${objectToObtain} (${type})`
     const newLeaf = new Piece(0, null, objectToObtain, type)
     newLeaf.parent = this
     this.inputs[k] = newLeaf
-    // finally update the display string - for easier browsing!
-    this.inputSpiels[k] = `${objectToObtain} ${type}`
   }
 
   public ProcessUntilCloning (
