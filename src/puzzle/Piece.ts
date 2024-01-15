@@ -32,6 +32,8 @@ export class Piece {
 
   public command: Command | null
 
+  public inputSpiels: string[]
+
   constructor (
     id: number,
     boxToMerge: IBoxReadOnlyWithFileMethods | null,
@@ -46,7 +48,7 @@ export class Piece {
     inputC = 'undefined',
     inputD = 'undefined',
     inputE = 'undefined',
-    inputF = 'undefined' // no statics in typescript, so this seemed preferable than global let Null = "Null";
+    inputF = 'undefined' // no statics in typescript, so this seemed preferable than global let Null = 'Null'
   ) {
     this.id = id
     this.boxToMerge = boxToMerge
@@ -65,27 +67,34 @@ export class Piece {
     }
     this.inputs = []
     this.inputHints = []
+    this.inputSpiels = []
     if (inputA !== 'undefined' && inputA !== undefined && inputA.length > 0) {
+      this.inputSpiels.push(inputA)
       this.inputHints.push(inputA)
       this.inputs.push(null)
     }
     if (inputB !== 'undefined' && inputB !== undefined && inputB.length > 0) {
+      this.inputSpiels.push(inputB)
       this.inputHints.push(inputB)
       this.inputs.push(null)
     }
     if (inputC !== 'undefined' && inputC !== undefined && inputC.length > 0) {
+      this.inputSpiels.push(inputC)
       this.inputHints.push(inputC)
       this.inputs.push(null)
     }
     if (inputD !== 'undefined' && inputD !== undefined && inputD.length > 0) {
+      this.inputSpiels.push(inputD)
       this.inputHints.push(inputD)
       this.inputs.push(null)
     }
     if (inputE !== 'undefined' && inputE !== undefined && inputE.length > 0) {
+      this.inputSpiels.push(inputE)
       this.inputHints.push(inputE)
       this.inputs.push(null)
     }
     if (inputF !== 'undefined' && inputF !== undefined && inputF.length > 0) {
+      this.inputSpiels.push(inputF)
       this.inputHints.push(inputF)
       this.inputs.push(null)
     }
@@ -106,6 +115,11 @@ export class Piece {
     // the hints
     for (const inputHint of this.inputHints) {
       clone.inputHints.push(inputHint)
+    }
+
+    // the display hints
+    for (const inputHint of this.inputSpiels) {
+      clone.inputSpiels.push(inputHint)
     }
 
     // the pieces
@@ -129,6 +143,7 @@ export class Piece {
   AddChildAndSetParent (child: Piece): void {
     this.inputs.push(child)
     this.inputHints.push(child.output)
+    this.inputSpiels.push(child.output)
     child.SetParent(this)
   }
 
@@ -162,14 +177,11 @@ export class Piece {
 
   public StubOutInputK (k: number, type: SpecialTypes): void {
     const objectToObtain = this.inputHints[k]
-    const newLeaf = new Piece(
-      0,
-      null,
-      objectToObtain,
-      type
-    )
+    const newLeaf = new Piece(0, null, objectToObtain, type)
     newLeaf.parent = this
     this.inputs[k] = newLeaf
+    // finally update the display string - for easier browsing!
+    this.inputSpiels[k] = `${objectToObtain} ${type}`
   }
 
   public ProcessUntilCloning (
@@ -213,7 +225,7 @@ export class Piece {
         // cloned.
         //
         // With this way, I think we need to choose something else....
-        // assert(inputPiece && "Input piece=" + inputPiece + " <-If this fails there is something wrong with InternalLoopOfProcessUntilCloning");
+        // assert(inputPiece && 'Input piece=' + inputPiece + ' <-If this fails there is something wrong with InternalLoopOfProcessUntilCloning')
         // console.warn('Input piece= null <-If this fails there is something wrong with InternalLoopOfProcessUntilCloning')
       }
     }
@@ -297,7 +309,7 @@ export class Piece {
 
         // 3. Matches multiple goals in goalrootmap
         if (matchingRootPieces.length > 0) {
-          for (let i = matchingRootPieces.length - 1; i >= 0; i--) {
+          for (let i = matchingRootPieces.length - 1; i >= 0; i -= 1) {
             const thisMatchingRootPiece = matchingRootPieces[i]
 
             // Clone - if needed!

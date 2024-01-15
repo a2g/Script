@@ -7,7 +7,7 @@ import path from 'path'
 import axios from 'axios'
 
 const app = express()
-const PORT = (process.env.PORT != null) ? `${process.env.PORT}` : 5000
+const PORT = process.env.PORT != null ? `${process.env.PORT}` : 5000
 
 const redisClient: RedisClient = createClient({
   url: process.env.REDIS_ENDPOINT_URI,
@@ -34,7 +34,16 @@ interface GetUsersResponse {
 }
 
 // Make direct request to Github for data
-async function directRequestToGithub (req: Request, responseSender: Response): Promise<void> {
+function directRequestToGithubWrapper (
+  req: Request,
+  responseSender: Response
+): void {
+  void directRequestToGithub(req, responseSender)
+}
+async function directRequestToGithub (
+  req: Request,
+  responseSender: Response
+): Promise<void> {
   try {
     const { username } = req.params
 
@@ -90,7 +99,7 @@ function requestToRedisServer (
   })
 }
 
-app.get('/repos/:username', requestToRedisServer, directRequestToGithub)
+app.get('/repos/:username', requestToRedisServer, directRequestToGithubWrapper)
 
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`)
