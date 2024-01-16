@@ -28,7 +28,7 @@ export function ChooseDigIntoGoals2 (solver: SolverViaRootPiece): void {
       let numberOfUnsolveds = 0
       for (const goalArray of solution.GetRootMap().GetValues()) {
         for (const goal of goalArray) {
-          numberOfUnsolveds += goal.isUnsolved ? 1 : 0
+          numberOfUnsolveds += goal.isSolved ? 0 : 1
         }
       }
       const name = FormatText(solution.GetDisplayNamesConcatenated())

@@ -299,9 +299,9 @@ export class Piece {
         if (matchingRootPieces.length === 1) {
           // is it a goal? (since goal map always contains all goals)
           // solution.MarkGoalsAsContainingNullsAndMergeIfNeeded()// this is optional...
-          const { firstNullInput } = matchingRootPieces[0]
+          const isSolved = matchingRootPieces[0].isSolved
 
-          if (firstNullInput === '') {
+          if (isSolved) {
             this.StubOutInputK(k, SpecialTypes.CompletedElsewhere)
           }
           continue
@@ -378,21 +378,7 @@ export class Piece {
           }
 
           // rediscover the current piece in theSolution - again because we might be cloned
-          let thePiece: Piece | null = null
-          for (const array of theSolution.GetRootMap().GetValues()) {
-            for (const rootPiece of array) {
-              thePiece = rootPiece.piece.FindAnyPieceMatchingIdRecursively(
-                this.id
-              )
-
-              if (thePiece != null) {
-                break
-              }
-            }
-            if (thePiece != null) {
-              break
-            }
-          }
+          const thePiece = theSolution.FindAnyPieceMatchingIdRecursively(this.id)
 
           if (thePiece != null) {
             theMatchingPiece.parent = thePiece
