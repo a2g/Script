@@ -50,10 +50,10 @@ export function getJsonOfAllSolutions (
           listItemNumber++
 
           // display list item
-          const status: string = item.firstNullInput
+          const status = item.IsSolved() ? 'Solved' : 'Unsolved'
           const { output } = item.piece
           console.warn(`    ${listItemNumber}. ${output} (status=${status})`)
-          incomplete += status.length > 0 ? 1 : 0
+          incomplete += item.IsSolved() ? 0 : 1
         }
       }
     }

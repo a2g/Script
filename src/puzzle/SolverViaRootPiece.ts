@@ -70,20 +70,10 @@ export class SolverViaRootPiece {
     return this.solutions.length
   }
 
-  public AreAnyInputsNull (): boolean {
-    for (const solution of this.solutions) {
-      solution.MarkGoalsAsContainingNullsAndMergeIfNeeded()
-      if (solution.AreAnyInputsNull()) {
-        return true
-      }
-    }
-    return false
-  }
-
   public SolvePartiallyUntilCloning (): boolean {
     let hasACloneJustBeenCreated = false
     this.solutions.forEach((solution: Solution) => {
-      if (solution.AreAnyInputsNull()) {
+      if (solution.IsUnsolved()) {
         if (!solution.IsArchived()) {
           if (solution.ProcessUntilCloning(this)) {
             hasACloneJustBeenCreated = true
@@ -177,11 +167,11 @@ export class SolverViaRootPiece {
 
       currSolution.PushNameSegment(
         'sol_' +
-          minLeafNodeName +
-          Colors.Reset +
-          (accumulatedRestrictions.size > 0
-            ? AddBrackets(GetDisplayName(Array.from(accumulatedRestrictions)))
-            : '')
+        minLeafNodeName +
+        Colors.Reset +
+        (accumulatedRestrictions.size > 0
+          ? AddBrackets(GetDisplayName(Array.from(accumulatedRestrictions)))
+          : '')
       )
     }
   }

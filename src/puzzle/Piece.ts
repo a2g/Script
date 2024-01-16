@@ -299,7 +299,7 @@ export class Piece {
         if (matchingRootPieces.length === 1) {
           // is it a goal? (since goal map always contains all goals)
           // solution.MarkGoalsAsContainingNullsAndMergeIfNeeded()// this is optional...
-          const isSolved = matchingRootPieces[0].isSolved
+          const isSolved = matchingRootPieces[0].IsSolved()
 
           if (isSolved) {
             this.StubOutInputK(k, SpecialTypes.CompletedElsewhere)

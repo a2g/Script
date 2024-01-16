@@ -39,7 +39,6 @@ export function ChooseDigIntoGoals (solver: SolverViaRootPiece): void {
           listItemNumber++
 
           // display list item
-          const status: string = item.firstNullInput
           const { output } = item.piece
           let inputs = ''
           for (const inputSpiel of item.piece.inputSpiels) {
@@ -48,9 +47,9 @@ export function ChooseDigIntoGoals (solver: SolverViaRootPiece): void {
           console.warn(
             `    ${listItemNumber}. ${FormatText(output)} ${AddBrackets(
               inputs
-            )} (status=${status})`
+            )} (status=${item.IsSolved() ? 'Solved' : 'Unsolved'})`
           )
-          incomplete += status.length > 0 ? 1 : 0
+          incomplete += item.IsSolved() ? 0 : 1
         }
       }
     }

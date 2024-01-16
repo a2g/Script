@@ -31,7 +31,7 @@ export class RootPieceMap implements IPileOrRootPieceMap {
         this.roots.set(key, [])
         for (const rootPiece of value) {
           const clonedTree: Piece = rootPiece.piece.ClonePieceAndEntireTree()
-          array.push(new RootPiece(clonedTree, rootPiece.firstNullInput, rootPiece.commandsCompletedInOrder))
+          array.push(new RootPiece(clonedTree, rootPiece.GetCommandsCompletedInOrder(), rootPiece.IsSolved()))
         }
         this.roots.set(key, array)
       }
@@ -46,7 +46,7 @@ export class RootPieceMap implements IPileOrRootPieceMap {
         const file = `${goal1}.jsonc`
         if (!existsSync(folder + file)) {
           throw new Error(
-      `Ensure "isNoFile" needs to be marked for goal ${goal1} of ${piece.type} in ${goal1}, because the following file doesn't exist ${folder}`
+            `Ensure "isNoFile" needs to be marked for goal ${goal1} of ${piece.type} in ${goal1}, because the following file doesn't exist ${folder}`
           )
         }
         piece.boxToMerge = new Box(folder, file)
@@ -57,7 +57,7 @@ export class RootPieceMap implements IPileOrRootPieceMap {
         this.roots.set(piece.output, new Array<RootPiece>())
       }
       // always add to list
-      this.roots.get(piece.output)?.push(new RootPiece(piece, 'Unsolved', []))
+      this.roots.get(piece.output)?.push(new RootPiece(piece, []))
     }
   }
 
