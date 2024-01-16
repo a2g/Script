@@ -1,4 +1,5 @@
 import assert from 'assert'
+import { createCommandFromAutoPiece } from './createCommandFromAutoPiece'
 import { Piece } from './Piece'
 import { Raw } from './Raw'
 import { RawObjectsAndVerb } from './RawObjectsAndVerb'
@@ -7,7 +8,7 @@ import { SpecialTypes } from './SpecialTypes'
 import { Stringify } from './Stringify'
 import { VisibleThingsMap } from './VisibleThingsMap'
 
-export class LeafToRootTraverser {
+export class DeconstructDoer {
   public rootOfCopiedTree: Piece
   public currentlyVisibleThings: VisibleThingsMap
 
@@ -21,22 +22,15 @@ export class LeafToRootTraverser {
     this.currentlyVisibleThings = visibleThings
   }
 
-  /**
-   * #### For the purposes of traversing, a leaf is one with all
-   * inputs are null.
-   * @param piece
-   * @returns true if a leaf
-   */
-  public isALeaf (piece: Piece): boolean {
-    for (const a of piece.inputs) {
-      if (a !== null) {
-        return false
-      }
+  public GetNextDoableCommandAndDeconstructTree (): RawObjectsAndVerb | null {
+    if (this.rootOfCopiedTree.inputs[0] === null) {
+      return null
     }
-    return true
+    const command = this.GetNextDoableCommandRecursively(this.rootOfCopiedTree.inputs[0])
+    return command
   }
 
-  GetNextDoableCommandRecursively (piece: Piece): RawObjectsAndVerb | null {
+  private GetNextDoableCommandRecursively (piece: Piece): RawObjectsAndVerb | null {
     // if its a leaf, we check whether we can return command, otherwise
     // we recurse through children
 
@@ -149,7 +143,7 @@ export class LeafToRootTraverser {
         )
       } else if (isAuto) {
         console.warn(pathOfThis)
-        toReturn = LeafToRootTraverser.getCommandFromAutoPiece(piece)
+        toReturn = createCommandFromAutoPiece(piece)
       } else if (isUse) {
         // then its nearly definitely 'use', unless I messed up
         toReturn = new RawObjectsAndVerb(
@@ -198,14 +192,6 @@ export class LeafToRootTraverser {
     return null
   }
 
-  public GetNextDoableCommandAndDeconstructTree (): RawObjectsAndVerb | null {
-    if (this.rootOfCopiedTree.inputs[0] === null) {
-      return null
-    }
-    const command = this.GetNextDoableCommandRecursively(this.rootOfCopiedTree.inputs[0])
-    return command
-  }
-
   private GeneratePath (piece: Piece | null): string {
     let path = ''
     while (piece != null) {
@@ -222,20 +208,18 @@ export class LeafToRootTraverser {
     }
   }
 
-  public static getCommandFromAutoPiece (piece: Piece): RawObjectsAndVerb {
-    let text = 'auto using ('
-    for (const inputName of piece.inputHints) {
-      const inputName2: string = inputName
-      text += `${inputName2} `
+  /**
+   * #### For the purposes of traversing, a leaf is one with all
+   * inputs are null.
+   * @param piece
+   * @returns true if a leaf
+   */
+  private isALeaf (piece: Piece): boolean {
+    for (const a of piece.inputs) {
+      if (a !== null) {
+        return false
+      }
     }
-    console.warn(text)
-
-    return new RawObjectsAndVerb(
-      Raw.Auto,
-      piece.inputHints[0],
-      piece.output,
-      piece.getRestrictions(),
-      piece.type
-    )
+    return true
   }
 }
