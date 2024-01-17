@@ -74,10 +74,8 @@ export class SolverViaRootPiece {
     let hasACloneJustBeenCreated = false
     this.solutions.forEach((solution: Solution) => {
       if (solution.IsUnsolved()) {
-        if (!solution.IsArchived()) {
-          if (solution.ProcessUntilCloning(this)) {
-            hasACloneJustBeenCreated = true
-          }
+        if (solution.ProcessUntilCloning(this)) {
+          hasACloneJustBeenCreated = true
         }
       }
     })
