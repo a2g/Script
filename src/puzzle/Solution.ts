@@ -38,7 +38,7 @@ export class Solution {
 
   private readonly id: number
 
-  private constructor(
+  private constructor (
     id: number,
     rootPieceMapToCopy: RootPieceMap | null,
     copyThisMapOfPieces: IPileOfPiecesReadOnly,
@@ -52,7 +52,6 @@ export class Solution {
     this.rootPieces = new RootPieceMap(rootPieceMapToCopy)
     this.isNotMergingAnyMoreBoxes = isNotMergingAnyMoreBoxes
     this.remainingPiecesRepo = new PileOfPieces(copyThisMapOfPieces)
-    this.isArchived = false
     this.reasonForBranching = ''
     this.rootPieceKeysInSolvingOrder = solvingOrderForRootPieceKeys.slice()
 
@@ -86,7 +85,7 @@ export class Solution {
     }
   }
 
-  public static createSolution(
+  public static createSolution (
     rootPieceMapToCopy: RootPieceMap | null,
     copyThisMapOfPieces: IPileOfPiecesReadOnly,
     solvingOrderForRootPieceKeys: string[],
@@ -99,7 +98,7 @@ export class Solution {
     return new Solution(globalSolutionId, rootPieceMapToCopy, copyThisMapOfPieces, solvingOrderForRootPieceKeys, startingThingsPassedIn, isNotMergingAnyMoreBoxes, restrictions, nameSegments)
   }
 
-  public Clone(): Solution {
+  public Clone (): Solution {
     // the weird order of this is because Solution constructor is used
     // primarily to construct, so passing in root piece is needed..
     // so we clone the whole tree and pass it in
@@ -122,7 +121,7 @@ export class Solution {
     return clonedSolution
   }
 
-  public ProcessUntilCloning(solutions: SolverViaRootPiece): boolean {
+  public ProcessUntilCloning (solutions: SolverViaRootPiece): boolean {
     let isBreakingDueToSolutionCloning = false
     for (const array of this.rootPieces.GetValues()) {
       for (const goal of array) {
@@ -136,7 +135,7 @@ export class Solution {
     return isBreakingDueToSolutionCloning
   }
 
-  GetOrderOfCommands(): RawObjectsAndVerb[] {
+  GetOrderOfCommands (): RawObjectsAndVerb[] {
     const toReturn: RawObjectsAndVerb[] = []
     for (const key of this.rootPieceKeysInSolvingOrder) {
       const rootGoalArray = this.GetRootMap().GetRootPieceArrayByName(key)
@@ -149,7 +148,7 @@ export class Solution {
     return toReturn
   }
 
-  public GetDisplayNamesConcatenated(): string {
+  public GetDisplayNamesConcatenated (): string {
     let result = ''
     for (let i = 0; i < this.solutionNameSegments.length; i += 1) {
       const symbol = i === 0 ? '' : '/'
@@ -158,41 +157,41 @@ export class Solution {
     return result
   }
 
-  public AddRestrictions(restrictions: string[]): void {
+  public AddRestrictions (restrictions: string[]): void {
     for (const restriction of restrictions) {
       this.restrictionsEncounteredDuringSolving.add(restriction)
     }
   }
 
-  public GetAccumulatedRestrictions(): Set<string> {
+  public GetAccumulatedRestrictions (): Set<string> {
     return this.restrictionsEncounteredDuringSolving
   }
 
-  public GetPile(): PileOfPieces {
+  public GetPile (): PileOfPieces {
     // we already remove pieces from this when we use them up
     // so returning the current piece map is ok
     return this.remainingPiecesRepo
   }
 
-  public GetLastDisplayNameSegment(): string {
+  public GetLastDisplayNameSegment (): string {
     return this.solutionNameSegments[this.solutionNameSegments.length - 1]
   }
 
-  public CopyNameToVirginSolution(virginSolution: Solution): void {
+  public CopyNameToVirginSolution (virginSolution: Solution): void {
     for (const nameSegment of this.solutionNameSegments) {
       virginSolution.PushDisplayNameSegment(nameSegment)
     }
   }
 
-  public PushDisplayNameSegment(solutionName: string): void {
+  public PushDisplayNameSegment (solutionName: string): void {
     this.solutionNameSegments.push(solutionName)
   }
 
-  public ClearNameSegments(): void {
+  public ClearNameSegments (): void {
     this.solutionNameSegments.length = 0
   }
 
-  public FindAnyPieceMatchingIdRecursively(id: number): Piece | null {
+  public FindAnyPieceMatchingIdRecursively (id: number): Piece | null {
     for (const array of this.rootPieces.GetValues()) {
       for (const goal of array) {
         const result = goal.piece.FindAnyPieceMatchingIdRecursively(id)
@@ -204,15 +203,15 @@ export class Solution {
     return null
   }
 
-  public GetRootMap(): RootPieceMap {
+  public GetRootMap (): RootPieceMap {
     return this.rootPieces
   }
 
-  public GetStartingThings(): VisibleThingsMap {
+  public GetStartingThings (): VisibleThingsMap {
     return this.startingThings
   }
 
-  public MarkGoalsAsContainingNullsAndMergeIfNeeded(): void {
+  public MarkGoalsAsContainingNullsAndMergeIfNeeded (): void {
     // go through all the goal pieces
     for (const array of this.rootPieces.GetValues()) {
       for (const goal of array) {
@@ -237,7 +236,7 @@ export class Solution {
     }
   }
 
-  public MergeBox(boxToMerge: IBoxReadOnlyWithFileMethods): void {
+  public MergeBox (boxToMerge: IBoxReadOnlyWithFileMethods): void {
     console.warn(`Merging box ${boxToMerge.GetFilename()}          going into ${FormatText(this.GetDisplayNamesConcatenated())}`)
 
     boxToMerge.CopyAllOtherPiecesFromBoxToPile(this.GetPile())
@@ -258,7 +257,7 @@ export class Solution {
    * Adds commands to reach goal to list
    * @param goal
    */
-  public AddCommandsToReachGoalToList(goal: RootPiece): void {
+  public AddCommandsToReachGoalToList (goal: RootPiece): void {
     // push the commands
     const leafToRootTraverser = new DeconstructDoer(
       goal,
@@ -322,7 +321,7 @@ export class Solution {
     }
   }
 
-  public IsUnsolved(): boolean {
+  public IsUnsolved (): boolean {
     for (const array of this.rootPieces.GetValues()) {
       for (const goal of array) {
         if (!goal.IsSolved()) {
@@ -333,23 +332,23 @@ export class Solution {
     return false
   }
 
-  public GetVisibleThingsAtTheMoment(): VisibleThingsMap {
+  public GetVisibleThingsAtTheMoment (): VisibleThingsMap {
     return this.currentlyVisibleThings
   }
 
-  public GetVisibleThingsAtTheStart(): VisibleThingsMap {
+  public GetVisibleThingsAtTheStart (): VisibleThingsMap {
     return this.startingThings
   }
 
-  public GetSize(): number {
+  public GetSize (): number {
     return this.remainingPiecesRepo.Size()
   }
 
-  public setReasonForBranching(lastBranchingPoint: string): void {
+  public setReasonForBranching (lastBranchingPoint: string): void {
     this.reasonForBranching = lastBranchingPoint
   }
 
-  public getReasonForBranching(): string {
+  public getReasonForBranching (): string {
     return this.reasonForBranching
   }
 }
