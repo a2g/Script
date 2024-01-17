@@ -33,7 +33,7 @@ export function ChooseDigIntoGoals (solver: SolverViaRootPiece): void {
         text.length > 8
           ? text + '<-- yellow is type of leaf, red is constraints'
           : NAME_NOT_DETERMINABLE
-      console.warn(`${letter}. ${label} ${solution.getLastBranchingPoint()}`)
+      console.warn(`${letter}. ${label} ${solution.getReasonForBranching()}`)
       for (const array of solution.GetRootMap().GetValues()) {
         for (const item of array) {
           listItemNumber++
@@ -69,14 +69,15 @@ export function ChooseDigIntoGoals (solver: SolverViaRootPiece): void {
       // show map entry for chosen item
       const theNumber = Number(input)
       if (theNumber > 0 && theNumber <= listItemNumber) {
-        let i = 0
-        for (const solution of solver.GetSolutions()) {
-          const goals = solution.GetRootMap().GetValues()
+        const solutions = solver.GetSolutions()
+        for (let i = 0; i < solutions.length; i++) {
+          const rootMap = solutions[i].GetRootMap()
+          const goals = rootMap.GetValues()
           for (const array of goals) {
             for (const goal of array) {
               i++
               if (i === theNumber) {
-                NavigatePieceRecursive(goal.piece, solution.GetRootMap())
+                NavigatePieceRecursive(goal.piece, rootMap, solutions[i])
               }
             }
           }

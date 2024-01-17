@@ -52,7 +52,7 @@ function main (): void {
             console.warn('3. Leaves all boxes at once.')
             console.warn('4. Leaves a box-at-a-time`')
             console.warn('5. Order of Commands in solve')
-            console.warn('6. Choose Dig into goals 2')
+            console.warn('6. Choose Dig into goals (old)')
             console.warn('7. Check for unused props and invs <-- delete these from enums')
             console.warn('8. Play')
 
@@ -62,10 +62,10 @@ function main (): void {
             }
             switch (choice) {
               case '1':
-                ChooseDigIntoGoals(solverPrimedWithCombined)
+                ChooseDigIntoGoals2(solverPrimedWithFirstBox)
                 break
               case '2':
-                ChooseDigIntoGoals(solverPrimedWithFirstBox)
+                ChooseDigIntoGoals2(solverPrimedWithCombined)
                 break
               case '3':
                 ChooseListOfLeaves(solverPrimedWithCombined)
@@ -77,7 +77,7 @@ function main (): void {
                 ChooseOrderOfCommands(solverPrimedWithFirstBox)
                 break
               case '6':
-                ChooseDigIntoGoals2(solverPrimedWithFirstBox)
+                ChooseDigIntoGoals(solverPrimedWithFirstBox)
                 break
               case '7':
                 ChooseToFindUnused(combined)

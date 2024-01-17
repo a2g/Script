@@ -15,11 +15,11 @@ export class SolverViaRootPiece {
   private readonly solutions: Solution[]
 
   private readonly mapOfStartingThingsAndWhoCanHaveThem: Map<
-  string,
-  Set<string>
+    string,
+    Set<string>
   >
 
-  constructor (box: IBoxReadOnly) {
+  constructor(box: IBoxReadOnly) {
     // we collect the other boxes, but only for
     // collecting all rootmap
     const rootMap = new RootPieceMap(null)
@@ -41,7 +41,7 @@ export class SolverViaRootPiece {
       const newRootMap = rootMap.CloneAllRootPiecesAndTheirTrees()
       newRootMap.AddPiece(winGoal.piece)
 
-      const firstSolution = new Solution(
+      const firstSolution = Solution.createSolution(
         newRootMap,
         box.GetNewPileOfPieces(),
         [],
@@ -66,11 +66,11 @@ export class SolverViaRootPiece {
     this.GenerateSolutionNamesAndPush()
   }
 
-  public NumberOfSolutions (): number {
+  public NumberOfSolutions(): number {
     return this.solutions.length
   }
 
-  public SolvePartiallyUntilCloning (): boolean {
+  public SolvePartiallyUntilCloning(): boolean {
     let hasACloneJustBeenCreated = false
     this.solutions.forEach((solution: Solution) => {
       if (solution.IsUnsolved()) {
@@ -84,17 +84,17 @@ export class SolverViaRootPiece {
     return hasACloneJustBeenCreated
   }
 
-  public GetSolutions (): Solution[] {
+  public GetSolutions(): Solution[] {
     return this.solutions
   }
 
-  public MarkGoalsAsCompletedAndMergeIfNeeded (): void {
+  public MarkGoalsAsCompletedAndMergeIfNeeded(): void {
     for (const solution of this.solutions) {
       solution.MarkGoalsAsContainingNullsAndMergeIfNeeded()
     }
   }
 
-  public RemoveSolution (solution: Solution): void {
+  public RemoveSolution(solution: Solution): void {
     for (let i = 0; i < this.solutions.length; i++) {
       if (this.solutions[i] === solution) {
         this.solutions.splice(i, 1)
@@ -102,7 +102,7 @@ export class SolverViaRootPiece {
     }
   }
 
-  public GenerateSolutionNamesAndPush (): void {
+  public GenerateSolutionNamesAndPush(): void {
     for (let i = 0; i < this.solutions.length; i++) {
       // now lets find out the amount leafNode name exists in all the other solutions
       const mapForCounting = new Map<string, number>()
@@ -129,7 +129,6 @@ export class SolverViaRootPiece {
 
       // find least popular leaf in solution i
       const currSolution = this.solutions[i]
-      currSolution.ClearNameSegments()
       let minLeafNodeNameCount = 1000 // something high
       let minLeafNodeName = ''
 
@@ -165,14 +164,18 @@ export class SolverViaRootPiece {
         }
       }
 
-      currSolution.PushNameSegment(
-        'sol_' +
-        minLeafNodeName +
-        Colors.Reset +
-        (accumulatedRestrictions.size > 0
-          ? AddBrackets(GetDisplayName(Array.from(accumulatedRestrictions)))
-          : '')
-      )
+      if (minLeafNodeName !== '') {
+        if (!currSolution.GetLastDisplayNameSegment().startsWith('sol_')) {
+          currSolution.PushDisplayNameSegment(
+            'sol_' +
+            minLeafNodeName +
+            Colors.Reset +
+            (accumulatedRestrictions.size > 0
+              ? AddBrackets(GetDisplayName(Array.from(accumulatedRestrictions)))
+              : '')
+          )
+        }
+      }
     }
   }
 }

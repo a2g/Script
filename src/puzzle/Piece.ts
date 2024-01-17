@@ -373,7 +373,7 @@ export class Piece {
 
             lastBranchingPoint += ' ' + this.GetOutput()
 
-            theSolution.setLastBranchingPoint(lastBranchingPoint)
+            theSolution.setReasonForBranching(lastBranchingPoint)
             solutions.GetSolutions().push(theSolution)
           }
 

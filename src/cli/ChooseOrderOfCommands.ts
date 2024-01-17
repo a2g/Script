@@ -9,8 +9,8 @@ export function ChooseOrderOfCommands (solver: SolverViaRootPiece): void {
   console.warn(' ')
 
   let infoLevel = 1
-  for (;;) {
-    for (let i = 0; i < 200; i++) {
+  for (; ;) {
+    for (let i = 0; i < 20; i++) {
       solver.SolvePartiallyUntilCloning()
       solver.MarkGoalsAsCompletedAndMergeIfNeeded()
     }
