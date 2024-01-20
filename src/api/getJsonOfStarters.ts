@@ -30,7 +30,8 @@ export function getJsonOfStarters (): $IStarter[] {
     '.gitignore',
     'package.json',
     'tsconfig.json',
-    '.git'
+    '.git',
+    '.DS_Store'
   ])
   process.chdir('./exclusive-worlds')
   const folders = fs.readdirSync('.')

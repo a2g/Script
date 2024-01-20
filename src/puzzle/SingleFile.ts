@@ -291,7 +291,7 @@ export class SingleFile {
                 inputB1
               ),
               this.path,
-              isNoFile
+              true // there's no file, its dynamic
             )
 
             if (!isCopyRootPiecesOnly) {
@@ -314,7 +314,7 @@ export class SingleFile {
                   inputA2
                 ),
                 this.path,
-                isNoFile
+                true // there's no file, its dynamic
               )
               const happs3 = new Happenings()
               happs3.array.push(
@@ -337,7 +337,7 @@ export class SingleFile {
                   inputB3
                 ),
                 this.path,
-                isNoFile
+                true // there's no file, its dynamic
               )
             }
           }
@@ -506,7 +506,7 @@ export class SingleFile {
                 inputB1
               ),
               this.path,
-              isNoFile
+              true // there's no file, its dynamic
             )
 
             if (!isCopyRootPiecesOnly) {
@@ -528,7 +528,7 @@ export class SingleFile {
                   inputA2
                 ),
                 this.path,
-                isNoFile
+                true // there's no file, its dynamic
               )
               const happs3 = new Happenings()
               happs3.array.push(new Happening(Happen.PropGoes, prop1))
@@ -550,7 +550,7 @@ export class SingleFile {
                   inputB3
                 ),
                 this.path,
-                isNoFile
+                true // there's no file, its dynamic
               )
             }
           }
@@ -773,7 +773,7 @@ export class SingleFile {
           inputF
         ),
         this.path,
-        isNoFile
+        isNoFile // defer to variable at end of file
       )
     }
   }
