@@ -1,6 +1,6 @@
 import { AddBrackets } from './AddBrackets'
 import { Colors } from './Colors'
-import { startsWithGoalNumber } from './startsWithGoalNumber'
+import { startsWithGoal } from './startsWithGoal'
 
 export function GetDisplayName (
   input: string | string[],
@@ -38,7 +38,7 @@ export function GetDisplayName (
   if (single.startsWith('prop_')) {
     return Colors.Cyan + single.slice(5) + Colors.Reset
   }
-  if (startsWithGoalNumber(single)) {
+  if (startsWithGoal(single)) {
     return Colors.Green + single.slice(1) + Colors.Reset
   }
   if (single.startsWith('char_')) {

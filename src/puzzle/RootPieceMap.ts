@@ -40,9 +40,9 @@ export class RootPieceMap implements IPileOrRootPieceMap {
 
   public AddPiece (piece: Piece, folder = '', isNoFile = true): void {
     if (piece.type.startsWith('AUTO_GOAL1_MET') ||
-    piece.type.startsWith('GOAL1_MET')) {
+      piece.type.startsWith('GOAL1_MET')) {
       const goal1 = piece.output
-      if (goal1 !== '99_win' && !isNoFile) {
+      if (goal1 !== 'x-win' && !isNoFile) {
         const file = `${goal1}.jsonc`
         if (!existsSync(folder + file)) {
           throw new Error(
@@ -85,7 +85,7 @@ export class RootPieceMap implements IPileOrRootPieceMap {
       const winGoal = allWinGaols[0]
       GenerateMapOfLeavesTracingGoalsRecursively(
         winGoal.piece,
-        '99_win',
+        'x-win',
         leaves,
         this
       )
@@ -134,11 +134,11 @@ export class RootPieceMap implements IPileOrRootPieceMap {
   }
 
   public GetAllWinGoals (): RootPiece[] | undefined {
-    return this.roots.get('99_win')
+    return this.roots.get('x-win')
   }
 
   public RemoveAllWinGoals (): void {
-    this.roots.delete('99_win')
+    this.roots.delete('x-win')
   }
 
   public RemovePieceById (id: number): void {

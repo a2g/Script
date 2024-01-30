@@ -31,7 +31,7 @@ export class SolverViaRootPiece {
 
     const allWinGoal = rootMap.GetAllWinGoals()
     if (allWinGoal == null || allWinGoal.length === 0) {
-      throw new Error(`No 99_win was found among the ${boxes.size} boxes`)
+      throw new Error(`No x-win was found among the ${boxes.size} boxes`)
     }
     rootMap.RemoveAllWinGoals()
 

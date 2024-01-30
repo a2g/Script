@@ -9,7 +9,7 @@ import { SpecialTypes } from './SpecialTypes'
  * #### Example
  * eg GenerateMapOfLeavesTracingGoalsRecursively(
         winGoal.piece,
-        '99_win',
+        'x-win',
         leaves,
         theRootPieceMap
       )

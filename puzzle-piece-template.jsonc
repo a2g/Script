@@ -562,15 +562,15 @@
                 }
               },
               {
-                "properties":{
-                  "piece":{
+                "properties": {
+                  "piece": {
                     "const": "INV1_BECOMES_INV2_AS_PROP1_BECOMES_PROP2_SUB"
                   }
                 }
               },
               {
-                "properties":{
-                  "piece":{
+                "properties": {
+                  "piece": {
                     "const": "INV1_OBTAINED_WHEN_LOSING_INV2_AND_PROP1_BECOMES_PROP2_SUB"
                   }
                 }
@@ -662,6 +662,20 @@
               "inv2",
               "inv3",
               "inv4"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "piece": {
+                "const": "CHAT1_GENERATED_PIECE_PLACEHOLDER"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "chat1"
             ]
           }
         }

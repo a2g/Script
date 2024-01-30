@@ -1,4 +1,3 @@
-
 {
   "$schema": "./03 defs.jsonc",
   "startingThings": [
@@ -24,7 +23,7 @@
     },
     {
       "piece": "AUTO_GOAL1_MET_BY_PROPS",
-      "goal1": "99_win",
+      "goal1": "x-win",
       "prop1": "prop_crank_in_wall",
       "prop2": "prop_rocket_gate_buttered"
     }

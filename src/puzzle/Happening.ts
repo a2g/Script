@@ -1,5 +1,5 @@
 import { Happen } from './Happen'
-import { startsWithGoalNumber } from './startsWithGoalNumber'
+import { startsWithGoal } from './startsWithGoal'
 
 /*
 These are all the state changes that can occur
@@ -11,7 +11,7 @@ export class Happening {
   public itemA: string
   public itemB: string
 
-  constructor (type: Happen, itemA: string, itemB = '') {
+  constructor(type: Happen, itemA: string, itemB = '') {
     if (itemA.length === 0) {
       throw new Error('item needs to be non null')
     }
@@ -52,11 +52,11 @@ export class Happening {
       case Happen.GoalIsDecremented:
       case Happen.GoalIsIncremented:
       case Happen.GoalIsSet:
-        if (!startsWithGoalNumber(itemA)) {
+        if (!startsWithGoal(itemA)) {
           console.warn(
             'Convention mismatch! the item (' +
-              itemA +
-              ') does not begin with a goal number"'
+            itemA +
+            ') does not begin with a goal prefix"'
           )
         }
         break
