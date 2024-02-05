@@ -12,9 +12,10 @@ import { parse } from 'jsonc-parser'
 import { Mix } from './Mix'
 import { Verb } from './Verb'
 import { AlleviateBrackets } from './AlleviateBrackets'
+import { ChatParseAndAddPieces } from './ChatParseAndAddPieces'
 
 function makeGoalNameDeterministically (partA: string, partB: string): string {
-  return `00_dyn_${partA}_${partB}_goal`
+  return `x_gen_${partA}_${partB}_goal`
 }
 /**
  * Yup, this is the one location of these
@@ -54,13 +55,7 @@ export class SingleFile {
       if (piece.count !== undefined) {
         count = piece.count
       }
-      const prop1 = Stringify(piece.prop1)
-      const prop2 = Stringify(piece.prop2)
-      const prop3 = Stringify(piece.prop3)
-      const prop4 = Stringify(piece.prop4)
-      const prop5 = Stringify(piece.prop5)
-      const prop6 = Stringify(piece.prop6)
-      const prop7 = Stringify(piece.prop7)
+      const chat1 = Stringify(piece.chat1)
       const goal1 = Stringify(piece.goal1)
       const goal2 = Stringify(piece.goal2)
       const goal3 = Stringify(piece.goal3)
@@ -71,6 +66,14 @@ export class SingleFile {
       const inv2 = Stringify(piece.inv2)
       const inv3 = Stringify(piece.inv3)
       const inv4 = Stringify(piece.inv4)
+      const prop1 = Stringify(piece.prop1)
+      const prop2 = Stringify(piece.prop2)
+      const prop3 = Stringify(piece.prop3)
+      const prop4 = Stringify(piece.prop4)
+      const prop5 = Stringify(piece.prop5)
+      const prop6 = Stringify(piece.prop6)
+      const prop7 = Stringify(piece.prop7)
+
       const isNoFile = piece.isNoFile === undefined ? false : piece.isNoFile as boolean
       const { restrictions } = piece
       let output = 'undefined'
@@ -137,6 +140,9 @@ export class SingleFile {
           inputB = prop1
           output = prop2
           command = new Command(Verb.Auto, Mix.AutoNeedsNothing, '')
+          break
+        case _.CHAT1_GENERATED_PIECE_PLACEHOLDER:
+          ChatParseAndAddPieces(this.path, chat1, piecesMappedByOutput)
           break
         case _.EXAMINE_PROP1_YIELDS_INV1:
           happs.text = `You examine the ${prop1} and find a ${inv1}`

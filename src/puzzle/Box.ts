@@ -8,6 +8,7 @@ import { SingleFile } from './SingleFile'
 import { Stringify } from './Stringify'
 import { VisibleThingsMap } from './VisibleThingsMap'
 import { parse } from 'jsonc-parser'
+import { Dialog } from './dialog/Dialog'
 
 /**
  * So the most important part of this class is that the data
@@ -16,11 +17,11 @@ import { parse } from 'jsonc-parser'
  * so that's in there too.
  */
 export class Box implements IBoxReadOnlyWithFileMethods {
-  public static GetArrayOfSingleObjectVerbs (): string[] {
+  public static GetArrayOfSingleObjectVerbs(): string[] {
     return ['grab', 'toggle']
   }
 
-  public static GetArrayOfInitialStatesOfSingleObjectVerbs (): boolean[] {
+  public static GetArrayOfInitialStatesOfSingleObjectVerbs(): boolean[] {
     return [true, true]
   }
 
@@ -50,9 +51,12 @@ export class Box implements IBoxReadOnlyWithFileMethods {
 
   private readonly pieces: PileOfPieces
 
-  constructor (path: string, filename: string) {
+  private readonly dialogs: Map<String, Dialog>
+
+  constructor(path: string, filename: string) {
     this.isNotMergingAnymoreBoxes = false
     this.path = path
+    this.dialogs = new Map<String, Dialog>()
     this.filename = filename
     if (!existsSync(path + filename)) {
       throw new Error(
@@ -151,83 +155,83 @@ export class Box implements IBoxReadOnlyWithFileMethods {
     }
   }
 
-  public IsNotMergingAnymoreBoxes (): boolean {
+  public IsNotMergingAnymoreBoxes(): boolean {
     return this.isNotMergingAnymoreBoxes
   }
 
-  public CopyAllOtherPiecesFromBoxToPile (pile: PileOfPieces): void {
+  public CopyAllOtherPiecesFromBoxToPile(pile: PileOfPieces): void {
     this.pieces.CopyAllPiecesToPile(pile)
   }
 
-  public CopyStartingPropsToGivenSet (givenSet: Set<string>): void {
+  public CopyStartingPropsToGivenSet(givenSet: Set<string>): void {
     for (const prop of this.startingPropSet) {
       givenSet.add(prop)
     }
   }
 
-  public CopyStartingGoalsToGivenSet (givenSet: Set<string>): void {
+  public CopyStartingGoalsToGivenSet(givenSet: Set<string>): void {
     for (const goal of this.startingGoalSet) {
       givenSet.add(goal)
     }
   }
 
-  public CopyStartingInvsToGivenSet (givenSet: Set<string>): void {
+  public CopyStartingInvsToGivenSet(givenSet: Set<string>): void {
     for (const inv of this.startingInvSet) {
       givenSet.add(inv)
     }
   }
 
-  public CopyStartingThingCharsToGivenMap (givenMap: VisibleThingsMap): void {
+  public CopyStartingThingCharsToGivenMap(givenMap: VisibleThingsMap): void {
     for (const item of this.mapOfStartingThings.GetIterableIterator()) {
       givenMap.Set(item[0], item[1])
     }
   }
 
-  public CopyPropsToGivenSet (givenSet: Set<string>): void {
+  public CopyPropsToGivenSet(givenSet: Set<string>): void {
     for (const prop of this.allProps) {
       givenSet.add(prop)
     }
   }
 
-  public CopyGoalsToGivenSet (givenSet: Set<string>): void {
+  public CopyGoalsToGivenSet(givenSet: Set<string>): void {
     for (const goal of this.allGoals) {
       givenSet.add(goal)
     }
   }
 
-  public CopyInvsToGivenSet (givenSet: Set<string>): void {
+  public CopyInvsToGivenSet(givenSet: Set<string>): void {
     for (const inv of this.allInvs) {
       givenSet.add(inv)
     }
   }
 
-  public CopyCharsToGivenSet (givenSet: Set<string>): void {
+  public CopyCharsToGivenSet(givenSet: Set<string>): void {
     for (const character of this.allChars) {
       givenSet.add(character)
     }
   }
 
-  public GetArrayOfProps (): string[] {
+  public GetArrayOfProps(): string[] {
     return this.allProps
   }
 
-  public GetArrayOfInvs (): string[] {
+  public GetArrayOfInvs(): string[] {
     return this.allInvs
   }
 
-  public GetArrayOfGoals (): string[] {
+  public GetArrayOfGoals(): string[] {
     return this.allGoals
   }
 
-  public GetArrayOfSingleObjectVerbs (): string[] {
+  public GetArrayOfSingleObjectVerbs(): string[] {
     return this.GetArrayOfSingleObjectVerbs()
   }
 
-  public GetArrayOfInitialStatesOfSingleObjectVerbs (): boolean[] {
+  public GetArrayOfInitialStatesOfSingleObjectVerbs(): boolean[] {
     return this.GetArrayOfInitialStatesOfSingleObjectVerbs()
   }
 
-  public GetArrayOfInitialStatesOfGoals (): number[] {
+  public GetArrayOfInitialStatesOfGoals(): number[] {
     // construct array of booleans in exact same order as ArrayOfProps - so they can be correlated
     const startingSet = this.GetSetOfStartingGoals()
     const initialStates: number[] = []
@@ -238,23 +242,23 @@ export class Box implements IBoxReadOnlyWithFileMethods {
     return initialStates
   }
 
-  public GetSetOfStartingGoals (): Set<string> {
+  public GetSetOfStartingGoals(): Set<string> {
     return this.startingGoalSet
   }
 
-  public GetSetOfStartingProps (): Set<string> {
+  public GetSetOfStartingProps(): Set<string> {
     return this.startingPropSet
   }
 
-  public GetSetOfStartingInvs (): Set<string> {
+  public GetSetOfStartingInvs(): Set<string> {
     return this.startingInvSet
   }
 
-  public GetMapOfAllStartingThings (): VisibleThingsMap {
+  public GetMapOfAllStartingThings(): VisibleThingsMap {
     return this.mapOfStartingThings
   }
 
-  public GetStartingThingsForCharacter (charName: string): Set<string> {
+  public GetStartingThingsForCharacter(charName: string): Set<string> {
     const startingThingSet = new Set<string>()
     for (const item of this.mapOfStartingThings.GetIterableIterator()) {
       for (const name of item[1]) {
@@ -267,7 +271,7 @@ export class Box implements IBoxReadOnlyWithFileMethods {
     return startingThingSet
   }
 
-  public GetArrayOfInitialStatesOfProps (): boolean[] {
+  public GetArrayOfInitialStatesOfProps(): boolean[] {
     // construct array of booleans in exact same order as ArrayOfProps - so they can be correlated
     const startingSet = this.GetSetOfStartingProps()
     const visibilities: boolean[] = []
@@ -278,7 +282,7 @@ export class Box implements IBoxReadOnlyWithFileMethods {
     return visibilities
   }
 
-  public GetArrayOfInitialStatesOfInvs (): boolean[] {
+  public GetArrayOfInitialStatesOfInvs(): boolean[] {
     // construct array of booleans in exact same order as ArrayOfProps - so they can be correlated
     const startingSet = this.GetSetOfStartingInvs()
     const visibilities: boolean[] = []
@@ -289,19 +293,19 @@ export class Box implements IBoxReadOnlyWithFileMethods {
     return visibilities
   }
 
-  public GetArrayOfCharacters (): string[] {
+  public GetArrayOfCharacters(): string[] {
     return this.allChars
   }
 
-  public GetFilename (): string {
+  public GetFilename(): string {
     return this.filename
   }
 
-  public GetPath (): string {
+  public GetPath(): string {
     return this.path
   }
 
-  public CopyFullGoalPiecesTreesToContainer (map: IPileOrRootPieceMap): void {
+  public CopyFullGoalPiecesTreesToContainer(map: IPileOrRootPieceMap): void {
     for (const array of this.goalPieceMap.GetValues()) {
       for (const goal of array) {
         const clonedPiece = goal.piece.ClonePieceAndEntireTree()
@@ -310,7 +314,7 @@ export class Box implements IBoxReadOnlyWithFileMethods {
     }
   }
 
-  public CollectAllReferencedBoxesRecursively (
+  public CollectAllReferencedBoxesRecursively(
     map: Map<string, IBoxReadOnly>
   ): void {
     map.set(this.filename, this)
@@ -323,13 +327,17 @@ export class Box implements IBoxReadOnlyWithFileMethods {
     }
   }
 
-  public GetNewPileOfPieces (): PileOfPieces {
+  public GetNewPileOfPieces(): PileOfPieces {
     const pile = new PileOfPieces(null)
     this.CopyAllOtherPiecesFromBoxToPile(pile)
     return pile
   }
 
-  public ReplaceInputsThatMatchAWithB (a: string, b: string): number {
+  public ReplaceInputsThatMatchAWithB(a: string, b: string): number {
     return this.pieces.ReplaceInputsThatMatchAWithB(a, b)
+  }
+
+  public AddDialog(dialog: Dialog) {
+    //do nothing
   }
 }

@@ -11,7 +11,7 @@ export class Happening {
   public itemA: string
   public itemB: string
 
-  constructor(type: Happen, itemA: string, itemB = '') {
+  constructor (type: Happen, itemA: string, itemB = '') {
     if (itemA.length === 0) {
       throw new Error('item needs to be non null')
     }

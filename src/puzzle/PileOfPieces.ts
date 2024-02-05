@@ -1,3 +1,4 @@
+import { Dialog } from './dialog/Dialog'
 import { IPileOfPiecesReadOnly } from './IPileOfPiecesReadOnly'
 import { Piece } from './Piece'
 
@@ -16,7 +17,8 @@ import { Piece } from './Piece'
 export class PileOfPieces implements IPileOfPiecesReadOnly {
   private readonly piecesMappedByOutput: Map<string, Set<Piece>>
   private readonly displayName: string
-  constructor (cloneFromMe: IPileOfPiecesReadOnly | null, displayName = '') {
+  private readonly dialogs: Map<String, Dialog>
+  constructor(cloneFromMe: IPileOfPiecesReadOnly | null, displayName = '') {
     this.displayName = displayName
     this.piecesMappedByOutput = new Map<string, Set<Piece>>()
     if (cloneFromMe != null) {
@@ -35,7 +37,7 @@ export class PileOfPieces implements IPileOfPiecesReadOnly {
     }
   }
 
-  public RemovePiece (piece: Piece): void {
+  public RemovePiece(piece: Piece): void {
     if (piece.reuseCount - 1 <= 0) {
       const key = piece.output
       if (this.piecesMappedByOutput.has(key)) {
@@ -52,7 +54,7 @@ export class PileOfPieces implements IPileOfPiecesReadOnly {
     }
   }
 
-  public GetAutos (): Piece[] {
+  public GetAutos(): Piece[] {
     const toReturn: Piece[] = []
     this.piecesMappedByOutput.forEach((setOfPieces: Set<Piece>) => {
       setOfPieces.forEach((piece: Piece) => {
@@ -64,7 +66,7 @@ export class PileOfPieces implements IPileOfPiecesReadOnly {
     return toReturn
   }
 
-  public AddPiece (piece: Piece, _folder = '', _isNoFile = true): void {
+  public AddPiece(piece: Piece, _folder = '', _isNoFile = true): void {
     if (!piece.type.startsWith('AUTO_GOAL1_MET')) {
       // initialize array, if it hasn't yet been
       if (!this.piecesMappedByOutput.has(piece.output)) {
@@ -75,7 +77,7 @@ export class PileOfPieces implements IPileOfPiecesReadOnly {
     }
   }
 
-  public GetSinglePieceById (idToMatch: number): Piece | null {
+  public GetSinglePieceById(idToMatch: number): Piece | null {
     for (const set of this.piecesMappedByOutput.values()) {
       for (const piece of set) {
         if (piece.id === idToMatch) {
@@ -86,7 +88,7 @@ export class PileOfPieces implements IPileOfPiecesReadOnly {
     return null
   }
 
-  public GetPiecesThatOutputString (objectToObtain: string): Set<Piece> {
+  public GetPiecesThatOutputString(objectToObtain: string): Set<Piece> {
     // since the remainingPieces are a map index by output piece
     // then a remainingPieces.Get will retrieve all matching pieces.
     // BUT...
@@ -101,7 +103,7 @@ export class PileOfPieces implements IPileOfPiecesReadOnly {
     return new Set<Piece>()
   }
 
-  public Size (): number {
+  public Size(): number {
     let count = 0
     for (const set of this.piecesMappedByOutput.values()) {
       count += set.size
@@ -109,19 +111,19 @@ export class PileOfPieces implements IPileOfPiecesReadOnly {
     return count
   }
 
-  public Has (givenOutput: string): boolean {
+  public Has(givenOutput: string): boolean {
     return this.piecesMappedByOutput.has(givenOutput)
   }
 
-  public Get (givenOutput: string): Set<Piece> | undefined {
+  public Get(givenOutput: string): Set<Piece> | undefined {
     return this.piecesMappedByOutput.get(givenOutput)
   }
 
-  public GetIterator (): IterableIterator<Set<Piece>> {
+  public GetIterator(): IterableIterator<Set<Piece>> {
     return this.piecesMappedByOutput.values()
   }
 
-  public CopyAllPiecesToPile (destinationPile: PileOfPieces): void {
+  public CopyAllPiecesToPile(destinationPile: PileOfPieces): void {
     this.piecesMappedByOutput.forEach((setOfPieces: Set<Piece>) => {
       setOfPieces.forEach((piece: Piece) => {
         destinationPile.AddPiece(piece, '', true)
@@ -129,7 +131,7 @@ export class PileOfPieces implements IPileOfPiecesReadOnly {
     })
   }
 
-  public ReplaceInputsThatMatchAWithB (a: string, b: string): number {
+  public ReplaceInputsThatMatchAWithB(a: string, b: string): number {
     let stubbings = 0
     this.piecesMappedByOutput.forEach((setOfPieces: Set<Piece>) => {
       setOfPieces.forEach((unusedPiece: Piece) => {
