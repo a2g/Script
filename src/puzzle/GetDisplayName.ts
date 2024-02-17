@@ -1,6 +1,6 @@
+import { IdPrefixes } from '../../IdPrefixes'
 import { AddBrackets } from './AddBrackets'
 import { Colors } from './Colors'
-import { startsWithGoal } from './startsWithGoal'
 
 export function GetDisplayName (
   input: string | string[],
@@ -26,22 +26,22 @@ export function GetDisplayName (
       Colors.Reset
     )
   }
-  if (single.startsWith('sol_goal_')) {
+  if (single.startsWith('sol_x')) {
     return Colors.Yellow + single.slice(9) + Colors.Reset
   }
   if (single.startsWith('sol_inv_')) {
     return Colors.Yellow + single.slice(8) + Colors.Reset
   }
-  if (single.startsWith('inv_')) {
+  if (single.startsWith(IdPrefixes.Inv)) {
     return Colors.Green + single.slice(4) + Colors.Reset
   }
-  if (single.startsWith('prop_')) {
+  if (single.startsWith(IdPrefixes.Prop)) {
     return Colors.Cyan + single.slice(5) + Colors.Reset
   }
-  if (startsWithGoal(single)) {
+  if (single.startsWith(IdPrefixes.Goal)) {
     return Colors.Green + single.slice(1) + Colors.Reset
   }
-  if (single.startsWith('char_')) {
+  if (single.startsWith(IdPrefixes.Char)) {
     return (
       Colors.Red +
       AddBrackets(single.slice(5), isParenthesisNeeded) +

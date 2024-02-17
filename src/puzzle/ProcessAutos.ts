@@ -1,3 +1,4 @@
+import { IdPrefixes } from '../../IdPrefixes'
 import { Happener } from './Happener'
 import { PileOfPieces } from './PileOfPieces'
 
@@ -13,15 +14,15 @@ export function ProcessAutos (
   for (const piece of autos) {
     let numberSatisfied = 0
     for (const inputName of piece.inputHints) {
-      if (inputName.startsWith('prop_')) {
+      if (inputName.startsWith(IdPrefixes.Prop)) {
         if (props.includes(inputName)) {
           numberSatisfied += 1
         }
-      } else if (inputName.startsWith('inv_')) {
+      } else if (inputName.startsWith(IdPrefixes.Inv)) {
         if (items.includes(inputName)) {
           numberSatisfied += 1
         }
-      } else if (inputName.startsWith('goal_')) {
+      } else if (inputName.startsWith(IdPrefixes.Goal)) {
         if (goals.includes(inputName)) {
           numberSatisfied += 1
         }

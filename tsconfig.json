@@ -69,7 +69,7 @@
   "include": [
     "src/**/*",
     "puzzle-pieces.ts",
-    "Suffix.ts",
+    "FilenameSuffixes.ts",
     "testsYup/**/*"
   ],
   "exclude": [

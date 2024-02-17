@@ -1,5 +1,5 @@
 import { existsSync } from 'fs'
-import { Suffix } from '../../Suffix'
+import { FilenameSuffixes } from '../../FilenameSuffixes'
 import { Box } from '../puzzle/Box'
 import { FormatText } from '../puzzle/FormatText'
 import { Piece } from '../puzzle/Piece'
@@ -19,7 +19,7 @@ export function getJsonOfAllSolutions (
   area: string
 ): Record<string, unknown> {
   const path = `${process.cwd()}/${repo}/${world}/`
-  const firstBoxFilename = `${area}${Suffix.FirstBox}.jsonc`
+  const firstBoxFilename = `${area}${FilenameSuffixes.FirstBox}.jsonc`
 
   if (!existsSync(path + firstBoxFilename)) {
     throw Error(`file doesn't exist ${path}${firstBoxFilename}`)

@@ -1,4 +1,4 @@
-export const Suffix = {
+export const FilenameSuffixes = {
   Campaign: 'campaign',
   AreaMap: 'area-map',
   Connections: 'connections',

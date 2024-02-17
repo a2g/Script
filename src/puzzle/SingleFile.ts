@@ -13,15 +13,15 @@ import { Mix } from './Mix'
 import { Verb } from './Verb'
 import { AlleviateBrackets } from './AlleviateBrackets'
 import { ChatParseAndAddPieces } from './ChatParseAndAddPieces'
+import { GetNextId } from './chat/GetNextId'
 
-function makeGoalNameDeterministically (partA: string, partB: string): string {
+function makeGoalNameDeterministically(partA: string, partB: string): string {
   return `x_gen_${partA}_${partB}_goal`
 }
 /**
  * Yup, this is the one location of these
  * And when the pieces are cloned, these ids get cloned too
  */
-let globalId = 1
 
 export class SingleFile {
   text: string
@@ -29,26 +29,25 @@ export class SingleFile {
   path: string
   file: string
 
-  public constructor (path: string, filename: string) {
+  public constructor(path: string, filename: string) {
     this.text = readFileSync(path + filename, 'utf-8')
     this.scenario = parse(this.text)
     this.path = path
     this.file = filename
   }
 
-  public copyAllPiecesToContainer (
+  public copyAllPiecesToContainer(
     piecesMappedByOutput: IPileOrRootPieceMap
   ): void {
     this.copyPiecesToContainer(piecesMappedByOutput)
   }
 
-  private copyPiecesToContainer (
+  private copyPiecesToContainer(
     piecesMappedByOutput: IPileOrRootPieceMap
   ): void {
     const isCopyRootPiecesOnly = false
     for (const piece of this.scenario.pieces) {
-      const id1 = globalId
-      globalId += 1
+      const id1 = GetNextId()
 
       const pieceType: string = piece.piece
       let count = 1

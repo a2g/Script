@@ -1,4 +1,4 @@
-import { Dialog } from './dialog/Dialog'
+import { ChatFile } from './chat/ChatFile'
 import { Piece } from './Piece'
 /**
  *  Needed to be able to pass around a pile of pieces that was readonly,
@@ -9,7 +9,7 @@ export interface IPileOfPiecesReadOnly {
   GetPiecesThatOutputString: (objectToObtain: string) => Set<Piece>
   Has: (objectToObtain: string) => boolean
   Get: (objectToObtain: string) => Set<Piece> | undefined
-  GetIterator: () => IterableIterator<Set<Piece>>
+  GetPieceIterator: () => IterableIterator<Set<Piece>>
   Size: () => number
-  AddDialog: (dialog: Dialog) => void
+  AddDialog: (dialog: ChatFile) => void
 }

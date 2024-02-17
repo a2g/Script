@@ -9,7 +9,7 @@ export function ChooseToFindUnused (box: IBoxReadOnly): void {
   box.CopyAllOtherPiecesFromBoxToPile(pile)
   box.CopyFullGoalPiecesTreesToContainer(pile)
   // eslint-disable-next-line no-undef
-  const it: IterableIterator<Set<Piece>> = pile.GetIterator()
+  const it: IterableIterator<Set<Piece>> = pile.GetPieceIterator()
 
   for (const set of it) {
     for (const piece of set) {

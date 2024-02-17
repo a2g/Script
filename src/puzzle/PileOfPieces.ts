@@ -1,5 +1,6 @@
-import { Dialog } from './dialog/Dialog'
+import { ChatFile } from './chat/ChatFile'
 import { IPileOfPiecesReadOnly } from './IPileOfPiecesReadOnly'
+import { IPileOrRootPieceMap } from './IPileOrRootPieceMap'
 import { Piece } from './Piece'
 
 /**
@@ -14,15 +15,21 @@ import { Piece } from './Piece'
  * - GetPiecesThatOutputString returns empty set if no match
  * - GetSinglePieceById matches by id
  */
-export class PileOfPieces implements IPileOfPiecesReadOnly {
+export class PileOfPieces implements IPileOfPiecesReadOnly, IPileOrRootPieceMap {
   private readonly piecesMappedByOutput: Map<string, Set<Piece>>
   private readonly displayName: string
-  private readonly dialogs: Map<String, Dialog>
+  private readonly dialogs: Map<String, ChatFile>
+
   constructor(cloneFromMe: IPileOfPiecesReadOnly | null, displayName = '') {
     this.displayName = displayName
     this.piecesMappedByOutput = new Map<string, Set<Piece>>()
+    this.dialogs = new Map<String, ChatFile>()
     if (cloneFromMe != null) {
-      for (const set of cloneFromMe.GetIterator()) {
+      for (const dialog of this.dialogs.values()) {
+        const clone = dialog.Clone()
+        this.dialogs.set(dialog.GetName(), clone)
+      }
+      for (const set of cloneFromMe.GetPieceIterator()) {
         if (set.size > 0) {
           const clonedSet = new Set<Piece>()
           let outputName = ''
@@ -119,7 +126,7 @@ export class PileOfPieces implements IPileOfPiecesReadOnly {
     return this.piecesMappedByOutput.get(givenOutput)
   }
 
-  public GetIterator(): IterableIterator<Set<Piece>> {
+  public GetPieceIterator(): IterableIterator<Set<Piece>> {
     return this.piecesMappedByOutput.values()
   }
 
@@ -145,5 +152,9 @@ export class PileOfPieces implements IPileOfPiecesReadOnly {
       })
     })
     return stubbings
+  }
+
+  AddDialog(dialog: ChatFile): void {
+    this.dialogs.set(dialog.GetName(), dialog)
   }
 }

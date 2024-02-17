@@ -1,6 +1,6 @@
 import { existsSync, readFileSync } from 'fs'
 import { create } from 'xmlbuilder2'
-import { Suffix } from '../../Suffix'
+import { FilenameSuffixes } from '../../FilenameSuffixes'
 import { Graph } from '../location/Graph'
 import { Point } from '../location/Point'
 
@@ -25,8 +25,8 @@ export function getSvg (
   paramB: string
 ): string {
   const path = `${process.cwd()}/${repo}/${world}/`
-  const areaMapFilename = `${area}${Suffix.FirstBox}.jsonc`
-  const connectionsFilename = `${area}${Suffix.Connections}.jsonc`
+  const areaMapFilename = `${area}${FilenameSuffixes.FirstBox}.jsonc`
+  const connectionsFilename = `${area}${FilenameSuffixes.Connections}.jsonc`
   if (!existsSync(path + areaMapFilename)) {
     throw Error(
       `file doesn't exist ${process.cwd()} ${path}${areaMapFilename}`

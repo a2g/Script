@@ -1,6 +1,6 @@
 import * as fs from 'fs'
 import { join } from 'path'
-import { Suffix } from '../../Suffix'
+import { FilenameSuffixes } from '../../FilenameSuffixes'
 
 export interface $IStarter {
   // used by CLI
@@ -49,8 +49,8 @@ export function getJsonOfStarters (): $IStarter[] {
     process.chdir(`./${repo}/${world}`)
     const files = fs.readdirSync('.')
     for (const file of files) {
-      if (file.endsWith(`${Suffix.FirstBox}.jsonc`)) {
-        const index = file.indexOf(Suffix.FirstBox)
+      if (file.endsWith(`${FilenameSuffixes.FirstBox}.jsonc`)) {
+        const index = file.indexOf(FilenameSuffixes.FirstBox)
         const area = file.substring(0, index)
         toReturn.push({
           // these are needed for CLI

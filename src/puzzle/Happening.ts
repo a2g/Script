@@ -1,5 +1,5 @@
+import { IdPrefixes } from '../../IdPrefixes'
 import { Happen } from './Happen'
-import { startsWithGoal } from './startsWithGoal'
 
 /*
 These are all the state changes that can occur
@@ -52,7 +52,7 @@ export class Happening {
       case Happen.GoalIsDecremented:
       case Happen.GoalIsIncremented:
       case Happen.GoalIsSet:
-        if (!startsWithGoal(itemA)) {
+        if (!itemA.startsWith(IdPrefixes.Goal)) {
           console.warn(
             'Convention mismatch! the item (' +
             itemA +

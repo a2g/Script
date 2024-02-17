@@ -1,6 +1,6 @@
 import { existsSync } from 'fs'
 import { Box } from './Box'
-import { Dialog } from './dialog/Dialog'
+import { ChatFile } from './chat/ChatFile'
 import { GenerateMapOfLeavesRecursively } from './GenerateMapOfLeavesRecursively'
 import { GenerateMapOfLeavesTracingGoalsRecursively } from './GenerateMapOfLeavesTraccingGoalsRecursively'
 import { IPileOrRootPieceMap } from './IPileOrRootPieceMap'
@@ -154,7 +154,7 @@ export class RootPieceMap implements IPileOrRootPieceMap {
     throw new Error("Id was not found, and couldn't remove")
   }
 
-  public AddDialog(dialog: Dialog) {
-    //do nothing
+  public AddDialog(_dialog: ChatFile): void {
+    // do nothing
   }
 }

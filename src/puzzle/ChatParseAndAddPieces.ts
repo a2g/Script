@@ -1,11 +1,17 @@
 import { existsSync, readFileSync } from 'fs'
 import { parse } from 'jsonc-parser'
-import { ChoicePage } from './dialog/ChoicePage'
-import { Dialog } from './dialog/Dialog'
-import { NonChoicePage } from './dialog/NonChoicePage'
+import { ChoicePage } from './chat/ChoicePage'
+import { ChatFile } from './chat/ChatFile'
+import { NonChoicePage } from './chat/NonChoicePage'
 import { IPileOrRootPieceMap } from './IPileOrRootPieceMap'
 
-export function ChatParseAndAddPieces(path: string, chat1: string, pileOrRootPieceMap: IPileOrRootPieceMap): void {
+export function ChatParseAndAddPieces(path: string, chat1: string, pile: IPileOrRootPieceMap): void {
+  const dialog = createDialogFromJsonFile(path, chat1)
+  pile.AddDialog(dialog)
+  dialog.FindAndAddPiecesRecursively('starter', '', [], pile)
+}
+
+function createDialogFromJsonFile(path: string, chat1: string): ChatFile {
   const pathAndFile = path + chat1 + '.jsonc'
   if (!existsSync(pathAndFile)) {
     throw new Error(
@@ -16,17 +22,20 @@ export function ChatParseAndAddPieces(path: string, chat1: string, pileOrRootPie
   const parsedJson: any = parse(text)
   const chatter = parsedJson.chatter
 
-  const dialog: Dialog = new Dialog();
+  const dialog: ChatFile = new ChatFile(chat1)
 
   for (const key in chatter) {
     const array = chatter[key]
 
     if (key.endsWith('_choices')) {
-      dialog.AddChoice(new ChoicePage(pathAndFile, key, array));
+      const choicePage = new ChoicePage(pathAndFile, key)
+      choicePage.Init(array)
+      dialog.AddChoicePage(choicePage)
     } else {
-      dialog.AddNonChoice(new NonChoicePage(pathAndFile, key, array));
+      const nonChoicePage = new NonChoicePage(pathAndFile, key)
+      nonChoicePage.Init(array)
+      dialog.AddNonChoicePage(nonChoicePage)
     }
   }
-
-  pileOrRootPieceMap.AddDialog(dialog)
+  return dialog
 }

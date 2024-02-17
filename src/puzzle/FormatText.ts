@@ -1,6 +1,7 @@
 import { AddBrackets } from './AddBrackets'
 import { Colors } from './Colors'
-import { startsWithGoal } from './startsWithGoal'
+
+import { IdPrefixes } from '../../IdPrefixes'
 
 export function FormatText (
   input: string | string[],
@@ -26,7 +27,7 @@ export function FormatText (
       Colors.Reset
     )
   }
-  if (single.startsWith('sol_goal_')) {
+  if (single.startsWith('sol_x')) {
     if (!isColor) return single.slice(9)
     return Colors.Yellow + single.slice(9) + Colors.Reset
   }
@@ -34,19 +35,19 @@ export function FormatText (
     if (!isColor) return single.slice(8)
     return Colors.Yellow + single.slice(8) + Colors.Reset
   }
-  if (single.startsWith('inv_')) {
+  if (single.startsWith(IdPrefixes.Inv)) {
     if (!isColor) return single.slice(4)
     return Colors.Green + single.slice(4) + Colors.Reset
   }
-  if (single.startsWith('prop_')) {
+  if (single.startsWith(IdPrefixes.Prop)) {
     if (!isColor) return single.slice(5)
     return Colors.Cyan + single.slice(5) + Colors.Reset
   }
-  if (startsWithGoal(single)) {
+  if (single.startsWith(IdPrefixes.Goal)) {
     if (!isColor) return single.slice(1)
     return Colors.Green + single.slice(1) + Colors.Reset
   }
-  if (single.startsWith('char_')) {
+  if (single.startsWith(IdPrefixes.Char)) {
     if (!isColor) return AddBrackets(single.slice(5), isParenthesisNeeded)
     return (
       Colors.Red +
