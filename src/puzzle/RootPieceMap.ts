@@ -4,6 +4,7 @@ import { ChatFile } from './chat/ChatFile'
 import { GenerateMapOfLeavesRecursively } from './GenerateMapOfLeavesRecursively'
 import { GenerateMapOfLeavesTracingGoalsRecursively } from './GenerateMapOfLeavesTraccingGoalsRecursively'
 import { IPileOrRootPieceMap } from './IPileOrRootPieceMap'
+import { IsAGoalMetPieceType } from './IsAGoalMetPieceType'
 import { Piece } from './Piece'
 import { RootPiece } from './RootPiece'
 /**
@@ -22,7 +23,7 @@ import { RootPiece } from './RootPiece'
 export class RootPieceMap implements IPileOrRootPieceMap {
   private readonly roots: Map<string, RootPiece[]>
 
-  constructor (deepCopyFromMe: RootPieceMap | null) {
+  constructor(deepCopyFromMe: RootPieceMap | null) {
     this.roots = new Map<string, RootPiece[]>()
     if (deepCopyFromMe != null) {
       for (const pair of deepCopyFromMe.roots) {
@@ -39,10 +40,8 @@ export class RootPieceMap implements IPileOrRootPieceMap {
     }
   }
 
-  public AddPiece (piece: Piece, folder = '', isNoFile = true): void {
-    if (piece.type.startsWith('TALK_GAINS_GOAL1') ||
-      piece.type.startsWith('AUTO_GOAL1_MET') ||
-      piece.type.startsWith('GOAL1_MET')) {
+  public AddPiece(piece: Piece, folder = '', isNoFile = true): void {
+    if (IsAGoalMetPieceType(piece.type)) {
       const goal1 = piece.output
       if (goal1 !== 'x-win' && !isNoFile) {
         const file = `${goal1}.jsonc`
@@ -68,7 +67,7 @@ export class RootPieceMap implements IPileOrRootPieceMap {
    * @isOnlyNulls if its only null leaves to be returned
    * @returns unsolved root nodes
    */
-  public GenerateMapOfLeavesFromAllRoots (
+  public GenerateMapOfLeavesFromAllRoots(
     isOnlyNulls: boolean
   ): Map<string, Piece> {
     const leaves = new Map<string, Piece>()
@@ -80,7 +79,7 @@ export class RootPieceMap implements IPileOrRootPieceMap {
     return leaves
   }
 
-  public GenerateMapOfLeavesFromWinGoal (): Map<string, Piece> {
+  public GenerateMapOfLeavesFromWinGoal(): Map<string, Piece> {
     const allWinGaols = this.GetAllWinGoals()
     const leaves = new Map<string, Piece>()
     if (allWinGaols?.length === 1) {
@@ -95,7 +94,7 @@ export class RootPieceMap implements IPileOrRootPieceMap {
     return leaves
   }
 
-  public GetRootPieceArrayByName (name: string): RootPiece[] {
+  public GetRootPieceArrayByName(name: string): RootPiece[] {
     const root = this.roots.get(name)
     if (typeof root === 'undefined' || root === null) {
       throw new Error(`rootPiece of that name doesn't exist ${name}`)
@@ -103,11 +102,11 @@ export class RootPieceMap implements IPileOrRootPieceMap {
     return root
   }
 
-  public RemoveAllWithName (name: string): void {
+  public RemoveAllWithName(name: string): void {
     this.roots.delete(name)
   }
 
-  public CalculateListOfKeys (): string[] {
+  public CalculateListOfKeys(): string[] {
     const array: string[] = []
     for (const key of this.roots.keys()) {
       array.push(key)
@@ -115,35 +114,35 @@ export class RootPieceMap implements IPileOrRootPieceMap {
     return array
   }
 
-  public Size (): number {
+  public Size(): number {
     return this.roots.size
   }
 
-  public GetValues (): IterableIterator<RootPiece[]> {
+  public GetValues(): IterableIterator<RootPiece[]> {
     return this.roots.values()
   }
 
-  public CloneAllRootPiecesAndTheirTrees (): RootPieceMap {
+  public CloneAllRootPiecesAndTheirTrees(): RootPieceMap {
     return new RootPieceMap(this)
   }
 
-  public Has (goalToObtain: string): boolean {
+  public Has(goalToObtain: string): boolean {
     return this.roots.has(goalToObtain)
   }
 
-  public GetRootPieceArrayByNameNoThrow (goal: string): RootPiece[] | undefined {
+  public GetRootPieceArrayByNameNoThrow(goal: string): RootPiece[] | undefined {
     return this.roots.get(goal)
   }
 
-  public GetAllWinGoals (): RootPiece[] | undefined {
+  public GetAllWinGoals(): RootPiece[] | undefined {
     return this.roots.get('x-win')
   }
 
-  public RemoveAllWinGoals (): void {
+  public RemoveAllWinGoals(): void {
     this.roots.delete('x-win')
   }
 
-  public RemovePieceById (id: number): void {
+  public RemovePieceById(id: number): void {
     for (const array of this.roots.values()) {
       for (let i = 0; i < array.length; i++) {
         if (array[i].piece.id === id) {
@@ -155,7 +154,7 @@ export class RootPieceMap implements IPileOrRootPieceMap {
     throw new Error("Id was not found, and couldn't remove")
   }
 
-  public AddDialog (_dialog: ChatFile): void {
+  public AddDialog(_dialog: ChatFile): void {
     // do nothing
   }
 }
