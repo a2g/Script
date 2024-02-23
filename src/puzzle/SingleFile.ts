@@ -15,7 +15,7 @@ import { AlleviateBrackets } from './AlleviateBrackets'
 import { ChatParseAndAddPieces } from './ChatParseAndAddPieces'
 import { GetNextId } from './chat/GetNextId'
 
-function makeGoalNameDeterministically(partA: string, partB: string): string {
+function makeGoalNameDeterministically (partA: string, partB: string): string {
   return `x_gen_${partA}_${partB}_goal`
 }
 /**
@@ -29,20 +29,20 @@ export class SingleFile {
   path: string
   file: string
 
-  public constructor(path: string, filename: string) {
+  public constructor (path: string, filename: string) {
     this.text = readFileSync(path + filename, 'utf-8')
     this.scenario = parse(this.text)
     this.path = path
     this.file = filename
   }
 
-  public copyAllPiecesToContainer(
+  public copyAllPiecesToContainer (
     piecesMappedByOutput: IPileOrRootPieceMap
   ): void {
     this.copyPiecesToContainer(piecesMappedByOutput)
   }
 
-  private copyPiecesToContainer(
+  private copyPiecesToContainer (
     piecesMappedByOutput: IPileOrRootPieceMap
   ): void {
     const isCopyRootPiecesOnly = false
@@ -54,7 +54,7 @@ export class SingleFile {
       if (piece.count !== undefined) {
         count = piece.count
       }
-      const chat1 = Stringify(piece.chat1)
+      const talk1 = Stringify(piece.talk1)
       const goal1 = Stringify(piece.goal1)
       const goal2 = Stringify(piece.goal2)
       const goal3 = Stringify(piece.goal3)
@@ -140,8 +140,8 @@ export class SingleFile {
           output = prop2
           command = new Command(Verb.Auto, Mix.AutoNeedsNothing, '')
           break
-        case _.CHAT1_GENERATED_PIECE_PLACEHOLDER:
-          ChatParseAndAddPieces(this.path, chat1, piecesMappedByOutput)
+        case _.TALK1_GENERATED_PIECE_PLACEHOLDER:
+          ChatParseAndAddPieces(this.path, talk1, piecesMappedByOutput)
           break
         case _.EXAMINE_PROP1_YIELDS_INV1:
           happs.text = `You examine the ${prop1} and find a ${inv1}`

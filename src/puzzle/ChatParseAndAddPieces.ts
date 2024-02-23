@@ -5,14 +5,16 @@ import { ChatFile } from './chat/ChatFile'
 import { NonChoicePage } from './chat/NonChoicePage'
 import { IPileOrRootPieceMap } from './IPileOrRootPieceMap'
 
-export function ChatParseAndAddPieces(path: string, chat1: string, pile: IPileOrRootPieceMap): void {
-  const dialog = createDialogFromJsonFile(path, chat1)
+export function ChatParseAndAddPieces (path: string, talk1: string, pile: IPileOrRootPieceMap): void {
+  const dialog = createDialogFromJsonFile(path, talk1)
   pile.AddDialog(dialog)
+  // const tempPile = new PileOfPieces(null)
   dialog.FindAndAddPiecesRecursively('starter', '', [], pile)
+  // tempPile.CopyPiecesToGivenPile(pile)
 }
 
-function createDialogFromJsonFile(path: string, chat1: string): ChatFile {
-  const pathAndFile = path + chat1 + '.jsonc'
+function createDialogFromJsonFile (fileAddress: string, talk1: string): ChatFile {
+  const pathAndFile = fileAddress + talk1 + '.jsonc'
   if (!existsSync(pathAndFile)) {
     throw new Error(
       `The chat jsonc was ont found: ${pathAndFile} `
@@ -22,7 +24,7 @@ function createDialogFromJsonFile(path: string, chat1: string): ChatFile {
   const parsedJson: any = parse(text)
   const chatter = parsedJson.chatter
 
-  const dialog: ChatFile = new ChatFile(chat1)
+  const dialog: ChatFile = new ChatFile(talk1, fileAddress)
 
   for (const key in chatter) {
     const array = chatter[key]

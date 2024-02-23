@@ -669,13 +669,13 @@
           "if": {
             "properties": {
               "piece": {
-                "const": "CHAT1_GENERATED_PIECE_PLACEHOLDER"
+                "const": "TALK1_GENERATED_PIECE_PLACEHOLDER"
               }
             }
           },
           "then": {
             "required": [
-              "chat1"
+              "talk1"
             ]
           }
         }

@@ -5,20 +5,23 @@ import { GetNextId } from './GetNextId'
 import { NonChoicePage } from './NonChoicePage'
 import _ from '../../../puzzle-piece-enums.json'
 import { IPileOrRootPieceMap } from '../IPileOrRootPieceMap'
+import { existsSync } from 'fs'
 
 export class ChatFile {
   name: string
+  fileAddress: string
   choices: Map<string, ChoicePage>
   nonChoices: Map<String, NonChoicePage>
 
-  constructor(name: string) {
+  constructor (name: string, fileAddress: string) {
     this.name = name
+    this.fileAddress = fileAddress
     this.choices = new Map<string, ChoicePage>()
     this.nonChoices = new Map<string, NonChoicePage>()
   }
 
-  public Clone(): ChatFile {
-    const dialog = new ChatFile(this.GetName())
+  public Clone (): ChatFile {
+    const dialog = new ChatFile(this.GetName(), this.fileAddress)
     for (const choice of this.choices.values()) {
       dialog.AddChoicePage(choice.Clone())
     }
@@ -28,19 +31,19 @@ export class ChatFile {
     return dialog
   }
 
-  public AddChoicePage(choice: ChoicePage): void {
+  public AddChoicePage (choice: ChoicePage): void {
     this.choices.set(choice.GetKey(), choice)
   }
 
-  public AddNonChoicePage(nonChoice: NonChoicePage): void {
+  public AddNonChoicePage (nonChoice: NonChoicePage): void {
     this.nonChoices.set(nonChoice.GetKey(), nonChoice)
   }
 
-  public GetName(): string {
+  public GetName (): string {
     return this.name
   }
 
-  public FindAndAddPiecesRecursively(name: string, path: string, requisites: string[], pile: IPileOrRootPieceMap): void {
+  public FindAndAddPiecesRecursively (name: string, path: string, requisites: string[], pile: IPileOrRootPieceMap): void {
     if (name.endsWith('_choices')) {
       const choicePage = this.choices.get(name)
       if (choicePage != null) {
@@ -65,15 +68,24 @@ export class ChatFile {
           const inputF = (requisites.length > 5) ? requisites[5] : 'undefined'
           const id = GetNextId()
           let type = ''
+          let isNoFile = true
           if (output.startsWith(IdPrefixes.Goal)) {
             type = _.TALK_GAINS_GOAL1_WITH_VARIOUS_REQUISITES
+            if (existsSync(this.fileAddress + output + '.jsonc')) {
+              isNoFile = false
+            }
           } else if (output.startsWith(IdPrefixes.Inv)) {
             type = _.TALK_GAINS_INV1_WITH_VARIOUS_REQUISITES
           } else if (output.startsWith(IdPrefixes.Prop)) {
             type = _.TALK_GAINS_PROP1_WITH_VARIOUS_REQUISITES
           }
           const piece = new Piece(id, null, output, type, 1, null, null, null, inputA, inputB, inputC, inputD, inputE, inputF)
-          pile.AddPiece(piece, '', true)
+          pile.AddPiece(piece, this.fileAddress, isNoFile)
+        } else if (nonChoicePage.goto.length > 0) {
+          // nonChoice pages only have one goto
+          // but they have a name - its valid
+          // unlike choices, they don't have requisites, so we add existing
+          this.FindAndAddPiecesRecursively(nonChoicePage.goto, `${path}/${name}`, requisites, pile)
         }
       }
     }

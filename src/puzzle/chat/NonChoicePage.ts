@@ -29,9 +29,10 @@ export class NonChoicePage {
 
   public Init (arrayOfArrayOfStrings: string[][]): void {
     for (const arrayOfTokens of arrayOfArrayOfStrings) {
-      if (arrayOfTokens.length < 2) {
+      const firstToken = arrayOfTokens.length > 0 ? arrayOfTokens[0] : ''
+      if (firstToken !== 'exit' && arrayOfTokens.length < 2) {
         throw new Error(
-          `The happens page called ${this.key} does not have a minimum of 2 cells in it: ${this.file} `
+          `Minimum not met ${firstToken} of '${this.key}'  ${this.file}`
         )
       }
       if (typeof arrayOfTokens[0] === 'number') {
@@ -39,11 +40,13 @@ export class NonChoicePage {
           `The entry ${this.key} is a plain happens key, but one of its first cells are numeric : ${this.file} `
         )
       }
-      const firstToken = arrayOfTokens[0]
-      const secondToken = arrayOfTokens[0]
-      if (firstToken === 'goto') {
+
+      const secondToken = arrayOfTokens[1]
+      if (firstToken === 'exit') {
+        this.goto = 'exit'
+      } else if (firstToken === 'goto') {
         this.goto = secondToken
-      } else if (firstToken === 'gain') {
+      } else if (firstToken === 'gains') {
         this.gains = secondToken
       }
     }
