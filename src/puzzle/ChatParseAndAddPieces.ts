@@ -9,7 +9,8 @@ export function ChatParseAndAddPieces (path: string, talk1: string, pile: IPileO
   const dialog = createDialogFromJsonFile(path, talk1)
   pile.AddDialog(dialog)
   // const tempPile = new PileOfPieces(null)
-  dialog.FindAndAddPiecesRecursively('starter', '', [], pile)
+  const blankMap = new Map<string, string>()
+  dialog.FindAndAddPiecesRecursively('starter', '', [], blankMap, pile)
   // tempPile.CopyPiecesToGivenPile(pile)
 }
 

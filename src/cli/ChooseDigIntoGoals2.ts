@@ -46,11 +46,11 @@ export function ChooseDigIntoGoals2 (solver: SolverViaRootPiece): void {
       return
     }
 
-    let incomplete = 0
     if (firstInput === 'r') {
       solver.SolvePartiallyUntilCloning()
       continue
     } else {
+      let incomplete = 0
       const theNumber = Number(firstInput)
       if (theNumber < 1 || theNumber > solver.GetSolutions().length) {
         continue
@@ -70,20 +70,20 @@ export function ChooseDigIntoGoals2 (solver: SolverViaRootPiece): void {
 
         console.warn(`A. ${label} ${solution.getReasonForBranching()}`)
         let listItemNumber = 0
-        for (const array of solution.GetRootMap().GetValues()) {
-          for (const item of array) {
+        for (const rootGoals of solution.GetRootMap().GetValues()) {
+          for (const rootGoal of rootGoals) {
             listItemNumber++
 
             // display list item
-            const { output } = item.piece
+            const { output } = rootGoal.piece
             let inputs = ''
-            for (const inputSpiel of item.piece.inputSpiels) {
+            for (const inputSpiel of rootGoal.piece.inputSpiels) {
               inputs += `${FormatText(inputSpiel)},`
             }
             console.warn(
-              `    ${listItemNumber}. ${FormatText(output)} ${AddBrackets(inputs)} (status=${item.IsSolved() ? 'Solved' : 'Unsolved'})`
+              `    ${listItemNumber}. ${FormatText(output)} ${AddBrackets(inputs)} (status=${rootGoal.IsSolved() ? 'Solved' : 'Unsolved'})`
             )
-            incomplete += item.IsSolved() ? 0 : 1
+            incomplete += rootGoal.IsSolved() ? 0 : 1
           }
         }
 

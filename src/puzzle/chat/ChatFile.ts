@@ -43,14 +43,14 @@ export class ChatFile {
     return this.name
   }
 
-  public FindAndAddPiecesRecursively (name: string, path: string, requisites: string[], pile: IPileOrRootPieceMap): void {
+  public FindAndAddPiecesRecursively (name: string, path: string, requisites: string[], mapOGainsByPage: Map<string, string>, pile: IPileOrRootPieceMap): void {
     if (name.endsWith('_choices')) {
       const choicePage = this.choices.get(name)
       if (choicePage != null) {
         for (const queue of choicePage.mapOfQueues.values()) {
           for (const line of queue.values()) {
             if (line.goto.length > 0) {
-              this.FindAndAddPiecesRecursively(line.goto, `${path}/${name}`, [...requisites, ...line.theseRequisites], pile)
+              this.FindAndAddPiecesRecursively(line.goto, `${path}/${name}`, [...requisites, ...line.theseRequisites], mapOGainsByPage, pile)
             }
           }
         }
@@ -58,7 +58,7 @@ export class ChatFile {
     } else {
       const nonChoicePage = this.nonChoices.get(name)
       if (nonChoicePage != null) {
-        if (nonChoicePage.gains.length > 0) {
+        if (nonChoicePage.gains.length > 0 && !mapOGainsByPage.has(name)) {
           const output = nonChoicePage.gains
           const inputA = (requisites.length > 0) ? requisites[0] : 'undefined'
           const inputB = (requisites.length > 1) ? requisites[1] : 'undefined'
@@ -81,11 +81,12 @@ export class ChatFile {
           }
           const piece = new Piece(id, null, output, type, 1, null, null, null, inputA, inputB, inputC, inputD, inputE, inputF)
           pile.AddPiece(piece, this.fileAddress, isNoFile)
+          mapOGainsByPage.set(name, output)
         } else if (nonChoicePage.goto.length > 0) {
           // nonChoice pages only have one goto
           // but they have a name - its valid
           // unlike choices, they don't have requisites, so we add existing
-          this.FindAndAddPiecesRecursively(nonChoicePage.goto, `${path}/${name}`, requisites, pile)
+          this.FindAndAddPiecesRecursively(nonChoicePage.goto, `${path}/${name}`, requisites, mapOGainsByPage, pile)
         }
       }
     }
