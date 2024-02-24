@@ -99,7 +99,7 @@
       "prop1": "prop_crank_attached_to_well"
     },
     {
-      "piece": "INV1_OBTAINED_WHEN_LOSING_INV2_AND_PROP1_BECOMES_PROP2_SUB",
+      "piece": "INV1_OBTAINED_WHEN_LOSING_INV2_AND_PROP1_BECOMES_PROP2_GEN",
       "inv1": "inv_bucket_of_water",
       "inv2": "inv_crank",
       "prop1": "prop_well",

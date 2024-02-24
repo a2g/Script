@@ -274,7 +274,7 @@ export class SingleFile {
           output = goal1
           command = new Command(Verb.Give, Mix.InvVsProp, inv1, prop1)
           break
-        case _.INV1_BECOMES_INV2_AS_PROP1_BECOMES_PROP2_SUB:
+        case _.INV1_BECOMES_INV2_AS_PROP1_BECOMES_PROP2_GEN:
           {
             const newGoal = makeGoalNameDeterministically(inv1, prop1)
             const happs1 = new Happenings()
@@ -483,7 +483,7 @@ export class SingleFile {
           inputB = prop2
           command = new Command(Verb.Open, Mix.PropVsProp, prop1, prop2)
           break
-        case _.INV1_OBTAINED_WHEN_LOSING_INV2_AND_PROP1_BECOMES_PROP2_SUB:
+        case _.INV1_OBTAINED_WHEN_LOSING_INV2_AND_PROP1_BECOMES_PROP2_GEN:
           {
             happs.text = `When you use the ${inv2} with the ${prop1}, you obtain an ${inv1} as the ${prop1} becomes a ${prop2}`
             happs.array.push(new Happening(Happen.InvGoes, inv2))

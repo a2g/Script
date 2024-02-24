@@ -50,7 +50,6 @@ export function ChooseDigIntoGoals2 (solver: SolverViaRootPiece): void {
       solver.SolvePartiallyUntilCloning()
       continue
     } else {
-      let incomplete = 0
       const theNumber = Number(firstInput)
       if (theNumber < 1 || theNumber > solver.GetSolutions().length) {
         continue
@@ -70,6 +69,7 @@ export function ChooseDigIntoGoals2 (solver: SolverViaRootPiece): void {
 
         console.warn(`A. ${label} ${solution.getReasonForBranching()}`)
         let listItemNumber = 0
+        let incomplete = 0
         for (const rootGoals of solution.GetRootMap().GetValues()) {
           for (const rootGoal of rootGoals) {
             listItemNumber++

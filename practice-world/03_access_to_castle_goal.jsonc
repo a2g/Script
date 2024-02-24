@@ -36,7 +36,7 @@
       "prop1": "prop_fireplace_ladder"
     },
     {
-      "piece": "INV1_BECOMES_INV2_AS_PROP1_BECOMES_PROP2_SUB",
+      "piece": "INV1_BECOMES_INV2_AS_PROP1_BECOMES_PROP2_GEN",
       "isNoFile": true,
       "inv1": "inv_bucket_of_water",
       "inv2": "inv_empty_bucket_after_water",
