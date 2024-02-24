@@ -2,7 +2,7 @@ import promptSync from 'prompt-sync'
 import { BigBoxViaSetOfBoxes } from './puzzle/BigBoxViaSetOfBoxes'
 import { Box } from './puzzle/Box'
 import { SolverViaRootPiece } from './puzzle/SolverViaRootPiece'
-import { ChooseDigIntoGoals } from './cli/ChooseDigIntoGoals'
+import { ChooseDigDeprecated } from './cli/ChooseDigDeprecated'
 import { ChooseListOfLeaves } from './cli/ChooseListOfLeaves'
 import { ChooseOrderOfCommands } from './cli/ChooseOrderOfCommands'
 import { ChooseToFindUnused } from './cli/ChooseToFindUnused'
@@ -77,7 +77,7 @@ function main (): void {
                 ChooseOrderOfCommands(solverPrimedWithFirstBox)
                 break
               case '6':
-                ChooseDigIntoGoals(solverPrimedWithFirstBox)
+                ChooseDigDeprecated(solverPrimedWithFirstBox)
                 break
               case '7':
                 ChooseToFindUnused(combined)

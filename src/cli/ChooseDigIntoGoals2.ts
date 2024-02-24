@@ -6,7 +6,7 @@ import { TrimNonIntegratedRootPieces } from '../puzzle/TrimNonIntegratedRootPiec
 import { AddBrackets } from '../puzzle/AddBrackets'
 const prompt = promptSync({})
 
-export function ChooseDigIntoGoals2 (solver: SolverViaRootPiece): void {
+export function ChooseDigIntoGoals2(solver: SolverViaRootPiece): void {
   console.warn(' ')
 
   for (; ;) {
@@ -25,16 +25,16 @@ export function ChooseDigIntoGoals2 (solver: SolverViaRootPiece): void {
     }
     for (let i = 0; i < solver.GetSolutions().length; i++) {
       const solution = solver.GetSolutions()[i]
-      let numberOfUnsolveds = 0
+      let numberOfUnsolved = 0
       for (const goalArray of solution.GetRootMap().GetValues()) {
         for (const goal of goalArray) {
-          numberOfUnsolveds += goal.IsSolved() ? 0 : 1
+          numberOfUnsolved += goal.IsSolved() ? 0 : 1
         }
       }
       const reason = solution.getReasonForBranching()
       const name = FormatText(solution.GetDisplayNamesConcatenated())
       //  "1. XXXXXX"   <- this is the format we list the solutions
-      console.warn(`    ${i + 1}. ${name} number of unsolved goals=${numberOfUnsolveds}  reason= ${reason}`)
+      console.warn(`    ${i + 1}. ${name} number of unsolved goals=${numberOfUnsolved}  reason= ${reason}`)
     }
 
     // allow user to choose item

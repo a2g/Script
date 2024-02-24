@@ -273,8 +273,7 @@ export class Piece {
     solutions: SolverViaRootPiece
   ): boolean {
     for (let k = 0; k < this.inputs.length; k += 1) {
-      // classic for-loop useful because shared index on cloned piece
-      // without this following line, any clones will attempt to re-clone themselves
+      // Without this following line, any clones will attempt to re-clone themselves
       // and Solution.ProcessUntilCompletion will continue forever
       if (this.inputs[k] != null) {
         continue

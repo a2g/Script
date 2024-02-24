@@ -7,7 +7,7 @@ import { NavigatePieceRecursive } from './NavigatePieceRecursive'
 
 const prompt = promptSync({})
 
-export function ChooseDigIntoGoals (solver: SolverViaRootPiece): void {
+export function ChooseDigDeprecated (solver: SolverViaRootPiece): void {
   console.warn('ChooseDigIntoGoals... ')
 
   for (; ;) {
