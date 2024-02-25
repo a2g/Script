@@ -149,7 +149,7 @@ export class Solution {
   }
 
   public GetDisplayNamesConcatenated (): string {
-    let result = ''
+    let result = 'sol_'
     for (let i = 0; i < this.solutionNameSegments.length; i += 1) {
       const symbol = i === 0 ? '' : '/'
       result += symbol + FormatText(this.solutionNameSegments[i])

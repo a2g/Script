@@ -1,3 +1,4 @@
+import { IdPrefixes } from '../../IdPrefixes'
 import { AddBrackets } from './AddBrackets'
 import { FormatText } from './FormatText'
 import { Raw } from './Raw'
@@ -62,18 +63,21 @@ export class RawObjectsAndVerb {
         joiner = ' to '
         break
       case Raw.Auto:
-        if (this.objectB.startsWith('inv_')) {
+        if (this.objectB.startsWith(IdPrefixes.Inv)) {
           this.mainSpiel = `You obtain a ${objectB}`
           this.goalSpiel = `as a result of goal ${objectA}`
-        } else if (this.objectB.startsWith('prop_')) {
+        } else if (this.objectB.startsWith(IdPrefixes.Prop)) {
           this.mainSpiel = `You now see a ${objectB}`
           this.goalSpiel = `as a result of goal ${objectA}`
-        } else if (this.objectB.endsWith('_goal')) {
+        } else if (this.objectB.startsWith(IdPrefixes.Talk)) {
+          this.mainSpiel = `You now see a chatty ${objectB}`
+          this.goalSpiel = `as a result of goal ${objectA}`
+        } else if (this.objectB.startsWith(IdPrefixes.Goal)) {
           this.type = Raw.Goal
-          this.mainSpiel = `Goal complete ${objectB}`
+          this.mainSpiel = `Goal met ${objectB}`
           this.goalSpiel = `as a result of goal ${objectA}`
         } else {
-          this.mainSpiel = `${objectB} appears.... `
+          this.mainSpiel = `${objectB} generically appears.... `
         }
         return
     }

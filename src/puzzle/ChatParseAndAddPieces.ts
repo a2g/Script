@@ -8,10 +8,11 @@ import { IPileOrRootPieceMap } from './IPileOrRootPieceMap'
 export function ChatParseAndAddPieces (path: string, talk1: string, pile: IPileOrRootPieceMap): void {
   const dialog = createDialogFromJsonFile(path, talk1)
   pile.AddDialog(dialog)
-  // const tempPile = new PileOfPieces(null)
   const blankMap = new Map<string, string>()
-  dialog.FindAndAddPiecesRecursively('starter', '', [], blankMap, pile)
-  // tempPile.CopyPiecesToGivenPile(pile)
+  // talk1 is a subclass of a prop: it represents the character that
+  // you interact with and can be visible and invisible - just like a prop
+  // To talk to a prop it needs to be visible, so we add talk1 as a requisite
+  dialog.FindAndAddPiecesRecursively('starter', '', [talk1], blankMap, pile)
 }
 
 function createDialogFromJsonFile (fileAddress: string, talk1: string): ChatFile {

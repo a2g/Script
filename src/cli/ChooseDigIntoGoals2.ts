@@ -6,11 +6,10 @@ import { TrimNonIntegratedRootPieces } from '../puzzle/TrimNonIntegratedRootPiec
 import { AddBrackets } from '../puzzle/AddBrackets'
 const prompt = promptSync({})
 
-export function ChooseDigIntoGoals2(solver: SolverViaRootPiece): void {
+export function ChooseDigIntoGoals2 (solver: SolverViaRootPiece): void {
   console.warn(' ')
 
   for (; ;) {
-    solver.MarkGoalsAsCompletedAndMergeIfNeeded()
     const numberOfSolutions: number = solver.NumberOfSolutions()
     console.warn('Dig in to goals')
     console.warn('===============')
@@ -48,6 +47,7 @@ export function ChooseDigIntoGoals2(solver: SolverViaRootPiece): void {
 
     if (firstInput === 'r') {
       solver.SolvePartiallyUntilCloning()
+      solver.MarkGoalsAsCompletedAndMergeIfNeeded()
       continue
     } else {
       const theNumber = Number(firstInput)
@@ -98,6 +98,7 @@ export function ChooseDigIntoGoals2(solver: SolverViaRootPiece): void {
         }
         if (input === 'r') {
           solver.SolvePartiallyUntilCloning()
+          solver.MarkGoalsAsCompletedAndMergeIfNeeded()
           continue
         } else {
           // show map entry for chosen item

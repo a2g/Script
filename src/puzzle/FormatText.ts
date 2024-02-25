@@ -47,6 +47,10 @@ export function FormatText (
     if (!isColor) return single.slice(1)
     return Colors.Green + single.slice(1) + Colors.Reset
   }
+  if (single.startsWith(IdPrefixes.Talk) || single.startsWith(IdPrefixes.Talks)) {
+    if (!isColor) return single.slice(6)
+    return Colors.Red + single.slice(6) + Colors.Reset
+  }
   if (single.startsWith(IdPrefixes.Char)) {
     if (!isColor) return AddBrackets(single.slice(5), isParenthesisNeeded)
     return (
