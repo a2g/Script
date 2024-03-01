@@ -1,6 +1,6 @@
 import { ChoiceLine } from './ChoiceLine'
 
-export class ChoicePage {
+export class ChoiceSection {
   key: string
   file: string
   mapOfQueues: Map<String, ChoiceLine[]>
@@ -11,8 +11,8 @@ export class ChoicePage {
     this.mapOfQueues = new Map<String, ChoiceLine[]>()
   }
 
-  public Clone (): ChoicePage {
-    const clonedChoicePage = new ChoicePage(this.file, this.key)
+  public Clone (): ChoiceSection {
+    const clonedChoicePage = new ChoiceSection(this.file, this.key)
     this.mapOfQueues.forEach(
       (queue: ChoiceLine[], key: String) => {
         const clonedQueue: ChoiceLine[] = []
@@ -54,5 +54,19 @@ export class ChoicePage {
 
   public GetKey (): string {
     return this.key
+  }
+
+  public GetAllTalkingWhilstChoosing (choiceToChoose: string): string[][] {
+    const toReturn = new Array<string[]>()
+    for (let i = 0; i < 20; i++) {
+      const queueForGivenIndex = this.mapOfQueues.get(i.toString())
+      if (queueForGivenIndex != null && queueForGivenIndex.length > 0) {
+        const choiceLine = queueForGivenIndex[0]
+        if (choiceLine.goto === choiceToChoose) {
+          toReturn.push(['you', choiceLine.speech])
+        }
+      }
+    }
+    return toReturn
   }
 }

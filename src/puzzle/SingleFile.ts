@@ -13,7 +13,7 @@ import { Mix } from './Mix'
 import { Verb } from './Verb'
 import { AlleviateBrackets } from './AlleviateBrackets'
 import { ChatParseAndAddPieces } from './ChatParseAndAddPieces'
-import { GetNextId } from './chat/GetNextId'
+import { GetNextId } from './talk/GetNextId'
 
 function makeGoalNameDeterministically (partA: string, partB: string): string {
   return `x_gen_${partA}_${partB}_goal`

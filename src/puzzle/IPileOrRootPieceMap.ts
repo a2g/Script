@@ -1,8 +1,8 @@
 
-import { ChatFile } from './chat/ChatFile'
+import { TalkFile } from './talk/TalkFile'
 import { Piece } from './Piece'
 
 export interface IPileOrRootPieceMap {
   AddPiece: (piece: Piece, folder: string, isNoFile: boolean) => void
-  AddDialog: (dialog: ChatFile) => void
+  AddTalkFile: (talkFile: TalkFile) => void
 }

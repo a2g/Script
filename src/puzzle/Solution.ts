@@ -11,6 +11,7 @@ import { SolverViaRootPiece } from './SolverViaRootPiece'
 import { VisibleThingsMap } from './VisibleThingsMap'
 import { IBoxReadOnlyWithFileMethods } from './IBoxReadOnlyWithFileMethods'
 import { createCommandFromAutoPiece } from './createCommandFromAutoPiece'
+import { TalkFile } from './talk/TalkFile'
 
 let globalSolutionId = 101
 /**
@@ -261,7 +262,8 @@ export class Solution {
     // push the commands
     const leafToRootTraverser = new DeconstructDoer(
       goal,
-      this.currentlyVisibleThings
+      this.currentlyVisibleThings,
+      this.GetTalks()
     )
     let rawObjectsAndVerb: RawObjectsAndVerb | null = null
     for (let j = 0; j < 200; j += 1) {
@@ -301,6 +303,7 @@ export class Solution {
         Raw.Goal,
         `completed (${goal.piece.output})`,
         '',
+        [],
         [],
         ''
       )
@@ -350,5 +353,9 @@ export class Solution {
 
   public getReasonForBranching (): string {
     return this.reasonForBranching
+  }
+
+  public GetTalks (): Map<string, TalkFile> {
+    return this.remainingPiecesRepo.GetTalks()
   }
 }

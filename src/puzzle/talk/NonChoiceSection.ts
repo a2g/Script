@@ -1,19 +1,19 @@
-export class NonChoicePage {
+export class NonChoiceSection {
   key: string
   file: string
   gains: string
   goto: string
-  arrayOfCommands: String[]
+  arrayOfOtherStuff: string[][]
 
   constructor (file: string, key: string) {
     this.file = file
     this.key = key
     this.gains = ''
     this.goto = ''
-    this.arrayOfCommands = new Array<String>()
+    this.arrayOfOtherStuff = new Array<string[]>()
   }
 
-  Clone (): NonChoicePage {
+  Clone (): NonChoiceSection { // TODO - this MUST be changed
     // these pages are immutable, so can share it around
     return this
     // const clonedChoicePage = new NonChoicePage(this.file, this.key)
@@ -48,11 +48,19 @@ export class NonChoicePage {
         this.goto = secondToken
       } else if (firstToken === 'gains') {
         this.gains = secondToken
+      } else {
+        this.arrayOfOtherStuff.push(arrayOfTokens)
       }
     }
   }
 
-  GetKey (): string {
+  public GetKey (): string {
     return this.key
+  }
+
+  public GetAllTalking (): string[][] {
+    const toReturn = new Array<string[]>()
+    toReturn.push(...this.arrayOfOtherStuff)
+    return toReturn
   }
 }

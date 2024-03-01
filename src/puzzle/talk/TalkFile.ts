@@ -1,41 +1,41 @@
 import { IdPrefixes } from '../../../IdPrefixes'
 import { Piece } from '../Piece'
-import { ChoicePage } from './ChoicePage'
+import { ChoiceSection } from './ChoiceSection'
 import { GetNextId } from './GetNextId'
-import { NonChoicePage } from './NonChoicePage'
-import _ from '../../../puzzle-piece-enums.json'
+import { NonChoiceSection } from './NonChoiceSection'
 import { IPileOrRootPieceMap } from '../IPileOrRootPieceMap'
 import { existsSync } from 'fs'
+import _ from '../../../puzzle-piece-enums.json'
 
-export class ChatFile {
+export class TalkFile {
   name: string
   fileAddress: string
-  choices: Map<string, ChoicePage>
-  nonChoices: Map<String, NonChoicePage>
+  choices: Map<string, ChoiceSection>
+  nonChoices: Map<String, NonChoiceSection>
 
   constructor (name: string, fileAddress: string) {
     this.name = name
     this.fileAddress = fileAddress
-    this.choices = new Map<string, ChoicePage>()
-    this.nonChoices = new Map<string, NonChoicePage>()
+    this.choices = new Map<string, ChoiceSection>()
+    this.nonChoices = new Map<string, NonChoiceSection>()
   }
 
-  public Clone (): ChatFile {
-    const dialog = new ChatFile(this.GetName(), this.fileAddress)
+  public Clone (): TalkFile {
+    const talkFile = new TalkFile(this.GetName(), this.fileAddress)
     for (const choice of this.choices.values()) {
-      dialog.AddChoicePage(choice.Clone())
+      talkFile.AddChoicePage(choice.Clone())
     }
     for (const nonChoice of this.nonChoices.values()) {
-      dialog.AddNonChoicePage(nonChoice.Clone())
+      talkFile.AddNonChoicePage(nonChoice.Clone())
     }
-    return dialog
+    return talkFile
   }
 
-  public AddChoicePage (choice: ChoicePage): void {
+  public AddChoicePage (choice: ChoiceSection): void {
     this.choices.set(choice.GetKey(), choice)
   }
 
-  public AddNonChoicePage (nonChoice: NonChoicePage): void {
+  public AddNonChoicePage (nonChoice: NonChoiceSection): void {
     this.nonChoices.set(nonChoice.GetKey(), nonChoice)
   }
 
@@ -44,7 +44,7 @@ export class ChatFile {
   }
 
   public FindAndAddPiecesRecursively (name: string, path: string, requisites: string[], mapOGainsByPage: Map<string, string>, pile: IPileOrRootPieceMap): void {
-    if (name.endsWith('_choices')) {
+    if (name.endsWith('choices')) {
       const choicePage = this.choices.get(name)
       if (choicePage != null) {
         for (const queue of choicePage.mapOfQueues.values()) {
@@ -71,7 +71,7 @@ export class ChatFile {
           let isNoFile = true
           if (output.startsWith(IdPrefixes.Goal)) {
             type = _.TALK_GAINS_GOAL1_WITH_VARIOUS_REQUISITES
-            if (existsSync(this.fileAddress + output + '.jsonc')) {
+            if (existsSync(`${this.fileAddress}${output}.jsonc`)) {
               isNoFile = false
             }
           } else if (output.startsWith(IdPrefixes.Inv)) {
@@ -80,6 +80,7 @@ export class ChatFile {
             type = _.TALK_GAINS_PROP1_WITH_VARIOUS_REQUISITES
           }
           const piece = new Piece(id, null, output, type, 1, null, null, null, inputA, inputB, inputC, inputD, inputE, inputF)
+          piece.SetTalkPath(`${path}/${name}`)
           pile.AddPiece(piece, this.fileAddress, isNoFile)
           mapOGainsByPage.set(name, output)
         } else if (nonChoicePage.goto.length > 0) {
@@ -90,5 +91,29 @@ export class ChatFile {
         }
       }
     }
+  }
+
+  GetAllTheTalkingNeededToGetToPath (talkPath: any): string[][] {
+    const toReturn = new Array<string[]>()
+    const splitted: string[] = talkPath.split('/')
+
+    for (let i = 0; i < splitted.length; i++) {
+      const segment = splitted[i]
+      if (segment.endsWith('choices')) {
+        const choicePage = this.choices.get(segment)
+        if (choicePage != null) {
+          const talkings = choicePage.GetAllTalkingWhilstChoosing(splitted[i + 1])
+          toReturn.push(...talkings)
+        }
+      } else {
+        const nonChoicePage = this.nonChoices.get(segment)
+        if (nonChoicePage != null) {
+          const talkings = nonChoicePage.GetAllTalking()
+          toReturn.push(...talkings)
+        }
+      }
+    }
+
+    return toReturn
   }
 }

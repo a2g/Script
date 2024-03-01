@@ -6,13 +6,14 @@ import { RawObjectsAndVerb } from './RawObjectsAndVerb'
 import { RootPiece } from './RootPiece'
 import { SpecialTypes } from './SpecialTypes'
 import { Stringify } from './Stringify'
+import { TalkFile } from './talk/TalkFile'
 import { VisibleThingsMap } from './VisibleThingsMap'
 
 export class DeconstructDoer {
   public rootOfCopiedTree: Piece
   public currentlyVisibleThings: VisibleThingsMap
-
-  public constructor (rootPiece: RootPiece, visibleThings: VisibleThingsMap) {
+  public theSolutionsTalkFiles: Map<string, TalkFile>
+  public constructor (rootPiece: RootPiece, visibleThings: VisibleThingsMap, theSolutionsTalkFiles: Map<string, TalkFile>) {
     // We can't just make the rootOfCopiedTree equal to the clone of the root,
     // we need to insert an extra level, so that it both:
     // - returns a command when the cloned root piece goes null
@@ -20,6 +21,7 @@ export class DeconstructDoer {
     this.rootOfCopiedTree = new Piece(0, null, 'nothing', '')
     this.rootOfCopiedTree.AddChildAndSetParent(rootPiece.piece.ClonePieceAndEntireTree())
     this.currentlyVisibleThings = visibleThings
+    this.theSolutionsTalkFiles = theSolutionsTalkFiles
   }
 
   public GetNextDoableCommandAndDeconstructTree (): RawObjectsAndVerb | null {
@@ -83,6 +85,7 @@ export class DeconstructDoer {
           '',
           '',
           piece.getRestrictions(),
+          [],
           piece.type
         )
       } else if (piece.type === SpecialTypes.ExistsFromBeginning) {
@@ -91,7 +94,9 @@ export class DeconstructDoer {
           '',
           '',
           piece.getRestrictions(),
+          [],
           piece.type
+
         )
       } else if (piece.type === SpecialTypes.VerifiedLeaf) {
         toReturn = new RawObjectsAndVerb(
@@ -99,6 +104,7 @@ export class DeconstructDoer {
           '',
           '',
           piece.getRestrictions(),
+          [],
           piece.type
         )
       } else if (piece.inputs.length === 0) {
@@ -107,6 +113,7 @@ export class DeconstructDoer {
           '',
           '',
           piece.getRestrictions(),
+          [],
           piece.type
         )
       } else if (isGrab) {
@@ -115,22 +122,32 @@ export class DeconstructDoer {
           piece.inputHints[0],
           '',
           piece.getRestrictions(),
+          [],
           piece.type
         )
       } else if (isTalk) {
-        toReturn = new RawObjectsAndVerb(
-          Raw.Talk,
-          piece.inputHints[0],
-          '',
-          piece.getRestrictions(),
-          piece.type
-        )
+        const path = piece.GetTalkPath()
+        const talkPropName = piece.inputHints[0]
+        const talkState = this.theSolutionsTalkFiles.get(talkPropName)
+        if (talkState != null) {
+          const speechLines = talkState.GetAllTheTalkingNeededToGetToPath(path)
+
+          toReturn = new RawObjectsAndVerb(
+            Raw.Talk,
+            piece.inputHints[0],
+            '',
+            piece.getRestrictions(),
+            speechLines,
+            piece.type
+          )
+        }
       } else if (isOpen) {
         toReturn = new RawObjectsAndVerb(
           Raw.Open,
           piece.inputHints[0],
           '',
           piece.getRestrictions(),
+          [],
           piece.type
         )
       } else if (isToggle) {
@@ -139,6 +156,7 @@ export class DeconstructDoer {
           piece.inputHints[0],
           piece.output,
           piece.getRestrictions(),
+          [],
           piece.type
         )
       } else if (isAuto) {
@@ -151,6 +169,7 @@ export class DeconstructDoer {
           piece.inputHints[0],
           piece.inputHints[1],
           piece.getRestrictions(),
+          [],
           piece.type
         )
       } else if (piece.inputs.length === 2) {
@@ -160,6 +179,7 @@ export class DeconstructDoer {
           piece.inputHints[0],
           piece.inputHints[1],
           piece.getRestrictions(),
+          [],
           piece.type
         )
       } else if (piece.parent == null) {

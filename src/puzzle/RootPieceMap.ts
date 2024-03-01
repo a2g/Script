@@ -1,12 +1,12 @@
 import { existsSync } from 'fs'
 import { Box } from './Box'
-import { ChatFile } from './chat/ChatFile'
 import { GenerateMapOfLeavesRecursively } from './GenerateMapOfLeavesRecursively'
 import { GenerateMapOfLeavesTracingGoalsRecursively } from './GenerateMapOfLeavesTraccingGoalsRecursively'
 import { IPileOrRootPieceMap } from './IPileOrRootPieceMap'
 import { IsAGoalMetPieceType } from './IsAGoalMetPieceType'
 import { Piece } from './Piece'
 import { RootPiece } from './RootPiece'
+import { TalkFile } from './talk/TalkFile'
 /**
  * This started out simpler that PileOfPieces, because there
  * was only ever one piece that outputted a particular goal.
@@ -154,7 +154,7 @@ export class RootPieceMap implements IPileOrRootPieceMap {
     throw new Error("Id was not found, and couldn't remove")
   }
 
-  public AddDialog (_dialog: ChatFile): void {
-    // do nothing
+  AddTalkFile (_talkFile: TalkFile): void {
+
   }
 }

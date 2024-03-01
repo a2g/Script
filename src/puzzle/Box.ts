@@ -8,7 +8,7 @@ import { SingleFile } from './SingleFile'
 import { Stringify } from './Stringify'
 import { VisibleThingsMap } from './VisibleThingsMap'
 import { parse } from 'jsonc-parser'
-import { ChatFile } from './chat/ChatFile'
+import { TalkFile } from './talk/TalkFile'
 
 /**
  * So the most important part of this class is that the data
@@ -51,12 +51,12 @@ export class Box implements IBoxReadOnlyWithFileMethods {
 
   private readonly pieces: PileOfPieces
 
-  private readonly dialogs: Map<String, ChatFile>
+  private readonly talkFiles: Map<String, TalkFile>
 
   constructor (path: string, filename: string) {
     this.isNotMergingAnymoreBoxes = false
     this.path = path
-    this.dialogs = new Map<String, ChatFile>()
+    this.talkFiles = new Map<String, TalkFile>()
     this.filename = filename
     if (!existsSync(path + filename)) {
       throw new Error(
@@ -305,12 +305,16 @@ export class Box implements IBoxReadOnlyWithFileMethods {
     return this.path
   }
 
-  public CopyFullGoalPiecesTreesToContainer (map: IPileOrRootPieceMap): void {
+  public CopyFullGoalPiecesTreesToContainer (destination: IPileOrRootPieceMap): void {
     for (const array of this.goalPieceMap.GetValues()) {
       for (const goal of array) {
         const clonedPiece = goal.piece.ClonePieceAndEntireTree()
-        map.AddPiece(clonedPiece, '', true)
+        destination.AddPiece(clonedPiece, '', true)
       }
+    }
+
+    for (const item of this.talkFiles.values()) {
+      destination.AddTalkFile(item)
     }
   }
 
@@ -337,7 +341,7 @@ export class Box implements IBoxReadOnlyWithFileMethods {
     return this.pieces.ReplaceInputsThatMatchAWithB(a, b)
   }
 
-  public AddDialog (dialog: ChatFile): void {
-    this.dialogs.set(dialog.GetName(), dialog)
+  public AddTalkFile (talkFile: TalkFile): void {
+    this.talkFiles.set(talkFile.GetName(), talkFile)
   }
 }

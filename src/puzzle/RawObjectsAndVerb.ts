@@ -12,8 +12,9 @@ export class RawObjectsAndVerb {
   public restrictions: string[]
   public typeJustForDebugging: string
   public goalSpiel: string
-  mainSpiel: string
-  restrictionSpiel: string
+  public mainSpiel: string
+  public restrictionSpiel: string
+  public speechLines: string[][]
   // other ideas for debugging fields to add
   // - the box the command came out of
   // - the id of the command
@@ -23,6 +24,7 @@ export class RawObjectsAndVerb {
     objectA: string,
     objectB: string,
     restrictions: string[],
+    speechLines: string[][],
     typeJustForDebugging: string
   ) {
     this.type = type
@@ -35,6 +37,7 @@ export class RawObjectsAndVerb {
     this.goalSpiel = ''
     this.restrictionSpiel = ''
     this.typeJustForDebugging = typeJustForDebugging
+    this.speechLines = speechLines
   }
 
   public PopulateSpielFields (isColor = true): void {

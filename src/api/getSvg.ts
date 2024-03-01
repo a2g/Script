@@ -17,7 +17,7 @@ declare interface $Connection {
 
 const DELAY = 1
 
-export function getSvg (
+export function getSvg(
   repo: string,
   world: string,
   area: string,
@@ -25,7 +25,7 @@ export function getSvg (
   paramB: string
 ): string {
   const path = `${process.cwd()}/${repo}/${world}/`
-  const areaMapFilename = `${area}${FilenameSuffixes.FirstBox}.jsonc`
+  const areaMapFilename = `${area}${FilenameSuffixes.Starter}.jsonc`
   const connectionsFilename = `${area}${FilenameSuffixes.Connections}.jsonc`
   if (!existsSync(path + areaMapFilename)) {
     throw Error(

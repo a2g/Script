@@ -15,7 +15,7 @@ export interface $IStarter {
   displayName: string
 }
 
-export function getJsonOfStarters (): $IStarter[] {
+export function getJsonOfStarters(): $IStarter[] {
   process.chdir(join(__dirname, '/../../../..'))
 
   const allFolders = new Array<[string, string]>()
@@ -49,8 +49,8 @@ export function getJsonOfStarters (): $IStarter[] {
     process.chdir(`./${repo}/${world}`)
     const files = fs.readdirSync('.')
     for (const file of files) {
-      if (file.endsWith(`${FilenameSuffixes.FirstBox}.jsonc`)) {
-        const index = file.indexOf(FilenameSuffixes.FirstBox)
+      if (file.endsWith(`${FilenameSuffixes.Starter}.jsonc`)) {
+        const index = file.indexOf(FilenameSuffixes.Starter)
         const area = file.substring(0, index)
         toReturn.push({
           // these are needed for CLI

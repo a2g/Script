@@ -34,6 +34,8 @@ export class Piece {
 
   public inputSpiels: string[]
 
+  private talkPath: any // only valid for TALK
+
   constructor (
     id: number,
     boxToMerge: IBoxReadOnlyWithFileMethods | null,
@@ -60,6 +62,7 @@ export class Piece {
     this.command = command
     this.happenings = happenings
     this.characterRestrictions = []
+    this.talkPath = ''
     if (typeof restrictions !== 'undefined' && restrictions !== null) {
       for (const restriction of restrictions) {
         this.characterRestrictions.push(restriction.character)
@@ -397,5 +400,13 @@ export class Piece {
       }
     }
     return false
+  }
+
+  SetTalkPath (talkPath: string): void {
+    this.talkPath = talkPath
+  }
+
+  GetTalkPath (): string {
+    return this.talkPath
   }
 }

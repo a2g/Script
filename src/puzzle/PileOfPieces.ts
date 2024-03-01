@@ -1,8 +1,9 @@
-import { ChatFile } from './chat/ChatFile'
+
 import { IPileOfPiecesReadOnly } from './IPileOfPiecesReadOnly'
 import { IPileOrRootPieceMap } from './IPileOrRootPieceMap'
 import { IsAGoalMetPieceType } from './IsAGoalMetPieceType'
 import { Piece } from './Piece'
+import { TalkFile } from './talk/TalkFile'
 
 /**
  * This is basically wraps a multimap - no extra data -
@@ -19,16 +20,16 @@ import { Piece } from './Piece'
 export class PileOfPieces implements IPileOfPiecesReadOnly, IPileOrRootPieceMap {
   private readonly piecesMappedByOutput: Map<string, Set<Piece>>
   private readonly displayName: string
-  private readonly dialogs: Map<String, ChatFile>
+  private readonly mapOfTalks: Map<string, TalkFile>
 
   constructor (cloneFromMe: IPileOfPiecesReadOnly | null, displayName = '') {
     this.displayName = displayName
     this.piecesMappedByOutput = new Map<string, Set<Piece>>()
-    this.dialogs = new Map<String, ChatFile>()
+    this.mapOfTalks = new Map<string, TalkFile>()
     if (cloneFromMe != null) {
-      for (const dialog of this.dialogs.values()) {
-        const clone = dialog.Clone()
-        this.dialogs.set(dialog.GetName(), clone)
+      for (const talk of cloneFromMe.GetTalkIterator()) {
+        const clone = talk.Clone()
+        this.mapOfTalks.set(talk.GetName(), clone)
       }
       for (const set of cloneFromMe.GetPieceIterator()) {
         if (set.size > 0) {
@@ -131,12 +132,20 @@ export class PileOfPieces implements IPileOfPiecesReadOnly, IPileOrRootPieceMap 
     return this.piecesMappedByOutput.values()
   }
 
+  public GetTalkIterator (): IterableIterator<TalkFile> {
+    return this.mapOfTalks.values()
+  }
+
   public CopyPiecesToGivenPile (destinationPile: IPileOrRootPieceMap): void {
     this.piecesMappedByOutput.forEach((setOfPieces: Set<Piece>) => {
       setOfPieces.forEach((piece: Piece) => {
         destinationPile.AddPiece(piece, '', true)
       })
     })
+
+    for (const talk of this.mapOfTalks.values()) {
+      destinationPile.AddTalkFile(talk)
+    }
   }
 
   public ReplaceInputsThatMatchAWithB (a: string, b: string): number {
@@ -155,7 +164,11 @@ export class PileOfPieces implements IPileOfPiecesReadOnly, IPileOrRootPieceMap 
     return stubbings
   }
 
-  AddDialog (dialog: ChatFile): void {
-    this.dialogs.set(dialog.GetName(), dialog)
+  AddTalkFile (talkFile: TalkFile): void {
+    this.mapOfTalks.set(talkFile.GetName(), talkFile)
+  }
+
+  GetTalks (): Map<string, TalkFile> {
+    return this.mapOfTalks
   }
 }

@@ -13,13 +13,13 @@ interface $INameIsAGoalChildren {
   children: Array<Record<string, unknown>>
 }
 
-export function getJsonOfAllSolutions (
+export function getJsonOfAllSolutions(
   repo: string,
   world: string,
   area: string
 ): Record<string, unknown> {
   const path = `${process.cwd()}/${repo}/${world}/`
-  const firstBoxFilename = `${area}${FilenameSuffixes.FirstBox}.jsonc`
+  const firstBoxFilename = `${area}${FilenameSuffixes.Starter}.jsonc`
 
   if (!existsSync(path + firstBoxFilename)) {
     throw Error(`file doesn't exist ${path}${firstBoxFilename}`)
@@ -67,7 +67,7 @@ export function getJsonOfAllSolutions (
   return json
 }
 
-function getJsonOfSolutionsFromSolver (
+function getJsonOfSolutionsFromSolver(
   solver: SolverViaRootPiece
 ): Record<string, unknown> {
   return {
@@ -76,7 +76,7 @@ function getJsonOfSolutionsFromSolver (
   }
 }
 
-function getJsonArrayOfSolutions (
+function getJsonArrayOfSolutions(
   solutions: Solution[]
 ): $INameIsAGoalChildren[] {
   const toReturn = new Array<$INameIsAGoalChildren>()
@@ -93,7 +93,7 @@ function getJsonArrayOfSolutions (
   return toReturn
 }
 
-function getJsonArrayOfRootPieces (
+function getJsonArrayOfRootPieces(
   solution: Solution
 ): Array<Record<string, unknown>> {
   const toReturn = new Array<Record<string, unknown>>()
@@ -119,7 +119,7 @@ function getJsonArrayOfRootPieces (
   return toReturn
 }
 
-function getJsonArrayOfAllSubPieces (piece: Piece): unknown[] {
+function getJsonArrayOfAllSubPieces(piece: Piece): unknown[] {
   const toReturn = new Array<unknown>()
   let i = -1
   for (const hint of piece.inputHints) {
@@ -147,7 +147,7 @@ function getJsonArrayOfAllSubPieces (piece: Piece): unknown[] {
   return toReturn
 }
 
-function getJsonArrayOfOrderedSteps (
+function getJsonArrayOfOrderedSteps(
   steps: RawObjectsAndVerb[]
 ): unknown[] {
   const toReturn = new Array<unknown>()

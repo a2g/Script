@@ -4,5 +4,5 @@ export const FilenameSuffixes = {
   Connections: 'connections',
   Defs: 'defs',
   Enums: 'enums',
-  FirstBox: 'starter'
+  Starter: 'starter'
 }
