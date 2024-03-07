@@ -1,6 +1,6 @@
 {
-  "$schema": "./03 defs.jsonc",
-  "startingThings": [],
+  "$schema": "./defs.jsonc",
+  "startingThings": [ ],
   "pieces": [
     {
       "piece": "INV1_OBTAINED_BY_LOSING_INV2_KEEPING_PROP1",

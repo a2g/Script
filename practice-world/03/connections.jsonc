@@ -1,5 +1,5 @@
 {
-  "$schema": "./03 connections.schema.jsonc",
+  "$schema": "./connections.schema.jsonc",
   "connections": [
     {
       "start": "inside_icehouse",

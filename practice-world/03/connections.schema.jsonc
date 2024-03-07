@@ -7,10 +7,10 @@
       "type": "object",
       "properties": {
         "start": {
-          "$ref": "03 enums.jsonc#/definitions/location_enum"
+          "$ref": "enums.jsonc#/definitions/location_enum"
         },
         "end": {
-          "$ref": "03 enums.jsonc#/definitions/location_enum"
+          "$ref": "enums.jsonc#/definitions/location_enum"
         },
         "access": {
           "$ref": "../puzzle-piece-enums.json#/definitions/access_enum"
