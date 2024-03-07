@@ -15,11 +15,11 @@ export class SolverViaRootPiece {
   private readonly solutions: Solution[]
 
   private readonly mapOfStartingThingsAndWhoCanHaveThem: Map<
-  string,
-  Set<string>
+    string,
+    Set<string>
   >
 
-  constructor (box: IBoxReadOnly) {
+  constructor(box: IBoxReadOnly) {
     // we collect the other boxes, but only for
     // collecting all rootmap
     const rootMap = new RootPieceMap(null)
@@ -31,7 +31,7 @@ export class SolverViaRootPiece {
 
     const allWinGoal = rootMap.GetAllWinGoals()
     if (allWinGoal == null || allWinGoal.length === 0) {
-      throw new Error(`No x-win was found among the ${boxes.size} boxes`)
+      throw new Error(`No x_win was found among the ${boxes.size} boxes`)
     }
     rootMap.RemoveAllWinGoals()
 
@@ -66,11 +66,11 @@ export class SolverViaRootPiece {
     this.GenerateSolutionNamesAndPush()
   }
 
-  public NumberOfSolutions (): number {
+  public NumberOfSolutions(): number {
     return this.solutions.length
   }
 
-  public SolvePartiallyUntilCloning (): boolean {
+  public SolvePartiallyUntilCloning(): boolean {
     let hasACloneJustBeenCreated = false
     this.solutions.forEach((solution: Solution) => {
       if (solution.IsUnsolved()) {
@@ -82,17 +82,17 @@ export class SolverViaRootPiece {
     return hasACloneJustBeenCreated
   }
 
-  public GetSolutions (): Solution[] {
+  public GetSolutions(): Solution[] {
     return this.solutions
   }
 
-  public MarkGoalsAsCompletedAndMergeIfNeeded (): void {
+  public MarkGoalsAsCompletedAndMergeIfNeeded(): void {
     for (const solution of this.solutions) {
       solution.MarkGoalsAsContainingNullsAndMergeIfNeeded()
     }
   }
 
-  public RemoveSolution (solution: Solution): void {
+  public RemoveSolution(solution: Solution): void {
     for (let i = 0; i < this.solutions.length; i++) {
       if (this.solutions[i] === solution) {
         this.solutions.splice(i, 1)
@@ -100,7 +100,7 @@ export class SolverViaRootPiece {
     }
   }
 
-  public GenerateSolutionNamesAndPush (): void {
+  public GenerateSolutionNamesAndPush(): void {
     for (let i = 0; i < this.solutions.length; i++) {
       // now lets find out the amount leafNode name exists in all the other solutions
       const mapForCounting = new Map<string, number>()

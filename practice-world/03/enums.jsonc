@@ -81,7 +81,7 @@
     },
     "goal_enum": {
       "enum": [
-        "x-win",
+        "x_win",
         "x_access_thru_dumbwaiter",
         "x_access_thru_fireplace",
         "x_access_to_greenhouse",

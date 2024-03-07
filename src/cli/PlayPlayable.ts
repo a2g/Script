@@ -6,7 +6,7 @@ import { ParseTokenizedCommandLineFromFromThreeStrings } from './GetMixedObjects
 import { Playable } from './Playable'
 import { Sleep } from './Sleep'
 
-export function PlayPlayable (playable: Playable): void {
+export function PlayPlayable(playable: Playable): void {
   for (; ;) {
     // report current situation to cmd output
     const reporter = GameReporter.GetInstance()
@@ -21,8 +21,8 @@ export function PlayPlayable (playable: Playable): void {
     ProcessAutos(playable.GetHappener(), playable.GetPileOfPieces())
 
     // check have we won?
-    if (playable.GetHappener().GetGoalValue('x-win') > 0) {
-      // btw this is the only x-win outside of Solution.ts, so if we can get rid of it, then great
+    if (playable.GetHappener().GetGoalValue('x_win') > 0) {
+      // btw this is the only x_win outside of Solution.ts, so if we can get rid of it, then great
       playable.SetCompleted()
       break
     }
