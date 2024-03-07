@@ -34,8 +34,8 @@
     },
     "goal_enum": {
       "enum": [
-        "electricity_restored_goal",
-        "x_win"
+        "x_win",
+        "x_electricity_restored"
       ]
     }
   }
