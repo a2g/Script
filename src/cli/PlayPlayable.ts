@@ -6,7 +6,7 @@ import { ParseTokenizedCommandLineFromFromThreeStrings } from './GetMixedObjects
 import { Playable } from './Playable'
 import { Sleep } from './Sleep'
 
-export function PlayPlayable(playable: Playable): void {
+export function PlayPlayable (playable: Playable): void {
   for (; ;) {
     // report current situation to cmd output
     const reporter = GameReporter.GetInstance()

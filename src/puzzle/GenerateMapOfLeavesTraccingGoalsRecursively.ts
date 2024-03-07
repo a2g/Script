@@ -20,7 +20,7 @@ import { SpecialTypes } from './SpecialTypes'
  * @param map any discovered leaves are put in here, keyed by path
  * @param rootPieceMap this is what it uses to drill down to other goals
  */
-export function GenerateMapOfLeavesTracingGoalsRecursively(
+export function GenerateMapOfLeavesTracingGoalsRecursively (
   piece: Piece,
   path: string,
   map: Map<string, Piece | null>,

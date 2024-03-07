@@ -22,7 +22,7 @@ import { SpecialTypes } from './SpecialTypes'
  * @param map any discovered leaves are put in here, keyed by path
  */
 
-export function GenerateMapOfLeavesRecursively(
+export function GenerateMapOfLeavesRecursively (
   piece: Piece,
   path: string,
   isOnlyNulls: boolean,

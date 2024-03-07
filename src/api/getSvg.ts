@@ -17,7 +17,7 @@ declare interface $Connection {
 
 const DELAY = 1
 
-export function getSvg(
+export function getSvg (
   repo: string,
   world: string,
   area: string,
