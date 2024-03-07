@@ -55,7 +55,8 @@ export default {
     
     async getSolutions (repoSlashWorldSlashArea) {
       try {
-        const response = await axios.get(`${API_BASE}/puz/${repoSlashWorldSlashArea}/sols`)
+        const debugMe = `${API_BASE}/puz/${repoSlashWorldSlashArea}/sols`
+        const response = await axios.get(debugMe)
         // const responseTime = apiResp.headers['x-response-time']
         const data = response.data
 
