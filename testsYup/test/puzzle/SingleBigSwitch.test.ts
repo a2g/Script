@@ -8,7 +8,7 @@ describe('SingleBigSwitch', () => {
     console.log(__dirname)
     const file = new SingleFile(
       join(__dirname, '/../../../practice-world/'),
-      '03_access_thru_fireplace_goal.jsonc'
+      'x03_access_thru_fireplace.jsonc'
     )
     const pile = new PileOfPieces(null)
     await file.copyAllPiecesToContainer(pile)

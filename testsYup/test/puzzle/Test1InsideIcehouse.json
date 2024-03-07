@@ -10,7 +10,7 @@
       "piece": "PROP1_GOES_WHEN_GRAB_INV1_WITH_GOAL1",
       "prop1": "prop_three_punctuated_circles",
       "inv1": "inv_three_punctuated_circles",
-      "goal1": "03_goal_03_access_to_icehouse"
+      "goal1": "x03_access_to_icehouse"
     },
     {
       "piece": "GOAL1_MET_BY_GIVING_INV1_TO_PROP1",

@@ -40,7 +40,7 @@
     },
     {
       "piece": "GOAL1_MET_BY_USING_INV1_WITH_PROP1",
-      "goal1": "03_goal_03_access_to_icehouse",
+      "goal1": "x03_access_to_icehouse",
       "inv1": "inv_soil_thermometer",
       "prop1": "prop_icehouse"
     },
