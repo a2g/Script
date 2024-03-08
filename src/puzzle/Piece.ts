@@ -114,6 +114,7 @@ export class Piece {
     clone.reuseCount = this.reuseCount
     clone.output = this.output
     clone.boxToMerge = this.boxToMerge
+    clone.talkPath = this.talkPath
 
     // the hints
     for (const inputHint of this.inputHints) {

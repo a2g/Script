@@ -3,18 +3,18 @@ import { ChoiceLine } from './ChoiceLine'
 export class ChoiceSection {
   key: string
   file: string
-  mapOfQueues: Map<String, ChoiceLine[]>
+  mapOfQueues: Map<Number, ChoiceLine[]>
 
   constructor (file: string, key: string) {
     this.file = file
     this.key = key
-    this.mapOfQueues = new Map<String, ChoiceLine[]>()
+    this.mapOfQueues = new Map<Number, ChoiceLine[]>()
   }
 
   public Clone (): ChoiceSection {
     const clonedChoicePage = new ChoiceSection(this.file, this.key)
     this.mapOfQueues.forEach(
-      (queue: ChoiceLine[], key: String) => {
+      (queue: ChoiceLine[], key: Number) => {
         const clonedQueue: ChoiceLine[] = []
         for (const choiceLine of queue) {
           // choice lines are immutable, so no need to clone
@@ -38,7 +38,7 @@ export class ChoiceSection {
           `The entry ${this.key} ends with '_choices' but one of its first cells are not numeric : ${this.file} `
         )
       }
-      const number = arrayOfTokens[1]
+      const number = arrayOfTokens[0]
       const choiceLine = new ChoiceLine(arrayOfTokens)
 
       let queue = this.mapOfQueues.get(number)
@@ -59,11 +59,17 @@ export class ChoiceSection {
   public GetAllTalkingWhilstChoosing (choiceToChoose: string): string[][] {
     const toReturn = new Array<string[]>()
     for (let i = 0; i < 20; i++) {
-      const queueForGivenIndex = this.mapOfQueues.get(i.toString())
+      const queueForGivenIndex = this.mapOfQueues.get(i)
       if (queueForGivenIndex != null && queueForGivenIndex.length > 0) {
-        const choiceLine = queueForGivenIndex[0]
+        const choiceLine = queueForGivenIndex[0]// we want the head of the queue
         if (choiceLine.goto === choiceToChoose) {
           toReturn.push(['you', choiceLine.speech])
+
+          // remove head of queue so can't be used again
+          queueForGivenIndex.shift()
+
+          // we only want the speech of choosing it the first time
+          return toReturn
         }
       }
     }

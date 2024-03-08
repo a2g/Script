@@ -14,7 +14,7 @@ interface $INameIsAGoalChildren {
   children: Array<Record<string, unknown>>
 }
 
-export function getJsonOfAllSolutions(
+export function getJsonOfAllSolutions (
   repo: string,
   world: string,
   area: string
@@ -69,7 +69,7 @@ export function getJsonOfAllSolutions(
   return json
 }
 
-function getJsonOfSolutionsFromSolver(
+function getJsonOfSolutionsFromSolver (
   solver: SolverViaRootPiece
 ): Record<string, unknown> {
   return {
@@ -78,7 +78,7 @@ function getJsonOfSolutionsFromSolver(
   }
 }
 
-function getJsonArrayOfSolutions(
+function getJsonArrayOfSolutions (
   solutions: Solution[]
 ): $INameIsAGoalChildren[] {
   const toReturn = new Array<$INameIsAGoalChildren>()
@@ -95,7 +95,7 @@ function getJsonArrayOfSolutions(
   return toReturn
 }
 
-function getJsonArrayOfRootPieces(
+function getJsonArrayOfRootPieces (
   solution: Solution
 ): Array<Record<string, unknown>> {
   const toReturn = new Array<Record<string, unknown>>()
@@ -121,7 +121,7 @@ function getJsonArrayOfRootPieces(
   return toReturn
 }
 
-function getJsonArrayOfAllSubPieces(piece: Piece): unknown[] {
+function getJsonArrayOfAllSubPieces (piece: Piece): unknown[] {
   const toReturn = new Array<unknown>()
   let i = -1
   for (const hint of piece.inputHints) {
@@ -149,12 +149,14 @@ function getJsonArrayOfAllSubPieces(piece: Piece): unknown[] {
   return toReturn
 }
 
-function getJsonArrayOfOrderedSteps(
+function getJsonArrayOfOrderedSteps (
   steps: RawObjectsAndVerb[]
 ): unknown[] {
   const toReturn = new Array<unknown>()
   let lastLocation = ''
   for (const step of steps) {
+    step.PopulateSpielFields(false)// false - because we don't want ansi colors
+
     // big writing about why its bad
     //
     //
@@ -165,7 +167,6 @@ function getJsonArrayOfOrderedSteps(
     } else if (step.objectB.startsWith('prop_')) {
       newLocation = step.objectB
     }
-    step.PopulateSpielFields(false)// false - because we don't want ansi colors
     toReturn.push({
       name: step.mainSpiel,
       isAGoalOrAuto: step.isAGoalOrAuto(),
@@ -173,6 +174,16 @@ function getJsonArrayOfOrderedSteps(
       paramB: newLocation,
       children: []
     })
+    for (const speechLine of step.speechLines) {
+      toReturn.push({
+        name: speechLine,
+        isAGoalOrAuto: true,
+        paramA: newLocation,
+        paramB: newLocation,
+        children: []
+      })
+    }
+
     lastLocation = newLocation
   }
   return toReturn

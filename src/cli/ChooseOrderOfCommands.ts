@@ -92,6 +92,12 @@ export function ChooseOrderOfCommands (solver: SolverViaRootPiece): void {
           listItemNumber++
           const formattedCommand = FormatCommand(command, infoLevel)
           console.warn(`    ${listItemNumber}. ${formattedCommand}`)
+          if (command.type === Raw.Talk) {
+            for (const speechLine of command.speechLines) {
+              listItemNumber++
+              console.warn(`    ${listItemNumber}. ${speechLine[0]}: ${speechLine[1]}`)
+            }
+          }
         }
       }
     }
