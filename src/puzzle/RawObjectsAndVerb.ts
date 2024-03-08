@@ -7,6 +7,7 @@ export class RawObjectsAndVerb {
   public type: Raw
   public objectA: string
   public objectB: string
+  public output: string
   public startingCharacterForA: string
   public startingCharacterForB: string
   public restrictions: string[]
@@ -23,6 +24,7 @@ export class RawObjectsAndVerb {
     type: Raw,
     objectA: string,
     objectB: string,
+    output: string,
     restrictions: string[],
     speechLines: string[][],
     typeJustForDebugging: string
@@ -30,6 +32,7 @@ export class RawObjectsAndVerb {
     this.type = type
     this.objectA = objectA
     this.objectB = objectB
+    this.output = output
     this.startingCharacterForA = ''
     this.startingCharacterForB = ''
     this.restrictions = restrictions
@@ -42,6 +45,7 @@ export class RawObjectsAndVerb {
 
   public PopulateSpielFields (isColor = true): void {
     const verb = FormatText(this.type, isColor)
+    const output = FormatText(this.output)
     const objectA =
       FormatText(this.objectA, isColor) +
       FormatText(this.startingCharacterForA, isColor, true)
@@ -84,7 +88,7 @@ export class RawObjectsAndVerb {
         }
         return
     }
-    this.mainSpiel = verb + ' ' + objectA + joiner + objectB + ' '
+    this.mainSpiel = verb + ' ' + objectA + joiner + objectB + ' gains you ' + output + ' '
   }
 
   public appendStartingCharacterForA (startingCharacterForA: string): void {

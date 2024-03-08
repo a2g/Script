@@ -84,6 +84,7 @@ export class DeconstructDoer {
           Raw.None,
           '',
           '',
+          piece.output,
           piece.getRestrictions(),
           [],
           piece.type
@@ -93,6 +94,7 @@ export class DeconstructDoer {
           Raw.None,
           '',
           '',
+          piece.output,
           piece.getRestrictions(),
           [],
           piece.type
@@ -103,6 +105,7 @@ export class DeconstructDoer {
           Raw.None,
           '',
           '',
+          piece.output,
           piece.getRestrictions(),
           [],
           piece.type
@@ -112,6 +115,7 @@ export class DeconstructDoer {
           Raw.None,
           '',
           '',
+          piece.output,
           piece.getRestrictions(),
           [],
           piece.type
@@ -121,6 +125,7 @@ export class DeconstructDoer {
           Raw.Grab,
           piece.inputHints[0],
           '',
+          piece.output,
           piece.getRestrictions(),
           [],
           piece.type
@@ -136,6 +141,7 @@ export class DeconstructDoer {
             Raw.Talk,
             piece.inputHints[0],
             '',
+            piece.output,
             piece.getRestrictions(),
             speechLines,
             piece.type
@@ -146,6 +152,7 @@ export class DeconstructDoer {
           Raw.Open,
           piece.inputHints[0],
           '',
+          piece.output,
           piece.getRestrictions(),
           [],
           piece.type
@@ -154,6 +161,7 @@ export class DeconstructDoer {
         toReturn = new RawObjectsAndVerb(
           Raw.Toggle,
           piece.inputHints[0],
+          '',
           piece.output,
           piece.getRestrictions(),
           [],
@@ -168,6 +176,7 @@ export class DeconstructDoer {
           Raw.Use,
           piece.inputHints[0],
           piece.inputHints[1],
+          piece.output,
           piece.getRestrictions(),
           [],
           piece.type
@@ -178,6 +187,7 @@ export class DeconstructDoer {
           Raw.Use,
           piece.inputHints[0],
           piece.inputHints[1],
+          piece.output,
           piece.getRestrictions(),
           [],
           piece.type

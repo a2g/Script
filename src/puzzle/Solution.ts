@@ -303,6 +303,7 @@ export class Solution {
         Raw.Goal,
         `completed (${goal.piece.output})`,
         '',
+        goal.piece.output,
         [],
         [],
         ''

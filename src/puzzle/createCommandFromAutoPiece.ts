@@ -14,6 +14,7 @@ export function createCommandFromAutoPiece (piece: Piece): RawObjectsAndVerb {
     Raw.Auto,
     piece.inputHints[0],
     piece.output,
+    piece.output,
     piece.getRestrictions(),
     [],
     piece.type
