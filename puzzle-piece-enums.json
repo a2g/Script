@@ -61,11 +61,13 @@
         "21"
       ]
     },
-    "chat_non_choice_enum": {
+    "talk_non_choice_enum": {
       "enum": [
         "goto",
         "gains",
-        "exit"
+        "exit",
+        "us",
+        "them"
       ]
     },
     "piece_enum": {

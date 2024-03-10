@@ -24,12 +24,12 @@ function createTalkFileFromJsonFile (fileAddress: string, talk1: string): TalkFi
   }
   const text = readFileSync(pathAndFile, 'utf-8')
   const parsedJson: any = parse(text)
-  const chatter = parsedJson.chatter
+  const talks = parsedJson.talks
 
   const talkFile: TalkFile = new TalkFile(talk1, fileAddress)
 
-  for (const key in chatter) {
-    const array = chatter[key]
+  for (const key in talks) {
+    const array = talks[key]
 
     if (key.endsWith('_choices')) {
       const choicePage = new ChoiceSection(pathAndFile, key)
