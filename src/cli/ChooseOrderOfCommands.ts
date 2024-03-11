@@ -5,7 +5,7 @@ import { RawObjectsAndVerb } from '../puzzle/RawObjectsAndVerb'
 import { Raw } from '../puzzle/Raw'
 const prompt = promptSync({})
 
-export function ChooseOrderOfCommands (solver: SolverViaRootPiece): void {
+export function ChooseOrderOfCommands(solver: SolverViaRootPiece): void {
   console.warn(' ')
 
   let infoLevel = 1
@@ -78,7 +78,7 @@ export function ChooseOrderOfCommands (solver: SolverViaRootPiece): void {
         // HACKY!
         const label =
           text.length > 8
-            ? text + '<-- yellow is type of leaf, red is constraints'
+            ? text + '<-- yellow is unique sol name , red is constraints'
             : NAME_NOT_DETERMINABLE
         console.warn(`${letter}. ${label}`)
 
@@ -116,7 +116,7 @@ export function ChooseOrderOfCommands (solver: SolverViaRootPiece): void {
   }
 }
 
-function FormatCommand (raw: RawObjectsAndVerb, infoLevel: number): string {
+function FormatCommand(raw: RawObjectsAndVerb, infoLevel: number): string {
   raw.PopulateSpielFields()
   let toReturn = ''
   switch (infoLevel) {

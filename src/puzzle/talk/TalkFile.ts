@@ -13,14 +13,14 @@ export class TalkFile {
   choices: Map<string, ChoiceSection>
   nonChoices: Map<String, NonChoiceSection>
 
-  constructor (name: string, fileAddress: string) {
+  constructor(name: string, fileAddress: string) {
     this.name = name
     this.fileAddress = fileAddress
     this.choices = new Map<string, ChoiceSection>()
     this.nonChoices = new Map<string, NonChoiceSection>()
   }
 
-  public Clone (): TalkFile {
+  public Clone(): TalkFile {
     const talkFile = new TalkFile(this.GetName(), this.fileAddress)
     for (const choice of this.choices.values()) {
       talkFile.AddChoicePage(choice.Clone())
@@ -31,25 +31,27 @@ export class TalkFile {
     return talkFile
   }
 
-  public AddChoicePage (choice: ChoiceSection): void {
+  public AddChoicePage(choice: ChoiceSection): void {
     this.choices.set(choice.GetKey(), choice)
   }
 
-  public AddNonChoicePage (nonChoice: NonChoiceSection): void {
+  public AddNonChoicePage(nonChoice: NonChoiceSection): void {
     this.nonChoices.set(nonChoice.GetKey(), nonChoice)
   }
 
-  public GetName (): string {
+  public GetName(): string {
     return this.name
   }
 
-  public FindAndAddPiecesRecursively (name: string, path: string, requisites: string[], mapOGainsByPage: Map<string, string>, pile: IPileOrRootPieceMap): void {
+  public FindAndAddPiecesRecursively(name: string, path: string, requisites: string[], mapOGainsByPage: Map<string, string>, pile: IPileOrRootPieceMap): void {
+    // console.log(`>>>>${path}/${name}`)
     if (name.endsWith('choices')) {
       const choicePage = this.choices.get(name)
       if (choicePage != null) {
         for (const queue of choicePage.mapOfQueues.values()) {
           for (const line of queue.values()) {
-            if (line.goto.length > 0) {
+            if (line.goto.length > 0 && !line.isUsed) {
+              line.isUsed = true
               this.FindAndAddPiecesRecursively(line.goto, `${path}/${name}`, [...requisites, ...line.theseRequisites], mapOGainsByPage, pile)
             }
           }
@@ -93,7 +95,7 @@ export class TalkFile {
     }
   }
 
-  GetAllTheTalkingNeededToGetToPath (talkPath: any): string[][] {
+  GetAllTheTalkingNeededToGetToPath(talkPath: any): string[][] {
     const toReturn = new Array<string[]>()
     const splitted: string[] = talkPath.split('/')
 
@@ -115,5 +117,15 @@ export class TalkFile {
     }
 
     return toReturn
+  }
+
+  Clear(): void {
+    for (const choice of this.choices.values()) {
+      for (const queue of choice.mapOfQueues.values()) {
+        for (const line of queue.values()) {
+          line.isUsed = false
+        }
+      }
+    }
   }
 }

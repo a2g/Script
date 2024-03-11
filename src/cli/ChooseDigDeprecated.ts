@@ -7,7 +7,7 @@ import { NavigatePieceRecursive } from './NavigatePieceRecursive'
 
 const prompt = promptSync({})
 
-export function ChooseDigDeprecated (solver: SolverViaRootPiece): void {
+export function ChooseDigDeprecated(solver: SolverViaRootPiece): void {
   console.warn('ChooseDigIntoGoals... ')
 
   for (; ;) {
@@ -26,12 +26,12 @@ export function ChooseDigDeprecated (solver: SolverViaRootPiece): void {
     for (const solution of solver.GetSolutions()) {
       TrimNonIntegratedRootPieces(solution)
       const letter = String.fromCharCode(solutionNumber++)
-      const text = FormatText(solution.GetDisplayNamesConcatenated())
+      const uniqueName = FormatText(solution.GetDisplayNamesConcatenated())
       const NAME_NOT_DETERMINABLE = 'name_not_determinable'
       // HACKY!
       const label =
-        text.length > 8
-          ? text + '<-- yellow is type of leaf, red is constraints'
+        uniqueName.length > 8
+          ? uniqueName + '<-- yellow is uniqueName, red is constraints'
           : NAME_NOT_DETERMINABLE
       console.warn(`${letter}. ${label} ${solution.getReasonForBranching()}`)
       for (const array of solution.GetRootMap().GetValues()) {
