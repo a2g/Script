@@ -8,6 +8,7 @@ import { ChooseOrderOfCommands } from './cli/ChooseOrderOfCommands'
 import { ChooseToFindUnused } from './cli/ChooseToFindUnused'
 import { $IStarter, getJsonOfStarters } from './api/getJsonOfStarters'
 import { ChooseDigIntoGoals2 } from './cli/ChooseDigIntoGoals2'
+import { DumpGainsFromEachTalkInFolder } from './cli/DumpGansFromEachTalkInFolder'
 const prompt = promptSync()
 
 function main (): void {
@@ -30,6 +31,8 @@ function main (): void {
         if (index >= 0 && index < starters.length) {
           for (; ;) {
             const starter = starters[index]
+            DumpGainsFromEachTalkInFolder(starter.folder)
+
             const firstBox = new Box(starter.folder, starter.file)
 
             const allBoxes = new Map<string, Box>()

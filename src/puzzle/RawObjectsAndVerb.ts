@@ -20,7 +20,7 @@ export class RawObjectsAndVerb {
   // - the box the command came out of
   // - the id of the command
 
-  constructor(
+  constructor (
     type: Raw,
     objectA: string,
     objectB: string,
@@ -43,7 +43,7 @@ export class RawObjectsAndVerb {
     this.speechLines = speechLines
   }
 
-  public PopulateSpielFields(isColor = true): void {
+  public PopulateSpielFields (isColor = true): void {
     const verb = FormatText(this.type, isColor)
     const output = FormatText(this.output)
     const objectA =
@@ -91,7 +91,7 @@ export class RawObjectsAndVerb {
     this.mainSpiel = verb + ' ' + objectA + joiner + objectB + ' results in ' + output + ' '
   }
 
-  public appendStartingCharacterForA(startingCharacterForA: string): void {
+  public appendStartingCharacterForA (startingCharacterForA: string): void {
     if (this.startingCharacterForA.length > 0) {
       this.startingCharacterForA += ', ' + startingCharacterForA
     } else {
@@ -99,7 +99,7 @@ export class RawObjectsAndVerb {
     }
   }
 
-  public appendStartingCharacterForB(startingCharacterForB: string): void {
+  public appendStartingCharacterForB (startingCharacterForB: string): void {
     if (this.startingCharacterForB.length > 0) {
       this.startingCharacterForB += ', ' + startingCharacterForB
     } else {
@@ -107,14 +107,14 @@ export class RawObjectsAndVerb {
     }
   }
 
-  public dumpRaw(): void {
+  public dumpRaw (): void {
     console.warn('Dumping instance of RawObjectsAndVerb')
     console.warn(Raw[this.type])
     console.warn(this.objectA)
     console.warn(this.objectB)
   }
 
-  public isAGoalOrAuto(): boolean {
+  public isAGoalOrAuto (): boolean {
     return this.type === Raw.Goal || this.type === Raw.Auto
   }
 }

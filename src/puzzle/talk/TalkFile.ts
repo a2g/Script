@@ -4,23 +4,26 @@ import { ChoiceSection } from './ChoiceSection'
 import { GetNextId } from './GetNextId'
 import { NonChoiceSection } from './NonChoiceSection'
 import { IPileOrRootPieceMap } from '../IPileOrRootPieceMap'
-import { existsSync } from 'fs'
+import { existsSync, readFileSync } from 'fs'
+import { parse } from 'jsonc-parser'
+
 import _ from '../../../puzzle-piece-enums.json'
 
 export class TalkFile {
-  name: string
+  filename: string
   fileAddress: string
   choices: Map<string, ChoiceSection>
   nonChoices: Map<String, NonChoiceSection>
 
-  constructor(name: string, fileAddress: string) {
-    this.name = name
+  constructor (filename: string, fileAddress: string) {
+    this.filename = filename
     this.fileAddress = fileAddress
     this.choices = new Map<string, ChoiceSection>()
     this.nonChoices = new Map<string, NonChoiceSection>()
+    this.createTalkFileFromJsonFile(filename, fileAddress)
   }
 
-  public Clone(): TalkFile {
+  public Clone (): TalkFile {
     const talkFile = new TalkFile(this.GetName(), this.fileAddress)
     for (const choice of this.choices.values()) {
       talkFile.AddChoicePage(choice.Clone())
@@ -31,19 +34,45 @@ export class TalkFile {
     return talkFile
   }
 
-  public AddChoicePage(choice: ChoiceSection): void {
+  private createTalkFileFromJsonFile (filename: string, fileAddress: string): void {
+    const pathAndFile = fileAddress + filename
+    if (!existsSync(pathAndFile)) {
+      throw new Error(
+        `The chat jsonc was ont found: ${pathAndFile} `
+      )
+    }
+    const text = readFileSync(pathAndFile, 'utf-8')
+    const parsedJson: any = parse(text)
+    const talks = parsedJson.talks
+
+    for (const key in talks) {
+      const array = talks[key]
+
+      if (key.endsWith('_choices')) {
+        const choicePage = new ChoiceSection(pathAndFile, key)
+        choicePage.Init(array)
+        this.AddChoicePage(choicePage)
+      } else {
+        const nonChoicePage = new NonChoiceSection(pathAndFile, key)
+        nonChoicePage.Init(array)
+        this.AddNonChoicePage(nonChoicePage)
+      }
+    }
+  }
+
+  public AddChoicePage (choice: ChoiceSection): void {
     this.choices.set(choice.GetKey(), choice)
   }
 
-  public AddNonChoicePage(nonChoice: NonChoiceSection): void {
+  public AddNonChoicePage (nonChoice: NonChoiceSection): void {
     this.nonChoices.set(nonChoice.GetKey(), nonChoice)
   }
 
-  public GetName(): string {
-    return this.name
+  public GetName (): string {
+    return this.filename
   }
 
-  public FindAndAddPiecesRecursively(name: string, path: string, requisites: string[], mapOGainsByPage: Map<string, string>, pile: IPileOrRootPieceMap): void {
+  public FindAndAddPiecesRecursively (name: string, path: string, requisites: string[], mapOGainsByPage: Map<string, string>, pile: IPileOrRootPieceMap): void {
     // console.log(`>>>>${path}/${name}`)
     if (name.endsWith('choices')) {
       const choicePage = this.choices.get(name)
@@ -95,7 +124,7 @@ export class TalkFile {
     }
   }
 
-  GetAllTheTalkingNeededToGetToPath(talkPath: any): string[][] {
+  GetAllTheTalkingNeededToGetToPath (talkPath: any): string[][] {
     const toReturn = new Array<string[]>()
     const splitted: string[] = talkPath.split('/')
 
@@ -119,7 +148,7 @@ export class TalkFile {
     return toReturn
   }
 
-  Clear(): void {
+  Clear (): void {
     for (const choice of this.choices.values()) {
       for (const queue of choice.mapOfQueues.values()) {
         for (const line of queue.values()) {

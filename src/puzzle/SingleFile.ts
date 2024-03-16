@@ -12,8 +12,8 @@ import { parse } from 'jsonc-parser'
 import { Mix } from './Mix'
 import { Verb } from './Verb'
 import { AlleviateBrackets } from './AlleviateBrackets'
-import { ChatParseAndAddPieces } from './ChatParseAndAddPieces'
 import { GetNextId } from './talk/GetNextId'
+import { TalkFile } from './talk/TalkFile'
 
 function makeGoalNameDeterministically (partA: string, partB: string): string {
   return `x_gen_${partA}_${partB}_goal`
@@ -141,7 +141,15 @@ export class SingleFile {
           command = new Command(Verb.Auto, Mix.AutoNeedsNothing, '')
           break
         case _.TALK1_GENERATED_PIECE_PLACEHOLDER:
-          ChatParseAndAddPieces(this.path, talk1, piecesMappedByOutput)
+          {
+            const talk = new TalkFile(talk1 + '.jsonc', this.path)
+            piecesMappedByOutput.AddTalkFile(talk)
+            const blankMap = new Map<string, string>()
+            // talk1 is a subclass of a prop: it represents the character that
+            // you interact with and can be visible and invisible - just like a prop
+            // To talk to a prop it needs to be visible, so we add talk1 as a requisite
+            talk.FindAndAddPiecesRecursively('starter', '', [talk1], blankMap, piecesMappedByOutput)
+          }
           break
         case _.EXAMINE_PROP1_YIELDS_INV1:
           happs.text = `You examine the ${prop1} and find a ${inv1}`
