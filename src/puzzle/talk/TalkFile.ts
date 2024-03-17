@@ -15,7 +15,7 @@ export class TalkFile {
   choices: Map<string, ChoiceSection>
   nonChoices: Map<String, NonChoiceSection>
 
-  constructor (filename: string, fileAddress: string) {
+  constructor(filename: string, fileAddress: string) {
     this.filename = filename
     this.fileAddress = fileAddress
     this.choices = new Map<string, ChoiceSection>()
@@ -23,7 +23,7 @@ export class TalkFile {
     this.createTalkFileFromJsonFile(filename, fileAddress)
   }
 
-  public Clone (): TalkFile {
+  public Clone(): TalkFile {
     const talkFile = new TalkFile(this.GetName(), this.fileAddress)
     for (const choice of this.choices.values()) {
       talkFile.AddChoicePage(choice.Clone())
@@ -34,11 +34,11 @@ export class TalkFile {
     return talkFile
   }
 
-  private createTalkFileFromJsonFile (filename: string, fileAddress: string): void {
+  private createTalkFileFromJsonFile(filename: string, fileAddress: string): void {
     const pathAndFile = fileAddress + filename
     if (!existsSync(pathAndFile)) {
       throw new Error(
-        `The chat jsonc was ont found: ${pathAndFile} `
+        `The talks_xxxx.jsonc was not found: ${pathAndFile} `
       )
     }
     const text = readFileSync(pathAndFile, 'utf-8')
@@ -60,19 +60,19 @@ export class TalkFile {
     }
   }
 
-  public AddChoicePage (choice: ChoiceSection): void {
+  public AddChoicePage(choice: ChoiceSection): void {
     this.choices.set(choice.GetKey(), choice)
   }
 
-  public AddNonChoicePage (nonChoice: NonChoiceSection): void {
+  public AddNonChoicePage(nonChoice: NonChoiceSection): void {
     this.nonChoices.set(nonChoice.GetKey(), nonChoice)
   }
 
-  public GetName (): string {
+  public GetName(): string {
     return this.filename
   }
 
-  public FindAndAddPiecesRecursively (name: string, path: string, requisites: string[], mapOGainsByPage: Map<string, string>, pile: IPileOrRootPieceMap): void {
+  public FindAndAddPiecesRecursively(name: string, path: string, requisites: string[], mapOGainsByPage: Map<string, string>, pile: IPileOrRootPieceMap): void {
     // console.log(`>>>>${path}/${name}`)
     if (name.endsWith('choices')) {
       const choicePage = this.choices.get(name)
@@ -124,7 +124,7 @@ export class TalkFile {
     }
   }
 
-  GetAllTheTalkingNeededToGetToPath (talkPath: any): string[][] {
+  GetAllTheTalkingNeededToGetToPath(talkPath: any): string[][] {
     const toReturn = new Array<string[]>()
     const splitted: string[] = talkPath.split('/')
 
@@ -148,7 +148,7 @@ export class TalkFile {
     return toReturn
   }
 
-  Clear (): void {
+  Clear(): void {
     for (const choice of this.choices.values()) {
       for (const queue of choice.mapOfQueues.values()) {
         for (const line of queue.values()) {

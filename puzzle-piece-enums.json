@@ -4,6 +4,13 @@
   "description": "A puzzle dependency graph via json schema.",
   "type": "object",
   "definitions": {
+    "once_enum": {
+      "enum": [
+        "offerableOnce",
+        "selectableOnce",
+        "selectableOncePerTalk"
+      ]
+    },
     "access_enum": {
       "enum": [
         "bidirectional",
@@ -67,7 +74,9 @@
         "gains",
         "exit",
         "you",
-        "them"
+        "them",
+        "them2",
+        "them3"
       ]
     },
     "piece_enum": {

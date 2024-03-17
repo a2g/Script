@@ -27,9 +27,9 @@ export class NonChoiceSection {
     // return clonedChoicePage
   }
 
-  public Init (arrayOfArrayOfStrings: string[][]): void {
+  public Init (arrayOfArrayOfStrings: any[][]): void {
     for (const arrayOfTokens of arrayOfArrayOfStrings) {
-      const firstToken = arrayOfTokens.length > 0 ? arrayOfTokens[0] : ''
+      const firstToken: string = arrayOfTokens.length > 0 ? arrayOfTokens[0] : ''
       if (firstToken !== 'exit' && arrayOfTokens.length < 2) {
         throw new Error(
           `Minimum not met ${firstToken} of '${this.key}'  ${this.file}`
@@ -41,7 +41,9 @@ export class NonChoiceSection {
         )
       }
 
-      const secondToken = arrayOfTokens[1]
+      // const thirdToken: object = arrayOfTokens.length > 2 ? arrayOfTokens[2] : {}
+      const secondToken: string = arrayOfTokens.length > 1 ? arrayOfTokens[1] : ''
+
       if (firstToken === 'exit') {
         this.goto = 'exit'
       } else if (firstToken === 'goto') {

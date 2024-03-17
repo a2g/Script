@@ -26,7 +26,7 @@ export class ChoiceSection {
     return clonedChoicePage
   }
 
-  public Init (arrayOfArrayOfStrings: string[][]): void {
+  public Init (arrayOfArrayOfStrings: any[][]): void {
     for (const arrayOfTokens of arrayOfArrayOfStrings) {
       if (arrayOfTokens.length < 3) {
         throw new Error(
@@ -38,6 +38,7 @@ export class ChoiceSection {
           `The entry ${this.key} ends with '_choices' but one of its first cells are not numeric : ${this.file} `
         )
       }
+
       const number = arrayOfTokens[0]
       const choiceLine = new ChoiceLine(arrayOfTokens)
 

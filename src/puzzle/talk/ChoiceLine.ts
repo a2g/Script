@@ -7,23 +7,27 @@ export class ChoiceLine {
   public theseRequisites: string[]
   public isUsed: boolean
 
-  constructor (arrayOfTokens: string[]) {
+  constructor (arrayOfTokens: any[]) {
     this.theseRequisites = []
     this.speech = arrayOfTokens[1]
     this.goto = arrayOfTokens[2]
     this.isUsed = false
     this.onceType = OnceType.None
-    for (let i = 3; i < arrayOfTokens.length; i++) {
-      const token = arrayOfTokens[i]
-      if (token === OnceType.OnceSelected.toLowerCase()) {
-        this.onceType = OnceType.OnceSelected
-      } else if (token === OnceType.OnceShow.toLowerCase()) {
-        this.onceType = OnceType.OnceShow
-      } else if (token === OnceType.OnceTemp.toLowerCase()) {
-        this.onceType = OnceType.OnceTemp
-      } /* else {
-
-      } */
+    if (arrayOfTokens.length >= 4) {
+      const iterableObject: object = arrayOfTokens[3]
+      for (const kvp in iterableObject) {
+        const key = kvp[0]
+        const value = kvp[1]
+        if (key === 'once') {
+          if (value === OnceType.SelectableOnce.toLowerCase()) {
+            this.onceType = OnceType.SelectableOnce
+          } else if (value === OnceType.OfferableOnce.toLowerCase()) {
+            this.onceType = OnceType.OfferableOnce
+          } else if (value === OnceType.SelectableOncePerTalk.toLowerCase()) {
+            this.onceType = OnceType.SelectableOncePerTalk
+          }
+        }
+      }
     }
   }
 }

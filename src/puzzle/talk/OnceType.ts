@@ -1,6 +1,6 @@
 export enum OnceType {
   None,
-  OnceSelected = 'once',
-  OnceTemp = 'TempOnce',
-  OnceShow = 'ShowOnce'
+  OfferableOnce = 'selectableOnce',
+  SelectableOnce = 'selectableOnce',
+  SelectableOncePerTalk = 'selectableOncePerTalk'
 }
