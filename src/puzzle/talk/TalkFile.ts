@@ -15,7 +15,7 @@ export class TalkFile {
   choices: Map<string, ChoiceSection>
   nonChoices: Map<String, NonChoiceSection>
 
-  constructor(filename: string, fileAddress: string) {
+  constructor (filename: string, fileAddress: string) {
     this.filename = filename
     this.fileAddress = fileAddress
     this.choices = new Map<string, ChoiceSection>()
@@ -23,18 +23,18 @@ export class TalkFile {
     this.createTalkFileFromJsonFile(filename, fileAddress)
   }
 
-  public Clone(): TalkFile {
+  public Clone (): TalkFile {
     const talkFile = new TalkFile(this.GetName(), this.fileAddress)
     for (const choice of this.choices.values()) {
-      talkFile.AddChoicePage(choice.Clone())
+      talkFile.AddChoiceSection(choice.Clone())
     }
     for (const nonChoice of this.nonChoices.values()) {
-      talkFile.AddNonChoicePage(nonChoice.Clone())
+      talkFile.AddNonChoiceSection(nonChoice.Clone())
     }
     return talkFile
   }
 
-  private createTalkFileFromJsonFile(filename: string, fileAddress: string): void {
+  private createTalkFileFromJsonFile (filename: string, fileAddress: string): void {
     const pathAndFile = fileAddress + filename
     if (!existsSync(pathAndFile)) {
       throw new Error(
@@ -49,48 +49,49 @@ export class TalkFile {
       const array = talks[key]
 
       if (key.endsWith('_choices')) {
-        const choicePage = new ChoiceSection(pathAndFile, key)
-        choicePage.Init(array)
-        this.AddChoicePage(choicePage)
+        const choiceSection = new ChoiceSection(pathAndFile, key)
+        choiceSection.Init(array)
+        this.AddChoiceSection(choiceSection)
       } else {
-        const nonChoicePage = new NonChoiceSection(pathAndFile, key)
-        nonChoicePage.Init(array)
-        this.AddNonChoicePage(nonChoicePage)
+        const nonChoiceSection = new NonChoiceSection(pathAndFile, key)
+        nonChoiceSection.Init(array)
+        this.AddNonChoiceSection(nonChoiceSection)
       }
     }
   }
 
-  public AddChoicePage(choice: ChoiceSection): void {
+  public AddChoiceSection (choice: ChoiceSection): void {
     this.choices.set(choice.GetKey(), choice)
   }
 
-  public AddNonChoicePage(nonChoice: NonChoiceSection): void {
+  public AddNonChoiceSection (nonChoice: NonChoiceSection): void {
     this.nonChoices.set(nonChoice.GetKey(), nonChoice)
   }
 
-  public GetName(): string {
+  public GetName (): string {
     return this.filename
   }
 
-  public FindAndAddPiecesRecursively(name: string, path: string, requisites: string[], mapOGainsByPage: Map<string, string>, pile: IPileOrRootPieceMap): void {
+  public FindAndAddPiecesRecursively (name: string, path: string, requisites: string[], mapOGainsBySection: Map<string, string>, pile: IPileOrRootPieceMap): void {
     // console.log(`>>>>${path}/${name}`)
     if (name.endsWith('choices')) {
-      const choicePage = this.choices.get(name)
-      if (choicePage != null) {
-        for (const queue of choicePage.mapOfQueues.values()) {
+      const choiceSection = this.choices.get(name)
+      if (choiceSection != null) {
+        for (const queue of choiceSection.mapOfQueues.values()) {
           for (const line of queue.values()) {
             if (line.goto.length > 0 && !line.isUsed) {
               line.isUsed = true
-              this.FindAndAddPiecesRecursively(line.goto, `${path}/${name}`, [...requisites, ...line.theseRequisites], mapOGainsByPage, pile)
+              this.FindAndAddPiecesRecursively(line.goto, `${path}/${name}`, [...requisites, ...line.theseRequisites], mapOGainsBySection, pile)
             }
           }
         }
       }
     } else {
-      const nonChoicePage = this.nonChoices.get(name)
-      if (nonChoicePage != null) {
-        if (nonChoicePage.gains.length > 0 && !mapOGainsByPage.has(name)) {
-          const output = nonChoicePage.gains
+      const nonChoiceSection = this.nonChoices.get(name)
+      if (nonChoiceSection != null) {
+        // we create a piece from a gains
+        if (nonChoiceSection.gains.length > 0 && !mapOGainsBySection.has(name)) {
+          const output = nonChoiceSection.gains
           const inputA = (requisites.length > 0) ? requisites[0] : 'undefined'
           const inputB = (requisites.length > 1) ? requisites[1] : 'undefined'
           const inputC = (requisites.length > 2) ? requisites[2] : 'undefined'
@@ -113,33 +114,33 @@ export class TalkFile {
           const piece = new Piece(id, null, output, type, 1, null, null, null, inputA, inputB, inputC, inputD, inputE, inputF)
           piece.SetTalkPath(`${path}/${name}`)
           pile.AddPiece(piece, this.fileAddress, isNoFile)
-          mapOGainsByPage.set(name, output)
-        } else if (nonChoicePage.goto.length > 0) {
-          // nonChoice pages only have one goto
+          mapOGainsBySection.set(name, output)
+        } else if (nonChoiceSection.goto.length > 0) {
+          // nonChoice sections only have one goto
           // but they have a name - its valid
           // unlike choices, they don't have requisites, so we add existing
-          this.FindAndAddPiecesRecursively(nonChoicePage.goto, `${path}/${name}`, requisites, mapOGainsByPage, pile)
+          this.FindAndAddPiecesRecursively(nonChoiceSection.goto, `${path}/${name}`, requisites, mapOGainsBySection, pile)
         }
       }
     }
   }
 
-  GetAllTheTalkingNeededToGetToPath(talkPath: any): string[][] {
+  GetAllTheTalkingNeededToGetToPath (talkPath: any): string[][] {
     const toReturn = new Array<string[]>()
     const splitted: string[] = talkPath.split('/')
 
     for (let i = 0; i < splitted.length; i++) {
       const segment = splitted[i]
       if (segment.endsWith('choices')) {
-        const choicePage = this.choices.get(segment)
-        if (choicePage != null) {
-          const talkings = choicePage.GetAllTalkingWhilstChoosing(splitted[i + 1])
+        const choiceSection = this.choices.get(segment)
+        if (choiceSection != null) {
+          const talkings = choiceSection.GetAllTalkingWhilstChoosing(splitted[i + 1])
           toReturn.push(...talkings)
         }
       } else {
-        const nonChoicePage = this.nonChoices.get(segment)
-        if (nonChoicePage != null) {
-          const talkings = nonChoicePage.GetAllTalking()
+        const nonChoiceSection = this.nonChoices.get(segment)
+        if (nonChoiceSection != null) {
+          const talkings = nonChoiceSection.GetAllTalking()
           toReturn.push(...talkings)
         }
       }
@@ -148,7 +149,7 @@ export class TalkFile {
     return toReturn
   }
 
-  Clear(): void {
+  Clear (): void {
     for (const choice of this.choices.values()) {
       for (const queue of choice.mapOfQueues.values()) {
         for (const line of queue.values()) {
