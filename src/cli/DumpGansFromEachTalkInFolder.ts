@@ -8,13 +8,12 @@ export function DumpGainsFromEachTalkInFolder (folder: string): void {
   process.chdir(join(__dirname, '/../../../..'))
   process.chdir(folder)
 
-  const mapOGainsByPage = new Map<string, string>()
-
   const files = fs.readdirSync('.')
   for (const file of files) {
     if (file.startsWith('talks') && file.endsWith('.jsonc')) {
       const talkFile = new TalkFile(file, folder)
       const pile = new SimplePile()
+      const mapOGainsByPage = new Map<string, string>()
       console.warn('')
       console.warn(`${file}`)
       console.warn('===========================')
