@@ -133,7 +133,7 @@ export class DeconstructDoer {
       } else if (isTalk) {
         const path = piece.GetTalkPath()
         const talkPropName = piece.inputHints[0]
-        const talkState = this.theSolutionsTalkFiles.get(talkPropName)
+        const talkState = this.theSolutionsTalkFiles.get(talkPropName + '.jsonc')
         if (talkState != null) {
           const speechLines = talkState.GetAllTheTalkingNeededToGetToPath(path)
 
