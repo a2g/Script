@@ -135,7 +135,7 @@ export class DeconstructDoer {
         const talkPropName = piece.inputHints[0]
         const talkState = this.theSolutionsTalkFiles.get(talkPropName + '.jsonc')
         if (talkState != null) {
-          const speechLines = talkState.GetAllTheTalkingNeededToGetToPath(path)
+          const speechLines = talkState.CollectSpeechLinesNeededToGetToPath(path)
 
           toReturn = new RawObjectsAndVerb(
             Raw.Talk,

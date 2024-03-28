@@ -20,21 +20,7 @@ export class TalkFile {
     this.fileAddress = fileAddress
     this.choices = new Map<string, ChoiceSection>()
     this.nonChoices = new Map<string, NonChoiceSection>()
-    this.createTalkFileFromJsonFile(filename, fileAddress)
-  }
 
-  public Clone (): TalkFile {
-    const talkFile = new TalkFile(this.GetName(), this.fileAddress)
-    for (const choice of this.choices.values()) {
-      talkFile.AddChoiceSection(choice.Clone())
-    }
-    for (const nonChoice of this.nonChoices.values()) {
-      talkFile.AddNonChoiceSection(nonChoice.Clone())
-    }
-    return talkFile
-  }
-
-  private createTalkFileFromJsonFile (filename: string, fileAddress: string): void {
     const pathAndFile = fileAddress + filename
     if (!existsSync(pathAndFile)) {
       throw new Error(
@@ -58,6 +44,17 @@ export class TalkFile {
         this.AddNonChoiceSection(nonChoiceSection)
       }
     }
+  }
+
+  public Clone (): TalkFile {
+    const talkFile = new TalkFile(this.GetName(), this.fileAddress)
+    for (const choice of this.choices.values()) {
+      talkFile.AddChoiceSection(choice.Clone())
+    }
+    for (const nonChoice of this.nonChoices.values()) {
+      talkFile.AddNonChoiceSection(nonChoice.Clone())
+    }
+    return talkFile
   }
 
   public AddChoiceSection (choice: ChoiceSection): void {
@@ -125,7 +122,7 @@ export class TalkFile {
     }
   }
 
-  GetAllTheTalkingNeededToGetToPath (talkPath: any): string[][] {
+  CollectSpeechLinesNeededToGetToPath (talkPath: any): string[][] {
     const toReturn = new Array<string[]>()
     const splitted: string[] = talkPath.split('/')
 
