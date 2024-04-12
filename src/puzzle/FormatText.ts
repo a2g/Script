@@ -47,6 +47,10 @@ export function FormatText (
     if (!isColor) return single.slice(1)
     return Colors.Green + single.slice(1) + Colors.Reset
   }
+  if (single.startsWith(IdPrefixes.InvGoal)) {
+    if (!isColor) return single.slice(7)
+    return Colors.Green + single.slice(7) + Colors.Reset
+  }
   if (single.startsWith(IdPrefixes.Talk) || single.startsWith(IdPrefixes.Talks)) {
     if (!isColor) return single.slice(6)
     return Colors.Red + single.slice(6) + Colors.Reset

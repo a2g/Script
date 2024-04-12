@@ -98,7 +98,7 @@ export class TalkFile {
           const id = GetNextId()
           let type = ''
           let isNoFile = true
-          if (output.startsWith(IdPrefixes.Goal)) {
+          if (output.startsWith(IdPrefixes.Goal) || output.startsWith(IdPrefixes.InvGoal)) {
             type = _.TALK_GAINS_GOAL1_WITH_VARIOUS_REQUISITES
             if (existsSync(`${this.fileAddress}${output}.jsonc`)) {
               isNoFile = false

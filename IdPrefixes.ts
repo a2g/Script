@@ -1,5 +1,6 @@
 export const IdPrefixes = {
-  Inv: 'inv_',
+  Inv: 'inv',
+  InvGoal: 'invgoal',
   Prop: 'prop_',
   Char: 'char_',
   Talk: 'talk_',

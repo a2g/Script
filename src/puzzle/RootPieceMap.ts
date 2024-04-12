@@ -3,7 +3,7 @@ import { Box } from './Box'
 import { GenerateMapOfLeavesRecursively } from './GenerateMapOfLeavesRecursively'
 import { GenerateMapOfLeavesTracingGoalsRecursively } from './GenerateMapOfLeavesTraccingGoalsRecursively'
 import { IPileOrRootPieceMap } from './IPileOrRootPieceMap'
-import { IsAGoalMetPieceType } from './IsAGoalMetPieceType'
+import { IsPieceOutputtingAGoal } from './IsPieceOutputtingAGoal'
 import { Piece } from './Piece'
 import { RootPiece } from './RootPiece'
 import { TalkFile } from './talk/TalkFile'
@@ -41,7 +41,7 @@ export class RootPieceMap implements IPileOrRootPieceMap {
   }
 
   public AddPiece (piece: Piece, folder = '', isNoFile = true): void {
-    if (IsAGoalMetPieceType(piece.type)) {
+    if (IsPieceOutputtingAGoal(piece)) {
       const goal1 = piece.output
       if (goal1 !== 'x_win' && !isNoFile) {
         const file = `${goal1}.jsonc`

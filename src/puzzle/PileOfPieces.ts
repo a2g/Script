@@ -1,12 +1,12 @@
 
 import { IPileOfPiecesReadOnly } from './IPileOfPiecesReadOnly'
 import { IPileOrRootPieceMap } from './IPileOrRootPieceMap'
-import { IsAGoalMetPieceType } from './IsAGoalMetPieceType'
+import { IsPieceOutputtingAGoal } from './IsPieceOutputtingAGoal'
 import { Piece } from './Piece'
 import { TalkFile } from './talk/TalkFile'
 
 /**
- * This is basically wraps a multimap - no extra data -
+ * This is basically wraps a multi-map - no extra data -
  * so we can more easily obtain all the pieces whose output
  * node matches a given input.
  *
@@ -76,7 +76,7 @@ export class PileOfPieces implements IPileOfPiecesReadOnly, IPileOrRootPieceMap 
   }
 
   public AddPiece (piece: Piece, _folder = '', _isNoFile = true): void {
-    if (!IsAGoalMetPieceType(piece.type)) {
+    if (!IsPieceOutputtingAGoal(piece)) {
       // initialize array, if it hasn't yet been
       if (!this.piecesMappedByOutput.has(piece.output)) {
         this.piecesMappedByOutput.set(piece.output, new Set<Piece>())
