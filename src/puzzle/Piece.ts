@@ -296,47 +296,18 @@ export class Piece {
       // then we just set and forget, allowing that goal
       // be completed via the natural process
       if (solution.GetRootMap().Has(importHintToFind)) {
-        const matchingRootPieces = solution
+        const matchingRootPiece = solution
           .GetRootMap()
-          .GetRootPieceArrayByName(importHintToFind)
-        if (matchingRootPieces.length === 1) {
-          // is it a goal? (since goal map always contains all goals)
-          // solution.MarkGoalsAsContainingNullsAndMergeIfNeeded()// this is optional...
-          const isSolved = matchingRootPieces[0].IsSolved()
+          .GetRootPieceByName(importHintToFind)
 
-          if (isSolved) {
-            this.StubOutInputK(k, SpecialTypes.CompletedElsewhere)
-          }
-          continue
+        // is it a goal? (since goal map always contains all goals)
+        // solution.MarkGoalsAsContainingNullsAndMergeIfNeeded()// this is optional...
+        const isSolved = matchingRootPiece.IsSolved()
+
+        if (isSolved) {
+          this.StubOutInputK(k, SpecialTypes.CompletedElsewhere)
         }
-
-        // 3. Matches multiple goals in goalrootmap
-        if (matchingRootPieces.length > 0) {
-          for (let i = matchingRootPieces.length - 1; i >= 0; i -= 1) {
-            const thisMatchingRootPiece = matchingRootPieces[i]
-
-            // Clone - if needed!
-            const newClonedSolution = solution.Clone()
-
-            // go through all other matching root piece,s  and delete their matching root
-            // piece from this solutions root piece
-            for (const matchingRootPiece of newClonedSolution
-              .GetRootMap()
-              .GetRootPieceArrayByName(importHintToFind)) {
-              if (matchingRootPiece !== thisMatchingRootPiece) {
-                newClonedSolution
-                  .GetRootMap()
-                  .RemovePieceById(matchingRootPiece.piece.id)
-              }
-            }
-            solutions.GetSolutions().push(newClonedSolution)
-          }
-          // since we've added multiple
-          solutions.RemoveSolution(solution)
-
-          // we could stub out here, but even if we don't it will occur next iteration
-          return true // since cloning occured
-        }
+        continue
       }
 
       // 4. PLain old pieces

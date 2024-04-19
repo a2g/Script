@@ -306,11 +306,9 @@ export class Box implements IBoxReadOnlyWithFileMethods {
   }
 
   public CopyFullGoalPiecesTreesToContainer (destination: IPileOrRootPieceMap): void {
-    for (const array of this.goalPieceMap.GetValues()) {
-      for (const goal of array) {
-        const clonedPiece = goal.piece.ClonePieceAndEntireTree()
-        destination.AddPiece(clonedPiece, '', true)
-      }
+    for (const goal of this.goalPieceMap.GetValues()) {
+      const clonedPiece = goal.piece.ClonePieceAndEntireTree()
+      destination.AddPiece(clonedPiece, '', true)
     }
 
     for (const item of this.talkFiles.values()) {
@@ -322,11 +320,9 @@ export class Box implements IBoxReadOnlyWithFileMethods {
     map: Map<string, IBoxReadOnly>
   ): void {
     map.set(this.filename, this)
-    for (const array of this.goalPieceMap.GetValues()) {
-      for (const goal of array) {
-        if (goal.piece.boxToMerge != null) {
-          goal.piece.boxToMerge.CollectAllReferencedBoxesRecursively(map)
-        }
+    for (const goal of this.goalPieceMap.GetValues()) {
+      if (goal.piece.boxToMerge != null) {
+        goal.piece.boxToMerge.CollectAllReferencedBoxesRecursively(map)
       }
     }
   }

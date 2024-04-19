@@ -34,25 +34,24 @@ export function ChooseDigDeprecated (solver: SolverViaRootPiece): void {
           ? uniqueName + '<-- yellow is uniqueName, red is constraints'
           : NAME_NOT_DETERMINABLE
       console.warn(`${letter}. ${label} ${solution.getReasonForBranching()}`)
-      for (const array of solution.GetRootMap().GetValues()) {
-        for (const item of array) {
-          listItemNumber++
+      for (const item of solution.GetRootMap().GetValues()) {
+        listItemNumber++
 
-          // display list item
-          const { output } = item.piece
-          let inputs = ''
-          for (const inputSpiel of item.piece.inputSpiels) {
-            inputs += `${FormatText(inputSpiel)},`
-          }
-          console.warn(
-            `    ${listItemNumber}. ${FormatText(output)} ${AddBrackets(
-              inputs
-            )} (status=${item.IsSolved() ? 'Solved' : 'Unsolved'})`
-          )
-          incomplete += item.IsSolved() ? 0 : 1
+        // display list item
+        const { output } = item.piece
+        let inputs = ''
+        for (const inputSpiel of item.piece.inputSpiels) {
+          inputs += `${FormatText(inputSpiel)},`
         }
+        console.warn(
+          `    ${listItemNumber}. ${FormatText(output)} ${AddBrackets(
+            inputs
+          )} (status=${item.IsSolved() ? 'Solved' : 'Unsolved'})`
+        )
+        incomplete += item.IsSolved() ? 0 : 1
       }
     }
+
     console.warn(`Number of goals incomplete ${incomplete}/${listItemNumber}`)
 
     // allow user to choose item
@@ -73,12 +72,10 @@ export function ChooseDigDeprecated (solver: SolverViaRootPiece): void {
         for (let i = 0; i < solutions.length; i++) {
           const rootMap = solutions[i].GetRootMap()
           const goals = rootMap.GetValues()
-          for (const array of goals) {
-            for (const goal of array) {
-              i++
-              if (i === theNumber) {
-                NavigatePieceRecursive(goal.piece, rootMap, solutions[i])
-              }
+          for (const goal of goals) {
+            i++
+            if (i === theNumber) {
+              NavigatePieceRecursive(goal.piece, rootMap, solutions[i])
             }
           }
         }

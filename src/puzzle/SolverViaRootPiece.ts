@@ -29,27 +29,26 @@ export class SolverViaRootPiece {
       subBox.CopyFullGoalPiecesTreesToContainer(rootMap)
     }
 
-    const allWinGoal = rootMap.GetAllWinGoals()
-    if (allWinGoal == null || allWinGoal.length === 0) {
+    const winGoal = rootMap.GetWinGoalIfAny()
+    if (winGoal == null) {
       throw new Error(`No x_win was found among the ${boxes.size} boxes`)
     }
     rootMap.RemoveAllWinGoals()
 
     this.solutions = []
-    for (const winGoal of allWinGoal) {
-      // ..everything else comes from the single box passed in
-      const newRootMap = rootMap.CloneAllRootPiecesAndTheirTrees()
-      newRootMap.AddPiece(winGoal.piece)
 
-      const firstSolution = Solution.createSolution(
-        newRootMap,
-        box.GetNewPileOfPieces(),
-        [],
-        box.GetMapOfAllStartingThings(),
-        box.IsNotMergingAnymoreBoxes()
-      )
-      this.solutions.push(firstSolution)
-    }
+    // ..everything else comes from the single box passed in
+    const newRootMap = rootMap.CloneAllRootPiecesAndTheirTrees()
+    newRootMap.AddPiece(winGoal.piece)
+
+    const firstSolution = Solution.createSolution(
+      newRootMap,
+      box.GetNewPileOfPieces(),
+      [],
+      box.GetMapOfAllStartingThings(),
+      box.IsNotMergingAnymoreBoxes()
+    )
+    this.solutions.push(firstSolution)
 
     this.mapOfStartingThingsAndWhoCanHaveThem = new Map<string, Set<string>>()
     const map = this.solutions[0].GetStartingThings()

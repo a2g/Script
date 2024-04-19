@@ -32,9 +32,9 @@ export function GenerateMapOfLeavesTracingGoalsRecursively (
     // either set an entry in the leaf map or not...
     switch (inputType) {
       case SpecialTypes.CompletedElsewhere: {
-        const goals = rootPieceMap.GetRootPieceArrayByName(piece.inputHints[i])
+        const goal = rootPieceMap.GetRootPieceByName(piece.inputHints[i])
         // Generating name ran may have to multiple with same name');
-        for (const goal of goals) {
+        if (goal != null) {
           GenerateMapOfLeavesTracingGoalsRecursively(
             goal.piece,
             goal.piece.GetOutput(),

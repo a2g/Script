@@ -47,16 +47,14 @@ export function getJsonOfAllSolutions (
     for (const solution of solver.GetSolutions()) {
       console.warn(FormatText(solution.GetDisplayNamesConcatenated()))
       console.warn(FormatText(solution.GetRootMap().CalculateListOfKeys()))
-      for (const array of solution.GetRootMap().GetValues()) {
-        for (const item of array) {
-          listItemNumber++
+      for (const item of solution.GetRootMap().GetValues()) {
+        listItemNumber++
 
-          // display list item
-          const status = item.IsSolved() ? 'Solved' : 'Unsolved'
-          const { output } = item.piece
-          console.warn(`    ${listItemNumber}. ${output} (status=${status})`)
-          incomplete += item.IsSolved() ? 0 : 1
-        }
+        // display list item
+        const status = item.IsSolved() ? 'Solved' : 'Unsolved'
+        const { output } = item.piece
+        console.warn(`    ${listItemNumber}. ${output} (status=${status})`)
+        incomplete += item.IsSolved() ? 0 : 1
       }
     }
 
@@ -102,14 +100,12 @@ function getJsonArrayOfRootPieces (
 
   // first we push this
   const listOfRootPieceArrays = solution.GetRootMap().GetValues()
-  for (const rootPieceArray of listOfRootPieceArrays) {
-    for (const rootPiece of rootPieceArray) {
-      toReturn.push({
-        name: rootPiece.piece.GetOutput(),
-        isAGoalOrAuto: false,
-        children: getJsonArrayOfAllSubPieces(rootPiece.piece)
-      })
-    }
+  for (const rootPiece of listOfRootPieceArrays) {
+    toReturn.push({
+      name: rootPiece.piece.GetOutput(),
+      isAGoalOrAuto: false,
+      children: getJsonArrayOfAllSubPieces(rootPiece.piece)
+    })
   }
 
   // then we push the actual order of commands

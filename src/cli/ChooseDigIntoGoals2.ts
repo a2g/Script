@@ -25,10 +25,8 @@ export function ChooseDigIntoGoals2 (solver: SolverViaRootPiece): void {
     for (let i = 0; i < solver.GetSolutions().length; i++) {
       const solution = solver.GetSolutions()[i]
       let numberOfUnsolved = 0
-      for (const goalArray of solution.GetRootMap().GetValues()) {
-        for (const goal of goalArray) {
-          numberOfUnsolved += goal.IsSolved() ? 0 : 1
-        }
+      for (const goal of solution.GetRootMap().GetValues()) {
+        numberOfUnsolved += goal.IsSolved() ? 0 : 1
       }
       const reason = solution.getReasonForBranching()
       const name = FormatText(solution.GetDisplayNamesConcatenated())
@@ -70,21 +68,19 @@ export function ChooseDigIntoGoals2 (solver: SolverViaRootPiece): void {
         console.warn(`A. ${label} ${solution.getReasonForBranching()}`)
         let listItemNumber = 0
         let incomplete = 0
-        for (const rootGoals of solution.GetRootMap().GetValues()) {
-          for (const rootGoal of rootGoals) {
-            listItemNumber++
+        for (const rootGoal of solution.GetRootMap().GetValues()) {
+          listItemNumber++
 
-            // display list item
-            const { output } = rootGoal.piece
-            let inputs = ''
-            for (const inputSpiel of rootGoal.piece.inputSpiels) {
-              inputs += `${FormatText(inputSpiel)},`
-            }
-            console.warn(
-              `    ${listItemNumber}. ${FormatText(output)} ${AddBrackets(inputs)} (status=${rootGoal.IsSolved() ? 'Solved' : 'Unsolved'})`
-            )
-            incomplete += rootGoal.IsSolved() ? 0 : 1
+          // display list item
+          const { output } = rootGoal.piece
+          let inputs = ''
+          for (const inputSpiel of rootGoal.piece.inputSpiels) {
+            inputs += `${FormatText(inputSpiel)},`
           }
+          console.warn(
+            `    ${listItemNumber}. ${FormatText(output)} ${AddBrackets(inputs)} (status=${rootGoal.IsSolved() ? 'Solved' : 'Unsolved'})`
+          )
+          incomplete += rootGoal.IsSolved() ? 0 : 1
         }
 
         console.warn(`Number of goals incomplete ${incomplete}/${listItemNumber}`)
@@ -108,12 +104,10 @@ export function ChooseDigIntoGoals2 (solver: SolverViaRootPiece): void {
             for (let i = 0; i < solutions.length; i++) {
               const rootMap = solutions[i].GetRootMap()
               const goals = rootMap.GetValues()
-              for (const array of goals) {
-                for (const goal of array) {
-                  i++
-                  if (i === theNumber) {
-                    NavigatePieceRecursive(goal.piece, rootMap, solution)
-                  }
+              for (const goal of goals) {
+                i++
+                if (i === theNumber) {
+                  NavigatePieceRecursive(goal.piece, rootMap, solution)
                 }
               }
             }

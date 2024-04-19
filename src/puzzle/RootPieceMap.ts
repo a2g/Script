@@ -21,21 +21,15 @@ import { TalkFile } from './talk/TalkFile'
  *
  */
 export class RootPieceMap implements IPileOrRootPieceMap {
-  private readonly roots: Map<string, RootPiece[]>
+  private readonly roots: Map<string, RootPiece>
 
   constructor (deepCopyFromMe: RootPieceMap | null) {
-    this.roots = new Map<string, RootPiece[]>()
+    this.roots = new Map<string, RootPiece>()
     if (deepCopyFromMe != null) {
       for (const pair of deepCopyFromMe.roots) {
         const key = pair[0]
         const value = pair[1]
-        const array = new Array<RootPiece>()
-        this.roots.set(key, [])
-        for (const rootPiece of value) {
-          const clonedTree: Piece = rootPiece.piece.ClonePieceAndEntireTree()
-          array.push(new RootPiece(clonedTree, rootPiece.GetCommandsCompletedInOrder(), rootPiece.IsSolved()))
-        }
-        this.roots.set(key, array)
+        this.roots.set(key, value)
       }
     }
   }
@@ -53,12 +47,8 @@ export class RootPieceMap implements IPileOrRootPieceMap {
         piece.boxToMerge = new Box(folder, file)
       }
 
-      // initialize array, if it hasn't yet been
-      if (this.roots.get(piece.output) == null) {
-        this.roots.set(piece.output, new Array<RootPiece>())
-      }
       // always add to list
-      this.roots.get(piece.output)?.push(new RootPiece(piece, []))
+      this.roots.set(piece.output, new RootPiece(piece, []))
     }
   }
 
@@ -71,19 +61,16 @@ export class RootPieceMap implements IPileOrRootPieceMap {
     isOnlyNulls: boolean
   ): Map<string, Piece> {
     const leaves = new Map<string, Piece>()
-    for (const array of this.GetValues()) {
-      for (const root of array) {
-        GenerateMapOfLeavesRecursively(root.piece, '', isOnlyNulls, leaves)
-      }
+    for (const root of this.GetValues()) {
+      GenerateMapOfLeavesRecursively(root.piece, '', isOnlyNulls, leaves)
     }
     return leaves
   }
 
   public GenerateMapOfLeavesFromWinGoal (): Map<string, Piece> {
-    const allWinGaols = this.GetAllWinGoals()
     const leaves = new Map<string, Piece>()
-    if (allWinGaols?.length === 1) {
-      const winGoal = allWinGaols[0]
+    const winGoal = this.GetWinGoalIfAny()
+    if (winGoal != null) {
       GenerateMapOfLeavesTracingGoalsRecursively(
         winGoal.piece,
         'x_win',
@@ -94,7 +81,7 @@ export class RootPieceMap implements IPileOrRootPieceMap {
     return leaves
   }
 
-  public GetRootPieceArrayByName (name: string): RootPiece[] {
+  public GetRootPieceByName (name: string): RootPiece {
     const root = this.roots.get(name)
     if (typeof root === 'undefined' || root === null) {
       throw new Error(`rootPiece of that name doesn't exist ${name}`)
@@ -118,7 +105,7 @@ export class RootPieceMap implements IPileOrRootPieceMap {
     return this.roots.size
   }
 
-  public GetValues (): IterableIterator<RootPiece[]> {
+  public GetValues (): IterableIterator<RootPiece> {
     return this.roots.values()
   }
 
@@ -130,11 +117,11 @@ export class RootPieceMap implements IPileOrRootPieceMap {
     return this.roots.has(goalToObtain)
   }
 
-  public GetRootPieceArrayByNameNoThrow (goal: string): RootPiece[] | undefined {
+  public GetRootPieceArrayByNameNoThrow (goal: string): RootPiece | undefined {
     return this.roots.get(goal)
   }
 
-  public GetAllWinGoals (): RootPiece[] | undefined {
+  public GetWinGoalIfAny (): RootPiece | undefined {
     return this.roots.get('x_win')
   }
 
@@ -143,12 +130,10 @@ export class RootPieceMap implements IPileOrRootPieceMap {
   }
 
   public RemovePieceById (id: number): void {
-    for (const array of this.roots.values()) {
-      for (let i = 0; i < array.length; i++) {
-        if (array[i].piece.id === id) {
-          array.splice(i, 1)
-          return
-        }
+    for (const piece of this.roots.values()) {
+      if (piece.piece.id === id) {
+        this.roots.delete(piece.piece.output)
+        return
       }
     }
     throw new Error("Id was not found, and couldn't remove")

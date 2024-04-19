@@ -124,12 +124,10 @@ export class Solution {
 
   public ProcessUntilCloning (solutions: SolverViaRootPiece): boolean {
     let isBreakingDueToSolutionCloning = false
-    for (const array of this.rootPieces.GetValues()) {
-      for (const goal of array) {
-        if (goal.piece.ProcessUntilCloning(this, solutions, '/')) {
-          isBreakingDueToSolutionCloning = true
-          break
-        }
+    for (const goal of this.rootPieces.GetValues()) {
+      if (goal.piece.ProcessUntilCloning(this, solutions, '/')) {
+        isBreakingDueToSolutionCloning = true
+        break
       }
     }
 
@@ -139,12 +137,10 @@ export class Solution {
   GetOrderOfCommands (): RawObjectsAndVerb[] {
     const toReturn: RawObjectsAndVerb[] = []
     for (const key of this.rootPieceKeysInSolvingOrder) {
-      const rootGoalArray = this.GetRootMap().GetRootPieceArrayByName(key)
-      for (const goalPiece of rootGoalArray) {
-        const at = toReturn.length
-        // const n = goalPiece.commandsCompletedInOrder.length
-        toReturn.splice(at, 0, ...goalPiece.GetCommandsCompletedInOrder())
-      }
+      const goalPiece = this.GetRootMap().GetRootPieceByName(key)
+      const at = toReturn.length
+      // const n = goalPiece.commandsCompletedInOrder.length
+      toReturn.splice(at, 0, ...goalPiece.GetCommandsCompletedInOrder())
     }
     return toReturn
   }
@@ -193,12 +189,10 @@ export class Solution {
   }
 
   public FindAnyPieceMatchingIdRecursively (id: number): Piece | null {
-    for (const array of this.rootPieces.GetValues()) {
-      for (const goal of array) {
-        const result = goal.piece.FindAnyPieceMatchingIdRecursively(id)
-        if (result != null) {
-          return result
-        }
+    for (const goal of this.rootPieces.GetValues()) {
+      const result = goal.piece.FindAnyPieceMatchingIdRecursively(id)
+      if (result != null) {
+        return result
       }
     }
     return null
@@ -214,23 +208,21 @@ export class Solution {
 
   public MarkGoalsAsContainingNullsAndMergeIfNeeded (): void {
     // go through all the goal pieces
-    for (const array of this.rootPieces.GetValues()) {
-      for (const goal of array) {
-        // if there are no places to attach pieces it will return null
-        const firstMissingPiece = goal.piece.ReturnTheFirstNullInputHint()
-        if (firstMissingPiece === '') {
-          if (!goal.IsSolved()) {
-            goal.SetSolved()
-            // we do this before merging boxes, because it
-            // has a step where it goes through all the boxes
-            // yet to be merged - and modifies them!
-            this.AddCommandsToReachGoalToList(goal)
-            if (
-              goal.piece.boxToMerge != null &&
-              !this.isNotMergingAnyMoreBoxes
-            ) {
-              this.MergeBox(goal.piece.boxToMerge)
-            }
+    for (const goal of this.rootPieces.GetValues()) {
+      // if there are no places to attach pieces it will return null
+      const firstMissingPiece = goal.piece.ReturnTheFirstNullInputHint()
+      if (firstMissingPiece === '') {
+        if (!goal.IsSolved()) {
+          goal.SetSolved()
+          // we do this before merging boxes, because it
+          // has a step where it goes through all the boxes
+          // yet to be merged - and modifies them!
+          this.AddCommandsToReachGoalToList(goal)
+          if (
+            goal.piece.boxToMerge != null &&
+            !this.isNotMergingAnyMoreBoxes
+          ) {
+            this.MergeBox(goal.piece.boxToMerge)
           }
         }
       }
@@ -326,11 +318,9 @@ export class Solution {
   }
 
   public IsUnsolved (): boolean {
-    for (const array of this.rootPieces.GetValues()) {
-      for (const goal of array) {
-        if (!goal.IsSolved()) {
-          return true
-        }
+    for (const goal of this.rootPieces.GetValues()) {
+      if (!goal.IsSolved()) {
+        return true
       }
     }
     return false
