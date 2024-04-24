@@ -72,10 +72,12 @@ export function ChooseDigIntoGoals2 (solver: SolverViaRootPiece): void {
           listItemNumber++
 
           // display list item
-          const { output } = rootGoal.piece
+          const output = rootGoal.goalHint
           let inputs = ''
-          for (const inputSpiel of rootGoal.piece.inputSpiels) {
-            inputs += `${FormatText(inputSpiel)},`
+          if (rootGoal.piece != null) {
+            for (const inputSpiel of rootGoal.piece.inputSpiels) {
+              inputs += `${FormatText(inputSpiel)},`
+            }
           }
           console.warn(
             `    ${listItemNumber}. ${FormatText(output)} ${AddBrackets(inputs)} (status=${rootGoal.IsSolved() ? 'Solved' : 'Unsolved'})`
@@ -107,7 +109,9 @@ export function ChooseDigIntoGoals2 (solver: SolverViaRootPiece): void {
               for (const goal of goals) {
                 i++
                 if (i === theNumber) {
-                  NavigatePieceRecursive(goal.piece, rootMap, solution)
+                  if (goal.piece != null) {
+                    NavigatePieceRecursive(goal.piece, rootMap, solution)
+                  }
                 }
               }
             }

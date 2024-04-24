@@ -27,10 +27,10 @@ export function getJsonOfAllSolutions (
     throw Error(`file doesn't exist ${path}${firstBoxFilename}`)
   }
 
-  const firstBox = new Box(path, firstBoxFilename)
-
   const allBoxes = new Map<string, Box>()
-  firstBox.CollectAllReferencedBoxesRecursively(allBoxes)
+  const goalSet = new Set<string>()
+  const firstBox = new Box(path, firstBoxFilename, goalSet, allBoxes)
+
   const solver = new SolverViaRootPiece(firstBox)
 
   for (let i = 0; i < 40; i++) {
@@ -52,7 +52,7 @@ export function getJsonOfAllSolutions (
 
         // display list item
         const status = item.IsSolved() ? 'Solved' : 'Unsolved'
-        const { output } = item.piece
+        const output = item.goalHint
         console.warn(`    ${listItemNumber}. ${output} (status=${status})`)
         incomplete += item.IsSolved() ? 0 : 1
       }
@@ -102,7 +102,7 @@ function getJsonArrayOfRootPieces (
   const listOfRootPieceArrays = solution.GetRootMap().GetValues()
   for (const rootPiece of listOfRootPieceArrays) {
     toReturn.push({
-      name: rootPiece.piece.GetOutput(),
+      name: rootPiece.goalHint,
       isAGoalOrAuto: false,
       children: getJsonArrayOfAllSubPieces(rootPiece.piece)
     })
@@ -117,30 +117,32 @@ function getJsonArrayOfRootPieces (
   return toReturn
 }
 
-function getJsonArrayOfAllSubPieces (piece: Piece): unknown[] {
+function getJsonArrayOfAllSubPieces (piece: Piece | null): unknown[] {
   const toReturn = new Array<unknown>()
-  let i = -1
-  for (const hint of piece.inputHints) {
-    i++
-    const pieceOrNull = piece.inputs[i]
-    if (pieceOrNull != null) {
+  if (piece != null) {
+    let i = -1
+    for (const hint of piece.inputHints) {
+      i++
+      const pieceOrNull = piece.inputs[i]
+      if (pieceOrNull != null) {
+        toReturn.push({
+          name: hint,
+          isAGoalOrAuto: false,
+          children: getJsonArrayOfAllSubPieces(pieceOrNull)
+        })
+      } else {
+        toReturn.push({
+          name: hint,
+          isAGoalOrAuto: false
+        })
+      }
+    }
+    if (i === -1) {
       toReturn.push({
-        name: hint,
-        isAGoalOrAuto: false,
-        children: getJsonArrayOfAllSubPieces(pieceOrNull)
-      })
-    } else {
-      toReturn.push({
-        name: hint,
+        name: piece.output,
         isAGoalOrAuto: false
       })
     }
-  }
-  if (i === -1) {
-    toReturn.push({
-      name: piece.output,
-      isAGoalOrAuto: false
-    })
   }
   return toReturn
 }

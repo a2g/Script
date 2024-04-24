@@ -1,8 +1,6 @@
+import { Box } from './Box'
 import { IBoxReadOnly } from './IBoxReadOnly'
-import { IBoxReadOnlyWithFileMethods } from './IBoxReadOnlyWithFileMethods'
-import { IPileOrRootPieceMap } from './IPileOrRootPieceMap'
-import { PileOfPieces } from './PileOfPieces'
-import { RootPieceMap } from './RootPieceMap'
+import { Piece } from './Piece'
 import { VisibleThingsMap } from './VisibleThingsMap'
 
 /**
@@ -36,14 +34,16 @@ export class BigBoxViaSetOfBoxes implements IBoxReadOnly {
 
   public readonly startingGoalSet: Set<string>
 
-  public readonly originalBoxes: Map<string, IBoxReadOnlyWithFileMethods>
+  public readonly originalBoxes: Map<string, Box>
 
-  public readonly goals: RootPieceMap
+  public readonly setOfGoals: Set<string>
+
+  public readonly setOfGoalWords: Set<string>
 
   public readonly isNotMergingAnymoreBoxes: boolean
 
   constructor (
-    mapOfBoxes: Map<string, IBoxReadOnlyWithFileMethods>
+    mapOfBoxes: Map<string, Box>
   ) {
     // we keep the original boxes, because we need to call
     // Big Switch on them numerous times
@@ -54,7 +54,8 @@ export class BigBoxViaSetOfBoxes implements IBoxReadOnly {
     this.startingPropSet = new Set<string>()
     this.startingInvSet = new Set<string>()
     this.startingGoalSet = new Set<string>()
-    this.goals = new RootPieceMap(null)
+    this.setOfGoals = new Set<string>(null)
+    this.setOfGoalWords = new Set<string>()
     const setProps = new Set<string>()
     const setGoals = new Set<string>()
     const setInvs = new Set<string>()
@@ -66,11 +67,11 @@ export class BigBoxViaSetOfBoxes implements IBoxReadOnly {
       box.CopyStartingPropsToGivenSet(this.startingPropSet)
       box.CopyStartingInvsToGivenSet(this.startingInvSet)
       box.CopyStartingGoalsToGivenSet(this.startingGoalSet)
-      box.CopyFullGoalPiecesTreesToContainer(this.goals)
       box.CopyPropsToGivenSet(setProps)
-      box.CopyGoalsToGivenSet(setGoals)
       box.CopyInvsToGivenSet(setInvs)
       box.CopyCharsToGivenSet(setChars)
+      box.CopyGoalsToGivenSet(setGoals)
+      box.CopyGoalWordsToGivenSet(this.setOfGoalWords)
     }
 
     // clean 3 member and 4 indirect sets
@@ -182,44 +183,24 @@ export class BigBoxViaSetOfBoxes implements IBoxReadOnly {
     return this.allChars
   }
 
-  public CopyAllOtherPiecesFromBoxToPile (pile: PileOfPieces): void {
+  public GetClonedBoxOfPieces (): Box {
+    const box = new Box('', '', new Set<string>(), new Map<string, Box>())
+    this.CopyPiecesToGivenBox(box)
+    return box
+  }
+
+  public CopyPiecesToGivenBox (destinationBox: Box): void {
     for (const box of this.originalBoxes.values()) {
-      box.CopyAllOtherPiecesFromBoxToPile(pile)
+      box.CopyPiecesToGivenBox(destinationBox)
     }
   }
 
-  public CopyFullGoalPiecesTreesToContainer (map: IPileOrRootPieceMap): void {
-    for (const goal of this.goals.GetValues()) {
-      const clonedPiece = goal.piece.ClonePieceAndEntireTree()
-      map.AddPiece(clonedPiece, '', true)
-    }
+  public GetPieceIterator (): IterableIterator<Set<Piece>> {
+    const set = new Set<Set<Piece>>()
+    return set.values()
   }
 
-  public CollectAllReferencedBoxesRecursively (
-    map: Map<string, IBoxReadOnly>
-  ): void {
-    // We don't want to go: set.add(this);
-    // Because *event hough* this big box via set of big boxes can
-    // proxy as an IBoxReadonly - we really want the actual
-    // *genuine* only boxes in the list, otherwise pieces will
-    // get added twice.
-    for (const box of this.originalBoxes.values()) {
-      map.set(box.GetFilename(), box)
-    }
-
-    // since this map of goal pieces already has been obtained recursively
-    // then we don't need to recurse further here.
-    for (const goal of this.goals.GetValues()) {
-      if (goal.piece.boxToMerge != null) {
-        const merge = goal.piece.boxToMerge
-        map.set(merge.GetFilename(), merge)
-      }
-    }
-  }
-
-  public GetNewPileOfPieces (): PileOfPieces {
-    const pile = new PileOfPieces(null)
-    this.CopyAllOtherPiecesFromBoxToPile(pile)
-    return pile
+  public GetSetOfGoalWords (): Set<string> {
+    return this.setOfGoalWords
   }
 }

@@ -33,14 +33,15 @@ function main (): void {
             const starter = starters[index]
             DumpGainsFromEachTalkInFolder(starter.folder)
 
-            const firstBox = new Box(starter.folder, starter.file)
-
+            const setOfGoals = new Set<string>()
             const allBoxes = new Map<string, Box>()
+
+            const firstBox = new Box(starter.folder, starter.file, setOfGoals, allBoxes)
+
             // this is how we prime the special pieces only
-            firstBox.CollectAllReferencedBoxesRecursively(allBoxes)
             const combined = new BigBoxViaSetOfBoxes(allBoxes)
 
-            const solverPrimedWithCombined = new SolverViaRootPiece(combined)
+            const solverPrimedWithCombined = new SolverViaRootPiece(firstBox)
             const solverPrimedWithFirstBox = new SolverViaRootPiece(firstBox)
 
             console.warn(`\nSubMenu of ${starter.file}`)

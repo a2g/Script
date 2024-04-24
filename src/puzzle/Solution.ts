@@ -1,17 +1,16 @@
 import { FormatText } from './FormatText'
-import { IPileOfPiecesReadOnly } from './IPileOfPiecesReadOnly'
 import { Piece } from './Piece'
-import { PileOfPieces } from './PileOfPieces'
 import { Raw } from './Raw'
 import { RawObjectsAndVerb } from './RawObjectsAndVerb'
-import { RootPiece } from './RootPiece'
+import { GoalWord } from './GoalWord'
 import { DeconstructDoer } from './DeconstructDoer'
-import { RootPieceMap } from './RootPieceMap'
+import { GoalWordMap } from './GoalWordMap'
 import { SolverViaRootPiece } from './SolverViaRootPiece'
 import { VisibleThingsMap } from './VisibleThingsMap'
 import { IBoxReadOnlyWithFileMethods } from './IBoxReadOnlyWithFileMethods'
 import { createCommandFromAutoPiece } from './createCommandFromAutoPiece'
 import { TalkFile } from './talk/TalkFile'
+import { Box } from './Box'
 
 let globalSolutionId = 101
 /**
@@ -19,10 +18,10 @@ let globalSolutionId = 101
  */
 export class Solution {
   // important ones
-  private readonly rootPieces: RootPieceMap
+  private readonly goalWords: GoalWordMap
   private readonly rootPieceKeysInSolvingOrder: string[]
 
-  private readonly remainingPiecesRepo: PileOfPieces
+  private readonly boxOfRemainingPieces: Box
 
   // less important
   private readonly startingThings: VisibleThingsMap // once, this was updated dynamically in GetNextDoableCommandAndDesconstructTree
@@ -41,8 +40,8 @@ export class Solution {
 
   private constructor (
     id: number,
-    rootPieceMapToCopy: RootPieceMap | null,
-    copyThisMapOfPieces: IPileOfPiecesReadOnly,
+    rootPieceMapToCopy: GoalWordMap | null,
+    box: Box,
     solvingOrderForRootPieceKeys: string[],
     startingThingsPassedIn: VisibleThingsMap,
     isNotMergingAnyMoreBoxes: boolean,
@@ -50,9 +49,9 @@ export class Solution {
     nameSegments: string[] | null = null
   ) {
     this.id = id
-    this.rootPieces = new RootPieceMap(rootPieceMapToCopy)
+    this.goalWords = new GoalWordMap(rootPieceMapToCopy)
     this.isNotMergingAnyMoreBoxes = isNotMergingAnyMoreBoxes
-    this.remainingPiecesRepo = new PileOfPieces(copyThisMapOfPieces)
+    this.boxOfRemainingPieces = box
     this.reasonForBranching = ''
     this.rootPieceKeysInSolvingOrder = solvingOrderForRootPieceKeys.slice()
 
@@ -87,8 +86,8 @@ export class Solution {
   }
 
   public static createSolution (
-    rootPieceMapToCopy: RootPieceMap | null,
-    copyThisMapOfPieces: IPileOfPiecesReadOnly,
+    rootPieceMapToCopy: GoalWordMap | null,
+    box: Box,
     solvingOrderForRootPieceKeys: string[],
     startingThingsPassedIn: VisibleThingsMap,
     isNotMergingAnyMoreBoxes: boolean,
@@ -96,7 +95,7 @@ export class Solution {
     nameSegments: string[] | null = null
   ): Solution {
     globalSolutionId++
-    return new Solution(globalSolutionId, rootPieceMapToCopy, copyThisMapOfPieces, solvingOrderForRootPieceKeys, startingThingsPassedIn, isNotMergingAnyMoreBoxes, restrictions, nameSegments)
+    return new Solution(globalSolutionId, rootPieceMapToCopy, box, solvingOrderForRootPieceKeys, startingThingsPassedIn, isNotMergingAnyMoreBoxes, restrictions, nameSegments)
   }
 
   public Clone (): Solution {
@@ -104,14 +103,14 @@ export class Solution {
     // primarily to construct, so passing in root piece is needed..
     // so we clone the whole tree and pass it in
     const clonedRootPieceMap =
-      this.rootPieces.CloneAllRootPiecesAndTheirTrees()
+      this.goalWords.CloneAllRootPiecesAndTheirTrees()
 
     // When we clone we generally give everything new ids
     // but
 
     const clonedSolution = Solution.createSolution(
       clonedRootPieceMap,
-      this.remainingPiecesRepo,
+      this.boxOfRemainingPieces,
       this.rootPieceKeysInSolvingOrder,
       this.startingThings,
       this.isNotMergingAnyMoreBoxes,
@@ -124,8 +123,8 @@ export class Solution {
 
   public ProcessUntilCloning (solutions: SolverViaRootPiece): boolean {
     let isBreakingDueToSolutionCloning = false
-    for (const goal of this.rootPieces.GetValues()) {
-      if (goal.piece.ProcessUntilCloning(this, solutions, '/')) {
+    for (const goalWord of this.goalWords.GetValues()) {
+      if (goalWord.ProcessUntilCloning(this, solutions, '/')) {
         isBreakingDueToSolutionCloning = true
         break
       }
@@ -137,7 +136,7 @@ export class Solution {
   GetOrderOfCommands (): RawObjectsAndVerb[] {
     const toReturn: RawObjectsAndVerb[] = []
     for (const key of this.rootPieceKeysInSolvingOrder) {
-      const goalPiece = this.GetRootMap().GetRootPieceByName(key)
+      const goalPiece = this.GetRootMap().GoalWordByName(key)
       const at = toReturn.length
       // const n = goalPiece.commandsCompletedInOrder.length
       toReturn.splice(at, 0, ...goalPiece.GetCommandsCompletedInOrder())
@@ -164,10 +163,10 @@ export class Solution {
     return this.restrictionsEncounteredDuringSolving
   }
 
-  public GetPile (): PileOfPieces {
+  public GetMainBox (): Box {
     // we already remove pieces from this when we use them up
     // so returning the current piece map is ok
-    return this.remainingPiecesRepo
+    return this.boxOfRemainingPieces
   }
 
   public GetLastDisplayNameSegment (): string {
@@ -189,17 +188,19 @@ export class Solution {
   }
 
   public FindAnyPieceMatchingIdRecursively (id: number): Piece | null {
-    for (const goal of this.rootPieces.GetValues()) {
-      const result = goal.piece.FindAnyPieceMatchingIdRecursively(id)
-      if (result != null) {
-        return result
+    for (const goal of this.goalWords.GetValues()) {
+      if (goal.piece != null) {
+        const result = goal.piece.FindAnyPieceMatchingIdRecursively(id)
+        if (result != null) {
+          return result
+        }
       }
     }
     return null
   }
 
-  public GetRootMap (): RootPieceMap {
-    return this.rootPieces
+  public GetRootMap (): GoalWordMap {
+    return this.goalWords
   }
 
   public GetStartingThings (): VisibleThingsMap {
@@ -208,9 +209,9 @@ export class Solution {
 
   public MarkGoalsAsContainingNullsAndMergeIfNeeded (): void {
     // go through all the goal pieces
-    for (const goal of this.rootPieces.GetValues()) {
+    for (const goal of this.goalWords.GetValues()) {
       // if there are no places to attach pieces it will return null
-      const firstMissingPiece = goal.piece.ReturnTheFirstNullInputHint()
+      const firstMissingPiece = (goal.piece != null) ? goal.piece.ReturnTheFirstNullInputHint() : goal.goalHint
       if (firstMissingPiece === '') {
         if (!goal.IsSolved()) {
           goal.SetSolved()
@@ -218,8 +219,7 @@ export class Solution {
           // has a step where it goes through all the boxes
           // yet to be merged - and modifies them!
           this.AddCommandsToReachGoalToList(goal)
-          if (
-            goal.piece.boxToMerge != null &&
+          if (goal.piece?.boxToMerge != null &&
             !this.isNotMergingAnyMoreBoxes
           ) {
             this.MergeBox(goal.piece.boxToMerge)
@@ -232,7 +232,7 @@ export class Solution {
   public MergeBox (boxToMerge: IBoxReadOnlyWithFileMethods): void {
     console.warn(`Merging box ${boxToMerge.GetFilename()}          going into ${FormatText(this.GetDisplayNamesConcatenated())}`)
 
-    boxToMerge.CopyAllOtherPiecesFromBoxToPile(this.GetPile())
+    boxToMerge.CopyPiecesToGivenBox(this.GetMainBox())
     boxToMerge.CopyStartingThingCharsToGivenMap(this.startingThings)
     boxToMerge.CopyStartingThingCharsToGivenMap(this.currentlyVisibleThings)
   }
@@ -248,12 +248,12 @@ export class Solution {
    *
    *
    * Adds commands to reach goal to list
-   * @param goal
+   * @param goalStruct
    */
-  public AddCommandsToReachGoalToList (goal: RootPiece): void {
+  public AddCommandsToReachGoalToList (goalStruct: GoalWord): void {
     // push the commands
     const leafToRootTraverser = new DeconstructDoer(
-      goal,
+      goalStruct,
       this.currentlyVisibleThings,
       this.GetTalks()
     )
@@ -282,20 +282,20 @@ export class Solution {
 
       if (rawObjectsAndVerb.type !== Raw.None) {
         // this is just here for debugging!
-        goal.PushCommand(rawObjectsAndVerb)
+        goalStruct.PushCommand(rawObjectsAndVerb)
       }
     }
 
     // set the goal as completed in the currently visible things
-    this.currentlyVisibleThings.Set(goal.piece.output, new Set<string>())
+    this.currentlyVisibleThings.Set(goalStruct.goalHint, new Set<string>())
 
     // then write the goal we just completed
-    goal.PushCommand(
+    goalStruct.PushCommand(
       new RawObjectsAndVerb(
         Raw.Goal,
-        `completed (${goal.piece.output})`,
+        `completed (${goalStruct.goalHint})`,
         '',
-        goal.piece.output,
+        goalStruct.goalHint,
         [],
         [],
         ''
@@ -303,22 +303,22 @@ export class Solution {
     )
 
     // also tell the solution what order the goal was reached
-    this.rootPieceKeysInSolvingOrder.push(goal.piece.output)
+    this.rootPieceKeysInSolvingOrder.push(goalStruct.goalHint)
 
     // Sse if any autos depend on the newly completed goal - if so execute them
-    for (const piece of this.remainingPiecesRepo.GetAutos()) {
+    for (const piece of this.boxOfRemainingPieces.GetAutos()) {
       if (
         piece.inputHints.length === 2 &&
-        piece.inputHints[0] === goal.piece.output
+        piece.inputHints[0] === goalStruct.goalHint
       ) {
         const command = createCommandFromAutoPiece(piece)
-        goal.PushCommand(command)
+        goalStruct.PushCommand(command)
       }
     }
   }
 
   public IsUnsolved (): boolean {
-    for (const goal of this.rootPieces.GetValues()) {
+    for (const goal of this.goalWords.GetValues()) {
       if (!goal.IsSolved()) {
         return true
       }
@@ -335,7 +335,7 @@ export class Solution {
   }
 
   public GetSize (): number {
-    return this.remainingPiecesRepo.Size()
+    return this.boxOfRemainingPieces.Size()
   }
 
   public setReasonForBranching (lastBranchingPoint: string): void {
@@ -347,6 +347,6 @@ export class Solution {
   }
 
   public GetTalks (): Map<string, TalkFile> {
-    return this.remainingPiecesRepo.GetTalks()
+    return this.boxOfRemainingPieces.GetTalks()
   }
 }

@@ -2,7 +2,7 @@ import { AddBrackets } from './AddBrackets'
 import { Colors } from './Colors'
 import { GetDisplayName } from './GetDisplayName'
 import { IBoxReadOnly } from './IBoxReadOnly'
-import { RootPieceMap } from './RootPieceMap'
+import { GoalWordMap } from './GoalWordMap'
 import { Solution } from './Solution'
 
 /**
@@ -20,30 +20,22 @@ export class SolverViaRootPiece {
   >
 
   constructor (box: IBoxReadOnly) {
-    // we collect the other boxes, but only for
-    // collecting all rootmap
-    const rootMap = new RootPieceMap(null)
-    const boxes = new Map<string, IBoxReadOnly>()
-    box.CollectAllReferencedBoxesRecursively(boxes)
-    for (const subBox of boxes.values()) {
-      subBox.CopyFullGoalPiecesTreesToContainer(rootMap)
+    const hasWinGoal = box.GetSetOfGoalWords().has('x_win')
+    if (!hasWinGoal) {
+      throw new Error(`No x_win was found among the ${box.GetSetOfGoalWords().size} goals`)
     }
-
-    const winGoal = rootMap.GetWinGoalIfAny()
-    if (winGoal == null) {
-      throw new Error(`No x_win was found among the ${boxes.size} boxes`)
-    }
-    rootMap.RemoveAllWinGoals()
 
     this.solutions = []
 
     // ..everything else comes from the single box passed in
-    const newRootMap = rootMap.CloneAllRootPiecesAndTheirTrees()
-    newRootMap.AddPiece(winGoal.piece)
+    const newRootMap = new GoalWordMap(null)
+    for (const goal of box.GetSetOfGoalWords()) {
+      newRootMap.AddGoalWord(goal)
+    }
 
     const firstSolution = Solution.createSolution(
       newRootMap,
-      box.GetNewPileOfPieces(),
+      box.GetClonedBoxOfPieces(),
       [],
       box.GetMapOfAllStartingThings(),
       box.IsNotMergingAnymoreBoxes()

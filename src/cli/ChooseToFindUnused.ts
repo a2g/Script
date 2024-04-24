@@ -1,15 +1,11 @@
 import { IBoxReadOnly } from '../puzzle/IBoxReadOnly'
 import { Piece } from '../puzzle/Piece'
-import { PileOfPieces } from '../puzzle/PileOfPieces'
 
 export function ChooseToFindUnused (box: IBoxReadOnly): void {
   const invs = box.GetArrayOfInvs()
   const props = box.GetArrayOfProps()
-  const pile = new PileOfPieces(null)
-  box.CopyAllOtherPiecesFromBoxToPile(pile)
-  box.CopyFullGoalPiecesTreesToContainer(pile)
   // eslint-disable-next-line no-undef
-  const it: IterableIterator<Set<Piece>> = pile.GetPieceIterator()
+  const it: IterableIterator<Set<Piece>> = box.GetPieceIterator()
 
   for (const set of it) {
     for (const piece of set) {

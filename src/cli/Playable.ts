@@ -1,19 +1,19 @@
+import { Box } from '../puzzle/Box'
 import { Happener } from '../puzzle/Happener'
-import { PileOfPieces } from '../puzzle/PileOfPieces'
 import { PlayerAI } from '../puzzle/PlayerAI'
 
 export class Playable {
   private readonly player: PlayerAI
 
-  private readonly pileOfPieces: PileOfPieces
+  private readonly box: Box
 
   private readonly happener: Happener
 
   private isCompleted: boolean
 
-  constructor (player: PlayerAI, happener: Happener, map: PileOfPieces) {
+  constructor (player: PlayerAI, happener: Happener, box: Box) {
     this.player = player
-    this.pileOfPieces = map
+    this.box = box
     this.happener = happener
     this.isCompleted = false
   }
@@ -22,8 +22,8 @@ export class Playable {
     return this.player
   }
 
-  public GetPileOfPieces (): PileOfPieces {
-    return this.pileOfPieces
+  public GetPileOfPieces (): Box {
+    return this.box
   }
 
   public GetHappener (): Happener {

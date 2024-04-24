@@ -1,12 +1,12 @@
 import promptSync from 'prompt-sync'
 import { Piece } from '../puzzle/Piece'
-import { RootPieceMap } from '../puzzle/RootPieceMap'
+import { GoalWordMap } from '../puzzle/GoalWordMap'
 import { Solution } from '../puzzle/Solution'
 const prompt = promptSync({ sigint: true })
 
 export function NavigatePieceRecursive (
   piece: Piece,
-  rootPieceMap: RootPieceMap, solution: Solution
+  rootPieceMap: GoalWordMap, solution: Solution
 ): void {
   for (; ;) {
     const output: string = piece.spielOutput

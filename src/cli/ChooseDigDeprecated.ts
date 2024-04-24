@@ -38,10 +38,12 @@ export function ChooseDigDeprecated (solver: SolverViaRootPiece): void {
         listItemNumber++
 
         // display list item
-        const { output } = item.piece
+        const output = item.goalHint
         let inputs = ''
-        for (const inputSpiel of item.piece.inputSpiels) {
-          inputs += `${FormatText(inputSpiel)},`
+        if (item.piece != null) {
+          for (const inputSpiel of item.piece.inputSpiels) {
+            inputs += `${FormatText(inputSpiel)},`
+          }
         }
         console.warn(
           `    ${listItemNumber}. ${FormatText(output)} ${AddBrackets(
@@ -74,7 +76,7 @@ export function ChooseDigDeprecated (solver: SolverViaRootPiece): void {
           const goals = rootMap.GetValues()
           for (const goal of goals) {
             i++
-            if (i === theNumber) {
+            if (i === theNumber && (goal.piece != null)) {
               NavigatePieceRecursive(goal.piece, rootMap, solutions[i])
             }
           }

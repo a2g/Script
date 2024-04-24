@@ -4,7 +4,6 @@ import { Box } from './Box'
 import { Happen } from './Happen'
 import { Happening } from './Happening'
 import { Happenings } from './Happenings'
-import { IPileOrRootPieceMap } from './IPileOrRootPieceMap'
 import { Command } from './Command'
 import { Piece } from './Piece'
 import { Stringify } from './Stringify'
@@ -28,22 +27,26 @@ export class SingleFile {
   scenario: any
   path: string
   file: string
+  set: Set<string>
+  map: Map<string, Box>
 
-  public constructor (path: string, filename: string) {
+  public constructor (path: string, filename: string, set: Set<string>, map: Map<string, Box>) {
     this.text = readFileSync(path + filename, 'utf-8')
     this.scenario = parse(this.text)
     this.path = path
     this.file = filename
+    this.map = map
+    this.set = set
   }
 
   public copyAllPiecesToContainer (
-    piecesMappedByOutput: IPileOrRootPieceMap
+    piecesMappedByOutput: Box
   ): void {
     this.copyPiecesToContainer(piecesMappedByOutput)
   }
 
   private copyPiecesToContainer (
-    piecesMappedByOutput: IPileOrRootPieceMap
+    piecesMappedByOutput: Box
   ): void {
     const isCopyRootPiecesOnly = false
     for (const piece of this.scenario.pieces) {
@@ -142,7 +145,7 @@ export class SingleFile {
           break
         case _.TALK1_GENERATED_PIECE_PLACEHOLDER:
           {
-            const talk = new TalkFile(talk1 + '.jsonc', this.path)
+            const talk = new TalkFile(talk1 + '.jsonc', this.path, this.set, this.map)
             piecesMappedByOutput.AddTalkFile(talk)
             const blankMap = new Map<string, string>()
             // talk1 is a subclass of a prop: it represents the character that
@@ -304,7 +307,9 @@ export class SingleFile {
                 inputB1
               ),
               this.path,
-              true // there's no file, its dynamic
+              true, // there's no file, its dynamic,
+              this.set,
+              this.map
             )
 
             if (!isCopyRootPiecesOnly) {
@@ -327,7 +332,9 @@ export class SingleFile {
                   inputA2
                 ),
                 this.path,
-                true // there's no file, its dynamic
+                true, // there's no file, its dynamic
+                this.set,
+                this.map
               )
               const happs3 = new Happenings()
               happs3.array.push(
@@ -350,7 +357,9 @@ export class SingleFile {
                   inputB3
                 ),
                 this.path,
-                true // there's no file, its dynamic
+                true, // there's no file, its dynamic,
+                this.set,
+                this.map
               )
             }
           }
@@ -519,7 +528,9 @@ export class SingleFile {
                 inputB1
               ),
               this.path,
-              true // there's no file, its dynamic
+              true, // there's no file, its dynamic
+              this.set,
+              this.map
             )
 
             if (!isCopyRootPiecesOnly) {
@@ -541,7 +552,9 @@ export class SingleFile {
                   inputA2
                 ),
                 this.path,
-                true // there's no file, its dynamic
+                true, // there's no file, its dynamic
+                this.set,
+                this.map
               )
               const happs3 = new Happenings()
               happs3.array.push(new Happening(Happen.PropGoes, prop1))
@@ -563,7 +576,9 @@ export class SingleFile {
                   inputB3
                 ),
                 this.path,
-                true // there's no file, its dynamic
+                true, // there's no file, its dynamic
+                this.set,
+                this.map
               )
             }
           }
@@ -786,7 +801,9 @@ export class SingleFile {
           inputF
         ),
         this.path,
-        isNoFile // defer to variable at end of file
+        isNoFile, // defer to variable at end of file
+        this.set,
+        this.map
       )
     }
   }

@@ -3,7 +3,7 @@ import { createCommandFromAutoPiece } from './createCommandFromAutoPiece'
 import { Piece } from './Piece'
 import { Raw } from './Raw'
 import { RawObjectsAndVerb } from './RawObjectsAndVerb'
-import { RootPiece } from './RootPiece'
+import { GoalWord } from './GoalWord'
 import { SpecialTypes } from './SpecialTypes'
 import { Stringify } from './Stringify'
 import { TalkFile } from './talk/TalkFile'
@@ -13,13 +13,15 @@ export class DeconstructDoer {
   public rootOfCopiedTree: Piece
   public currentlyVisibleThings: VisibleThingsMap
   public theSolutionsTalkFiles: Map<string, TalkFile>
-  public constructor (rootPiece: RootPiece, visibleThings: VisibleThingsMap, theSolutionsTalkFiles: Map<string, TalkFile>) {
+  public constructor (rootPiece: GoalWord, visibleThings: VisibleThingsMap, theSolutionsTalkFiles: Map<string, TalkFile>) {
     // We can't just make the rootOfCopiedTree equal to the clone of the root,
     // we need to insert an extra level, so that it both:
     // - returns a command when the cloned root piece goes null
     // - finds a leaf at the root, and quits, the iteration after that.
     this.rootOfCopiedTree = new Piece(0, null, 'nothing', '')
-    this.rootOfCopiedTree.AddChildAndSetParent(rootPiece.piece.ClonePieceAndEntireTree())
+    if (rootPiece.piece != null) {
+      this.rootOfCopiedTree.AddChildAndSetParent(rootPiece.piece.ClonePieceAndEntireTree())
+    }
     this.currentlyVisibleThings = visibleThings
     this.theSolutionsTalkFiles = theSolutionsTalkFiles
   }

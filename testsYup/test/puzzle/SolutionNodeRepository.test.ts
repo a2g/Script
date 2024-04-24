@@ -1,22 +1,24 @@
 import { Piece } from '../../../src/puzzle/Piece'
-import { PileOfPieces } from '../../../src/puzzle/PileOfPieces'
 import { expect, describe, test } from '@jest/globals'
+import { Box } from '../../../src/puzzle/Box'
 
 describe('ReactionMap', () => {
   test('test AddToMap works', () => {
-    const pile = new PileOfPieces(null)
+    const set = new Set<string>()
+    const map = new Map<string, Box>()
+    const box = new Box('', '', set, map)
 
     // test that it is indeed null before
-    const setBefore = pile.Get('outputA')
+    const setBefore = box.Get('outputA')
     expect(setBefore).toEqual(undefined)
 
     // do it!
-    pile.AddPiece(
-      new Piece(0, null, 'outputA', 'type', 1, null, null, null, 'A', 'B')
+    box.AddPiece(
+      new Piece(0, null, 'outputA', 'type', 1, null, null, null, 'A', 'B'), '', false, set, map
     )
 
     // test that it has added a set for the new piece
-    const setAfter = pile.Get('outputA')
+    const setAfter = box.Get('outputA')
     expect(setAfter).not.toEqual(null)
 
     const sizeAfterAdding = setAfter != null ? setAfter.size : 0
@@ -24,10 +26,12 @@ describe('ReactionMap', () => {
   })
 
   test('test RemovePiece works', () => {
-    const blah = new PileOfPieces(null)
+    const map = new Map<string, Box>()
+    const set = new Set<string>()
+    const box = new Box('', '', set, map)
     for (let i = 0; i < 3; i += 1) {
-      blah.AddPiece(
-        new Piece(0, null, 'outputA', 'piffle', 1, null, null, null, 'A', 'B')
+      box.AddPiece(
+        new Piece(0, null, 'outputA', 'piffle', 1, null, null, null, 'A', 'B'), '', true, set, map
       )
     }
     const theOneToRemove = new Piece(
@@ -42,17 +46,17 @@ describe('ReactionMap', () => {
       'A',
       'B'
     )
-    blah.AddPiece(theOneToRemove)
+    box.AddPiece(theOneToRemove, '', false, set, map)
     {
-      const arrayBefore = blah.Get('outputA')
+      const arrayBefore = box.Get('outputA')
       const countBeforeRemoval = arrayBefore != null ? arrayBefore.size : 0
       expect(countBeforeRemoval).toEqual(4)
     }
 
-    blah.RemovePiece(theOneToRemove)
+    box.RemovePiece(theOneToRemove)
 
     {
-      const arrayAfter = blah.Get('outputA')
+      const arrayAfter = box.Get('outputA')
       const countAfterRemoval = arrayAfter != null ? arrayAfter.size : 0
       expect(countAfterRemoval).toEqual(3)
     }
@@ -72,14 +76,16 @@ describe('ReactionMap', () => {
     )
 
     // put them in a map
-    const tmap = new PileOfPieces(null)
+    const set = new Set<string>()
+    const map = new Map<string, Box>()
+    const tmap = new Box('', '', set, map)
     array.forEach((t: Piece) => {
-      tmap.AddPiece(t)
+      tmap.AddPiece(t, '', false, set, map)
     })
 
     // cloned the map, and modify it.
     {
-      const cloned = new PileOfPieces(tmap)
+      const cloned = new Box('', '', set, map)
       const clonedOutputA = cloned.Get('outputA')
 
       if (clonedOutputA != null) {

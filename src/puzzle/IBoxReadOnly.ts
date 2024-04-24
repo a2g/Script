@@ -1,5 +1,5 @@
-import { IPileOrRootPieceMap } from './IPileOrRootPieceMap'
-import { PileOfPieces } from './PileOfPieces'
+import { Box } from './Box'
+import { Piece } from './Piece'
 import { VisibleThingsMap } from './VisibleThingsMap'
 
 /**
@@ -18,6 +18,7 @@ export interface IBoxReadOnly {
   GetArrayOfSingleObjectVerbs: () => string[]
   GetArrayOfInitialStatesOfSingleObjectVerbs: () => boolean[]
   GetArrayOfInitialStatesOfGoals: () => number[]
+  GetSetOfGoalWords: () => Set<string>
   GetSetOfStartingGoals: () => Set<string>
   GetSetOfStartingProps: () => Set<string>
   GetSetOfStartingInvs: () => Set<string>
@@ -26,13 +27,11 @@ export interface IBoxReadOnly {
   GetArrayOfInitialStatesOfProps: () => boolean[]
   GetArrayOfInitialStatesOfInvs: () => boolean[]
   GetArrayOfCharacters: () => string[]
+  GetPieceIterator: () => IterableIterator<Set<Piece>>
 
   // original-json-traversers
-  CopyAllOtherPiecesFromBoxToPile: (pile: PileOfPieces) => void // its possible for this to be done on aggregate
-  CopyFullGoalPiecesTreesToContainer: (map: IPileOrRootPieceMap) => void
-  CollectAllReferencedBoxesRecursively: (
-    map: Map<string, IBoxReadOnly>
-  ) => void
+  CopyPiecesToGivenBox: (box: Box) => void // its possible for this to be done on aggregate
+  //  CopyAllGoalWordsToDestination: (set: Set<string>) => void
   IsNotMergingAnymoreBoxes: () => boolean
-  GetNewPileOfPieces: () => PileOfPieces
+  GetClonedBoxOfPieces: () => Box
 }

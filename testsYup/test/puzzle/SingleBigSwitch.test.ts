@@ -1,16 +1,18 @@
 import { SingleFile } from '../../../src/puzzle/SingleFile'
 import { expect, describe, test } from '@jest/globals'
-import { PileOfPieces } from '../../../src/puzzle/PileOfPieces'
 import { join } from 'path'
+import { Box } from '../../../src/puzzle/Box'
 
 describe('SingleBigSwitch', () => {
   test('SingleBigSwitch', async () => {
     console.log(__dirname)
+    const set = new Set<string>()
+    const map = new Map<string, Box>()
     const file = new SingleFile(
       join(__dirname, '/../../../practice-world/'),
-      'x03_access_thru_fireplace.jsonc'
+      'x03_access_thru_fireplace.jsonc', set, map
     )
-    const pile = new PileOfPieces(null)
+    const pile = new Box('', '', set, map)
     await file.copyAllPiecesToContainer(pile)
     const size = pile.Size()
     expect(size).toBe(3)

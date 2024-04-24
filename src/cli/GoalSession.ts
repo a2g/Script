@@ -1,5 +1,5 @@
+import { Box } from '../puzzle/Box'
 import { Happener } from '../puzzle/Happener'
-import { PileOfPieces } from '../puzzle/PileOfPieces'
 import { PlayerAI } from '../puzzle/PlayerAI'
 import { Playable } from './Playable'
 
@@ -15,11 +15,11 @@ export class GoalSession {
   constructor (
     happener: Happener,
     startingThings: Map<string, Set<string>>,
-    solutionPieceMap: PileOfPieces
+    box: Box
   ) {
     const numberOfAutopilotTurns = 0
     const player = new PlayerAI(happener, numberOfAutopilotTurns)
-    this.playable = new Playable(player, happener, solutionPieceMap)
+    this.playable = new Playable(player, happener, box)
     this.prerequisiteGoals = []
     this.prerequisiteType = ''
     this.sunsetGoals = []

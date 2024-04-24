@@ -298,7 +298,7 @@ export class Piece {
       if (solution.GetRootMap().Has(importHintToFind)) {
         const matchingRootPiece = solution
           .GetRootMap()
-          .GetRootPieceByName(importHintToFind)
+          .GoalWordByName(importHintToFind)
 
         // is it a goal? (since goal map always contains all goals)
         // solution.MarkGoalsAsContainingNullsAndMergeIfNeeded()// this is optional...
@@ -314,7 +314,7 @@ export class Piece {
       // This is where we get all the pieces that fit
       // and if there is more than one, then we clone
       const setOfMatchingPieces = solution
-        .GetPile()
+        .GetMainBox()
         .GetPiecesThatOutputString(importHintToFind)
       if (setOfMatchingPieces.size > 0) {
         const matchingPieces = Array.from(setOfMatchingPieces)
@@ -331,7 +331,7 @@ export class Piece {
 
           // This is the earliest possible point we can remove the
           // matching piece: i.e. after the cloning has occurred
-          theSolution.GetPile().RemovePiece(theMatchingPiece)
+          theSolution.GetMainBox().RemovePiece(theMatchingPiece)
 
           // this is only here to make the unit tests make sense
           // something like to fix a bug where cloning doesn't mark piece as complete

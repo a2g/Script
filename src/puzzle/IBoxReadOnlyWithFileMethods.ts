@@ -1,4 +1,5 @@
 import { IBoxReadOnly } from './IBoxReadOnly'
+import { Piece } from './Piece'
 import { VisibleThingsMap } from './VisibleThingsMap'
 
 /**
@@ -12,6 +13,7 @@ export interface IBoxReadOnlyWithFileMethods extends IBoxReadOnly {
   // methods that only a real file can implement
   GetFilename: () => string
   GetPath: () => string
+  GetPieceIterator: () => IterableIterator<Set<Piece>>
 
   // copiers
   CopyStartingPropsToGivenSet: (givenSet: Set<string>) => void
@@ -19,8 +21,10 @@ export interface IBoxReadOnlyWithFileMethods extends IBoxReadOnly {
   CopyStartingInvsToGivenSet: (givenSet: Set<string>) => void
   CopyStartingThingCharsToGivenMap: (givenMap: VisibleThingsMap) => void
   CopyPropsToGivenSet: (givenSet: Set<string>) => void
-  CopyGoalsToGivenSet: (givenSet: Set<string>) => void
   CopyInvsToGivenSet: (givenSet: Set<string>) => void
   CopyCharsToGivenSet: (givenSet: Set<string>) => void
+  CopyGoalsToGivenSet: (givenSet: Set<string>) => void
+  CopyGoalWordsToGivenSet: (givenSet: Set<string>) => void
   ReplaceInputsThatMatchAWithB: (a: string, b: string) => number
+
 }

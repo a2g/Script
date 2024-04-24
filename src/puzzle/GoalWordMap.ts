@@ -1,11 +1,7 @@
-import { existsSync } from 'fs'
-import { Box } from './Box'
 import { GenerateMapOfLeavesRecursively } from './GenerateMapOfLeavesRecursively'
 import { GenerateMapOfLeavesTracingGoalsRecursively } from './GenerateMapOfLeavesTraccingGoalsRecursively'
-import { IPileOrRootPieceMap } from './IPileOrRootPieceMap'
-import { IsPieceOutputtingAGoal } from './IsPieceOutputtingAGoal'
 import { Piece } from './Piece'
-import { RootPiece } from './RootPiece'
+import { GoalWord } from './GoalWord'
 import { TalkFile } from './talk/TalkFile'
 /**
  * This started out simpler that PileOfPieces, because there
@@ -20,35 +16,17 @@ import { TalkFile } from './talk/TalkFile'
  * justifiable to have the concept of RootPiece.
  *
  */
-export class RootPieceMap implements IPileOrRootPieceMap {
-  private readonly roots: Map<string, RootPiece>
+export class GoalWordMap {
+  private readonly roots: Map<string, GoalWord>
 
-  constructor (deepCopyFromMe: RootPieceMap | null) {
-    this.roots = new Map<string, RootPiece>()
+  constructor (deepCopyFromMe: GoalWordMap | null) {
+    this.roots = new Map<string, GoalWord>()
     if (deepCopyFromMe != null) {
       for (const pair of deepCopyFromMe.roots) {
         const key = pair[0]
         const value = pair[1]
         this.roots.set(key, value)
       }
-    }
-  }
-
-  public AddPiece (piece: Piece, folder = '', isNoFile = true): void {
-    if (IsPieceOutputtingAGoal(piece)) {
-      const goal1 = piece.output
-      if (goal1 !== 'x_win' && !isNoFile) {
-        const file = `${goal1}.jsonc`
-        if (!existsSync(folder + file)) {
-          throw new Error(
-            `Ensure "isNoFile" needs to be marked for goal ${goal1} of ${piece.type} in ${goal1}, because the following file doesn't exist ${folder}`
-          )
-        }
-        piece.boxToMerge = new Box(folder, file)
-      }
-
-      // always add to list
-      this.roots.set(piece.output, new RootPiece(piece, []))
     }
   }
 
@@ -62,7 +40,9 @@ export class RootPieceMap implements IPileOrRootPieceMap {
   ): Map<string, Piece> {
     const leaves = new Map<string, Piece>()
     for (const root of this.GetValues()) {
-      GenerateMapOfLeavesRecursively(root.piece, '', isOnlyNulls, leaves)
+      if (root.piece != null) {
+        GenerateMapOfLeavesRecursively(root.piece, '', isOnlyNulls, leaves)
+      }
     }
     return leaves
   }
@@ -70,7 +50,7 @@ export class RootPieceMap implements IPileOrRootPieceMap {
   public GenerateMapOfLeavesFromWinGoal (): Map<string, Piece> {
     const leaves = new Map<string, Piece>()
     const winGoal = this.GetWinGoalIfAny()
-    if (winGoal != null) {
+    if (winGoal?.piece != null) {
       GenerateMapOfLeavesTracingGoalsRecursively(
         winGoal.piece,
         'x_win',
@@ -81,7 +61,7 @@ export class RootPieceMap implements IPileOrRootPieceMap {
     return leaves
   }
 
-  public GetRootPieceByName (name: string): RootPiece {
+  public GoalWordByName (name: string): GoalWord {
     const root = this.roots.get(name)
     if (typeof root === 'undefined' || root === null) {
       throw new Error(`rootPiece of that name doesn't exist ${name}`)
@@ -105,23 +85,23 @@ export class RootPieceMap implements IPileOrRootPieceMap {
     return this.roots.size
   }
 
-  public GetValues (): IterableIterator<RootPiece> {
+  public GetValues (): IterableIterator<GoalWord> {
     return this.roots.values()
   }
 
-  public CloneAllRootPiecesAndTheirTrees (): RootPieceMap {
-    return new RootPieceMap(this)
+  public CloneAllRootPiecesAndTheirTrees (): GoalWordMap {
+    return new GoalWordMap(this)
   }
 
   public Has (goalToObtain: string): boolean {
     return this.roots.has(goalToObtain)
   }
 
-  public GetRootPieceArrayByNameNoThrow (goal: string): RootPiece | undefined {
+  public GetGoalWordByNameNoThrow (goal: string): GoalWord | undefined {
     return this.roots.get(goal)
   }
 
-  public GetWinGoalIfAny (): RootPiece | undefined {
+  public GetWinGoalIfAny (): GoalWord | undefined {
     return this.roots.get('x_win')
   }
 
@@ -129,6 +109,7 @@ export class RootPieceMap implements IPileOrRootPieceMap {
     this.roots.delete('x_win')
   }
 
+  /*
   public RemovePieceById (id: number): void {
     for (const piece of this.roots.values()) {
       if (piece.piece.id === id) {
@@ -137,9 +118,13 @@ export class RootPieceMap implements IPileOrRootPieceMap {
       }
     }
     throw new Error("Id was not found, and couldn't remove")
-  }
+  } */
 
   AddTalkFile (_talkFile: TalkFile): void {
 
+  }
+
+  AddGoalWord (word: string): void {
+    this.roots.set(word, new GoalWord(word, [], false))
   }
 }

@@ -1,14 +1,13 @@
 import { existsSync, readFileSync } from 'fs'
-import { IBoxReadOnly } from './IBoxReadOnly'
 import { IBoxReadOnlyWithFileMethods } from './IBoxReadOnlyWithFileMethods'
-import { IPileOrRootPieceMap } from './IPileOrRootPieceMap'
-import { PileOfPieces } from './PileOfPieces'
-import { RootPieceMap } from './RootPieceMap'
 import { SingleFile } from './SingleFile'
 import { Stringify } from './Stringify'
 import { VisibleThingsMap } from './VisibleThingsMap'
 import { parse } from 'jsonc-parser'
 import { TalkFile } from './talk/TalkFile'
+import { IBoxReadOnly } from './IBoxReadOnly'
+import { Piece } from './Piece'
+import { IsPieceOutputtingAGoal } from './IsPieceOutputtingAGoal'
 
 /**
  * So the most important part of this class is that the data
@@ -16,7 +15,7 @@ import { TalkFile } from './talk/TalkFile'
  * I wanted to convey the idea that it represents one *.jsonc file
  * so that's in there too.
  */
-export class Box implements IBoxReadOnlyWithFileMethods {
+export class Box implements IBoxReadOnlyWithFileMethods, IBoxReadOnly {
   public static GetArrayOfSingleObjectVerbs (): string[] {
     return ['grab', 'toggle']
   }
@@ -28,6 +27,8 @@ export class Box implements IBoxReadOnlyWithFileMethods {
   private readonly allProps: string[]
 
   private readonly allGoals: string[]
+
+  private readonly setOfGoalWords: Set<string>
 
   private readonly allInvs: string[]
 
@@ -45,15 +46,16 @@ export class Box implements IBoxReadOnlyWithFileMethods {
 
   private readonly path: string
 
-  private readonly goalPieceMap: RootPieceMap
-
   private readonly isNotMergingAnymoreBoxes: boolean
-
-  private readonly pieces: PileOfPieces
 
   private readonly talkFiles: Map<String, TalkFile>
 
-  constructor (path: string, filename: string) {
+  private readonly piecesMappedByOutput: Map<string, Set<Piece>>
+
+  private readonly displayName: string
+  private readonly mapOfTalks: Map<string, TalkFile>
+
+  constructor (path: string, filename: string, set: Set<string>, map: Map<string, Box>) {
     this.isNotMergingAnymoreBoxes = false
     this.path = path
     this.talkFiles = new Map<String, TalkFile>()
@@ -114,14 +116,16 @@ export class Box implements IBoxReadOnlyWithFileMethods {
     this.startingInvSet = new Set<string>()
     this.startingGoalSet = new Set<string>()
     this.startingPropSet = new Set<string>()
+    this.setOfGoalWords = new Set<string>()
     this.mapOfStartingThings = new VisibleThingsMap(null)
-    this.pieces = new PileOfPieces(null, this.filename)
-    this.goalPieceMap = new RootPieceMap(null)
+    this.displayName = filename
+    this.piecesMappedByOutput = new Map<string, Set<Piece>>()
+    this.mapOfTalks = new Map<string, TalkFile>()
+    // this.goalWords = new Set<string>()
 
     // collect all the goals and pieces file
-    const singleFile = new SingleFile(this.path, this.filename)
-    singleFile.copyAllPiecesToContainer(this.goalPieceMap)
-    singleFile.copyAllPiecesToContainer(this.pieces)
+    const singleFile = new SingleFile(this.path, this.filename, set, map)
+    singleFile.copyAllPiecesToContainer(this)
 
     // starting things is optional in the json
     if (
@@ -159,10 +163,6 @@ export class Box implements IBoxReadOnlyWithFileMethods {
     return this.isNotMergingAnymoreBoxes
   }
 
-  public CopyAllOtherPiecesFromBoxToPile (pile: PileOfPieces): void {
-    this.pieces.CopyPiecesToGivenPile(pile)
-  }
-
   public CopyStartingPropsToGivenSet (givenSet: Set<string>): void {
     for (const prop of this.startingPropSet) {
       givenSet.add(prop)
@@ -195,6 +195,12 @@ export class Box implements IBoxReadOnlyWithFileMethods {
 
   public CopyGoalsToGivenSet (givenSet: Set<string>): void {
     for (const goal of this.allGoals) {
+      givenSet.add(goal)
+    }
+  }
+
+  public CopyGoalWordsToGivenSet (givenSet: Set<string>): void {
+    for (const goal of this.setOfGoalWords) {
       givenSet.add(goal)
     }
   }
@@ -305,39 +311,184 @@ export class Box implements IBoxReadOnlyWithFileMethods {
     return this.path
   }
 
-  public CopyFullGoalPiecesTreesToContainer (destination: IPileOrRootPieceMap): void {
-    for (const goal of this.goalPieceMap.GetValues()) {
-      const clonedPiece = goal.piece.ClonePieceAndEntireTree()
-      destination.AddPiece(clonedPiece, '', true)
-    }
-
-    for (const item of this.talkFiles.values()) {
-      destination.AddTalkFile(item)
-    }
-  }
-
-  public CollectAllReferencedBoxesRecursively (
-    map: Map<string, IBoxReadOnly>
-  ): void {
-    map.set(this.filename, this)
-    for (const goal of this.goalPieceMap.GetValues()) {
-      if (goal.piece.boxToMerge != null) {
-        goal.piece.boxToMerge.CollectAllReferencedBoxesRecursively(map)
-      }
-    }
-  }
-
-  public GetNewPileOfPieces (): PileOfPieces {
-    const pile = new PileOfPieces(null)
-    this.CopyAllOtherPiecesFromBoxToPile(pile)
-    return pile
-  }
-
-  public ReplaceInputsThatMatchAWithB (a: string, b: string): number {
-    return this.pieces.ReplaceInputsThatMatchAWithB(a, b)
+  public GetClonedBoxOfPieces (): Box {
+    const box = new Box('', '', new Set<string>(), new Map<string, Box>())
+    this.CopyPiecesToGivenBox(box)
+    return box
   }
 
   public AddTalkFile (talkFile: TalkFile): void {
     this.talkFiles.set(talkFile.GetName(), talkFile)
   }
+
+  public GetSetOfGoalWords (): Set<string> {
+    return this.setOfGoalWords
+  }
+
+  public RemovePiece (piece: Piece): void {
+    if (piece.reuseCount - 1 <= 0) {
+      const key = piece.output
+      if (this.piecesMappedByOutput.has(key)) {
+        const oldSet = this.piecesMappedByOutput.get(key)
+        if (oldSet != null) {
+          // console.warn(" old size = "+oldSet.size);
+          oldSet.delete(piece)
+          // console.warn(" newSize = "+oldSet.size);
+        }
+      } else {
+        piece.SetCount(piece.reuseCount - 1)
+        console.warn(`trans.count is now ${piece.reuseCount}`)
+      }
+    }
+  }
+
+  public GetAutos (): Piece[] {
+    const toReturn: Piece[] = []
+    this.piecesMappedByOutput.forEach((setOfPieces: Set<Piece>) => {
+      setOfPieces.forEach((piece: Piece) => {
+        if (piece.type.startsWith('AUTO')) {
+          toReturn.push(piece)
+        }
+      })
+    })
+    return toReturn
+  }
+
+  public AddPiece (piece: Piece, folder = '', isNoFile = true, aggregateGoalWords: Set<string>, mapOfBoxes: Map<string, Box>): void {
+    if (IsPieceOutputtingAGoal(piece)) {
+      const goal1 = piece.output
+      this.setOfGoalWords.add(goal1)
+      aggregateGoalWords.add(goal1)
+      if (goal1 !== 'x_win' && !isNoFile) {
+        const file = `${goal1}.jsonc`
+        if (!existsSync(folder + file)) {
+          throw new Error(
+            `Ensure "isNoFile" needs to be marked for goal ${goal1} of ${piece.type} in ${goal1}, because the following file doesn't exist ${folder}`
+          )
+        }
+
+        let box = mapOfBoxes.get(file)
+        if (box == null) {
+          // this map not only collects all the boxes
+          // but prevents two pieces that output same goal from
+          // processing the same file
+          box = new Box(folder, file, aggregateGoalWords, mapOfBoxes)
+          mapOfBoxes.set(file, box)
+        }
+        piece.boxToMerge = box
+      }
+    }
+
+    // initialize array, if it hasn't yet been
+    if (!this.piecesMappedByOutput.has(piece.output)) {
+      this.piecesMappedByOutput.set(piece.output, new Set<Piece>())
+    }
+    // always add to list
+    this.piecesMappedByOutput.get(piece.output)?.add(piece)
+  }
+
+  public GetSinglePieceById (idToMatch: number): Piece | null {
+    for (const set of this.piecesMappedByOutput.values()) {
+      for (const piece of set) {
+        if (piece.id === idToMatch) {
+          return piece
+        }
+      }
+    }
+    return null
+  }
+
+  public GetPiecesThatOutputString (objectToObtain: string): Set<Piece> {
+    // since the remainingPieces are a map index by output piece
+    // then a remainingPieces.Get will retrieve all matching pieces.
+    // BUT...
+    // we want it to return a random empty set if not found
+    // and for now, it seems like it was changed to a slow
+    // iteration through the map to match - possibly for debugging.
+    for (const pair of this.piecesMappedByOutput) {
+      if (pair[0] === objectToObtain) {
+        return pair[1]
+      }
+    }
+    return new Set<Piece>()
+  }
+
+  public Size (): number {
+    let count = 0
+    for (const set of this.piecesMappedByOutput.values()) {
+      count += set.size
+    }
+    return count
+  }
+
+  public Has (givenOutput: string): boolean {
+    return this.piecesMappedByOutput.has(givenOutput)
+  }
+
+  public Get (givenOutput: string): Set<Piece> | undefined {
+    return this.piecesMappedByOutput.get(givenOutput)
+  }
+
+  public GetPieceIterator (): IterableIterator<Set<Piece>> {
+    return this.piecesMappedByOutput.values()
+  }
+
+  public GetTalkIterator (): IterableIterator<TalkFile> {
+    return this.mapOfTalks.values()
+  }
+
+  public CopyPiecesToGivenBox (destinationBox: Box): void {
+    this.piecesMappedByOutput.forEach((setOfPieces: Set<Piece>) => {
+      setOfPieces.forEach((piece: Piece) => {
+        const set = new Set<string>()
+        const map = new Map<string, Box>()
+        destinationBox.AddPiece(piece, '', true, set, map)
+      })
+    })
+
+    for (const talk of this.mapOfTalks.values()) {
+      destinationBox.AddTalkFile(talk)
+    }
+  }
+
+  public ReplaceInputsThatMatchAWithB (a: string, b: string): number {
+    let numberOfPiecesStubbed = 0
+    this.piecesMappedByOutput.forEach((setOfPieces: Set<Piece>) => {
+      setOfPieces.forEach((unusedPiece: Piece) => {
+        for (let k = 0; k < unusedPiece.inputHints.length; k++) {
+          if (unusedPiece.inputHints[k] === a) {
+            console.log(`Stubbed out ${a} in ${unusedPiece.type} in ${this.displayName}`)
+            unusedPiece.inputHints[k] = b
+            numberOfPiecesStubbed += 1
+          }
+        }
+      })
+    })
+    return numberOfPiecesStubbed
+  }
+
+  GetTalks (): Map<string, TalkFile> {
+    return this.mapOfTalks
+  }
 }
+
+/*
+
+ if (cloneFromMe != null) {
+      for (const talk of cloneFromMe.GetTalkIterator()) {
+        const clone = talk.Clone()
+        this.mapOfTalks.set(talk.GetName(), clone)
+      }
+      for (const set of cloneFromMe.GetPieceIterator()) {
+        if (set.size > 0) {
+          const clonedSet = new Set<Piece>()
+          let outputName = ''
+          for (const piece of set) {
+            const clonedPiece = piece.ClonePieceAndEntireTree()
+            clonedSet.add(clonedPiece)
+            outputName = clonedPiece.output
+          }
+          this.piecesMappedByOutput.set(outputName, clonedSet)
+        }
+      }
+    } */

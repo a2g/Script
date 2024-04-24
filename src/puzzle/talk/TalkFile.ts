@@ -3,23 +3,28 @@ import { Piece } from '../Piece'
 import { ChoiceSection } from './ChoiceSection'
 import { GetNextId } from './GetNextId'
 import { NonChoiceSection } from './NonChoiceSection'
-import { IPileOrRootPieceMap } from '../IPileOrRootPieceMap'
 import { existsSync, readFileSync } from 'fs'
 import { parse } from 'jsonc-parser'
 
 import _ from '../../../puzzle-piece-enums.json'
+import { IPileOrSimplePile } from '../IPileOrSimplePile'
+import { Box } from '../Box'
 
 export class TalkFile {
   filename: string
   fileAddress: string
   choices: Map<string, ChoiceSection>
   nonChoices: Map<String, NonChoiceSection>
+  map: Map<string, Box>
+  set: Set<string>
 
-  constructor (filename: string, fileAddress: string) {
+  constructor (filename: string, fileAddress: string, set: Set<string>, map: Map<string, Box>) {
     this.filename = filename
     this.fileAddress = fileAddress
     this.choices = new Map<string, ChoiceSection>()
     this.nonChoices = new Map<string, NonChoiceSection>()
+    this.map = map
+    this.set = set
 
     const pathAndFile = fileAddress + filename
     if (!existsSync(pathAndFile)) {
@@ -47,7 +52,7 @@ export class TalkFile {
   }
 
   public Clone (): TalkFile {
-    const talkFile = new TalkFile(this.GetName(), this.fileAddress)
+    const talkFile = new TalkFile(this.GetName(), this.fileAddress, this.set, this.map)
     for (const choice of this.choices.values()) {
       talkFile.AddChoiceSection(choice.Clone())
     }
@@ -69,7 +74,7 @@ export class TalkFile {
     return this.filename
   }
 
-  public FindAndAddPiecesRecursively (name: string, path: string, requisites: string[], mapOGainsBySection: Map<string, string>, pile: IPileOrRootPieceMap): void {
+  public FindAndAddPiecesRecursively (name: string, path: string, requisites: string[], mapOGainsBySection: Map<string, string>, pile: IPileOrSimplePile): void {
     // console.log(`>>>>${path}/${name}`)
     if (name.endsWith('choices')) {
       const choiceSection = this.choices.get(name)
@@ -110,7 +115,7 @@ export class TalkFile {
           }
           const piece = new Piece(id, null, output, type, 1, null, null, null, inputA, inputB, inputC, inputD, inputE, inputF)
           piece.SetTalkPath(`${path}/${name}`)
-          pile.AddPiece(piece, this.fileAddress, isNoFile)
+          pile.AddPiece(piece, this.fileAddress, isNoFile, this.set, this.map)
           mapOGainsBySection.set(name, output)
         } else if (nonChoiceSection.goto.length > 0) {
           // nonChoice sections only have one goto

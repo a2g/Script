@@ -2,6 +2,7 @@ import { join } from 'path'
 import * as fs from 'fs'
 import { TalkFile } from '../puzzle/talk/TalkFile'
 import { SimplePile } from '../puzzle/SimplePile'
+import { Box } from '../puzzle/Box'
 
 export function DumpGainsFromEachTalkInFolder (folder: string): void {
   const cwd = process.cwd()
@@ -12,7 +13,9 @@ export function DumpGainsFromEachTalkInFolder (folder: string): void {
   const files = fs.readdirSync('.')
   for (const file of files) {
     if (file.startsWith('talks') && file.endsWith('.jsonc')) {
-      const talkFile = new TalkFile(file, folder)
+      const map = new Map<string, Box>()
+      const set = new Set<string>()
+      const talkFile = new TalkFile(file, folder, set, map)
       const pile = new SimplePile()
       const mapOGainsByPage = new Map<string, string>()
       console.warn('')
