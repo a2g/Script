@@ -12,7 +12,7 @@ describe('SingleBigSwitch', () => {
       join(__dirname, '/../../../practice-world/'),
       'x03_access_thru_fireplace.jsonc', set, map
     )
-    const pile = new Box('', '', set, map)
+    const pile = new Box('', [''], set, map)
     await file.copyAllPiecesToContainer(pile)
     const size = pile.Size()
     expect(size).toBe(3)

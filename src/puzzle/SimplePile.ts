@@ -15,7 +15,4 @@ export class SimplePile implements IPileOrSimplePile {
 
   public AddTalkFile (_talkFile: TalkFile): void {
   }
-
-  public AddGoalWord (_goalWord: string): void {
-  }
 }

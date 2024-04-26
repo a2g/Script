@@ -67,21 +67,15 @@ export class GoalWord {
         // matching piece: i.e. after the cloning has occurred
         theSolution.GetMainBox().RemovePiece(theMatchingPiece)
 
+        if (matchingPieces.length > 1) {
+          theSolution.PushDisplayNameSegment(`${this.goalHint}[${i}]`)
+        }
         // this is only here to make the unit tests make sense
         // something like to fix a bug where cloning doesn't mark piece as complete
         // theSolution.MarkPieceAsCompleted(theSolution.GetWinGoal())
         // ^^ this might need to recursively ask for parent, since there are no
         // many root pieces
-
         if (isCloneBeingUsed) {
-          let lastBranchingPoint = ''
-          // for (const input of this.inputHints) {
-          //  lastBranchingPoint += input + ' '
-          // }
-
-          lastBranchingPoint += ' ' + this.goalHint
-
-          theSolution.setReasonForBranching(lastBranchingPoint)
           solutions.GetSolutions().push(theSolution)
         }
 
@@ -95,6 +89,7 @@ export class GoalWord {
           theSolution.AddRestrictions(theMatchingPiece.getRestrictions())
         } else {
           console.warn('piece is null - so we are cloning wrong')
+          throw new Error('piece is null - so we are cloning wrong')
         }
       }
 

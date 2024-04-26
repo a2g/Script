@@ -1,7 +1,4 @@
-import { AddBrackets } from './AddBrackets'
-import { Colors } from './Colors'
-import { GetDisplayName } from './GetDisplayName'
-import { IBoxReadOnly } from './IBoxReadOnly'
+import { Box } from './Box'
 import { GoalWordMap } from './GoalWordMap'
 import { Solution } from './Solution'
 
@@ -19,15 +16,14 @@ export class SolverViaRootPiece {
   Set<string>
   >
 
-  constructor (box: IBoxReadOnly) {
-    const hasWinGoal = box.GetSetOfGoalWords().has('x_win')
-    if (!hasWinGoal) {
-      throw new Error(`No x_win was found among the ${box.GetSetOfGoalWords().size} goals`)
-    }
+  constructor (box: Box) {
+    // const hasWinGoal = box.GetSetOfGoalWords().has('x_win')
+    // if (!hasWinGoal) {
+    //  throw new Error(`No x_win was found among the ${box.GetSetOfGoalWords().size} goals`)
+    // }
 
     this.solutions = []
 
-    // ..everything else comes from the single box passed in
     const newRootMap = new GoalWordMap(null)
     for (const goal of box.GetSetOfGoalWords()) {
       newRootMap.AddGoalWord(goal)
@@ -35,7 +31,7 @@ export class SolverViaRootPiece {
 
     const firstSolution = Solution.createSolution(
       newRootMap,
-      box.GetClonedBoxOfPieces(),
+      box,
       [],
       box.GetMapOfAllStartingThings(),
       box.IsNotMergingAnymoreBoxes()
@@ -54,7 +50,7 @@ export class SolverViaRootPiece {
       this.mapOfStartingThingsAndWhoCanHaveThem.set(key, newSet)
     }
 
-    this.GenerateSolutionNamesAndPush()
+    // this.GenerateSolutionNamesAndPush()
   }
 
   public NumberOfSolutions (): number {
@@ -90,7 +86,7 @@ export class SolverViaRootPiece {
       }
     }
   }
-
+/*
   public GenerateSolutionNamesAndPush (): void {
     for (let i = 0; i < this.solutions.length; i++) {
       // now lets find out the amount leafNode name exists in all the other solutions
@@ -166,5 +162,5 @@ export class SolverViaRootPiece {
         }
       }
     }
-  }
+  } */
 }

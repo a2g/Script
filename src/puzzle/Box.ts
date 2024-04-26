@@ -1,13 +1,12 @@
 import { existsSync, readFileSync } from 'fs'
-import { IBoxReadOnlyWithFileMethods } from './IBoxReadOnlyWithFileMethods'
 import { SingleFile } from './SingleFile'
 import { Stringify } from './Stringify'
 import { VisibleThingsMap } from './VisibleThingsMap'
 import { parse } from 'jsonc-parser'
 import { TalkFile } from './talk/TalkFile'
-import { IBoxReadOnly } from './IBoxReadOnly'
 import { Piece } from './Piece'
 import { IsPieceOutputtingAGoal } from './IsPieceOutputtingAGoal'
+import { GoalWordMap } from './GoalWordMap'
 
 /**
  * So the most important part of this class is that the data
@@ -15,7 +14,7 @@ import { IsPieceOutputtingAGoal } from './IsPieceOutputtingAGoal'
  * I wanted to convey the idea that it represents one *.jsonc file
  * so that's in there too.
  */
-export class Box implements IBoxReadOnlyWithFileMethods, IBoxReadOnly {
+export class Box {
   public static GetArrayOfSingleObjectVerbs (): string[] {
     return ['grab', 'toggle']
   }
@@ -50,53 +49,57 @@ export class Box implements IBoxReadOnlyWithFileMethods, IBoxReadOnly {
 
   private readonly talkFiles: Map<String, TalkFile>
 
-  private readonly piecesMappedByOutput: Map<string, Set<Piece>>
+  public readonly piecesMappedByOutput: Map<string, Set<Piece>>
 
   private readonly displayName: string
   private readonly mapOfTalks: Map<string, TalkFile>
 
-  constructor (path: string, filename: string, set: Set<string>, map: Map<string, Box>) {
+  constructor (path: string, filenames: string[], set: Set<string>, map: Map<string, Box>) {
     this.isNotMergingAnymoreBoxes = false
     this.path = path
     this.talkFiles = new Map<String, TalkFile>()
-    this.filename = filename
-    if (!existsSync(path + filename)) {
-      throw new Error(
-        `file doesn't exist ${process.cwd()} ${path}${filename} `
-      )
-    }
-    const text = readFileSync(path + filename, 'utf8')
+    this.filename = filenames[0]
 
-    const scenario = parse(text)
     const setProps = new Set<string>()
     const setGoals = new Set<string>()
     const setInvs = new Set<string>()
     const setChars = new Set<string>()
-    // this loop is only to ascertain all the different
-    // possible object names. ie basically all the enums
-    // but without needing the enum file
-    for (const gate of scenario.pieces) {
-      setInvs.add(Stringify(gate.inv1))
-      setInvs.add(Stringify(gate.inv2))
-      setInvs.add(Stringify(gate.inv3))
-      setGoals.add(Stringify(gate.goal1))
-      setGoals.add(Stringify(gate.goal2))
-      setProps.add(Stringify(gate.prop1))
-      setProps.add(Stringify(gate.prop2))
-      setProps.add(Stringify(gate.prop3))
-      setProps.add(Stringify(gate.prop4))
-      setProps.add(Stringify(gate.prop5))
-      setProps.add(Stringify(gate.prop6))
-      setProps.add(Stringify(gate.prop7))
-    }
-    // starting things is optional in the json
-    if (
-      scenario.startingThings !== undefined &&
-      scenario.startingThings !== null
-    ) {
-      for (const thing of scenario.startingThings) {
-        if (thing.character !== undefined && thing.character !== null) {
-          setChars.add(thing.character)
+
+    for (const filename of filenames) {
+      if (!existsSync(path + filename)) {
+        throw new Error(
+          `file doesn't exist ${process.cwd()} ${path}${filename} `
+        )
+      }
+      const text = readFileSync(path + filename, 'utf8')
+      const scenario = parse(text)
+
+      // this loop is only to ascertain all the different
+      // possible object names. ie basically all the enums
+      // but without needing the enum file
+      for (const gate of scenario.pieces) {
+        setInvs.add(Stringify(gate.inv1))
+        setInvs.add(Stringify(gate.inv2))
+        setInvs.add(Stringify(gate.inv3))
+        setGoals.add(Stringify(gate.goal1))
+        setGoals.add(Stringify(gate.goal2))
+        setProps.add(Stringify(gate.prop1))
+        setProps.add(Stringify(gate.prop2))
+        setProps.add(Stringify(gate.prop3))
+        setProps.add(Stringify(gate.prop4))
+        setProps.add(Stringify(gate.prop5))
+        setProps.add(Stringify(gate.prop6))
+        setProps.add(Stringify(gate.prop7))
+      }
+      // starting things is optional in the json
+      if (
+        scenario.startingThings !== undefined &&
+        scenario.startingThings !== null
+      ) {
+        for (const thing of scenario.startingThings) {
+          if (thing.character !== undefined && thing.character !== null) {
+            setChars.add(thing.character)
+          }
         }
       }
     }
@@ -118,41 +121,50 @@ export class Box implements IBoxReadOnlyWithFileMethods, IBoxReadOnly {
     this.startingPropSet = new Set<string>()
     this.setOfGoalWords = new Set<string>()
     this.mapOfStartingThings = new VisibleThingsMap(null)
-    this.displayName = filename
+    this.displayName = filenames[0]
     this.piecesMappedByOutput = new Map<string, Set<Piece>>()
     this.mapOfTalks = new Map<string, TalkFile>()
-    // this.goalWords = new Set<string>()
 
-    // collect all the goals and pieces file
-    const singleFile = new SingleFile(this.path, this.filename, set, map)
-    singleFile.copyAllPiecesToContainer(this)
-
-    // starting things is optional in the json
-    if (
-      scenario.startingThings !== undefined &&
-      scenario.startingThings !== null
-    ) {
-      for (const thing of scenario.startingThings) {
-        const theThing = Stringify(thing.thing)
-        if (theThing.startsWith('inv')) {
-          this.startingInvSet.add(theThing)
-        }
-        if (theThing.startsWith('goal')) {
-          this.startingGoalSet.add(theThing)
-        }
-        if (theThing.startsWith('prop')) {
-          this.startingPropSet.add(theThing)
-        }
+    for (const filename of filenames) {
+      if (!existsSync(path + filename)) {
+        throw new Error(
+          `file doesn't exist ${process.cwd()} ${path}${filename} `
+        )
       }
-      for (const item of scenario.startingThings) {
-        if (!this.mapOfStartingThings.Has(item.thing)) {
-          this.mapOfStartingThings.Set(item.thing, new Set<string>())
+      const text = readFileSync(path + filename, 'utf8')
+      const scenario = parse(text)
+
+      // collect all the goals and pieces file
+      const singleFile = new SingleFile(this.path, filename, set, map)
+      singleFile.copyAllPiecesToContainer(this)
+
+      // starting things is optional in the json
+      if (
+        scenario.startingThings !== undefined &&
+        scenario.startingThings !== null
+      ) {
+        for (const thing of scenario.startingThings) {
+          const theThing = Stringify(thing.thing)
+          if (theThing.startsWith('inv')) {
+            this.startingInvSet.add(theThing)
+          }
+          if (theThing.startsWith('goal')) {
+            this.startingGoalSet.add(theThing)
+          }
+          if (theThing.startsWith('prop')) {
+            this.startingPropSet.add(theThing)
+          }
         }
-        if (item.character !== undefined && item.character !== null) {
-          const { character } = item
-          const array = this.mapOfStartingThings.Get(item.thing)
-          if (character.length > 0 && array != null) {
-            array.add(character)
+        for (const item of scenario.startingThings) {
+          if (!this.mapOfStartingThings.Has(item.thing)) {
+            this.mapOfStartingThings.Set(item.thing, new Set<string>())
+          }
+          if (item.character !== undefined && item.character !== null) {
+            const { character } = item
+            const array = this.mapOfStartingThings.Get(item.thing)
+            if (character.length > 0 && array != null) {
+              array.add(character)
+            }
           }
         }
       }
@@ -311,10 +323,18 @@ export class Box implements IBoxReadOnlyWithFileMethods, IBoxReadOnly {
     return this.path
   }
 
-  public GetClonedBoxOfPieces (): Box {
-    const box = new Box('', '', new Set<string>(), new Map<string, Box>())
-    this.CopyPiecesToGivenBox(box)
-    return box
+  public GetClonedBoxOfPieces (): Map<string, Set<Piece>> {
+    const toReturn = new Map<string, Set<Piece>>()
+    for (const pair of this.piecesMappedByOutput) {
+      const key = pair[0]
+      const value = pair[1]
+      const newSet = new Set<Piece>()
+      for (const piece of value) {
+        newSet.add(piece.ClonePieceAndEntireTree())
+      }
+      toReturn.set(key, newSet)
+    }
+    return toReturn
   }
 
   public AddTalkFile (talkFile: TalkFile): void {
@@ -372,7 +392,7 @@ export class Box implements IBoxReadOnlyWithFileMethods, IBoxReadOnly {
           // this map not only collects all the boxes
           // but prevents two pieces that output same goal from
           // processing the same file
-          box = new Box(folder, file, aggregateGoalWords, mapOfBoxes)
+          box = new Box(folder, [file], aggregateGoalWords, mapOfBoxes)
           mapOfBoxes.set(file, box)
         }
         piece.boxToMerge = box
@@ -435,6 +455,12 @@ export class Box implements IBoxReadOnlyWithFileMethods, IBoxReadOnly {
 
   public GetTalkIterator (): IterableIterator<TalkFile> {
     return this.mapOfTalks.values()
+  }
+
+  public CopyGoalWordsToGivenGoalWordMap (destinationGoalWordMap: GoalWordMap): void {
+    for (const goalWord of this.setOfGoalWords) {
+      destinationGoalWordMap.AddGoalWord(goalWord)
+    }
   }
 
   public CopyPiecesToGivenBox (destinationBox: Box): void {

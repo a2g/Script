@@ -31,7 +31,7 @@ export function ChooseListOfLeaves (solver: SolverViaRootPiece): void {
     console.warn(`Number of solutions = ${numberOfSolutions}`)
 
     // list all leaves, of all solutions in order
-    solver.GenerateSolutionNamesAndPush()
+    // solver.GenerateSolutionNamesAndPush()
 
     let incomplete = 0
     let listItemNumber = 0

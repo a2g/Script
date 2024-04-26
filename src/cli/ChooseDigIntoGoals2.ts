@@ -2,7 +2,6 @@ import promptSync from 'prompt-sync'
 import { FormatText } from '../puzzle/FormatText'
 import { SolverViaRootPiece } from '../puzzle/SolverViaRootPiece'
 import { NavigatePieceRecursive } from './NavigatePieceRecursive'
-import { TrimNonIntegratedRootPieces } from '../puzzle/TrimNonIntegratedRootPieces'
 import { AddBrackets } from '../puzzle/AddBrackets'
 const prompt = promptSync({})
 
@@ -15,7 +14,7 @@ export function ChooseDigIntoGoals2 (solver: SolverViaRootPiece): void {
     console.warn('===============')
     console.warn(`Number of solutions in solver = ${numberOfSolutions}`)
 
-    solver.GenerateSolutionNamesAndPush()
+    // solver.GenerateSolutionNamesAndPush()
     console.warn('Pick solution')
     console.warn('================')
     console.warn(`Number of solutions = ${numberOfSolutions}`)
@@ -28,18 +27,20 @@ export function ChooseDigIntoGoals2 (solver: SolverViaRootPiece): void {
       for (const goal of solution.GetRootMap().GetValues()) {
         numberOfUnsolved += goal.IsSolved() ? 0 : 1
       }
-      const reason = solution.getReasonForBranching()
       const name = FormatText(solution.GetDisplayNamesConcatenated())
       //  "1. XXXXXX"   <- this is the format we list the solutions
-      console.warn(`    ${i + 1}. ${name} number of unsolved goals=${numberOfUnsolved}  reason= ${reason}`)
+      console.warn(`    ${i + 1}. ${name} number of unsolved goals=${numberOfUnsolved}`)
     }
 
     // allow user to choose item
     const firstInput = prompt(
-      'Choose an ingredient of one of the solutions or (b)ack, (r)e-run: '
+      'Choose an ingredient of one of the solutions or (b)ack, (r)e-run, e(x)it '
     ).toLowerCase()
 
     if (firstInput === null || firstInput === 'b') {
+      continue
+    }
+    if (firstInput === 'x') {
       return
     }
 
@@ -55,7 +56,7 @@ export function ChooseDigIntoGoals2 (solver: SolverViaRootPiece): void {
       for (; ;) {
         const solution = solver.GetSolutions()[theNumber - 1]
         // list all leaves, of all solutions in order
-        TrimNonIntegratedRootPieces(solution)
+        // TrimNonIntegratedRootPieces(solution) <-- pretty sure this did nothing
 
         const text = FormatText(solution.GetDisplayNamesConcatenated())
         const NAME_NOT_DETERMINABLE = 'name_not_determinable'
@@ -65,7 +66,7 @@ export function ChooseDigIntoGoals2 (solver: SolverViaRootPiece): void {
             ? text
             : NAME_NOT_DETERMINABLE
 
-        console.warn(`A. ${label} ${solution.getReasonForBranching()}`)
+        console.warn(`A. ${label}`)
         let listItemNumber = 0
         let incomplete = 0
         for (const rootGoal of solution.GetRootMap().GetValues()) {

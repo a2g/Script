@@ -1,5 +1,5 @@
 import { Command } from './Command'
-import { IBoxReadOnly } from './IBoxReadOnly'
+import { Box } from './Box'
 
 // April 2021
 // The blind / location - agnostic way to find solutions is to have an inv vs props table, and inv vs inv table, and a verb vs props table, and a verb vs invs table, then
@@ -37,11 +37,11 @@ export class Happener {
 
   private arrayOfGoalValues: number[]
 
-  // private readonly _box: IBoxReadOnly;
+  // private readonly _box: Box;
 
   // private _callbacks: IHappenerCallbacks;
 
-  constructor (box: IBoxReadOnly) {
+  constructor (box: Box) {
     // yes, all of these need to be initialized to harmless values due to PlayerAI below
     this.arrayOfInvNames = []
     this.arrayOfGoalNames = []

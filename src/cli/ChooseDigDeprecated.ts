@@ -2,7 +2,6 @@ import promptSync from 'prompt-sync'
 import { AddBrackets } from '../puzzle/AddBrackets'
 import { FormatText } from '../puzzle/FormatText'
 import { SolverViaRootPiece } from '../puzzle/SolverViaRootPiece'
-import { TrimNonIntegratedRootPieces } from '../puzzle/TrimNonIntegratedRootPieces'
 import { NavigatePieceRecursive } from './NavigatePieceRecursive'
 
 const prompt = promptSync({})
@@ -17,23 +16,21 @@ export function ChooseDigDeprecated (solver: SolverViaRootPiece): void {
     console.warn('===============')
     console.warn(`Number of solutions in solver = ${numberOfSolutions}`)
 
-    solver.GenerateSolutionNamesAndPush()
-
     // display list
     let incomplete = 0
     let listItemNumber = 0
     let solutionNumber = 65
     for (const solution of solver.GetSolutions()) {
-      TrimNonIntegratedRootPieces(solution)
+      // TrimNonIntegratedRootPieces(solution)
       const letter = String.fromCharCode(solutionNumber++)
-      const uniqueName = FormatText(solution.GetDisplayNamesConcatenated())
+      const path = FormatText(solution.GetDisplayNamesConcatenated())
       const NAME_NOT_DETERMINABLE = 'name_not_determinable'
       // HACKY!
       const label =
-        uniqueName.length > 8
-          ? uniqueName + '<-- yellow is uniqueName, red is constraints'
+        path.length > 8
+          ? path + '<-- path'
           : NAME_NOT_DETERMINABLE
-      console.warn(`${letter}. ${label} ${solution.getReasonForBranching()}`)
+      console.warn(`${letter}. ${label}}`)
       for (const item of solution.GetRootMap().GetValues()) {
         listItemNumber++
 

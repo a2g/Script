@@ -7,11 +7,9 @@ import { DeconstructDoer } from './DeconstructDoer'
 import { GoalWordMap } from './GoalWordMap'
 import { SolverViaRootPiece } from './SolverViaRootPiece'
 import { VisibleThingsMap } from './VisibleThingsMap'
-import { IBoxReadOnlyWithFileMethods } from './IBoxReadOnlyWithFileMethods'
+import { Box } from './Box'
 import { createCommandFromAutoPiece } from './createCommandFromAutoPiece'
 import { TalkFile } from './talk/TalkFile'
-import { Box } from './Box'
-
 let globalSolutionId = 101
 /**
  * Solution needs to be cloned.
@@ -34,13 +32,11 @@ export class Solution {
 
   private readonly isNotMergingAnyMoreBoxes: boolean
 
-  private reasonForBranching: string
-
   private readonly id: number
 
   private constructor (
     id: number,
-    rootPieceMapToCopy: GoalWordMap | null,
+    goalWordsToCopy: GoalWordMap | null,
     box: Box,
     solvingOrderForRootPieceKeys: string[],
     startingThingsPassedIn: VisibleThingsMap,
@@ -49,10 +45,9 @@ export class Solution {
     nameSegments: string[] | null = null
   ) {
     this.id = id
-    this.goalWords = new GoalWordMap(rootPieceMapToCopy)
+    this.goalWords = new GoalWordMap(goalWordsToCopy)
     this.isNotMergingAnyMoreBoxes = isNotMergingAnyMoreBoxes
     this.boxOfRemainingPieces = box
-    this.reasonForBranching = ''
     this.rootPieceKeysInSolvingOrder = solvingOrderForRootPieceKeys.slice()
 
     // starting things AND currentlyVisibleThings
@@ -71,7 +66,7 @@ export class Solution {
       for (const segment of nameSegments) {
         this.solutionNameSegments.push(segment)
       }
-      this.solutionNameSegments.push(`${this.id}`)
+      // this.solutionNameSegments.push(`${this.id}`)
     } else {
       this.solutionNameSegments.push(`${this.id}`)
     }
@@ -86,7 +81,7 @@ export class Solution {
   }
 
   public static createSolution (
-    rootPieceMapToCopy: GoalWordMap | null,
+    goalWords: GoalWordMap | null,
     box: Box,
     solvingOrderForRootPieceKeys: string[],
     startingThingsPassedIn: VisibleThingsMap,
@@ -95,7 +90,7 @@ export class Solution {
     nameSegments: string[] | null = null
   ): Solution {
     globalSolutionId++
-    return new Solution(globalSolutionId, rootPieceMapToCopy, box, solvingOrderForRootPieceKeys, startingThingsPassedIn, isNotMergingAnyMoreBoxes, restrictions, nameSegments)
+    return new Solution(globalSolutionId, goalWords, box, solvingOrderForRootPieceKeys, startingThingsPassedIn, isNotMergingAnyMoreBoxes, restrictions, nameSegments)
   }
 
   public Clone (): Solution {
@@ -124,9 +119,11 @@ export class Solution {
   public ProcessUntilCloning (solutions: SolverViaRootPiece): boolean {
     let isBreakingDueToSolutionCloning = false
     for (const goalWord of this.goalWords.GetValues()) {
-      if (goalWord.ProcessUntilCloning(this, solutions, '/')) {
-        isBreakingDueToSolutionCloning = true
-        break
+      if (!goalWord.IsSolved()) {
+        if (goalWord.ProcessUntilCloning(this, solutions, '/')) {
+          isBreakingDueToSolutionCloning = true
+          break
+        }
       }
     }
 
@@ -169,22 +166,8 @@ export class Solution {
     return this.boxOfRemainingPieces
   }
 
-  public GetLastDisplayNameSegment (): string {
-    return this.solutionNameSegments[this.solutionNameSegments.length - 1]
-  }
-
-  public CopyNameToVirginSolution (virginSolution: Solution): void {
-    for (const nameSegment of this.solutionNameSegments) {
-      virginSolution.PushDisplayNameSegment(nameSegment)
-    }
-  }
-
   public PushDisplayNameSegment (solutionName: string): void {
     this.solutionNameSegments.push(solutionName)
-  }
-
-  public ClearNameSegments (): void {
-    this.solutionNameSegments.length = 0
   }
 
   public FindAnyPieceMatchingIdRecursively (id: number): Piece | null {
@@ -229,10 +212,11 @@ export class Solution {
     }
   }
 
-  public MergeBox (boxToMerge: IBoxReadOnlyWithFileMethods): void {
+  public MergeBox (boxToMerge: Box): void {
     console.warn(`Merging box ${boxToMerge.GetFilename()}          going into ${FormatText(this.GetDisplayNamesConcatenated())}`)
 
     boxToMerge.CopyPiecesToGivenBox(this.GetMainBox())
+    boxToMerge.CopyGoalWordsToGivenGoalWordMap(this.goalWords)
     boxToMerge.CopyStartingThingCharsToGivenMap(this.startingThings)
     boxToMerge.CopyStartingThingCharsToGivenMap(this.currentlyVisibleThings)
   }
@@ -336,14 +320,6 @@ export class Solution {
 
   public GetSize (): number {
     return this.boxOfRemainingPieces.Size()
-  }
-
-  public setReasonForBranching (lastBranchingPoint: string): void {
-    this.reasonForBranching = lastBranchingPoint
-  }
-
-  public getReasonForBranching (): string {
-    return this.reasonForBranching
   }
 
   public GetTalks (): Map<string, TalkFile> {

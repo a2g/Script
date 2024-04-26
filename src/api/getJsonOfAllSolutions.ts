@@ -29,7 +29,7 @@ export function getJsonOfAllSolutions (
 
   const allBoxes = new Map<string, Box>()
   const goalSet = new Set<string>()
-  const firstBox = new Box(path, firstBoxFilename, goalSet, allBoxes)
+  const firstBox = new Box(path, [firstBoxFilename], goalSet, allBoxes)
 
   const solver = new SolverViaRootPiece(firstBox)
 

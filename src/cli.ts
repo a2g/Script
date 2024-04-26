@@ -1,5 +1,4 @@
 import promptSync from 'prompt-sync'
-import { BigBoxViaSetOfBoxes } from './puzzle/BigBoxViaSetOfBoxes'
 import { Box } from './puzzle/Box'
 import { SolverViaRootPiece } from './puzzle/SolverViaRootPiece'
 import { ChooseDigDeprecated } from './cli/ChooseDigDeprecated'
@@ -35,13 +34,12 @@ function main (): void {
 
             const setOfGoals = new Set<string>()
             const allBoxes = new Map<string, Box>()
+            allBoxes.keys()
 
-            const firstBox = new Box(starter.folder, starter.file, setOfGoals, allBoxes)
+            const firstBox = new Box(starter.folder, [starter.file], setOfGoals, allBoxes)
+            const combined = new Box(starter.folder, Array.from(allBoxes.keys()), setOfGoals, allBoxes)
 
-            // this is how we prime the special pieces only
-            const combined = new BigBoxViaSetOfBoxes(allBoxes)
-
-            const solverPrimedWithCombined = new SolverViaRootPiece(firstBox)
+            const solverPrimedWithCombined = new SolverViaRootPiece(combined)
             const solverPrimedWithFirstBox = new SolverViaRootPiece(firstBox)
 
             console.warn(`\nSubMenu of ${starter.file}`)
@@ -66,13 +64,13 @@ function main (): void {
             }
             switch (choice) {
               case '1':
-                ChooseDigIntoGoals2(solverPrimedWithFirstBox)
-                break
-              case '2':
                 ChooseDigIntoGoals2(solverPrimedWithCombined)
                 break
+              case '2':
+                ChooseDigIntoGoals2(solverPrimedWithFirstBox)
+                break
               case '3':
-                ChooseListOfLeaves(solverPrimedWithCombined)
+                ChooseListOfLeaves(solverPrimedWithFirstBox)
                 break
               case '4':
                 ChooseListOfLeaves(solverPrimedWithFirstBox)

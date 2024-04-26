@@ -1,7 +1,7 @@
-import { IBoxReadOnly } from '../puzzle/IBoxReadOnly'
+import { Box } from '../puzzle/Box'
 import { Piece } from '../puzzle/Piece'
 
-export function ChooseToFindUnused (box: IBoxReadOnly): void {
+export function ChooseToFindUnused (box: Box): void {
   const invs = box.GetArrayOfInvs()
   const props = box.GetArrayOfProps()
   // eslint-disable-next-line no-undef

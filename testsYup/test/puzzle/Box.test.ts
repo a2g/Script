@@ -4,7 +4,7 @@ import { expect, test } from '@jest/globals'
 test('Test GetMapOfAllStartingThings', () => {
   const set = new Set<string>()
   const map = new Map<string, Box>()
-  const box = new Box('testsYup/test/puzzle/', 'Test1First.jsonc', set, map)
+  const box = new Box('testsYup/test/puzzle/', ['Test1First.jsonc'], set, map)
 
   const goals = box.GetSetOfStartingGoals()
   const props = box.GetSetOfStartingProps()

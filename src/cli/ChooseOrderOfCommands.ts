@@ -14,7 +14,7 @@ export function ChooseOrderOfCommands (solver: SolverViaRootPiece): void {
       solver.SolvePartiallyUntilCloning()
       solver.MarkGoalsAsCompletedAndMergeIfNeeded()
     }
-    solver.GenerateSolutionNamesAndPush()
+    // solver.GenerateSolutionNamesAndPush()
     const numberOfSolutions: number = solver.NumberOfSolutions()
 
     console.warn('If any leaves are not resolved properly, for example')

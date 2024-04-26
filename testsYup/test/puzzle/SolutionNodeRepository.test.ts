@@ -6,7 +6,7 @@ describe('ReactionMap', () => {
   test('test AddToMap works', () => {
     const set = new Set<string>()
     const map = new Map<string, Box>()
-    const box = new Box('', '', set, map)
+    const box = new Box('', [''], set, map)
 
     // test that it is indeed null before
     const setBefore = box.Get('outputA')
@@ -28,7 +28,7 @@ describe('ReactionMap', () => {
   test('test RemovePiece works', () => {
     const map = new Map<string, Box>()
     const set = new Set<string>()
-    const box = new Box('', '', set, map)
+    const box = new Box('', [''], set, map)
     for (let i = 0; i < 3; i += 1) {
       box.AddPiece(
         new Piece(0, null, 'outputA', 'piffle', 1, null, null, null, 'A', 'B'), '', true, set, map
@@ -78,14 +78,14 @@ describe('ReactionMap', () => {
     // put them in a map
     const set = new Set<string>()
     const map = new Map<string, Box>()
-    const tmap = new Box('', '', set, map)
+    const tmap = new Box('', [''], set, map)
     array.forEach((t: Piece) => {
       tmap.AddPiece(t, '', false, set, map)
     })
 
     // cloned the map, and modify it.
     {
-      const cloned = new Box('', '', set, map)
+      const cloned = new Box('', [''], set, map)
       const clonedOutputA = cloned.Get('outputA')
 
       if (clonedOutputA != null) {
