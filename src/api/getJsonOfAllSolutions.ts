@@ -31,7 +31,7 @@ export function getJsonOfAllSolutions (
   const goalSet = new Set<string>()
   const firstBox = new Box(path, [firstBoxFilename], goalSet, allBoxes)
 
-  const solver = new SolverViaRootPiece(firstBox)
+  const solver = new SolverViaRootPiece(firstBox, true)
 
   for (let i = 0; i < 40; i++) {
     solver.SolvePartiallyUntilCloning()

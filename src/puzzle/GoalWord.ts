@@ -78,11 +78,6 @@ export class GoalWord {
           theSolution.GetMainBox().RemovePiece(theMatchingPiece)
         }
 
-        if (matchingPieces.length > 1) {
-          // }[${i > 0 ? matchingPieces.length - i : 0}]
-          const firstInput = theMatchingPiece.inputHints.length > 0 ? theMatchingPiece.inputHints[0] : 'no-hint'
-          theSolution.PushDisplayNameSegment(`${this.goalHint}=${firstInput}`)
-        }
         // this is only here to make the unit tests make sense
         // something like to fix a bug where cloning doesn't mark piece as complete
         // theSolution.MarkPieceAsCompleted(theSolution.GetWinGoal())
@@ -96,6 +91,12 @@ export class GoalWord {
         const theGoalWord = theSolution.GetRootMap().GetGoalWordByNameNoThrow(this.goalHint)
         console.assert(theGoalWord != null)
         if (theGoalWord != null) {
+          if (matchingPieces.length > 1) {
+            // }[${i > 0 ? matchingPieces.length - i : 0}]
+            const firstInput = theMatchingPiece.inputHints.length > 0 ? theMatchingPiece.inputHints[0] : 'no-hint'
+            theSolution.PushDisplayNameSegment(`${this.goalHint}=${firstInput}`)
+          }
+
           theGoalWord.piece = theMatchingPiece
 
           // all pieces are incomplete when they are *just* added

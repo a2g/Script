@@ -45,8 +45,6 @@ export class Box {
 
   private readonly path: string
 
-  private readonly isNotMergingAnymoreBoxes: boolean
-
   private readonly talkFiles: Map<String, TalkFile>
 
   public readonly piecesMappedByOutput: Map<string, Set<Piece>>
@@ -55,7 +53,6 @@ export class Box {
   private readonly mapOfTalks: Map<string, TalkFile>
 
   constructor (path: string, filenames: string[], set: Set<string>, map: Map<string, Box>) {
-    this.isNotMergingAnymoreBoxes = false
     this.path = path
     this.talkFiles = new Map<String, TalkFile>()
     this.filename = filenames[0]
@@ -169,10 +166,6 @@ export class Box {
         }
       }
     }
-  }
-
-  public IsNotMergingAnymoreBoxes (): boolean {
-    return this.isNotMergingAnymoreBoxes
   }
 
   public CopyStartingPropsToGivenSet (givenSet: Set<string>): void {

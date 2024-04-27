@@ -69,10 +69,6 @@ export class GoalWordMap {
     return root
   }
 
-  public RemoveAllWithName (name: string): void {
-    this.roots.delete(name)
-  }
-
   public CalculateListOfKeys (): string[] {
     const array: string[] = []
     for (const key of this.roots.keys()) {
@@ -101,12 +97,8 @@ export class GoalWordMap {
     return this.roots.get(goal)
   }
 
-  public GetWinGoalIfAny (): GoalWord | undefined {
+  private GetWinGoalIfAny (): GoalWord | undefined {
     return this.roots.get('x_win')
-  }
-
-  public RemoveAllWinGoals (): void {
-    this.roots.delete('x_win')
   }
 
   /*

@@ -16,13 +16,16 @@ export class SolverViaRootPiece {
   Set<string>
   >
 
-  constructor (box: Box) {
+  private readonly mergedBoxesFoundOnGoals: boolean
+
+  constructor (box: Box, mergedBoxesFoundOnGoals: boolean) {
     // const hasWinGoal = box.GetSetOfGoalWords().has('x_win')
     // if (!hasWinGoal) {
     //  throw new Error(`No x_win was found among the ${box.GetSetOfGoalWords().size} goals`)
     // }
 
     this.solutions = []
+    this.mergedBoxesFoundOnGoals = mergedBoxesFoundOnGoals
 
     const newRootMap = new GoalWordMap(null)
     for (const goal of box.GetSetOfGoalWords()) {
@@ -34,7 +37,7 @@ export class SolverViaRootPiece {
       box,
       [],
       box.GetMapOfAllStartingThings(),
-      box.IsNotMergingAnymoreBoxes()
+      this.mergedBoxesFoundOnGoals
     )
     this.solutions.push(firstSolution)
 
@@ -59,10 +62,12 @@ export class SolverViaRootPiece {
 
   public SolvePartiallyUntilCloning (): boolean {
     let hasACloneJustBeenCreated = false
-    for (const solution of this.solutions) {
+    const solutions = this.solutions
+    for (const solution of solutions) {
       if (solution.IsUnsolved()) {
         if (solution.ProcessUntilCloning(this)) {
           hasACloneJustBeenCreated = true
+          break// breaking here at a smaller step, allows catching of bugs as soon as they occur
         }
       }
     }

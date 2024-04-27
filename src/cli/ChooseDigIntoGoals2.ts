@@ -106,18 +106,14 @@ export function ChooseDigIntoGoals2 (solver: SolverViaRootPiece): void {
           // show map entry for chosen item
           const theNumber = Number(input)
           if (theNumber > 0 && theNumber <= listItemNumber) {
-            const solutions = solver.GetSolutions()
-            for (let i = 0; i < solutions.length; i++) {
-              const rootMap = solutions[i].GetRootMap()
-              const goals = rootMap.GetValues()
-              for (const goal of goals) {
-                i++
-                if (i === theNumber) {
-                  if (goal.piece != null) {
-                    NavigatePieceRecursive(goal.piece, rootMap, solution)
-                  } else {
-                    prompt('Goal.piece WAS NULL. Hit any key to continue: ')
-                  }
+            let j = 0
+            for (const goal of solution.GetRootMap().GetValues()) {
+              j++
+              if (j === theNumber) {
+                if (goal.piece != null) {
+                  NavigatePieceRecursive(goal.piece, solution.GetRootMap(), solution)
+                } else {
+                  prompt(`${goal.goalHint} Goal.piece WAS NULL. Hit any key to continue: `)
                 }
               }
             }

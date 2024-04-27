@@ -30,7 +30,7 @@ export class Solution {
 
   private readonly solutionNameSegments: string[] // these get assigned by SolverViaRootPiece.GenerateNames
 
-  private readonly isNotMergingAnyMoreBoxes: boolean
+  private readonly performMergeInstructions: boolean
 
   private readonly id: number
 
@@ -46,7 +46,7 @@ export class Solution {
   ) {
     this.id = id
     this.goalWords = new GoalWordMap(goalWordsToCopy)
-    this.isNotMergingAnyMoreBoxes = isNotMergingAnyMoreBoxes
+    this.performMergeInstructions = isNotMergingAnyMoreBoxes
     this.boxOfRemainingPieces = box
     this.rootPieceKeysInSolvingOrder = solvingOrderForRootPieceKeys.slice()
 
@@ -108,7 +108,7 @@ export class Solution {
       this.boxOfRemainingPieces,
       this.rootPieceKeysInSolvingOrder,
       this.startingThings,
-      this.isNotMergingAnyMoreBoxes,
+      this.performMergeInstructions,
       this.restrictionsEncounteredDuringSolving,
       this.solutionNameSegments
     )
@@ -203,7 +203,7 @@ export class Solution {
           // yet to be merged - and modifies them!
           this.AddCommandsToReachGoalToList(goal)
           if (goal.piece?.boxToMerge != null &&
-            !this.isNotMergingAnyMoreBoxes
+            this.performMergeInstructions
           ) {
             this.MergeBox(goal.piece.boxToMerge)
           }

@@ -39,8 +39,8 @@ function main (): void {
             const firstBox = new Box(starter.folder, [starter.file], setOfGoals, allBoxes)
             const combined = new Box(starter.folder, Array.from(allBoxes.keys()), setOfGoals, allBoxes)
 
-            const solverPrimedWithCombined = new SolverViaRootPiece(combined)
-            const solverPrimedWithFirstBox = new SolverViaRootPiece(firstBox)
+            const solverPrimedWithCombined = new SolverViaRootPiece(combined, false)
+            const solverPrimedWithFirstBox = new SolverViaRootPiece(firstBox, true)
 
             console.warn(`\nSubMenu of ${starter.file}`)
             console.warn(
