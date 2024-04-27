@@ -59,13 +59,13 @@ export class SolverViaRootPiece {
 
   public SolvePartiallyUntilCloning (): boolean {
     let hasACloneJustBeenCreated = false
-    this.solutions.forEach((solution: Solution) => {
+    for (const solution of this.solutions) {
       if (solution.IsUnsolved()) {
         if (solution.ProcessUntilCloning(this)) {
           hasACloneJustBeenCreated = true
         }
       }
-    })
+    }
     return hasACloneJustBeenCreated
   }
 

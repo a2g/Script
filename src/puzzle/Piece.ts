@@ -10,31 +10,31 @@ import { VisibleThingsMap } from './VisibleThingsMap'
 export class Piece {
   public id: number
 
-  public boxToMerge: Box | null
-
   public type: string
+
+  public reuseCount: number // pieces are allowed to used many times in a puzzle solving network - this enables that
 
   public output: string
 
-  public spielOutput: string
+  public boxToMerge: Box | null
 
-  public inputs: Array<Piece | null>
+  private talkPath: any // only valid for TALK
+
+  public spielOutput: string
 
   public inputHints: string[]
 
-  public parent: Piece | null // this is not needed for leaf finding - but *is* needed for command finding.
+  public inputSpiels: string[]
 
-  public reuseCount: number // pieces are allowed to used many times in a puzzle solving network - this enables that
+  public inputs: Array<Piece | null>
+
+  public parent: Piece | null // this is not needed for leaf finding - but *is* needed for command finding.
 
   public characterRestrictions: string[]
 
   public happenings: Happenings | null
 
   public command: Command | null
-
-  public inputSpiels: string[]
-
-  private talkPath: any // only valid for TALK
 
   constructor (
     id: number,
@@ -108,7 +108,8 @@ export class Piece {
   }
 
   public ClonePieceAndEntireTree (): Piece {
-    const clone = new Piece(0, null, this.output, '')
+    const clone = new Piece(0, null, '', '')
+    // set the stuff that isn't passed above
     clone.id = this.id
     clone.type = this.type
     clone.reuseCount = this.reuseCount
@@ -126,7 +127,7 @@ export class Piece {
       clone.inputSpiels.push(inputHint)
     }
 
-    // the pieces
+    // the pieces - and parent
     for (const input of this.inputs) {
       if (input != null) {
         const child = input.ClonePieceAndEntireTree()
@@ -139,6 +140,13 @@ export class Piece {
 
     for (const restriction of this.characterRestrictions) {
       clone.characterRestrictions.push(restriction)
+    }
+
+    if (this.happenings != null) {
+      clone.happenings = this.happenings.Clone()
+    }
+    if (this.command != null) {
+      clone.command = new Command(this.command.verb, this.command.type, this.command.object1, this.command.object2, this.command.error)
     }
 
     return clone
@@ -317,6 +325,7 @@ export class Piece {
       const setOfMatchingPieces = solution
         .GetMainBox()
         .GetPiecesThatOutputString(importHintToFind)
+
       if (setOfMatchingPieces.size > 0) {
         const matchingPieces = Array.from(setOfMatchingPieces)
         // In our array the currentSolution, is at index zero
@@ -332,10 +341,13 @@ export class Piece {
 
           // This is the earliest possible point we can remove the
           // matching piece: i.e. after the cloning has occurred
-          theSolution.GetMainBox().RemovePiece(theMatchingPiece)
+          // remove all the pieces before cloning
+          for (const theMatchingPiece of setOfMatchingPieces) {
+            theSolution.GetMainBox().RemovePiece(theMatchingPiece)
+          }
 
-          if(matchingPieces.length >1){
-            theSolution.PushDisplayNameSegment(`${importHintToFind}[${i}]`)
+          if (matchingPieces.length > 1) {
+            theSolution.PushDisplayNameSegment(`${importHintToFind}[${i > 0 ? matchingPieces.length - i : 0}]`)
           }
 
           // this is only here to make the unit tests make sense

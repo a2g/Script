@@ -10,17 +10,24 @@ export class GoalWord {
   private readonly commandsCompletedInOrder: RawObjectsAndVerb[]
 
   constructor (goalHint: string, commandsCompletedInOrder: RawObjectsAndVerb[], isSolved = false) {
-    this.goalHint = goalHint// TODO: should be
+    this.goalHint = goalHint
     this.isTreeOfPiecesSolved = isSolved
     this.piece = null
 
-    // if commandsCompletedInOrder is passed in, we deep copy it
     this.commandsCompletedInOrder = []
     if (commandsCompletedInOrder != null) {
       for (const command of commandsCompletedInOrder) {
         this.commandsCompletedInOrder.push(command)
       }
     }
+  }
+
+  public CloneIncludingLeaves (): GoalWord {
+    const newGoalWord = new GoalWord(this.goalHint, this.commandsCompletedInOrder)
+    if (this.piece != null) {
+      newGoalWord.piece = this.piece.ClonePieceAndEntireTree()
+    }
+    return newGoalWord
   }
 
   public IsSolved (): boolean {
@@ -43,13 +50,16 @@ export class GoalWord {
   }
 
   public ProcessUntilCloning (solution: Solution, solutions: SolverViaRootPiece, path: string): boolean {
-    if (!this.isTreeOfPiecesSolved && this.piece != null) {
+    // if the goalword piece is already found, we recurse
+    if (this.piece != null) {
       return this.piece.ProcessUntilCloning(solution, solutions, path + this.goalHint + '/')
     }
+    // else we find the goal word piece
 
     const setOfMatchingPieces = solution
       .GetMainBox()
       .GetPiecesThatOutputString(this.goalHint)
+
     if (setOfMatchingPieces.size > 0) {
       const matchingPieces = Array.from(setOfMatchingPieces)
       // In our array the currentSolution, is at index zero
@@ -63,12 +73,15 @@ export class GoalWord {
         const isCloneBeingUsed = i > 0
         const theSolution = isCloneBeingUsed ? solution.Clone() : solution
 
-        // This is the earliest possible point we can remove the
-        // matching piece: i.e. after the cloning has occurred
-        theSolution.GetMainBox().RemovePiece(theMatchingPiece)
+        // remove all the pieces after cloning
+        for (const theMatchingPiece of setOfMatchingPieces) {
+          theSolution.GetMainBox().RemovePiece(theMatchingPiece)
+        }
 
         if (matchingPieces.length > 1) {
-          theSolution.PushDisplayNameSegment(`${this.goalHint}[${i}]`)
+          // }[${i > 0 ? matchingPieces.length - i : 0}]
+          const firstInput = theMatchingPiece.inputHints.length > 0 ? theMatchingPiece.inputHints[0] : 'no-hint'
+          theSolution.PushDisplayNameSegment(`${this.goalHint}=${firstInput}`)
         }
         // this is only here to make the unit tests make sense
         // something like to fix a bug where cloning doesn't mark piece as complete
@@ -81,7 +94,7 @@ export class GoalWord {
 
         // rediscover the current GoalWord in theSolution - again because we might be cloned
         const theGoalWord = theSolution.GetRootMap().GetGoalWordByNameNoThrow(this.goalHint)
-
+        console.assert(theGoalWord != null)
         if (theGoalWord != null) {
           theGoalWord.piece = theMatchingPiece
 

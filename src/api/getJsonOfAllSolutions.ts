@@ -53,7 +53,7 @@ export function getJsonOfAllSolutions (
         // display list item
         const status = item.IsSolved() ? 'Solved' : 'Unsolved'
         const output = item.goalHint
-        console.warn(`    ${listItemNumber}. ${output} (status=${status})`)
+        console.warn(`    ${listItemNumber}. ${output} (root = ${(item.piece != null) ? 'found' : 'null'} status=${status})`)
         incomplete += item.IsSolved() ? 0 : 1
       }
     }

@@ -17,4 +17,14 @@ export class Happenings {
     this.text = ''
     this.array = []
   }
+
+  Clone (): Happenings {
+    const clone = new Happenings()
+    clone.verb = this.verb
+    clone.text = this.text
+    for (const happening of this.array) {
+      clone.array.push(new Happening(happening.type, happening.itemA, happening.itemB))
+    }
+    return clone
+  }
 }

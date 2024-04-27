@@ -19,13 +19,13 @@ import { TalkFile } from './talk/TalkFile'
 export class GoalWordMap {
   private readonly roots: Map<string, GoalWord>
 
-  constructor (deepCopyFromMe: GoalWordMap | null) {
+  constructor (cloneIncludingLeaves: GoalWordMap | null) {
     this.roots = new Map<string, GoalWord>()
-    if (deepCopyFromMe != null) {
-      for (const pair of deepCopyFromMe.roots) {
+    if (cloneIncludingLeaves != null) {
+      for (const pair of cloneIncludingLeaves.roots) {
         const key = pair[0]
-        const value = pair[1]
-        this.roots.set(key, value)
+        const goalWord = pair[1]
+        this.roots.set(key, goalWord.CloneIncludingLeaves())
       }
     }
   }

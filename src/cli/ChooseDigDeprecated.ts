@@ -58,7 +58,7 @@ export function ChooseDigDeprecated (solver: SolverViaRootPiece): void {
       'Choose goal to dig down on or (b)ack, (r)e-run: '
     ).toLowerCase()
     if (input === null || input === 'b') {
-      return
+      continue
     }
     if (input === 'r') {
       solver.SolvePartiallyUntilCloning()

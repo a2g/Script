@@ -34,11 +34,11 @@ export function ChooseDigIntoGoals2 (solver: SolverViaRootPiece): void {
 
     // allow user to choose item
     const firstInput = prompt(
-      'Choose an ingredient of one of the solutions or (b)ack, (r)e-run, e(x)it '
+      '\nChoose an ingredient of one of the solutions or (b)ack, (r)e-run, e(x)it '
     ).toLowerCase()
 
     if (firstInput === null || firstInput === 'b') {
-      continue
+      break
     }
     if (firstInput === 'x') {
       return
@@ -66,7 +66,7 @@ export function ChooseDigIntoGoals2 (solver: SolverViaRootPiece): void {
             ? text
             : NAME_NOT_DETERMINABLE
 
-        console.warn(`A. ${label}`)
+        console.warn(`${theNumber}. ${label}`)
         let listItemNumber = 0
         let incomplete = 0
         for (const rootGoal of solution.GetRootMap().GetValues()) {
@@ -81,7 +81,7 @@ export function ChooseDigIntoGoals2 (solver: SolverViaRootPiece): void {
             }
           }
           console.warn(
-            `    ${listItemNumber}. ${FormatText(output)} ${AddBrackets(inputs)} (status=${rootGoal.IsSolved() ? 'Solved' : 'Unsolved'})`
+            `    ${listItemNumber}. ${FormatText(output)} ${AddBrackets(inputs)} (root = ${(rootGoal.piece != null) ? 'found' : 'null'} status=${rootGoal.IsSolved() ? 'Solved' : 'Unsolved'})`
           )
           incomplete += rootGoal.IsSolved() ? 0 : 1
         }
@@ -93,6 +93,9 @@ export function ChooseDigIntoGoals2 (solver: SolverViaRootPiece): void {
           'Choose goal to dig down on or (b)ack, (r)e-run: '
         ).toLowerCase()
         if (input === null || input === 'b') {
+          break
+        }
+        if (input === 'x') {
           return
         }
         if (input === 'r') {
@@ -112,6 +115,8 @@ export function ChooseDigIntoGoals2 (solver: SolverViaRootPiece): void {
                 if (i === theNumber) {
                   if (goal.piece != null) {
                     NavigatePieceRecursive(goal.piece, rootMap, solution)
+                  } else {
+                    prompt('Goal.piece WAS NULL. Hit any key to continue: ')
                   }
                 }
               }
