@@ -117,6 +117,11 @@ export class GoalWordMap {
   }
 
   AddGoalWord (word: string): void {
-    this.roots.set(word, new GoalWord(word, [], false))
+    if (!this.roots.has(word)) {
+      console.warn(`Merged goal word ${word}`)
+      this.roots.set(word, new GoalWord(word, [], false))
+    } else {
+      console.warn(`Already exists: Failed to merge goal ${word}  `)
+    }
   }
 }
