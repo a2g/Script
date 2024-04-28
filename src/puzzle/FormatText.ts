@@ -27,6 +27,10 @@ export function FormatText (
       Colors.Reset
     )
   }
+  if (single.startsWith(IdPrefixes.InvGoal)) {
+    if (!isColor) return single.slice(8)
+    return Colors.Yellow + single.slice(8) + Colors.Reset
+  }
   if (single.startsWith('sol_x')) {
     if (!isColor) return single.slice(9)
     return Colors.Yellow + single.slice(9) + Colors.Reset
@@ -47,10 +51,7 @@ export function FormatText (
     if (!isColor) return single.slice(1)
     return Colors.Green + single.slice(1) + Colors.Reset
   }
-  if (single.startsWith(IdPrefixes.InvGoal)) {
-    if (!isColor) return single.slice(7)
-    return Colors.Green + single.slice(7) + Colors.Reset
-  }
+
   if (single.startsWith(IdPrefixes.Talk) || single.startsWith(IdPrefixes.Talks)) {
     if (!isColor) return single.slice(6)
     return Colors.Red + single.slice(6) + Colors.Reset

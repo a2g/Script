@@ -236,7 +236,7 @@ export class Solution {
    */
   public AddCommandsToReachGoalToList (goalStruct: GoalWord): void {
     // push the commands
-    const leafToRootTraverser = new DeconstructDoer(
+    const deconstructDoer = new DeconstructDoer(
       goalStruct,
       this.currentlyVisibleThings,
       this.GetTalks()
@@ -244,12 +244,12 @@ export class Solution {
     let rawObjectsAndVerb: RawObjectsAndVerb | null = null
     for (let j = 0; j < 200; j += 1) {
       rawObjectsAndVerb =
-        leafToRootTraverser.GetNextDoableCommandAndDeconstructTree()
+        deconstructDoer.GetNextDoableCommandAndDeconstructTree()
       if (rawObjectsAndVerb == null) {
         // all out of moves!
         // for debugging
         rawObjectsAndVerb =
-          leafToRootTraverser.GetNextDoableCommandAndDeconstructTree()
+          deconstructDoer.GetNextDoableCommandAndDeconstructTree()
         break
       }
 
