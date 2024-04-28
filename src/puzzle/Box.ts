@@ -45,8 +45,6 @@ export class Box {
 
   private readonly path: string
 
-  private readonly talkFiles: Map<String, TalkFile>
-
   public readonly piecesMappedByOutput: Map<string, Set<Piece>>
 
   private readonly displayName: string
@@ -54,7 +52,7 @@ export class Box {
 
   constructor (path: string, filenames: string[], set: Set<string>, map: Map<string, Box>) {
     this.path = path
-    this.talkFiles = new Map<String, TalkFile>()
+    this.mapOfTalks = new Map<string, TalkFile>()
     this.filename = filenames[0]
 
     const setProps = new Set<string>()
@@ -316,22 +314,8 @@ export class Box {
     return this.path
   }
 
-  public GetClonedBoxOfPieces (): Map<string, Set<Piece>> {
-    const toReturn = new Map<string, Set<Piece>>()
-    for (const pair of this.piecesMappedByOutput) {
-      const key = pair[0]
-      const value = pair[1]
-      const newSet = new Set<Piece>()
-      for (const piece of value) {
-        newSet.add(piece.ClonePieceAndEntireTree())
-      }
-      toReturn.set(key, newSet)
-    }
-    return toReturn
-  }
-
   public AddTalkFile (talkFile: TalkFile): void {
-    this.talkFiles.set(talkFile.GetName(), talkFile)
+    this.mapOfTalks.set(talkFile.GetName(), talkFile)
   }
 
   public GetSetOfGoalWords (): Set<string> {
@@ -446,10 +430,6 @@ export class Box {
     return this.piecesMappedByOutput.values()
   }
 
-  public GetTalkIterator (): IterableIterator<TalkFile> {
-    return this.mapOfTalks.values()
-  }
-
   public CopyGoalWordsToGivenGoalWordMap (destinationGoalWordMap: GoalWordMap): void {
     for (const goalWord of this.setOfGoalWords) {
       destinationGoalWordMap.AddGoalWord(goalWord)
@@ -457,6 +437,9 @@ export class Box {
   }
 
   public CopyPiecesToGivenBox (destinationBox: Box): void {
+    for (const talk of this.mapOfTalks.values()) {
+      destinationBox.mapOfTalks.set(talk.GetName(), talk)
+    }
     this.piecesMappedByOutput.forEach((setOfPieces: Set<Piece>) => {
       setOfPieces.forEach((piece: Piece) => {
         const set = new Set<string>()
@@ -464,10 +447,6 @@ export class Box {
         destinationBox.AddPiece(piece, '', true, set, map)
       })
     })
-
-    for (const talk of this.mapOfTalks.values()) {
-      destinationBox.AddTalkFile(talk)
-    }
   }
 
   public ReplaceInputsThatMatchAWithB (a: string, b: string): number {
