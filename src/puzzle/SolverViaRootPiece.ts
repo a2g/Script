@@ -50,7 +50,7 @@ export class SolverViaRootPiece {
       this.mapOfStartingThingsAndWhoCanHaveThem.set(key, newSet)
     }
 
-    // this.GenerateSolutionNamesAndPush()
+    this.GenerateSolutionNamesAndPush()
   }
 
   public NumberOfSolutions (): number {
@@ -88,8 +88,9 @@ export class SolverViaRootPiece {
       }
     }
   }
-/*
+
   public GenerateSolutionNamesAndPush (): void {
+    /*
     for (let i = 0; i < this.solutions.length; i++) {
       // now lets find out the amount leafNode name exists in all the other solutions
       const mapForCounting = new Map<string, number>()
@@ -163,6 +164,6 @@ export class SolverViaRootPiece {
           )
         }
       }
-    }
-  } */
+    }*/
+  }
 }
