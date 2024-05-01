@@ -18,8 +18,8 @@ export class Solution {
   // important ones
   private readonly goalWords: GoalWordMap
   private readonly rootPieceKeysInSolvingOrder: string[]
-
-  private readonly boxOfRemainingPieces: Box
+  public readonly remainingPieces: Map<string, Set<Piece>>
+  public readonly talks: Map<string, TalkFile>
 
   // less important
   private readonly startingThings: VisibleThingsMap // once, this was updated dynamically in GetNextDoableCommandAndDesconstructTree
@@ -37,7 +37,8 @@ export class Solution {
   private constructor (
     id: number,
     goalWordsToCopy: GoalWordMap | null,
-    box: Box,
+    pieces: Map<string, Set<Piece>>,
+    talks: Map<string, TalkFile>,
     solvingOrderForRootPieceKeys: string[],
     startingThingsPassedIn: VisibleThingsMap,
     isNotMergingAnyMoreBoxes: boolean,
@@ -47,8 +48,13 @@ export class Solution {
     this.id = id
     this.goalWords = new GoalWordMap(goalWordsToCopy)
     this.performMergeInstructions = isNotMergingAnyMoreBoxes
-    this.boxOfRemainingPieces = box
+    this.talks = new Map<string, TalkFile>()
+    this.remainingPieces = new Map<string, Set<Piece>>()
     this.rootPieceKeysInSolvingOrder = solvingOrderForRootPieceKeys.slice()
+
+    // pieces
+    Box.CopyTalksFromAtoB(talks, this.talks)
+    Box.CopyPiecesFromAtoB(pieces, this.remainingPieces)
 
     // starting things AND currentlyVisibleThings
     this.startingThings = new VisibleThingsMap(null)
@@ -82,7 +88,8 @@ export class Solution {
 
   public static createSolution (
     goalWords: GoalWordMap | null,
-    box: Box,
+    pieces: Map<string, Set<Piece>>,
+    talks: Map<string, TalkFile>,
     solvingOrderForRootPieceKeys: string[],
     startingThingsPassedIn: VisibleThingsMap,
     isNotMergingAnyMoreBoxes: boolean,
@@ -90,7 +97,7 @@ export class Solution {
     nameSegments: string[] | null = null
   ): Solution {
     globalSolutionId++
-    return new Solution(globalSolutionId, goalWords, box, solvingOrderForRootPieceKeys, startingThingsPassedIn, isNotMergingAnyMoreBoxes, restrictions, nameSegments)
+    return new Solution(globalSolutionId, goalWords, pieces, talks, solvingOrderForRootPieceKeys, startingThingsPassedIn, isNotMergingAnyMoreBoxes, restrictions, nameSegments)
   }
 
   public Clone (): Solution {
@@ -105,7 +112,8 @@ export class Solution {
 
     const clonedSolution = Solution.createSolution(
       clonedRootPieceMap,
-      this.boxOfRemainingPieces,
+      this.remainingPieces,
+      this.talks,
       this.rootPieceKeysInSolvingOrder,
       this.startingThings,
       this.performMergeInstructions,
@@ -160,12 +168,6 @@ export class Solution {
     return this.restrictionsEncounteredDuringSolving
   }
 
-  public GetMainBox (): Box {
-    // we already remove pieces from this when we use them up
-    // so returning the current piece map is ok
-    return this.boxOfRemainingPieces
-  }
-
   public PushDisplayNameSegment (solutionName: string): void {
     this.solutionNameSegments.push(solutionName)
   }
@@ -215,7 +217,8 @@ export class Solution {
   public MergeBox (boxToMerge: Box): void {
     console.warn(`Merging box ${boxToMerge.GetFilename()}          going into ${FormatText(this.GetDisplayNamesConcatenated())}`)
 
-    boxToMerge.CopyPiecesToGivenBox(this.GetMainBox())
+    Box.CopyPiecesFromAtoB(boxToMerge.piecesMappedByOutput, this.remainingPieces)
+    Box.CopyTalksFromAtoB(boxToMerge.GetTalks(), this.talks)
     boxToMerge.CopyGoalWordsToGivenGoalWordMap(this.goalWords)
     boxToMerge.CopyStartingThingCharsToGivenMap(this.startingThings)
     boxToMerge.CopyStartingThingCharsToGivenMap(this.currentlyVisibleThings)
@@ -290,7 +293,7 @@ export class Solution {
     this.rootPieceKeysInSolvingOrder.push(goalStruct.goalHint)
 
     // Sse if any autos depend on the newly completed goal - if so execute them
-    for (const piece of this.boxOfRemainingPieces.GetAutos()) {
+    for (const piece of this.GetAutos()) {
       if (
         piece.inputHints.length === 2 &&
         piece.inputHints[0] === goalStruct.goalHint
@@ -319,10 +322,54 @@ export class Solution {
   }
 
   public GetSize (): number {
-    return this.boxOfRemainingPieces.Size()
+    return this.remainingPieces.size
   }
 
   public GetTalks (): Map<string, TalkFile> {
-    return this.boxOfRemainingPieces.GetTalks()
+    return this.talks
+  }
+
+  public GetAutos (): Piece[] {
+    const toReturn: Piece[] = []
+    this.remainingPieces.forEach((setOfPieces: Set<Piece>) => {
+      setOfPieces.forEach((piece: Piece) => {
+        if (piece.type.startsWith('AUTO')) {
+          toReturn.push(piece)
+        }
+      })
+    })
+    return toReturn
+  }
+
+  public GetPiecesThatOutputString (objectToObtain: string): Set<Piece> {
+    // since the remainingPieces are a map index by output piece
+    // then a remainingPieces.Get will retrieve all matching pieces.
+    // BUT...
+    // we want it to return a random empty set if not found
+    // and for now, it seems like it was changed to a slow
+    // iteration through the map to match - possibly for debugging.
+    for (const pair of this.remainingPieces) {
+      if (pair[0] === objectToObtain) {
+        return pair[1]
+      }
+    }
+    return new Set<Piece>()
+  }
+
+  public RemovePiece (piece: Piece): void {
+    if (piece.reuseCount - 1 <= 0) {
+      const key = piece.output
+      if (this.remainingPieces.has(key)) {
+        const oldSet = this.remainingPieces.get(key)
+        if (oldSet != null) {
+          // console.warn(" old size = "+oldSet.size);
+          oldSet.delete(piece)
+          // console.warn(" newSize = "+oldSet.size);
+        }
+      } else {
+        piece.SetCount(piece.reuseCount - 1)
+        console.warn(`trans.count is now ${piece.reuseCount}`)
+      }
+    }
   }
 }

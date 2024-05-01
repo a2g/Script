@@ -56,9 +56,7 @@ export class GoalWord {
     }
     // else we find the goal word piece
 
-    const setOfMatchingPieces = solution
-      .GetMainBox()
-      .GetPiecesThatOutputString(this.goalHint)
+    const setOfMatchingPieces = solution.GetPiecesThatOutputString(this.goalHint)
 
     if (setOfMatchingPieces.size > 0) {
       const matchingPieces = Array.from(setOfMatchingPieces)
@@ -75,7 +73,7 @@ export class GoalWord {
 
         // remove all the pieces after cloning
         for (const theMatchingPiece of setOfMatchingPieces) {
-          theSolution.GetMainBox().RemovePiece(theMatchingPiece)
+          theSolution.RemovePiece(theMatchingPiece)
         }
 
         // this is only here to make the unit tests make sense

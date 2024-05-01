@@ -322,35 +322,6 @@ export class Box {
     return this.setOfGoalWords
   }
 
-  public RemovePiece (piece: Piece): void {
-    if (piece.reuseCount - 1 <= 0) {
-      const key = piece.output
-      if (this.piecesMappedByOutput.has(key)) {
-        const oldSet = this.piecesMappedByOutput.get(key)
-        if (oldSet != null) {
-          // console.warn(" old size = "+oldSet.size);
-          oldSet.delete(piece)
-          // console.warn(" newSize = "+oldSet.size);
-        }
-      } else {
-        piece.SetCount(piece.reuseCount - 1)
-        console.warn(`trans.count is now ${piece.reuseCount}`)
-      }
-    }
-  }
-
-  public GetAutos (): Piece[] {
-    const toReturn: Piece[] = []
-    this.piecesMappedByOutput.forEach((setOfPieces: Set<Piece>) => {
-      setOfPieces.forEach((piece: Piece) => {
-        if (piece.type.startsWith('AUTO')) {
-          toReturn.push(piece)
-        }
-      })
-    })
-    return toReturn
-  }
-
   public AddPiece (piece: Piece, folder = '', isNoFile = true, aggregateGoalWords: Set<string>, mapOfBoxes: Map<string, Box>): void {
     if (IsPieceOutputtingAGoal(piece)) {
       const goal1 = piece.output
@@ -395,21 +366,6 @@ export class Box {
     return null
   }
 
-  public GetPiecesThatOutputString (objectToObtain: string): Set<Piece> {
-    // since the remainingPieces are a map index by output piece
-    // then a remainingPieces.Get will retrieve all matching pieces.
-    // BUT...
-    // we want it to return a random empty set if not found
-    // and for now, it seems like it was changed to a slow
-    // iteration through the map to match - possibly for debugging.
-    for (const pair of this.piecesMappedByOutput) {
-      if (pair[0] === objectToObtain) {
-        return pair[1]
-      }
-    }
-    return new Set<Piece>()
-  }
-
   public Size (): number {
     let count = 0
     for (const set of this.piecesMappedByOutput.values()) {
@@ -436,17 +392,22 @@ export class Box {
     }
   }
 
-  public CopyPiecesToGivenBox (destinationBox: Box): void {
-    for (const talk of this.mapOfTalks.values()) {
-      destinationBox.mapOfTalks.set(talk.GetName(), talk)
-    }
-    this.piecesMappedByOutput.forEach((setOfPieces: Set<Piece>) => {
+  public static CopyPiecesFromAtoB (a: Map<string, Set<Piece>>, b: Map<string, Set<Piece>>): void {
+    a.forEach((setOfPieces: Set<Piece>) => {
       setOfPieces.forEach((piece: Piece) => {
-        const set = new Set<string>()
-        const map = new Map<string, Box>()
-        destinationBox.AddPiece(piece, '', true, set, map)
+        if (b.has(piece.output)) {
+          b.set(piece.output, new Set<Piece>())
+        }
+
+        b.get(piece.output)?.add(piece)
       })
     })
+  }
+
+  public static CopyTalksFromAtoB (a: Map<string, TalkFile>, b: Map<string, TalkFile>): void {
+    for (const talk of a.values()) {
+      b.set(talk.GetName(), talk)
+    }
   }
 
   public ReplaceInputsThatMatchAWithB (a: string, b: string): number {

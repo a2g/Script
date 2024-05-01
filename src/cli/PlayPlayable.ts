@@ -18,7 +18,7 @@ export function PlayPlayable (playable: Playable): void {
     reporter.ReportScene(props)
 
     // Process all the autos
-    ProcessAutos(playable.GetHappener(), playable.GetPileOfPieces())
+    ProcessAutos(playable.GetHappener(), playable.GetSolution())
 
     // check have we won?
     if (playable.GetHappener().GetGoalValue('x_win') > 0) {

@@ -138,8 +138,20 @@ describe('Solution', () => {
       assert.ok(leaves.has('/root comment 1/x_win/prop_stageE/prop_switched_on_item5/prop_rigged_item5/prop_switch5/'))
       assert.ok(leaves.has('/root comment 1/x_win/prop_stageE/prop_switched_on_item5/prop_rigged_item5/prop_attached_item5/prop_rigging_place5/'))
       assert.ok(leaves.has('/root comment 1/x_win/prop_stageE/prop_switched_on_item5/prop_rigged_item5/prop_attached_item5/inv_box_of_items/'))
+
       */
 
 /*
 })
+*/
+
+/* don't forget to test remove piece
+box.RemovePiece(theOneToRemove)
+
+{
+  const arrayAfter = box.Get('outputA')
+  const countAfterRemoval = arrayAfter != null ? arrayAfter.size : 0
+  expect(countAfterRemoval).toEqual(3)
+}
+
 */

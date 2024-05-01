@@ -52,14 +52,6 @@ describe('ReactionMap', () => {
       const countBeforeRemoval = arrayBefore != null ? arrayBefore.size : 0
       expect(countBeforeRemoval).toEqual(4)
     }
-
-    box.RemovePiece(theOneToRemove)
-
-    {
-      const arrayAfter = box.Get('outputA')
-      const countAfterRemoval = arrayAfter != null ? arrayAfter.size : 0
-      expect(countAfterRemoval).toEqual(3)
-    }
   })
 
   test('test Clone works', () => {

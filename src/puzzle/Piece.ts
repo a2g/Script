@@ -323,7 +323,6 @@ export class Piece {
       // This is where we get all the pieces that fit
       // and if there is more than one, then we clone
       const setOfMatchingPieces = solution
-        .GetMainBox()
         .GetPiecesThatOutputString(importHintToFind)
 
       if (setOfMatchingPieces.size > 0) {
@@ -343,7 +342,7 @@ export class Piece {
           // matching piece: i.e. after the cloning has occurred
           // remove all the pieces before cloning
           for (const theMatchingPiece of setOfMatchingPieces) {
-            theSolution.GetMainBox().RemovePiece(theMatchingPiece)
+            theSolution.RemovePiece(theMatchingPiece)
           }
 
           if (matchingPieces.length > 1) {

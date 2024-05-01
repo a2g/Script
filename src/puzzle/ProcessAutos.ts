@@ -1,16 +1,16 @@
 import { IdPrefixes } from '../../IdPrefixes'
-import { Box } from './Box'
 import { Happener } from './Happener'
+import { Solution } from './Solution'
 
 export function ProcessAutos (
   happener: Happener,
-  box: Box
+  solution: Solution
 ): void {
   const goals = happener.GetCurrentlyTrueGoals()
   const items = happener.GetCurrentVisibleInventory()
   const props = happener.GetCurrentVisibleProps()
 
-  const autos = box.GetAutos()
+  const autos = solution.GetAutos()
   for (const piece of autos) {
     let numberSatisfied = 0
     for (const inputName of piece.inputHints) {

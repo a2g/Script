@@ -34,7 +34,8 @@ export class SolverViaRootPiece {
 
     const firstSolution = Solution.createSolution(
       newRootMap,
-      box,
+      box.piecesMappedByOutput,
+      box.GetTalks(),
       [],
       box.GetMapOfAllStartingThings(),
       this.mergedBoxesFoundOnGoals
