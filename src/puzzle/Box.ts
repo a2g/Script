@@ -31,7 +31,7 @@ export class Box {
 
   private readonly allInvs: string[]
 
-  private readonly allChars: string[]
+  // private readonly allChars: string[]
 
   private readonly mapOfStartingThings: VisibleThingsMap
 
@@ -47,7 +47,6 @@ export class Box {
 
   public readonly piecesMappedByOutput: Map<string, Set<Piece>>
 
-  private readonly displayName: string
   private readonly mapOfTalks: Map<string, TalkFile>
 
   constructor (path: string, filenames: string[], set: Set<string>, map: Map<string, Box>) {
@@ -69,9 +68,9 @@ export class Box {
       const text = readFileSync(path + filename, 'utf8')
       const scenario = parse(text)
 
-      // this loop is only to ascertain all the different
-      // possible object names. ie basically all the enums
-      // but without needing the enum file
+      /* this loop is only to ascertain all the different */
+      /* possible object names. ie basically all the enums */
+      /* but without needing the enum file */
       for (const gate of scenario.pieces) {
         setInvs.add(Stringify(gate.inv1))
         setInvs.add(Stringify(gate.inv2))
@@ -86,7 +85,7 @@ export class Box {
         setProps.add(Stringify(gate.prop6))
         setProps.add(Stringify(gate.prop7))
       }
-      // starting things is optional in the json
+      /* starting things is optional in the json */
       if (
         scenario.startingThings !== undefined &&
         scenario.startingThings !== null
@@ -109,14 +108,13 @@ export class Box {
     this.allProps = Array.from(setProps.values())
     this.allGoals = Array.from(setGoals.values())
     this.allInvs = Array.from(setInvs.values())
-    this.allChars = Array.from(setChars.values())
-    // preen starting invs from the startingThings
+    // this.allChars = Array.from(setChars.values())
+    /* preen starting invs from the startingThings */
     this.startingInvSet = new Set<string>()
     this.startingGoalSet = new Set<string>()
     this.startingPropSet = new Set<string>()
     this.setOfGoalWords = new Set<string>()
     this.mapOfStartingThings = new VisibleThingsMap(null)
-    this.displayName = filenames[0]
     this.piecesMappedByOutput = new Map<string, Set<Piece>>()
     this.mapOfTalks = new Map<string, TalkFile>()
 
@@ -129,11 +127,11 @@ export class Box {
       const text = readFileSync(path + filename, 'utf8')
       const scenario = parse(text)
 
-      // collect all the goals and pieces file
+      /* collect all the goals and pieces file */
       const singleFile = new SingleFile(this.path, filename, set, map)
       singleFile.copyAllPiecesToContainer(this)
 
-      // starting things is optional in the json
+      /* starting things is optional in the json */
       if (
         scenario.startingThings !== undefined &&
         scenario.startingThings !== null
@@ -166,57 +164,9 @@ export class Box {
     }
   }
 
-  public CopyStartingPropsToGivenSet (givenSet: Set<string>): void {
-    for (const prop of this.startingPropSet) {
-      givenSet.add(prop)
-    }
-  }
-
-  public CopyStartingGoalsToGivenSet (givenSet: Set<string>): void {
-    for (const goal of this.startingGoalSet) {
-      givenSet.add(goal)
-    }
-  }
-
-  public CopyStartingInvsToGivenSet (givenSet: Set<string>): void {
-    for (const inv of this.startingInvSet) {
-      givenSet.add(inv)
-    }
-  }
-
   public CopyStartingThingCharsToGivenMap (givenMap: VisibleThingsMap): void {
     for (const item of this.mapOfStartingThings.GetIterableIterator()) {
       givenMap.Set(item[0], item[1])
-    }
-  }
-
-  public CopyPropsToGivenSet (givenSet: Set<string>): void {
-    for (const prop of this.allProps) {
-      givenSet.add(prop)
-    }
-  }
-
-  public CopyGoalsToGivenSet (givenSet: Set<string>): void {
-    for (const goal of this.allGoals) {
-      givenSet.add(goal)
-    }
-  }
-
-  public CopyGoalWordsToGivenSet (givenSet: Set<string>): void {
-    for (const goal of this.setOfGoalWords) {
-      givenSet.add(goal)
-    }
-  }
-
-  public CopyInvsToGivenSet (givenSet: Set<string>): void {
-    for (const inv of this.allInvs) {
-      givenSet.add(inv)
-    }
-  }
-
-  public CopyCharsToGivenSet (givenSet: Set<string>): void {
-    for (const character of this.allChars) {
-      givenSet.add(character)
     }
   }
 
@@ -241,18 +191,14 @@ export class Box {
   }
 
   public GetArrayOfInitialStatesOfGoals (): number[] {
-    // construct array of booleans in exact same order as ArrayOfProps - so they can be correlated
-    const startingSet = this.GetSetOfStartingGoals()
+    /* construct array of booleans in exact same order as ArrayOfProps - so they can be correlated */
+    const startingSet = this.startingGoalSet
     const initialStates: number[] = []
     for (const goal of this.allGoals) {
       const isNonZero = startingSet.has(goal)
       initialStates.push(isNonZero ? 1 : 0)
     }
     return initialStates
-  }
-
-  public GetSetOfStartingGoals (): Set<string> {
-    return this.startingGoalSet
   }
 
   public GetSetOfStartingProps (): Set<string> {
@@ -267,21 +213,10 @@ export class Box {
     return this.mapOfStartingThings
   }
 
-  public GetStartingThingsForCharacter (charName: string): Set<string> {
-    const startingThingSet = new Set<string>()
-    for (const item of this.mapOfStartingThings.GetIterableIterator()) {
-      for (const name of item[1]) {
-        if (name === charName) {
-          startingThingSet.add(item[0])
-          break
-        }
-      }
-    }
-    return startingThingSet
-  }
+  // public GetStartingThingsForCharacter(charName: string): Set<string> {
 
   public GetArrayOfInitialStatesOfProps (): boolean[] {
-    // construct array of booleans in exact same order as ArrayOfProps - so they can be correlated
+    /* construct array of booleans in exact same order as ArrayOfProps - so they can be correlated */
     const startingSet = this.GetSetOfStartingProps()
     const visibilities: boolean[] = []
     for (const prop of this.allProps) {
@@ -292,7 +227,7 @@ export class Box {
   }
 
   public GetArrayOfInitialStatesOfInvs (): boolean[] {
-    // construct array of booleans in exact same order as ArrayOfProps - so they can be correlated
+    /* construct array of booleans in exact same order as ArrayOfProps - so they can be correlated */
     const startingSet = this.GetSetOfStartingInvs()
     const visibilities: boolean[] = []
     for (const inv of this.allInvs) {
@@ -302,17 +237,17 @@ export class Box {
     return visibilities
   }
 
-  public GetArrayOfCharacters (): string[] {
-    return this.allChars
-  }
+  // public GetArrayOfCharacters(): string[] {
+  //   return this.allChars
+  // }
 
   public GetFilename (): string {
     return this.filename
   }
 
-  public GetPath (): string {
-    return this.path
-  }
+  // public GetPath(): string {
+  //   return this.path
+  // }
 
   public AddTalkFile (talkFile: TalkFile): void {
     this.mapOfTalks.set(talkFile.GetName(), talkFile)
@@ -337,9 +272,9 @@ export class Box {
 
         let box = mapOfBoxes.get(file)
         if (box == null) {
-          // this map not only collects all the boxes
-          // but prevents two pieces that output same goal from
-          // processing the same file
+          /* this map not only collects all the boxes */
+          /* but prevents two pieces that output same goal from */
+          /* processing the same file */
           box = new Box(folder, [file], aggregateGoalWords, mapOfBoxes)
           mapOfBoxes.set(file, box)
         }
@@ -347,39 +282,12 @@ export class Box {
       }
     }
 
-    // initialize array, if it hasn't yet been
+    /* initialize array, if it hasn't yet been */
     if (!this.piecesMappedByOutput.has(piece.output)) {
       this.piecesMappedByOutput.set(piece.output, new Set<Piece>())
     }
-    // always add to list
+    /* always add to list */
     this.piecesMappedByOutput.get(piece.output)?.add(piece)
-  }
-
-  public GetSinglePieceById (idToMatch: number): Piece | null {
-    for (const set of this.piecesMappedByOutput.values()) {
-      for (const piece of set) {
-        if (piece.id === idToMatch) {
-          return piece
-        }
-      }
-    }
-    return null
-  }
-
-  public Size (): number {
-    let count = 0
-    for (const set of this.piecesMappedByOutput.values()) {
-      count += set.size
-    }
-    return count
-  }
-
-  public Has (givenOutput: string): boolean {
-    return this.piecesMappedByOutput.has(givenOutput)
-  }
-
-  public Get (givenOutput: string): Set<Piece> | undefined {
-    return this.piecesMappedByOutput.get(givenOutput)
   }
 
   public GetPieceIterator (): IterableIterator<Set<Piece>> {
@@ -410,44 +318,11 @@ export class Box {
     }
   }
 
-  public ReplaceInputsThatMatchAWithB (a: string, b: string): number {
-    let numberOfPiecesStubbed = 0
-    this.piecesMappedByOutput.forEach((setOfPieces: Set<Piece>) => {
-      setOfPieces.forEach((unusedPiece: Piece) => {
-        for (let k = 0; k < unusedPiece.inputHints.length; k++) {
-          if (unusedPiece.inputHints[k] === a) {
-            console.log(`Stubbed out ${a} in ${unusedPiece.type} in ${this.displayName}`)
-            unusedPiece.inputHints[k] = b
-            numberOfPiecesStubbed += 1
-          }
-        }
-      })
-    })
-    return numberOfPiecesStubbed
-  }
-
   GetTalks (): Map<string, TalkFile> {
     return this.mapOfTalks
   }
+
+  public Get (givenOutput: string): Set<Piece> | undefined {
+    return this.piecesMappedByOutput.get(givenOutput)
+  }
 }
-
-/*
-
- if (cloneFromMe != null) {
-      for (const talk of cloneFromMe.GetTalkIterator()) {
-        const clone = talk.Clone()
-        this.mapOfTalks.set(talk.GetName(), clone)
-      }
-      for (const set of cloneFromMe.GetPieceIterator()) {
-        if (set.size > 0) {
-          const clonedSet = new Set<Piece>()
-          let outputName = ''
-          for (const piece of set) {
-            const clonedPiece = piece.ClonePieceAndEntireTree()
-            clonedSet.add(clonedPiece)
-            outputName = clonedPiece.output
-          }
-          this.piecesMappedByOutput.set(outputName, clonedSet)
-        }
-      }
-    } */
