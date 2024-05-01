@@ -226,14 +226,6 @@ export class Solution {
 
   /**
    * #### So by this stage, the root hs been entirely filled out
-   *
-   * #### Version
-   * since: V1.0.0
-   * #### Example
-   *
-   * #### Links
-   *
-   *
    * Adds commands to reach goal to list
    * @param goalStruct
    */

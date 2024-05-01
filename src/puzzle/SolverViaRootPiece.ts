@@ -19,10 +19,6 @@ export class SolverViaRootPiece {
   private readonly mergedBoxesFoundOnGoals: boolean
 
   constructor (box: Box, mergedBoxesFoundOnGoals: boolean) {
-    // const hasWinGoal = box.GetSetOfGoalWords().has('x_win')
-    // if (!hasWinGoal) {
-    //  throw new Error(`No x_win was found among the ${box.GetSetOfGoalWords().size} goals`)
-    // }
 
     this.solutions = []
     this.mergedBoxesFoundOnGoals = mergedBoxesFoundOnGoals
