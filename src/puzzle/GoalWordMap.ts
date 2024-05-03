@@ -101,21 +101,6 @@ export class GoalWordMap {
     return this.roots.get('x_win')
   }
 
-  /*
-  public RemovePieceById (id: number): void {
-    for (const piece of this.roots.values()) {
-      if (piece.piece.id === id) {
-        this.roots.delete(piece.piece.output)
-        return
-      }
-    }
-    throw new Error("Id was not found, and couldn't remove")
-  } */
-
-  AddTalkFile (_talkFile: TalkFile): void {
-
-  }
-
   AddGoalWord (word: string): void {
     if (!this.roots.has(word)) {
       console.warn(`Merged goal word ${word}`)

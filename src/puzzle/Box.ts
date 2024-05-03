@@ -237,17 +237,9 @@ export class Box {
     return visibilities
   }
 
-  // public GetArrayOfCharacters(): string[] {
-  //   return this.allChars
-  // }
-
   public GetFilename (): string {
     return this.filename
   }
-
-  // public GetPath(): string {
-  //   return this.path
-  // }
 
   public AddTalkFile (talkFile: TalkFile): void {
     this.mapOfTalks.set(talkFile.GetName(), talkFile)
