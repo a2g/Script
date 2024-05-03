@@ -366,7 +366,7 @@ export class Piece {
             thePiece.inputs[k] = theMatchingPiece
 
             // all pieces are incomplete when they are *just* added
-            theSolution.AddRestrictions(theMatchingPiece.getRestrictions())
+            theSolution.AddToListOfEssentials(theMatchingPiece.getRestrictions())
           } else {
             console.warn('piece is null - so we are cloning wrong')
           }

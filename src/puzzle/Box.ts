@@ -31,7 +31,7 @@ export class Box {
 
   private readonly allInvs: string[]
 
-  // private readonly allChars: string[]
+  private readonly allChars: string[]
 
   private readonly mapOfStartingThings: VisibleThingsMap
 
@@ -45,7 +45,7 @@ export class Box {
 
   private readonly path: string
 
-  public readonly piecesMappedByOutput: Map<string, Set<Piece>>
+  private readonly piecesMappedByOutput: Map<string, Set<Piece>>
 
   private readonly mapOfTalks: Map<string, TalkFile>
 
@@ -108,7 +108,7 @@ export class Box {
     this.allProps = Array.from(setProps.values())
     this.allGoals = Array.from(setGoals.values())
     this.allInvs = Array.from(setInvs.values())
-    // this.allChars = Array.from(setChars.values())
+    this.allChars = Array.from(setChars.values())
     /* preen starting invs from the startingThings */
     this.startingInvSet = new Set<string>()
     this.startingGoalSet = new Set<string>()
@@ -154,9 +154,9 @@ export class Box {
           }
           if (item.character !== undefined && item.character !== null) {
             const { character } = item
-            const array = this.mapOfStartingThings.Get(item.thing)
-            if (character.length > 0 && array != null) {
-              array.add(character)
+            const setOfCharacters = this.mapOfStartingThings.Get(item.thing)
+            if (character.length > 0 && setOfCharacters != null) {
+              setOfCharacters.add(character)
             }
           }
         }
@@ -237,6 +237,10 @@ export class Box {
     return visibilities
   }
 
+  public GetArrayOfCharacters (): string[] {
+    return this.allChars
+  }
+
   public GetFilename (): string {
     return this.filename
   }
@@ -254,6 +258,18 @@ export class Box {
       const goal1 = piece.output
       this.setOfGoalWords.add(goal1)
       aggregateGoalWords.add(goal1)
+      // if not file exists for goal name
+      // then throw an exception, unless
+      //  - xwin
+      //  - isNoFile flag ==true
+      // this will force addressing whether
+      // the problem is due to renaming <-- commonly is!
+      // or if it doesn't need one then
+      // we force to add isNoFile
+      //
+      // if we only added a file if it existed
+      // then the error would be hidden and
+      // would be subtle to discover
       if (goal1 !== 'x_win' && !isNoFile) {
         const file = `${goal1}.jsonc`
         if (!existsSync(folder + file)) {
@@ -316,5 +332,22 @@ export class Box {
 
   public Get (givenOutput: string): Set<Piece> | undefined {
     return this.piecesMappedByOutput.get(givenOutput)
+  }
+
+  public GetPiecesMappedByOutput (): Map<string, Set<Piece>> {
+    return this.piecesMappedByOutput
+  }
+
+  public GetStartingThingsForCharacter (charName: string): Set<string> {
+    const startingThingSet = new Set<string>()
+    for (const item of this.mapOfStartingThings.GetIterableIterator()) {
+      for (const name of item[1]) {
+        if (name === charName) {
+          startingThingSet.add(item[0])
+          break
+        }
+      }
+    }
+    return startingThingSet
   }
 }

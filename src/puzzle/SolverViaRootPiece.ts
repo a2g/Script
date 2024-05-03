@@ -10,44 +10,42 @@ import { Solution } from './Solution'
  */
 export class SolverViaRootPiece {
   private readonly solutions: Solution[]
+  private readonly startingBox: Box
 
-  private readonly mapOfStartingThingsAndWhoCanHaveThem: Map<
+  private readonly mapOfStartingThingsAndWhoStartsWithThem: Map<
   string,
   Set<string>
   >
 
-  private readonly mergedBoxesFoundOnGoals: boolean
+  private readonly isMergeBoxToBeCalled: boolean
 
-  constructor (box: Box, mergedBoxesFoundOnGoals: boolean) {
-
+  constructor (startingBox: Box, isMergeBoxToBeCalled: boolean) {
     this.solutions = []
-    this.mergedBoxesFoundOnGoals = mergedBoxesFoundOnGoals
+    this.startingBox = startingBox
+    this.isMergeBoxToBeCalled = isMergeBoxToBeCalled
 
-    const newRootMap = new GoalWordMap(null)
-    for (const goal of box.GetSetOfGoalWords()) {
-      newRootMap.AddGoalWord(goal)
-    }
-
-    const firstSolution = Solution.createSolution(
-      newRootMap,
-      box.piecesMappedByOutput,
-      box.GetTalks(),
-      [],
-      box.GetMapOfAllStartingThings(),
-      this.mergedBoxesFoundOnGoals
+    const solution1 = Solution.createSolution(
+      this.CreateRootMapFromGoalWords(startingBox.GetSetOfGoalWords()),
+      startingBox.GetPiecesMappedByOutput(),
+      startingBox.GetTalks(),
+      startingBox.GetMapOfAllStartingThings(),
+      this.isMergeBoxToBeCalled
     )
-    this.solutions.push(firstSolution)
+    this.solutions.push(solution1)
 
-    this.mapOfStartingThingsAndWhoCanHaveThem = new Map<string, Set<string>>()
-    const map = this.solutions[0].GetStartingThings()
-    for (const thing of map.GetIterableIterator()) {
+    this.mapOfStartingThingsAndWhoStartsWithThem = new Map<string, Set<string>>()
+    const staringThings = solution1.GetStartingThings()
+    for (const thing of staringThings.GetIterableIterator()) {
       const key = thing[0]
-      const items = thing[1]
+      // characters is mostly an empty set
+      // because because less than one percent of objects
+      // are constrained to a particular character
+      const characters = thing[1]
       const newSet = new Set<string>()
-      for (const itemName of items) {
-        newSet.add(itemName)
+      for (const character of characters) {
+        newSet.add(character)
       }
-      this.mapOfStartingThingsAndWhoCanHaveThem.set(key, newSet)
+      this.mapOfStartingThingsAndWhoStartsWithThem.set(key, newSet)
     }
 
     this.GenerateSolutionNamesAndPush()
@@ -89,7 +87,29 @@ export class SolverViaRootPiece {
     }
   }
 
+  public CreateRootMapFromGoalWords (set: Set<string>): GoalWordMap {
+    const rootMapFromGoalWords = new GoalWordMap(null)
+    for (const goal of set) {
+      rootMapFromGoalWords.AddGoalWord(goal)
+    }
+    return rootMapFromGoalWords
+  }
+
   public GenerateSolutionNamesAndPush (): void {
+    const characters = this.startingBox.GetArrayOfCharacters()
+    for (const character of characters) {
+      const charactersSet = this.startingBox.GetStartingThingsForCharacter(character)
+      for (const solution of this.solutions) {
+        const arrayOfCommands = solution.GetOrderOfCommands()
+        for (const command of arrayOfCommands) {
+          const hasObjectA: boolean = charactersSet.has(command.objectA)
+          const hasObjectB: boolean = charactersSet.has(command.objectB)
+          if (hasObjectA || hasObjectB) {
+            solution.AddToListOfEssentials([character])
+          }
+        }
+      }
+    }
     /*
     for (let i = 0; i < this.solutions.length; i++) {
       // now lets find out the amount leafNode name exists in all the other solutions
@@ -164,6 +184,6 @@ export class SolverViaRootPiece {
           )
         }
       }
-    }*/
-  }   
+    } */
+  }
 }

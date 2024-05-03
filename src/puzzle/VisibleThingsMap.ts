@@ -6,13 +6,13 @@ export class VisibleThingsMap {
     this.mapOfVisibleThings = new Map<string, Set<string>>()
     if (startingThingsPassedIn != null) {
       for (const key of startingThingsPassedIn.keys()) {
-        const value = startingThingsPassedIn.get(key)
-        if (value != null) {
-          const newSet = new Set<string>()
-          for (const item of value) {
-            newSet.add(item)
+        const characters = startingThingsPassedIn.get(key)
+        if (characters != null) {
+          const newConstraints = new Set<string>()
+          for (const character of characters) {
+            newConstraints.add(character)
           }
-          this.mapOfVisibleThings.set(key, newSet)
+          this.mapOfVisibleThings.set(key, newConstraints)
         }
       }
     }

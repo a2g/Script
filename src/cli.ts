@@ -34,7 +34,6 @@ function main (): void {
 
             const setOfGoals = new Set<string>()
             const allBoxes = new Map<string, Box>()
-            allBoxes.keys()
 
             const firstBox = new Box(starter.folder, [starter.file], setOfGoals, allBoxes)
             const combined = new Box(starter.folder, Array.from(allBoxes.keys()), setOfGoals, allBoxes)

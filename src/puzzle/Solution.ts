@@ -39,9 +39,9 @@ export class Solution {
     goalWordsToCopy: GoalWordMap | null,
     pieces: Map<string, Set<Piece>>,
     talks: Map<string, TalkFile>,
-    solvingOrderForRootPieceKeys: string[],
     startingThingsPassedIn: VisibleThingsMap,
     isNotMergingAnyMoreBoxes: boolean,
+    solvingOrderForRootPieceKeys: string[],
     restrictions: Set<string> | null = null,
     nameSegments: string[] | null = null
   ) {
@@ -90,14 +90,15 @@ export class Solution {
     goalWords: GoalWordMap | null,
     pieces: Map<string, Set<Piece>>,
     talks: Map<string, TalkFile>,
-    solvingOrderForRootPieceKeys: string[],
     startingThingsPassedIn: VisibleThingsMap,
     isNotMergingAnyMoreBoxes: boolean,
+    solvingOrderForRootPieceKeys: string[]|null = null,
     restrictions: Set<string> | null = null,
     nameSegments: string[] | null = null
   ): Solution {
     globalSolutionId++
-    return new Solution(globalSolutionId, goalWords, pieces, talks, solvingOrderForRootPieceKeys, startingThingsPassedIn, isNotMergingAnyMoreBoxes, restrictions, nameSegments)
+    const solvingOrder = (solvingOrderForRootPieceKeys != null) ? solvingOrderForRootPieceKeys : []
+    return new Solution(globalSolutionId, goalWords, pieces, talks, startingThingsPassedIn, isNotMergingAnyMoreBoxes, solvingOrder, restrictions, nameSegments)
   }
 
   public Clone (): Solution {
@@ -114,9 +115,9 @@ export class Solution {
       clonedRootPieceMap,
       this.remainingPieces,
       this.talks,
-      this.rootPieceKeysInSolvingOrder,
       this.startingThings,
       this.performMergeInstructions,
+      this.rootPieceKeysInSolvingOrder,
       this.restrictionsEncounteredDuringSolving,
       this.solutionNameSegments
     )
@@ -158,7 +159,7 @@ export class Solution {
     return result
   }
 
-  public AddRestrictions (restrictions: string[]): void {
+  public AddToListOfEssentials (restrictions: string[]): void {
     for (const restriction of restrictions) {
       this.restrictionsEncounteredDuringSolving.add(restriction)
     }
@@ -217,7 +218,7 @@ export class Solution {
   public MergeBox (boxToMerge: Box): void {
     console.warn(`Merging box ${boxToMerge.GetFilename()}          going into ${FormatText(this.GetDisplayNamesConcatenated())}`)
 
-    Box.CopyPiecesFromAtoB(boxToMerge.piecesMappedByOutput, this.remainingPieces)
+    Box.CopyPiecesFromAtoB(boxToMerge.GetPiecesMappedByOutput(), this.remainingPieces)
     Box.CopyTalksFromAtoB(boxToMerge.GetTalks(), this.talks)
     boxToMerge.CopyGoalWordsToGivenGoalWordMap(this.goalWords)
     boxToMerge.CopyStartingThingCharsToGivenMap(this.startingThings)
@@ -247,17 +248,6 @@ export class Solution {
           deconstructDoer.GetNextDoableCommandAndDeconstructTree()
         break
       }
-
-      /*
-      const characters = box.GetArrayOfCharacters()
-      for (const character of characters) {
-        const startingSet = box.GetStartingThingsForCharacter(character)
-        const hasObjectA: boolean = startingSet.has(rawObjectsAndVerb.objectA)
-        const hasObjectB: boolean = startingSet.has(rawObjectsAndVerb.objectB)
-
-        if (hasObjectA) { rawObjectsAndVerb.appendStartingCharacterForA(character) }
-        if (hasObjectB) { rawObjectsAndVerb.appendStartingCharacterForB(character) }
-      } */
 
       if (rawObjectsAndVerb.type !== Raw.None) {
         // this is just here for debugging!

@@ -2,7 +2,6 @@ import { GenerateMapOfLeavesRecursively } from './GenerateMapOfLeavesRecursively
 import { GenerateMapOfLeavesTracingGoalsRecursively } from './GenerateMapOfLeavesTraccingGoalsRecursively'
 import { Piece } from './Piece'
 import { GoalWord } from './GoalWord'
-import { TalkFile } from './talk/TalkFile'
 /**
  * This started out simpler that PileOfPieces, because there
  * was only ever one piece that outputted a particular goal.
