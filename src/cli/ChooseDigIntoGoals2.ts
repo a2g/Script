@@ -27,7 +27,7 @@ export function ChooseDigIntoGoals2 (solver: SolverViaRootPiece): void {
       for (const goal of solution.GetRootMap().GetValues()) {
         numberOfUnsolved += goal.IsSolved() ? 0 : 1
       }
-      const name = FormatText(solution.GetDisplayNamesConcatenated())
+      const name = FormatText(solution.GetSolvingPath())
       //  "1. XXXXXX"   <- this is the format we list the solutions
       console.warn(`    ${i + 1}. ${name} number of unsolved goals=${numberOfUnsolved}`)
     }
@@ -58,7 +58,7 @@ export function ChooseDigIntoGoals2 (solver: SolverViaRootPiece): void {
         // list all leaves, of all solutions in order
         // TrimNonIntegratedRootPieces(solution) <-- pretty sure this did nothing
 
-        const text = FormatText(solution.GetDisplayNamesConcatenated())
+        const text = FormatText(solution.GetSolvingPath())
         const NAME_NOT_DETERMINABLE = 'name_not_determinable'
         // HACKY!
         const label =

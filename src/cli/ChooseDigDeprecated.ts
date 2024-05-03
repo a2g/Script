@@ -23,7 +23,7 @@ export function ChooseDigDeprecated (solver: SolverViaRootPiece): void {
     for (const solution of solver.GetSolutions()) {
       // TrimNonIntegratedRootPieces(solution)
       const letter = String.fromCharCode(solutionNumber++)
-      const path = FormatText(solution.GetDisplayNamesConcatenated())
+      const path = FormatText(solution.GetSolvingPath())
       const NAME_NOT_DETERMINABLE = 'name_not_determinable'
       // HACKY!
       const label =

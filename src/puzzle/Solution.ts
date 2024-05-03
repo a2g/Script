@@ -18,20 +18,15 @@ export class Solution {
   // important ones
   private readonly goalWords: GoalWordMap
   private readonly rootPieceKeysInSolvingOrder: string[]
-  public readonly remainingPieces: Map<string, Set<Piece>>
-  public readonly talks: Map<string, TalkFile>
+  private readonly remainingPieces: Map<string, Set<Piece>>
+  private readonly talks: Map<string, TalkFile>
 
   // less important
   private readonly startingThings: VisibleThingsMap // once, this was updated dynamically in GetNextDoableCommandAndDesconstructTree
-
   private readonly currentlyVisibleThings: VisibleThingsMap
-
-  private readonly restrictionsEncounteredDuringSolving: Set<string> // yup these are added to
-
-  private readonly solutionNameSegments: string[] // these get assigned by SolverViaRootPiece.GenerateNames
-
+  private readonly essentialIngredients: Set<string> // yup these are added to
+  private readonly solvingPathSegments: string[] // these get assigned by SolverViaRootPiece.GenerateNames
   private readonly performMergeInstructions: boolean
-
   private readonly id: number
 
   private constructor (
@@ -67,21 +62,21 @@ export class Solution {
     }
 
     // if solutionNameSegments is passed in, we deep copy it
-    this.solutionNameSegments = []
+    this.solvingPathSegments = []
     if (nameSegments != null) {
       for (const segment of nameSegments) {
-        this.solutionNameSegments.push(segment)
+        this.solvingPathSegments.push(segment)
       }
       // this.solutionNameSegments.push(`${this.id}`)
     } else {
-      this.solutionNameSegments.push(`${this.id}`)
+      this.solvingPathSegments.push(`${this.id}`)
     }
 
     // its restrictionsEncounteredDuringSolving is passed in we deep copy it
-    this.restrictionsEncounteredDuringSolving = new Set<string>()
+    this.essentialIngredients = new Set<string>()
     if (restrictions != null) {
       for (const restriction of restrictions) {
-        this.restrictionsEncounteredDuringSolving.add(restriction)
+        this.essentialIngredients.add(restriction)
       }
     }
   }
@@ -118,8 +113,8 @@ export class Solution {
       this.startingThings,
       this.performMergeInstructions,
       this.rootPieceKeysInSolvingOrder,
-      this.restrictionsEncounteredDuringSolving,
-      this.solutionNameSegments
+      this.essentialIngredients,
+      this.solvingPathSegments
     )
 
     return clonedSolution
@@ -150,27 +145,25 @@ export class Solution {
     return toReturn
   }
 
-  public GetDisplayNamesConcatenated (): string {
+  public GetSolvingPath (): string {
     let result = 'sol_'
-    for (let i = 0; i < this.solutionNameSegments.length; i += 1) {
+    for (let i = 0; i < this.solvingPathSegments.length; i += 1) {
       const symbol = i === 0 ? '' : '/'
-      result += symbol + FormatText(this.solutionNameSegments[i])
+      result += symbol + FormatText(this.solvingPathSegments[i])
     }
     return result
   }
 
-  public AddToListOfEssentials (restrictions: string[]): void {
-    for (const restriction of restrictions) {
-      this.restrictionsEncounteredDuringSolving.add(restriction)
-    }
+  public AddToListOfEssentials (essentialIngredients: string[]): void {
+    essentialIngredients.forEach(item => this.essentialIngredients.add(item))
   }
 
-  public GetAccumulatedRestrictions (): Set<string> {
-    return this.restrictionsEncounteredDuringSolving
+  public GetEssentialIngredients (): Set<string> {
+    return this.essentialIngredients
   }
 
-  public PushDisplayNameSegment (solutionName: string): void {
-    this.solutionNameSegments.push(solutionName)
+  public PushSolvingPathSegment (solutionName: string): void {
+    this.solvingPathSegments.push(solutionName)
   }
 
   public FindAnyPieceMatchingIdRecursively (id: number): Piece | null {
@@ -216,7 +209,7 @@ export class Solution {
   }
 
   public MergeBox (boxToMerge: Box): void {
-    console.warn(`Merging box ${boxToMerge.GetFilename()}          going into ${FormatText(this.GetDisplayNamesConcatenated())}`)
+    console.warn(`Merging box ${boxToMerge.GetFilename()}          going into ${FormatText(this.GetSolvingPath())}`)
 
     Box.CopyPiecesFromAtoB(boxToMerge.GetPiecesMappedByOutput(), this.remainingPieces)
     Box.CopyTalksFromAtoB(boxToMerge.GetTalks(), this.talks)
@@ -303,7 +296,7 @@ export class Solution {
     return this.startingThings
   }
 
-  public GetSize (): number {
+  public GetNumberOfPiecesRemaining (): number {
     return this.remainingPieces.size
   }
 

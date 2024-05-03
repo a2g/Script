@@ -11,13 +11,8 @@ import { Solution } from './Solution'
 export class SolverViaRootPiece {
   private readonly solutions: Solution[]
   private readonly startingBox: Box
-
-  private readonly mapOfStartingThingsAndWhoStartsWithThem: Map<
-  string,
-  Set<string>
-  >
-
   private readonly isMergeBoxToBeCalled: boolean
+  private readonly mapOfStartingThingsAndWhoStartsWithThem: Map<string, Set<string>>
 
   constructor (startingBox: Box, isMergeBoxToBeCalled: boolean) {
     this.solutions = []
@@ -47,8 +42,6 @@ export class SolverViaRootPiece {
       }
       this.mapOfStartingThingsAndWhoStartsWithThem.set(key, newSet)
     }
-
-    this.GenerateSolutionNamesAndPush()
   }
 
   public NumberOfSolutions (): number {
@@ -95,7 +88,12 @@ export class SolverViaRootPiece {
     return rootMapFromGoalWords
   }
 
-  public GenerateSolutionNamesAndPush (): void {
+  public PerformThingsNeededAfterAllSolutionsFound (): void {
+    this.FindEssentialIngredientsPerSolution()
+    this.GenerateSolutionNamesTheOldWay()
+  }
+
+  private FindEssentialIngredientsPerSolution (): void {
     const characters = this.startingBox.GetArrayOfCharacters()
     for (const character of characters) {
       const charactersSet = this.startingBox.GetStartingThingsForCharacter(character)
@@ -110,6 +108,10 @@ export class SolverViaRootPiece {
         }
       }
     }
+  }
+
+  private GenerateSolutionNamesTheOldWay (): void {
+
     /*
     for (let i = 0; i < this.solutions.length; i++) {
       // now lets find out the amount leafNode name exists in all the other solutions

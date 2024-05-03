@@ -45,7 +45,7 @@ export function getJsonOfAllSolutions (
     let incomplete = 0
     let listItemNumber = 0
     for (const solution of solver.GetSolutions()) {
-      console.warn(FormatText(solution.GetDisplayNamesConcatenated()))
+      console.warn(FormatText(solution.GetSolvingPath()))
       console.warn(FormatText(solution.GetRootMap().CalculateListOfKeys()))
       for (const item of solution.GetRootMap().GetValues()) {
         listItemNumber++

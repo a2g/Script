@@ -42,7 +42,7 @@ export function ChooseListOfLeaves (solver: SolverViaRootPiece): void {
       console.warn(
         letter +
           '. ' +
-          FormatText(solution.GetDisplayNamesConcatenated()) +
+          FormatText(solution.GetSolvingPath()) +
           '<--unique name'
       )
       const leaves: Map<string, Piece | null> = solution

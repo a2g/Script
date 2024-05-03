@@ -45,7 +45,7 @@ function main (): void {
             console.warn(
               `number of pieces = ${solverPrimedWithCombined
                 .GetSolutions()[0]
-                .GetSize()}`
+                .GetNumberOfPiecesRemaining()}`
             )
             console.warn('---------------------------------------')
             console.warn('1. Dig all boxes at once')

@@ -346,7 +346,7 @@ export class Piece {
           }
 
           if (matchingPieces.length > 1) {
-            theSolution.PushDisplayNameSegment(`${importHintToFind}[${i > 0 ? matchingPieces.length - i : 0}]`)
+            theSolution.PushSolvingPathSegment(`${importHintToFind}[${i > 0 ? matchingPieces.length - i : 0}]`)
           }
 
           // this is only here to make the unit tests make sense

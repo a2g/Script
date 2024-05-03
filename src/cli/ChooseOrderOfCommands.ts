@@ -14,7 +14,7 @@ export function ChooseOrderOfCommands (solver: SolverViaRootPiece): void {
       solver.SolvePartiallyUntilCloning()
       solver.MarkGoalsAsCompletedAndMergeIfNeeded()
     }
-    // solver.GenerateSolutionNamesAndPush()
+    solver.PerformThingsNeededAfterAllSolutionsFound()
     const numberOfSolutions: number = solver.NumberOfSolutions()
 
     console.warn('If any leaves are not resolved properly, for example')
@@ -38,7 +38,7 @@ export function ChooseOrderOfCommands (solver: SolverViaRootPiece): void {
     }
     for (let i = 0; i < solver.GetSolutions().length; i++) {
       const solution = solver.GetSolutions()[i]
-      const name = FormatText(solution.GetDisplayNamesConcatenated())
+      const name = FormatText(solution.GetSolvingPath())
       //  "1. XXXXXX"   <- this is the format we list the solutions
       console.warn(`    ${i + 1}. ${name}`)
     }
@@ -60,7 +60,7 @@ export function ChooseOrderOfCommands (solver: SolverViaRootPiece): void {
     const name =
       theNumber === 0
         ? 'all solutions'
-        : solver.GetSolutions()[theNumber - 1].GetDisplayNamesConcatenated()
+        : solver.GetSolutions()[theNumber - 1].GetSolvingPath()
     console.warn(`List of Commands for ${name}`)
     console.warn('================')
 
@@ -73,7 +73,7 @@ export function ChooseOrderOfCommands (solver: SolverViaRootPiece): void {
       const solution = solver.GetSolutions()[solutionNumber]
       if (theNumber === 0 || theNumber - 1 === solutionNumber) {
         const letter = String.fromCharCode(65 + solutionNumber)
-        const text = FormatText(solution.GetDisplayNamesConcatenated())
+        const text = FormatText(solution.GetSolvingPath())
         const NAME_NOT_DETERMINABLE = 'name_not_determinable'
         // HACKY!
         const label =
@@ -85,7 +85,7 @@ export function ChooseOrderOfCommands (solver: SolverViaRootPiece): void {
         const commands: RawObjectsAndVerb[] =
           solution.GetOrderOfCommands()
         for (const command of commands) {
-          // 0 is cleanest, later numbers are more detailsed
+          // 0 is cleanest, later numbers are more detailed
           if (command.type === Raw.Goal && infoLevel < 3) {
             continue
           }
