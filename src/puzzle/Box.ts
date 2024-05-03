@@ -311,7 +311,7 @@ export class Box {
   public static CopyPiecesFromAtoB (a: Map<string, Set<Piece>>, b: Map<string, Set<Piece>>): void {
     a.forEach((setOfPieces: Set<Piece>) => {
       setOfPieces.forEach((piece: Piece) => {
-        if (b.has(piece.output)) {
+        if (!b.has(piece.output)) {
           b.set(piece.output, new Set<Piece>())
         }
 
