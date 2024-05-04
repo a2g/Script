@@ -1,9 +1,11 @@
 
-# README
+# puzzle-pieces
+
+A puzzle solving algorithm, for side quests, and adventure games. Includes a yack-like json schema for when dialog trees are an essential part of the quest.
 
 ![Alternate text](piece.svg)
 
-## Pieces
+## Puzzle Pieces
 
 The pieces have one output and multiple inputs.
 
@@ -38,7 +40,7 @@ then starts finding a solution using:
     )
 ```
 
-Once the solver comes to a point where two or more pieces can be inserted to a given input, then  solution is cloned to ensure there is a solution for each alternative.
+Once the solver comes to a point where two or more pieces can be inserted to a given input, then solution is cloned to ensure there is a solution for each alternative.
 
 When a goal is solved, if there exists a file named after that goal, then it will be merged in to the solution.
 
