@@ -1,7 +1,7 @@
 
 # README
 
-{{< figure src="piece.svg" >}}
+![Alternate text](piece.svg)
 
 ## Pieces
 
@@ -9,8 +9,8 @@ The pieces have one output and multiple inputs.
 
 An output can be either an:
 
-- inventory item
-- prop
+- inventory item - item that can be carried
+- prop - item that is a fixture in the location its in
 - goal
 
 The inputs are also any of the above.
@@ -23,10 +23,10 @@ Pieces are defined in .jsonc files.
 The solver initially loads starter.jsonc,
 then starts finding a solution using:
 
--  all the pieces in the box
--  all the talk files - referenced by pieces in the box.
--  the things - both props and the things the characters start with.
--  goals referenced in outputs of pieces in the box, as starting hints
+- all the pieces in the box
+- all the talk files - referenced by pieces in the box.
+- the things - both props and the things the characters start with.
+- goals referenced in outputs of pieces in the box, as starting hints
 
 ``` typescript
  const solution1 = Solution.createSolution(
@@ -45,7 +45,7 @@ When a goal is solved, if there exists a file named after that goal, then it wil
 ``` typescript
 public MergeBox (boxToMerge: Box): void {
     Box.CopyPiecesFromAtoB(boxToMerge.GetPiecesMappedByOutput(), this.remainingPieces)
-    Box.CopyTalksFromAtoB(boxToMerge.GetTalks(), this.talks)
+    Box.CopyTalksFromAtoB(boxToMerge.GetTalkFiles(), this.talks)
     boxToMerge.CopyGoalWordsToGivenGoalWordMap(this.goalWords)
     boxToMerge.CopyStartingThingCharsToGivenMap(this.startingThings)
     boxToMerge.CopyStartingThingCharsToGivenMap(this.currentlyVisibleThings)
@@ -90,14 +90,3 @@ yarn serve
 yarn
 yarn start
 ```
-
-# TODO: Fix this up later
-
-- location - single place
-- area - a collection of places
-- world - a collection of areas
-- repo - can have one or more worlds
-
-# TODO: Use this redis caching demo to cache the calls
-
-Here's a short video that explains the project and how it uses Redis:
