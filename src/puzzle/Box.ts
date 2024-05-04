@@ -326,7 +326,7 @@ export class Box {
     }
   }
 
-  GetTalks (): Map<string, TalkFile> {
+  GetTalkFiles (): Map<string, TalkFile> {
     return this.mapOfTalks
   }
 
@@ -334,7 +334,7 @@ export class Box {
     return this.piecesMappedByOutput.get(givenOutput)
   }
 
-  public GetPiecesMappedByOutput (): Map<string, Set<Piece>> {
+  public GetPieces (): Map<string, Set<Piece>> {
     return this.piecesMappedByOutput
   }
 

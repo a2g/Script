@@ -20,10 +20,11 @@ export class SolverViaRootPiece {
     this.isMergeBoxToBeCalled = isMergeBoxToBeCalled
 
     const solution1 = Solution.createSolution(
-      this.CreateRootMapFromGoalWords(startingBox.GetSetOfGoalWords()),
-      startingBox.GetPiecesMappedByOutput(),
-      startingBox.GetTalks(),
+      startingBox.GetPieces(),
+      startingBox.GetTalkFiles(),
       startingBox.GetMapOfAllStartingThings(),
+      this.CreateRootMapFromGoalWords(startingBox.GetSetOfGoalWords()),
+
       this.isMergeBoxToBeCalled
     )
     this.solutions.push(solution1)

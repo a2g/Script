@@ -31,10 +31,10 @@ export class Solution {
 
   private constructor (
     id: number,
-    goalWordsToCopy: GoalWordMap | null,
     pieces: Map<string, Set<Piece>>,
     talks: Map<string, TalkFile>,
     startingThingsPassedIn: VisibleThingsMap,
+    goalWordsToCopy: GoalWordMap | null,
     isNotMergingAnyMoreBoxes: boolean,
     solvingOrderForRootPieceKeys: string[],
     restrictions: Set<string> | null = null,
@@ -82,10 +82,10 @@ export class Solution {
   }
 
   public static createSolution (
-    goalWords: GoalWordMap | null,
     pieces: Map<string, Set<Piece>>,
     talks: Map<string, TalkFile>,
     startingThingsPassedIn: VisibleThingsMap,
+    goalWords: GoalWordMap | null,
     isNotMergingAnyMoreBoxes: boolean,
     solvingOrderForRootPieceKeys: string[]|null = null,
     restrictions: Set<string> | null = null,
@@ -93,7 +93,7 @@ export class Solution {
   ): Solution {
     globalSolutionId++
     const solvingOrder = (solvingOrderForRootPieceKeys != null) ? solvingOrderForRootPieceKeys : []
-    return new Solution(globalSolutionId, goalWords, pieces, talks, startingThingsPassedIn, isNotMergingAnyMoreBoxes, solvingOrder, restrictions, nameSegments)
+    return new Solution(globalSolutionId, pieces, talks, startingThingsPassedIn, goalWords, isNotMergingAnyMoreBoxes, solvingOrder, restrictions, nameSegments)
   }
 
   public Clone (): Solution {
@@ -107,10 +107,10 @@ export class Solution {
     // but
 
     const clonedSolution = Solution.createSolution(
-      clonedRootPieceMap,
       this.remainingPieces,
       this.talks,
       this.startingThings,
+      clonedRootPieceMap,
       this.performMergeInstructions,
       this.rootPieceKeysInSolvingOrder,
       this.essentialIngredients,
@@ -211,8 +211,8 @@ export class Solution {
   public MergeBox (boxToMerge: Box): void {
     console.warn(`Merging box ${boxToMerge.GetFilename()}          going into ${FormatText(this.GetSolvingPath())}`)
 
-    Box.CopyPiecesFromAtoB(boxToMerge.GetPiecesMappedByOutput(), this.remainingPieces)
-    Box.CopyTalksFromAtoB(boxToMerge.GetTalks(), this.talks)
+    Box.CopyPiecesFromAtoB(boxToMerge.GetPieces(), this.remainingPieces)
+    Box.CopyTalksFromAtoB(boxToMerge.GetTalkFiles(), this.talks)
     boxToMerge.CopyGoalWordsToGivenGoalWordMap(this.goalWords)
     boxToMerge.CopyStartingThingCharsToGivenMap(this.startingThings)
     boxToMerge.CopyStartingThingCharsToGivenMap(this.currentlyVisibleThings)
@@ -228,7 +228,7 @@ export class Solution {
     const deconstructDoer = new DeconstructDoer(
       goalStruct,
       this.currentlyVisibleThings,
-      this.GetTalks()
+      this.GetTalkFiles()
     )
     let rawObjectsAndVerb: RawObjectsAndVerb | null = null
     for (let j = 0; j < 200; j += 1) {
@@ -300,7 +300,7 @@ export class Solution {
     return this.remainingPieces.size
   }
 
-  public GetTalks (): Map<string, TalkFile> {
+  public GetTalkFiles (): Map<string, TalkFile> {
     return this.talks
   }
 
