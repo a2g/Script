@@ -371,8 +371,8 @@ export class SingleFile {
           happs.array.push(new Happening(Happen.InvStays, inv3))
           // losing inv
           output = inv2
-          inputA = inv1
-          inputB = inv3
+          inputA = inv3
+          inputB = inv1
           command = new Command(Verb.Use, Mix.InvVsInv, inv1, inv2)
           break
         case _.INV1_BECOMES_INV2_BY_KEEPING_PROP1:
