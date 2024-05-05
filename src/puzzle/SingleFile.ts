@@ -179,8 +179,8 @@ export class SingleFile {
           happs.array.push(new Happening(Happen.InvStays, inv1))
           happs.array.push(new Happening(Happen.PropStays, prop1))
           output = goal1
-          inputA = inv1
-          inputB = prop1
+          inputA = prop1
+          inputB = inv1
           command = new Command(Verb.Use, Mix.InvVsProp, inv1, prop1)
           break
         case _.GOAL1_MET_BY_LOSING_BOTH_INV1_AND_PROP1_WHEN_USED:

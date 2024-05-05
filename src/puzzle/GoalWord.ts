@@ -92,7 +92,7 @@ export class GoalWord {
           if (matchingPieces.length > 1) {
             // }[${i > 0 ? matchingPieces.length - i : 0}]
             const firstInput = theMatchingPiece.inputHints.length > 0 ? theMatchingPiece.inputHints[0] : 'no-hint'
-            theSolution.PushSolvingPathSegment(`${this.goalHint}=${firstInput}`)
+            theSolution.PushSolvingPathSegment(`${firstInput}`)
           }
 
           theGoalWord.piece = theMatchingPiece

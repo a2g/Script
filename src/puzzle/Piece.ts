@@ -348,7 +348,7 @@ export class Piece {
           if (matchingPieces.length > 1) {
             const firstInput = theMatchingPiece.inputHints.length > 0 ? theMatchingPiece.inputHints[0] : 'no-hint'
             // theSolution.PushSolvingPathSegment(`${importHintToFind}[${i > 0 ? matchingPieces.length - i : 0}]`)
-            theSolution.PushSolvingPathSegment(`${importHintToFind}=${firstInput}`)
+            theSolution.PushSolvingPathSegment(`${firstInput}`)
           }
 
           // this is only here to make the unit tests make sense
