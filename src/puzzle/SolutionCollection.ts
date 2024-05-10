@@ -8,7 +8,7 @@ import { Solution } from './Solution'
  * 2. Methods that call the same thing on all solutions
  * 3. Generating solution names - which is why it needs mapOfStartingThings...
  */
-export class SolverViaRootPiece {
+export class SolutionCollection {
   private readonly solutions: Solution[]
   private readonly startingBox: Box
   private readonly setOfDoubles: Set<string>
@@ -70,7 +70,13 @@ export class SolverViaRootPiece {
 
   public MarkGoalsAsCompletedAndMergeIfNeeded (): void {
     for (const solution of this.solutions) {
-      solution.MarkGoalsAsContainingNullsAndMergeIfNeeded()
+      solution.MarkGoalsAsCompletedAndReturnWhetherBoxesWereMerged()
+    }
+  }
+
+  IterateOverGoalMapWhilstSkippingBranchesUntilExhausted (): void {
+    for (const solution of this.solutions) {
+      solution.IterateOverGoalMapWhilstSkippingCloningUntilExhausted(this)
     }
   }
 

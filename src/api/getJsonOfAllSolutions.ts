@@ -6,7 +6,7 @@ import { join } from 'path'
 import { Piece } from '../puzzle/Piece'
 import { RawObjectsAndVerb } from '../puzzle/RawObjectsAndVerb'
 import { Solution } from '../puzzle/Solution'
-import { SolverViaRootPiece } from '../puzzle/SolverViaRootPiece'
+import { SolutionCollection } from '../puzzle/SolutionCollection'
 import { Aggregates } from '../puzzle/Aggregates'
 
 interface $INameIsAGoalChildren {
@@ -30,7 +30,7 @@ export function getJsonOfAllSolutions (
 
   const aggregates = new Aggregates()
   const firstBox = new Box(path, [firstBoxFilename], aggregates)
-  const solver = new SolverViaRootPiece(firstBox, aggregates.setOfGoalWords)
+  const solver = new SolutionCollection(firstBox, aggregates.setOfGoalWords)
 
   for (let i = 0; i < 40; i++) {
     solver.SolvePartiallyUntilCloning()
@@ -67,7 +67,7 @@ export function getJsonOfAllSolutions (
 }
 
 function getJsonOfSolutionsFromSolver (
-  solver: SolverViaRootPiece
+  solver: SolutionCollection
 ): Record<string, unknown> {
   return {
     name: 'Solutions',

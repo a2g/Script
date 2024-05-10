@@ -1,6 +1,6 @@
 import promptSync from 'prompt-sync'
 import { Box } from './puzzle/Box'
-import { SolverViaRootPiece } from './puzzle/SolverViaRootPiece'
+import { SolutionCollection } from './puzzle/SolutionCollection'
 import { ChooseDigDeprecated } from './cli/ChooseDigDeprecated'
 import { ChooseListOfLeaves } from './cli/ChooseListOfLeaves'
 import { ChooseOrderOfCommands } from './cli/ChooseOrderOfCommands'
@@ -39,8 +39,8 @@ function main (): void {
 
             const combined = new Box(starter.folder, Array.from(aggregates.mapOfBoxes.keys()), new Aggregates())
 
-            const solverPrimedWithCombined = new SolverViaRootPiece(combined, null)
-            const solverPrimedWithFirstBox = new SolverViaRootPiece(firstBox, GetDoubles(aggregates.piecesMapped))
+            const solverPrimedWithCombined = new SolutionCollection(combined, null)
+            const solverPrimedWithFirstBox = new SolutionCollection(firstBox, GetDoubles(aggregates.piecesMapped))
 
             console.warn(`\nSubMenu of ${starter.file}`)
             console.warn(

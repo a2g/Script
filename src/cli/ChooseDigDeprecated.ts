@@ -1,12 +1,12 @@
 import promptSync from 'prompt-sync'
 import { AddBrackets } from '../puzzle/AddBrackets'
 import { FormatText } from '../puzzle/FormatText'
-import { SolverViaRootPiece } from '../puzzle/SolverViaRootPiece'
+import { SolutionCollection } from '../puzzle/SolutionCollection'
 import { NavigatePieceRecursive } from './NavigatePieceRecursive'
 
 const prompt = promptSync({})
 
-export function ChooseDigDeprecated (solver: SolverViaRootPiece): void {
+export function ChooseDigDeprecated (solver: SolutionCollection): void {
   console.warn('ChooseDigIntoGoals... ')
 
   for (; ;) {

@@ -1,11 +1,11 @@
 import promptSync from 'prompt-sync'
 import { FormatText } from '../puzzle/FormatText'
-import { SolverViaRootPiece } from '../puzzle/SolverViaRootPiece'
+import { SolutionCollection } from '../puzzle/SolutionCollection'
 import { NavigatePieceRecursive } from './NavigatePieceRecursive'
 import { AddBrackets } from '../puzzle/AddBrackets'
 const prompt = promptSync({})
 
-export function ChooseDigIntoGoals2 (solver: SolverViaRootPiece): void {
+export function ChooseDigIntoGoals2 (solver: SolutionCollection): void {
   console.warn(' ')
 
   for (; ;) {
@@ -45,8 +45,8 @@ export function ChooseDigIntoGoals2 (solver: SolverViaRootPiece): void {
     }
 
     if (firstInput === 'r') {
+      solver.IterateOverGoalMapWhilstSkippingBranchesUntilExhausted()
       solver.SolvePartiallyUntilCloning()
-      solver.MarkGoalsAsCompletedAndMergeIfNeeded()
       continue
     } else {
       const theNumber = Number(firstInput)

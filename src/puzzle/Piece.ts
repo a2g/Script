@@ -3,9 +3,10 @@ import { Happen } from './Happen'
 import { Happenings } from './Happenings'
 import { Box } from './Box'
 import { Solution } from './Solution'
-import { SolverViaRootPiece } from './SolverViaRootPiece'
+import { SolutionCollection } from './SolutionCollection'
 import { SpecialTypes } from './SpecialTypes'
 import { VisibleThingsMap } from './VisibleThingsMap'
+import { Job } from './Job'
 
 export class Piece {
   public id: number
@@ -196,10 +197,11 @@ export class Piece {
     this.inputs[k] = newLeaf
   }
 
-  public ProcessUntilCloning (
+  public ProcessPiecesAndReturnWhetherAnyPlaced (
     solution: Solution,
-    solutions: SolverViaRootPiece,
-    path: string
+    solutions: SolutionCollection,
+    path: string,
+    jobType: Job
   ): boolean {
     const newPath = `${path}${this.output}/`
 
@@ -216,12 +218,13 @@ export class Piece {
         if (inputPiece.type === SpecialTypes.VerifiedLeaf) {
           continue
         } // this means its already been searched for in the map, without success.
-        const hasACloneJustBeenCreated = inputPiece.ProcessUntilCloning(
+        const hasTheRequestedProcessingBeenCarriedOut = inputPiece.ProcessPiecesAndReturnWhetherAnyPlaced(
           solution,
           solutions,
-          newPath
+          newPath,
+          jobType
         )
-        if (hasACloneJustBeenCreated) {
+        if (hasTheRequestedProcessingBeenCarriedOut) {
           return true
         }
       } else {
@@ -282,7 +285,7 @@ export class Piece {
 
   private InternalLoopOfProcessUntilCloning (
     solution: Solution,
-    solutions: SolverViaRootPiece
+    solutions: SolutionCollection
   ): boolean {
     for (let k = 0; k < this.inputs.length; k += 1) {
       // Without this following line, any clones will attempt to re-clone themselves

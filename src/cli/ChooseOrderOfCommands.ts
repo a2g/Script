@@ -1,18 +1,18 @@
 import promptSync from 'prompt-sync'
 import { FormatText } from '../puzzle/FormatText'
-import { SolverViaRootPiece } from '../puzzle/SolverViaRootPiece'
+import { SolutionCollection } from '../puzzle/SolutionCollection'
 import { RawObjectsAndVerb } from '../puzzle/RawObjectsAndVerb'
 import { Raw } from '../puzzle/Raw'
 const prompt = promptSync({})
 
-export function ChooseOrderOfCommands (solver: SolverViaRootPiece): void {
+export function ChooseOrderOfCommands (solver: SolutionCollection): void {
   console.warn(' ')
 
   let infoLevel = 1
   for (; ;) {
     for (let i = 0; i < 20; i++) {
+      solver.IterateOverGoalMapWhilstSkippingBranchesUntilExhausted()
       solver.SolvePartiallyUntilCloning()
-      solver.MarkGoalsAsCompletedAndMergeIfNeeded()
     }
     solver.PerformThingsNeededAfterAllSolutionsFound()
     const numberOfSolutions: number = solver.NumberOfSolutions()

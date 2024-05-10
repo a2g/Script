@@ -1,11 +1,11 @@
 import promptSync from 'prompt-sync'
 import { FormatText } from '../puzzle/FormatText'
 import { Piece } from '../puzzle/Piece'
-import { SolverViaRootPiece } from '../puzzle/SolverViaRootPiece'
+import { SolutionCollection } from '../puzzle/SolutionCollection'
 
 const prompt = promptSync({})
 
-export function ChooseListOfLeaves (solver: SolverViaRootPiece): void {
+export function ChooseListOfLeaves (solver: SolutionCollection): void {
   console.warn(' ')
 
   for (;;) {

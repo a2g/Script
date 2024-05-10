@@ -5,11 +5,12 @@ import { RawObjectsAndVerb } from './RawObjectsAndVerb'
 import { GoalWord } from './GoalWord'
 import { DeconstructDoer } from './DeconstructDoer'
 import { GoalWordMap } from './GoalWordMap'
-import { SolverViaRootPiece } from './SolverViaRootPiece'
+import { SolutionCollection } from './SolutionCollection'
 import { VisibleThingsMap } from './VisibleThingsMap'
 import { Box } from './Box'
 import { createCommandFromAutoPiece } from './createCommandFromAutoPiece'
 import { TalkFile } from './talk/TalkFile'
+import { Job } from './Job'
 let globalSolutionId = 101
 /**
  * Solution needs to be cloned.
@@ -123,11 +124,11 @@ export class Solution {
     return clonedSolution
   }
 
-  public ProcessUntilCloning (solutions: SolverViaRootPiece): boolean {
+  public ProcessUntilCloning (solutions: SolutionCollection): boolean {
     let isBreakingDueToSolutionCloning = false
     for (const goalWord of this.goalWords.GetValues()) {
       if (!goalWord.IsSolved()) {
-        if (goalWord.ProcessUntilCloning(this, solutions, '/')) {
+        if (goalWord.ProcessPiecesAndReturnWhetherAnyPlaced(this, solutions, '/', Job.Cloning)) {
           isBreakingDueToSolutionCloning = true
           break
         }
@@ -135,6 +136,24 @@ export class Solution {
     }
 
     return isBreakingDueToSolutionCloning
+  }
+
+  IterateOverGoalMapWhilstSkippingCloningUntilExhausted (solutions: SolutionCollection): void {
+    for (; ;) {
+      let wasAnyPiecesPlaced = false
+      for (const goalWord of this.goalWords.GetValues()) {
+        if (!goalWord.IsSolved()) {
+          if (goalWord.ProcessPiecesAndReturnWhetherAnyPlaced(this, solutions, '/', Job.PiecePlacing)) {
+            wasAnyPiecesPlaced = true
+          }
+        }
+      }
+
+      const wasAnyBoxesMerged = this.MarkGoalsAsCompletedAndReturnWhetherBoxesWereMerged()
+      if (!wasAnyBoxesMerged && !wasAnyPiecesPlaced) {
+        return
+      }
+    }
   }
 
   GetOrderOfCommands (): RawObjectsAndVerb[] {
@@ -189,8 +208,9 @@ export class Solution {
     return this.startingThings
   }
 
-  public MarkGoalsAsContainingNullsAndMergeIfNeeded (): void {
+  public MarkGoalsAsCompletedAndReturnWhetherBoxesWereMerged (): boolean {
     // go through all the goal pieces
+    let wereAnyBoxesMerged = false
     for (const goal of this.goalWords.GetValues()) {
       // if there are no places to attach pieces it will return null
       const firstMissingPiece = (goal.piece != null) ? goal.piece.ReturnTheFirstNullInputHint() : goal.goalHint
@@ -205,10 +225,12 @@ export class Solution {
             this.performMergeInstructions
           ) {
             this.MergeBox(goal.piece.boxToMerge)
+            wereAnyBoxesMerged = true
           }
         }
       }
     }
+    return wereAnyBoxesMerged
   }
 
   public MergeBox (boxToMerge: Box): void {
