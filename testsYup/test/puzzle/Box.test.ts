@@ -1,10 +1,10 @@
 import { Box } from '../../../src/puzzle/Box'
 import { expect, test } from '@jest/globals'
+import { Aggregates } from '../../../src/puzzle/Aggregates'
 
 test('Test GetMapOfAllStartingThings', () => {
-  const set = new Set<string>()
-  const map = new Map<string, Box>()
-  const box = new Box('testsYup/test/puzzle/', ['Test1First.jsonc'], set, map)
+  const aggregates = new Aggregates()
+  const box = new Box('testsYup/test/puzzle/', ['Test1First.jsonc'], aggregates)
 
   // const goals = box.GetSetOfStartingGoals()
   const props = box.GetSetOfStartingProps()

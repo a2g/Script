@@ -7,6 +7,7 @@ import { TalkFile } from './talk/TalkFile'
 import { Piece } from './Piece'
 import { IsPieceOutputtingAGoal } from './IsPieceOutputtingAGoal'
 import { GoalWordMap } from './GoalWordMap'
+import { Aggregates } from './Aggregates'
 
 /**
  * So the most important part of this class is that the data
@@ -49,7 +50,7 @@ export class Box {
 
   private readonly mapOfTalks: Map<string, TalkFile>
 
-  constructor (path: string, filenames: string[], set: Set<string>, map: Map<string, Box>) {
+  constructor (path: string, filenames: string[], aggregates: Aggregates) {
     this.path = path
     this.mapOfTalks = new Map<string, TalkFile>()
     this.filename = filenames[0]
@@ -128,7 +129,7 @@ export class Box {
       const scenario = parse(text)
 
       /* collect all the goals and pieces file */
-      const singleFile = new SingleFile(this.path, filename, set, map)
+      const singleFile = new SingleFile(this.path, filename, aggregates)
       singleFile.copyAllPiecesToContainer(this)
 
       /* starting things is optional in the json */
@@ -253,11 +254,11 @@ export class Box {
     return this.setOfGoalWords
   }
 
-  public AddPiece (piece: Piece, folder = '', isNoFile = true, aggregateGoalWords: Set<string>, mapOfBoxes: Map<string, Box>): void {
+  public AddPiece (piece: Piece, folder = '', isNoFile = true, aggregates: Aggregates): void {
     if (IsPieceOutputtingAGoal(piece)) {
       const goal1 = piece.output
       this.setOfGoalWords.add(goal1)
-      aggregateGoalWords.add(goal1)
+      aggregates.setOfGoalWords.add(goal1)
       // if not file exists for goal name
       // then throw an exception, unless
       //  - xwin
@@ -278,24 +279,29 @@ export class Box {
           )
         }
 
-        let box = mapOfBoxes.get(file)
+        let box = aggregates.mapOfBoxes.get(file)
         if (box == null) {
           /* this map not only collects all the boxes */
           /* but prevents two pieces that output same goal from */
           /* processing the same file */
-          box = new Box(folder, [file], aggregateGoalWords, mapOfBoxes)
-          mapOfBoxes.set(file, box)
+          box = new Box(folder, [file], aggregates)
+          aggregates.mapOfBoxes.set(file, box)
         }
         piece.boxToMerge = box
       }
     }
 
-    /* initialize array, if it hasn't yet been */
+    // initialize array, if it hasn't yet been
     if (!this.piecesMappedByOutput.has(piece.output)) {
       this.piecesMappedByOutput.set(piece.output, new Set<Piece>())
     }
-    /* always add to list */
     this.piecesMappedByOutput.get(piece.output)?.add(piece)
+
+    // do the same again with aggregates
+    if (!aggregates.piecesMapped.has(piece.output)) {
+      aggregates.piecesMapped.set(piece.output, new Set<Piece>())
+    }
+    aggregates.piecesMapped.get(piece.output)?.add(piece)
   }
 
   public GetPieceIterator (): IterableIterator<Set<Piece>> {

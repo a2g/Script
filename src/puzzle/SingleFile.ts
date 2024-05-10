@@ -13,6 +13,7 @@ import { Verb } from './Verb'
 import { AlleviateBrackets } from './AlleviateBrackets'
 import { GetNextId } from './talk/GetNextId'
 import { TalkFile } from './talk/TalkFile'
+import { Aggregates } from './Aggregates'
 
 function makeGoalNameDeterministically (partA: string, partB: string): string {
   return `x_gen_${partA}_${partB}_goal`
@@ -27,16 +28,14 @@ export class SingleFile {
   scenario: any
   path: string
   file: string
-  set: Set<string>
-  map: Map<string, Box>
+  aggregates: Aggregates
 
-  public constructor (path: string, filename: string, set: Set<string>, map: Map<string, Box>) {
+  public constructor (path: string, filename: string, aggregates: Aggregates) {
     this.text = readFileSync(path + filename, 'utf-8')
     this.scenario = parse(this.text)
     this.path = path
     this.file = filename
-    this.map = map
-    this.set = set
+    this.aggregates = aggregates
   }
 
   public copyAllPiecesToContainer (
@@ -145,7 +144,7 @@ export class SingleFile {
           break
         case _.TALK1_GENERATED_PIECE_PLACEHOLDER:
           {
-            const talk = new TalkFile(talk1 + '.jsonc', this.path, this.set, this.map)
+            const talk = new TalkFile(talk1 + '.jsonc', this.path, this.aggregates)
             piecesMappedByOutput.AddTalkFile(talk)
             const blankMap = new Map<string, string>()
             // talk1 is a subclass of a prop: it represents the character that
@@ -308,8 +307,7 @@ export class SingleFile {
               ),
               this.path,
               true, // there's no file, its dynamic,
-              this.set,
-              this.map
+              this.aggregates
             )
 
             if (!isCopyRootPiecesOnly) {
@@ -333,8 +331,7 @@ export class SingleFile {
                 ),
                 this.path,
                 true, // there's no file, its dynamic
-                this.set,
-                this.map
+                this.aggregates
               )
               const happs3 = new Happenings()
               happs3.array.push(
@@ -358,8 +355,7 @@ export class SingleFile {
                 ),
                 this.path,
                 true, // there's no file, its dynamic,
-                this.set,
-                this.map
+                this.aggregates
               )
             }
           }
@@ -529,8 +525,7 @@ export class SingleFile {
               ),
               this.path,
               true, // there's no file, its dynamic
-              this.set,
-              this.map
+              this.aggregates
             )
 
             if (!isCopyRootPiecesOnly) {
@@ -553,8 +548,7 @@ export class SingleFile {
                 ),
                 this.path,
                 true, // there's no file, its dynamic
-                this.set,
-                this.map
+                this.aggregates
               )
               const happs3 = new Happenings()
               happs3.array.push(new Happening(Happen.PropGoes, prop1))
@@ -577,8 +571,7 @@ export class SingleFile {
                 ),
                 this.path,
                 true, // there's no file, its dynamic
-                this.set,
-                this.map
+                this.aggregates
               )
             }
           }
@@ -802,8 +795,7 @@ export class SingleFile {
         ),
         this.path,
         isNoFile, // defer to variable at end of file
-        this.set,
-        this.map
+        this.aggregates
       )
     }
   }

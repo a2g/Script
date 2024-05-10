@@ -7,6 +7,7 @@ import { Piece } from '../puzzle/Piece'
 import { RawObjectsAndVerb } from '../puzzle/RawObjectsAndVerb'
 import { Solution } from '../puzzle/Solution'
 import { SolverViaRootPiece } from '../puzzle/SolverViaRootPiece'
+import { Aggregates } from '../puzzle/Aggregates'
 
 interface $INameIsAGoalChildren {
   name: string
@@ -27,11 +28,9 @@ export function getJsonOfAllSolutions (
     throw Error(`file doesn't exist ${path}${firstBoxFilename}`)
   }
 
-  const allBoxes = new Map<string, Box>()
-  const goalSet = new Set<string>()
-  const firstBox = new Box(path, [firstBoxFilename], goalSet, allBoxes)
-
-  const solver = new SolverViaRootPiece(firstBox, true)
+  const aggregates = new Aggregates()
+  const firstBox = new Box(path, [firstBoxFilename], aggregates)
+  const solver = new SolverViaRootPiece(firstBox, aggregates.setOfGoalWords)
 
   for (let i = 0; i < 40; i++) {
     solver.SolvePartiallyUntilCloning()

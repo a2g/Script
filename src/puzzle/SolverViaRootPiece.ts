@@ -11,21 +11,22 @@ import { Solution } from './Solution'
 export class SolverViaRootPiece {
   private readonly solutions: Solution[]
   private readonly startingBox: Box
-  private readonly isMergeBoxToBeCalled: boolean
+  private readonly setOfDoubles: Set<string>
   private readonly mapOfStartingThingsAndWhoStartsWithThem: Map<string, Set<string>>
 
-  constructor (startingBox: Box, isMergeBoxToBeCalled: boolean) {
+  constructor (startingBox: Box, setOfDoublesForMerging: Set<string>|null) {
     this.solutions = []
     this.startingBox = startingBox
-    this.isMergeBoxToBeCalled = isMergeBoxToBeCalled
+    this.setOfDoubles = new Set<string>()
+    setOfDoublesForMerging?.forEach(x => { this.setOfDoubles.add(x) })
 
+    // now lets initialize the first solution
     const solution1 = Solution.createSolution(
       startingBox.GetPieces(),
       startingBox.GetTalkFiles(),
       startingBox.GetMapOfAllStartingThings(),
       this.CreateRootMapFromGoalWords(startingBox.GetSetOfGoalWords()),
-
-      this.isMergeBoxToBeCalled
+      setOfDoublesForMerging
     )
     this.solutions.push(solution1)
 

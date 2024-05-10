@@ -8,7 +8,7 @@ import { Sleep } from './Sleep'
 
 export function PlayPlayable (playable: Playable): void {
   for (; ;) {
-    // report current situation to cmd output
+    // aggregates current situation to cmd output
     const reporter = GameReporter.GetInstance()
     const goals = playable.GetHappener().GetCurrentlyTrueGoals()
     const invs = playable.GetHappener().GetCurrentVisibleInventory()

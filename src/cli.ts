@@ -8,6 +8,8 @@ import { ChooseToFindUnused } from './cli/ChooseToFindUnused'
 import { $IStarter, getJsonOfStarters } from './api/getJsonOfStarters'
 import { ChooseDigIntoGoals2 } from './cli/ChooseDigIntoGoals2'
 import { DumpGainsFromEachTalkInFolder } from './cli/DumpGansFromEachTalkInFolder'
+import { Aggregates } from './puzzle/Aggregates'
+import { GetDoubles } from './puzzle/GetDoubles'
 const prompt = promptSync()
 
 function main (): void {
@@ -32,14 +34,13 @@ function main (): void {
             const starter = starters[index]
             DumpGainsFromEachTalkInFolder(starter.folder)
 
-            const setOfGoals = new Set<string>()
-            const allBoxes = new Map<string, Box>()
+            const aggregates = new Aggregates()
+            const firstBox = new Box(starter.folder, [starter.file], aggregates)
 
-            const firstBox = new Box(starter.folder, [starter.file], setOfGoals, allBoxes)
-            const combined = new Box(starter.folder, Array.from(allBoxes.keys()), setOfGoals, allBoxes)
+            const combined = new Box(starter.folder, Array.from(aggregates.mapOfBoxes.keys()), new Aggregates())
 
-            const solverPrimedWithCombined = new SolverViaRootPiece(combined, false)
-            const solverPrimedWithFirstBox = new SolverViaRootPiece(firstBox, true)
+            const solverPrimedWithCombined = new SolverViaRootPiece(combined, null)
+            const solverPrimedWithFirstBox = new SolverViaRootPiece(firstBox, GetDoubles(aggregates.piecesMapped))
 
             console.warn(`\nSubMenu of ${starter.file}`)
             console.warn(

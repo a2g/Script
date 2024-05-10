@@ -1,7 +1,7 @@
 import { Piece } from './Piece'
 import { TalkFile } from './talk/TalkFile'
 import { IPileOrSimplePile } from './IPileOrSimplePile'
-import { Box } from './Box'
+import { Aggregates } from './Aggregates'
 
 export class SimplePile implements IPileOrSimplePile {
   array: Piece[]
@@ -9,7 +9,7 @@ export class SimplePile implements IPileOrSimplePile {
     this.array = []
   }
 
-  AddPiece (piece: Piece, _folder: string, _isNoFile: boolean, _goalWords: Set<string>, _mapOfBoxes: Map<string, Box>): void {
+  AddPiece (piece: Piece, _folder: string, _isNoFile: boolean, _report: Aggregates): void {
     this.array.push(piece)
   }
 

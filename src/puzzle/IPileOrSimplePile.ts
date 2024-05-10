@@ -1,9 +1,9 @@
 
 import { TalkFile } from './talk/TalkFile'
 import { Piece } from './Piece'
-import { Box } from './Box'
+import { Aggregates } from './Aggregates'
 
 export interface IPileOrSimplePile {
-  AddPiece: (piece: Piece, folder: string, isNoFile: boolean, goalWords: Set<string>, mapOfBoxes: Map<string, Box>) => void
+  AddPiece: (piece: Piece, folder: string, isNoFile: boolean, pieceAddingReport: Aggregates) => void
   AddTalkFile: (talkFile: TalkFile) => void
 }
