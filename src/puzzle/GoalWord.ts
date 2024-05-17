@@ -50,7 +50,7 @@ export class GoalWord {
     this.commandsCompletedInOrder.push(rawObjectsAndVerb)
   }
 
-  public ProcessPiecesAndReturnWhetherAnyPlaced (solution: Solution, solutions: SolutionCollection, path: string, jobType: Job): boolean {
+  public ProcessPiecesAndReturnWhetherAnyPlaced (solution: Solution, solutions: SolutionCollection, path: string, jobType: Job): Piece|null {
     // if the goalword piece is already found, we recurse
     if (this.piece != null) {
       return this.piece.ProcessPiecesAndReturnWhetherAnyPlaced(solution, solutions, path + this.goalHint + '/', jobType)
@@ -109,11 +109,11 @@ export class GoalWord {
       }
     }
 
-    if (jobType === Job.Cloning) {
-      return setOfMatchingPieces.size > 1
-    } else if (jobType === Job.PiecePlacing) {
-      return setOfMatchingPieces.size === 1
+    if (jobType === Job.Cloning && setOfMatchingPieces.size > 1) {
+      return matchingPieces[0]
+    } else if (jobType === Job.PiecePlacing && setOfMatchingPieces.size === 1) {
+      return matchingPieces[0]
     }
-    return false
+    return null
   }
 }

@@ -202,14 +202,15 @@ export class Piece {
     solutions: SolutionCollection,
     path: string,
     jobType: Job
-  ): boolean {
+  ): Piece | null {
     const newPath = `${path}${this.output}/`
 
     // this is the point we used to set it as completed
     // solution.MarkPieceAsCompleted(this)
 
-    if (this.InternalLoopOfProcessUntilCloning(solution, solutions)) {
-      return true
+    const pieceReturned = this.InternalLoopOfProcessUntilCloning(solution, solutions, jobType)
+    if (pieceReturned !== null) {
+      return pieceReturned
     }
 
     // now to process each of those pieces that have been filled out
@@ -224,8 +225,8 @@ export class Piece {
           newPath,
           jobType
         )
-        if (hasTheRequestedProcessingBeenCarriedOut) {
-          return true
+        if (hasTheRequestedProcessingBeenCarriedOut != null) {
+          return hasTheRequestedProcessingBeenCarriedOut
         }
       } else {
         // this case used to indicate something wrong with InternalLoopOfProcessUntilCloning
@@ -245,7 +246,7 @@ export class Piece {
       }
     }
 
-    return false
+    return null
   }
 
   public SetParent (parent: Piece | null): void {
@@ -285,8 +286,9 @@ export class Piece {
 
   private InternalLoopOfProcessUntilCloning (
     solution: Solution,
-    solutions: SolutionCollection
-  ): boolean {
+    solutions: SolutionCollection, jobType: Job
+  ): Piece | null {
+    let pieceToReturned: Piece|null = null
     for (let k = 0; k < this.inputs.length; k += 1) {
       // Without this following line, any clones will attempt to re-clone themselves
       // and Solution.ProcessUntilCompletion will continue forever
@@ -328,62 +330,66 @@ export class Piece {
       const setOfMatchingPieces = solution
         .GetPiecesThatOutputString(importHintToFind)
 
-      if (setOfMatchingPieces.size > 0) {
-        const matchingPieces = Array.from(setOfMatchingPieces)
-        // In our array the currentSolution, is at index zero
-        // so we start at the highest index in the list
-        // we when we finish the loop, we are with
-        for (let i = matchingPieces.length - 1; i >= 0; i--) {
-          // need reverse iterator
-          const theMatchingPiece = matchingPieces[i]
-
-          // Clone - if needed!
-          const isCloneBeingUsed = i > 0
-          const theSolution = isCloneBeingUsed ? solution.Clone() : solution
-
-          // This is the earliest possible point we can remove the
-          // matching piece: i.e. after the cloning has occurred
-          // remove all the pieces before cloning
-          for (const theMatchingPiece of setOfMatchingPieces) {
-            theSolution.RemovePiece(theMatchingPiece)
-          }
-
-          if (matchingPieces.length > 1) {
-            const firstInput = theMatchingPiece.inputHints.length > 0 ? theMatchingPiece.inputHints[0] : 'no-hint'
-            // theSolution.PushSolvingPathSegment(`${importHintToFind}[${i > 0 ? matchingPieces.length - i : 0}]`)
-            theSolution.PushSolvingPathSegment(`${firstInput}`)
-          }
-
-          // this is only here to make the unit tests make sense
-          // something like to fix a bug where cloning doesn't mark piece as complete
-          // theSolution.MarkPieceAsCompleted(theSolution.GetWinGoal())
-          // ^^ this might need to recursively ask for parent, since there are no
-          // many root pieces
-          if (isCloneBeingUsed) {
-            solutions.GetSolutions().push(theSolution)
-          }
-
-          // rediscover the current piece in theSolution - again because we might be cloned
-          const thePiece = theSolution.FindAnyPieceMatchingIdRecursively(this.id)
-
-          if (thePiece != null) {
-            theMatchingPiece.parent = thePiece
-            thePiece.inputs[k] = theMatchingPiece
-
-            // all pieces are incomplete when they are *just* added
-            theSolution.AddToListOfEssentials(theMatchingPiece.getRestrictions())
-          } else {
-            console.warn('piece is null - so we are cloning wrong')
-          }
+      const matchingPieces = Array.from(setOfMatchingPieces)
+      // In our array the currentSolution, is at index zero
+      // so we start at the highest index in the list
+      // we when we finish the loop, we are with
+      for (let i = matchingPieces.length - 1; i >= 0; i--) {
+        // don't do cloning unless its specifically the job type
+        if (jobType !== Job.Cloning && matchingPieces.length > 1) {
+          break
         }
 
-        const hasACloneJustBeenCreated = matchingPieces.length > 1
-        if (hasACloneJustBeenCreated) {
-          return true
-        } // yes is incomplete
+        // need reverse iterator
+        const theMatchingPiece = matchingPieces[i]
+
+        // Clone - if needed!
+        const isCloneBeingUsed = i > 0
+        const theSolution = isCloneBeingUsed ? solution.Clone() : solution
+
+        // This is the earliest possible point we can remove the
+        // matching piece: i.e. after the cloning has occurred
+        // remove all the pieces before cloning
+        for (const theMatchingPiece of setOfMatchingPieces) {
+          theSolution.RemovePiece(theMatchingPiece)
+        }
+
+        if (matchingPieces.length > 1) {
+          const firstInput = theMatchingPiece.inputHints.length > 0 ? theMatchingPiece.inputHints[0] : 'no-hint'
+          // theSolution.PushSolvingPathSegment(`${importHintToFind}[${i > 0 ? matchingPieces.length - i : 0}]`)
+          theSolution.PushSolvingPathSegment(`${firstInput}`)
+        }
+
+        // this is only here to make the unit tests make sense
+        // something like to fix a bug where cloning doesn't mark piece as complete
+        // theSolution.MarkPieceAsCompleted(theSolution.GetWinGoal())
+        // ^^ this might need to recursively ask for parent, since there are no
+        // many root pieces
+        if (isCloneBeingUsed) {
+          solutions.GetSolutions().push(theSolution)
+        }
+
+        // rediscover the current piece in theSolution - again because we might be cloned
+        const thePiece = theSolution.FindAnyPieceMatchingIdRecursively(this.id)
+
+        if (thePiece != null) {
+          theMatchingPiece.parent = thePiece
+          thePiece.inputs[k] = theMatchingPiece
+
+          // all pieces are incomplete when they are *just* added
+          theSolution.AddToListOfEssentials(theMatchingPiece.getRestrictions())
+        } else {
+          console.warn('piece is null - so we are cloning wrong')
+        }
+      }
+
+      if (jobType === Job.Cloning && setOfMatchingPieces.size > 1) {
+        pieceToReturned = matchingPieces[0]
+      } else if (jobType === Job.PiecePlacing && setOfMatchingPieces.size === 1) {
+        pieceToReturned = matchingPieces[0]
       }
     }
-    return false
+    return pieceToReturned
   }
 
   SetTalkPath (talkPath: string): void {

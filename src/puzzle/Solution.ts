@@ -143,7 +143,8 @@ export class Solution {
       let wasAnyPiecesPlaced = false
       for (const goalWord of this.goalWords.GetValues()) {
         if (!goalWord.IsSolved()) {
-          if (goalWord.ProcessPiecesAndReturnWhetherAnyPlaced(this, solutions, '/', Job.PiecePlacing)) {
+          const thePiece = goalWord.ProcessPiecesAndReturnWhetherAnyPlaced(this, solutions, '/', Job.PiecePlacing)
+          if(thePiece !== null){
             wasAnyPiecesPlaced = true
           }
         }
