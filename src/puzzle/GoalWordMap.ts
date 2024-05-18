@@ -105,7 +105,7 @@ export class GoalWordMap {
       console.warn(`Merged goal word ${word}`)
       this.roots.set(word, new GoalWord(word, [], false))
     } else {
-      console.warn(`Already exists: Failed to merge goal ${word}  `)
+      console.warn(`Already exists. Must have already merged this goal: ${word}  `)
     }
   }
 }

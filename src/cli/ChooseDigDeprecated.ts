@@ -51,7 +51,7 @@ export function ChooseDigDeprecated (solver: SolutionCollection): void {
       }
     }
 
-    console.warn(`Number of goals incomplete ${incomplete}/${listItemNumber}`)
+    console.warn(`Number of goals remaining ${incomplete} (${listItemNumber})`)
 
     // allow user to choose item
     const input = prompt(

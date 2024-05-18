@@ -124,18 +124,18 @@ export class Solution {
     return clonedSolution
   }
 
-  public ProcessUntilCloning (solutions: SolutionCollection): boolean {
-    let isBreakingDueToSolutionCloning = false
+  public ProcessUntilCloning (solutions: SolutionCollection): Piece | null {
+    let pieceThatCausedCloning: Piece | null = null
     for (const goalWord of this.goalWords.GetValues()) {
       if (!goalWord.IsSolved()) {
-        if (goalWord.ProcessPiecesAndReturnWhetherAnyPlaced(this, solutions, '/', Job.Cloning) != null) {
-          isBreakingDueToSolutionCloning = true
+        pieceThatCausedCloning = goalWord.ProcessPiecesAndReturnWhetherAnyPlaced(this, solutions, '/', Job.Cloning)
+        if (pieceThatCausedCloning != null) {
           break
         }
       }
     }
 
-    return isBreakingDueToSolutionCloning
+    return pieceThatCausedCloning
   }
 
   IterateOverGoalMapWhilstSkippingCloningUntilExhausted (solutions: SolutionCollection): void {

@@ -50,14 +50,14 @@ export function getJsonOfAllSolutions (
         listItemNumber++
 
         // display list item
-        const status = item.IsSolved() ? 'Solved' : 'Unsolved'
+        const status = item.IsSolved() ? '✓' : '✖'
         const output = item.goalHint
-        console.warn(`    ${listItemNumber}. ${output} (root = ${(item.piece != null) ? 'found' : 'null'} status=${status})`)
+        console.warn(`    ${listItemNumber}. ${status} ${output} (root = ${(item.piece != null) ? 'found' : 'null'})`)
         incomplete += item.IsSolved() ? 0 : 1
       }
     }
 
-    console.warn(`Number of goals incomplete ${incomplete}/${listItemNumber}`)
+    console.warn(`Number of goals remaining ${incomplete}(${listItemNumber})`)
     if (incomplete >= listItemNumber) {
       break
     }

@@ -9,16 +9,10 @@ export function ChooseDigIntoGoals2 (solver: SolutionCollection): void {
   console.warn(' ')
   let numberOfRuns = 0
   for (; ;) {
-    numberOfRuns++
     const numberOfSolutions: number = solver.NumberOfSolutions()
-    console.warn(`Dig in to goals - iterations:${numberOfRuns}`)
+    console.warn('Dig in to goals')
     console.warn('===============')
-    console.warn(`Number of solutions in solver = ${numberOfSolutions}`)
-
-    // solver.GenerateSolutionNamesAndPush()
-    console.warn('Pick solution')
-    console.warn('================')
-    console.warn(`Number of solutions = ${numberOfSolutions}`)
+    console.warn(`Number of solutions = ${numberOfSolutions} iterations:${numberOfRuns}`)
     if (solver.GetSolutions().length > 1) {
       console.warn('    0. All solutions')
     }
@@ -38,6 +32,7 @@ export function ChooseDigIntoGoals2 (solver: SolutionCollection): void {
       '\nChoose an ingredient of one of the solutions or (b)ack, (r)e-run, e(x)it '
     ).toLowerCase()
 
+    numberOfRuns++
     if (firstInput === null || firstInput === 'b') {
       break
     }
@@ -47,10 +42,8 @@ export function ChooseDigIntoGoals2 (solver: SolutionCollection): void {
 
     if (firstInput === 'r') {
       if (numberOfRuns % 2 > 0) {
-        console.warn('Do everything BUT cloning ...')
         solver.IterateOverGoalMapWhilstSkippingBranchesUntilExhausted()
       } else {
-        console.warn('Clone - if any are waiting...')
         solver.SolvePartiallyUntilCloning()
       }
       continue
@@ -86,18 +79,20 @@ export function ChooseDigIntoGoals2 (solver: SolutionCollection): void {
               inputs += `${FormatText(inputSpiel)},`
             }
           }
+          const status = rootGoal.IsSolved() ? '✓' : '✖'
           console.warn(
-            `    ${listItemNumber}. ${FormatText(output)} ${AddBrackets(inputs)} (root = ${(rootGoal.piece != null) ? 'found' : 'null'} status=${rootGoal.IsSolved() ? 'Solved' : 'Unsolved'})`
+            `    ${listItemNumber}. ${status} ${FormatText(output)} ${AddBrackets(inputs)} (root = ${(rootGoal.piece != null) ? 'found' : 'null'})`
           )
           incomplete += rootGoal.IsSolved() ? 0 : 1
         }
 
-        console.warn(`Number of goals incomplete ${incomplete}/${listItemNumber}`)
+        console.warn(`Number of goals remaining ${incomplete} (${listItemNumber})`)
 
         // allow user to choose item
         const input = prompt(
           'Choose goal to dig down on or (b)ack, (r)e-run: '
         ).toLowerCase()
+        numberOfRuns++
         if (input === null || input === 'b') {
           break
         }
@@ -105,8 +100,11 @@ export function ChooseDigIntoGoals2 (solver: SolutionCollection): void {
           return
         }
         if (input === 'r') {
-          solver.SolvePartiallyUntilCloning()
-          solver.MarkGoalsAsCompletedAndMergeIfNeeded()
+          if (numberOfRuns % 2 > 0) {
+            solver.IterateOverGoalMapWhilstSkippingBranchesUntilExhausted()
+          } else {
+            solver.SolvePartiallyUntilCloning()
+          }
           continue
         } else {
           // show map entry for chosen item

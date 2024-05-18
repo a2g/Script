@@ -1,5 +1,6 @@
 import { Box } from './Box'
 import { GoalWordMap } from './GoalWordMap'
+import { Piece } from './Piece'
 import { Solution } from './Solution'
 
 /**
@@ -50,18 +51,24 @@ export class SolutionCollection {
     return this.solutions.length
   }
 
-  public SolvePartiallyUntilCloning (): boolean {
-    let hasACloneJustBeenCreated = false
+  public SolvePartiallyUntilCloning (): Piece | null {
+    console.warn('Clone - if any are waiting...')
+    let pieceThatCausedCloning: Piece | null = null
     const solutions = this.solutions
     for (const solution of solutions) {
       if (solution.IsUnsolved()) {
-        if (solution.ProcessUntilCloning(this)) {
-          hasACloneJustBeenCreated = true
+        pieceThatCausedCloning = solution.ProcessUntilCloning(this)
+        if (pieceThatCausedCloning != null) {
           break// breaking here at a smaller step, allows catching of bugs as soon as they occur
         }
       }
     }
-    return hasACloneJustBeenCreated
+    if (pieceThatCausedCloning != null) {
+      console.warn(`Cloned piece output == ${pieceThatCausedCloning.output}`)
+    } else {
+      console.warn('Cloned piece output == null')
+    }
+    return pieceThatCausedCloning
   }
 
   public GetSolutions (): Solution[] {
@@ -75,6 +82,7 @@ export class SolutionCollection {
   }
 
   IterateOverGoalMapWhilstSkippingBranchesUntilExhausted (): void {
+    console.warn('Do everything BUT cloning .....')
     for (const solution of this.solutions) {
       solution.IterateOverGoalMapWhilstSkippingCloningUntilExhausted(this)
     }
