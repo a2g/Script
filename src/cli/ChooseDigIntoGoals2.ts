@@ -7,10 +7,11 @@ const prompt = promptSync({})
 
 export function ChooseDigIntoGoals2 (solver: SolutionCollection): void {
   console.warn(' ')
-
+  let numberOfRuns = 0
   for (; ;) {
+    numberOfRuns++
     const numberOfSolutions: number = solver.NumberOfSolutions()
-    console.warn('Dig in to goals')
+    console.warn(`Dig in to goals - iterations:${numberOfRuns}`)
     console.warn('===============')
     console.warn(`Number of solutions in solver = ${numberOfSolutions}`)
 
@@ -45,8 +46,13 @@ export function ChooseDigIntoGoals2 (solver: SolutionCollection): void {
     }
 
     if (firstInput === 'r') {
-      solver.IterateOverGoalMapWhilstSkippingBranchesUntilExhausted()
-      solver.SolvePartiallyUntilCloning()
+      if (numberOfRuns % 2 > 0) {
+        console.warn('Do everything BUT cloning ...')
+        solver.IterateOverGoalMapWhilstSkippingBranchesUntilExhausted()
+      } else {
+        console.warn('Clone - if any are waiting...')
+        solver.SolvePartiallyUntilCloning()
+      }
       continue
     } else {
       const theNumber = Number(firstInput)

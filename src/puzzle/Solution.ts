@@ -128,7 +128,7 @@ export class Solution {
     let isBreakingDueToSolutionCloning = false
     for (const goalWord of this.goalWords.GetValues()) {
       if (!goalWord.IsSolved()) {
-        if (goalWord.ProcessPiecesAndReturnWhetherAnyPlaced(this, solutions, '/', Job.Cloning)) {
+        if (goalWord.ProcessPiecesAndReturnWhetherAnyPlaced(this, solutions, '/', Job.Cloning) != null) {
           isBreakingDueToSolutionCloning = true
           break
         }
@@ -144,7 +144,7 @@ export class Solution {
       for (const goalWord of this.goalWords.GetValues()) {
         if (!goalWord.IsSolved()) {
           const thePiece = goalWord.ProcessPiecesAndReturnWhetherAnyPlaced(this, solutions, '/', Job.PiecePlacing)
-          if(thePiece !== null){
+          if (thePiece !== null) {
             wasAnyPiecesPlaced = true
           }
         }
