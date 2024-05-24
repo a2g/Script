@@ -1,15 +1,12 @@
 import promptSync from 'prompt-sync'
-import { Box } from './puzzle/Box'
 import { SolverViaRootPiece } from './puzzle/SolverViaRootPiece'
 import { ChooseDigDeprecated } from './cli/ChooseDigDeprecated'
 import { ChooseListOfLeaves } from './cli/ChooseListOfLeaves'
 import { ChooseOrderOfCommands } from './cli/ChooseOrderOfCommands'
-import { ChooseToFindUnused } from './cli/ChooseToFindUnused'
 import { $IStarter, getJsonOfStarters } from './api/getJsonOfStarters'
 import { ChooseDigIntoGoals2 } from './cli/ChooseDigIntoGoals2'
 import { DumpGainsFromEachTalkInFolder } from './cli/DumpGansFromEachTalkInFolder'
-import { Aggregates } from './puzzle/Aggregates'
-import { GetDoubles } from './puzzle/GetDoubles'
+
 const prompt = promptSync()
 
 function main (): void {
@@ -34,13 +31,7 @@ function main (): void {
             const starter = starters[index]
             DumpGainsFromEachTalkInFolder(starter.folder)
 
-            const aggregates = new Aggregates()
-            const firstBox = new Box(starter.folder, [starter.file], aggregates)
-
-            const combined = new Box(starter.folder, Array.from(aggregates.mapOfBoxes.keys()), new Aggregates())
-
-            const solverPrimedWithCombined = new SolverViaRootPiece(combined, null)
-            const solverPrimedWithFirstBox = new SolverViaRootPiece(firstBox, GetDoubles(aggregates.piecesMapped))
+            const solverPrimedWithCombined = new SolverViaRootPiece(starter.folder, starter.file)
 
             console.warn(`\nSubMenu of ${starter.file}`)
             console.warn(
@@ -67,22 +58,22 @@ function main (): void {
                 ChooseDigIntoGoals2(solverPrimedWithCombined)
                 break
               case '2':
-                ChooseDigIntoGoals2(solverPrimedWithFirstBox)
+                ChooseDigIntoGoals2(solverPrimedWithCombined)
                 break
               case '3':
-                ChooseListOfLeaves(solverPrimedWithFirstBox)
+                ChooseListOfLeaves(solverPrimedWithCombined)
                 break
               case '4':
-                ChooseListOfLeaves(solverPrimedWithFirstBox)
+                ChooseListOfLeaves(solverPrimedWithCombined)
                 break
               case '5':
-                ChooseOrderOfCommands(solverPrimedWithFirstBox)
+                ChooseOrderOfCommands(solverPrimedWithCombined)
                 break
               case '6':
-                ChooseDigDeprecated(solverPrimedWithFirstBox)
+                ChooseDigDeprecated(solverPrimedWithCombined)
                 break
               case '7':
-                ChooseToFindUnused(combined)
+                // ChooseToFindUnused(combined)
                 break
               default:
             }

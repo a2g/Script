@@ -20,7 +20,6 @@ export class Solution {
   private readonly rootPieceKeysInSolvingOrder: string[]
   private readonly remainingPieces: Map<string, Set<Piece>>
   private readonly talks: Map<string, TalkFile>
-  private readonly setOfDoubles: Set<string>
 
   // less important
   private readonly startingThings: VisibleThingsMap // once, this was updated dynamically in GetNextDoableCommandAndDesconstructTree
@@ -36,16 +35,14 @@ export class Solution {
     talks: Map<string, TalkFile>,
     startingThingsPassedIn: VisibleThingsMap,
     goalWordsToCopy: GoalWordMap | null,
-    setOfDoublesForMerging: Set<string>|null,
+    isPerformingMergeInstructions: boolean,
     solvingOrderForRootPieceKeys: string[],
     restrictions: Set<string> | null = null,
     nameSegments: string[] | null = null
   ) {
     this.id = id
     this.goalWords = new GoalWordMap(goalWordsToCopy)
-    this.performMergeInstructions = !(setOfDoublesForMerging == null)
-    this.setOfDoubles = new Set<string>()
-    setOfDoublesForMerging?.forEach(x => { this.setOfDoubles.add(x) })
+    this.performMergeInstructions = isPerformingMergeInstructions
     this.talks = new Map<string, TalkFile>()
     this.remainingPieces = new Map<string, Set<Piece>>()
     this.rootPieceKeysInSolvingOrder = solvingOrderForRootPieceKeys.slice()
@@ -89,14 +86,14 @@ export class Solution {
     talks: Map<string, TalkFile>,
     startingThingsPassedIn: VisibleThingsMap,
     goalWords: GoalWordMap | null,
-    setOfDoublesForMerging: Set<string>|null,
+    isPerformingMergeInstructions: boolean,
     solvingOrderForRootPieceKeys: string[]|null = null,
     restrictions: Set<string> | null = null,
     nameSegments: string[] | null = null
   ): Solution {
     globalSolutionId++
     const solvingOrder = (solvingOrderForRootPieceKeys != null) ? solvingOrderForRootPieceKeys : []
-    return new Solution(globalSolutionId, pieces, talks, startingThingsPassedIn, goalWords, setOfDoublesForMerging, solvingOrder, restrictions, nameSegments)
+    return new Solution(globalSolutionId, pieces, talks, startingThingsPassedIn, goalWords, isPerformingMergeInstructions, solvingOrder, restrictions, nameSegments)
   }
 
   public Clone (): Solution {
@@ -114,7 +111,7 @@ export class Solution {
       this.talks,
       this.startingThings,
       clonedRootPieceMap,
-      this.setOfDoubles,
+      this.performMergeInstructions,
       this.rootPieceKeysInSolvingOrder,
       this.essentialIngredients,
       this.solvingPathSegments

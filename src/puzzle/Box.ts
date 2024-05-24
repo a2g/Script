@@ -49,8 +49,10 @@ export class Box {
   private readonly piecesMappedByOutput: Map<string, Set<Piece>>
 
   private readonly mapOfTalks: Map<string, TalkFile>
+  private readonly aggregates: Aggregates
 
-  constructor (path: string, filenames: string[], aggregates: Aggregates) {
+  constructor (path: string, filenames: string[], aggregates?: Aggregates) {
+    this.aggregates = (aggregates != null) ? aggregates : new Aggregates()
     this.path = path
     this.mapOfTalks = new Map<string, TalkFile>()
     this.filename = filenames[0]
@@ -129,7 +131,7 @@ export class Box {
       const scenario = parse(text)
 
       /* collect all the goals and pieces file */
-      const singleFile = new SingleFile(this.path, filename, aggregates)
+      const singleFile = new SingleFile(this.path, filename, this.aggregates)
       singleFile.copyAllPiecesToContainer(this)
 
       /* starting things is optional in the json */
@@ -284,7 +286,7 @@ export class Box {
           /* this map not only collects all the boxes */
           /* but prevents two pieces that output same goal from */
           /* processing the same file */
-          box = new Box(folder, [file], aggregates)
+          box = new Box(folder, [file], this.aggregates)
           aggregates.mapOfBoxes.set(file, box)
         }
         piece.boxToMerge = box
@@ -355,5 +357,9 @@ export class Box {
       }
     }
     return startingThingSet
+  }
+
+  getAggregates (): Aggregates {
+    return this.aggregates
   }
 }
