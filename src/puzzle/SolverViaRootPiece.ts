@@ -11,23 +11,23 @@ import { Solution } from './Solution'
  */
 export class SolverViaRootPiece {
   private readonly solutions: Solution[]
-  private readonly combined: Box
+  private readonly combinedBox: Box
+  private readonly starterBox: Box
   private readonly mapOfStartingThingsAndWhoStartsWithThem: Map<string, Set<string>>
 
   constructor (startFolder: string, startFile: string) {
-    const firstBox = new Box(startFolder, [startFile])
-    const combined = new Box(startFolder, Array.from(firstBox.getAggregates().mapOfBoxes.keys()), new Aggregates())
+    this.starterBox = new Box(startFolder, [startFile])
+    this.combinedBox = new Box(startFolder, Array.from(this.starterBox.getAggregates().mapOfBoxes.keys()), new Aggregates())
 
     this.solutions = []
-    this.combined = combined
     const isPerformingMergeInstructions = false// because its already combined, right?
 
     // now lets initialize the first solution
     const solution1 = Solution.createSolution(
-      combined.GetPieces(),
-      combined.GetTalkFiles(),
-      combined.GetMapOfAllStartingThings(),
-      this.CreateRootMapFromGoalWords(combined.GetSetOfGoalWords()),
+      this.combinedBox.GetPieces(),
+      this.combinedBox.GetTalkFiles(),
+      this.combinedBox.GetMapOfAllStartingThings(),
+      this.CreateRootMapFromGoalWords(this.combinedBox.GetSetOfGoalWords()),
       isPerformingMergeInstructions
     )
     this.solutions.push(solution1)
@@ -50,6 +50,10 @@ export class SolverViaRootPiece {
 
   public NumberOfSolutions (): number {
     return this.solutions.length
+  }
+
+  public GetStarter (): Box {
+    return this.starterBox
   }
 
   public SolvePartiallyUntilCloning (): boolean {
@@ -98,9 +102,9 @@ export class SolverViaRootPiece {
   }
 
   private FindEssentialIngredientsPerSolution (): void {
-    const characters = this.combined.GetArrayOfCharacters()
+    const characters = this.combinedBox.GetArrayOfCharacters()
     for (const character of characters) {
-      const charactersSet = this.combined.GetStartingThingsForCharacter(character)
+      const charactersSet = this.combinedBox.GetStartingThingsForCharacter(character)
       for (const solution of this.solutions) {
         const arrayOfCommands = solution.GetOrderOfCommands()
         for (const command of arrayOfCommands) {

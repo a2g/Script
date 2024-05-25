@@ -6,6 +6,7 @@ import { ChooseOrderOfCommands } from './cli/ChooseOrderOfCommands'
 import { $IStarter, getJsonOfStarters } from './api/getJsonOfStarters'
 import { ChooseDigIntoGoals2 } from './cli/ChooseDigIntoGoals2'
 import { DumpGainsFromEachTalkInFolder } from './cli/DumpGansFromEachTalkInFolder'
+import { ChooseValidateSolution } from './cli/ChooseValidateSolutions'
 
 const prompt = promptSync()
 
@@ -46,7 +47,7 @@ function main (): void {
             console.warn('4. Leaves a box-at-a-time`')
             console.warn('5. Order of Commands in solve')
             console.warn('6. Choose Dig into goals (old)')
-            console.warn('7. Check for unused props and invs <-- delete these from enums')
+            console.warn('7. Choose Validate Forwards')
             console.warn('8. Play')
 
             const choice = prompt('Choose an option (b)ack: ').toLowerCase()
@@ -73,7 +74,7 @@ function main (): void {
                 ChooseDigDeprecated(solverPrimedWithCombined)
                 break
               case '7':
-                // ChooseToFindUnused(combined)
+                ChooseValidateSolution(solverPrimedWithCombined)
                 break
               default:
             }
