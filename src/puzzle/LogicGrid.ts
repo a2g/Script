@@ -3,7 +3,7 @@ import { SingleFileData } from './SingleFileData'
 /**
  * Logic grid (aka Elimination Grid)
  *
- * Using these as a solver in an adventure game is useful
+ * Using these as a solutions in an adventure game is useful
  * because - if an object has a use at all - and you've used it
  * with some things already, then its use lies with one of the
  * things you've not used it with. This process of elimination

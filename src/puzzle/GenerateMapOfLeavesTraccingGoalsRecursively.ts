@@ -1,5 +1,5 @@
 import { Piece } from './Piece'
-import { GoalWordMap } from './GoalWordMap'
+import { GoalStubMap } from './GoalStubMap'
 import { SpecialTypes } from './SpecialTypes'
 /**
  * #### Description
@@ -24,7 +24,7 @@ export function GenerateMapOfLeavesTracingGoalsRecursively (
   piece: Piece,
   path: string,
   map: Map<string, Piece | null>,
-  rootPieceMap: GoalWordMap
+  rootPieceMap: GoalStubMap
 ): void {
   for (let i = 0; i < piece.inputs.length; i += 1) {
     const input = piece.inputs[i]
@@ -32,12 +32,12 @@ export function GenerateMapOfLeavesTracingGoalsRecursively (
     // either set an entry in the leaf map or not...
     switch (inputType) {
       case SpecialTypes.CompletedElsewhere: {
-        const goalWord = rootPieceMap.GoalWordByName(piece.inputHints[i])
+        const goalStub = rootPieceMap.GoalStubByName(piece.inputHints[i])
         // Generating name ran may have to multiple with same name');
-        if (goalWord.piece != null) {
+        if (goalStub.piece != null) {
           GenerateMapOfLeavesTracingGoalsRecursively(
-            goalWord.piece,
-            goalWord.piece.GetOutput(),
+            goalStub.piece,
+            goalStub.piece.GetOutput(),
             map,
             rootPieceMap
           )

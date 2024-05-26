@@ -1,12 +1,12 @@
 import promptSync from 'prompt-sync'
 import { Piece } from '../puzzle/Piece'
-import { GoalWordMap } from '../puzzle/GoalWordMap'
-import { Solution } from '../puzzle/Solution'
+import { GoalStubMap } from '../puzzle/GoalStubMap'
+import { VisibleThingsMap } from '../puzzle/VisibleThingsMap'
 const prompt = promptSync({ sigint: true })
 
 export function NavigatePieceRecursive (
   piece: Piece,
-  rootPieceMap: GoalWordMap, solution: Solution
+  rootPieceMap: GoalStubMap, visibleThings: VisibleThingsMap
 ): void {
   for (; ;) {
     const output: string = piece.spielOutput
@@ -25,7 +25,6 @@ export function NavigatePieceRecursive (
     if (input === null || input === 'b') {
       return
     } else if (input === 's') {
-      const visibleThings = solution.GetStartingThings()
       for (const item of visibleThings.GetIterableIterator()) {
         console.warn(`${item[0]}`)
       }
@@ -35,7 +34,7 @@ export function NavigatePieceRecursive (
       if (theNumber > 0 && theNumber <= targets.length) {
         const result = targets[theNumber - 1]
         if (result != null) {
-          NavigatePieceRecursive(result, rootPieceMap, solution)
+          NavigatePieceRecursive(result, rootPieceMap, visibleThings)
         } else {
           prompt('THAT WAS NULL. Hit any key to continue: ')
         }

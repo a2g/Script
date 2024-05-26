@@ -1,6 +1,6 @@
 import { Aggregates } from './Aggregates'
 import { Box } from './Box'
-import { GoalWordMap } from './GoalWordMap'
+import { GoalStubMap } from './GoalStubMap'
 import { Solution } from './Solution'
 
 /**
@@ -9,7 +9,7 @@ import { Solution } from './Solution'
  * 2. Methods that call the same thing on all solutions
  * 3. Generating solution names - which is why it needs mapOfStartingThings...
  */
-export class SolverViaRootPiece {
+export class Solutions {
   private readonly solutions: Solution[]
   private readonly combinedBox: Box
   private readonly starterBox: Box
@@ -20,15 +20,13 @@ export class SolverViaRootPiece {
     this.combinedBox = new Box(startFolder, Array.from(this.starterBox.getAggregates().mapOfBoxes.keys()), new Aggregates())
 
     this.solutions = []
-    const isPerformingMergeInstructions = false// because its already combined, right?
 
     // now lets initialize the first solution
     const solution1 = Solution.createSolution(
       this.combinedBox.GetPieces(),
       this.combinedBox.GetTalkFiles(),
       this.combinedBox.GetMapOfAllStartingThings(),
-      this.CreateRootMapFromGoalWords(this.combinedBox.GetSetOfGoalWords()),
-      isPerformingMergeInstructions
+      this.CreateRootMapFromGoalStubs(this.combinedBox.GetSetOfGoalStubs())
     )
     this.solutions.push(solution1)
 
@@ -76,7 +74,7 @@ export class SolverViaRootPiece {
 
   public MarkGoalsAsCompletedAndMergeIfNeeded (): void {
     for (const solution of this.solutions) {
-      solution.MarkGoalsAsContainingNullsAndMergeIfNeeded()
+      solution.UpdateGoalSolvedStatuses()
     }
   }
 
@@ -88,14 +86,19 @@ export class SolverViaRootPiece {
     }
   }
 
-  public CreateRootMapFromGoalWords (set: Set<string>): GoalWordMap {
-    const rootMapFromGoalWords = new GoalWordMap(null)
+  public CreateRootMapFromGoalStubs (set: Set<string>): GoalStubMap {
+    const rootMapFromGoalStubs = new GoalStubMap(null)
     for (const goal of set) {
-      rootMapFromGoalWords.AddGoalWord(goal)
+      rootMapFromGoalStubs.AddGoalStub(goal)
     }
-    return rootMapFromGoalWords
+    return rootMapFromGoalStubs
   }
 
+  public PerformThingsNeededAfterAllSolutionsFound (): void {
+
+  }
+
+  /*
   public PerformThingsNeededAfterAllSolutionsFound (): void {
     this.FindEssentialIngredientsPerSolution()
     this.GenerateSolutionNamesTheOldWay()
@@ -117,8 +120,8 @@ export class SolverViaRootPiece {
       }
     }
   }
-
-  private GenerateSolutionNamesTheOldWay (): void {
+ */
+  public GenerateSolutionNamesTheOldWay (): void {
 
     /*
     for (let i = 0; i < this.solutions.length; i++) {

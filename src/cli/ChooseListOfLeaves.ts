@@ -1,17 +1,17 @@
 import promptSync from 'prompt-sync'
 import { FormatText } from '../puzzle/FormatText'
 import { Piece } from '../puzzle/Piece'
-import { SolverViaRootPiece } from '../puzzle/SolverViaRootPiece'
+import { Solutions } from '../puzzle/Solutions'
 
 const prompt = promptSync({})
 
-export function ChooseListOfLeaves (solver: SolverViaRootPiece): void {
+export function ChooseListOfLeaves (solutions: Solutions): void {
   console.warn(' ')
 
   for (;;) {
-    solver.SolvePartiallyUntilCloning()
-    solver.MarkGoalsAsCompletedAndMergeIfNeeded()
-    const numberOfSolutions: number = solver.NumberOfSolutions()
+    solutions.SolvePartiallyUntilCloning()
+    solutions.MarkGoalsAsCompletedAndMergeIfNeeded()
+    const numberOfSolutions: number = solutions.NumberOfSolutions()
 
     console.warn('If any leaves are not resolved properly, for example')
     console.warn(' - eg items show up as not found when they should be')
@@ -31,13 +31,13 @@ export function ChooseListOfLeaves (solver: SolverViaRootPiece): void {
     console.warn(`Number of solutions = ${numberOfSolutions}`)
 
     // list all leaves, of all solutions in order
-    // solver.GenerateSolutionNamesAndPush()
+    // solutions.GenerateSolutionNamesAndPush()
 
     let incomplete = 0
     let listItemNumber = 0
     let solutionNumber = 65
     const isOnlyNulls = true
-    for (const solution of solver.GetSolutions()) {
+    for (const solution of solutions.GetSolutions()) {
       const letter = String.fromCharCode(solutionNumber++)
       console.warn(
         letter +
@@ -75,7 +75,7 @@ export function ChooseListOfLeaves (solver: SolverViaRootPiece): void {
       const theNumber = Number(input)
       if (theNumber > 0 && theNumber <= listItemNumber) {
         let i = 0
-        for (const solution of solver.GetSolutions()) {
+        for (const solution of solutions.GetSolutions()) {
           const goals = solution
             .GetRootMap()
             .GenerateMapOfLeavesFromAllRoots(isOnlyNulls)

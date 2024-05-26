@@ -3,7 +3,7 @@ import { Happen } from './Happen'
 import { Happenings } from './Happenings'
 import { Box } from './Box'
 import { Solution } from './Solution'
-import { SolverViaRootPiece } from './SolverViaRootPiece'
+import { Solutions } from './Solutions'
 import { SpecialTypes } from './SpecialTypes'
 import { VisibleThingsMap } from './VisibleThingsMap'
 
@@ -198,7 +198,7 @@ export class Piece {
 
   public ProcessUntilCloning (
     solution: Solution,
-    solutions: SolverViaRootPiece,
+    solutions: Solutions,
     path: string
   ): boolean {
     const newPath = `${path}${this.output}/`
@@ -282,7 +282,7 @@ export class Piece {
 
   private InternalLoopOfProcessUntilCloning (
     solution: Solution,
-    solutions: SolverViaRootPiece
+    solutions: Solutions
   ): boolean {
     for (let k = 0; k < this.inputs.length; k += 1) {
       // Without this following line, any clones will attempt to re-clone themselves
@@ -307,7 +307,7 @@ export class Piece {
       if (solution.GetRootMap().Has(importHintToFind)) {
         const matchingRootPiece = solution
           .GetRootMap()
-          .GoalWordByName(importHintToFind)
+          .GoalStubByName(importHintToFind)
 
         // is it a goal? (since goal map always contains all goals)
         // solution.MarkGoalsAsContainingNullsAndMergeIfNeeded()// this is optional...

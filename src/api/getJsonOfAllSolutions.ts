@@ -5,7 +5,7 @@ import { join } from 'path'
 import { Piece } from '../puzzle/Piece'
 import { RawObjectsAndVerb } from '../puzzle/RawObjectsAndVerb'
 import { Solution } from '../puzzle/Solution'
-import { SolverViaRootPiece } from '../puzzle/SolverViaRootPiece'
+import { Solutions } from '../puzzle/Solutions'
 
 interface $INameIsAGoalChildren {
   name: string
@@ -26,20 +26,20 @@ export function getJsonOfAllSolutions (
     throw Error(`file doesn't exist ${path}${firstBoxFilename}`)
   }
 
-  const solver = new SolverViaRootPiece(path, firstBoxFilename)
+  const solutions = new Solutions(path, firstBoxFilename)
 
   for (let i = 0; i < 40; i++) {
-    solver.SolvePartiallyUntilCloning()
-    solver.MarkGoalsAsCompletedAndMergeIfNeeded()
-    const numberOfSolutions: number = solver.NumberOfSolutions()
+    solutions.SolvePartiallyUntilCloning()
+    solutions.MarkGoalsAsCompletedAndMergeIfNeeded()
+    const numberOfSolutions: number = solutions.NumberOfSolutions()
     console.warn('Dig in to goals')
     console.warn('===============')
-    console.warn(`Number of solutions in solver = ${numberOfSolutions}`)
+    console.warn(`Number of solutions in solutions = ${numberOfSolutions}`)
 
     // display list
     let incomplete = 0
     let listItemNumber = 0
-    for (const solution of solver.GetSolutions()) {
+    for (const solution of solutions.GetSolutions()) {
       console.warn(FormatText(solution.GetSolvingPath()))
       console.warn(FormatText(solution.GetRootMap().CalculateListOfKeys()))
       for (const item of solution.GetRootMap().GetValues()) {
@@ -47,7 +47,7 @@ export function getJsonOfAllSolutions (
 
         // display list item
         const status = item.IsSolved() ? 'Solved' : 'Unsolved'
-        const output = item.goalHint
+        const output = item.goalWord
         console.warn(`    ${listItemNumber}. ${output} (root = ${(item.piece != null) ? 'found' : 'null'} status=${status})`)
         incomplete += item.IsSolved() ? 0 : 1
       }
@@ -58,16 +58,16 @@ export function getJsonOfAllSolutions (
       break
     }
   }
-  const json = getJsonOfSolutionsFromSolver(solver)
+  const json = getJsonOfSolutionsFromSolver(solutions)
   return json
 }
 
 function getJsonOfSolutionsFromSolver (
-  solver: SolverViaRootPiece
+  solutions: Solutions
 ): Record<string, unknown> {
   return {
     name: 'Solutions',
-    children: getJsonArrayOfSolutions(solver.GetSolutions())
+    children: getJsonArrayOfSolutions(solutions.GetSolutions())
   }
 }
 
@@ -97,7 +97,7 @@ function getJsonArrayOfRootPieces (
   const listOfRootPieceArrays = solution.GetRootMap().GetValues()
   for (const rootPiece of listOfRootPieceArrays) {
     toReturn.push({
-      name: rootPiece.goalHint,
+      name: rootPiece.goalWord,
       isAGoalOrAuto: false,
       children: getJsonArrayOfAllSubPieces(rootPiece.piece)
     })

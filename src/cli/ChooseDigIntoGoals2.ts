@@ -1,28 +1,28 @@
 import promptSync from 'prompt-sync'
 import { FormatText } from '../puzzle/FormatText'
-import { SolverViaRootPiece } from '../puzzle/SolverViaRootPiece'
+import { Solutions } from '../puzzle/Solutions'
 import { NavigatePieceRecursive } from './NavigatePieceRecursive'
 import { AddBrackets } from '../puzzle/AddBrackets'
 const prompt = promptSync({})
 
-export function ChooseDigIntoGoals2 (solver: SolverViaRootPiece): void {
+export function ChooseDigIntoGoals2 (solutions: Solutions): void {
   console.warn(' ')
 
   for (; ;) {
-    const numberOfSolutions: number = solver.NumberOfSolutions()
+    const numberOfSolutions: number = solutions.NumberOfSolutions()
     console.warn('Dig in to goals')
     console.warn('===============')
-    console.warn(`Number of solutions in solver = ${numberOfSolutions}`)
+    console.warn(`Number of solutions in solutions = ${numberOfSolutions}`)
 
-    // solver.GenerateSolutionNamesAndPush()
+    // solutions.GenerateSolutionNamesAndPush()
     console.warn('Pick solution')
     console.warn('================')
     console.warn(`Number of solutions = ${numberOfSolutions}`)
-    if (solver.GetSolutions().length > 1) {
+    if (solutions.GetSolutions().length > 1) {
       console.warn('    0. All solutions')
     }
-    for (let i = 0; i < solver.GetSolutions().length; i++) {
-      const solution = solver.GetSolutions()[i]
+    for (let i = 0; i < solutions.GetSolutions().length; i++) {
+      const solution = solutions.GetSolutions()[i]
       let numberOfUnsolved = 0
       for (const goal of solution.GetRootMap().GetValues()) {
         numberOfUnsolved += goal.IsSolved() ? 0 : 1
@@ -45,16 +45,16 @@ export function ChooseDigIntoGoals2 (solver: SolverViaRootPiece): void {
     }
 
     if (firstInput === 'r') {
-      solver.SolvePartiallyUntilCloning()
-      solver.MarkGoalsAsCompletedAndMergeIfNeeded()
+      solutions.SolvePartiallyUntilCloning()
+      solutions.MarkGoalsAsCompletedAndMergeIfNeeded()
       continue
     } else {
       const theNumber = Number(firstInput)
-      if (theNumber < 1 || theNumber > solver.GetSolutions().length) {
+      if (theNumber < 1 || theNumber > solutions.GetSolutions().length) {
         continue
       }
       for (; ;) {
-        const solution = solver.GetSolutions()[theNumber - 1]
+        const solution = solutions.GetSolutions()[theNumber - 1]
         // list all leaves, of all solutions in order
         // TrimNonIntegratedRootPieces(solution) <-- pretty sure this did nothing
 
@@ -73,7 +73,7 @@ export function ChooseDigIntoGoals2 (solver: SolverViaRootPiece): void {
           listItemNumber++
 
           // display list item
-          const output = rootGoal.goalHint
+          const output = rootGoal.goalWord
           let inputs = ''
           if (rootGoal.piece != null) {
             for (const inputSpiel of rootGoal.piece.inputSpiels) {
@@ -99,8 +99,8 @@ export function ChooseDigIntoGoals2 (solver: SolverViaRootPiece): void {
           return
         }
         if (input === 'r') {
-          solver.SolvePartiallyUntilCloning()
-          solver.MarkGoalsAsCompletedAndMergeIfNeeded()
+          solutions.SolvePartiallyUntilCloning()
+          solutions.MarkGoalsAsCompletedAndMergeIfNeeded()
           continue
         } else {
           // show map entry for chosen item
@@ -111,9 +111,9 @@ export function ChooseDigIntoGoals2 (solver: SolverViaRootPiece): void {
               j++
               if (j === theNumber) {
                 if (goal.piece != null) {
-                  NavigatePieceRecursive(goal.piece, solution.GetRootMap(), solution)
+                  NavigatePieceRecursive(goal.piece, solution.GetRootMap(), solution.GetVisibleThingsAtTheStart())
                 } else {
-                  prompt(`${goal.goalHint} Goal.piece WAS NULL. Hit any key to continue: `)
+                  prompt(`${goal.goalWord} Goal.piece WAS NULL. Hit any key to continue: `)
                 }
               }
             }

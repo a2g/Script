@@ -1,132 +1,126 @@
 import promptSync from 'prompt-sync'
 import { FormatText } from '../puzzle/FormatText'
-import { SolverViaRootPiece } from '../puzzle/SolverViaRootPiece'
-import { RawObjectsAndVerb } from '../puzzle/RawObjectsAndVerb'
-import { Raw } from '../puzzle/Raw'
-import { ValidateSolutionForwards } from '../puzzle/ValidateSolutionForwards'
+import { AddBrackets } from '../puzzle/AddBrackets'
+import { Validators } from '../puzzle/Validators'
+import { NavigatePieceRecursive } from './NavigatePieceRecursive'
 const prompt = promptSync({})
 
-export function ChooseValidateSolution (solver: SolverViaRootPiece): void {
-  console.warn(' ')
-
-  let infoLevel = 1
+export function ChooseValidateSolution (validators: Validators): void {
   for (; ;) {
-    // 1. pre solve all the solutions!
-    for (let i = 0; i < 20; i++) {
-      solver.SolvePartiallyUntilCloning()
-      solver.MarkGoalsAsCompletedAndMergeIfNeeded()
-    }
-    solver.PerformThingsNeededAfterAllSolutionsFound()
+    const numberOfSolutions: number = validators.GetValidators().length
+    console.warn('Dig in to goals')
+    console.warn('===============')
+    console.warn(`Number of solutions in solutions = ${numberOfSolutions}`)
 
-    // 2. now validate each solution
-    const solutions = solver.GetSolutions()
-    const validatedStatus = new Array<boolean>()
-    for (const solution of solutions) {
-      const listOfAction = new Array<RawObjectsAndVerb>()
-      const isValidated = ValidateSolutionForwards(solution, solver.GetStarter(), listOfAction)
-      validatedStatus.push(isValidated)
-    }
-
+    // solutions.GenerateSolutionNamesAndPush()
     console.warn('Pick solution')
     console.warn('================')
-    console.warn(`Number of solutions = ${solutions.length}`)
-    for (let i = 0; i < solutions.length; i++) {
-      const solution = solver.GetSolutions()[i]
-      const name = FormatText(solution.GetSolvingPath())
-      const status = validatedStatus[i] ? '✓' : '✖'
+    console.warn(`Number of solutions = ${numberOfSolutions}`)
+    if (validators.GetValidators().length > 1) {
+      console.warn('    0. All solutions')
+    }
+    for (let i = 0; i < validators.GetValidators().length; i++) {
+      const validator = validators.GetValidators()[i]
+      let numberOfUnsolved = 0
+      for (const goal of validator.GetRootMap().GetValues()) {
+        numberOfUnsolved += goal.IsSolved() ? 0 : 1
+      }
+      const name = FormatText(validator.GetName())
       //  "1. XXXXXX"   <- this is the format we list the solutions
-      console.warn(`${status} ${i + 1}. ${name}`)
+      console.warn(`    ${i + 1}. ${name} number of unsolved goals=${numberOfUnsolved}`)
     }
 
     // allow user to choose item
-    const input = prompt(
-      'Choose solution (b)ack, (r)e-run: '
+    const firstInput = prompt(
+      '\nChoose an ingredient of one of the solutions or (b)ack, (r)e-run, e(x)it '
     ).toLowerCase()
 
-    if (input === null || input === 'b') {
+    if (firstInput === null || firstInput === 'b') {
+      break
+    }
+    if (firstInput === 'x') {
       return
     }
 
-    const theNumber = Number(input)
-    // list all leaves, of all solutions in order
-    const name =
-      theNumber === 0
-        ? 'all solutions'
-        : solver.GetSolutions()[theNumber - 1].GetSolvingPath()
-    console.warn(`List of Commands for ${name}`)
-    console.warn('================')
+    if (firstInput === 'r') {
+      validators.MatchLeavesAndRemoveFromGoalMap()
+      validators.UpdateGoalSolvedStatusesAndMergeIfNeeded()
+      continue
+    } else {
+      const theNumber = Number(firstInput)
+      if (theNumber < 1 || theNumber > validators.GetValidators().length) {
+        continue
+      }
+      for (; ;) {
+        const validator = validators.GetValidators()[theNumber - 1]
+        // list all leaves, of all solutions in order
+        // TrimNonIntegratedRootPieces(solution) <-- pretty sure this did nothing
 
-    let listItemNumber = 0
-    for (
-      let solutionNumber = 0;
-      solutionNumber < solver.GetSolutions().length;
-      solutionNumber++
-    ) {
-      const solution = solver.GetSolutions()[solutionNumber]
-      if (theNumber === 0 || theNumber - 1 === solutionNumber) {
-        const letter = String.fromCharCode(65 + solutionNumber)
-        const text = FormatText(solution.GetSolvingPath())
+        const text = FormatText(validator.GetName())
         const NAME_NOT_DETERMINABLE = 'name_not_determinable'
         // HACKY!
         const label =
           text.length > 8
-            ? text + '<-- yellow is unique sol name , red is constraints'
+            ? text
             : NAME_NOT_DETERMINABLE
-        console.warn(`${letter}. ${label}`)
 
-        const commands: RawObjectsAndVerb[] =
-          solution.GetOrderOfCommands()
-        for (const command of commands) {
-          // 0 is cleanest, later numbers are more detailed
-          if (command.type === Raw.Goal && infoLevel < 3) {
-            continue
-          }
+        console.warn(`${theNumber}. ${label}`)
+        let listItemNumber = 0
+        let incomplete = 0
+        for (const rootGoal of validator.GetRootMap().GetValues()) {
           listItemNumber++
-          const formattedCommand = FormatCommand(command, infoLevel)
-          console.warn(`    ${listItemNumber}. ${formattedCommand}`)
-          if (command.type === Raw.Talk) {
-            for (const speechLine of command.speechLines) {
-              listItemNumber++
-              console.warn(`    ${listItemNumber}. ${speechLine[0]}: ${speechLine[1]}`)
+
+          // display list item
+          const output = rootGoal.goalWord
+          let inputs = ''
+          if (rootGoal.piece != null) {
+            for (const inputSpiel of rootGoal.piece.inputSpiels) {
+              inputs += `${FormatText(inputSpiel)},`
+            }
+          }
+          console.warn(
+            `    ${listItemNumber}. ${FormatText(output)} ${AddBrackets(inputs)} (root = ${(rootGoal.piece != null) ? 'found' : 'null'} status=${rootGoal.IsSolved() ? 'Solved' : 'Unsolved'})`
+          )
+          incomplete += rootGoal.IsSolved() ? 0 : 1
+        }
+
+        console.warn(`Number of goals incomplete ${incomplete}/${listItemNumber}`)
+
+        // allow user to choose item
+        const input = prompt(
+          'Choose goal to dig down on or (b)ack, (r)e-run: '
+        ).toLowerCase()
+        if (input === null || input === 'b') {
+          break
+        }
+        if (input === 'x') {
+          return
+        }
+        if (input === 'r') {
+          validators.MatchLeavesAndRemoveFromGoalMap()
+          validators.UpdateGoalSolvedStatusesAndMergeIfNeeded()
+          continue
+        } else {
+          // show map entry for chosen item
+          const theNumber = Number(input)
+          if (theNumber > 0 && theNumber <= listItemNumber) {
+            let j = 0
+            for (const goal of validator.GetRootMap().GetValues()) {
+              j++
+              if (j === theNumber) {
+                j++
+                if (j === theNumber) {
+                  if (goal.piece != null) {
+                    NavigatePieceRecursive(goal.piece, validator.GetRootMap(), validator.GetVisibleThingsAtTheMoment())
+                  } else {
+                    prompt(`${goal.goalWord} Goal.piece WAS NULL. Hit any key to continue: `)
+                  }
+                }
+              }
             }
           }
         }
       }
     }
-
-    // allow user to choose item
-    const input2 = prompt('Choose a step (b)ack, (r)e-run:, debug-level(1-9) ').toLowerCase()
-    if (input2 === null || input2 === 'b') {
-      return
-    } else {
-      // show map entry for chosen item
-      const theNumber2 = Number(input2)
-      if (theNumber2 >= 1 && theNumber <= 9) {
-        infoLevel = theNumber2
-      }
-    }
   }
-}
-
-function FormatCommand (raw: RawObjectsAndVerb, infoLevel: number): string {
-  raw.PopulateSpielFields()
-  let toReturn = ''
-  switch (infoLevel) {
-    case 1:
-    case 2:
-    case 3:
-      toReturn = `${raw.mainSpiel}`
-      break
-    case 4:
-    case 5:
-    case 6:
-      toReturn = `${raw.mainSpiel}  ${raw.goalSpiel}`
-      break
-    case 7:
-    case 8:
-    case 9:
-      toReturn = `${raw.mainSpiel}  ${raw.goalSpiel} ${raw.restrictionSpiel} ${raw.typeJustForDebugging}`
-      break
-  }
-  return toReturn
 }

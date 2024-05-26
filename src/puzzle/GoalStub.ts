@@ -1,16 +1,16 @@
 import { Piece } from './Piece'
 import { RawObjectsAndVerb } from './RawObjectsAndVerb'
 import { Solution } from './Solution'
-import { SolverViaRootPiece } from './SolverViaRootPiece'
+import { Solutions } from './Solutions'
 
-export class GoalWord {
-  public goalHint: string
+export class GoalStub {
+  public goalWord: string
   public piece: Piece | null
   private isTreeOfPiecesSolved: boolean
   private readonly commandsCompletedInOrder: RawObjectsAndVerb[]
 
-  constructor (goalHint: string, commandsCompletedInOrder: RawObjectsAndVerb[], isSolved = false) {
-    this.goalHint = goalHint
+  constructor (goalWord: string, commandsCompletedInOrder: RawObjectsAndVerb[], isSolved = false) {
+    this.goalWord = goalWord
     this.isTreeOfPiecesSolved = isSolved
     this.piece = null
 
@@ -22,12 +22,12 @@ export class GoalWord {
     }
   }
 
-  public CloneIncludingLeaves (): GoalWord {
-    const newGoalWord = new GoalWord(this.goalHint, this.commandsCompletedInOrder)
+  public CloneIncludingLeaves (): GoalStub {
+    const newGoalStub = new GoalStub(this.goalWord, this.commandsCompletedInOrder)
     if (this.piece != null) {
-      newGoalWord.piece = this.piece.ClonePieceAndEntireTree()
+      newGoalStub.piece = this.piece.ClonePieceAndEntireTree()
     }
-    return newGoalWord
+    return newGoalStub
   }
 
   public IsSolved (): boolean {
@@ -49,14 +49,14 @@ export class GoalWord {
     this.commandsCompletedInOrder.push(rawObjectsAndVerb)
   }
 
-  public ProcessUntilCloning (solution: Solution, solutions: SolverViaRootPiece, path: string): boolean {
+  public ProcessUntilCloning (solution: Solution, solutions: Solutions, path: string): boolean {
     // if the goalword piece is already found, we recurse
     if (this.piece != null) {
-      return this.piece.ProcessUntilCloning(solution, solutions, path + this.goalHint + '/')
+      return this.piece.ProcessUntilCloning(solution, solutions, path + this.goalWord + '/')
     }
     // else we find the goal word piece
 
-    const setOfMatchingPieces = solution.GetPiecesThatOutputString(this.goalHint)
+    const setOfMatchingPieces = solution.GetPiecesThatOutputString(this.goalWord)
 
     if (setOfMatchingPieces.size > 0) {
       const matchingPieces = Array.from(setOfMatchingPieces)
@@ -85,17 +85,17 @@ export class GoalWord {
           solutions.GetSolutions().push(theSolution)
         }
 
-        // rediscover the current GoalWord in theSolution - again because we might be cloned
-        const theGoalWord = theSolution.GetRootMap().GetGoalWordByNameNoThrow(this.goalHint)
-        console.assert(theGoalWord != null)
-        if (theGoalWord != null) {
+        // rediscover the current GoalStub in theSolution - again because we might be cloned
+        const theGoalStub = theSolution.GetRootMap().GetGoalStubByNameNoThrow(this.goalWord)
+        console.assert(theGoalStub != null)
+        if (theGoalStub != null) {
           if (matchingPieces.length > 1) {
             // }[${i > 0 ? matchingPieces.length - i : 0}]
             const firstInput = theMatchingPiece.inputHints.length > 0 ? theMatchingPiece.inputHints[0] : 'no-hint'
             theSolution.PushSolvingPathSegment(`${firstInput}`)
           }
 
-          theGoalWord.piece = theMatchingPiece
+          theGoalStub.piece = theMatchingPiece
 
           // all pieces are incomplete when they are *just* added
           theSolution.AddToListOfEssentials(theMatchingPiece.getRestrictions())

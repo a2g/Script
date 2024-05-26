@@ -1,9 +1,9 @@
 import { expect, it } from '@jest/globals'
-import { SolverViaRootPiece } from '../../../src/puzzle/SolverViaRootPiece'
+import { Solutions } from '../../../src/puzzle/Solutions'
 
 describe('SolverViaRootPiece', () => {
   it('should convert blank', () => {
-    const s = new SolverViaRootPiece('./practice-world', '03_inside_icehouse.jsonc')
+    const s = new Solutions('./practice-world', '03_inside_icehouse.jsonc')
     expect(s).toBeDefined()
   })
 })

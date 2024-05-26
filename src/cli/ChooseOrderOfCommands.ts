@@ -1,21 +1,21 @@
 import promptSync from 'prompt-sync'
 import { FormatText } from '../puzzle/FormatText'
-import { SolverViaRootPiece } from '../puzzle/SolverViaRootPiece'
+import { Solutions } from '../puzzle/Solutions'
 import { RawObjectsAndVerb } from '../puzzle/RawObjectsAndVerb'
 import { Raw } from '../puzzle/Raw'
 const prompt = promptSync({})
 
-export function ChooseOrderOfCommands (solver: SolverViaRootPiece): void {
+export function ChooseOrderOfCommands (solutions: Solutions): void {
   console.warn(' ')
 
   let infoLevel = 1
   for (; ;) {
     for (let i = 0; i < 20; i++) {
-      solver.SolvePartiallyUntilCloning()
-      solver.MarkGoalsAsCompletedAndMergeIfNeeded()
+      solutions.SolvePartiallyUntilCloning()
+      solutions.MarkGoalsAsCompletedAndMergeIfNeeded()
     }
-    solver.PerformThingsNeededAfterAllSolutionsFound()
-    const numberOfSolutions: number = solver.NumberOfSolutions()
+    solutions.PerformThingsNeededAfterAllSolutionsFound()
+    const numberOfSolutions: number = solutions.NumberOfSolutions()
 
     console.warn('If any leaves are not resolved properly, for example')
     console.warn(' - eg items show up as not found when they should be')
@@ -33,11 +33,11 @@ export function ChooseOrderOfCommands (solver: SolverViaRootPiece): void {
     console.warn('Pick solution')
     console.warn('================')
     console.warn(`Number of solutions = ${numberOfSolutions}`)
-    if (solver.GetSolutions().length > 1) {
+    if (solutions.GetSolutions().length > 1) {
       console.warn('    0. All solutions')
     }
-    for (let i = 0; i < solver.GetSolutions().length; i++) {
-      const solution = solver.GetSolutions()[i]
+    for (let i = 0; i < solutions.GetSolutions().length; i++) {
+      const solution = solutions.GetSolutions()[i]
       const name = FormatText(solution.GetSolvingPath())
       //  "1. XXXXXX"   <- this is the format we list the solutions
       console.warn(`    ${i + 1}. ${name}`)
@@ -60,17 +60,17 @@ export function ChooseOrderOfCommands (solver: SolverViaRootPiece): void {
     const name =
       theNumber === 0
         ? 'all solutions'
-        : solver.GetSolutions()[theNumber - 1].GetSolvingPath()
+        : solutions.GetSolutions()[theNumber - 1].GetSolvingPath()
     console.warn(`List of Commands for ${name}`)
     console.warn('================')
 
     let listItemNumber = 0
     for (
       let solutionNumber = 0;
-      solutionNumber < solver.GetSolutions().length;
+      solutionNumber < solutions.GetSolutions().length;
       solutionNumber++
     ) {
-      const solution = solver.GetSolutions()[solutionNumber]
+      const solution = solutions.GetSolutions()[solutionNumber]
       if (theNumber === 0 || theNumber - 1 === solutionNumber) {
         const letter = String.fromCharCode(65 + solutionNumber)
         const text = FormatText(solution.GetSolvingPath())

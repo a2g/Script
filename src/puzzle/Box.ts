@@ -6,7 +6,7 @@ import { parse } from 'jsonc-parser'
 import { TalkFile } from './talk/TalkFile'
 import { Piece } from './Piece'
 import { IsPieceOutputtingAGoal } from './IsPieceOutputtingAGoal'
-import { GoalWordMap } from './GoalWordMap'
+import { GoalStubMap } from './GoalStubMap'
 import { Aggregates } from './Aggregates'
 
 /**
@@ -28,7 +28,7 @@ export class Box {
 
   private readonly allGoals: string[]
 
-  private readonly setOfGoalWords: Set<string>
+  private readonly setOfGoalStubs: Set<string>
 
   private readonly allInvs: string[]
 
@@ -116,7 +116,7 @@ export class Box {
     this.startingInvSet = new Set<string>()
     this.startingGoalSet = new Set<string>()
     this.startingPropSet = new Set<string>()
-    this.setOfGoalWords = new Set<string>()
+    this.setOfGoalStubs = new Set<string>()
     this.mapOfStartingThings = new VisibleThingsMap(null)
     this.piecesMappedByOutput = new Map<string, Set<Piece>>()
     this.mapOfTalks = new Map<string, TalkFile>()
@@ -252,15 +252,15 @@ export class Box {
     this.mapOfTalks.set(talkFile.GetName(), talkFile)
   }
 
-  public GetSetOfGoalWords (): Set<string> {
-    return this.setOfGoalWords
+  public GetSetOfGoalStubs (): Set<string> {
+    return this.setOfGoalStubs
   }
 
   public AddPiece (piece: Piece, folder = '', isNoFile = true, aggregates: Aggregates): void {
     if (IsPieceOutputtingAGoal(piece)) {
       const goal1 = piece.output
-      this.setOfGoalWords.add(goal1)
-      aggregates.setOfGoalWords.add(goal1)
+      this.setOfGoalStubs.add(goal1)
+      aggregates.setOfGoalStubs.add(goal1)
       // if not file exists for goal name
       // then throw an exception, unless
       //  - xwin
@@ -310,10 +310,18 @@ export class Box {
     return this.piecesMappedByOutput.values()
   }
 
-  public CopyGoalWordsToGivenGoalWordMap (destinationGoalWordMap: GoalWordMap): void {
-    for (const goalWord of this.setOfGoalWords) {
-      destinationGoalWordMap.AddGoalWord(goalWord)
+  public CopyGoalStubsToGivenGoalStubMap (destinationGoalStubMap: GoalStubMap): void {
+    for (const goalStub of this.setOfGoalStubs) {
+      destinationGoalStubMap.AddGoalStub(goalStub)
     }
+  }
+
+  public static CopyPiecesFromAtoBViaIds (a: Map<string, Set<Piece>>, b: Map<number, Piece>): void {
+    a.forEach((setOfPieces: Set<Piece>) => {
+      setOfPieces.forEach((piece: Piece) => {
+        b.set(piece.id, piece)
+      })
+    })
   }
 
   public static CopyPiecesFromAtoB (a: Map<string, Set<Piece>>, b: Map<string, Set<Piece>>): void {
@@ -322,7 +330,6 @@ export class Box {
         if (!b.has(piece.output)) {
           b.set(piece.output, new Set<Piece>())
         }
-
         b.get(piece.output)?.add(piece)
       })
     })

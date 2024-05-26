@@ -1,26 +1,26 @@
 import promptSync from 'prompt-sync'
 import { AddBrackets } from '../puzzle/AddBrackets'
 import { FormatText } from '../puzzle/FormatText'
-import { SolverViaRootPiece } from '../puzzle/SolverViaRootPiece'
+import { Solutions } from '../puzzle/Solutions'
 import { NavigatePieceRecursive } from './NavigatePieceRecursive'
 
 const prompt = promptSync({})
 
-export function ChooseDigDeprecated (solver: SolverViaRootPiece): void {
+export function ChooseDigDeprecated (solutions: Solutions): void {
   console.warn('ChooseDigIntoGoals... ')
 
   for (; ;) {
-    solver.MarkGoalsAsCompletedAndMergeIfNeeded()
-    const numberOfSolutions: number = solver.NumberOfSolutions()
+    solutions.MarkGoalsAsCompletedAndMergeIfNeeded()
+    const numberOfSolutions: number = solutions.NumberOfSolutions()
     console.warn('Dig in to goals')
     console.warn('===============')
-    console.warn(`Number of solutions in solver = ${numberOfSolutions}`)
+    console.warn(`Number of solutions in solutions = ${numberOfSolutions}`)
 
     // display list
     let incomplete = 0
     let listItemNumber = 0
     let solutionNumber = 65
-    for (const solution of solver.GetSolutions()) {
+    for (const solution of solutions.GetSolutions()) {
       // TrimNonIntegratedRootPieces(solution)
       const letter = String.fromCharCode(solutionNumber++)
       const path = FormatText(solution.GetSolvingPath())
@@ -35,7 +35,7 @@ export function ChooseDigDeprecated (solver: SolverViaRootPiece): void {
         listItemNumber++
 
         // display list item
-        const output = item.goalHint
+        const output = item.goalWord
         let inputs = ''
         if (item.piece != null) {
           for (const inputSpiel of item.piece.inputSpiels) {
@@ -61,20 +61,20 @@ export function ChooseDigDeprecated (solver: SolverViaRootPiece): void {
       continue
     }
     if (input === 'r') {
-      solver.SolvePartiallyUntilCloning()
+      solutions.SolvePartiallyUntilCloning()
       continue
     } else {
       // show map entry for chosen item
       const theNumber = Number(input)
       if (theNumber > 0 && theNumber <= listItemNumber) {
-        const solutions = solver.GetSolutions()
-        for (let i = 0; i < solutions.length; i++) {
-          const rootMap = solutions[i].GetRootMap()
+        const solutionArray = solutions.GetSolutions()
+        for (let i = 0; i < solutionArray.length; i++) {
+          const rootMap = solutionArray[i].GetRootMap()
           const goals = rootMap.GetValues()
           for (const goal of goals) {
             i++
             if (i === theNumber && (goal.piece != null)) {
-              NavigatePieceRecursive(goal.piece, rootMap, solutions[i])
+              NavigatePieceRecursive(goal.piece, rootMap, solutionArray[i].GetVisibleThingsAtTheStart())
             }
           }
         }

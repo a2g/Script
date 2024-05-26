@@ -1,7 +1,7 @@
 import { GenerateMapOfLeavesRecursively } from './GenerateMapOfLeavesRecursively'
 import { GenerateMapOfLeavesTracingGoalsRecursively } from './GenerateMapOfLeavesTraccingGoalsRecursively'
 import { Piece } from './Piece'
-import { GoalWord } from './GoalWord'
+import { GoalStub } from './GoalStub'
 /**
  * This started out simpler that PileOfPieces, because there
  * was only ever one piece that outputted a particular goal.
@@ -15,16 +15,16 @@ import { GoalWord } from './GoalWord'
  * justifiable to have the concept of RootPiece.
  *
  */
-export class GoalWordMap {
-  private readonly roots: Map<string, GoalWord>
+export class GoalStubMap {
+  private readonly roots: Map<string, GoalStub>
 
-  constructor (cloneIncludingLeaves: GoalWordMap | null) {
-    this.roots = new Map<string, GoalWord>()
+  constructor (cloneIncludingLeaves: GoalStubMap | null) {
+    this.roots = new Map<string, GoalStub>()
     if (cloneIncludingLeaves != null) {
       for (const pair of cloneIncludingLeaves.roots) {
         const key = pair[0]
-        const goalWord = pair[1]
-        this.roots.set(key, goalWord.CloneIncludingLeaves())
+        const goalStub = pair[1]
+        this.roots.set(key, goalStub.CloneIncludingLeaves())
       }
     }
   }
@@ -60,7 +60,7 @@ export class GoalWordMap {
     return leaves
   }
 
-  public GoalWordByName (name: string): GoalWord {
+  public GoalStubByName (name: string): GoalStub {
     const root = this.roots.get(name)
     if (typeof root === 'undefined' || root === null) {
       throw new Error(`rootPiece of that name doesn't exist ${name}`)
@@ -80,30 +80,30 @@ export class GoalWordMap {
     return this.roots.size
   }
 
-  public GetValues (): IterableIterator<GoalWord> {
+  public GetValues (): IterableIterator<GoalStub> {
     return this.roots.values()
   }
 
-  public CloneAllRootPiecesAndTheirTrees (): GoalWordMap {
-    return new GoalWordMap(this)
+  public CloneAllRootPiecesAndTheirTrees (): GoalStubMap {
+    return new GoalStubMap(this)
   }
 
   public Has (goalToObtain: string): boolean {
     return this.roots.has(goalToObtain)
   }
 
-  public GetGoalWordByNameNoThrow (goal: string): GoalWord | undefined {
+  public GetGoalStubByNameNoThrow (goal: string): GoalStub | undefined {
     return this.roots.get(goal)
   }
 
-  private GetWinGoalIfAny (): GoalWord | undefined {
+  private GetWinGoalIfAny (): GoalStub | undefined {
     return this.roots.get('x_win')
   }
 
-  AddGoalWord (word: string): void {
+  AddGoalStub (word: string): void {
     if (!this.roots.has(word)) {
       console.warn(`Merged goal word ${word}`)
-      this.roots.set(word, new GoalWord(word, [], false))
+      this.roots.set(word, new GoalStub(word, [], false))
     } else {
       console.warn(`Already exists: Failed to merge goal ${word}  `)
     }

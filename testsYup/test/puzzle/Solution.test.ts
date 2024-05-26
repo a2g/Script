@@ -7,13 +7,13 @@ describe('Solution', () => {
   it('Test of a none clone solution', async () => {
     const box = new Box('test/puzzle/'+'Test1First.jsonc')
 
-    const solver = new SolverViaRootPiece(box)
+    const solutions = new SolverViaRootPiece(box)
 
-    const wasCloneEncountered = solver.SolvePartiallyUntilCloning()
+    const wasCloneEncountered = solutions.SolvePartiallyUntilCloning()
 
     expect(wasCloneEncountered).to.equal(false)
-    expect(solver.NumberOfSolutions()).to.equal(1)
-    const first = solver.GetSolutions().at(0)
+    expect(solutions.NumberOfSolutions()).to.equal(1)
+    const first = solutions.GetSolutions().at(0)
     if (first != null) {
       expect(first?.AreAnyInputsNull()).to.equal(false)
     }

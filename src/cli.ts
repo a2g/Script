@@ -1,12 +1,13 @@
 import promptSync from 'prompt-sync'
-import { SolverViaRootPiece } from './puzzle/SolverViaRootPiece'
-import { ChooseDigDeprecated } from './cli/ChooseDigDeprecated'
+import { Solutions } from './puzzle/Solutions'
 import { ChooseListOfLeaves } from './cli/ChooseListOfLeaves'
 import { ChooseOrderOfCommands } from './cli/ChooseOrderOfCommands'
 import { $IStarter, getJsonOfStarters } from './api/getJsonOfStarters'
 import { ChooseDigIntoGoals2 } from './cli/ChooseDigIntoGoals2'
 import { DumpGainsFromEachTalkInFolder } from './cli/DumpGansFromEachTalkInFolder'
+import { Validators } from './puzzle/Validators'
 import { ChooseValidateSolution } from './cli/ChooseValidateSolutions'
+// import { ChooseValidateSolution } from './cli/ChooseValidateSolutions'
 
 const prompt = promptSync()
 
@@ -32,22 +33,21 @@ function main (): void {
             const starter = starters[index]
             DumpGainsFromEachTalkInFolder(starter.folder)
 
-            const solverPrimedWithCombined = new SolverViaRootPiece(starter.folder, starter.file)
+            const solutions = new Solutions(starter.folder, starter.file)
 
             console.warn(`\nSubMenu of ${starter.file}`)
             console.warn(
-              `number of pieces = ${solverPrimedWithCombined
+              `number of pieces = ${solutions
                 .GetSolutions()[0]
                 .GetNumberOfPiecesRemaining()}`
             )
             console.warn('---------------------------------------')
-            console.warn('1. Dig all boxes at once')
-            console.warn('2. Dig a box-at-a-time')
+            console.warn('1. Reverse solve all boxes mixed together')
+            console.warn('2. Forward validate a box-at-a-time')
             console.warn('3. Leaves all boxes at once.')
             console.warn('4. Leaves a box-at-a-time`')
             console.warn('5. Order of Commands in solve')
             console.warn('6. Choose Dig into goals (old)')
-            console.warn('7. Choose Validate Forwards')
             console.warn('8. Play')
 
             const choice = prompt('Choose an option (b)ack: ').toLowerCase()
@@ -56,26 +56,33 @@ function main (): void {
             }
             switch (choice) {
               case '1':
-                ChooseDigIntoGoals2(solverPrimedWithCombined)
+                ChooseDigIntoGoals2(solutions)
                 break
               case '2':
-                ChooseDigIntoGoals2(solverPrimedWithCombined)
+                {
+                  console.warn(' ')
+                  for (let i = 0; i < 200; i++) {
+                    solutions.SolvePartiallyUntilCloning()
+                    solutions.MarkGoalsAsCompletedAndMergeIfNeeded()
+                  }
+                  solutions.PerformThingsNeededAfterAllSolutionsFound()
+                  const validators = new Validators(solutions)
+                  ChooseValidateSolution(validators)
+                }
                 break
               case '3':
-                ChooseListOfLeaves(solverPrimedWithCombined)
+                ChooseListOfLeaves(solutions)
                 break
               case '4':
-                ChooseListOfLeaves(solverPrimedWithCombined)
+                ChooseListOfLeaves(solutions)
                 break
               case '5':
-                ChooseOrderOfCommands(solverPrimedWithCombined)
+                ChooseOrderOfCommands(solutions)
                 break
-              case '6':
-                ChooseDigDeprecated(solverPrimedWithCombined)
-                break
-              case '7':
-                ChooseValidateSolution(solverPrimedWithCombined)
-                break
+                // case '6':
+                // ChooseDigDeprecated(  )
+                // break
+
               default:
             }
           }
