@@ -62,6 +62,11 @@ export class Box {
     const setInvs = new Set<string>()
     const setChars = new Set<string>()
 
+    // this is a bit hacky, but we need
+    if (filenames.length === 1) {
+      this.aggregates.mapOfBoxes.set(filenames[0], this)
+    }
+
     for (const filename of filenames) {
       if (!existsSync(path + filename)) {
         throw new Error(
