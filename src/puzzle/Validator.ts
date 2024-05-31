@@ -9,6 +9,7 @@ import { VisibleThingsMap } from './VisibleThingsMap'
 import { Box } from './Box'
 import { createCommandFromAutoPiece } from './createCommandFromAutoPiece'
 import { TalkFile } from './talk/TalkFile'
+import { Validated } from './Validated'
 
 export class Validator {
   private readonly goalStubs: GoalStubMap
@@ -17,7 +18,6 @@ export class Validator {
   private readonly remainingPieces: Map<number, Piece>
   private readonly talks: Map<string, TalkFile>
   private readonly solutionName
-  private isSolved: boolean
 
   public constructor (name: string, starter: Box, goalStubMap: GoalStubMap, startingThingsPassedIn: VisibleThingsMap) {
     this.solutionName = name
@@ -25,7 +25,6 @@ export class Validator {
     this.rootPieceKeysInSolvingOrder = []
     this.remainingPieces = new Map<number, Piece>()
     this.talks = new Map<string, TalkFile>()
-    this.isSolved = false
     Box.CopyPiecesFromAtoBViaIds(starter.GetPieces(), this.remainingPieces)
     Box.CopyTalksFromAtoB(starter.GetTalkFiles(), this.talks)
 
@@ -41,10 +40,6 @@ export class Validator {
     return this.solutionName
   }
 
-  public IsUnsolved (): boolean {
-    return !this.isSolved
-  }
-
   public GetRootMap (): GoalStubMap {
     return this.goalStubs
   }
@@ -52,7 +47,7 @@ export class Validator {
   public GetVisibleThingsAtTheMoment (): VisibleThingsMap {
     return this.currentlyVisibleThings
   }
-
+  /*
   public UpdateGoalSolvedStatusesAndMergeIfNeeded (): void {
     // go through all the goal pieces
     let areAnyUnsolved = false
@@ -60,8 +55,8 @@ export class Validator {
       // if there are no places to attach pieces it will return null
       const firstMissingPiece = (goal.piece != null) ? goal.piece.ReturnTheFirstNullInputHint() : goal.goalWord
       if (firstMissingPiece === '') {
-        if (!goal.IsSolved()) {
-          goal.SetSolved()
+        if (!goal.IsZeroPieces()) {
+          goal.SetValidated(Validated.Validated)
           if (goal.piece?.boxToMerge != null) {
             this.MergeBox(goal.piece.boxToMerge)
           }
@@ -73,7 +68,7 @@ export class Validator {
     if (!areAnyUnsolved) {
       this.isSolved = true
     }
-  }
+  } */
 
   public MergeBox (boxToMerge: Box): void {
     console.warn(`Merging box ${boxToMerge.GetFilename()}          going into ${FormatText(this.solutionName)}`)
@@ -85,19 +80,22 @@ export class Validator {
     boxToMerge.CopyStartingThingCharsToGivenMap(this.currentlyVisibleThings)
   }
 
-  public MatchLeavesAndRemoveFromGoalMap (): void {
+  public DeconstructGoalsAndRecordSteps (): void {
     for (const goal of this.goalStubs.GetValues()) {
-      this.AddCommandsToReachGoalToList(goal)
+      if (goal.GetValidated() === Validated.Undecided) {
+        this.DeconstructSingleGoalAndRecordSteps(goal)
+      }
     }
   }
 
-  public AddCommandsToReachGoalToList (goalStub: GoalStub): void {
+  public DeconstructSingleGoalAndRecordSteps (goalStub: GoalStub): void {
     // push the commands
     const deconstructDoer = new DeconstructDoer(
       goalStub,
       this.currentlyVisibleThings,
       this.talks
     )
+
     let rawObjectsAndVerb: RawObjectsAndVerb | null = null
     for (let j = 0; j < 200; j += 1) {
       rawObjectsAndVerb =
@@ -116,33 +114,46 @@ export class Validator {
       }
     }
 
-    // set the goal as completed in the currently visible things
-    this.currentlyVisibleThings.Set(goalStub.goalWord, new Set<string>())
+    // So we have no more pieces in this goal - but merging will still
+    // bring in more pieces to continue deconstruction in the future
+    //
+    // But if its solved, then we mark it as validated!
+    if (deconstructDoer.IsZeroPieces()) {
+      goalStub.SetValidated(Validated.Validated)
 
-    // then write the goal we just completed
-    goalStub.PushCommand(
-      new RawObjectsAndVerb(
-        Raw.Goal,
-        `completed (${goalStub.goalWord})`,
-        '',
-        goalStub.goalWord,
-        [],
-        [],
-        ''
+      // merge if needed
+      if (goalStub.piece?.boxToMerge != null) {
+        this.MergeBox(goalStub.piece.boxToMerge)
+      }
+
+      // set the goal as completed in the currently visible things
+      this.currentlyVisibleThings.Set(goalStub.goalWord, new Set<string>())
+
+      // then write the goal we just completed
+      goalStub.PushCommand(
+        new RawObjectsAndVerb(
+          Raw.Goal,
+          `completed (${goalStub.goalWord})`,
+          '',
+          goalStub.goalWord,
+          [],
+          [],
+          ''
+        )
       )
-    )
 
-    // also tell the solution what order the goal was reached
-    this.rootPieceKeysInSolvingOrder.push(goalStub.goalWord)
+      // also tell the solution what order the goal was reached
+      this.rootPieceKeysInSolvingOrder.push(goalStub.goalWord)
 
-    // Sse if any autos depend on the newly completed goal - if so execute them
-    for (const piece of this.GetAutos()) {
-      if (
-        piece.inputHints.length === 2 &&
-        piece.inputHints[0] === goalStub.goalWord
-      ) {
-        const command = createCommandFromAutoPiece(piece)
-        goalStub.PushCommand(command)
+      // Sse if any autos depend on the newly completed goal - if so execute them
+      for (const piece of this.GetAutos()) {
+        if (
+          piece.inputHints.length === 2 &&
+          piece.inputHints[0] === goalStub.goalWord
+        ) {
+          const command = createCommandFromAutoPiece(piece)
+          goalStub.PushCommand(command)
+        }
       }
     }
   }

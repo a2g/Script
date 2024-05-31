@@ -2,6 +2,8 @@ import { GenerateMapOfLeavesRecursively } from './GenerateMapOfLeavesRecursively
 import { GenerateMapOfLeavesTracingGoalsRecursively } from './GenerateMapOfLeavesTraccingGoalsRecursively'
 import { Piece } from './Piece'
 import { GoalStub } from './GoalStub'
+import { Solved } from './Solved'
+
 /**
  * This started out simpler that PileOfPieces, because there
  * was only ever one piece that outputted a particular goal.
@@ -103,7 +105,7 @@ export class GoalStubMap {
   AddGoalStub (word: string): void {
     if (!this.roots.has(word)) {
       console.warn(`Merged goal word ${word}`)
-      this.roots.set(word, new GoalStub(word, [], false))
+      this.roots.set(word, new GoalStub(word, [], Solved.Not))
     } else {
       console.warn(`Already exists: Failed to merge goal ${word}  `)
     }

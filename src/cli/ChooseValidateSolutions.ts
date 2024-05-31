@@ -19,8 +19,9 @@ export function ChooseValidateSolution (validators: Validators): void {
     if (validators.GetValidators().length > 1) {
       console.warn('    0. All solutions')
     }
-    for (let i = 0; i < validators.GetValidators().length; i++) {
-      const validator = validators.GetValidators()[i]
+    const validatorList = validators.GetValidators()
+    for (let i = 0; i < validatorList.length; i++) {
+      const validator = validatorList[i]
       let numberOfUnsolved = 0
       for (const goal of validator.GetRootMap().GetValues()) {
         numberOfUnsolved += goal.IsSolved() ? 0 : 1
@@ -44,7 +45,6 @@ export function ChooseValidateSolution (validators: Validators): void {
 
     if (firstInput === 'r') {
       validators.MatchLeavesAndRemoveFromGoalMap()
-      validators.UpdateGoalSolvedStatusesAndMergeIfNeeded()
       continue
     } else {
       const theNumber = Number(firstInput)
@@ -78,13 +78,14 @@ export function ChooseValidateSolution (validators: Validators): void {
               inputs += `${FormatText(inputSpiel)},`
             }
           }
+          const status = rootGoal.GetValidated() as string
           console.warn(
-            `    ${listItemNumber}. ${FormatText(output)} ${AddBrackets(inputs)} (root = ${(rootGoal.piece != null) ? 'found' : 'null'} status=${rootGoal.IsSolved() ? 'Solved' : 'Unsolved'})`
+            `    ${status}${listItemNumber}. ${FormatText(output)} ${AddBrackets(inputs)} (root = ${(rootGoal.piece != null) ? 'found' : 'null'})`
           )
-          incomplete += rootGoal.IsSolved() ? 0 : 1
+          incomplete += rootGoal.IsZeroPieces() ? 0 : 1
         }
 
-        console.warn(`Number of goals incomplete ${incomplete}/${listItemNumber}`)
+        console.warn(`Number of goals back to zero ${incomplete}/${listItemNumber}`)
 
         // allow user to choose item
         const input = prompt(
@@ -98,7 +99,6 @@ export function ChooseValidateSolution (validators: Validators): void {
         }
         if (input === 'r') {
           validators.MatchLeavesAndRemoveFromGoalMap()
-          validators.UpdateGoalSolvedStatusesAndMergeIfNeeded()
           continue
         } else {
           // show map entry for chosen item

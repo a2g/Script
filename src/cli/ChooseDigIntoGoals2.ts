@@ -80,8 +80,9 @@ export function ChooseDigIntoGoals2 (solutions: Solutions): void {
               inputs += `${FormatText(inputSpiel)},`
             }
           }
+          const status = rootGoal.GetSolved() as string
           console.warn(
-            `    ${listItemNumber}. ${FormatText(output)} ${AddBrackets(inputs)} (root = ${(rootGoal.piece != null) ? 'found' : 'null'} status=${rootGoal.IsSolved() ? 'Solved' : 'Unsolved'})`
+            `    ${listItemNumber}. ${status}${FormatText(output)} ${AddBrackets(inputs)} (root = ${(rootGoal.piece != null) ? 'found' : 'null'}`
           )
           incomplete += rootGoal.IsSolved() ? 0 : 1
         }

@@ -28,17 +28,7 @@ export class Validators {
 
   public MatchLeavesAndRemoveFromGoalMap (): void {
     for (const validator of this.validators) {
-      if (validator.IsUnsolved()) {
-        validator.MatchLeavesAndRemoveFromGoalMap()
-      }
-    }
-  }
-
-  public UpdateGoalSolvedStatusesAndMergeIfNeeded (): void {
-    for (const validator of this.validators) {
-      if (validator.IsUnsolved()) {
-        validator.UpdateGoalSolvedStatusesAndMergeIfNeeded()
-      }
+      validator.DeconstructGoalsAndRecordSteps()
     }
   }
 }

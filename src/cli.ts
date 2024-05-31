@@ -42,8 +42,8 @@ function main (): void {
                 .GetNumberOfPiecesRemaining()}`
             )
             console.warn('---------------------------------------')
-            console.warn('1. Reverse solve all boxes mixed together')
-            console.warn('2. Forward validate a box-at-a-time')
+            console.warn('1. Solve backwards all boxes mixed together')
+            console.warn('2. Validate forward a box-at-a-time')
             console.warn('3. Leaves all boxes at once.')
             console.warn('4. Leaves a box-at-a-time`')
             console.warn('5. Order of Commands in solve')

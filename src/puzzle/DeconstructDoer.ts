@@ -26,6 +26,13 @@ export class DeconstructDoer {
     this.theSolutionsTalkFiles = theSolutionsTalkFiles
   }
 
+  // In the constructor above, we see that the root of copied tree is created
+  // and the first actual jigsaw piece that is attached to it is
+  // gets pushed into the zero slot of the inputs
+  public IsZeroPieces (): boolean {
+    return this.rootOfCopiedTree.inputs[0] == null
+  }
+
   public GetNextDoableCommandAndDeconstructTree (remainingPieces: Map<number, Piece>): RawObjectsAndVerb | null {
     if (this.rootOfCopiedTree.inputs[0] === null) {
       return null
@@ -45,9 +52,9 @@ export class DeconstructDoer {
       }
     }
 
-    const hasPiece = remainingPieces.has(piece.id)
-    if (hasPiece || piece.type === SpecialTypes.CompletedElsewhere || piece.type === SpecialTypes.ExistsFromBeginning || piece.type === SpecialTypes.VerifiedLeaf) {
-      if (this.isALeaf(piece) && areAllInputHintsInTheVisibleSet) {
+    if (this.isALeaf(piece) && areAllInputHintsInTheVisibleSet) {
+      const hasPiece = remainingPieces.has(piece.id)
+      if (hasPiece || piece.type === SpecialTypes.CompletedElsewhere || piece.type === SpecialTypes.ExistsFromBeginning || piece.type === SpecialTypes.VerifiedLeaf) {
         let toReturn: RawObjectsAndVerb | null = null
 
         const pathOfThis = this.GeneratePath(piece)
@@ -69,6 +76,8 @@ export class DeconstructDoer {
               piece.parent.inputs[i] = null
               if (piece.parent != null) {
                 piece.parent.inputs[i] = null
+              } else {
+                console.log('parent is null, so we\'re nearly at the root')
               }
             }
           }

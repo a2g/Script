@@ -7,6 +7,8 @@ import { VisibleThingsMap } from './VisibleThingsMap'
 import { Box } from './Box'
 import { TalkFile } from './talk/TalkFile'
 import { RawObjectsAndVerb } from './RawObjectsAndVerb'
+import { Solved } from './Solved'
+
 let globalSolutionId = 101
 /**
  * Solution needs to be cloned.
@@ -167,7 +169,7 @@ export class Solution {
       const firstMissingPiece = (goal.piece != null) ? goal.piece.ReturnTheFirstNullInputHint() : goal.goalWord
       if (firstMissingPiece === '') {
         if (!goal.IsSolved()) {
-          goal.SetSolved()
+          goal.SetSolved(Solved.Solved)
         }
       }
     }

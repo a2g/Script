@@ -2,16 +2,18 @@ import { Piece } from './Piece'
 import { RawObjectsAndVerb } from './RawObjectsAndVerb'
 import { Solution } from './Solution'
 import { Solutions } from './Solutions'
+import { Solved } from './Solved'
+import { Validated } from './Validated'
 
 export class GoalStub {
   public goalWord: string
   public piece: Piece | null
-  private isTreeOfPiecesSolved: boolean
   private readonly commandsCompletedInOrder: RawObjectsAndVerb[]
-
-  constructor (goalWord: string, commandsCompletedInOrder: RawObjectsAndVerb[], isSolved = false) {
+  private solved: Solved = Solved.Not
+  private validated: Validated = Validated.Undecided
+  constructor (goalWord: string, commandsCompletedInOrder: RawObjectsAndVerb[], status = Solved.Not) {
     this.goalWord = goalWord
-    this.isTreeOfPiecesSolved = isSolved
+    this.solved = status
     this.piece = null
 
     this.commandsCompletedInOrder = []
@@ -30,12 +32,24 @@ export class GoalStub {
     return newGoalStub
   }
 
-  public IsSolved (): boolean {
-    return this.isTreeOfPiecesSolved
+  public SetValidated (validated: Validated): void {
+    this.validated = validated
   }
 
-  public SetSolved (): void {
-    this.isTreeOfPiecesSolved = true
+  public SetSolved (solved: Solved): void {
+    this.solved = solved
+  }
+
+  public IsSolved (): boolean {
+    return this.solved !== Solved.Not
+  }
+
+  public GetValidated (): Validated {
+    return this.validated
+  }
+
+  public GetSolved (): Solved {
+    return this.solved
   }
 
   public GetCommandsCompletedInOrder (): RawObjectsAndVerb[] {
@@ -111,5 +125,9 @@ export class GoalStub {
       } // yes is incomplete
     }
     return false
+  }
+
+  IsZeroPieces (): boolean {
+    return this.piece == null
   }
 }
