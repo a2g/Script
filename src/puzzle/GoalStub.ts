@@ -127,7 +127,7 @@ export class GoalStub {
     return false
   }
 
-  IsZeroPieces (): boolean {
+  IsTreeCleared (): boolean {
     return this.piece == null
   }
 }

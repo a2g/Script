@@ -52,6 +52,7 @@ export class DeconstructDoer {
       }
     }
 
+
     if (this.isALeaf(piece) && areAllInputHintsInTheVisibleSet) {
       const hasPiece = remainingPieces.has(piece.id)
       if (hasPiece || piece.type === SpecialTypes.CompletedElsewhere || piece.type === SpecialTypes.ExistsFromBeginning || piece.type === SpecialTypes.VerifiedLeaf) {

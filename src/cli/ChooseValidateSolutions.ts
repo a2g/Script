@@ -66,7 +66,7 @@ export function ChooseValidateSolution (validators: Validators): void {
 
         console.warn(`${theNumber}. ${label}`)
         let listItemNumber = 0
-        let incomplete = 0
+        let numberOfClearedTrees = 0
         for (const rootGoal of validator.GetRootMap().GetValues()) {
           listItemNumber++
 
@@ -78,14 +78,15 @@ export function ChooseValidateSolution (validators: Validators): void {
               inputs += `${FormatText(inputSpiel)},`
             }
           }
+          const pieceCount = rootGoal.GetPieceCount()
           const status = rootGoal.GetValidated() as string
           console.warn(
-            `    ${status}${listItemNumber}. ${FormatText(output)} ${AddBrackets(inputs)} (root = ${(rootGoal.piece != null) ? 'found' : 'null'})`
+            `    ${status}${pieceCount}${listItemNumber}. ${FormatText(output)} ${AddBrackets(inputs)} (root = ${(rootGoal.piece != null) ? 'found' : 'null'})`
           )
-          incomplete += rootGoal.IsZeroPieces() ? 0 : 1
+          numberOfClearedTrees += rootGoal.IsTreeCleared() ? 0 : 1
         }
 
-        console.warn(`Number of goals back to zero ${incomplete}/${listItemNumber}`)
+        console.warn(`Number of goals back to zero ${numberOfClearedTrees}/${listItemNumber}`)
 
         // allow user to choose item
         const input = prompt(
