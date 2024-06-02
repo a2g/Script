@@ -19,14 +19,15 @@ export class Validator {
   private readonly talks: Map<string, TalkFile>
   private readonly solutionName
 
-  public constructor (name: string, starter: Box, goalStubMap: GoalStubMap, startingThingsPassedIn: VisibleThingsMap) {
+  public constructor (name: string, startingPieces: Map<string, Set<Piece>>, startingTalkFiles: Map<string, TalkFile>, goalStubMap: GoalStubMap, startingThingsPassedIn: VisibleThingsMap) {
     this.solutionName = name
     this.goalStubs = new GoalStubMap(goalStubMap)
+    this.goalStubs.CalculateInitialCounts()
     this.rootPieceKeysInSolvingOrder = []
     this.remainingPieces = new Map<number, Piece>()
     this.talks = new Map<string, TalkFile>()
-    Box.CopyPiecesFromAtoBViaIds(starter.GetPieces(), this.remainingPieces)
-    Box.CopyTalksFromAtoB(starter.GetTalkFiles(), this.talks)
+    Box.CopyPiecesFromAtoBViaIds(startingPieces, this.remainingPieces)
+    Box.CopyTalksFromAtoB(startingTalkFiles, this.talks)
 
     this.currentlyVisibleThings = new VisibleThingsMap(null)
     if (startingThingsPassedIn != null) {
@@ -75,9 +76,12 @@ export class Validator {
 
     Box.CopyPiecesFromAtoBViaIds(boxToMerge.GetPieces(), this.remainingPieces)
     Box.CopyTalksFromAtoB(boxToMerge.GetTalkFiles(), this.talks)
-    boxToMerge.CopyGoalStubsToGivenGoalStubMap(this.goalStubs)
-    // boxToMerge.CopyStartingThingCharsToGivenMap(this.startingThings)
     boxToMerge.CopyStartingThingCharsToGivenMap(this.currentlyVisibleThings)
+    // I don't think we copy the goal stubs to the stub map ..do we
+    // because even though the root goal piece  might not be found later
+    // on, we still should be able to place its leaf nodes earliy
+    // boxToMerge.CopyGoalStubsToGivenGoalStubMap(this.goalStubs)
+    // boxToMerge.CopyStartingThingCharsToGivenMap(this.startingThings)
   }
 
   public DeconstructGoalsAndRecordSteps (): void {
@@ -122,20 +126,21 @@ export class Validator {
       goalStub.SetValidated(Validated.Validated)
 
       // merge if needed
-      if (goalStub.piece?.boxToMerge != null) {
-        this.MergeBox(goalStub.piece.boxToMerge)
+      const goalStubPiece = goalStub.GetPiece()
+      if (goalStubPiece?.boxToMerge != null) {
+        this.MergeBox(goalStubPiece.boxToMerge)
       }
 
       // set the goal as completed in the currently visible things
-      this.currentlyVisibleThings.Set(goalStub.goalWord, new Set<string>())
+      this.currentlyVisibleThings.Set(goalStub.GetGoalWord(), new Set<string>())
 
       // then write the goal we just completed
       goalStub.PushCommand(
         new RawObjectsAndVerb(
           Raw.Goal,
-          `completed (${goalStub.goalWord})`,
+          `completed (${goalStub.GetGoalWord()})`,
           '',
-          goalStub.goalWord,
+          goalStub.GetGoalWord(),
           [],
           [],
           ''
@@ -143,13 +148,13 @@ export class Validator {
       )
 
       // also tell the solution what order the goal was reached
-      this.rootPieceKeysInSolvingOrder.push(goalStub.goalWord)
+      this.rootPieceKeysInSolvingOrder.push(goalStub.GetGoalWord())
 
       // Sse if any autos depend on the newly completed goal - if so execute them
       for (const piece of this.GetAutos()) {
         if (
           piece.inputHints.length === 2 &&
-          piece.inputHints[0] === goalStub.goalWord
+          piece.inputHints[0] === goalStub.GetGoalWord()
         ) {
           const command = createCommandFromAutoPiece(piece)
           goalStub.PushCommand(command)
@@ -177,5 +182,13 @@ export class Validator {
       toReturn.splice(at, 0, ...goalPiece.GetCommandsCompletedInOrder())
     }
     return toReturn
+  }
+
+  public GetCountRecursively (): number {
+    let count = 0
+    for (const goalWord of this.goalStubs.GetValues()) {
+      count += goalWord.GetCountRecursively()
+    }
+    return count
   }
 }

@@ -41,14 +41,15 @@ export function getJsonOfAllSolutions (
     let listItemNumber = 0
     for (const solution of solutions.GetSolutions()) {
       console.warn(FormatText(solution.GetSolvingPath()))
-      console.warn(FormatText(solution.GetRootMap().CalculateListOfKeys()))
-      for (const item of solution.GetRootMap().GetValues()) {
+      console.warn(FormatText(solution.GetGoalStubMap().CalculateListOfKeys()))
+      for (const item of solution.GetGoalStubMap().GetValues()) {
         listItemNumber++
 
         // display list item
         const status = item.IsSolved() ? 'Solved' : 'Unsolved'
-        const output = item.goalWord
-        console.warn(`    ${listItemNumber}. ${output} (root = ${(item.piece != null) ? 'found' : 'null'} status=${status})`)
+        const output = item.GetGoalWord()
+        const piece = item.GetPiece()
+        console.warn(`    ${listItemNumber}. ${output} (root = ${(piece != null) ? 'found' : 'null'} status=${status})`)
         incomplete += item.IsSolved() ? 0 : 1
       }
     }
@@ -94,12 +95,12 @@ function getJsonArrayOfRootPieces (
   const toReturn = new Array<Record<string, unknown>>()
 
   // first we push this
-  const listOfRootPieceArrays = solution.GetRootMap().GetValues()
+  const listOfRootPieceArrays = solution.GetGoalStubMap().GetValues()
   for (const rootPiece of listOfRootPieceArrays) {
     toReturn.push({
-      name: rootPiece.goalWord,
+      name: rootPiece.GetGoalWord(),
       isAGoalOrAuto: false,
-      children: getJsonArrayOfAllSubPieces(rootPiece.piece)
+      children: getJsonArrayOfAllSubPieces(rootPiece.GetPiece())
     })
   }
 

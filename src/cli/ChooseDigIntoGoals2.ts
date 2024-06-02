@@ -24,7 +24,7 @@ export function ChooseDigIntoGoals2 (solutions: Solutions): void {
     for (let i = 0; i < solutions.GetSolutions().length; i++) {
       const solution = solutions.GetSolutions()[i]
       let numberOfUnsolved = 0
-      for (const goal of solution.GetRootMap().GetValues()) {
+      for (const goal of solution.GetGoalStubMap().GetValues()) {
         numberOfUnsolved += goal.IsSolved() ? 0 : 1
       }
       const name = FormatText(solution.GetSolvingPath())
@@ -69,23 +69,26 @@ export function ChooseDigIntoGoals2 (solutions: Solutions): void {
         console.warn(`${theNumber}. ${label}`)
         let listItemNumber = 0
         let incomplete = 0
-        for (const rootGoal of solution.GetRootMap().GetValues()) {
+        for (const rootGoal of solution.GetGoalStubMap().GetValues()) {
           listItemNumber++
 
           // display list item
-          const output = rootGoal.goalWord
+          const output = rootGoal.GetGoalWord()
+          const theGoalPiece = rootGoal.GetPiece()
           let inputs = ''
-          if (rootGoal.piece != null) {
-            for (const inputSpiel of rootGoal.piece.inputSpiels) {
+          if (theGoalPiece != null) {
+            for (const inputSpiel of theGoalPiece.inputSpiels) {
               inputs += `${FormatText(inputSpiel)},`
             }
           }
           const status = rootGoal.GetSolved() as string
           console.warn(
-            `    ${listItemNumber}. ${status}${FormatText(output)} ${AddBrackets(inputs)} (root = ${(rootGoal.piece != null) ? 'found' : 'null'}`
+            `    ${listItemNumber}. ${status}${FormatText(output)} ${AddBrackets(inputs)} (root = ${(rootGoal.GetPiece() != null) ? 'found' : 'null'}`
           )
           incomplete += rootGoal.IsSolved() ? 0 : 1
         }
+
+        console.warn(`Remaining Pieces: ${solution.GetNumberOfPiecesRemaining()}`)
 
         console.warn(`Number of goals incomplete ${incomplete}/${listItemNumber}`)
 
@@ -108,13 +111,14 @@ export function ChooseDigIntoGoals2 (solutions: Solutions): void {
           const theNumber = Number(input)
           if (theNumber > 0 && theNumber <= listItemNumber) {
             let j = 0
-            for (const goal of solution.GetRootMap().GetValues()) {
+            for (const goal of solution.GetGoalStubMap().GetValues()) {
               j++
               if (j === theNumber) {
-                if (goal.piece != null) {
-                  NavigatePieceRecursive(goal.piece, solution.GetRootMap(), solution.GetVisibleThingsAtTheStart())
+                const theGoalPiece = goal.GetPiece()
+                if (theGoalPiece != null) {
+                  NavigatePieceRecursive(theGoalPiece, solution.GetGoalStubMap(), solution.GetVisibleThingsAtTheStart())
                 } else {
-                  prompt(`${goal.goalWord} Goal.piece WAS NULL. Hit any key to continue: `)
+                  prompt(`${goal.GetGoalWord()} Goal.piece WAS NULL. Hit any key to continue: `)
                 }
               }
             }

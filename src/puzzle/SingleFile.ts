@@ -14,6 +14,7 @@ import { AlleviateBrackets } from './AlleviateBrackets'
 import { GetNextId } from './talk/GetNextId'
 import { TalkFile } from './talk/TalkFile'
 import { Aggregates } from './Aggregates'
+import { AddPiece } from './AddPiece'
 
 function makeGoalNameDeterministically (partA: string, partB: string): string {
   return `x_gen_${partA}_${partB}_goal`
@@ -38,19 +39,21 @@ export class SingleFile {
     this.aggregates = aggregates
   }
 
-  public copyAllPiecesToContainer (
-    piecesMappedByOutput: Box
+  public copyAllPiecesToContainers (
+    piecesMappedByOutput: Map<string, Set<Piece>>,
+    setOfGoalWords: Set<string>,
+    mapOfTalks: Map<string, TalkFile>
   ): void {
-    this.copyPiecesToContainer(piecesMappedByOutput)
+    this.copyPiecesToContainer(piecesMappedByOutput, setOfGoalWords, mapOfTalks)
   }
 
   private copyPiecesToContainer (
-    piecesMappedByOutput: Box
+    piecesMappedByOutput: Map<string, Set<Piece>>,
+    setOfGoalWords: Set<string>,
+    mapOfTalks: Map<string, TalkFile>
   ): void {
     const isCopyRootPiecesOnly = false
     for (const piece of this.scenario.pieces) {
-      const id1 = GetNextId()
-
       const pieceType: string = piece.piece
       let count = 1
       if (piece.count !== undefined) {
@@ -144,13 +147,13 @@ export class SingleFile {
           break
         case _.TALK1_GENERATED_PIECE_PLACEHOLDER:
           {
-            const talk = new TalkFile(talk1 + '.jsonc', this.path, this.aggregates)
-            piecesMappedByOutput.AddTalkFile(talk)
+            const talkFile = new TalkFile(talk1 + '.jsonc', this.path, this.aggregates)
+            mapOfTalks.set(talkFile.GetName(), talkFile)
             const blankMap = new Map<string, string>()
             // talk1 is a subclass of a prop: it represents the character that
             // you interact with and can be visible and invisible - just like a prop
             // To talk to a prop it needs to be visible, so we add talk1 as a requisite
-            talk.FindAndAddPiecesRecursively('starter', '', [talk1], blankMap, piecesMappedByOutput)
+            talkFile.FindAndAddPiecesRecursively('starter', '', [talk1], blankMap, piecesMappedByOutput, setOfGoalWords)
           }
           break
         case _.EXAMINE_PROP1_YIELDS_INV1:
@@ -292,9 +295,9 @@ export class SingleFile {
             const inputA1 = inv1
             const inputB1 = prop1
             const output1 = newGoal
-            piecesMappedByOutput.AddPiece(
+            AddPiece(
               new Piece(
-                id1,
+                GetNextId(),
                 null,
                 output1,
                 _.GOAL1_MET_BY_USING_INV1_WITH_PROP1,
@@ -307,6 +310,8 @@ export class SingleFile {
               ),
               this.path,
               true, // there's no file, its dynamic,
+              piecesMappedByOutput,
+              setOfGoalWords,
               this.aggregates
             )
 
@@ -317,9 +322,9 @@ export class SingleFile {
               )
               const inputA2 = newGoal
               const output2 = inv2
-              piecesMappedByOutput.AddPiece(
+              AddPiece(
                 new Piece(
-                  id1,
+                  GetNextId(),
                   null,
                   output2,
                   _.AUTO_INV1_BECOMES_INV2_VIA_GOAL1,
@@ -331,6 +336,8 @@ export class SingleFile {
                 ),
                 this.path,
                 true, // there's no file, its dynamic
+                piecesMappedByOutput,
+                setOfGoalWords,
                 this.aggregates
               )
               const happs3 = new Happenings()
@@ -340,9 +347,9 @@ export class SingleFile {
               const inputA3 = newGoal
               const inputB3 = prop1
               const output3 = prop2
-              piecesMappedByOutput.AddPiece(
+              AddPiece(
                 new Piece(
-                  id1,
+                  GetNextId(),
                   null,
                   output3,
                   _.AUTO_PROP1_BECOMES_PROP2_VIA_GOAL1,
@@ -355,6 +362,8 @@ export class SingleFile {
                 ),
                 this.path,
                 true, // there's no file, its dynamic,
+                piecesMappedByOutput,
+                setOfGoalWords,
                 this.aggregates
               )
             }
@@ -510,9 +519,9 @@ export class SingleFile {
             const inputA1 = inv2
             const inputB1 = prop1
             const output1 = newGoal
-            piecesMappedByOutput.AddPiece(
+            AddPiece(
               new Piece(
-                id1,
+                GetNextId(),
                 null,
                 output1,
                 _.GOAL1_MET_BY_USING_INV1_WITH_PROP1,
@@ -525,6 +534,8 @@ export class SingleFile {
               ),
               this.path,
               true, // there's no file, its dynamic
+              piecesMappedByOutput,
+              setOfGoalWords,
               this.aggregates
             )
 
@@ -534,9 +545,9 @@ export class SingleFile {
               happs2.array.push(new Happening(Happen.InvGoes, inv2))
               const inputA2 = newGoal
               const output2 = inv1
-              piecesMappedByOutput.AddPiece(
+              AddPiece(
                 new Piece(
-                  id1,
+                  GetNextId(),
                   null,
                   output2,
                   _.AUTO_INV1_OBTAINED_VIA_GOAL1,
@@ -548,6 +559,8 @@ export class SingleFile {
                 ),
                 this.path,
                 true, // there's no file, its dynamic
+                piecesMappedByOutput,
+                setOfGoalWords,
                 this.aggregates
               )
               const happs3 = new Happenings()
@@ -556,9 +569,9 @@ export class SingleFile {
               const inputA3 = newGoal
               const inputB3 = prop1
               const output3 = prop2
-              piecesMappedByOutput.AddPiece(
+              AddPiece(
                 new Piece(
-                  id1,
+                  GetNextId(),
                   null,
                   output3,
                   _.AUTO_PROP1_BECOMES_PROP2_VIA_GOAL1,
@@ -571,6 +584,8 @@ export class SingleFile {
                 ),
                 this.path,
                 true, // there's no file, its dynamic
+                piecesMappedByOutput,
+                setOfGoalWords,
                 this.aggregates
               )
             }
@@ -776,9 +791,9 @@ export class SingleFile {
           )
           return
       } // end switch
-      piecesMappedByOutput.AddPiece(
+      AddPiece(
         new Piece(
-          id1,
+          GetNextId(),
           boxToMerge,
           output,
           pieceType,
@@ -795,6 +810,8 @@ export class SingleFile {
         ),
         this.path,
         isNoFile, // defer to variable at end of file
+        piecesMappedByOutput,
+        setOfGoalWords,
         this.aggregates
       )
     }

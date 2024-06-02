@@ -9,8 +9,9 @@ export function NavigatePieceRecursive (
   rootPieceMap: GoalStubMap, visibleThings: VisibleThingsMap
 ): void {
   for (; ;) {
+    const id = piece.id
     const output: string = piece.spielOutput
-    console.warn(`output: ${output}`)
+    console.warn(`output: ${output} id: ${id}`)
     const targets = new Array<Piece | null>()
     for (let i = 0; i < piece.inputs.length; i++) {
       targets.push(piece.inputs[i])

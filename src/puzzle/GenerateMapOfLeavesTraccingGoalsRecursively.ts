@@ -34,10 +34,11 @@ export function GenerateMapOfLeavesTracingGoalsRecursively (
       case SpecialTypes.CompletedElsewhere: {
         const goalStub = rootPieceMap.GoalStubByName(piece.inputHints[i])
         // Generating name ran may have to multiple with same name');
-        if (goalStub.piece != null) {
+        const goalStubPiece = goalStub.GetPiece()
+        if (goalStubPiece != null) {
           GenerateMapOfLeavesTracingGoalsRecursively(
-            goalStub.piece,
-            goalStub.piece.GetOutput(),
+            goalStubPiece,
+            goalStubPiece.GetOutput(),
             map,
             rootPieceMap
           )

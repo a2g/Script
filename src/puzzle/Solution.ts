@@ -143,9 +143,10 @@ export class Solution {
   }
 
   public FindAnyPieceMatchingIdRecursively (id: number): Piece | null {
-    for (const goal of this.goalStubs.GetValues()) {
-      if (goal.piece != null) {
-        const result = goal.piece.FindAnyPieceMatchingIdRecursively(id)
+    for (const goalStub of this.goalStubs.GetValues()) {
+      const piece = goalStub.GetPiece()
+      if (piece != null) {
+        const result = piece.FindAnyPieceMatchingIdRecursively(id)
         if (result != null) {
           return result
         }
@@ -154,7 +155,7 @@ export class Solution {
     return null
   }
 
-  public GetRootMap (): GoalStubMap {
+  public GetGoalStubMap (): GoalStubMap {
     return this.goalStubs
   }
 
@@ -164,12 +165,13 @@ export class Solution {
 
   public UpdateGoalSolvedStatuses (): void {
     // go through all the goal pieces
-    for (const goal of this.goalStubs.GetValues()) {
+    for (const goalStub of this.goalStubs.GetValues()) {
       // if there are no places to attach pieces it will return null
-      const firstMissingPiece = (goal.piece != null) ? goal.piece.ReturnTheFirstNullInputHint() : goal.goalWord
+      const piece = goalStub.GetPiece()
+      const firstMissingPiece = (piece != null) ? piece.ReturnTheFirstNullInputHint() : goalStub.GetGoalWord()
       if (firstMissingPiece === '') {
-        if (!goal.IsSolved()) {
-          goal.SetSolved(Solved.Solved)
+        if (!goalStub.IsSolved()) {
+          goalStub.SetSolved(Solved.Solved)
         }
       }
     }

@@ -41,8 +41,9 @@ export class GoalStubMap {
   ): Map<string, Piece> {
     const leaves = new Map<string, Piece>()
     for (const root of this.GetValues()) {
-      if (root.piece != null) {
-        GenerateMapOfLeavesRecursively(root.piece, '', isOnlyNulls, leaves)
+      const piece = root.GetPiece()
+      if (piece != null) {
+        GenerateMapOfLeavesRecursively(piece, '', isOnlyNulls, leaves)
       }
     }
     return leaves
@@ -51,9 +52,10 @@ export class GoalStubMap {
   public GenerateMapOfLeavesFromWinGoal (): Map<string, Piece> {
     const leaves = new Map<string, Piece>()
     const winGoal = this.GetWinGoalIfAny()
-    if (winGoal?.piece != null) {
+    const piece = winGoal?.GetPiece()
+    if (piece != null) {
       GenerateMapOfLeavesTracingGoalsRecursively(
-        winGoal.piece,
+        piece,
         'x_win',
         leaves,
         this
@@ -108,6 +110,14 @@ export class GoalStubMap {
       this.roots.set(word, new GoalStub(word, [], Solved.Not))
     } else {
       console.warn(`Already exists: Failed to merge goal ${word}  `)
+    }
+  }
+
+  public CalculateInitialCounts (): void {
+    for (const root of this.GetValues()) {
+      if (root != null) {
+        root.CalculateOriginalPieceCount()
+      }
     }
   }
 }

@@ -31,14 +31,15 @@ export function ChooseDigDeprecated (solutions: Solutions): void {
           ? path + '<-- path'
           : NAME_NOT_DETERMINABLE
       console.warn(`${letter}. ${label}}`)
-      for (const item of solution.GetRootMap().GetValues()) {
+      for (const item of solution.GetGoalStubMap().GetValues()) {
         listItemNumber++
 
         // display list item
-        const output = item.goalWord
+        const output = item.GetGoalWord()
+        const piece = item.GetPiece()
         let inputs = ''
-        if (item.piece != null) {
-          for (const inputSpiel of item.piece.inputSpiels) {
+        if (piece != null) {
+          for (const inputSpiel of piece.inputSpiels) {
             inputs += `${FormatText(inputSpiel)},`
           }
         }
@@ -69,12 +70,13 @@ export function ChooseDigDeprecated (solutions: Solutions): void {
       if (theNumber > 0 && theNumber <= listItemNumber) {
         const solutionArray = solutions.GetSolutions()
         for (let i = 0; i < solutionArray.length; i++) {
-          const rootMap = solutionArray[i].GetRootMap()
+          const rootMap = solutionArray[i].GetGoalStubMap()
           const goals = rootMap.GetValues()
           for (const goal of goals) {
             i++
-            if (i === theNumber && (goal.piece != null)) {
-              NavigatePieceRecursive(goal.piece, rootMap, solutionArray[i].GetVisibleThingsAtTheStart())
+            const theGoalPiece = goal.GetPiece()
+            if (i === theNumber && (theGoalPiece != null)) {
+              NavigatePieceRecursive(theGoalPiece, rootMap, solutionArray[i].GetVisibleThingsAtTheStart())
             }
           }
         }

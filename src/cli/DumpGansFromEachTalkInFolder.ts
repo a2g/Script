@@ -1,8 +1,8 @@
 import { join } from 'path'
 import * as fs from 'fs'
 import { TalkFile } from '../puzzle/talk/TalkFile'
-import { SimplePile } from '../puzzle/SimplePile'
 import { Aggregates } from '../puzzle/Aggregates'
+import { Piece } from '../puzzle/Piece'
 
 export function DumpGainsFromEachTalkInFolder (folder: string): void {
   const cwd = process.cwd()
@@ -15,19 +15,22 @@ export function DumpGainsFromEachTalkInFolder (folder: string): void {
     if (file.startsWith('talks') && file.endsWith('.jsonc')) {
       const aggregates = new Aggregates()
       const talkFile = new TalkFile(file, folder, aggregates)
-      const pile = new SimplePile()
+      const pile = new Map<string, Set<Piece>>()
+      const goalWords = new Set<string>()
       const mapOGainsByPage = new Map<string, string>()
       console.warn('')
       console.warn(`${file}`)
       console.warn('===========================')
-      talkFile.FindAndAddPiecesRecursively('starter', '', [], mapOGainsByPage, pile)
+      talkFile.FindAndAddPiecesRecursively('starter', '', [], mapOGainsByPage, pile, goalWords)
 
-      for (const piece of pile.array) {
-        let pieceString = `out: ${piece.output}`
-        for (const input of piece.inputHints) {
-          pieceString += ` in: ${input}`
+      for (const set of pile.values()) {
+        for (const piece of set) {
+          let pieceString = `out: ${piece.output}`
+          for (const input of piece.inputHints) {
+            pieceString += ` in: ${input}`
+          }
+          console.warn(pieceString)
         }
-        console.warn(pieceString)
       }
     }
     process.chdir(cwd)

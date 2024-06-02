@@ -5,7 +5,6 @@ import { VisibleThingsMap } from './VisibleThingsMap'
 import { parse } from 'jsonc-parser'
 import { TalkFile } from './talk/TalkFile'
 import { Piece } from './Piece'
-import { IsPieceOutputtingAGoal } from './IsPieceOutputtingAGoal'
 import { GoalStubMap } from './GoalStubMap'
 import { Aggregates } from './Aggregates'
 
@@ -28,7 +27,7 @@ export class Box {
 
   private readonly allGoals: string[]
 
-  private readonly setOfGoalStubs: Set<string>
+  private readonly goalWordSet: Set<string>
 
   private readonly allInvs: string[]
 
@@ -40,22 +39,29 @@ export class Box {
 
   private readonly startingPropSet: Set<string>
 
-  private readonly startingGoalSet: Set<string>
+  private readonly startingGoalWordSet: Set<string>
 
   private readonly filename: string
 
   private readonly path: string
 
-  private readonly piecesMappedByOutput: Map<string, Set<Piece>>
+  private readonly pieces: Map<string, Set<Piece>>
 
-  private readonly mapOfTalks: Map<string, TalkFile>
+  private readonly talkFiles: Map<string, TalkFile>
+
   private readonly aggregates: Aggregates
+  private readonly startingMapOfAllStartingThings: VisibleThingsMap
+  private readonly startingPieces: Map<string, Set<Piece>>
+  private readonly startingTalkFiles: Map<string, TalkFile>
 
-  constructor (path: string, filenames: string[], aggregates?: Aggregates) {
-    this.aggregates = (aggregates != null) ? aggregates : new Aggregates()
+  constructor (path: string, filenames: string[]) {
+    this.aggregates = new Aggregates()
     this.path = path
-    this.mapOfTalks = new Map<string, TalkFile>()
+    this.talkFiles = new Map<string, TalkFile>()
     this.filename = filenames[0]
+    this.startingMapOfAllStartingThings = new VisibleThingsMap(null)
+    this.startingPieces = new Map<string, Set<Piece>>()
+    this.startingTalkFiles = new Map<string, TalkFile>()
 
     const setProps = new Set<string>()
     const setGoals = new Set<string>()
@@ -119,14 +125,15 @@ export class Box {
     this.allChars = Array.from(setChars.values())
     /* preen starting invs from the startingThings */
     this.startingInvSet = new Set<string>()
-    this.startingGoalSet = new Set<string>()
+    this.startingGoalWordSet = new Set<string>()
     this.startingPropSet = new Set<string>()
-    this.setOfGoalStubs = new Set<string>()
+    this.goalWordSet = new Set<string>()
     this.mapOfStartingThings = new VisibleThingsMap(null)
-    this.piecesMappedByOutput = new Map<string, Set<Piece>>()
-    this.mapOfTalks = new Map<string, TalkFile>()
+    this.pieces = new Map<string, Set<Piece>>()
+    this.talkFiles = new Map<string, TalkFile>()
 
-    for (const filename of filenames) {
+    for (let i = 0; i < filenames.length; i++) {
+      const filename = filenames[i]
       if (!existsSync(path + filename)) {
         throw new Error(
           `file doesn't exist ${process.cwd()} ${path}${filename} `
@@ -137,7 +144,15 @@ export class Box {
 
       /* collect all the goals and pieces file */
       const singleFile = new SingleFile(this.path, filename, this.aggregates)
-      singleFile.copyAllPiecesToContainer(this)
+
+      if (i !== 0) {
+        singleFile.copyAllPiecesToContainers(this.pieces, this.goalWordSet, this.talkFiles)
+      } else {
+        singleFile.copyAllPiecesToContainers(this.startingPieces, this.startingGoalWordSet, this.startingTalkFiles)
+        Box.CopyPiecesFromAtoB(this.startingPieces, this.pieces)
+        this.startingGoalWordSet.forEach(x => this.goalWordSet.add(x))
+        Box.CopyTalksFromAtoB(this.startingTalkFiles, this.talkFiles)
+      }
 
       /* starting things is optional in the json */
       if (
@@ -150,7 +165,7 @@ export class Box {
             this.startingInvSet.add(theThing)
           }
           if (theThing.startsWith('goal')) {
-            this.startingGoalSet.add(theThing)
+            this.startingGoalWordSet.add(theThing)
           }
           if (theThing.startsWith('prop')) {
             this.startingPropSet.add(theThing)
@@ -200,7 +215,7 @@ export class Box {
 
   public GetArrayOfInitialStatesOfGoals (): number[] {
     /* construct array of booleans in exact same order as ArrayOfProps - so they can be correlated */
-    const startingSet = this.startingGoalSet
+    const startingSet = this.startingGoalWordSet
     const initialStates: number[] = []
     for (const goal of this.allGoals) {
       const isNonZero = startingSet.has(goal)
@@ -254,69 +269,19 @@ export class Box {
   }
 
   public AddTalkFile (talkFile: TalkFile): void {
-    this.mapOfTalks.set(talkFile.GetName(), talkFile)
+    this.talkFiles.set(talkFile.GetName(), talkFile)
   }
 
   public GetSetOfGoalStubs (): Set<string> {
-    return this.setOfGoalStubs
-  }
-
-  public AddPiece (piece: Piece, folder = '', isNoFile = true, aggregates: Aggregates): void {
-    if (IsPieceOutputtingAGoal(piece)) {
-      const goal1 = piece.output
-      this.setOfGoalStubs.add(goal1)
-      aggregates.setOfGoalStubs.add(goal1)
-      // if not file exists for goal name
-      // then throw an exception, unless
-      //  - xwin
-      //  - isNoFile flag ==true
-      // this will force addressing whether
-      // the problem is due to renaming <-- commonly is!
-      // or if it doesn't need one then
-      // we force to add isNoFile
-      //
-      // if we only added a file if it existed
-      // then the error would be hidden and
-      // would be subtle to discover
-      if (goal1 !== 'x_win' && !isNoFile) {
-        const file = `${goal1}.jsonc`
-        if (!existsSync(folder + file)) {
-          throw new Error(
-            `Ensure "isNoFile" needs to be marked for goal ${goal1} of ${piece.type} in ${goal1}, because the following file doesn't exist ${folder}`
-          )
-        }
-
-        let box = aggregates.mapOfBoxes.get(file)
-        if (box == null) {
-          /* this map not only collects all the boxes */
-          /* but prevents two pieces that output same goal from */
-          /* processing the same file */
-          box = new Box(folder, [file], this.aggregates)
-          aggregates.mapOfBoxes.set(file, box)
-        }
-        piece.boxToMerge = box
-      }
-    }
-
-    // initialize array, if it hasn't yet been
-    if (!this.piecesMappedByOutput.has(piece.output)) {
-      this.piecesMappedByOutput.set(piece.output, new Set<Piece>())
-    }
-    this.piecesMappedByOutput.get(piece.output)?.add(piece)
-
-    // do the same again with aggregates
-    if (!aggregates.piecesMapped.has(piece.output)) {
-      aggregates.piecesMapped.set(piece.output, new Set<Piece>())
-    }
-    aggregates.piecesMapped.get(piece.output)?.add(piece)
+    return this.goalWordSet
   }
 
   public GetPieceIterator (): IterableIterator<Set<Piece>> {
-    return this.piecesMappedByOutput.values()
+    return this.pieces.values()
   }
 
   public CopyGoalStubsToGivenGoalStubMap (destinationGoalStubMap: GoalStubMap): void {
-    for (const goalStub of this.setOfGoalStubs) {
+    for (const goalStub of this.goalWordSet) {
       destinationGoalStubMap.AddGoalStub(goalStub)
     }
   }
@@ -347,15 +312,15 @@ export class Box {
   }
 
   GetTalkFiles (): Map<string, TalkFile> {
-    return this.mapOfTalks
+    return this.talkFiles
   }
 
   public Get (givenOutput: string): Set<Piece> | undefined {
-    return this.piecesMappedByOutput.get(givenOutput)
+    return this.pieces.get(givenOutput)
   }
 
   public GetPieces (): Map<string, Set<Piece>> {
-    return this.piecesMappedByOutput
+    return this.pieces
   }
 
   public GetStartingThingsForCharacter (charName: string): Set<string> {
@@ -371,7 +336,19 @@ export class Box {
     return startingThingSet
   }
 
-  getAggregates (): Aggregates {
+  GetAggregates (): Aggregates {
     return this.aggregates
+  }
+
+  GetStartersMapOfAllStartingThings (): VisibleThingsMap {
+    return this.startingMapOfAllStartingThings
+  }
+
+  GetStartingPieces (): Map<string, Set<Piece>> {
+    return this.startingPieces
+  }
+
+  GetStartingTalkFiles (): Map<string, TalkFile> {
+    return this.startingTalkFiles
   }
 }

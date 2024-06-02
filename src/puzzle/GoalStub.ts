@@ -1,20 +1,22 @@
 import { Piece } from './Piece'
+import { PieceBase } from './PieceBase'
 import { RawObjectsAndVerb } from './RawObjectsAndVerb'
 import { Solution } from './Solution'
 import { Solutions } from './Solutions'
 import { Solved } from './Solved'
 import { Validated } from './Validated'
 
-export class GoalStub {
-  public goalWord: string
-  public piece: Piece | null
+export class GoalStub extends PieceBase {
   private readonly commandsCompletedInOrder: RawObjectsAndVerb[]
   private solved: Solved = Solved.Not
   private validated: Validated = Validated.Undecided
-  constructor (goalWord: string, commandsCompletedInOrder: RawObjectsAndVerb[], status = Solved.Not) {
-    this.goalWord = goalWord
-    this.solved = status
-    this.piece = null
+  private originalPieceCount: number = 0
+
+  constructor (goalWord: string, commandsCompletedInOrder: RawObjectsAndVerb[], solved = Solved.Not) {
+    super(goalWord)
+    this.solved = solved
+    this.inputHints.push(goalWord)
+    this.inputs.push(null)
 
     this.commandsCompletedInOrder = []
     if (commandsCompletedInOrder != null) {
@@ -24,10 +26,19 @@ export class GoalStub {
     }
   }
 
+  public GetPiece (): Piece | null {
+    return this.inputs[0]
+  }
+
+  public GetGoalWord (): string {
+    return this.inputHints[0]
+  }
+
   public CloneIncludingLeaves (): GoalStub {
-    const newGoalStub = new GoalStub(this.goalWord, this.commandsCompletedInOrder)
-    if (this.piece != null) {
-      newGoalStub.piece = this.piece.ClonePieceAndEntireTree()
+    const newGoalStub = new GoalStub(this.inputHints[0], this.commandsCompletedInOrder)
+    if (this.inputs[0] != null) {
+      newGoalStub.inputs[0] = this.inputs[0].ClonePieceAndEntireTree()
+      newGoalStub.inputs[0].parent = newGoalStub
     }
     return newGoalStub
   }
@@ -65,12 +76,12 @@ export class GoalStub {
 
   public ProcessUntilCloning (solution: Solution, solutions: Solutions, path: string): boolean {
     // if the goalword piece is already found, we recurse
-    if (this.piece != null) {
-      return this.piece.ProcessUntilCloning(solution, solutions, path + this.goalWord + '/')
+    if (this.inputs[0] != null) {
+      return this.inputs[0].ProcessUntilCloning(solution, solutions, path + this.inputHints[0] + '/')
     }
     // else we find the goal word piece
 
-    const setOfMatchingPieces = solution.GetPiecesThatOutputString(this.goalWord)
+    const setOfMatchingPieces = solution.GetPiecesThatOutputString(this.inputHints[0])
 
     if (setOfMatchingPieces.size > 0) {
       const matchingPieces = Array.from(setOfMatchingPieces)
@@ -100,7 +111,7 @@ export class GoalStub {
         }
 
         // rediscover the current GoalStub in theSolution - again because we might be cloned
-        const theGoalStub = theSolution.GetRootMap().GetGoalStubByNameNoThrow(this.goalWord)
+        const theGoalStub = theSolution.GetGoalStubMap().GetGoalStubByNameNoThrow(this.inputHints[0])
         console.assert(theGoalStub != null)
         if (theGoalStub != null) {
           if (matchingPieces.length > 1) {
@@ -109,7 +120,8 @@ export class GoalStub {
             theSolution.PushSolvingPathSegment(`${firstInput}`)
           }
 
-          theGoalStub.piece = theMatchingPiece
+          theMatchingPiece.parent = theGoalStub
+          theGoalStub.inputs[0] = theMatchingPiece
 
           // all pieces are incomplete when they are *just* added
           theSolution.AddToListOfEssentials(theMatchingPiece.getRestrictions())
@@ -128,6 +140,22 @@ export class GoalStub {
   }
 
   IsTreeCleared (): boolean {
-    return this.piece == null
+    return this.inputs[0] == null
+  }
+
+  public GetCountRecursively (): number {
+    let count = 0
+    if (this.inputs[0] != null) {
+      count += this.inputs[0].GetCountRecursively()
+    }
+    return count
+  }
+
+  public CalculateOriginalPieceCount (): void {
+    this.originalPieceCount = this.GetCountRecursively()
+  }
+
+  public GetOriginalPieceCount (): number {
+    return this.originalPieceCount
   }
 }

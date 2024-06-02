@@ -1,7 +1,10 @@
-import { Aggregates } from './Aggregates'
+// import { Aggregates } from './Aggregates'
 import { Box } from './Box'
 import { GoalStubMap } from './GoalStubMap'
+import { Piece } from './Piece'
 import { Solution } from './Solution'
+import { TalkFile } from './talk/TalkFile'
+import { VisibleThingsMap } from './VisibleThingsMap'
 
 /**
  * Does only a few things:
@@ -12,12 +15,27 @@ import { Solution } from './Solution'
 export class Solutions {
   private readonly solutions: Solution[]
   private readonly combinedBox: Box
-  private readonly starterBox: Box
+  // private readonly starterBox: Box
   private readonly mapOfStartingThingsAndWhoStartsWithThem: Map<string, Set<string>>
 
-  constructor (startFolder: string, startFile: string) {
-    this.starterBox = new Box(startFolder, [startFile])
-    this.combinedBox = new Box(startFolder, Array.from(this.starterBox.getAggregates().mapOfBoxes.keys()), new Aggregates())
+  constructor (startFolder: string, _startFile: string) {
+    // this.starterBox = new Box(startFolder, [startFile])
+    // const array = Array.from(this.starterBox.getAggregates().mapOfBoxes.keys())
+    const array = [
+      'starter.jsonc',
+      'x02_tree_clearing_location_opened.jsonc',
+      'x03_met_demon_first_time.jsonc',
+      'x04_let_all_rpg_kids_know_about_demon.jsonc',
+      'x07_access_to_library_reference_section.jsonc',
+      'x17_map_now_has_football_stadium.jsonc',
+      'x18_attract_groundskeeper.jsonc',
+      'x19_access_to_maintenance_tunnel.jsonc',
+      'x05_map_now_has_printing_works.jsonc',
+      'x15_access_inside_printworks_airraid_shelter.jsonc',
+      'x16_access_to_printworks_archive_machine.jsonc',
+      'x04_let_all_music_kids_know_about_demon.jsonc'
+    ]
+    this.combinedBox = new Box(startFolder, array)
 
     this.solutions = []
 
@@ -50,9 +68,9 @@ export class Solutions {
     return this.solutions.length
   }
 
-  public GetStarter (): Box {
-    return this.starterBox
-  }
+  // public GetStarter (): Box {
+  //  return this.starterBox
+  // }
 
   public SolvePartiallyUntilCloning (): boolean {
     let hasACloneJustBeenCreated = false
@@ -198,5 +216,17 @@ export class Solutions {
         }
       }
     } */
+  }
+
+  GetStartersMapOfAllStartingThings (): VisibleThingsMap {
+    return this.combinedBox.GetStartersMapOfAllStartingThings()
+  }
+
+  GetStartingTalkFiles (): Map<string, TalkFile> {
+    return this.combinedBox.GetStartingTalkFiles()
+  }
+
+  GetStartingPieces (): Map<string, Set<Piece>> {
+    return this.combinedBox.GetStartingPieces()
   }
 }

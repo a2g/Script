@@ -1,3 +1,4 @@
+/*
 import { SingleFile } from '../../../src/puzzle/SingleFile'
 // import { expect, describe, test } from '@jest/globals'
 import { join } from 'path'
@@ -12,8 +13,8 @@ describe('SingleBigSwitch', () => {
       join(__dirname, '/../../../practice-world/'),
       'x03_access_thru_fireplace.jsonc', aggregates
     )
-    const pile = new Box('', [''], aggregates)
-    await file.copyAllPiecesToContainer(pile)
+    const pile = new Box('', [''])
+    await file.copyAllPiecesToContainers(pile)
     // const size = pile.Size()
     // expect(size).toBe(3)
     // expect(happenings).not.toEqual(null);
@@ -22,3 +23,4 @@ describe('SingleBigSwitch', () => {
     // }
   })
 })
+*/

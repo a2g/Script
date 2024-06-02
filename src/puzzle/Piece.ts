@@ -6,15 +6,14 @@ import { Solution } from './Solution'
 import { Solutions } from './Solutions'
 import { SpecialTypes } from './SpecialTypes'
 import { VisibleThingsMap } from './VisibleThingsMap'
+import { PieceBase } from './PieceBase'
 
-export class Piece {
+export class Piece extends PieceBase {
   public id: number
 
   public type: string
 
   public reuseCount: number // pieces are allowed to used many times in a puzzle solving network - this enables that
-
-  public output: string
 
   public boxToMerge: Box | null
 
@@ -22,13 +21,9 @@ export class Piece {
 
   public spielOutput: string
 
-  public inputHints: string[]
-
   public inputSpiels: string[]
 
-  public inputs: Array<Piece | null>
-
-  public parent: Piece | null // this is not needed for leaf finding - but *is* needed for command finding.
+  public parent: PieceBase | null // this is not needed for leaf finding - but *is* needed for command finding.
 
   public characterRestrictions: string[]
 
@@ -52,11 +47,11 @@ export class Piece {
     inputE = 'undefined',
     inputF = 'undefined' // no statics in typescript, so this seemed preferable than global let Null = 'Null'
   ) {
+    super(output)
     this.id = id
     this.boxToMerge = boxToMerge
     this.parent = null
     this.reuseCount = reuseCount
-    this.output = output
     this.spielOutput = `${output}`
     this.type = type
     this.command = command
@@ -68,8 +63,6 @@ export class Piece {
         this.characterRestrictions.push(restriction.character)
       }
     }
-    this.inputs = []
-    this.inputHints = []
     this.inputSpiels = []
     if (inputA !== 'undefined' && inputA !== undefined && inputA.length > 0) {
       this.inputSpiels.push(inputA)
@@ -108,7 +101,7 @@ export class Piece {
   }
 
   public ClonePieceAndEntireTree (): Piece {
-    const clone = new Piece(0, null, '', '')
+    const clone = new Piece(this.id, null, '', '')
     // set the stuff that isn't passed above
     clone.id = this.id
     clone.type = this.type
@@ -245,11 +238,11 @@ export class Piece {
     return false
   }
 
-  public SetParent (parent: Piece | null): void {
+  public SetParent (parent: PieceBase | null): void {
     this.parent = parent
   }
 
-  public GetParent (): Piece | null {
+  public GetParent (): PieceBase | null {
     return this.parent
   }
 
@@ -304,9 +297,9 @@ export class Piece {
       // 2. Goal - matches a single goal in the goal root map
       // then we just set and forget, allowing that goal
       // be completed via the natural process
-      if (solution.GetRootMap().Has(importHintToFind)) {
+      if (solution.GetGoalStubMap().Has(importHintToFind)) {
         const matchingRootPiece = solution
-          .GetRootMap()
+          .GetGoalStubMap()
           .GoalStubByName(importHintToFind)
 
         // is it a goal? (since goal map always contains all goals)
@@ -389,5 +382,15 @@ export class Piece {
 
   GetTalkPath (): string {
     return this.talkPath
+  }
+
+  public GetCountRecursively (): number {
+    let count = 1
+    for (const inputPiece of this.inputs) {
+      if (inputPiece != null) {
+        count += inputPiece.GetCountRecursively()
+      }
+    }
+    return count
   }
 }

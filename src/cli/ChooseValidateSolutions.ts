@@ -71,17 +71,19 @@ export function ChooseValidateSolution (validators: Validators): void {
           listItemNumber++
 
           // display list item
-          const output = rootGoal.goalWord
+          const output = rootGoal.GetGoalWord()
+          const theGoalPiece = rootGoal.GetPiece()
           let inputs = ''
-          if (rootGoal.piece != null) {
-            for (const inputSpiel of rootGoal.piece.inputSpiels) {
+          if (theGoalPiece != null) {
+            for (const inputSpiel of theGoalPiece.inputSpiels) {
               inputs += `${FormatText(inputSpiel)},`
             }
           }
-          const pieceCount = rootGoal.GetPieceCount()
-          const status = rootGoal.GetValidated() as string
+          const pieceCount = rootGoal.GetCountRecursively()
+          const originalCount = rootGoal.GetOriginalPieceCount()
+          // const status = rootGoal.GetValidated() as string
           console.warn(
-            `    ${status}${pieceCount}${listItemNumber}. ${FormatText(output)} ${AddBrackets(inputs)} (root = ${(rootGoal.piece != null) ? 'found' : 'null'})`
+            `    ${listItemNumber}.(${pieceCount} / ${originalCount}/) ${FormatText(output)} ${AddBrackets(inputs)} (root = ${(rootGoal.GetPiece() != null) ? 'found' : 'null'})`
           )
           numberOfClearedTrees += rootGoal.IsTreeCleared() ? 0 : 1
         }
@@ -109,13 +111,11 @@ export function ChooseValidateSolution (validators: Validators): void {
             for (const goal of validator.GetRootMap().GetValues()) {
               j++
               if (j === theNumber) {
-                j++
-                if (j === theNumber) {
-                  if (goal.piece != null) {
-                    NavigatePieceRecursive(goal.piece, validator.GetRootMap(), validator.GetVisibleThingsAtTheMoment())
-                  } else {
-                    prompt(`${goal.goalWord} Goal.piece WAS NULL. Hit any key to continue: `)
-                  }
+                const theGoalPiece = goal.GetPiece()
+                if (theGoalPiece != null) {
+                  NavigatePieceRecursive(theGoalPiece, validator.GetRootMap(), validator.GetVisibleThingsAtTheMoment())
+                } else {
+                  prompt(`${goal.GetGoalWord()} Goal.piece WAS NULL. Hit any key to continue: `)
                 }
               }
             }

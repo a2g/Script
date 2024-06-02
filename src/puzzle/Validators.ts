@@ -15,9 +15,10 @@ export class Validators {
     for (const solution of solutions.GetSolutions()) {
       const validator = new Validator(
         solution.GetSolvingPath(),
-        solutions.GetStarter(),
-        solution.GetRootMap(),
-        solutions.GetStarter().GetMapOfAllStartingThings())
+        solutions.GetStartingPieces(),
+        solutions.GetStartingTalkFiles(),
+        solution.GetGoalStubMap(),
+        solutions.GetStartersMapOfAllStartingThings())
       this.validators.push(validator)
     }
   }
