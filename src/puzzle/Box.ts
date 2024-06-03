@@ -49,13 +49,11 @@ export class Box {
 
   private readonly talkFiles: Map<string, TalkFile>
 
-  private readonly aggregates: Aggregates
   private readonly startingMapOfAllStartingThings: VisibleThingsMap
   private readonly startingPieces: Map<string, Set<Piece>>
   private readonly startingTalkFiles: Map<string, TalkFile>
 
-  constructor (path: string, filenames: string[]) {
-    this.aggregates = new Aggregates()
+  constructor (path: string, filenames: string[], aggregates: Aggregates) {
     this.path = path
     this.talkFiles = new Map<string, TalkFile>()
     this.filename = filenames[0]
@@ -70,7 +68,7 @@ export class Box {
 
     // this is a bit hacky, but we need
     if (filenames.length === 1) {
-      this.aggregates.mapOfBoxes.set(filenames[0], this)
+      aggregates.mapOfBoxes.set(filenames[0], this)
     }
 
     for (const filename of filenames) {
@@ -143,7 +141,7 @@ export class Box {
       const scenario = parse(text)
 
       /* collect all the goals and pieces file */
-      const singleFile = new SingleFile(this.path, filename, this.aggregates)
+      const singleFile = new SingleFile(this.path, filename, aggregates)
 
       if (i !== 0) {
         singleFile.copyAllPiecesToContainers(this.pieces, this.goalWordSet, this.talkFiles)
@@ -272,7 +270,7 @@ export class Box {
     this.talkFiles.set(talkFile.GetName(), talkFile)
   }
 
-  public GetSetOfGoalStubs (): Set<string> {
+  public GetSetOfGoalWords (): Set<string> {
     return this.goalWordSet
   }
 
@@ -336,10 +334,6 @@ export class Box {
     return startingThingSet
   }
 
-  GetAggregates (): Aggregates {
-    return this.aggregates
-  }
-
   GetStartersMapOfAllStartingThings (): VisibleThingsMap {
     return this.startingMapOfAllStartingThings
   }
@@ -350,5 +344,15 @@ export class Box {
 
   GetStartingTalkFiles (): Map<string, TalkFile> {
     return this.startingTalkFiles
+  }
+
+  GetPiecesAsString (): string {
+    let stringOfPieceIds = ''
+    for (const set of this.pieces.values()) {
+      for (const piece of set) {
+        stringOfPieceIds += `${piece.id}, `
+      }
+    }
+    return stringOfPieceIds
   }
 }

@@ -1,4 +1,5 @@
 // import { Aggregates } from './Aggregates'
+import { Aggregates } from './Aggregates'
 import { Box } from './Box'
 import { GoalStubMap } from './GoalStubMap'
 import { Piece } from './Piece'
@@ -17,6 +18,7 @@ export class Solutions {
   private readonly combinedBox: Box
   // private readonly starterBox: Box
   private readonly mapOfStartingThingsAndWhoStartsWithThem: Map<string, Set<string>>
+  aggregates: Aggregates
 
   constructor (startFolder: string, _startFile: string) {
     // this.starterBox = new Box(startFolder, [startFile])
@@ -35,8 +37,8 @@ export class Solutions {
       'x16_access_to_printworks_archive_machine.jsonc',
       'x04_let_all_music_kids_know_about_demon.jsonc'
     ]
-    this.combinedBox = new Box(startFolder, array)
-
+    this.aggregates = new Aggregates()
+    this.combinedBox = new Box(startFolder, array, this.aggregates)
     this.solutions = []
 
     // now lets initialize the first solution
@@ -44,7 +46,8 @@ export class Solutions {
       this.combinedBox.GetPieces(),
       this.combinedBox.GetTalkFiles(),
       this.combinedBox.GetMapOfAllStartingThings(),
-      this.CreateRootMapFromGoalStubs(this.combinedBox.GetSetOfGoalStubs())
+      this.CreateGoalStubMapFromGoalWords(this.combinedBox.GetSetOfGoalWords())
+      // this.CreateGoalStubMapFromGoalWords(this.aggregates.setOfGoalWords)
     )
     this.solutions.push(solution1)
 
@@ -104,10 +107,10 @@ export class Solutions {
     }
   }
 
-  public CreateRootMapFromGoalStubs (set: Set<string>): GoalStubMap {
+  public CreateGoalStubMapFromGoalWords (setOfStrings: Set<string>): GoalStubMap {
     const rootMapFromGoalStubs = new GoalStubMap(null)
-    for (const goal of set) {
-      rootMapFromGoalStubs.AddGoalStub(goal)
+    for (const goalWord of setOfStrings) {
+      rootMapFromGoalStubs.AddGoalStub(goalWord)
     }
     return rootMapFromGoalStubs
   }
@@ -218,15 +221,19 @@ export class Solutions {
     } */
   }
 
-  GetStartersMapOfAllStartingThings (): VisibleThingsMap {
+  public GetStartersMapOfAllStartingThings (): VisibleThingsMap {
     return this.combinedBox.GetStartersMapOfAllStartingThings()
   }
 
-  GetStartingTalkFiles (): Map<string, TalkFile> {
+  public GetStartingTalkFiles (): Map<string, TalkFile> {
     return this.combinedBox.GetStartingTalkFiles()
   }
 
-  GetStartingPieces (): Map<string, Set<Piece>> {
+  public GetStartingPieces (): Map<string, Set<Piece>> {
     return this.combinedBox.GetStartingPieces()
+  }
+
+  public GetBoxes (): IterableIterator<Box> {
+    return this.aggregates.mapOfBoxes.values()
   }
 }

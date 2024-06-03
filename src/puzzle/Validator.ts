@@ -194,4 +194,12 @@ export class Validator {
   public GetNumberOfRemainingPieces (): number {
     return this.remainingPieces.size
   }
+
+  GetRemainingPiecesAsString (): string {
+    let stringOfPieceIds = ''
+    for (const piece of this.remainingPieces.values()) {
+      stringOfPieceIds += `${piece.id}, `
+    }
+    return stringOfPieceIds
+  }
 }

@@ -2,7 +2,7 @@ import promptSync from 'prompt-sync'
 import { FormatText } from '../puzzle/FormatText'
 import { AddBrackets } from '../puzzle/AddBrackets'
 import { Validators } from '../puzzle/Validators'
-import { NavigatePieceRecursive } from './NavigatePieceRecursive'
+import { ValidatePieceRecursive } from './ValidatePieceRecursive'
 const prompt = promptSync({})
 
 export function ChooseValidateSolution (validators: Validators): void {
@@ -84,7 +84,7 @@ export function ChooseValidateSolution (validators: Validators): void {
           )
         }
 
-        console.warn(`Pieces remaining ${validator.GetNumberOfRemainingPieces()}`)
+        console.warn(`Pieces remaining ${validator.GetNumberOfRemainingPieces()} (${validator.GetRemainingPiecesAsString()})`)
 
         console.warn(`Number of goals back to zero ${validator.GetNumberOfClearedGoals()}/${validator.GetNumberOfGoals()}`)
 
@@ -111,7 +111,7 @@ export function ChooseValidateSolution (validators: Validators): void {
               if (j === theNumber) {
                 const theGoalPiece = goal.GetPiece()
                 if (theGoalPiece != null) {
-                  NavigatePieceRecursive(theGoalPiece, validator.GetRootMap(), validator.GetVisibleThingsAtTheMoment())
+                  ValidatePieceRecursive(theGoalPiece, validator, goal, validator.GetVisibleThingsAtTheMoment())
                 } else {
                   prompt(`${goal.GetGoalWord()} Goal.piece WAS NULL. Hit any key to continue: `)
                 }

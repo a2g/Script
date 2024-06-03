@@ -34,7 +34,7 @@ export function AddPiece (piece: Piece, folder = '', isNoFile = true, piecesMapp
         /* this map not only collects all the boxes */
         /* but prevents two pieces that output same goal from */
         /* processing the same file */
-        box = new Box(folder, [file])
+        box = new Box(folder, [file], aggregates)
         aggregates.mapOfBoxes.set(file, box)
       }
       piece.boxToMerge = box
