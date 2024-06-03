@@ -22,13 +22,11 @@ export function ChooseValidateSolution (validators: Validators): void {
     const validatorList = validators.GetValidators()
     for (let i = 0; i < validatorList.length; i++) {
       const validator = validatorList[i]
-      let numberOfUnsolved = 0
-      for (const goal of validator.GetRootMap().GetValues()) {
-        numberOfUnsolved += goal.IsSolved() ? 0 : 1
-      }
       const name = FormatText(validator.GetName())
       //  "1. XXXXXX"   <- this is the format we list the solutions
-      console.warn(`    ${i + 1}. ${name} number of unsolved goals=${numberOfUnsolved}`)
+      const a = validator.GetNumberOfClearedGoals()
+      const b = validator.GetNumberOfGoals()
+      console.warn(`    ${i + 1}. (${a}/${b}) ${name} `)
     }
 
     // allow user to choose item
@@ -44,7 +42,7 @@ export function ChooseValidateSolution (validators: Validators): void {
     }
 
     if (firstInput === 'r') {
-      validators.MatchLeavesAndRemoveFromGoalMap()
+      validators.DeconstructAllGoalsOfAllValidatorsAndRecordSteps()
       continue
     } else {
       const theNumber = Number(firstInput)
@@ -66,7 +64,6 @@ export function ChooseValidateSolution (validators: Validators): void {
 
         console.warn(`${theNumber}. ${label}`)
         let listItemNumber = 0
-        let numberOfClearedTrees = 0
         for (const rootGoal of validator.GetRootMap().GetValues()) {
           listItemNumber++
 
@@ -85,10 +82,11 @@ export function ChooseValidateSolution (validators: Validators): void {
           console.warn(
             `    ${listItemNumber}.(${pieceCount} / ${originalCount}/) ${FormatText(output)} ${AddBrackets(inputs)} (root = ${(rootGoal.GetPiece() != null) ? 'found' : 'null'})`
           )
-          numberOfClearedTrees += rootGoal.IsTreeCleared() ? 0 : 1
         }
 
-        console.warn(`Number of goals back to zero ${numberOfClearedTrees}/${listItemNumber}`)
+        console.warn(`Pieces remaining ${validator.GetNumberOfRemainingPieces()}`)
+
+        console.warn(`Number of goals back to zero ${validator.GetNumberOfClearedGoals()}/${validator.GetNumberOfGoals()}`)
 
         // allow user to choose item
         const input = prompt(
@@ -101,7 +99,7 @@ export function ChooseValidateSolution (validators: Validators): void {
           return
         }
         if (input === 'r') {
-          validators.MatchLeavesAndRemoveFromGoalMap()
+          validator.DeconstructAllGoalsAndRecordSteps()
           continue
         } else {
           // show map entry for chosen item

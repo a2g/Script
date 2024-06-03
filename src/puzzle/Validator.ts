@@ -1,4 +1,3 @@
-import { FormatText } from './FormatText'
 import { Piece } from './Piece'
 import { Raw } from './Raw'
 import { RawObjectsAndVerb } from './RawObjectsAndVerb'
@@ -71,31 +70,19 @@ export class Validator {
     }
   } */
 
-  public MergeBox (boxToMerge: Box): void {
-    console.warn(`Merging box ${boxToMerge.GetFilename()}          going into ${FormatText(this.solutionName)}`)
-
-    Box.CopyPiecesFromAtoBViaIds(boxToMerge.GetPieces(), this.remainingPieces)
-    Box.CopyTalksFromAtoB(boxToMerge.GetTalkFiles(), this.talks)
-    boxToMerge.CopyStartingThingCharsToGivenMap(this.currentlyVisibleThings)
-    // I don't think we copy the goal stubs to the stub map ..do we
-    // because even though the root goal piece  might not be found later
-    // on, we still should be able to place its leaf nodes earliy
-    // boxToMerge.CopyGoalStubsToGivenGoalStubMap(this.goalStubs)
-    // boxToMerge.CopyStartingThingCharsToGivenMap(this.startingThings)
-  }
-
-  public DeconstructGoalsAndRecordSteps (): void {
+  public DeconstructAllGoalsAndRecordSteps (): void {
     for (const goal of this.goalStubs.GetValues()) {
       if (goal.GetValidated() === Validated.Undecided) {
-        this.DeconstructSingleGoalAndRecordSteps(goal)
+        this.DeconstructGivenGoalAndRecordSteps(goal)
       }
     }
   }
 
-  public DeconstructSingleGoalAndRecordSteps (goalStub: GoalStub): void {
+  public DeconstructGivenGoalAndRecordSteps (goalStub: GoalStub): void {
     // push the commands
     const deconstructDoer = new DeconstructDoer(
       goalStub,
+      this.remainingPieces,
       this.currentlyVisibleThings,
       this.talks
     )
@@ -103,12 +90,12 @@ export class Validator {
     let rawObjectsAndVerb: RawObjectsAndVerb | null = null
     for (let j = 0; j < 200; j += 1) {
       rawObjectsAndVerb =
-        deconstructDoer.GetNextDoableCommandAndDeconstructTree(this.remainingPieces)
+        deconstructDoer.GetNextDoableCommandAndDeconstructTree()
       if (rawObjectsAndVerb == null) {
         // all out of moves!
         // for debugging
         rawObjectsAndVerb =
-          deconstructDoer.GetNextDoableCommandAndDeconstructTree(this.remainingPieces)
+          deconstructDoer.GetNextDoableCommandAndDeconstructTree()
         break
       }
 
@@ -126,10 +113,10 @@ export class Validator {
       goalStub.SetValidated(Validated.Validated)
 
       // merge if needed
-      const goalStubPiece = goalStub.GetPiece()
-      if (goalStubPiece?.boxToMerge != null) {
-        this.MergeBox(goalStubPiece.boxToMerge)
-      }
+      // const goalStubPiece = goalStub.GetPiece()
+      // if (goalStubPiece?.boxToMerge != null) {
+      //  this.MergeBox(goalStubPiece.boxToMerge)
+      // }
 
       // set the goal as completed in the currently visible things
       this.currentlyVisibleThings.Set(goalStub.GetGoalWord(), new Set<string>())
@@ -190,5 +177,21 @@ export class Validator {
       count += goalWord.GetCountRecursively()
     }
     return count
+  }
+
+  public GetNumberOfGoals (): number {
+    return this.GetRootMap().Size()
+  }
+
+  public GetNumberOfClearedGoals (): number {
+    let numberOfClearedGoals = 0
+    for (const rootGoal of this.GetRootMap().GetValues()) {
+      numberOfClearedGoals += rootGoal.IsGoalCleared() ? 0 : 1
+    }
+    return numberOfClearedGoals
+  }
+
+  public GetNumberOfRemainingPieces (): number {
+    return this.remainingPieces.size
   }
 }

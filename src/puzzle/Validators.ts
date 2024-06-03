@@ -27,9 +27,9 @@ export class Validators {
     return this.validators
   }
 
-  public MatchLeavesAndRemoveFromGoalMap (): void {
+  public DeconstructAllGoalsOfAllValidatorsAndRecordSteps (): void {
     for (const validator of this.validators) {
-      validator.DeconstructGoalsAndRecordSteps()
+      validator.DeconstructAllGoalsAndRecordSteps()
     }
   }
 }

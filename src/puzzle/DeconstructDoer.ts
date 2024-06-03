@@ -8,15 +8,21 @@ import { SpecialTypes } from './SpecialTypes'
 import { Stringify } from './Stringify'
 import { TalkFile } from './talk/TalkFile'
 import { VisibleThingsMap } from './VisibleThingsMap'
+import { Box } from './Box'
 
 export class DeconstructDoer {
-  public theGoalStub: GoalStub
-  public currentlyVisibleThings: VisibleThingsMap
-  public theSolutionsTalkFiles: Map<string, TalkFile>
-  public constructor (theGoalStub: GoalStub, visibleThings: VisibleThingsMap, theSolutionsTalkFiles: Map<string, TalkFile>) {
+  private readonly theGoalStub: GoalStub
+
+  // the state that needs update
+  private readonly currentlyVisibleThings: VisibleThingsMap
+  private readonly talks: Map<string, TalkFile>
+  private readonly pieces: Map<number, Piece>
+
+  public constructor (theGoalStub: GoalStub, pieces: Map<number, Piece>, visibleThings: VisibleThingsMap, theSolutionsTalkFiles: Map<string, TalkFile>) {
     this.theGoalStub = theGoalStub
     this.currentlyVisibleThings = visibleThings
-    this.theSolutionsTalkFiles = theSolutionsTalkFiles
+    this.talks = theSolutionsTalkFiles
+    this.pieces = pieces
   }
 
   // In the constructor above, we see that the root of copied tree is created
@@ -26,15 +32,15 @@ export class DeconstructDoer {
     return this.theGoalStub.inputs[0] == null
   }
 
-  public GetNextDoableCommandAndDeconstructTree (remainingPieces: Map<number, Piece>): RawObjectsAndVerb | null {
+  public GetNextDoableCommandAndDeconstructTree (): RawObjectsAndVerb | null {
     if (this.theGoalStub.inputs[0] === null) {
       return null
     }
-    const command = this.GetNextDoableCommandRecursively(this.theGoalStub.inputs[0], remainingPieces)
+    const command = this.GetNextDoableCommandRecursively(this.theGoalStub.inputs[0])
     return command
   }
 
-  private GetNextDoableCommandRecursively (piece: Piece, remainingPieces: Map<number, Piece>): RawObjectsAndVerb | null {
+  private GetNextDoableCommandRecursively (piece: Piece): RawObjectsAndVerb | null {
     // if its a leaf, we check whether we can return command, otherwise
     // we recurse through children
 
@@ -45,12 +51,12 @@ export class DeconstructDoer {
       }
     }
 
-    const weOwnPiece = piece.id !== 0 && remainingPieces.has(piece.id)
+    const weOwnPiece = piece.id !== 0 && this.pieces.has(piece.id)
     const weCanRemovePiece = weOwnPiece && this.isALeaf(piece) && areAllInputHintsInTheVisibleSet
 
     if (weCanRemovePiece || piece.type === SpecialTypes.CompletedElsewhere || piece.type === SpecialTypes.ExistsFromBeginning || piece.type === SpecialTypes.VerifiedLeaf) {
       // then we remove this key as a leaf piece..
-      // by nulling its input in the parent.
+      // by nulling its  input in the parent.
       if (piece.parent != null) {
         for (let i = 0; i < piece.parent.inputHints.length; i++) {
           if (piece.parent.inputHints[i] === piece.output) {
@@ -60,12 +66,16 @@ export class DeconstructDoer {
         }
       }
 
-      let toReturn: RawObjectsAndVerb | null = null
-
       // if its from our stash, then remove it from stash
       if (weCanRemovePiece) {
-        remainingPieces.delete(piece.id)
+        this.pieces.delete(piece.id)
+        if (piece.boxToMerge != null) {
+          this.MergeBox(piece.boxToMerge)
+        }
       }
+
+      // Now for
+      let toReturn: RawObjectsAndVerb | null = null
 
       // const pathOfThis = this.GeneratePath(piece)
       // const pathOfParent = this.GeneratePath(piece.parent)
@@ -141,7 +151,7 @@ export class DeconstructDoer {
       } else if (isTalk) {
         const path = piece.GetTalkPath()
         const talkPropName = piece.inputHints[0]
-        const talkState = this.theSolutionsTalkFiles.get(talkPropName + '.jsonc')
+        const talkState = this.talks.get(talkPropName + '.jsonc')
         if (talkState != null) {
           const speechLines = talkState.CollectSpeechLinesNeededToGetToPath(path)
 
@@ -220,7 +230,7 @@ export class DeconstructDoer {
     // else we recurse in to the children
     for (const input of piece.inputs) {
       if (input !== null) {
-        const toReturn = this.GetNextDoableCommandRecursively(input, remainingPieces)
+        const toReturn = this.GetNextDoableCommandRecursively(input)
         if (toReturn != null) {
           return toReturn
         }
@@ -249,5 +259,18 @@ export class DeconstructDoer {
       }
     }
     return true
+  }
+
+  private MergeBox (boxToMerge: Box): void {
+    console.warn(`Merging box ${boxToMerge.GetFilename()}`)
+
+    Box.CopyPiecesFromAtoBViaIds(boxToMerge.GetPieces(), this.pieces)
+    Box.CopyTalksFromAtoB(boxToMerge.GetTalkFiles(), this.talks)
+    boxToMerge.CopyStartingThingCharsToGivenMap(this.currentlyVisibleThings)
+    // I don't think we copy the goal stubs to the stub map ..do we
+    // because even though the root goal piece  might not be found later
+    // on, we still should be able to place its leaf nodes early
+    // boxToMerge.CopyGoalStubsToGivenGoalStubMap(this.goalStubs)
+    // boxToMerge.CopyStartingThingCharsToGivenMap(this.startingThings)
   }
 }

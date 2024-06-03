@@ -139,7 +139,7 @@ export class GoalStub extends PieceBase {
     return false
   }
 
-  IsTreeCleared (): boolean {
+  IsGoalCleared (): boolean {
     return this.inputs[0] == null
   }
 
