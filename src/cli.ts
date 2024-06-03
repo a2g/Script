@@ -7,6 +7,7 @@ import { ChooseDigIntoGoals2 } from './cli/ChooseDigIntoGoals2'
 // import { DumpGainsFromEachTalkInFolder } from './cli/DumpGansFromEachTalkInFolder'
 import { Validators } from './puzzle/Validators'
 import { ChooseValidateSolution } from './cli/ChooseValidateSolutions'
+import { ChoosePiecesOfEachBox } from './cli/ChoosePiecesOfEachBox'
 // import { ChooseValidateSolution } from './cli/ChooseValidateSolutions'
 
 const prompt = promptSync()
@@ -44,10 +45,11 @@ function main (): void {
             console.warn('---------------------------------------')
             console.warn('1. Solve backwards all boxes mixed together')
             console.warn('2. Validate forward a box-at-a-time')
-            console.warn('3. Leaves all boxes at once.')
-            console.warn('4. Leaves a box-at-a-time`')
-            console.warn('5. Order of Commands in solve')
-            console.warn('6. Choose Dig into goals (old)')
+            console.warn('3. Pieces in Boxes.')
+            console.warn('4. Leaves all boxes at once.')
+            console.warn('5. Leaves a box-at-a-time`')
+            console.warn('6. Order of Commands in solve')
+            console.warn('7. Choose Dig into goals (old)')
             console.warn('8. Play')
 
             const choice = prompt('Choose an option (b)ack: ').toLowerCase()
@@ -71,12 +73,15 @@ function main (): void {
                 }
                 break
               case '3':
-                ChooseListOfLeaves(solutions)
+                ChoosePiecesOfEachBox(solutions)
                 break
               case '4':
                 ChooseListOfLeaves(solutions)
                 break
               case '5':
+                ChooseListOfLeaves(solutions)
+                break
+              case '6':
                 ChooseOrderOfCommands(solutions)
                 break
                 // case '6':
