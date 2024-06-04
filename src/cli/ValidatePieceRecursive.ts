@@ -18,7 +18,8 @@ export function ValidatePieceRecursive (
     for (let i = 0; i < piece.inputs.length; i++) {
       targets.push(piece.inputs[i])
       const inputSpiel: string = piece.inputSpiels[i]
-      console.warn(`input: ${i + 1}. ${inputSpiel}`)
+      const type: string = piece.type
+      console.warn(`input: ${i + 1}. spiel=${inputSpiel} ${type}`)
     }
 
     // allow user to choose item

@@ -9,7 +9,7 @@ import { VisibleThingsMap } from './VisibleThingsMap'
 import { PieceBase } from './PieceBase'
 
 export class Piece extends PieceBase {
-  public id: number
+  public id: string
 
   public type: string
 
@@ -32,7 +32,7 @@ export class Piece extends PieceBase {
   public command: Command | null
 
   constructor (
-    id: number,
+    id: string,
     boxToMerge: Box | null,
     output: string,
     type = 'undefined',
@@ -152,7 +152,7 @@ export class Piece extends PieceBase {
     child.SetParent(this)
   }
 
-  public FindAnyPieceMatchingIdRecursively (id: number): Piece | null {
+  public FindAnyPieceMatchingIdRecursively (id: string): Piece | null {
     if (this.id === id) {
       return this
     }
@@ -184,7 +184,7 @@ export class Piece extends PieceBase {
     const objectToObtain = this.inputHints[k]
     //  update the display string - for easier browsing!
     this.inputSpiels[k] = `${objectToObtain} (${type})`
-    const newLeaf = new Piece(0, null, objectToObtain, type)
+    const newLeaf = new Piece('stub', null, objectToObtain, type)
     newLeaf.parent = this
     this.inputs[k] = newLeaf
   }

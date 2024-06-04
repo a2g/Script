@@ -26,7 +26,7 @@ export class GoalStub extends PieceBase {
     }
   }
 
-  public GetPiece (): Piece | null {
+  public GetThePiece (): Piece | null {
     return this.inputs[0]
   }
 

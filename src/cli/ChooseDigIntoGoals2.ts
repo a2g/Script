@@ -74,7 +74,7 @@ export function ChooseDigIntoGoals2 (solutions: Solutions): void {
 
           // display list item
           const output = rootGoal.GetGoalWord()
-          const theGoalPiece = rootGoal.GetPiece()
+          const theGoalPiece = rootGoal.GetThePiece()
           let inputs = ''
           if (theGoalPiece != null) {
             for (const inputSpiel of theGoalPiece.inputSpiels) {
@@ -83,7 +83,7 @@ export function ChooseDigIntoGoals2 (solutions: Solutions): void {
           }
           const status = rootGoal.GetSolved() as string
           console.warn(
-            `    ${listItemNumber}. ${status}${FormatText(output)} ${AddBrackets(inputs)} (root = ${(rootGoal.GetPiece() != null) ? 'found' : 'null'}`
+            `    ${listItemNumber}. ${status}${FormatText(output)} ${AddBrackets(inputs)} (root = ${(rootGoal.GetThePiece() != null) ? 'found' : 'null'}`
           )
           incomplete += rootGoal.IsSolved() ? 0 : 1
         }
@@ -114,7 +114,7 @@ export function ChooseDigIntoGoals2 (solutions: Solutions): void {
             for (const goal of solution.GetGoalStubMap().GetValues()) {
               j++
               if (j === theNumber) {
-                const theGoalPiece = goal.GetPiece()
+                const theGoalPiece = goal.GetThePiece()
                 if (theGoalPiece != null) {
                   NavigatePieceRecursive(theGoalPiece, solution.GetGoalStubMap(), solution.GetVisibleThingsAtTheStart())
                 } else {

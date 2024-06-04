@@ -48,7 +48,7 @@ export function getJsonOfAllSolutions (
         // display list item
         const status = item.IsSolved() ? 'Solved' : 'Unsolved'
         const output = item.GetGoalWord()
-        const piece = item.GetPiece()
+        const piece = item.GetThePiece()
         console.warn(`    ${listItemNumber}. ${output} (root = ${(piece != null) ? 'found' : 'null'} status=${status})`)
         incomplete += item.IsSolved() ? 0 : 1
       }
@@ -100,7 +100,7 @@ function getJsonArrayOfRootPieces (
     toReturn.push({
       name: rootPiece.GetGoalWord(),
       isAGoalOrAuto: false,
-      children: getJsonArrayOfAllSubPieces(rootPiece.GetPiece())
+      children: getJsonArrayOfAllSubPieces(rootPiece.GetThePiece())
     })
   }
 

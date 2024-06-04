@@ -14,7 +14,7 @@ export class Validator {
   private readonly goalStubs: GoalStubMap
   private readonly rootPieceKeysInSolvingOrder: string[]
   private readonly currentlyVisibleThings: VisibleThingsMap
-  private readonly remainingPieces: Map<number, Piece>
+  private readonly remainingPieces: Map<string, Piece>
   private readonly talks: Map<string, TalkFile>
   private readonly solutionName
 
@@ -23,7 +23,7 @@ export class Validator {
     this.goalStubs = new GoalStubMap(goalStubMap)
     this.goalStubs.CalculateInitialCounts()
     this.rootPieceKeysInSolvingOrder = []
-    this.remainingPieces = new Map<number, Piece>()
+    this.remainingPieces = new Map<string, Piece>()
     this.talks = new Map<string, TalkFile>()
     Box.CopyPiecesFromAtoBViaIds(startingPieces, this.remainingPieces)
     Box.CopyTalksFromAtoB(startingTalkFiles, this.talks)
@@ -113,7 +113,7 @@ export class Validator {
       goalStub.SetValidated(Validated.Validated)
 
       // merge if needed
-      // const goalStubPiece = goalStub.GetPiece()
+      // const goalStubPiece = goalStub.GetThePiece()
       // if (goalStubPiece?.boxToMerge != null) {
       //  this.MergeBox(goalStubPiece.boxToMerge)
       // }

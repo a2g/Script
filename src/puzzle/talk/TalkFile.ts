@@ -111,7 +111,7 @@ export class TalkFile {
             type = _.TALK_GAINS_PROP1_WITH_VARIOUS_REQUISITES
           }
           // important that it uses the next id here
-          const id = GetNextId()
+          const id = GetNextId() + 't'
           const piece = new Piece(id, null, output, type, 1, null, null, null, inputA, inputB, inputC, inputD, inputE, inputF)
           piece.SetTalkPath(`${path}/${name}`)
           AddPiece(piece, this.fileAddress, isNoFile, pieces, goalWords, this.aggregates)

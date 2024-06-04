@@ -297,7 +297,7 @@ export class SingleFile {
             const output1 = newGoal
             AddPiece(
               new Piece(
-                GetNextId(),
+                GetNextId() + 'a',
                 null,
                 output1,
                 _.GOAL1_MET_BY_USING_INV1_WITH_PROP1,
@@ -324,7 +324,7 @@ export class SingleFile {
               const output2 = inv2
               AddPiece(
                 new Piece(
-                  GetNextId(),
+                  GetNextId() + 'b',
                   null,
                   output2,
                   _.AUTO_INV1_BECOMES_INV2_VIA_GOAL1,
@@ -349,7 +349,7 @@ export class SingleFile {
               const output3 = prop2
               AddPiece(
                 new Piece(
-                  GetNextId(),
+                  GetNextId() + 'c',
                   null,
                   output3,
                   _.AUTO_PROP1_BECOMES_PROP2_VIA_GOAL1,
@@ -521,7 +521,7 @@ export class SingleFile {
             const output1 = newGoal
             AddPiece(
               new Piece(
-                GetNextId(),
+                GetNextId() + 'd',
                 null,
                 output1,
                 _.GOAL1_MET_BY_USING_INV1_WITH_PROP1,
@@ -547,7 +547,7 @@ export class SingleFile {
               const output2 = inv1
               AddPiece(
                 new Piece(
-                  GetNextId(),
+                  GetNextId() + 'e',
                   null,
                   output2,
                   _.AUTO_INV1_OBTAINED_VIA_GOAL1,
@@ -571,7 +571,7 @@ export class SingleFile {
               const output3 = prop2
               AddPiece(
                 new Piece(
-                  GetNextId(),
+                  GetNextId() + 'f',
                   null,
                   output3,
                   _.AUTO_PROP1_BECOMES_PROP2_VIA_GOAL1,
@@ -793,7 +793,7 @@ export class SingleFile {
       } // end switch
       AddPiece(
         new Piece(
-          GetNextId(),
+          GetNextId() + 'g',
           boxToMerge,
           output,
           pieceType,

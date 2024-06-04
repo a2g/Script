@@ -41,7 +41,7 @@ export class GoalStubMap {
   ): Map<string, Piece> {
     const leaves = new Map<string, Piece>()
     for (const root of this.GetValues()) {
-      const piece = root.GetPiece()
+      const piece = root.GetThePiece()
       if (piece != null) {
         GenerateMapOfLeavesRecursively(piece, '', isOnlyNulls, leaves)
       }
@@ -52,7 +52,7 @@ export class GoalStubMap {
   public GenerateMapOfLeavesFromWinGoal (): Map<string, Piece> {
     const leaves = new Map<string, Piece>()
     const winGoal = this.GetWinGoalIfAny()
-    const piece = winGoal?.GetPiece()
+    const piece = winGoal?.GetThePiece()
     if (piece != null) {
       GenerateMapOfLeavesTracingGoalsRecursively(
         piece,

@@ -16,9 +16,9 @@ export class DeconstructDoer {
   // the state that needs update
   private readonly currentlyVisibleThings: VisibleThingsMap
   private readonly talks: Map<string, TalkFile>
-  private readonly pieces: Map<number, Piece>
+  private readonly pieces: Map<string, Piece>
 
-  public constructor (theGoalStub: GoalStub, pieces: Map<number, Piece>, visibleThings: VisibleThingsMap, theSolutionsTalkFiles: Map<string, TalkFile>) {
+  public constructor (theGoalStub: GoalStub, pieces: Map<string, Piece>, visibleThings: VisibleThingsMap, theSolutionsTalkFiles: Map<string, TalkFile>) {
     this.theGoalStub = theGoalStub
     this.currentlyVisibleThings = visibleThings
     this.talks = theSolutionsTalkFiles
@@ -33,11 +33,12 @@ export class DeconstructDoer {
   }
 
   public GetNextDoableCommandAndDeconstructTree (): RawObjectsAndVerb | null {
-    if (this.theGoalStub.inputs[0] === null) {
-      return null
+    const thePiece = this.theGoalStub.GetThePiece()
+    if (thePiece != null) {
+      const command = this.GetNextDoableCommandRecursively(thePiece)
+      return command
     }
-    const command = this.GetNextDoableCommandRecursively(this.theGoalStub.inputs[0])
-    return command
+    return null
   }
 
   private GetNextDoableCommandRecursively (piece: Piece): RawObjectsAndVerb | null {
@@ -51,7 +52,7 @@ export class DeconstructDoer {
       }
     }
 
-    const weOwnPiece = piece.id !== 0 && this.pieces.has(piece.id)
+    const weOwnPiece = piece.id !== 'stub' && this.pieces.has(piece.id)
     const weCanRemovePiece = weOwnPiece && this.isALeaf(piece) && areAllInputHintsInTheVisibleSet
 
     if (weCanRemovePiece || piece.type === SpecialTypes.CompletedElsewhere || piece.type === SpecialTypes.ExistsFromBeginning || piece.type === SpecialTypes.VerifiedLeaf) {

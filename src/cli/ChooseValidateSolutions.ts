@@ -70,7 +70,7 @@ export function ChooseValidateSolution (validators: Validators): void {
 
           // display list item
           const output = rootGoal.GetGoalWord()
-          const theGoalPiece = rootGoal.GetPiece()
+          const theGoalPiece = rootGoal.GetThePiece()
           let inputs = ''
           if (theGoalPiece != null) {
             for (const inputSpiel of theGoalPiece.inputSpiels) {
@@ -81,7 +81,7 @@ export function ChooseValidateSolution (validators: Validators): void {
           const originalCount = rootGoal.GetOriginalPieceCount()
           // const status = rootGoal.GetValidated() as string
           console.warn(
-            `    ${listItemNumber}.(${pieceCount} / ${originalCount}/) ${FormatText(output)} ${AddBrackets(inputs)} (root = ${(rootGoal.GetPiece() != null) ? 'found' : 'null'})`
+            `    ${listItemNumber}.(${pieceCount} / ${originalCount}/) ${FormatText(output)} ${AddBrackets(inputs)} (root = ${(rootGoal.GetThePiece() != null) ? 'found' : 'null'})`
           )
         }
 
@@ -110,7 +110,7 @@ export function ChooseValidateSolution (validators: Validators): void {
             for (const goal of validator.GetRootMap().GetValues()) {
               j++
               if (j === theNumber) {
-                const theGoalPiece = goal.GetPiece()
+                const theGoalPiece = goal.GetThePiece()
                 if (theGoalPiece != null) {
                   ValidatePieceRecursive(theGoalPiece, validator, goal, validator.GetVisibleThingsAtTheMoment())
                 } else {

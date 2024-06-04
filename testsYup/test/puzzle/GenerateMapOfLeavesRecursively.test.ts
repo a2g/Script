@@ -6,7 +6,7 @@ test('GenerateMapOfLeavesRecursively', () => {
   const map = new Map<string, Piece | null>()
   // eslint-disable-next-line no-return-assign, no-param-reassign
   const piece = new Piece(
-    1,
+    '1',
     null,
     'theOutput',
     '',

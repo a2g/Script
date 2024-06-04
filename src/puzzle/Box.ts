@@ -49,17 +49,13 @@ export class Box {
 
   private readonly talkFiles: Map<string, TalkFile>
 
-  private readonly startingMapOfAllStartingThings: VisibleThingsMap
-  private readonly startingPieces: Map<string, Set<Piece>>
-  private readonly startingTalkFiles: Map<string, TalkFile>
+  private readonly aggregates: Aggregates
 
-  constructor (path: string, filenames: string[], aggregates: Aggregates) {
+  constructor (path: string, filenames: string[], aggregates: Aggregates|null = null) {
+    this.aggregates = (aggregates !== null) ? aggregates : new Aggregates()
     this.path = path
     this.talkFiles = new Map<string, TalkFile>()
     this.filename = filenames[0]
-    this.startingMapOfAllStartingThings = new VisibleThingsMap(null)
-    this.startingPieces = new Map<string, Set<Piece>>()
-    this.startingTalkFiles = new Map<string, TalkFile>()
 
     this.allProps = []
     this.allGoals = []
@@ -87,10 +83,10 @@ export class Box {
       }
     } else if (filenames.length === 1) {
       const filename = filenames[0]
-      aggregates.mapOfBoxes.set(filename, this)
-      const box1 = aggregates.mapOfBoxes.get(filename)
+      this.aggregates.mapOfBoxes.set(filename, this)
+      const box1 = this.aggregates.mapOfBoxes.get(filename)
       console.assert(box1 !== null)
-      aggregates.mapOfBoxes.set(filename, this)
+      this.aggregates.mapOfBoxes.set(filename, this)
       if (!existsSync(path + filename)) {
         throw new Error(
           `file doesn't exist ${process.cwd()} ${path}${filename} `
@@ -134,7 +130,7 @@ export class Box {
       }
 
       /* collect all the goals and pieces file */
-      const singleFile = new SingleFile(this.path, filename, aggregates)
+      const singleFile = new SingleFile(this.path, filename, this.aggregates)
       singleFile.copyAllPiecesToContainers(this.pieces, this.goalWordSet, this.talkFiles)
 
       /* starting things is optional in the json */
@@ -282,7 +278,7 @@ export class Box {
     }
   }
 
-  public static CopyPiecesFromAtoBViaIds (a: Map<string, Set<Piece>>, b: Map<number, Piece>): void {
+  public static CopyPiecesFromAtoBViaIds (a: Map<string, Set<Piece>>, b: Map<string, Piece>): void {
     a.forEach((setOfPieces: Set<Piece>) => {
       setOfPieces.forEach((piece: Piece) => {
         b.set(piece.id, piece)
@@ -333,15 +329,27 @@ export class Box {
   }
 
   GetStartersMapOfAllStartingThings (): VisibleThingsMap {
-    return this.startingMapOfAllStartingThings
+    const starter = this.aggregates.mapOfBoxes.get('starter.jsonc')
+    if (starter != null) {
+      return starter.mapOfStartingThings
+    }
+    return new VisibleThingsMap(null)
   }
 
   GetStartingPieces (): Map<string, Set<Piece>> {
-    return this.startingPieces
+    const starter = this.aggregates.mapOfBoxes.get('starter.jsonc')
+    if (starter != null) {
+      return starter.pieces
+    }
+    return new Map<string, Set<Piece>>()
   }
 
   GetStartingTalkFiles (): Map<string, TalkFile> {
-    return this.startingTalkFiles
+    const starter = this.aggregates.mapOfBoxes.get('starter.jsonc')
+    if (starter != null) {
+      return starter.talkFiles
+    }
+    return new Map<string, TalkFile>()
   }
 
   GetPiecesAsString (): string {

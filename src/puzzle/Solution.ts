@@ -142,9 +142,9 @@ export class Solution {
     this.solvingPathSegments.push(solutionName)
   }
 
-  public FindAnyPieceMatchingIdRecursively (id: number): Piece | null {
+  public FindAnyPieceMatchingIdRecursively (id: string): Piece | null {
     for (const goalStub of this.goalStubs.GetValues()) {
-      const piece = goalStub.GetPiece()
+      const piece = goalStub.GetThePiece()
       if (piece != null) {
         const result = piece.FindAnyPieceMatchingIdRecursively(id)
         if (result != null) {
@@ -167,7 +167,7 @@ export class Solution {
     // go through all the goal pieces
     for (const goalStub of this.goalStubs.GetValues()) {
       // if there are no places to attach pieces it will return null
-      const piece = goalStub.GetPiece()
+      const piece = goalStub.GetThePiece()
       const firstMissingPiece = (piece != null) ? piece.ReturnTheFirstNullInputHint() : goalStub.GetGoalWord()
       if (firstMissingPiece === '') {
         if (!goalStub.IsSolved()) {

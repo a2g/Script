@@ -36,7 +36,7 @@ export function ChooseDigDeprecated (solutions: Solutions): void {
 
         // display list item
         const output = item.GetGoalWord()
-        const piece = item.GetPiece()
+        const piece = item.GetThePiece()
         let inputs = ''
         if (piece != null) {
           for (const inputSpiel of piece.inputSpiels) {
@@ -74,7 +74,7 @@ export function ChooseDigDeprecated (solutions: Solutions): void {
           const goals = rootMap.GetValues()
           for (const goal of goals) {
             i++
-            const theGoalPiece = goal.GetPiece()
+            const theGoalPiece = goal.GetThePiece()
             if (i === theNumber && (theGoalPiece != null)) {
               NavigatePieceRecursive(theGoalPiece, rootMap, solutionArray[i].GetVisibleThingsAtTheStart())
             }
