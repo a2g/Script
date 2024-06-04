@@ -3,6 +3,7 @@ import { FormatText } from '../puzzle/FormatText'
 import { AddBrackets } from '../puzzle/AddBrackets'
 import { Validators } from '../puzzle/Validators'
 import { ValidatePieceRecursive } from './ValidatePieceRecursive'
+
 const prompt = promptSync({})
 
 export function ChooseValidateSolution (validators: Validators): void {

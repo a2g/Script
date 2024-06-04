@@ -1,5 +1,5 @@
 export class VisibleThingsMap {
-  private readonly mapOfVisibleThings: Map<string, Set<string>>
+  public readonly mapOfVisibleThings: Map<string, Set<string>>
 
   constructor (startingThingsPassedIn: ReadonlyMap<string, Set<string>> | null) {
     // its its passed in we deep copy it
@@ -40,5 +40,19 @@ export class VisibleThingsMap {
 
   public GetIterableIterator (): IterableIterator<[string, Set<string>]> {
     return this.mapOfVisibleThings.entries()
+  }
+
+  CopyTo (dest: VisibleThingsMap): void {
+    for (const key of this.mapOfVisibleThings.keys()) {
+      if (!dest.Has(key)) {
+        dest.Set(key, new Set<string>())
+      }
+      const set = dest.Get(key)
+      if (set != null) {
+        for (const item of set) {
+          dest.Get(key)?.add(item)
+        }
+      }
+    }
   }
 }

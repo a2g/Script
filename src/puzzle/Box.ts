@@ -61,17 +61,36 @@ export class Box {
     this.startingPieces = new Map<string, Set<Piece>>()
     this.startingTalkFiles = new Map<string, TalkFile>()
 
-    const setProps = new Set<string>()
-    const setGoals = new Set<string>()
-    const setInvs = new Set<string>()
-    const setChars = new Set<string>()
+    this.allProps = []
+    this.allGoals = []
+    this.allInvs = []
+    this.allChars = []
+    /* preen starting invs from the startingThings */
+    this.startingInvSet = new Set<string>()
+    this.startingGoalWordSet = new Set<string>()
+    this.startingPropSet = new Set<string>()
+    this.goalWordSet = new Set<string>()
+    this.mapOfStartingThings = new VisibleThingsMap(null)
+    this.pieces = new Map<string, Set<Piece>>()
+    this.talkFiles = new Map<string, TalkFile>()
 
     // this is a bit hacky, but we need
-    if (filenames.length === 1) {
-      aggregates.mapOfBoxes.set(filenames[0], this)
-    }
+    if (filenames.length > 1) {
+      for (const filename of filenames) {
+        const box = new Box(path, [filename], aggregates)
 
-    for (const filename of filenames) {
+        Box.CopyPiecesFromAtoB(box.pieces, this.pieces)
+        box.goalWordSet.forEach(x => this.goalWordSet.add(x))
+        Box.CopyTalksFromAtoB(box.talkFiles, this.talkFiles)
+        Box.CopyPiecesFromAtoB(box.pieces, this.pieces)
+        box.mapOfStartingThings.CopyTo(this.mapOfStartingThings)
+      }
+    } else if (filenames.length === 1) {
+      const filename = filenames[0]
+      aggregates.mapOfBoxes.set(filename, this)
+      const box1 = aggregates.mapOfBoxes.get(filename)
+      console.assert(box1 !== null)
+      aggregates.mapOfBoxes.set(filename, this)
       if (!existsSync(path + filename)) {
         throw new Error(
           `file doesn't exist ${process.cwd()} ${path}${filename} `
@@ -83,6 +102,10 @@ export class Box {
       /* this loop is only to ascertain all the different */
       /* possible object names. ie basically all the enums */
       /* but without needing the enum file */
+      const setProps = new Set<string>()
+      const setGoals = new Set<string>()
+      const setInvs = new Set<string>()
+      const setChars = new Set<string>()
       for (const gate of scenario.pieces) {
         setInvs.add(Stringify(gate.inv1))
         setInvs.add(Stringify(gate.inv2))
@@ -97,6 +120,7 @@ export class Box {
         setProps.add(Stringify(gate.prop6))
         setProps.add(Stringify(gate.prop7))
       }
+
       /* starting things is optional in the json */
       if (
         scenario.startingThings !== undefined &&
@@ -108,49 +132,10 @@ export class Box {
           }
         }
       }
-    }
-    setChars.delete('')
-    setChars.delete('undefined')
-    setProps.delete('')
-    setProps.delete('undefined')
-    setGoals.delete('')
-    setGoals.delete('undefined')
-    setInvs.delete('')
-    setInvs.delete('undefined')
-    this.allProps = Array.from(setProps.values())
-    this.allGoals = Array.from(setGoals.values())
-    this.allInvs = Array.from(setInvs.values())
-    this.allChars = Array.from(setChars.values())
-    /* preen starting invs from the startingThings */
-    this.startingInvSet = new Set<string>()
-    this.startingGoalWordSet = new Set<string>()
-    this.startingPropSet = new Set<string>()
-    this.goalWordSet = new Set<string>()
-    this.mapOfStartingThings = new VisibleThingsMap(null)
-    this.pieces = new Map<string, Set<Piece>>()
-    this.talkFiles = new Map<string, TalkFile>()
-
-    for (let i = 0; i < filenames.length; i++) {
-      const filename = filenames[i]
-      if (!existsSync(path + filename)) {
-        throw new Error(
-          `file doesn't exist ${process.cwd()} ${path}${filename} `
-        )
-      }
-      const text = readFileSync(path + filename, 'utf8')
-      const scenario = parse(text)
 
       /* collect all the goals and pieces file */
       const singleFile = new SingleFile(this.path, filename, aggregates)
-
-      if (i !== 0) {
-        singleFile.copyAllPiecesToContainers(this.pieces, this.goalWordSet, this.talkFiles)
-      } else {
-        singleFile.copyAllPiecesToContainers(this.startingPieces, this.startingGoalWordSet, this.startingTalkFiles)
-        Box.CopyPiecesFromAtoB(this.startingPieces, this.pieces)
-        this.startingGoalWordSet.forEach(x => this.goalWordSet.add(x))
-        Box.CopyTalksFromAtoB(this.startingTalkFiles, this.talkFiles)
-      }
+      singleFile.copyAllPiecesToContainers(this.pieces, this.goalWordSet, this.talkFiles)
 
       /* starting things is optional in the json */
       if (
@@ -182,6 +167,19 @@ export class Box {
           }
         }
       }
+
+      setChars.delete('')
+      setChars.delete('undefined')
+      setProps.delete('')
+      setProps.delete('undefined')
+      setGoals.delete('')
+      setGoals.delete('undefined')
+      setInvs.delete('')
+      setInvs.delete('undefined')
+      this.allProps = Array.from(setProps.values())
+      this.allGoals = Array.from(setGoals.values())
+      this.allInvs = Array.from(setInvs.values())
+      this.allChars = Array.from(setChars.values())
     }
   }
 
