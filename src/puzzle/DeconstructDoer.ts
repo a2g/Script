@@ -61,6 +61,12 @@ export class DeconstructDoer {
         const isSomeOtherGoalThatIsCompleted = (piece.type === SpecialTypes.SomeOtherGoal) && this.goalStubMap.IsGoalCleared(piece.output)
         const isStartingThingsAndTheyHaveBeenOpened = (piece.type === SpecialTypes.StartingThings) && this.currentlyVisibleThings.Has(piece.output)
         if (isSamePieceIsInOurStash || isSomeOtherGoalThatIsCompleted || isStartingThingsAndTheyHaveBeenOpened) {
+          // if this best way to check whether we have just completed the root piece?
+          const theGoalStubPiece = this.theGoalStub.GetThePiece()
+          if (theGoalStubPiece != null && theGoalStubPiece.id === piece.id) {
+            this.theGoalStub.SetValidated(Validated.YesValidated)
+          }
+
           // then we remove this key as a leaf piece..
           // by nulling its  input in the parent.
           if (piece.parent != null) {
@@ -83,11 +89,6 @@ export class DeconstructDoer {
 
           // set the goal as completed in the currently visible things
           this.currentlyVisibleThings.Set(this.theGoalStub.GetGoalWord(), new Set<string>())
-
-          // if this best way to check whether we have just completed the root piece?
-          if (this.theGoalStub.GetThePiece() === piece) {
-            this.theGoalStub.SetValidated(Validated.Validated)
-          }
 
           // Now for the verb/object combo that we need to return
           let toReturn: RawObjectsAndVerb | null = null

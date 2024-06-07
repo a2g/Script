@@ -55,8 +55,8 @@ export function ChooseBackwardSolve (solutions: Solutions): void {
         // TrimNonIntegratedRootPieces(solution) <-- pretty sure this did nothing
 
         // Start of list of piece trees
-        console.warn('Backwards Solve//Piece Tree')
-        console.warn('===========================')
+        console.warn('Backwards Solve//Piece Trees')
+        console.warn('============================')
         const text = FormatText(solution.GetSolvingPath())
         const NAME_NOT_DETERMINABLE = 'name_not_determinable'
         // HACKY!

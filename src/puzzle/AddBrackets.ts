@@ -6,7 +6,7 @@
  * @returns the resultant string
  */
 export function AddBrackets (input: string, isParenthesisNeeded = true): string {
-  if (isParenthesisNeeded) {
+  if (isParenthesisNeeded && input.trim().length > 0) {
     return `( ${input} )`
   }
   return input

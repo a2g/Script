@@ -51,7 +51,8 @@ export function ChooseForwardValidate (validators: Validators): void {
         const validator = validators.GetValidators()[theNumber - 1]
         // list all leaves, of all solutions in order
         // TrimNonIntegratedRootPieces(solution) <-- pretty sure this did nothing
-
+        console.warn('Forwards Validate//Piece Trees')
+        console.warn('============================')
         const text = FormatText(validator.GetName())
         const NAME_NOT_DETERMINABLE = 'name_not_determinable'
         // HACKY!
@@ -76,10 +77,12 @@ export function ChooseForwardValidate (validators: Validators): void {
           }
           const pieceCount = rootGoal.GetCountRecursively()
           const originalCount = rootGoal.GetOriginalPieceCount()
-          const id = (theGoalPiece != null) ? theGoalPiece.id : 'null-id'
+          const id = (theGoalPiece != null) ? theGoalPiece.id : ''
+          const status = rootGoal.GetValidated() as string
+
           // const status = rootGoal.GetValidated() as string
           console.warn(
-            `    ${listItemNumber}.(${pieceCount} / ${originalCount}/) ${FormatText(output)} ${id} ${AddBrackets(inputs)})`
+            `    ${listItemNumber}. ${status}(${pieceCount}/${originalCount}) ${FormatText(output)} ${id} ${AddBrackets(inputs)}`
           )
         }
 
