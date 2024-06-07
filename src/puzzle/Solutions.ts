@@ -46,8 +46,8 @@ export class Solutions {
       this.combinedBox.GetPieces(),
       this.combinedBox.GetTalkFiles(),
       this.combinedBox.GetMapOfAllStartingThings(),
-      this.CreateGoalStubMapFromGoalWords(this.combinedBox.GetSetOfGoalWords())
-      // this.CreateGoalStubMapFromGoalWords(this.aggregates.setOfGoalWords)
+      // this.CreateGoalStubMapFromGoalWords(this.combinedBox.GetSetOfGoalWords())
+      this.CreateGoalStubMapFromGoalWords(this.aggregates.setOfGoalWords)
     )
     this.solutions.push(solution1)
 
@@ -108,7 +108,10 @@ export class Solutions {
   }
 
   public CreateGoalStubMapFromGoalWords (setOfStrings: Set<string>): GoalStubMap {
+    setOfStrings.delete('x_win')
     const rootMapFromGoalStubs = new GoalStubMap(null)
+    rootMapFromGoalStubs.AddGoalStub('x_win')
+
     for (const goalWord of setOfStrings) {
       rootMapFromGoalStubs.AddGoalStub(goalWord)
     }
@@ -116,7 +119,7 @@ export class Solutions {
   }
 
   public PerformThingsNeededAfterAllSolutionsFound (): void {
-
+    this.GenerateSolutionNamesTheOldWay()
   }
 
   /*
