@@ -51,8 +51,8 @@ export class Box {
 
   private readonly aggregates: Aggregates
 
-  constructor (path: string, filenames: string[], aggregates: Aggregates|null = null) {
-    this.aggregates = (aggregates !== null) ? aggregates : new Aggregates()
+  constructor (path: string, filenames: string[], aggregates: Aggregates) {
+    this.aggregates = aggregates
     this.path = path
     this.talkFiles = new Map<string, TalkFile>()
     this.filename = filenames[0]
@@ -73,8 +73,10 @@ export class Box {
     // this is a bit hacky, but we need
     if (filenames.length > 1) {
       for (const filename of filenames) {
-        const box = new Box(path, [filename], aggregates)
-
+        let box = aggregates.mapOfBoxes.get(filename)
+        if (box == null) {
+          box = new Box(path, [filename], aggregates)
+        }
         Box.CopyPiecesFromAtoB(box.pieces, this.pieces)
         box.goalWordSet.forEach(x => this.goalWordSet.add(x))
         Box.CopyTalksFromAtoB(box.talkFiles, this.talkFiles)
@@ -131,7 +133,7 @@ export class Box {
 
       /* collect all the goals and pieces file */
       const singleFile = new SingleFile(this.path, filename, this.aggregates)
-      singleFile.copyAllPiecesToContainers(this.pieces, this.goalWordSet, this.talkFiles)
+      singleFile.copyAllPiecesToContainers(this)
 
       /* starting things is optional in the json */
       if (

@@ -30,12 +30,12 @@ function main (): void {
         return
       default:
         if (index >= 0 && index < starters.length) {
+          const starter = starters[index]
+          // DumpGainsFromEachTalkInFolder(starter.folder)
+
+          const solutions = new Solutions(starter.folder, starter.file)
+
           for (; ;) {
-            const starter = starters[index]
-            // DumpGainsFromEachTalkInFolder(starter.folder)
-
-            const solutions = new Solutions(starter.folder, starter.file)
-
             console.warn(`\nSubMenu of ${starter.file}`)
             console.warn(
               `number of pieces = ${solutions

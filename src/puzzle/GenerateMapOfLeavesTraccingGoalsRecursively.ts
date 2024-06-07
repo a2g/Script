@@ -31,7 +31,7 @@ export function GenerateMapOfLeavesTracingGoalsRecursively (
     const inputType = input == null ? 'null' : input.type
     // either set an entry in the leaf map or not...
     switch (inputType) {
-      case SpecialTypes.CompletedElsewhere: {
+      case SpecialTypes.SomeOtherGoal: {
         const goalStub = rootPieceMap.GoalStubByName(piece.inputHints[i])
         // Generating name ran may have to multiple with same name');
         const goalStubPiece = goalStub.GetThePiece()
@@ -45,7 +45,7 @@ export function GenerateMapOfLeavesTracingGoalsRecursively (
         }
         break
       }
-      case SpecialTypes.ExistsFromBeginning:
+      case SpecialTypes.StartingThings:
       case SpecialTypes.VerifiedLeaf:
       case 'null':
         map.set(`${path}/${piece.inputHints[i]}`, input)

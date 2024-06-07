@@ -1,8 +1,8 @@
 export enum SpecialTypes {
   // eslint-disable-next-line no-unused-vars
-  CompletedElsewhere = 'ViaCompletionOfSeparateGoal',
+  SomeOtherGoal = 'ViaCompletionOfSomeOtherGoal',
   // eslint-disable-next-line no-unused-vars
-  ExistsFromBeginning = 'ExistsFromBeginning',
+  StartingThings = 'StartingThings',
   // eslint-disable-next-line no-unused-vars
   VerifiedLeaf = 'VerifiedLeaf',
 }

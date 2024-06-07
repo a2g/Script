@@ -84,7 +84,8 @@ export class Validator {
       goalStub,
       this.remainingPieces,
       this.currentlyVisibleThings,
-      this.talks
+      this.talks,
+      this.goalStubs
     )
 
     let rawObjectsAndVerb: RawObjectsAndVerb | null = null
@@ -102,6 +103,7 @@ export class Validator {
       if (rawObjectsAndVerb.type !== Raw.None) {
         // this is just here for debugging!
         goalStub.PushCommand(rawObjectsAndVerb)
+        console.log(`${rawObjectsAndVerb.type}  ${rawObjectsAndVerb.objectA} ${rawObjectsAndVerb.objectB}`)
       }
     }
 
@@ -110,17 +112,6 @@ export class Validator {
     //
     // But if its solved, then we mark it as validated!
     if (deconstructDoer.IsZeroPieces()) {
-      goalStub.SetValidated(Validated.Validated)
-
-      // merge if needed
-      // const goalStubPiece = goalStub.GetThePiece()
-      // if (goalStubPiece?.boxToMerge != null) {
-      //  this.MergeBox(goalStubPiece.boxToMerge)
-      // }
-
-      // set the goal as completed in the currently visible things
-      this.currentlyVisibleThings.Set(goalStub.GetGoalWord(), new Set<string>())
-
       // then write the goal we just completed
       goalStub.PushCommand(
         new RawObjectsAndVerb(
@@ -198,7 +189,7 @@ export class Validator {
   GetRemainingPiecesAsString (): string {
     let stringOfPieceIds = ''
     for (const piece of this.remainingPieces.values()) {
-      stringOfPieceIds += `${piece.id}, `
+      stringOfPieceIds += `${piece.id}-${piece.output}, `
     }
     return stringOfPieceIds
   }

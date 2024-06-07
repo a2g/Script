@@ -40,17 +40,13 @@ export class SingleFile {
   }
 
   public copyAllPiecesToContainers (
-    piecesMappedByOutput: Map<string, Set<Piece>>,
-    setOfGoalWords: Set<string>,
-    mapOfTalks: Map<string, TalkFile>
+    box: Box
   ): void {
-    this.copyPiecesToContainer(piecesMappedByOutput, setOfGoalWords, mapOfTalks)
+    this.copyPiecesToContainer(box)
   }
 
   private copyPiecesToContainer (
-    piecesMappedByOutput: Map<string, Set<Piece>>,
-    setOfGoalWords: Set<string>,
-    mapOfTalks: Map<string, TalkFile>
+    box: Box
   ): void {
     const isCopyRootPiecesOnly = false
     for (const piece of this.scenario.pieces) {
@@ -148,12 +144,12 @@ export class SingleFile {
         case _.TALK1_GENERATED_PIECE_PLACEHOLDER:
           {
             const talkFile = new TalkFile(talk1 + '.jsonc', this.path, this.aggregates)
-            mapOfTalks.set(talkFile.GetName(), talkFile)
+            box.GetTalkFiles().set(talkFile.GetName(), talkFile)
             const blankMap = new Map<string, string>()
             // talk1 is a subclass of a prop: it represents the character that
             // you interact with and can be visible and invisible - just like a prop
             // To talk to a prop it needs to be visible, so we add talk1 as a requisite
-            talkFile.FindAndAddPiecesRecursively('starter', '', [talk1], blankMap, piecesMappedByOutput, setOfGoalWords)
+            talkFile.FindAndAddPiecesRecursively('starter', '', [talk1], blankMap, box)
           }
           break
         case _.EXAMINE_PROP1_YIELDS_INV1:
@@ -310,8 +306,7 @@ export class SingleFile {
               ),
               this.path,
               true, // there's no file, its dynamic,
-              piecesMappedByOutput,
-              setOfGoalWords,
+              box,
               this.aggregates
             )
 
@@ -336,8 +331,7 @@ export class SingleFile {
                 ),
                 this.path,
                 true, // there's no file, its dynamic
-                piecesMappedByOutput,
-                setOfGoalWords,
+                box,
                 this.aggregates
               )
               const happs3 = new Happenings()
@@ -362,8 +356,7 @@ export class SingleFile {
                 ),
                 this.path,
                 true, // there's no file, its dynamic,
-                piecesMappedByOutput,
-                setOfGoalWords,
+                box,
                 this.aggregates
               )
             }
@@ -534,8 +527,7 @@ export class SingleFile {
               ),
               this.path,
               true, // there's no file, its dynamic
-              piecesMappedByOutput,
-              setOfGoalWords,
+              box,
               this.aggregates
             )
 
@@ -559,8 +551,7 @@ export class SingleFile {
                 ),
                 this.path,
                 true, // there's no file, its dynamic
-                piecesMappedByOutput,
-                setOfGoalWords,
+                box,
                 this.aggregates
               )
               const happs3 = new Happenings()
@@ -584,8 +575,7 @@ export class SingleFile {
                 ),
                 this.path,
                 true, // there's no file, its dynamic
-                piecesMappedByOutput,
-                setOfGoalWords,
+                box,
                 this.aggregates
               )
             }
@@ -810,8 +800,7 @@ export class SingleFile {
         ),
         this.path,
         isNoFile, // defer to variable at end of file
-        piecesMappedByOutput,
-        setOfGoalWords,
+        box,
         this.aggregates
       )
     }

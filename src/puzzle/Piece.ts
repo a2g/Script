@@ -290,7 +290,7 @@ export class Piece extends PieceBase {
       const importHintToFind = this.inputHints[k]
       if (
         solution.GetStartingThings().Has(importHintToFind)) {
-        this.StubOutInputK(k, SpecialTypes.ExistsFromBeginning)
+        this.StubOutInputK(k, SpecialTypes.StartingThings)
         continue
       }
 
@@ -307,7 +307,7 @@ export class Piece extends PieceBase {
         const isSolved = matchingRootPiece.IsSolved()
 
         if (isSolved) {
-          this.StubOutInputK(k, SpecialTypes.CompletedElsewhere)
+          this.StubOutInputK(k, SpecialTypes.SomeOtherGoal)
         }
         continue
       }

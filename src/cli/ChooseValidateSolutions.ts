@@ -79,9 +79,10 @@ export function ChooseValidateSolution (validators: Validators): void {
           }
           const pieceCount = rootGoal.GetCountRecursively()
           const originalCount = rootGoal.GetOriginalPieceCount()
+          const id = (theGoalPiece != null) ? theGoalPiece.id : 'null-id'
           // const status = rootGoal.GetValidated() as string
           console.warn(
-            `    ${listItemNumber}.(${pieceCount} / ${originalCount}/) ${FormatText(output)} ${AddBrackets(inputs)} (root = ${(rootGoal.GetThePiece() != null) ? 'found' : 'null'})`
+            `    ${listItemNumber}.(${pieceCount} / ${originalCount}/) ${FormatText(output)} ${id} ${AddBrackets(inputs)} (root = ${(rootGoal.GetThePiece() != null) ? 'found' : 'null'})`
           )
         }
 

@@ -6,6 +6,30 @@ import { Solutions } from './Solutions'
 import { Solved } from './Solved'
 import { Validated } from './Validated'
 
+/**
+ * #### So this is NOT a piece, its just the thing that pieces attach to.
+ * BUT it inherits from PieceBase, so it can participate in this hierarchical
+ * operation where a piece removes itself from the piece's parent. And since
+ * this GoalStub is a pieces parent, it needs to derive form that class.
+ *
+ * Some parents have multiple children, so the PieceBAse has provision for this
+ * but this GoalStub can only ever have a single one. So we have these getters
+ * and setters for GetGoalWord, and GetThePiece - that make the code easier to
+ * read because they reinforce that this only has one of those.
+ *
+ * This has solved and validated flags because this thing gets a tree added to it,
+ * until it is solved, and additionally if all the pieces can be removed then
+ * its validated. So zero pieces could be - initial state, or solved and validated.
+ * And half a tree could be solved, and half validated Or have solved. So to make
+ * it clear we have these flags.
+ *
+ * This is also where command steps that pertain to event are kept. Once we have
+ * validated an order of goal solving, then the most single minded way to do it
+ * would be to do the steps required of goal1, then the steps required of goal2.
+ * The solution could be thousands of permutations that adhere to this,
+ * but its handy to have a predictable deterministic solution - at least as a
+ * starting point, before optimizations.
+ */
 export class GoalStub extends PieceBase {
   private readonly commandsCompletedInOrder: RawObjectsAndVerb[]
   private solved: Solved = Solved.Not

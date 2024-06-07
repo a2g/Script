@@ -9,6 +9,7 @@ import { parse } from 'jsonc-parser'
 import _ from '../../../puzzle-piece-enums.json'
 import { Aggregates } from '../Aggregates'
 import { AddPiece } from '../AddPiece'
+import { Box } from '../Box'
 
 export class TalkFile {
   filename: string
@@ -72,7 +73,7 @@ export class TalkFile {
     return this.filename
   }
 
-  public FindAndAddPiecesRecursively (name: string, path: string, requisites: string[], mapOGainsBySection: Map<string, string>, pieces: Map<string, Set<Piece>>, goalWords: Set<string>): void {
+  public FindAndAddPiecesRecursively (name: string, path: string, requisites: string[], mapOGainsBySection: Map<string, string>, box: Box): void {
     // console.log(`>>>>${path}/${name}`)
     if (name.endsWith('choices')) {
       const choiceSection = this.choices.get(name)
@@ -81,7 +82,7 @@ export class TalkFile {
           for (const line of queue.values()) {
             if (line.goto.length > 0 && !line.isUsed) {
               line.isUsed = true
-              this.FindAndAddPiecesRecursively(line.goto, `${path}/${name}`, [...requisites, ...line.theseRequisites], mapOGainsBySection, pieces, goalWords)
+              this.FindAndAddPiecesRecursively(line.goto, `${path}/${name}`, [...requisites, ...line.theseRequisites], mapOGainsBySection, box)
             }
           }
         }
@@ -111,16 +112,16 @@ export class TalkFile {
             type = _.TALK_GAINS_PROP1_WITH_VARIOUS_REQUISITES
           }
           // important that it uses the next id here
-          const id = GetNextId() + 't'
+          const id = GetNextId() + 't' + (isNoFile ? '' : 'm')
           const piece = new Piece(id, null, output, type, 1, null, null, null, inputA, inputB, inputC, inputD, inputE, inputF)
           piece.SetTalkPath(`${path}/${name}`)
-          AddPiece(piece, this.fileAddress, isNoFile, pieces, goalWords, this.aggregates)
+          AddPiece(piece, this.fileAddress, isNoFile, box, this.aggregates)
           mapOGainsBySection.set(name, output)
         } else if (nonChoiceSection.goto.length > 0) {
           // nonChoice sections only have one goto
           // but they have a name - its valid
           // unlike choices, they don't have requisites, so we add existing
-          this.FindAndAddPiecesRecursively(nonChoiceSection.goto, `${path}/${name}`, requisites, mapOGainsBySection, pieces, goalWords)
+          this.FindAndAddPiecesRecursively(nonChoiceSection.goto, `${path}/${name}`, requisites, mapOGainsBySection, box)
         }
       }
     }

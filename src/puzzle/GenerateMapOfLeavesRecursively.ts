@@ -33,8 +33,8 @@ export function GenerateMapOfLeavesRecursively (
     const inputType = input == null ? 'null' : input.type
     // either set an entry in the leaf map or not...
     switch (inputType) {
-      case SpecialTypes.CompletedElsewhere:
-      case SpecialTypes.ExistsFromBeginning:
+      case SpecialTypes.SomeOtherGoal:
+      case SpecialTypes.StartingThings:
       case SpecialTypes.VerifiedLeaf:
       case 'null':
         if (isOnlyNulls && inputType != null) {

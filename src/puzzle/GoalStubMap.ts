@@ -18,15 +18,15 @@ import { Solved } from './Solved'
  *
  */
 export class GoalStubMap {
-  private readonly roots: Map<string, GoalStub>
+  private readonly theMap: Map<string, GoalStub>
 
   constructor (cloneIncludingLeaves: GoalStubMap | null) {
-    this.roots = new Map<string, GoalStub>()
+    this.theMap = new Map<string, GoalStub>()
     if (cloneIncludingLeaves != null) {
-      for (const pair of cloneIncludingLeaves.roots) {
+      for (const pair of cloneIncludingLeaves.theMap) {
         const key = pair[0]
         const goalStub = pair[1]
-        this.roots.set(key, goalStub.CloneIncludingLeaves())
+        this.theMap.set(key, goalStub.CloneIncludingLeaves())
       }
     }
   }
@@ -65,7 +65,7 @@ export class GoalStubMap {
   }
 
   public GoalStubByName (name: string): GoalStub {
-    const root = this.roots.get(name)
+    const root = this.theMap.get(name)
     if (typeof root === 'undefined' || root === null) {
       throw new Error(`rootPiece of that name doesn't exist ${name}`)
     }
@@ -74,18 +74,18 @@ export class GoalStubMap {
 
   public CalculateListOfKeys (): string[] {
     const array: string[] = []
-    for (const key of this.roots.keys()) {
+    for (const key of this.theMap.keys()) {
       array.push(key)
     }
     return array
   }
 
   public Size (): number {
-    return this.roots.size
+    return this.theMap.size
   }
 
   public GetValues (): IterableIterator<GoalStub> {
-    return this.roots.values()
+    return this.theMap.values()
   }
 
   public CloneAllRootPiecesAndTheirTrees (): GoalStubMap {
@@ -93,21 +93,21 @@ export class GoalStubMap {
   }
 
   public Has (goalToObtain: string): boolean {
-    return this.roots.has(goalToObtain)
+    return this.theMap.has(goalToObtain)
   }
 
   public GetGoalStubByNameNoThrow (goal: string): GoalStub | undefined {
-    return this.roots.get(goal)
+    return this.theMap.get(goal)
   }
 
   private GetWinGoalIfAny (): GoalStub | undefined {
-    return this.roots.get('x_win')
+    return this.theMap.get('x_win')
   }
 
   AddGoalStub (word: string): void {
-    if (!this.roots.has(word)) {
+    if (!this.theMap.has(word)) {
       console.warn(`Merged goal word ${word}`)
-      this.roots.set(word, new GoalStub(word, [], Solved.Not))
+      this.theMap.set(word, new GoalStub(word, [], Solved.Not))
     } else {
       console.warn(`Already exists: Failed to merge goal ${word}  `)
     }
@@ -119,5 +119,13 @@ export class GoalStubMap {
         root.CalculateOriginalPieceCount()
       }
     }
+  }
+
+  IsGoalCleared (output: string): boolean {
+    const stub = this.theMap.get(output)
+    if (stub != null) {
+      return stub.IsGoalCleared()
+    }
+    return false
   }
 }
