@@ -9,6 +9,8 @@ export function NavigatePieceRecursive (
   rootPieceMap: GoalStubMap, visibleThings: VisibleThingsMap
 ): void {
   for (; ;) {
+    console.warn('Backwards Solve//Piece Trees//Digging')
+    console.warn('=====================================')
     const id = piece.id
     const output: string = piece.spielOutput
     console.warn(`output: ${output} id: ${id}`)

@@ -4,7 +4,7 @@ import { Solutions } from '../puzzle/Solutions'
 
 const prompt = promptSync({})
 
-export function ChoosePiecesOfEachBox (solutions: Solutions): void {
+export function ChoosePiecesInBoxes (solutions: Solutions): void {
   console.warn(' ')
 
   for (;;) {

@@ -6,15 +6,12 @@ import { ValidatePieceRecursive } from './ValidatePieceRecursive'
 
 const prompt = promptSync({})
 
-export function ChooseValidateSolution (validators: Validators): void {
+export function ChooseForwardValidate (validators: Validators): void {
   for (; ;) {
     const numberOfSolutions: number = validators.GetValidators().length
-    console.warn('Dig in to goals')
-    console.warn('===============')
-    console.warn(`Number of solutions in solutions = ${numberOfSolutions}`)
 
     // solutions.GenerateSolutionNamesAndPush()
-    console.warn('Pick solution')
+    console.warn('Forward Validate')
     console.warn('================')
     console.warn(`Number of solutions = ${numberOfSolutions}`)
     if (validators.GetValidators().length > 1) {
@@ -82,7 +79,7 @@ export function ChooseValidateSolution (validators: Validators): void {
           const id = (theGoalPiece != null) ? theGoalPiece.id : 'null-id'
           // const status = rootGoal.GetValidated() as string
           console.warn(
-            `    ${listItemNumber}.(${pieceCount} / ${originalCount}/) ${FormatText(output)} ${id} ${AddBrackets(inputs)} (root = ${(rootGoal.GetThePiece() != null) ? 'found' : 'null'})`
+            `    ${listItemNumber}.(${pieceCount} / ${originalCount}/) ${FormatText(output)} ${id} ${AddBrackets(inputs)})`
           )
         }
 

@@ -5,17 +5,13 @@ import { NavigatePieceRecursive } from './NavigatePieceRecursive'
 import { AddBrackets } from '../puzzle/AddBrackets'
 const prompt = promptSync({})
 
-export function ChooseDigIntoGoals2 (solutions: Solutions): void {
+export function ChooseBackwardSolve (solutions: Solutions): void {
   console.warn(' ')
 
   for (; ;) {
     const numberOfSolutions: number = solutions.NumberOfSolutions()
-    console.warn('Dig in to goals')
-    console.warn('===============')
-    console.warn(`Number of solutions in solutions = ${numberOfSolutions}`)
-
     // solutions.GenerateSolutionNamesAndPush()
-    console.warn('Pick solution')
+    console.warn('Backwards Solve')
     console.warn('================')
     console.warn(`Number of solutions = ${numberOfSolutions}`)
     if (solutions.GetSolutions().length > 1) {
@@ -32,9 +28,8 @@ export function ChooseDigIntoGoals2 (solutions: Solutions): void {
       console.warn(`    ${i + 1}. ${name} number of unsolved goals=${numberOfUnsolved}`)
     }
 
-    // allow user to choose item
     const firstInput = prompt(
-      '\nChoose an ingredient of one of the solutions or (b)ack, (r)e-run, e(x)it '
+      '\nChoose an Piece Tree (b)ack, (r)e-run, e(x)it '
     ).toLowerCase()
 
     if (firstInput === null || firstInput === 'b') {
@@ -53,11 +48,15 @@ export function ChooseDigIntoGoals2 (solutions: Solutions): void {
       if (theNumber < 1 || theNumber > solutions.GetSolutions().length) {
         continue
       }
+
       for (; ;) {
         const solution = solutions.GetSolutions()[theNumber - 1]
         // list all leaves, of all solutions in order
         // TrimNonIntegratedRootPieces(solution) <-- pretty sure this did nothing
 
+        // Start of list of piece trees
+        console.warn('Backwards Solve//Piece Tree')
+        console.warn('===========================')
         const text = FormatText(solution.GetSolvingPath())
         const NAME_NOT_DETERMINABLE = 'name_not_determinable'
         // HACKY!
@@ -83,7 +82,7 @@ export function ChooseDigIntoGoals2 (solutions: Solutions): void {
           }
           const status = rootGoal.GetSolved() as string
           console.warn(
-            `    ${listItemNumber}. ${status}${FormatText(output)} ${AddBrackets(inputs)} (root = ${(rootGoal.GetThePiece() != null) ? 'found' : 'null'}`
+            `    ${listItemNumber}. ${status}${FormatText(output)} ${AddBrackets(inputs)} `
           )
           incomplete += rootGoal.IsSolved() ? 0 : 1
         }

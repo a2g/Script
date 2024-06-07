@@ -46,10 +46,8 @@ export function getJsonOfAllSolutions (
         listItemNumber++
 
         // display list item
-        const status = item.IsSolved() ? 'Solved' : 'Unsolved'
         const output = item.GetGoalWord()
-        const piece = item.GetThePiece()
-        console.warn(`    ${listItemNumber}. ${output} (root = ${(piece != null) ? 'found' : 'null'} status=${status})`)
+        console.warn(`    ${listItemNumber}. ${output} )`)
         incomplete += item.IsSolved() ? 0 : 1
       }
     }

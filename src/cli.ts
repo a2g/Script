@@ -3,11 +3,11 @@ import { Solutions } from './puzzle/Solutions'
 import { ChooseListOfLeaves } from './cli/ChooseListOfLeaves'
 import { ChooseOrderOfCommands } from './cli/ChooseOrderOfCommands'
 import { $IStarter, getJsonOfStarters } from './api/getJsonOfStarters'
-import { ChooseDigIntoGoals2 } from './cli/ChooseDigIntoGoals2'
+import { ChooseBackwardSolve } from './cli/ChooseBackwardSolve'
 // import { DumpGainsFromEachTalkInFolder } from './cli/DumpGansFromEachTalkInFolder'
 import { Validators } from './puzzle/Validators'
-import { ChooseValidateSolution } from './cli/ChooseValidateSolutions'
-import { ChoosePiecesOfEachBox } from './cli/ChoosePiecesOfEachBox'
+import { ChooseForwardValidate } from './cli/ChooseForwardValidate'
+import { ChoosePiecesInBoxes } from './cli/ChoosePiecesInBoxes'
 // import { ChooseValidateSolution } from './cli/ChooseValidateSolutions'
 
 const prompt = promptSync()
@@ -58,7 +58,7 @@ function main (): void {
             }
             switch (choice) {
               case '1':
-                ChooseDigIntoGoals2(solutions)
+                ChooseBackwardSolve(solutions)
                 break
               case '2':
                 {
@@ -69,11 +69,11 @@ function main (): void {
                   }
                   solutions.PerformThingsNeededAfterAllSolutionsFound()
                   const validators = new Validators(solutions)
-                  ChooseValidateSolution(validators)
+                  ChooseForwardValidate(validators)
                 }
                 break
               case '3':
-                ChoosePiecesOfEachBox(solutions)
+                ChoosePiecesInBoxes(solutions)
                 break
               case '4':
                 ChooseListOfLeaves(solutions)

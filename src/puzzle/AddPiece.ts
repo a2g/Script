@@ -8,7 +8,7 @@ export function AddPiece (piece: Piece, folder = '', isNoFile = true, box: Box, 
   if (IsPieceOutputtingAGoal(piece)) {
     const goalWord = piece.output
     box.GetSetOfGoalWords().add(goalWord)
-    aggregates.setOfGoalStubs.add(goalWord)
+    aggregates.setOfGoalWords.add(goalWord)
     // if not file exists for goal name
     // then throw an exception, unless
     //  - xwin
