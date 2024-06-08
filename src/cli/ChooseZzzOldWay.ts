@@ -2,7 +2,7 @@ import promptSync from 'prompt-sync'
 import { AddBrackets } from '../puzzle/AddBrackets'
 import { FormatText } from '../puzzle/FormatText'
 import { Solutions } from '../puzzle/Solutions'
-import { NavigatePieceRecursive } from './NavigatePieceRecursive'
+import { TreeClimbingReadOnly } from './TreeClimbingReadOnly'
 
 const prompt = promptSync({})
 
@@ -76,7 +76,7 @@ export function ChooseDigDeprecated (solutions: Solutions): void {
             i++
             const theGoalPiece = goal.GetThePiece()
             if (i === theNumber && (theGoalPiece != null)) {
-              NavigatePieceRecursive(theGoalPiece, rootMap, solutionArray[i].GetVisibleThingsAtTheStart())
+              TreeClimbingReadOnly(theGoalPiece, rootMap, solutionArray[i].GetVisibleThingsAtTheStart())
             }
           }
         }

@@ -3,14 +3,17 @@ import { Piece } from '../puzzle/Piece'
 import { VisibleThingsMap } from '../puzzle/VisibleThingsMap'
 import { Validator } from '../puzzle/Validator'
 import { GoalStub } from '../puzzle/GoalStub'
+import { ShowUnderlinedTitle } from './ShowUnderlinedTitle'
 const prompt = promptSync({ sigint: true })
 
-export function ValidatePieceRecursive (
+export function TreeClimbingWhilstDeconstructing (
   piece: Piece,
   validator: Validator,
-  goalStub: GoalStub, visibleThings: VisibleThingsMap
+  goalStub: GoalStub, visibleThings: VisibleThingsMap, titlePath: Array<string>
 ): void {
+  titlePath.push('Validator Digging')
   for (; ;) {
+    ShowUnderlinedTitle(titlePath)
     const id = piece.id
     const output: string = piece.spielOutput > piece.output ? piece.spielOutput : piece.output
     console.warn(`output: ${output} id: ${id}`)
@@ -40,7 +43,7 @@ export function ValidatePieceRecursive (
       if (theNumber > 0 && theNumber <= targets.length) {
         const result = targets[theNumber - 1]
         if (result != null) {
-          ValidatePieceRecursive(result, validator, goalStub, visibleThings)
+          TreeClimbingWhilstDeconstructing(result, validator, goalStub, visibleThings, titlePath)
         } else {
           prompt('THAT WAS NULL. Hit any key to continue: ')
         }

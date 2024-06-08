@@ -2,15 +2,16 @@ import promptSync from 'prompt-sync'
 import { Piece } from '../puzzle/Piece'
 import { GoalStubMap } from '../puzzle/GoalStubMap'
 import { VisibleThingsMap } from '../puzzle/VisibleThingsMap'
+import { ShowUnderlinedTitle } from './ShowUnderlinedTitle'
 const prompt = promptSync({ sigint: true })
 
-export function NavigatePieceRecursive (
+export function TreeClimbingReadOnly (
   piece: Piece,
-  rootPieceMap: GoalStubMap, visibleThings: VisibleThingsMap
+  rootPieceMap: GoalStubMap, visibleThings: VisibleThingsMap, titlePath:Array<string>
 ): void {
+  titlePath.push('Digging')
   for (; ;) {
-    console.warn('Backwards Solve//Piece Trees//Digging')
-    console.warn('=====================================')
+    ShowUnderlinedTitle(titlePath)
     const id = piece.id
     const output: string = piece.spielOutput
     console.warn(`output: ${output} id: ${id}`)
@@ -37,7 +38,7 @@ export function NavigatePieceRecursive (
       if (theNumber > 0 && theNumber <= targets.length) {
         const result = targets[theNumber - 1]
         if (result != null) {
-          NavigatePieceRecursive(result, rootPieceMap, visibleThings)
+          TreeClimbingReadOnly(result, rootPieceMap, visibleThings, titlePath)
         } else {
           prompt('THAT WAS NULL. Hit any key to continue: ')
         }
