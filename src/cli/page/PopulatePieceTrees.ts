@@ -1,13 +1,12 @@
 import promptSync from 'prompt-sync'
-import { FormatText } from '../puzzle/FormatText'
-import { Solutions } from '../puzzle/Solutions'
+import { FormatText } from '../../puzzle/FormatText'
+import { Solutions } from '../../puzzle/Solutions'
 import { TreeClimbingReadOnly } from './TreeClimbingReadOnly'
-import { AddBrackets } from '../puzzle/AddBrackets'
-import { ShowUnderlinedTitle } from './ShowUnderlinedTitle'
+import { AddBrackets } from '../../puzzle/AddBrackets'
+import { ShowUnderlinedTitle } from '../ShowUnderlinedTitle'
 const prompt = promptSync({})
 
-
-export function PopulatePieceTrees (solutions: Solutions, theNumber: number, titlePath: Array<string>): void {
+export function PopulatePieceTrees (solutions: Solutions, theNumber: number, titlePath: string[]): void {
   titlePath.push('Populate Piece Trees')
   for (; ;) {
     ShowUnderlinedTitle(titlePath)

@@ -2,7 +2,6 @@ import promptSync from 'prompt-sync'
 import { FormatText } from '../puzzle/FormatText'
 import { Piece } from '../puzzle/Piece'
 import { Solutions } from '../puzzle/Solutions'
-
 const prompt = promptSync({})
 
 export function ChooseListOfLeaves (solutions: Solutions): void {

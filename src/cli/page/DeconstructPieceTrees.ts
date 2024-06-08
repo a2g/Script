@@ -1,13 +1,13 @@
 import promptSync from 'prompt-sync'
-import { FormatText } from '../puzzle/FormatText'
-import { AddBrackets } from '../puzzle/AddBrackets'
-import { Validators } from '../puzzle/Validators'
+import { FormatText } from '../../puzzle/FormatText'
+import { AddBrackets } from '../../puzzle/AddBrackets'
+import { Validators } from '../../puzzle/Validators'
 import { TreeClimbingWhilstDeconstructing } from './TreeClimbingWhilstDeconstructing'
-import { ShowUnderlinedTitle } from './ShowUnderlinedTitle'
+import { ShowUnderlinedTitle } from '../ShowUnderlinedTitle'
 
 const prompt = promptSync({})
 
-export function PageForDeconstructPieceTrees (validators: Validators, theNumber: number, titlePath:Array<string>): void {
+export function DeconstructPieceTrees (validators: Validators, theNumber: number, titlePath: string[]): void {
   titlePath.push('Deconstruct Piece Trees')
   for (; ;) {
     ShowUnderlinedTitle(titlePath)

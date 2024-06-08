@@ -1,18 +1,16 @@
 import promptSync from 'prompt-sync'
 import { FormatText } from '../puzzle/FormatText'
-import { AddBrackets } from '../puzzle/AddBrackets'
 import { Validators } from '../puzzle/Validators'
-import { TreeClimbingWhilstDeconstructing } from './TreeClimbingWhilstDeconstructing'
-
+import { ShowUnderlinedTitle } from './ShowUnderlinedTitle'
+import { DeconstructPieceTrees } from './page/DeconstructPieceTrees'
 const prompt = promptSync({})
 
 export function ChooseForwardValidate (validators: Validators): void {
+  const titlePath = ['Forwards Validate']
   for (; ;) {
+    ShowUnderlinedTitle(titlePath)
     const numberOfSolutions: number = validators.GetValidators().length
 
-    // solutions.GenerateSolutionNamesAndPush()
-    console.warn('Forward Validate')
-    console.warn('================')
     console.warn(`Number of solutions = ${numberOfSolutions}`)
     if (validators.GetValidators().length > 1) {
       console.warn('    0. All solutions')
@@ -48,6 +46,8 @@ export function ChooseForwardValidate (validators: Validators): void {
         continue
       }
 
+      // if they chose a number, go to that number
+      DeconstructPieceTrees(validators, theNumber, titlePath)
     }
   }
 }

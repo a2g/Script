@@ -1,38 +1,33 @@
 import promptSync from 'prompt-sync'
-import { Piece } from '../puzzle/Piece'
-import { VisibleThingsMap } from '../puzzle/VisibleThingsMap'
-import { Validator } from '../puzzle/Validator'
-import { GoalStub } from '../puzzle/GoalStub'
-import { ShowUnderlinedTitle } from './ShowUnderlinedTitle'
+import { Piece } from '../../puzzle/Piece'
+import { GoalStubMap } from '../../puzzle/GoalStubMap'
+import { VisibleThingsMap } from '../../puzzle/VisibleThingsMap'
+import { ShowUnderlinedTitle } from '../ShowUnderlinedTitle'
 const prompt = promptSync({ sigint: true })
 
-export function TreeClimbingWhilstDeconstructing (
+export function TreeClimbingReadOnly (
   piece: Piece,
-  validator: Validator,
-  goalStub: GoalStub, visibleThings: VisibleThingsMap, titlePath: Array<string>
+  rootPieceMap: GoalStubMap, visibleThings: VisibleThingsMap, titlePath: string[]
 ): void {
-  titlePath.push('Validator Digging')
+  titlePath.push('DiggingReadOnly')
   for (; ;) {
     ShowUnderlinedTitle(titlePath)
     const id = piece.id
-    const output: string = piece.spielOutput > piece.output ? piece.spielOutput : piece.output
+    const output: string = piece.spielOutput
     console.warn(`output: ${output} id: ${id}`)
     const targets = new Array<Piece | null>()
     for (let i = 0; i < piece.inputs.length; i++) {
       targets.push(piece.inputs[i])
       const inputSpiel: string = piece.inputSpiels[i]
-      const type: string = piece.type
-      console.warn(`input: ${i + 1}. spiel=${inputSpiel} ${type}`)
+      console.warn(`input: ${i + 1}. ${inputSpiel}`)
     }
 
     // allow user to choose item
     const input = prompt(
-      'Choose an input to dig down on or (s)tarting things, (b)ack, (r)e-run: '
+      'Choose an input to dig down on or (s)tarting things, (b)ack: '
     ).toLowerCase()
     if (input === null || input === 'b') {
       return
-    } else if (input === 'r') {
-      validator.DeconstructGivenGoalAndRecordSteps(goalStub)
     } else if (input === 's') {
       for (const item of visibleThings.GetIterableIterator()) {
         console.warn(`${item[0]}`)
@@ -43,7 +38,7 @@ export function TreeClimbingWhilstDeconstructing (
       if (theNumber > 0 && theNumber <= targets.length) {
         const result = targets[theNumber - 1]
         if (result != null) {
-          TreeClimbingWhilstDeconstructing(result, validator, goalStub, visibleThings, titlePath)
+          TreeClimbingReadOnly(result, rootPieceMap, visibleThings, titlePath)
         } else {
           prompt('THAT WAS NULL. Hit any key to continue: ')
         }

@@ -2,11 +2,11 @@ import promptSync from 'prompt-sync'
 import { AddBrackets } from '../puzzle/AddBrackets'
 import { FormatText } from '../puzzle/FormatText'
 import { Solutions } from '../puzzle/Solutions'
-import { TreeClimbingReadOnly } from './TreeClimbingReadOnly'
+import { TreeClimbingReadOnly } from './page/TreeClimbingReadOnly'
 
 const prompt = promptSync({})
 
-export function ChooseDigDeprecated (solutions: Solutions): void {
+export function ChooseZzzOldWay (solutions: Solutions): void {
   console.warn('ChooseDigIntoGoals... ')
 
   for (; ;) {
@@ -76,7 +76,7 @@ export function ChooseDigDeprecated (solutions: Solutions): void {
             i++
             const theGoalPiece = goal.GetThePiece()
             if (i === theNumber && (theGoalPiece != null)) {
-              TreeClimbingReadOnly(theGoalPiece, rootMap, solutionArray[i].GetVisibleThingsAtTheStart())
+              TreeClimbingReadOnly(theGoalPiece, rootMap, solutionArray[i].GetVisibleThingsAtTheStart(), ['blah'])
             }
           }
         }

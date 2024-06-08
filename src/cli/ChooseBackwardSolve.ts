@@ -1,21 +1,16 @@
 import promptSync from 'prompt-sync'
 import { FormatText } from '../puzzle/FormatText'
 import { Solutions } from '../puzzle/Solutions'
-import { TreeClimbingReadOnly } from './TreeClimbingReadOnly'
-import { AddBrackets } from '../puzzle/AddBrackets'
-import { PopulatePieceTrees } from './PopulatePieceTrees'
+import { PopulatePieceTrees } from './page/PopulatePieceTrees'
 import { ShowUnderlinedTitle } from './ShowUnderlinedTitle'
 const prompt = promptSync({})
 
 export function ChooseBackwardSolve (solutions: Solutions): void {
-  console.warn(' ')
-
-  const titleSegments = ['Backwards Solve']
+  const titlePath = ['Backwards Solve']
   for (; ;) {
+    ShowUnderlinedTitle(titlePath)
     const numberOfSolutions: number = solutions.NumberOfSolutions()
     // solutions.GenerateSolutionNamesAndPush()
-
-    ShowUnderlinedTitle(titleSegments)
     console.warn(`Number of solutions = ${numberOfSolutions}`)
     if (solutions.GetSolutions().length > 1) {
       console.warn('    0. All solutions')
@@ -52,7 +47,8 @@ export function ChooseBackwardSolve (solutions: Solutions): void {
         continue
       }
 
-      PopulatePieceTrees(solutions, theNumber, titleSegments)
+      // if they chose a number, go to that number
+      PopulatePieceTrees(solutions, theNumber, titlePath)
     }
   }
 }
