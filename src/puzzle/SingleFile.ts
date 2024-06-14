@@ -89,6 +89,10 @@ export class SingleFile {
       switch (pieceType) {
         case _.AUTO_GOAL1_MET_BY_GOALS:
           output = goal1
+          inputA = goal2
+          inputB = goal3
+          inputC = goal4
+          inputD = goal5
           command = new Command(Verb.Auto, Mix.AutoNeedsNothing, '')
           break
         case _.AUTO_GOAL1_MET_BY_INVS:
