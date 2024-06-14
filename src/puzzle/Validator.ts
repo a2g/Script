@@ -17,14 +17,16 @@ export class Validator {
   private readonly remainingPieces: Map<string, Piece>
   private readonly talks: Map<string, TalkFile>
   private readonly solutionName
+  private readonly essentialIngredients: Set<string> // yup these are added to
 
-  public constructor (name: string, startingPieces: Map<string, Set<Piece>>, startingTalkFiles: Map<string, TalkFile>, goalStubMap: GoalStubMap, startingThingsPassedIn: VisibleThingsMap) {
+  public constructor (name: string, startingPieces: Map<string, Set<Piece>>, startingTalkFiles: Map<string, TalkFile>, goalStubMap: GoalStubMap, startingThingsPassedIn: VisibleThingsMap, restrictions: Set<string> | null = null) {
     this.solutionName = name
     this.goalStubs = new GoalStubMap(goalStubMap)
     this.goalStubs.CalculateInitialCounts()
     this.rootPieceKeysInSolvingOrder = []
     this.remainingPieces = new Map<string, Piece>()
     this.talks = new Map<string, TalkFile>()
+
     Box.CopyPiecesFromAtoBViaIds(startingPieces, this.remainingPieces)
     Box.CopyTalksFromAtoB(startingTalkFiles, this.talks)
 
@@ -32,6 +34,14 @@ export class Validator {
     if (startingThingsPassedIn != null) {
       for (const item of startingThingsPassedIn.GetIterableIterator()) {
         this.currentlyVisibleThings.Set(item[0], item[1])
+      }
+    }
+
+    // its restrictionsEncounteredDuringSolving is passed in we deep copy it
+    this.essentialIngredients = new Set<string>()
+    if (restrictions != null) {
+      for (const restriction of restrictions) {
+        this.essentialIngredients.add(restriction)
       }
     }
   }
@@ -179,7 +189,7 @@ export class Validator {
     return this.GetRootMap().Size()
   }
 
-  public GetNumberOfClearedGoals (): number {
+  public GetNumberOfNotYetValidated (): number {
     let numberOfClearedGoals = 0
     for (const rootGoal of this.GetRootMap().GetValues()) {
       numberOfClearedGoals += rootGoal.IsGoalCleared() ? 0 : 1
@@ -197,5 +207,9 @@ export class Validator {
       stringOfPieceIds += `${piece.id}-${piece.output}, `
     }
     return stringOfPieceIds
+  }
+
+  public AddToListOfEssentials (essentialIngredients: string[]): void {
+    essentialIngredients.forEach(item => this.essentialIngredients.add(item))
   }
 }

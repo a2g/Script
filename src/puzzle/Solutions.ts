@@ -20,10 +20,12 @@ export class Solutions {
   private readonly mapOfStartingThingsAndWhoStartsWithThem: Map<string, Set<string>>
   aggregates: Aggregates
 
-  constructor (startFolder: string, _startFile: string) {
-    // this.starterBox = new Box(startFolder, [startFile])
+  constructor (startFolder: string, startFile: string) {
+    this.aggregates = new Aggregates()
+    this.combinedBox = new Box(startFolder, [startFile], this.aggregates)
+    this.combinedBox.FillStoresWithBoxMapData(this.aggregates.mapOfBoxes)
     // const array = Array.from(this.starterBox.getAggregates().mapOfBoxes.keys())
-    const array = [
+    /* const array = [
       'starter.jsonc',
       'x02_tree_clearing_location_opened.jsonc',
       'x03_met_demon_first_time.jsonc',
@@ -36,9 +38,9 @@ export class Solutions {
       'x15_access_inside_printworks_airraid_shelter.jsonc',
       'x16_access_to_printworks_archive_machine.jsonc',
       'x04_let_all_music_kids_know_about_demon.jsonc'
-    ]
-    this.aggregates = new Aggregates()
-    this.combinedBox = new Box(startFolder, array, this.aggregates)
+    ] */
+
+    // this.combinedBox = new Box(startFolder, array, this.aggregates)
     this.solutions = []
 
     // now lets initialize the first solution
@@ -46,8 +48,8 @@ export class Solutions {
       this.combinedBox.GetPieces(),
       this.combinedBox.GetTalkFiles(),
       this.combinedBox.GetMapOfAllStartingThings(),
-      // this.CreateGoalStubMapFromGoalWords(this.combinedBox.GetSetOfGoalWords())
-      this.CreateGoalStubMapFromGoalWords(this.aggregates.setOfGoalWords)
+      this.CreateGoalStubMapFromGoalWords(this.combinedBox.GetSetOfGoalWords())
+      // this.CreateGoalStubMapFromGoalWords(this.aggregates.setOfGoalWords)
     )
     this.solutions.push(solution1)
 
@@ -121,24 +123,6 @@ export class Solutions {
   public PerformThingsNeededAfterAllSolutionsFound (): void {
     this.GenerateSolutionNamesTheOldWay()
     this.KeepOnlyVisitedGoalsFromAllSolutions()
-    this.FindEssentialIngredientsPerSolution()
-  }
-
-  private FindEssentialIngredientsPerSolution (): void {
-    const characters = this.combinedBox.GetArrayOfCharacters()
-    for (const character of characters) {
-      const charactersSet = this.combinedBox.GetStartingThingsForCharacter(character)
-      for (const solution of this.solutions) {
-        const arrayOfCommands = solution.GetOrderOfCommands()
-        for (const command of arrayOfCommands) {
-          const hasObjectA: boolean = charactersSet.has(command.objectA)
-          const hasObjectB: boolean = charactersSet.has(command.objectB)
-          if (hasObjectA || hasObjectB) {
-            solution.AddToListOfEssentials([character])
-          }
-        }
-      }
-    }
   }
 
   public KeepOnlyVisitedGoalsFromAllSolutions (): void {

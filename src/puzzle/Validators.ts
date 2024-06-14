@@ -36,4 +36,21 @@ export class Validators {
     }
     return wasThereAtLeastSomeProgress
   }
+
+  public FindEssentialIngredientsPerSolution (startingThingsPerCharacter: Map<string, Set<string>>): void {
+    for (const item of startingThingsPerCharacter) {
+      const character = item[0]
+      const charactersSet = item[1]
+      for (const validator of this.validators) {
+        const arrayOfCommands = validator.GetOrderOfCommands()
+        for (const command of arrayOfCommands) {
+          const hasObjectA: boolean = charactersSet.has(command.objectA)
+          const hasObjectB: boolean = charactersSet.has(command.objectB)
+          if (hasObjectA || hasObjectB) {
+            validator.AddToListOfEssentials([character])
+          }
+        }
+      }
+    }
+  }
 }

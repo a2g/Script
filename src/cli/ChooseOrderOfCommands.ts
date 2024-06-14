@@ -1,21 +1,19 @@
 import promptSync from 'prompt-sync'
 import { FormatText } from '../puzzle/FormatText'
-import { Solutions } from '../puzzle/Solutions'
 import { RawObjectsAndVerb } from '../puzzle/RawObjectsAndVerb'
 import { Raw } from '../puzzle/Raw'
+import { Validators } from '../puzzle/Validators'
 const prompt = promptSync({})
 
-export function ChooseOrderOfCommands (solutions: Solutions): void {
+export function ChooseOrderOfCommands (validators: Validators): void {
   console.warn(' ')
 
   let infoLevel = 1
   for (; ;) {
-    for (let i = 0; i < 20; i++) {
-      solutions.SolvePartiallyUntilCloning()
-      solutions.MarkGoalsAsCompletedAndMergeIfNeeded()
+    for (let i = 0; i < 40; i++) {
+      validators.DeconstructAllGoalsOfAllValidatorsAndRecordSteps()
     }
-    solutions.PerformThingsNeededAfterAllSolutionsFound()
-    const numberOfSolutions: number = solutions.NumberOfSolutions()
+    const numberOfSolutions: number = validators.GetValidators().length
 
     console.warn('If any leaves are not resolved properly, for example')
     console.warn(' - eg items show up as not found when they should be')
@@ -33,12 +31,12 @@ export function ChooseOrderOfCommands (solutions: Solutions): void {
     console.warn('Pick solution')
     console.warn('================')
     console.warn(`Number of solutions = ${numberOfSolutions}`)
-    if (solutions.GetSolutions().length > 1) {
+    if (validators.GetValidators().length > 1) {
       console.warn('    0. All solutions')
     }
-    for (let i = 0; i < solutions.GetSolutions().length; i++) {
-      const solution = solutions.GetSolutions()[i]
-      const name = FormatText(solution.GetSolvingPath())
+    for (let i = 0; i < validators.GetValidators().length; i++) {
+      const validator = validators.GetValidators()[i]
+      const name = FormatText(validator.GetName())
       //  "1. XXXXXX"   <- this is the format we list the solutions
       console.warn(`    ${i + 1}. ${name}`)
     }
@@ -60,20 +58,20 @@ export function ChooseOrderOfCommands (solutions: Solutions): void {
     const name =
       theNumber === 0
         ? 'all solutions'
-        : solutions.GetSolutions()[theNumber - 1].GetSolvingPath()
+        : validators.GetValidators()[theNumber - 1].GetName()
     console.warn(`List of Commands for ${name}`)
     console.warn('================')
 
     let listItemNumber = 0
     for (
       let solutionNumber = 0;
-      solutionNumber < solutions.GetSolutions().length;
+      solutionNumber < validators.GetValidators().length;
       solutionNumber++
     ) {
-      const solution = solutions.GetSolutions()[solutionNumber]
+      const solution = validators.GetValidators()[solutionNumber]
       if (theNumber === 0 || theNumber - 1 === solutionNumber) {
         const letter = String.fromCharCode(65 + solutionNumber)
-        const text = FormatText(solution.GetSolvingPath())
+        const text = FormatText(solution.GetName())
         const NAME_NOT_DETERMINABLE = 'name_not_determinable'
         // HACKY!
         const label =

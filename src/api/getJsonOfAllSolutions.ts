@@ -28,32 +28,29 @@ export function getJsonOfAllSolutions (
 
   const solutions = new Solutions(path, firstBoxFilename)
 
-  for (let i = 0; i < 40; i++) {
+  for (let i = 0; i < 200; i++) {
     solutions.SolvePartiallyUntilCloning()
     solutions.MarkGoalsAsCompletedAndMergeIfNeeded()
-    // const numberOfSolutions: number = solutions.NumberOfSolutions()
+  }
 
-    // display list
-    let incomplete = 0
-    let listItemNumber = 0
-    for (const solution of solutions.GetSolutions()) {
-      console.warn(FormatText(solution.GetSolvingPath()))
-      console.warn(FormatText(solution.GetGoalStubMap().CalculateListOfKeys()))
-      for (const item of solution.GetGoalStubMap().GetValues()) {
-        listItemNumber++
+  // display list
+  let incomplete = 0
+  let listItemNumber = 0
+  for (const solution of solutions.GetSolutions()) {
+    console.warn(FormatText(solution.GetSolvingPath()))
+    console.warn(FormatText(solution.GetGoalStubMap().CalculateListOfKeys()))
+    for (const item of solution.GetGoalStubMap().GetValues()) {
+      listItemNumber++
 
-        // display list item
-        const output = item.GetGoalWord()
-        console.warn(`    ${listItemNumber}. ${output} )`)
-        incomplete += item.IsSolved() ? 0 : 1
-      }
-    }
-
-    console.warn(`Number of goals incomplete ${incomplete}/${listItemNumber}`)
-    if (incomplete >= listItemNumber) {
-      break
+      // display list item
+      const output = item.GetGoalWord()
+      console.warn(`    ${listItemNumber}. ${output} )`)
+      incomplete += item.IsSolved() ? 0 : 1
     }
   }
+
+  console.warn(`Number of goals incomplete ${incomplete}/${listItemNumber}`)
+
   const json = getJsonOfSolutionsFromSolver(solutions)
   return json
 }
@@ -99,12 +96,13 @@ function getJsonArrayOfRootPieces (
     })
   }
 
+  /*
   // then we push the actual order of commands
   toReturn.push({
     name: 'List of Commands',
     isAGoalOrAuto: false,
     children: getJsonArrayOfOrderedSteps(solution.GetOrderOfCommands())
-  })
+  }) */
   return toReturn
 }
 
@@ -138,7 +136,7 @@ function getJsonArrayOfAllSubPieces (piece: Piece | null): unknown[] {
   return toReturn
 }
 
-function getJsonArrayOfOrderedSteps (
+export function getJsonArrayOfOrderedSteps (
   steps: RawObjectsAndVerb[]
 ): unknown[] {
   const toReturn = new Array<unknown>()

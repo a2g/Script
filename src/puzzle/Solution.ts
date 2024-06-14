@@ -6,7 +6,6 @@ import { Solutions } from './Solutions'
 import { VisibleThingsMap } from './VisibleThingsMap'
 import { Box } from './Box'
 import { TalkFile } from './talk/TalkFile'
-import { RawObjectsAndVerb } from './RawObjectsAndVerb'
 import { Solved } from './Solved'
 import { GenerateMapOfLeavesTracingGoalsRecursively } from './GenerateMapOfLeavesTraccingGoalsRecursively'
 
@@ -248,10 +247,6 @@ export class Solution {
       }
     }
     return new Set<Piece>()
-  }
-
-  public GetOrderOfCommands (): RawObjectsAndVerb[] {
-    throw new Error('this is moved to Solution2')
   }
 
   public RemovePiece (piece: Piece): void {

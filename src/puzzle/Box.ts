@@ -363,4 +363,15 @@ export class Box {
     }
     return stringOfPieceIds
   }
+
+  public FillStoresWithBoxMapData (mapOfBoxes: Map<string, Box>): void {
+    for (const box of mapOfBoxes.values()) {
+      if (box.filename !== this.filename) {
+        Box.CopyPiecesFromAtoB(box.pieces, this.pieces)
+        Box.CopyTalksFromAtoB(box.talkFiles, this.talkFiles)
+        box.goalWordSet.forEach(x => this.goalWordSet.add(x))
+        box.mapOfStartingThings.CopyTo(this.mapOfStartingThings)
+      }
+    }
+  }
 }

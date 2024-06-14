@@ -89,6 +89,11 @@ yarn serve
 ## Run node.js backend
 
 ```sh
-yarn
-yarn start
+npm run build
+npm
 ```
+
+## if get   opensslErrorStack: [ 'error:03000086:digital envelope routines::initialization error' ],
+
+npm install
+npm audit fix

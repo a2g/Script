@@ -89,10 +89,9 @@ function main (): void {
                   solutions.MarkGoalsAsCompletedAndMergeIfNeeded()
                 }
                 solutions.PerformThingsNeededAfterAllSolutionsFound()
-                // const validators = new Validators(solutions)
-                // ChooseForwardValidate(validators)
+                const validators = new Validators(solutions)
 
-                ChooseOrderOfCommands(solutions)
+                ChooseOrderOfCommands(validators)
                 break
               }
 

@@ -52,7 +52,7 @@ export function DeconstructPieceTrees (validators: Validators, theNumber: number
 
     console.warn(`Pieces remaining ${validator.GetNumberOfRemainingPieces()} (${validator.GetRemainingPiecesAsString()})`)
 
-    console.warn(`Number of goals back to zero ${validator.GetNumberOfClearedGoals()}/${validator.GetNumberOfGoals()}`)
+    console.warn(`Number of goals back to zero ${validator.GetNumberOfNotYetValidated()}/${validator.GetNumberOfGoals()}`)
 
     // allow user to choose item
     const input = prompt(

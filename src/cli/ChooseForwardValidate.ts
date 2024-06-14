@@ -11,7 +11,7 @@ export function ChooseForwardValidate (validators: Validators): void {
     ShowUnderlinedTitle(titlePath)
     const numberOfSolutions: number = validators.GetValidators().length
 
-    console.warn(`Number of solutions = ${numberOfSolutions}`)
+    console.warn(`Number of solutions = ${numberOfSolutions} , Legend: (a, b)= (not-yet-done, total)`)
     if (validators.GetValidators().length > 1) {
       console.warn('    0. All solutions')
     }
@@ -20,7 +20,7 @@ export function ChooseForwardValidate (validators: Validators): void {
       const validator = validatorList[i]
       const name = FormatText(validator.GetName())
       //  "1. XXXXXX"   <- this is the format we list the solutions
-      const a = validator.GetNumberOfClearedGoals()
+      const a = validator.GetNumberOfNotYetValidated()
       const b = validator.GetNumberOfGoals()
       console.warn(`    ${i + 1}. (${a}/${b}) ${name} `)
     }

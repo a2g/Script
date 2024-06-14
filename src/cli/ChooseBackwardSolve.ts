@@ -11,7 +11,7 @@ export function ChooseBackwardSolve (solutions: Solutions): void {
     ShowUnderlinedTitle(titlePath)
     const numberOfSolutions: number = solutions.NumberOfSolutions()
     // solutions.GenerateSolutionNamesAndPush()
-    console.warn(`Number of solutions = ${numberOfSolutions}`)
+    console.warn(`Number of solutions = ${numberOfSolutions} , Legend: (a, b)= (unsolvedCount, total)`)
     if (solutions.GetSolutions().length > 1) {
       console.warn('    0. All solutions')
     }
