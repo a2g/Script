@@ -8,13 +8,14 @@ const prompt = promptSync({ sigint: true })
 export function OrderOfCommands (validator: Validator, titlePath: string[]
 ): void {
   titlePath.push('Order Of Commands')
+  let infoLevel = 9
   for (; ;) {
     ShowUnderlinedTitle(titlePath)
 
     const commands: RawObjectsAndVerb[] =
       validator.GetOrderOfCommands()
     let listItemNumber = 0
-    let infoLevel = 0
+
     for (const command of commands) {
       // 0 is cleanest, later numbers are more detailed
       if (command.type === Raw.Goal && infoLevel < 3) {
