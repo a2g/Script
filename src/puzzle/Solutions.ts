@@ -22,25 +22,8 @@ export class Solutions {
 
   constructor (startFolder: string, startFile: string) {
     this.aggregates = new Aggregates()
-    this.combinedBox = new Box(startFolder, [startFile], this.aggregates)
+    this.combinedBox = new Box(startFolder, startFile, this.aggregates)
     this.combinedBox.FillStoresWithBoxMapData(this.aggregates.mapOfBoxes)
-    // const array = Array.from(this.starterBox.getAggregates().mapOfBoxes.keys())
-    /* const array = [
-      'starter.jsonc',
-      'x02_tree_clearing_location_opened.jsonc',
-      'x03_met_demon_first_time.jsonc',
-      'x04_let_all_rpg_kids_know_about_demon.jsonc',
-      'x07_access_to_library_reference_section.jsonc',
-      'x17_map_now_has_football_stadium.jsonc',
-      'x18_attract_groundskeeper.jsonc',
-      'x19_access_to_maintenance_tunnel.jsonc',
-      'x05_map_now_has_printing_works.jsonc',
-      'x15_access_inside_printworks_airraid_shelter.jsonc',
-      'x16_access_to_printworks_archive_machine.jsonc',
-      'x04_let_all_music_kids_know_about_demon.jsonc'
-    ] */
-
-    // this.combinedBox = new Box(startFolder, array, this.aggregates)
     this.solutions = []
 
     // now lets initialize the first solution

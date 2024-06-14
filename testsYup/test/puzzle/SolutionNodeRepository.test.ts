@@ -8,7 +8,7 @@ import { AddPiece } from '../../../src/puzzle/AddPiece'
 describe('ReactionMap', () => {
   test('test AddToMap works', () => {
     const aggregates = new Aggregates()
-    const box = new Box('', [''])
+    const box = new Box('', '')
 
     // test that it is indeed null before
     const setBefore = box.Get('outputA')
@@ -32,7 +32,7 @@ describe('ReactionMap', () => {
 
   test('test RemovePiece works', () => {
     const aggregates = new Aggregates()
-    const box = new Box('', [''])
+    const box = new Box('', '')
     for (let i = 0; i < 3; i += 1) {
       box.AddPiece(
         new Piece(0, null, 'outputA', 'piffle', 1, null, null, null, 'A', 'B'), '', true, aggregates
@@ -74,14 +74,14 @@ describe('ReactionMap', () => {
     const aggregates = new Aggregates()
 
     // put them in a map
-    const tmap = new Box('', [''])
+    const tmap = new Box('', '')
     array.forEach((t: Piece) => {
       AddPiece(t, '', false, aggregates)
     })
 
     // cloned the map, and modify it.
     {
-      const cloned = new Box('', [''])
+      const cloned = new Box('', '')
       const clonedOutputA = cloned.Get('outputA')
 
       if (clonedOutputA != null) {

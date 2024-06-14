@@ -5,7 +5,7 @@ import { Box } from '../../../src/puzzle/Box.js'
 
 describe('Solution', () => {
   it('Test of a none clone solution', async () => {
-    const box = new Box('test/puzzle/'+'Test1First.jsonc')
+    const box = new Box('test/puzzle/','Test1First.jsonc')
 
     const solutions = new SolverViaRootPiece(box)
 

@@ -17,7 +17,7 @@ export function DumpGainsFromEachTalkInFolder (folder: string): void {
       const talkFile = new TalkFile(file, folder, aggregates)
 
       const mapOGainsByPage = new Map<string, string>()
-      const emptyBox = new Box('path', [], new Aggregates())
+      const emptyBox = new Box('path', '', new Aggregates())
       console.warn('')
       console.warn(`${file}`)
       console.warn('===========================')

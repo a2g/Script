@@ -31,13 +31,15 @@ export function PopulatePieceTrees (solutions: Solutions, theNumber: number, tit
       const theGoalPiece = rootGoal.GetThePiece()
       let inputs = ''
       if (theGoalPiece != null) {
-        for (const inputSpiel of theGoalPiece.inputSpiels) {
-          inputs += `${FormatText(inputSpiel)},`
+        for (let i = 0; i < theGoalPiece.inputSpiels.length; i++) {
+          const inputSpiel = theGoalPiece.inputSpiels[i]
+          inputs += (i === 0) ? '' : ','
+          inputs += `${FormatText(inputSpiel)}`
         }
       }
       const status = rootGoal.GetSolved() as string
       console.warn(
-        `    ${listItemNumber}. ${status}${FormatText(output)} ${AddBrackets(inputs)} `
+        `    ${listItemNumber}. ${status} ${FormatText(output)} ${AddBrackets(inputs)} `
       )
       incomplete += rootGoal.IsSolved() ? 0 : 1
     }

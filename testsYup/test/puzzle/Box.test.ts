@@ -4,7 +4,7 @@ import { Aggregates } from '../../../src/puzzle/Aggregates'
 
 test('Test GetMapOfAllStartingThings', () => {
   const aggregates = new Aggregates()
-  const box = new Box('testsYup/test/puzzle/', ['Test1First.jsonc'], aggregates)
+  const box = new Box('testsYup/test/puzzle/', 'Test1First.jsonc', aggregates)
 
   // const goals = box.GetSetOfStartingGoals()
   const props = box.GetSetOfStartingProps()

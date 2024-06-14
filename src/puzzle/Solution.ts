@@ -197,7 +197,7 @@ export class Solution {
     }
 
     if (!thereAreStillSomeUnsolved) {
-      this.KeepOnlyVisitedGoals()
+    //  this.KeepOnlyVisitedGoals()
     }
   }
 

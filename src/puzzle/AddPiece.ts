@@ -29,15 +29,22 @@ export function AddPiece (piece: Piece, folder = '', isNoFile = true, box: Box, 
         )
       }
 
-      let box = aggregates.mapOfBoxes.get(file)
-      if (box == null) {
+      let childBox = aggregates.mapOfBoxes.get(file)
+      if (childBox == null) {
         /* this map not only collects all the boxes */
         /* but prevents two pieces that output same goal from */
         /* processing the same file */
-        box = new Box(folder, [file], aggregates)
+        childBox = new Box(folder, file, aggregates)
       }
-      piece.boxToMerge = box
+      piece.boxToMerge = childBox
     }
+  }
+
+  // add more connections in the dependency tree
+  const nameOfBox = box.GetFileNameWithoutExtension()
+  if (nameOfBox !== 'starter' && nameOfBox != null) {
+    piece.inputHints.push(nameOfBox)
+    piece.inputs.push(null)
   }
 
   // initialize array, if it hasn't yet been

@@ -24,38 +24,25 @@ export class Box {
   }
 
   private readonly allProps: string[]
-
   private readonly allGoals: string[]
-
   private readonly goalWordSet: Set<string>
-
   private readonly allInvs: string[]
-
   private readonly allChars: string[]
-
   private readonly mapOfStartingThings: VisibleThingsMap
-
   private readonly startingInvSet: Set<string>
-
   private readonly startingPropSet: Set<string>
-
   private readonly startingGoalWordSet: Set<string>
-
   private readonly filename: string
-
   private readonly path: string
-
   private readonly pieces: Map<string, Set<Piece>>
-
   private readonly talkFiles: Map<string, TalkFile>
-
   private readonly aggregates: Aggregates
 
-  constructor (path: string, filenames: string[], aggregates: Aggregates) {
+  constructor (path: string, filename: string, aggregates: Aggregates) {
     this.aggregates = aggregates
     this.path = path
     this.talkFiles = new Map<string, TalkFile>()
-    this.filename = filenames[0]
+    this.filename = filename
 
     this.allProps = []
     this.allGoals = []
@@ -70,115 +57,99 @@ export class Box {
     this.pieces = new Map<string, Set<Piece>>()
     this.talkFiles = new Map<string, TalkFile>()
 
-    // this is a bit hacky, but we need
-    if (filenames.length > 1) {
-      for (const filename of filenames) {
-        let box = aggregates.mapOfBoxes.get(filename)
-        if (box == null) {
-          box = new Box(path, [filename], aggregates)
-        }
-        Box.CopyPiecesFromAtoB(box.pieces, this.pieces)
-        box.goalWordSet.forEach(x => this.goalWordSet.add(x))
-        Box.CopyTalksFromAtoB(box.talkFiles, this.talkFiles)
-        Box.CopyPiecesFromAtoB(box.pieces, this.pieces)
-        box.mapOfStartingThings.CopyTo(this.mapOfStartingThings)
-      }
-    } else if (filenames.length === 1) {
-      const filename = filenames[0]
-      this.aggregates.mapOfBoxes.set(filename, this)
-      const box1 = this.aggregates.mapOfBoxes.get(filename)
-      console.assert(box1 !== null)
-      this.aggregates.mapOfBoxes.set(filename, this)
-      if (!existsSync(path + filename)) {
-        throw new Error(
-          `file doesn't exist ${process.cwd()} ${path}${filename} `
-        )
-      }
-      const text = readFileSync(path + filename, 'utf8')
-      const scenario = parse(text)
-
-      /* this loop is only to ascertain all the different */
-      /* possible object names. ie basically all the enums */
-      /* but without needing the enum file */
-      const setProps = new Set<string>()
-      const setGoals = new Set<string>()
-      const setInvs = new Set<string>()
-      const setChars = new Set<string>()
-      for (const gate of scenario.pieces) {
-        setInvs.add(Stringify(gate.inv1))
-        setInvs.add(Stringify(gate.inv2))
-        setInvs.add(Stringify(gate.inv3))
-        setGoals.add(Stringify(gate.goal1))
-        setGoals.add(Stringify(gate.goal2))
-        setProps.add(Stringify(gate.prop1))
-        setProps.add(Stringify(gate.prop2))
-        setProps.add(Stringify(gate.prop3))
-        setProps.add(Stringify(gate.prop4))
-        setProps.add(Stringify(gate.prop5))
-        setProps.add(Stringify(gate.prop6))
-        setProps.add(Stringify(gate.prop7))
-      }
-
-      /* starting things is optional in the json */
-      if (
-        scenario.startingThings !== undefined &&
-        scenario.startingThings !== null
-      ) {
-        for (const thing of scenario.startingThings) {
-          if (thing.character !== undefined && thing.character !== null) {
-            setChars.add(thing.character)
-          }
-        }
-      }
-
-      /* collect all the goals and pieces file */
-      const singleFile = new SingleFile(this.path, filename, this.aggregates)
-      singleFile.copyAllPiecesToContainers(this)
-
-      /* starting things is optional in the json */
-      if (
-        scenario.startingThings !== undefined &&
-        scenario.startingThings !== null
-      ) {
-        for (const thing of scenario.startingThings) {
-          const theThing = Stringify(thing.thing)
-          if (theThing.startsWith('inv')) {
-            this.startingInvSet.add(theThing)
-          }
-          if (theThing.startsWith('goal')) {
-            this.startingGoalWordSet.add(theThing)
-          }
-          if (theThing.startsWith('prop')) {
-            this.startingPropSet.add(theThing)
-          }
-        }
-        for (const item of scenario.startingThings) {
-          if (!this.mapOfStartingThings.Has(item.thing)) {
-            this.mapOfStartingThings.Set(item.thing, new Set<string>())
-          }
-          if (item.character !== undefined && item.character !== null) {
-            const { character } = item
-            const setOfCharacters = this.mapOfStartingThings.Get(item.thing)
-            if (character.length > 0 && setOfCharacters != null) {
-              setOfCharacters.add(character)
-            }
-          }
-        }
-      }
-
-      setChars.delete('')
-      setChars.delete('undefined')
-      setProps.delete('')
-      setProps.delete('undefined')
-      setGoals.delete('')
-      setGoals.delete('undefined')
-      setInvs.delete('')
-      setInvs.delete('undefined')
-      this.allProps = Array.from(setProps.values())
-      this.allGoals = Array.from(setGoals.values())
-      this.allInvs = Array.from(setInvs.values())
-      this.allChars = Array.from(setChars.values())
+    this.aggregates.mapOfBoxes.set(filename, this)
+    const box1 = this.aggregates.mapOfBoxes.get(filename)
+    console.assert(box1 !== null)
+    this.aggregates.mapOfBoxes.set(filename, this)
+    if (!existsSync(path + filename)) {
+      throw new Error(
+        `file doesn't exist ${process.cwd()} ${path}${filename} `
+      )
     }
+    const text = readFileSync(path + filename, 'utf8')
+    const scenario = parse(text)
+
+    /* this loop is only to ascertain all the different */
+    /* possible object names. ie basically all the enums */
+    /* but without needing the enum file */
+    const setProps = new Set<string>()
+    const setGoals = new Set<string>()
+    const setInvs = new Set<string>()
+    const setChars = new Set<string>()
+    for (const gate of scenario.pieces) {
+      setInvs.add(Stringify(gate.inv1))
+      setInvs.add(Stringify(gate.inv2))
+      setInvs.add(Stringify(gate.inv3))
+      setGoals.add(Stringify(gate.goal1))
+      setGoals.add(Stringify(gate.goal2))
+      setProps.add(Stringify(gate.prop1))
+      setProps.add(Stringify(gate.prop2))
+      setProps.add(Stringify(gate.prop3))
+      setProps.add(Stringify(gate.prop4))
+      setProps.add(Stringify(gate.prop5))
+      setProps.add(Stringify(gate.prop6))
+      setProps.add(Stringify(gate.prop7))
+    }
+
+    /* starting things is optional in the json */
+    if (
+      scenario.startingThings !== undefined &&
+      scenario.startingThings !== null
+    ) {
+      for (const thing of scenario.startingThings) {
+        if (thing.character !== undefined && thing.character !== null) {
+          setChars.add(thing.character)
+        }
+      }
+    }
+
+    /* collect all the goals and pieces file */
+    const singleFile = new SingleFile(this.path, filename, this.aggregates)
+    singleFile.copyAllPiecesToContainers(this)
+
+    /* starting things is optional in the json */
+    if (
+      scenario.startingThings !== undefined &&
+      scenario.startingThings !== null
+    ) {
+      for (const thing of scenario.startingThings) {
+        const theThing = Stringify(thing.thing)
+        if (theThing.startsWith('inv')) {
+          this.startingInvSet.add(theThing)
+        }
+        if (theThing.startsWith('goal')) {
+          this.startingGoalWordSet.add(theThing)
+        }
+        if (theThing.startsWith('prop')) {
+          this.startingPropSet.add(theThing)
+        }
+      }
+      for (const item of scenario.startingThings) {
+        if (!this.mapOfStartingThings.Has(item.thing)) {
+          this.mapOfStartingThings.Set(item.thing, new Set<string>())
+        }
+        if (item.character !== undefined && item.character !== null) {
+          const { character } = item
+          const setOfCharacters = this.mapOfStartingThings.Get(item.thing)
+          if (character.length > 0 && setOfCharacters != null) {
+            setOfCharacters.add(character)
+          }
+        }
+      }
+    }
+
+    setChars.delete('')
+    setChars.delete('undefined')
+    setProps.delete('')
+    setProps.delete('undefined')
+    setGoals.delete('')
+    setGoals.delete('undefined')
+    setInvs.delete('')
+    setInvs.delete('undefined')
+    this.allProps = Array.from(setProps.values())
+    this.allGoals = Array.from(setGoals.values())
+    this.allInvs = Array.from(setInvs.values())
+    this.allChars = Array.from(setChars.values())
   }
 
   public CopyStartingThingCharsToGivenMap (givenMap: VisibleThingsMap): void {
@@ -373,5 +344,14 @@ export class Box {
         box.mapOfStartingThings.CopyTo(this.mapOfStartingThings)
       }
     }
+  }
+
+  public GetFileNameWithoutExtension (): string {
+    let withoutExtension = this.filename
+    const lastIndexOfDot = this.filename.lastIndexOf('.')
+    if (lastIndexOfDot !== -1) {
+      withoutExtension = this.filename.substring(0, lastIndexOfDot)
+    }
+    return withoutExtension
   }
 }

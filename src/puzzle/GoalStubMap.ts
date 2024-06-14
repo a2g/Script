@@ -123,13 +123,12 @@ export class GoalStubMap {
     }
   }
 
-  public KeepOnlyVisitedGoals (_visitedGoalWords: Set<string>): void {
-    /*
+  public KeepOnlyVisitedGoals (visitedGoalWords: Set<string>): void {
     for (const key of this.theMap.keys()) {
       if (!visitedGoalWords.has(key)) {
         this.theMap.delete(key)
       }
-    } */
+    }
   }
 
   IsGoalCleared (output: string): boolean {
