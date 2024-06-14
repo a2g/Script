@@ -70,15 +70,19 @@ export class Validator {
     }
   } */
 
-  public DeconstructAllGoalsAndRecordSteps (): void {
+  public DeconstructAllGoalsAndRecordSteps (): boolean {
+    let wasThereAtLeastSomeProgress = false
     for (const goal of this.goalStubs.GetValues()) {
       if (goal.GetValidated() === Validated.Undecided) {
-        this.DeconstructGivenGoalAndRecordSteps(goal)
+        if (this.DeconstructGivenGoalAndRecordSteps(goal)) {
+          wasThereAtLeastSomeProgress = true
+        }
       }
     }
+    return wasThereAtLeastSomeProgress
   }
 
-  public DeconstructGivenGoalAndRecordSteps (goalStub: GoalStub): void {
+  public DeconstructGivenGoalAndRecordSteps (goalStub: GoalStub): boolean {
     // push the commands
     const deconstructDoer = new DeconstructDoer(
       goalStub,
@@ -139,6 +143,7 @@ export class Validator {
         }
       }
     }
+    return true
   }
 
   public GetAutos (): Piece[] {

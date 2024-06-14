@@ -4,6 +4,7 @@ import { AddBrackets } from '../../puzzle/AddBrackets'
 import { Validators } from '../../puzzle/Validators'
 import { TreeClimbingWhilstDeconstructing } from './TreeClimbingWhilstDeconstructing'
 import { ShowUnderlinedTitle } from '../ShowUnderlinedTitle'
+import { OrderOfCommands } from './OrderOfCommends'
 
 const prompt = promptSync({})
 
@@ -55,7 +56,7 @@ export function DeconstructPieceTrees (validators: Validators, theNumber: number
 
     // allow user to choose item
     const input = prompt(
-      'Choose goal to dig down on or (b)ack, (r)e-run: '
+      'Choose goal to climb down on or (b)ack, (o)rder, (r)e-run: '
     ).toLowerCase()
     if (input === null || input === 'b') {
       break
@@ -66,6 +67,8 @@ export function DeconstructPieceTrees (validators: Validators, theNumber: number
     if (input === 'r') {
       validator.DeconstructAllGoalsAndRecordSteps()
       continue
+    } else if (input === 'o') {
+      OrderOfCommands(validator, titlePath)
     } else {
       // show map entry for chosen item
       const theNumber = Number(input)

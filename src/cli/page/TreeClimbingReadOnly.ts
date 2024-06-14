@@ -9,7 +9,7 @@ export function TreeClimbingReadOnly (
   piece: Piece,
   rootPieceMap: GoalStubMap, visibleThings: VisibleThingsMap, titlePath: string[]
 ): void {
-  titlePath.push('DiggingReadOnly')
+  titlePath.push('Climbing-ReadOnly')
   for (; ;) {
     ShowUnderlinedTitle(titlePath)
     const id = piece.id
@@ -24,7 +24,7 @@ export function TreeClimbingReadOnly (
 
     // allow user to choose item
     const input = prompt(
-      'Choose an input to dig down on or (s)tarting things, (b)ack: '
+      'Choose an input to climb up on or (s)tarting things, (b)ack: '
     ).toLowerCase()
     if (input === null || input === 'b') {
       return

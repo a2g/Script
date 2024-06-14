@@ -48,7 +48,7 @@ export function PopulatePieceTrees (solutions: Solutions, theNumber: number, tit
 
     // allow user to choose item
     const input = prompt(
-      'Choose goal to dig down on or (b)ack, (r)e-run: '
+      'Choose goal to climb down on or (b)ack, (r)e-run: '
     ).toLowerCase()
     if (input === null || input === 'b') {
       break

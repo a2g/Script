@@ -49,7 +49,7 @@ function main (): void {
             console.warn('4. Leaves all boxes at once.')
             console.warn('5. Leaves a box-at-a-time`')
             console.warn('6. Order of Commands in solve')
-            console.warn('7. Choose Dig into goals (old)')
+            console.warn('7. Choose climb into piece-trees (old)')
             console.warn('8. Play')
 
             const choice = prompt('Choose an option (b)ack: ').toLowerCase()
@@ -82,11 +82,19 @@ function main (): void {
                 ChooseListOfLeaves(solutions)
                 break
               case '6':
+              {
+                console.warn(' ')
+                for (let i = 0; i < 200; i++) {
+                  solutions.SolvePartiallyUntilCloning()
+                  solutions.MarkGoalsAsCompletedAndMergeIfNeeded()
+                }
+                solutions.PerformThingsNeededAfterAllSolutionsFound()
+                // const validators = new Validators(solutions)
+                // ChooseForwardValidate(validators)
+
                 ChooseOrderOfCommands(solutions)
                 break
-                // case '6':
-                // ChooseDigDeprecated(  )
-                // break
+              }
 
               default:
             }

@@ -7,12 +7,12 @@ import { TreeClimbingReadOnly } from './page/TreeClimbingReadOnly'
 const prompt = promptSync({})
 
 export function ChooseZzzOldWay (solutions: Solutions): void {
-  console.warn('ChooseDigIntoGoals... ')
+  console.warn('ChooseClimbIntoGoals... ')
 
   for (; ;) {
     solutions.MarkGoalsAsCompletedAndMergeIfNeeded()
     const numberOfSolutions: number = solutions.NumberOfSolutions()
-    console.warn('Dig in to goals')
+    console.warn('Climb in to goals')
     console.warn('===============')
     console.warn(`Number of solutions in solutions = ${numberOfSolutions}`)
 
@@ -56,7 +56,7 @@ export function ChooseZzzOldWay (solutions: Solutions): void {
 
     // allow user to choose item
     const input = prompt(
-      'Choose goal to dig down on or (b)ack, (r)e-run: '
+      'Choose goal to climb up into or (b)ack, (r)e-run: '
     ).toLowerCase()
     if (input === null || input === 'b') {
       continue

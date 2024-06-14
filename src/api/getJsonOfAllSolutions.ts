@@ -31,10 +31,7 @@ export function getJsonOfAllSolutions (
   for (let i = 0; i < 40; i++) {
     solutions.SolvePartiallyUntilCloning()
     solutions.MarkGoalsAsCompletedAndMergeIfNeeded()
-    const numberOfSolutions: number = solutions.NumberOfSolutions()
-    console.warn('Dig in to goals')
-    console.warn('===============')
-    console.warn(`Number of solutions in solutions = ${numberOfSolutions}`)
+    // const numberOfSolutions: number = solutions.NumberOfSolutions()
 
     // display list
     let incomplete = 0

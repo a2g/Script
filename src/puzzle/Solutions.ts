@@ -119,11 +119,6 @@ export class Solutions {
   }
 
   public PerformThingsNeededAfterAllSolutionsFound (): void {
-    this.GenerateSolutionNamesTheOldWay()
-  }
-
-  /*
-  public PerformThingsNeededAfterAllSolutionsFound (): void {
     this.FindEssentialIngredientsPerSolution()
     this.GenerateSolutionNamesTheOldWay()
   }
@@ -144,7 +139,7 @@ export class Solutions {
       }
     }
   }
- */
+
   public GenerateSolutionNamesTheOldWay (): void {
 
     /*

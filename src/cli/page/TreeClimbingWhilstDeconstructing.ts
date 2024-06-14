@@ -11,7 +11,7 @@ export function TreeClimbingWhilstDeconstructing (
   validator: Validator,
   goalStub: GoalStub, visibleThings: VisibleThingsMap, titlePath: string[]
 ): void {
-  titlePath.push('Dig/Deconstruct')
+  titlePath.push('Climb And Deconstruct')
   for (; ;) {
     ShowUnderlinedTitle(titlePath)
     const id = piece.id
@@ -27,7 +27,7 @@ export function TreeClimbingWhilstDeconstructing (
 
     // allow user to choose item
     const input = prompt(
-      'Choose an input to dig down on or (s)tarting things, (b)ack, (r)e-run: '
+      'Choose an input to climb up into or (s)tarting things, (b)ack, (r)e-run: '
     ).toLowerCase()
     if (input === null || input === 'b') {
       return

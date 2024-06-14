@@ -27,9 +27,13 @@ export class Validators {
     return this.validators
   }
 
-  public DeconstructAllGoalsOfAllValidatorsAndRecordSteps (): void {
+  public DeconstructAllGoalsOfAllValidatorsAndRecordSteps (): boolean {
+    let wasThereAtLeastSomeProgress = false
     for (const validator of this.validators) {
-      validator.DeconstructAllGoalsAndRecordSteps()
+      if (validator.DeconstructAllGoalsAndRecordSteps()) {
+        wasThereAtLeastSomeProgress = true
+      }
     }
+    return wasThereAtLeastSomeProgress
   }
 }
