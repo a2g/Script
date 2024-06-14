@@ -17,13 +17,15 @@ export function ChooseBackwardSolve (solutions: Solutions): void {
     }
     for (let i = 0; i < solutions.GetSolutions().length; i++) {
       const solution = solutions.GetSolutions()[i]
-      let numberOfUnsolved = 0
+      let unsolvedCount = 0
       for (const goal of solution.GetGoalStubMap().GetValues()) {
-        numberOfUnsolved += goal.IsSolved() ? 0 : 1
+        unsolvedCount += goal.IsSolved() ? 0 : 1
       }
+      const total = solution.GetGoalStubMap().Size()
+
       const name = FormatText(solution.GetSolvingPath())
       //  "1. XXXXXX"   <- this is the format we list the solutions
-      console.warn(`    ${i + 1}. ${name} number of unsolved goals=${numberOfUnsolved}`)
+      console.warn(`    ${i + 1}. (${unsolvedCount}, ${total}) ${name}`)
     }
 
     const firstInput = prompt(

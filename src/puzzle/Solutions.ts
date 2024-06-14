@@ -119,8 +119,9 @@ export class Solutions {
   }
 
   public PerformThingsNeededAfterAllSolutionsFound (): void {
-    this.FindEssentialIngredientsPerSolution()
     this.GenerateSolutionNamesTheOldWay()
+    this.KeepOnlyVisitedGoalsFromAllSolutions()
+    this.FindEssentialIngredientsPerSolution()
   }
 
   private FindEssentialIngredientsPerSolution (): void {
@@ -137,6 +138,12 @@ export class Solutions {
           }
         }
       }
+    }
+  }
+
+  public KeepOnlyVisitedGoalsFromAllSolutions (): void {
+    for (const solution of this.solutions) {
+      solution.KeepOnlyVisitedGoals()
     }
   }
 

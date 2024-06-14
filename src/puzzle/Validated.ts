@@ -1,4 +1,4 @@
 export enum Validated {
   YesValidated = '✓',
-  Undecided = '-',
+  Not = '✖'
 }

@@ -8,6 +8,7 @@ import { Box } from './Box'
 import { TalkFile } from './talk/TalkFile'
 import { RawObjectsAndVerb } from './RawObjectsAndVerb'
 import { Solved } from './Solved'
+import { GenerateMapOfLeavesTracingGoalsRecursively } from './GenerateMapOfLeavesTraccingGoalsRecursively'
 
 let globalSolutionId = 101
 /**
@@ -121,6 +122,23 @@ export class Solution {
     return isBreakingDueToSolutionCloning
   }
 
+  public KeepOnlyVisitedGoals (): void {
+    const visitedGoalWords = new Set<string>()
+    const leaves = new Map<string, Piece>()
+    const winGoal = this.goalStubs.GetWinGoalIfAny()
+    const piece = winGoal?.GetThePiece()
+    if (piece != null) {
+      GenerateMapOfLeavesTracingGoalsRecursively(
+        piece,
+        'x_win',
+        leaves,
+        visitedGoalWords,
+        this.goalStubs
+      )
+    }
+    this.goalStubs.KeepOnlyVisitedGoals(visitedGoalWords)
+  }
+
   public GetSolvingPath (): string {
     let result = 'sol_'
     for (let i = 0; i < this.solvingPathSegments.length; i += 1) {
@@ -164,6 +182,7 @@ export class Solution {
   }
 
   public UpdateGoalSolvedStatuses (): void {
+    let thereAreStillSomeUnsolved = false
     // go through all the goal pieces
     for (const goalStub of this.goalStubs.GetValues()) {
       // if there are no places to attach pieces it will return null
@@ -173,7 +192,13 @@ export class Solution {
         if (!goalStub.IsSolved()) {
           goalStub.SetSolved(Solved.Solved)
         }
+      } else {
+        thereAreStillSomeUnsolved = true
       }
+    }
+
+    if (!thereAreStillSomeUnsolved) {
+      this.KeepOnlyVisitedGoals()
     }
   }
 

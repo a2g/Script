@@ -33,8 +33,8 @@ import { Validated } from './Validated'
 export class GoalStub extends PieceBase {
   private readonly commandsCompletedInOrder: RawObjectsAndVerb[]
   private solved: Solved = Solved.Not
-  private validated: Validated = Validated.Undecided
-  private originalPieceCount: number = 0
+  private validated: Validated = Validated.Not
+  private originalPieceCount = 0
 
   constructor (goalWord: string, commandsCompletedInOrder: RawObjectsAndVerb[], solved = Solved.Not) {
     super(goalWord)

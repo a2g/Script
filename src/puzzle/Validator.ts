@@ -73,7 +73,7 @@ export class Validator {
   public DeconstructAllGoalsAndRecordSteps (): boolean {
     let wasThereAtLeastSomeProgress = false
     for (const goal of this.goalStubs.GetValues()) {
-      if (goal.GetValidated() === Validated.Undecided) {
+      if (goal.GetValidated() === Validated.Not) {
         if (this.DeconstructGivenGoalAndRecordSteps(goal)) {
           wasThereAtLeastSomeProgress = true
         }

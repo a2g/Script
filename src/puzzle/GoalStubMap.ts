@@ -51,6 +51,7 @@ export class GoalStubMap {
 
   public GenerateMapOfLeavesFromWinGoal (): Map<string, Piece> {
     const leaves = new Map<string, Piece>()
+    const goalWords = new Set<string>()
     const winGoal = this.GetWinGoalIfAny()
     const piece = winGoal?.GetThePiece()
     if (piece != null) {
@@ -58,6 +59,7 @@ export class GoalStubMap {
         piece,
         'x_win',
         leaves,
+        goalWords,
         this
       )
     }
@@ -100,7 +102,7 @@ export class GoalStubMap {
     return this.theMap.get(goal)
   }
 
-  private GetWinGoalIfAny (): GoalStub | undefined {
+  public GetWinGoalIfAny (): GoalStub | undefined {
     return this.theMap.get('x_win')
   }
 
@@ -119,6 +121,15 @@ export class GoalStubMap {
         root.CalculateOriginalPieceCount()
       }
     }
+  }
+
+  public KeepOnlyVisitedGoals (_visitedGoalWords: Set<string>): void {
+    /*
+    for (const key of this.theMap.keys()) {
+      if (!visitedGoalWords.has(key)) {
+        this.theMap.delete(key)
+      }
+    } */
   }
 
   IsGoalCleared (output: string): boolean {

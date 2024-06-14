@@ -24,6 +24,7 @@ export function GenerateMapOfLeavesTracingGoalsRecursively (
   piece: Piece,
   path: string,
   map: Map<string, Piece | null>,
+  goalWords: Set<string>,
   rootPieceMap: GoalStubMap
 ): void {
   for (let i = 0; i < piece.inputs.length; i += 1) {
@@ -35,11 +36,14 @@ export function GenerateMapOfLeavesTracingGoalsRecursively (
         const goalStub = rootPieceMap.GoalStubByName(piece.inputHints[i])
         // Generating name ran may have to multiple with same name');
         const goalStubPiece = goalStub.GetThePiece()
+        const goalWord = goalStub.GetGoalWord()
+        goalWords.add(goalWord)
         if (goalStubPiece != null) {
           GenerateMapOfLeavesTracingGoalsRecursively(
             goalStubPiece,
             goalStubPiece.GetOutput(),
             map,
+            goalWords,
             rootPieceMap
           )
         }
@@ -58,6 +62,7 @@ export function GenerateMapOfLeavesTracingGoalsRecursively (
         input,
         `${path}/${piece.inputHints[i]}`,
         map,
+        goalWords,
         rootPieceMap
       )
     }
