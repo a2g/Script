@@ -123,6 +123,7 @@ export class Solution {
 
   public KeepOnlyVisitedGoals (): void {
     const visitedGoalWords = new Set<string>()
+    visitedGoalWords.add('x_win')
     const leaves = new Map<string, Piece>()
     const winGoal = this.goalStubs.GetWinGoalIfAny()
     const piece = winGoal?.GetThePiece()
