@@ -3,26 +3,26 @@ import { createCommandFromAutoPiece } from './createCommandFromAutoPiece'
 import { Piece } from './Piece'
 import { Raw } from './Raw'
 import { RawObjectsAndVerb } from './RawObjectsAndVerb'
-import { GoalStub } from './GoalStub'
+import { AchievementStub } from './AchievementStub'
 import { SpecialTypes } from './SpecialTypes'
 import { TalkFile } from './talk/TalkFile'
 import { VisibleThingsMap } from './VisibleThingsMap'
 import { Box } from './Box'
-import { GoalStubMap } from './GoalStubMap'
+import { AchievementStubMap } from './AchievementStubMap'
 import { Validated } from './Validated'
 
 export class DeconstructDoer {
-  private readonly theGoalStub: GoalStub
+  private readonly theStub: AchievementStub
 
   // the state that needs update
   private readonly currentlyVisibleThings: VisibleThingsMap
   private readonly talks: Map<string, TalkFile>
   private readonly pieces: Map<string, Piece>
-  private readonly goalStubMap: GoalStubMap
+  private readonly stubMap: AchievementStubMap
 
-  public constructor (theGoalStub: GoalStub, pieces: Map<string, Piece>, visibleThings: VisibleThingsMap, theSolutionsTalkFiles: Map<string, TalkFile>, goalStubMap: GoalStubMap) {
-    this.theGoalStub = theGoalStub
-    this.goalStubMap = goalStubMap
+  public constructor (theStub: AchievementStub, pieces: Map<string, Piece>, visibleThings: VisibleThingsMap, theSolutionsTalkFiles: Map<string, TalkFile>, stubMap: AchievementStubMap) {
+    this.theStub = theStub
+    this.stubMap = stubMap
     this.currentlyVisibleThings = visibleThings
     this.talks = theSolutionsTalkFiles
     this.pieces = pieces
@@ -32,11 +32,11 @@ export class DeconstructDoer {
   // and the first actual jigsaw piece that is attached to it is
   // gets pushed into the zero slot of the inputs
   public IsZeroPieces (): boolean {
-    return this.theGoalStub.inputs[0] == null
+    return this.theStub.inputs[0] == null
   }
 
   public GetNextDoableCommandAndDeconstructTree (): RawObjectsAndVerb | null {
-    const thePiece = this.theGoalStub.GetThePiece()
+    const thePiece = this.theStub.GetThePiece()
     if (thePiece != null) {
       const command = this.GetNextDoableCommandRecursively(thePiece)
       return command
@@ -57,13 +57,13 @@ export class DeconstructDoer {
       }
       if (areAllInputHintsInTheVisibleSet) {
         const isSamePieceIsInOurStash = piece.id !== 'stub' && this.pieces.has(piece.id)
-        const isSomeOtherGoalThatIsCompleted = (piece.type === SpecialTypes.SomeOtherGoal) && this.goalStubMap.IsGoalCleared(piece.output)
+        const isSomeOtherAchievementThatHasBeenAchieved = (piece.type === SpecialTypes.SomeOtherGoal) && this.stubMap.IsAchievementPieceNulled(piece.output)
         const isStartingThingsAndTheyHaveBeenOpened = (piece.type === SpecialTypes.StartingThings) && this.currentlyVisibleThings.Has(piece.output)
-        if (isSamePieceIsInOurStash || isSomeOtherGoalThatIsCompleted || isStartingThingsAndTheyHaveBeenOpened) {
+        if (isSamePieceIsInOurStash || isSomeOtherAchievementThatHasBeenAchieved || isStartingThingsAndTheyHaveBeenOpened) {
           // if this best way to check whether we have just completed the root piece?
-          const theGoalStubPiece = this.theGoalStub.GetThePiece()
-          if (theGoalStubPiece != null && theGoalStubPiece.id === piece.id) {
-            this.theGoalStub.SetValidated(Validated.YesValidated)
+          const theStubPiece = this.theStub.GetThePiece()
+          if (theStubPiece != null && theStubPiece.id === piece.id) {
+            this.theStub.SetValidated(Validated.YesValidated)
           }
 
           // then we remove this key as a leaf piece..
@@ -88,8 +88,8 @@ export class DeconstructDoer {
             this.pieces.delete(piece.id)
           }
 
-          // set the goal as completed in the currently visible things
-          this.currentlyVisibleThings.Set(this.theGoalStub.GetAchievementWord(), new Set<string>())
+          // set the achievement as completed in the currently visible things
+          this.currentlyVisibleThings.Set(this.theStub.GetTheAchievementWord(), new Set<string>())
 
           // Now for the verb/object combo that we need to return
           let toReturn: RawObjectsAndVerb | null = null
@@ -115,9 +115,9 @@ export class DeconstructDoer {
 
           this.AddToMapOfVisibleThings(piece.output)
 
-          // When we solve goals, we sometimes want the happening that result
+          // When we achieve achievements, we sometimes want the happening that result
           // from them to execute straight away. But sometimes there are
-          // autos in the unused pieces pile that take the goal as input
+          // autos in the unused pieces pile that take the achievement as input
           // so we want to climb through the tree, find them, and stub their inputs.
           // But sometimes the inputs are all nulled...Maybe in this case
           // we should not say anything is done, and simply limit our response
@@ -272,10 +272,10 @@ export class DeconstructDoer {
     Box.CopyPiecesFromAtoBViaIds(boxToMerge.GetPieces(), this.pieces)
     Box.CopyTalksFromAtoB(boxToMerge.GetTalkFiles(), this.talks)
     boxToMerge.CopyStartingThingCharsToGivenMap(this.currentlyVisibleThings)
-    // I don't think we copy the goal stubs to the stub map ..do we
-    // because even though the root goal piece  might not be found later
+    // I don't think we copy the stubs to the stub map ..do we
+    // because even though the stub piece might not be found later
     // on, we still should be able to place its leaf nodes early
-    // boxToMerge.CopyGoalStubsToGivenGoalStubMap(this.goalStubs)
+    // boxToMerge.CopyStubsToGivenStubMap(this.stubs)
     // boxToMerge.CopyStartingThingCharsToGivenMap(this.startingThings)
   }
 }

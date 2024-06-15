@@ -33,15 +33,15 @@ export function ValidateSolutionForwards (solution: Solution, _starter: Box, _ou
       }
 
       // set the goal as completed in the currently visible things
-      this.currentlyVisibleThings.Set(goalStruct.goalWord, new Set<string>())
+      this.currentlyVisibleThings.Set(goalStruct.goalAchievement, new Set<string>())
 
       // then write the goal we just completed
       goalStruct.PushCommand(
         new RawObjectsAndVerb(
           Raw.Goal,
-          `completed (${goalStruct.goalWord})`,
+          `completed (${goalStruct.goalAchievement})`,
           '',
-          goalStruct.goalWord,
+          goalStruct.goalAchievement,
           [],
           [],
           ''
@@ -49,13 +49,13 @@ export function ValidateSolutionForwards (solution: Solution, _starter: Box, _ou
       )
 
       // also tell the solution what order the goal was reached
-      this.rootPieceKeysInSolvingOrder.push(goalStruct.goalWord)
+      this.rootPieceKeysInSolvingOrder.push(goalStruct.goalAchievement)
 
       // Sse if any autos depend on the newly completed goal - if so execute them
       for (const piece of this.GetAutos()) {
         if (
           piece.inputHints.length === 2 &&
-          piece.inputHints[0] === goalStruct.goalWord
+          piece.inputHints[0] === goalStruct.goalAchievement
         ) {
           const command = createCommandFromAutoPiece(piece)
           goalStruct.PushCommand(command)

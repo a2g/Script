@@ -38,12 +38,12 @@ export function getJsonOfAllSolutions (
   let listItemNumber = 0
   for (const solution of solutions.GetSolutions()) {
     console.warn(FormatText(solution.GetSolvingPath()))
-    console.warn(FormatText(solution.GetGoalStubMap().CalculateListOfKeys()))
-    for (const item of solution.GetGoalStubMap().GetValues()) {
+    console.warn(FormatText(solution.GetAchievementStubMap().CalculateListOfKeys()))
+    for (const item of solution.GetAchievementStubMap().GetValues()) {
       listItemNumber++
 
       // display list item
-      const output = item.GetAchievementWord()
+      const output = item.GetTheAchievementWord()
       console.warn(`    ${listItemNumber}. ${output} )`)
       incomplete += item.IsSolved() ? 0 : 1
     }
@@ -87,10 +87,10 @@ function getJsonArrayOfRootPieces (
   const toReturn = new Array<Record<string, unknown>>()
 
   // first we push this
-  const listOfRootPieceArrays = solution.GetGoalStubMap().GetValues()
+  const listOfRootPieceArrays = solution.GetAchievementStubMap().GetValues()
   for (const rootPiece of listOfRootPieceArrays) {
     toReturn.push({
-      name: rootPiece.GetAchievementWord(),
+      name: rootPiece.GetTheAchievementWord(),
       isAGoalOrAuto: false,
       children: getJsonArrayOfAllSubPieces(rootPiece.GetThePiece())
     })

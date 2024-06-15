@@ -32,7 +32,7 @@ export function ValidatorView (validator: Validator, titlePath: string[]): void 
       listItemNumber++
 
       // display list item
-      const output = rootGoal.GetAchievementWord()
+      const output = rootGoal.GetTheAchievementWord()
       const theGoalPiece = rootGoal.GetThePiece()
       let inputs = ''
       if (theGoalPiece != null) {
@@ -49,7 +49,7 @@ export function ValidatorView (validator: Validator, titlePath: string[]): void 
       )
     }
 
-    console.warn(`Number of goals back to zero ${validator.GetNumberOfNotYetValidated()}/${validator.GetNumberOfGoals()}`)
+    console.warn(`Number of goals back to zero ${validator.GetNumberOfNotYetValidated()}/${validator.GetNumberOfAchievements()}`)
 
     // allow user to choose item
     const input = prompt(

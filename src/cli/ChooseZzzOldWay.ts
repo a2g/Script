@@ -31,11 +31,11 @@ export function ChooseZzzOldWay (solutions: Solutions): void {
           ? path + '<-- path'
           : NAME_NOT_DETERMINABLE
       console.warn(`${letter}. ${label}}`)
-      for (const item of solution.GetGoalStubMap().GetValues()) {
+      for (const item of solution.GetAchievementStubMap().GetValues()) {
         listItemNumber++
 
         // display list item
-        const output = item.GetAchievementWord()
+        const output = item.GetTheAchievementWord()
         const piece = item.GetThePiece()
         let inputs = ''
         if (piece != null) {
@@ -70,7 +70,7 @@ export function ChooseZzzOldWay (solutions: Solutions): void {
       if (theNumber > 0 && theNumber <= listItemNumber) {
         const solutionArray = solutions.GetSolutions()
         for (let i = 0; i < solutionArray.length; i++) {
-          const rootMap = solutionArray[i].GetGoalStubMap()
+          const rootMap = solutionArray[i].GetAchievementStubMap()
           const goals = rootMap.GetValues()
           for (const goal of goals) {
             i++

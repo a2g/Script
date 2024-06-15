@@ -2,14 +2,14 @@ import promptSync from 'prompt-sync'
 import { Piece } from '../../puzzle/Piece'
 import { VisibleThingsMap } from '../../puzzle/VisibleThingsMap'
 import { Validator } from '../../puzzle/Validator'
-import { GoalStub } from '../../puzzle/GoalStub'
+import { AchievementStub } from '../../puzzle/AchievementStub'
 import { ShowUnderlinedTitle } from '../ShowUnderlinedTitle'
 const prompt = promptSync({ sigint: true })
 
 export function PieceDeconstructionView (
   piece: Piece,
   validator: Validator,
-  goalStub: GoalStub, visibleThings: VisibleThingsMap, titlePath: string[]
+  stub: AchievementStub, visibleThings: VisibleThingsMap, titlePath: string[]
 ): void {
   titlePath.push('Piece(Deconstruct)')
   for (; ;) {
@@ -32,7 +32,7 @@ export function PieceDeconstructionView (
     if (input === null || input === 'b') {
       return
     } else if (input === 'r') {
-      validator.DeconstructGivenGoalAndRecordSteps(goalStub)
+      validator.DeconstructGivenStubAndRecordSteps(stub)
     } else if (input === 's') {
       for (const item of visibleThings.GetIterableIterator()) {
         console.warn(`${item[0]}`)
@@ -43,7 +43,7 @@ export function PieceDeconstructionView (
       if (theNumber > 0 && theNumber <= targets.length) {
         const result = targets[theNumber - 1]
         if (result != null) {
-          PieceDeconstructionView(result, validator, goalStub, visibleThings, titlePath)
+          PieceDeconstructionView(result, validator, stub, visibleThings, titlePath)
         } else {
           prompt('THAT WAS NULL. Hit any key to continue: ')
         }

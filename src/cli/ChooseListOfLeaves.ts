@@ -45,7 +45,7 @@ export function ChooseListOfLeaves (solutions: Solutions): void {
           '<--unique name'
       )
       const leaves: Map<string, Piece | null> = solution
-        .GetGoalStubMap()
+        .GetAchievementStubMap()
         .GenerateMapOfLeavesFromAllRoots(isOnlyNulls)
       for (const key of leaves.keys()) {
         listItemNumber++
@@ -76,7 +76,7 @@ export function ChooseListOfLeaves (solutions: Solutions): void {
         let i = 0
         for (const solution of solutions.GetSolutions()) {
           const goals = solution
-            .GetGoalStubMap()
+            .GetAchievementStubMap()
             .GenerateMapOfLeavesFromAllRoots(isOnlyNulls)
           for (const key of goals.keys()) {
             i++

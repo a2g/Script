@@ -1,14 +1,14 @@
 import { GenerateMapOfLeavesRecursively } from './GenerateMapOfLeavesRecursively'
-import { GenerateMapOfLeavesTracingGoalsRecursively } from './GenerateMapOfLeavesTraccingGoalsRecursively'
+import { GenerateMapOfLeavesTracingAchievementsRecursively } from './GenerateMapOfLeavesTraccingGoalsRecursively'
 import { Piece } from './Piece'
-import { GoalStub } from './GoalStub'
+import { AchievementStub } from './AchievementStub'
 import { Solved } from './Solved'
 
 /**
  * This started out simpler that PileOfPieces, because there
- * was only ever one piece that outputted a particular goal.
+ * was only ever one piece that outputted a particular achievement.
  * But then - and probably obvious in hindsight - it was changed to handle
- * multiple pieces that can output a goal, hence a map of arrays.
+ * multiple pieces that can output a achievement, hence a map of arrays.
  * Oh , and a strange difference - this one contains RootPiece
  * rather than piece. RootPiece just wraps a Piece and adds a
  * cached version of 'firstNullInput' <-- why can't we just calculate?
@@ -17,16 +17,16 @@ import { Solved } from './Solved'
  * justifiable to have the concept of RootPiece.
  *
  */
-export class GoalStubMap {
-  private readonly theMap: Map<string, GoalStub>
+export class AchievementStubMap {
+  private readonly theMap: Map<string, AchievementStub>
 
-  constructor (cloneIncludingLeaves: GoalStubMap | null) {
-    this.theMap = new Map<string, GoalStub>()
+  constructor (cloneIncludingLeaves: AchievementStubMap | null) {
+    this.theMap = new Map<string, AchievementStub>()
     if (cloneIncludingLeaves != null) {
       for (const pair of cloneIncludingLeaves.theMap) {
         const key = pair[0]
-        const goalStub = pair[1]
-        this.theMap.set(key, goalStub.CloneIncludingLeaves())
+        const achievementStub = pair[1]
+        this.theMap.set(key, achievementStub.CloneIncludingLeaves())
       }
     }
   }
@@ -49,24 +49,24 @@ export class GoalStubMap {
     return leaves
   }
 
-  public GenerateMapOfLeavesFromWinGoal (): Map<string, Piece> {
+  public GenerateMapOfLeavesFromWinAchievement (): Map<string, Piece> {
     const leaves = new Map<string, Piece>()
-    const goalWords = new Set<string>()
-    const winGoal = this.GetWinGoalIfAny()
-    const piece = winGoal?.GetThePiece()
+    const achievementWords = new Set<string>()
+    const winAchievement = this.GetAchievementStubIfAny()
+    const piece = winAchievement?.GetThePiece()
     if (piece != null) {
-      GenerateMapOfLeavesTracingGoalsRecursively(
+      GenerateMapOfLeavesTracingAchievementsRecursively(
         piece,
         'x_win',
         leaves,
-        goalWords,
+        achievementWords,
         this
       )
     }
     return leaves
   }
 
-  public GoalStubByName (name: string): GoalStub {
+  public AchievementStubByName (name: string): AchievementStub {
     const root = this.theMap.get(name)
     if (typeof root === 'undefined' || root === null) {
       throw new Error(`rootPiece of that name doesn't exist ${name}`)
@@ -86,32 +86,32 @@ export class GoalStubMap {
     return this.theMap.size
   }
 
-  public GetValues (): IterableIterator<GoalStub> {
+  public GetValues (): IterableIterator<AchievementStub> {
     return this.theMap.values()
   }
 
-  public CloneAllRootPiecesAndTheirTrees (): GoalStubMap {
-    return new GoalStubMap(this)
+  public CloneAllRootPiecesAndTheirTrees (): AchievementStubMap {
+    return new AchievementStubMap(this)
   }
 
-  public Has (goalToObtain: string): boolean {
-    return this.theMap.has(goalToObtain)
+  public Has (achievementToObtain: string): boolean {
+    return this.theMap.has(achievementToObtain)
   }
 
-  public GetGoalStubByNameNoThrow (goal: string): GoalStub | undefined {
-    return this.theMap.get(goal)
+  public GetAchievementStubByNameNoThrow (achievement: string): AchievementStub | undefined {
+    return this.theMap.get(achievement)
   }
 
-  public GetWinGoalIfAny (): GoalStub | undefined {
+  public GetAchievementStubIfAny (): AchievementStub | undefined {
     return this.theMap.get('x_win')
   }
 
-  AddGoalStub (word: string): void {
+  AddAchievementStub (word: string): void {
     if (!this.theMap.has(word)) {
-      console.warn(`Merged goal word ${word}`)
-      this.theMap.set(word, new GoalStub(word, [], Solved.Not))
+      console.warn(`Merged achievement word ${word}`)
+      this.theMap.set(word, new AchievementStub(word, [], Solved.Not))
     } else {
-      console.warn(`Already exists: Failed to merge goal ${word}  `)
+      console.warn(`Already exists: Failed to merge achievement ${word}  `)
     }
   }
 
@@ -123,18 +123,18 @@ export class GoalStubMap {
     }
   }
 
-  public KeepOnlyVisitedGoals (visitedGoalWords: Set<string>): void {
+  public KeepOnlyGivenAchievementStubs (achievementsToKeep: Set<string>): void {
     for (const key of this.theMap.keys()) {
-      if (!visitedGoalWords.has(key)) {
+      if (!achievementsToKeep.has(key)) {
         this.theMap.delete(key)
       }
     }
   }
 
-  IsGoalCleared (output: string): boolean {
+  IsAchievementPieceNulled (output: string): boolean {
     const stub = this.theMap.get(output)
     if (stub != null) {
-      return stub.IsGoalCleared()
+      return stub.GetThePiece() == null
     }
     return false
   }

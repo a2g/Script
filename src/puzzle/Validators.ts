@@ -17,7 +17,7 @@ export class Validators {
         solution.GetSolvingPath(),
         solutions.GetStartingPieces(),
         solutions.GetStartingTalkFiles(),
-        solution.GetGoalStubMap(),
+        solution.GetAchievementStubMap(),
         solutions.GetStartersMapOfAllStartingThings())
       this.validators.push(validator)
     }

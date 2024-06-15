@@ -1,7 +1,7 @@
 // import { Aggregates } from './Aggregates'
 import { Aggregates } from './Aggregates'
 import { Box } from './Box'
-import { GoalStubMap } from './GoalStubMap'
+import { AchievementStubMap } from './AchievementStubMap'
 import { Piece } from './Piece'
 import { Solution } from './Solution'
 import { TalkFile } from './talk/TalkFile'
@@ -31,8 +31,8 @@ export class Solutions {
       this.combinedBox.GetPieces(),
       this.combinedBox.GetTalkFiles(),
       this.combinedBox.GetMapOfAllStartingThings(),
-      this.CreateGoalStubMapFromGoalWords(this.combinedBox.GetSetOfGoalWords())
-      // this.CreateGoalStubMapFromGoalWords(this.aggregates.setOfGoalWords)
+      this.CreateStubMapFromgoalAchievements(this.combinedBox.GetSetOfAchievementWords())
+      // this.CreateStubMapFromgoalAchievements(this.aggregates.setOfgoalAchievements)
     )
     this.solutions.push(solution1)
 
@@ -92,15 +92,15 @@ export class Solutions {
     }
   }
 
-  public CreateGoalStubMapFromGoalWords (setOfStrings: Set<string>): GoalStubMap {
+  public CreateStubMapFromgoalAchievements (setOfStrings: Set<string>): AchievementStubMap {
     setOfStrings.delete('x_win')
-    const rootMapFromGoalStubs = new GoalStubMap(null)
-    rootMapFromGoalStubs.AddGoalStub('x_win')
+    const rootMapFromStubs = new AchievementStubMap(null)
+    rootMapFromStubs.AddAchievementStub('x_win')
 
-    for (const goalWord of setOfStrings) {
-      rootMapFromGoalStubs.AddGoalStub(goalWord)
+    for (const goalAchievement of setOfStrings) {
+      rootMapFromStubs.AddAchievementStub(goalAchievement)
     }
-    return rootMapFromGoalStubs
+    return rootMapFromStubs
   }
 
   public PerformThingsNeededAfterAllSolutionsFound (): void {

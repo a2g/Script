@@ -297,10 +297,10 @@ export class Piece extends PieceBase {
       // 2. Goal - matches a single goal in the goal root map
       // then we just set and forget, allowing that goal
       // be completed via the natural process
-      if (solution.GetGoalStubMap().Has(importHintToFind)) {
+      if (solution.GetAchievementStubMap().Has(importHintToFind)) {
         const matchingRootPiece = solution
-          .GetGoalStubMap()
-          .GoalStubByName(importHintToFind)
+          .GetAchievementStubMap()
+          .AchievementStubByName(importHintToFind)
 
         // is it a goal? (since goal map always contains all goals)
         // solution.MarkGoalsAsContainingNullsAndMergeIfNeeded()// this is optional...

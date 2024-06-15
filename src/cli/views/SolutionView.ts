@@ -23,11 +23,11 @@ export function SolutionView (solution: Solution, solutions: Solutions, titlePat
     console.warn(`${label}`)
     let listItemNumber = 0
     let incomplete = 0
-    for (const achievementStub of solution.GetGoalStubMap().GetValues()) {
+    for (const achievementStub of solution.GetAchievementStubMap().GetValues()) {
       listItemNumber++
 
       // display list item
-      const output = achievementStub.GetAchievementWord()
+      const output = achievementStub.GetTheAchievementWord()
       const theGoalPiece = achievementStub.GetThePiece()
       let inputs = ''
       if (theGoalPiece != null) {
@@ -67,14 +67,14 @@ export function SolutionView (solution: Solution, solutions: Solutions, titlePat
       const theNumber = Number(input)
       if (theNumber > 0 && theNumber <= listItemNumber) {
         let j = 0
-        for (const goal of solution.GetGoalStubMap().GetValues()) {
+        for (const goal of solution.GetAchievementStubMap().GetValues()) {
           j++
           if (j === theNumber) {
             const theGoalPiece = goal.GetThePiece()
             if (theGoalPiece != null) {
               PieceView(theGoalPiece, solution.GetVisibleThingsAtTheStart(), titlePath)
             } else {
-              prompt(`${goal.GetAchievementWord()} Goal.piece WAS NULL. Hit any key to continue: `)
+              prompt(`${goal.GetTheAchievementWord()} Goal.piece WAS NULL. Hit any key to continue: `)
             }
           }
         }

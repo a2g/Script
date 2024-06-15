@@ -1,13 +1,13 @@
 import { FormatText } from './FormatText'
 import { Piece } from './Piece'
 
-import { GoalStubMap } from './GoalStubMap'
+import { AchievementStubMap } from './AchievementStubMap'
 import { Solutions } from './Solutions'
 import { VisibleThingsMap } from './VisibleThingsMap'
 import { Box } from './Box'
 import { TalkFile } from './talk/TalkFile'
 import { Solved } from './Solved'
-import { GenerateMapOfLeavesTracingGoalsRecursively } from './GenerateMapOfLeavesTraccingGoalsRecursively'
+import { GenerateMapOfLeavesTracingAchievementsRecursively } from './GenerateMapOfLeavesTraccingGoalsRecursively'
 
 let globalSolutionId = 101
 /**
@@ -15,7 +15,7 @@ let globalSolutionId = 101
  */
 export class Solution {
   // important ones
-  private readonly goalStubs: GoalStubMap
+  private readonly stubs: AchievementStubMap
   private readonly remainingPieces: Map<string, Set<Piece>>
   private readonly talks: Map<string, TalkFile>
 
@@ -32,12 +32,12 @@ export class Solution {
     pieces: Map<string, Set<Piece>>,
     talks: Map<string, TalkFile>,
     startingThingsPassedIn: VisibleThingsMap,
-    goalStubsToCopy: GoalStubMap | null,
+    stubsToCopy: AchievementStubMap | null,
     restrictions: Set<string> | null = null,
     nameSegments: string[] | null = null
   ) {
     this.id = id
-    this.goalStubs = new GoalStubMap(goalStubsToCopy)
+    this.stubs = new AchievementStubMap(stubsToCopy)
     this.talks = new Map<string, TalkFile>()
     this.remainingPieces = new Map<string, Set<Piece>>()
 
@@ -77,12 +77,12 @@ export class Solution {
     pieces: Map<string, Set<Piece>>,
     talks: Map<string, TalkFile>,
     startingThingsPassedIn: VisibleThingsMap,
-    goalStubs: GoalStubMap | null,
+    stubs: AchievementStubMap | null,
     restrictions: Set<string> | null = null,
     nameSegments: string[] | null = null
   ): Solution {
     globalSolutionId++
-    return new Solution(globalSolutionId, pieces, talks, startingThingsPassedIn, goalStubs, restrictions, nameSegments)
+    return new Solution(globalSolutionId, pieces, talks, startingThingsPassedIn, stubs, restrictions, nameSegments)
   }
 
   public Clone (): Solution {
@@ -90,7 +90,7 @@ export class Solution {
     // primarily to construct, so passing in root piece is needed..
     // so we clone the whole tree and pass it in
     const clonedRootPieceMap =
-      this.goalStubs.CloneAllRootPiecesAndTheirTrees()
+      this.stubs.CloneAllRootPiecesAndTheirTrees()
 
     // When we clone we generally give everything new ids
     // but
@@ -109,9 +109,9 @@ export class Solution {
 
   public ProcessUntilCloning (solutions: Solutions): boolean {
     let isBreakingDueToSolutionCloning = false
-    for (const goalStub of this.goalStubs.GetValues()) {
-      if (!goalStub.IsSolved()) {
-        if (goalStub.ProcessUntilCloning(this, solutions, '/')) {
+    for (const stub of this.stubs.GetValues()) {
+      if (!stub.IsSolved()) {
+        if (stub.ProcessUntilCloning(this, solutions, '/')) {
           isBreakingDueToSolutionCloning = true
           break
         }
@@ -122,21 +122,21 @@ export class Solution {
   }
 
   public KeepOnlyVisitedGoals (): void {
-    const visitedGoalWords = new Set<string>()
-    visitedGoalWords.add('x_win')
+    const visitedgoalAchievements = new Set<string>()
+    visitedgoalAchievements.add('x_win')
     const leaves = new Map<string, Piece>()
-    const winGoal = this.goalStubs.GetWinGoalIfAny()
+    const winGoal = this.stubs.GetAchievementStubIfAny()
     const piece = winGoal?.GetThePiece()
     if (piece != null) {
-      GenerateMapOfLeavesTracingGoalsRecursively(
+      GenerateMapOfLeavesTracingAchievementsRecursively(
         piece,
         'x_win',
         leaves,
-        visitedGoalWords,
-        this.goalStubs
+        visitedgoalAchievements,
+        this.stubs
       )
     }
-    this.goalStubs.KeepOnlyVisitedGoals(visitedGoalWords)
+    this.stubs.KeepOnlyGivenAchievementStubs(visitedgoalAchievements)
   }
 
   public GetSolvingPath (): string {
@@ -161,8 +161,8 @@ export class Solution {
   }
 
   public FindAnyPieceMatchingIdRecursively (id: string): Piece | null {
-    for (const goalStub of this.goalStubs.GetValues()) {
-      const piece = goalStub.GetThePiece()
+    for (const stub of this.stubs.GetValues()) {
+      const piece = stub.GetThePiece()
       if (piece != null) {
         const result = piece.FindAnyPieceMatchingIdRecursively(id)
         if (result != null) {
@@ -173,8 +173,8 @@ export class Solution {
     return null
   }
 
-  public GetGoalStubMap (): GoalStubMap {
-    return this.goalStubs
+  public GetAchievementStubMap (): AchievementStubMap {
+    return this.stubs
   }
 
   public GetStartingThings (): VisibleThingsMap {
@@ -184,13 +184,13 @@ export class Solution {
   public UpdateGoalSolvedStatuses (): void {
     let thereAreStillSomeUnsolved = false
     // go through all the goal pieces
-    for (const goalStub of this.goalStubs.GetValues()) {
+    for (const stub of this.stubs.GetValues()) {
       // if there are no places to attach pieces it will return null
-      const piece = goalStub.GetThePiece()
-      const firstMissingPiece = (piece != null) ? piece.ReturnTheFirstNullInputHint() : goalStub.GetAchievementWord()
+      const piece = stub.GetThePiece()
+      const firstMissingPiece = (piece != null) ? piece.ReturnTheFirstNullInputHint() : stub.GetTheAchievementWord()
       if (firstMissingPiece === '') {
-        if (!goalStub.IsSolved()) {
-          goalStub.SetSolved(Solved.Solved)
+        if (!stub.IsSolved()) {
+          stub.SetSolved(Solved.Solved)
         }
       } else {
         thereAreStillSomeUnsolved = true
@@ -203,7 +203,7 @@ export class Solution {
   }
 
   public IsUnsolved (): boolean {
-    for (const goal of this.goalStubs.GetValues()) {
+    for (const goal of this.stubs.GetValues()) {
       if (!goal.IsSolved()) {
         return true
       }

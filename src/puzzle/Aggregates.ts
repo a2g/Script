@@ -5,7 +5,7 @@ export class Aggregates {
   /**
    * #### All the goal words
    */
-  public setOfGoalWords: Set<string>
+  public setOfgoalAchievements: Set<string>
   /**
    * #### Set of outputs that can be solved twice
    */
@@ -16,7 +16,7 @@ export class Aggregates {
    */
   public mapOfBoxes: Map<string, Box>
   constructor () {
-    this.setOfGoalWords = new Set<string>()
+    this.setOfgoalAchievements = new Set<string>()
     this.piecesMapped = new Map<string, Set<Piece>>()
     this.mapOfBoxes = new Map<string, Box>()
   }

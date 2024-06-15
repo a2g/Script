@@ -5,7 +5,7 @@ import { VisibleThingsMap } from './VisibleThingsMap'
 import { parse } from 'jsonc-parser'
 import { TalkFile } from './talk/TalkFile'
 import { Piece } from './Piece'
-import { GoalStubMap } from './GoalStubMap'
+import { AchievementStubMap } from './AchievementStubMap'
 import { Aggregates } from './Aggregates'
 
 /**
@@ -25,13 +25,13 @@ export class Box {
 
   private readonly allProps: string[]
   private readonly allGoals: string[]
-  private readonly goalWordSet: Set<string>
+  private readonly achievementWordSet: Set<string>
   private readonly allInvs: string[]
   private readonly allChars: string[]
   private readonly mapOfStartingThings: VisibleThingsMap
   private readonly startingInvSet: Set<string>
   private readonly startingPropSet: Set<string>
-  private readonly startingGoalWordSet: Set<string>
+  private readonly startinggoalAchievementSet: Set<string>
   private readonly filename: string
   private readonly path: string
   private readonly pieces: Map<string, Set<Piece>>
@@ -50,9 +50,9 @@ export class Box {
     this.allChars = []
     /* preen starting invs from the startingThings */
     this.startingInvSet = new Set<string>()
-    this.startingGoalWordSet = new Set<string>()
+    this.startinggoalAchievementSet = new Set<string>()
     this.startingPropSet = new Set<string>()
-    this.goalWordSet = new Set<string>()
+    this.achievementWordSet = new Set<string>()
     this.mapOfStartingThings = new VisibleThingsMap(null)
     this.pieces = new Map<string, Set<Piece>>()
     this.talkFiles = new Map<string, TalkFile>()
@@ -118,7 +118,7 @@ export class Box {
           this.startingInvSet.add(theThing)
         }
         if (theThing.startsWith('goal')) {
-          this.startingGoalWordSet.add(theThing)
+          this.startinggoalAchievementSet.add(theThing)
         }
         if (theThing.startsWith('prop')) {
           this.startingPropSet.add(theThing)
@@ -180,7 +180,7 @@ export class Box {
 
   public GetArrayOfInitialStatesOfGoals (): number[] {
     /* construct array of booleans in exact same order as ArrayOfProps - so they can be correlated */
-    const startingSet = this.startingGoalWordSet
+    const startingSet = this.startinggoalAchievementSet
     const initialStates: number[] = []
     for (const goal of this.allGoals) {
       const isNonZero = startingSet.has(goal)
@@ -237,17 +237,17 @@ export class Box {
     this.talkFiles.set(talkFile.GetName(), talkFile)
   }
 
-  public GetSetOfGoalWords (): Set<string> {
-    return this.goalWordSet
+  public GetSetOfAchievementWords (): Set<string> {
+    return this.achievementWordSet
   }
 
   public GetPieceIterator (): IterableIterator<Set<Piece>> {
     return this.pieces.values()
   }
 
-  public CopyGoalStubsToGivenGoalStubMap (destinationGoalStubMap: GoalStubMap): void {
-    for (const goalStub of this.goalWordSet) {
-      destinationGoalStubMap.AddGoalStub(goalStub)
+  public CopyStubsToGivenStubMap (destinationStubMap: AchievementStubMap): void {
+    for (const stub of this.achievementWordSet) {
+      destinationStubMap.AddAchievementStub(stub)
     }
   }
 
@@ -340,7 +340,7 @@ export class Box {
       if (box.filename !== this.filename) {
         Box.CopyPiecesFromAtoB(box.pieces, this.pieces)
         Box.CopyTalksFromAtoB(box.talkFiles, this.talkFiles)
-        box.goalWordSet.forEach(x => this.goalWordSet.add(x))
+        box.achievementWordSet.forEach(x => this.achievementWordSet.add(x))
         box.mapOfStartingThings.CopyTo(this.mapOfStartingThings)
       }
     }

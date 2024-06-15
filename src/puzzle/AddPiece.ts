@@ -6,9 +6,9 @@ import { Piece } from './Piece'
 
 export function AddPiece (piece: Piece, folder = '', isNoFile = true, box: Box, aggregates: Aggregates): void {
   if (IsPieceOutputtingAGoal(piece)) {
-    const goalWord = piece.output
-    box.GetSetOfGoalWords().add(goalWord)
-    aggregates.setOfGoalWords.add(goalWord)
+    const goalAchievement = piece.output
+    box.GetSetOfAchievementWords().add(goalAchievement)
+    aggregates.setOfgoalAchievements.add(goalAchievement)
     // if not file exists for goal name
     // then throw an exception, unless
     //  - xwin
@@ -21,11 +21,11 @@ export function AddPiece (piece: Piece, folder = '', isNoFile = true, box: Box, 
     // if we only added a file if it existed
     // then the error would be hidden and
     // would be subtle to discover
-    if (goalWord !== 'x_win' && !isNoFile) {
-      const file = `${goalWord}.jsonc`
+    if (goalAchievement !== 'x_win' && !isNoFile) {
+      const file = `${goalAchievement}.jsonc`
       if (!existsSync(folder + file)) {
         throw new Error(
-          `Ensure "isNoFile" needs to be marked for goal ${goalWord} of ${piece.type} in ${goalWord}, because the following file doesn't exist ${folder}`
+          `Ensure "isNoFile" needs to be marked for goal ${goalAchievement} of ${piece.type} in ${goalAchievement}, because the following file doesn't exist ${folder}`
         )
       }
 

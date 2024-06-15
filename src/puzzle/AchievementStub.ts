@@ -10,11 +10,11 @@ import { Validated } from './Validated'
  * #### So this is NOT a piece, its just the thing that pieces attach to.
  * BUT it inherits from PieceBase, so it can participate in this hierarchical
  * operation where a piece removes itself from the piece's parent. And since
- * this GoalStub is a pieces parent, it needs to derive form that class.
+ * this AchievementStub is a pieces parent, it needs to derive form that class.
  *
  * Some parents have multiple children, so the PieceBAse has provision for this
- * but this GoalStub can only ever have a single one. So we have these getters
- * and setters for GetGoalWord, and GetThePiece - that make the code easier to
+ * but this AchievementStub can only ever have a single one. So we have these getters
+ * and setters for GetTheAchievementWord, and GetThePiece - that make the code easier to
  * read because they reinforce that this only has one of those.
  *
  * This has solved and validated flags because this thing gets a tree added to it,
@@ -30,16 +30,16 @@ import { Validated } from './Validated'
  * but its handy to have a predictable deterministic solution - at least as a
  * starting point, before optimizations.
  */
-export class GoalStub extends PieceBase {
+export class AchievementStub extends PieceBase {
   private readonly commandsCompletedInOrder: RawObjectsAndVerb[]
   private solved: Solved = Solved.Not
   private validated: Validated = Validated.Not
   private originalPieceCount = 0
 
-  constructor (goalWord: string, commandsCompletedInOrder: RawObjectsAndVerb[], solved = Solved.Not) {
-    super(goalWord)
+  constructor (achievementWord: string, commandsCompletedInOrder: RawObjectsAndVerb[], solved = Solved.Not) {
+    super(achievementWord)
     this.solved = solved
-    this.inputHints.push(goalWord)
+    this.inputHints.push(achievementWord)
     this.inputs.push(null)
 
     this.commandsCompletedInOrder = []
@@ -54,17 +54,17 @@ export class GoalStub extends PieceBase {
     return this.inputs[0]
   }
 
-  public GetAchievementWord (): string {
+  public GetTheAchievementWord (): string {
     return this.inputHints[0]
   }
 
-  public CloneIncludingLeaves (): GoalStub {
-    const newGoalStub = new GoalStub(this.inputHints[0], this.commandsCompletedInOrder)
+  public CloneIncludingLeaves (): AchievementStub {
+    const newAchievementStub = new AchievementStub(this.inputHints[0], this.commandsCompletedInOrder)
     if (this.inputs[0] != null) {
-      newGoalStub.inputs[0] = this.inputs[0].ClonePieceAndEntireTree()
-      newGoalStub.inputs[0].parent = newGoalStub
+      newAchievementStub.inputs[0] = this.inputs[0].ClonePieceAndEntireTree()
+      newAchievementStub.inputs[0].parent = newAchievementStub
     }
-    return newGoalStub
+    return newAchievementStub
   }
 
   public SetValidated (validated: Validated): void {
@@ -99,7 +99,7 @@ export class GoalStub extends PieceBase {
   }
 
   public ProcessUntilCloning (solution: Solution, solutions: Solutions, path: string): boolean {
-    // if the goalword piece is already found, we recurse
+    // if the goalAchievement piece is already found, we recurse
     if (this.inputs[0] != null) {
       return this.inputs[0].ProcessUntilCloning(solution, solutions, path + this.inputHints[0] + '/')
     }
@@ -134,18 +134,18 @@ export class GoalStub extends PieceBase {
           solutions.GetSolutions().push(theSolution)
         }
 
-        // rediscover the current GoalStub in theSolution - again because we might be cloned
-        const theGoalStub = theSolution.GetGoalStubMap().GetGoalStubByNameNoThrow(this.inputHints[0])
-        console.assert(theGoalStub != null)
-        if (theGoalStub != null) {
+        // rediscover the current AchievementStub in theSolution - again because we might be cloned
+        const theAchievementStub = theSolution.GetAchievementStubMap().GetAchievementStubByNameNoThrow(this.inputHints[0])
+        console.assert(theAchievementStub != null)
+        if (theAchievementStub != null) {
           if (matchingPieces.length > 1) {
             // }[${i > 0 ? matchingPieces.length - i : 0}]
             const firstInput = theMatchingPiece.inputHints.length > 0 ? theMatchingPiece.inputHints[0] : 'no-hint'
             theSolution.PushSolvingPathSegment(`${firstInput}`)
           }
 
-          theMatchingPiece.parent = theGoalStub
-          theGoalStub.inputs[0] = theMatchingPiece
+          theMatchingPiece.parent = theAchievementStub
+          theAchievementStub.inputs[0] = theMatchingPiece
 
           // all pieces are incomplete when they are *just* added
           theSolution.AddToListOfEssentials(theMatchingPiece.getRestrictions())
@@ -161,10 +161,6 @@ export class GoalStub extends PieceBase {
       } // yes is incomplete
     }
     return false
-  }
-
-  IsGoalCleared (): boolean {
-    return this.inputs[0] == null
   }
 
   public GetCountRecursively (): number {

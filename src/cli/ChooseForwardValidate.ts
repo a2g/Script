@@ -21,7 +21,7 @@ export function ChooseForwardValidate (validators: Validators): void {
       const name = FormatText(validator.GetName())
       //  "1. XXXXXX"   <- this is the format we list the solutions
       const a = validator.GetNumberOfNotYetValidated()
-      const b = validator.GetNumberOfGoals()
+      const b = validator.GetNumberOfAchievements()
       console.warn(`    ${i + 1}. (${a}/${b}) ${name} `)
     }
 

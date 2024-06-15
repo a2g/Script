@@ -1,5 +1,5 @@
 import { Piece } from './Piece'
-import { GoalStubMap } from './GoalStubMap'
+import { AchievementStubMap } from './AchievementStubMap'
 import { SpecialTypes } from './SpecialTypes'
 /**
  * #### Description
@@ -20,12 +20,12 @@ import { SpecialTypes } from './SpecialTypes'
  * @param map any discovered leaves are put in here, keyed by path
  * @param rootPieceMap this is what it uses to drill down to other goals
  */
-export function GenerateMapOfLeavesTracingGoalsRecursively (
+export function GenerateMapOfLeavesTracingAchievementsRecursively (
   piece: Piece,
   path: string,
   map: Map<string, Piece | null>,
-  goalWords: Set<string>,
-  rootPieceMap: GoalStubMap
+  goalAchievements: Set<string>,
+  rootPieceMap: AchievementStubMap
 ): void {
   for (let i = 0; i < piece.inputs.length; i += 1) {
     const input = piece.inputs[i]
@@ -33,17 +33,17 @@ export function GenerateMapOfLeavesTracingGoalsRecursively (
     // either set an entry in the leaf map or not...
     switch (inputType) {
       case SpecialTypes.SomeOtherGoal: {
-        const goalStub = rootPieceMap.GoalStubByName(piece.inputHints[i])
+        const stub = rootPieceMap.AchievementStubByName(piece.inputHints[i])
         // Generating name ran may have to multiple with same name');
-        const goalStubPiece = goalStub.GetThePiece()
-        const goalWord = goalStub.GetAchievementWord()
-        goalWords.add(goalWord)
-        if (goalStubPiece != null) {
-          GenerateMapOfLeavesTracingGoalsRecursively(
-            goalStubPiece,
-            goalStubPiece.GetOutput(),
+        const stubPiece = stub.GetThePiece()
+        const goalAchievement = stub.GetTheAchievementWord()
+        goalAchievements.add(goalAchievement)
+        if (stubPiece != null) {
+          GenerateMapOfLeavesTracingAchievementsRecursively(
+            stubPiece,
+            stubPiece.GetOutput(),
             map,
-            goalWords,
+            goalAchievements,
             rootPieceMap
           )
         }
@@ -58,11 +58,11 @@ export function GenerateMapOfLeavesTracingGoalsRecursively (
 
     // and recurve deeper
     if (input != null) {
-      GenerateMapOfLeavesTracingGoalsRecursively(
+      GenerateMapOfLeavesTracingAchievementsRecursively(
         input,
         `${path}/${piece.inputHints[i]}`,
         map,
-        goalWords,
+        goalAchievements,
         rootPieceMap
       )
     }

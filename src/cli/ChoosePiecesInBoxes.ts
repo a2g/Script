@@ -38,7 +38,7 @@ export function ChoosePiecesInBoxes (solutions: Solutions): void {
         let i = 0
         for (const solution of solutions.GetSolutions()) {
           const goals = solution
-            .GetGoalStubMap()
+            .GetAchievementStubMap()
             .GenerateMapOfLeavesFromAllRoots(isOnlyNulls)
           for (const key of goals.keys()) {
             i++

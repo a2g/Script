@@ -1,9 +1,9 @@
 import { Piece } from './Piece'
 import { Raw } from './Raw'
 import { RawObjectsAndVerb } from './RawObjectsAndVerb'
-import { GoalStub } from './GoalStub'
+import { AchievementStub } from './AchievementStub'
 import { DeconstructDoer } from './DeconstructDoer'
-import { GoalStubMap } from './GoalStubMap'
+import { AchievementStubMap } from './AchievementStubMap'
 import { VisibleThingsMap } from './VisibleThingsMap'
 import { Box } from './Box'
 import { createCommandFromAutoPiece } from './createCommandFromAutoPiece'
@@ -11,7 +11,7 @@ import { TalkFile } from './talk/TalkFile'
 import { Validated } from './Validated'
 
 export class Validator {
-  private readonly goalStubs: GoalStubMap
+  private readonly achievementStubs: AchievementStubMap
   private readonly rootPieceKeysInSolvingOrder: string[]
   private readonly currentlyVisibleThings: VisibleThingsMap
   private readonly remainingPieces: Map<string, Piece>
@@ -19,10 +19,10 @@ export class Validator {
   private readonly solutionName
   private readonly essentialIngredients: Set<string> // yup these are added to
 
-  public constructor (name: string, startingPieces: Map<string, Set<Piece>>, startingTalkFiles: Map<string, TalkFile>, goalStubMap: GoalStubMap, startingThingsPassedIn: VisibleThingsMap, restrictions: Set<string> | null = null) {
+  public constructor (name: string, startingPieces: Map<string, Set<Piece>>, startingTalkFiles: Map<string, TalkFile>, stubMap: AchievementStubMap, startingThingsPassedIn: VisibleThingsMap, restrictions: Set<string> | null = null) {
     this.solutionName = name
-    this.goalStubs = new GoalStubMap(goalStubMap)
-    this.goalStubs.CalculateInitialCounts()
+    this.achievementStubs = new AchievementStubMap(stubMap)
+    this.achievementStubs.CalculateInitialCounts()
     this.rootPieceKeysInSolvingOrder = []
     this.remainingPieces = new Map<string, Piece>()
     this.talks = new Map<string, TalkFile>()
@@ -50,8 +50,8 @@ export class Validator {
     return this.solutionName
   }
 
-  public GetRootMap (): GoalStubMap {
-    return this.goalStubs
+  public GetRootMap (): AchievementStubMap {
+    return this.achievementStubs
   }
 
   public GetVisibleThingsAtTheMoment (): VisibleThingsMap {
@@ -59,16 +59,16 @@ export class Validator {
   }
   /*
   public UpdateGoalSolvedStatusesAndMergeIfNeeded (): void {
-    // go through all the goal pieces
+    // go through all the achievement pieces
     let areAnyUnsolved = false
-    for (const goal of this.goalStubs.GetValues()) {
+    for (const achievement of this.achievementStubs.GetValues()) {
       // if there are no places to attach pieces it will return null
-      const firstMissingPiece = (goal.piece != null) ? goal.piece.ReturnTheFirstNullInputHint() : goal.goalWord
+      const firstMissingPiece = (achievement.piece != null) ? achievement.piece.ReturnTheFirstNullInputHint() : achievement.achievementWord
       if (firstMissingPiece === '') {
-        if (!goal.IsZeroPieces()) {
-          goal.SetValidated(Validated.Validated)
-          if (goal.piece?.boxToMerge != null) {
-            this.MergeBox(goal.piece.boxToMerge)
+        if (!achievement.IsZeroPieces()) {
+          achievement.SetValidated(Validated.Validated)
+          if (achievement.piece?.boxToMerge != null) {
+            this.MergeBox(achievement.piece.boxToMerge)
           }
         }
       } else {
@@ -82,9 +82,9 @@ export class Validator {
 
   public DeconstructAllGoalsAndRecordSteps (): boolean {
     let wasThereAtLeastSomeProgress = false
-    for (const goal of this.goalStubs.GetValues()) {
-      if (goal.GetValidated() === Validated.Not) {
-        if (this.DeconstructGivenGoalAndRecordSteps(goal)) {
+    for (const stub of this.achievementStubs.GetValues()) {
+      if (stub.GetValidated() === Validated.Not) {
+        if (this.DeconstructGivenStubAndRecordSteps(stub)) {
           wasThereAtLeastSomeProgress = true
         }
       }
@@ -92,14 +92,14 @@ export class Validator {
     return wasThereAtLeastSomeProgress
   }
 
-  public DeconstructGivenGoalAndRecordSteps (goalStub: GoalStub): boolean {
+  public DeconstructGivenStubAndRecordSteps (stub: AchievementStub): boolean {
     // push the commands
     const deconstructDoer = new DeconstructDoer(
-      goalStub,
+      stub,
       this.remainingPieces,
       this.currentlyVisibleThings,
       this.talks,
-      this.goalStubs
+      this.achievementStubs
     )
 
     let rawObjectsAndVerb: RawObjectsAndVerb | null = null
@@ -116,40 +116,40 @@ export class Validator {
 
       if (rawObjectsAndVerb.type !== Raw.None) {
         // this is just here for debugging!
-        goalStub.AddCommand(rawObjectsAndVerb)
+        stub.AddCommand(rawObjectsAndVerb)
         console.log(`${rawObjectsAndVerb.type}  ${rawObjectsAndVerb.objectA} ${rawObjectsAndVerb.objectB}`)
       }
     }
 
-    // So we have no more pieces in this goal - but merging will still
+    // So we have no more pieces in this piece tree - but merging will still
     // bring in more pieces to continue deconstruction in the future
     //
     // But if its solved, then we mark it as validated!
     if (deconstructDoer.IsZeroPieces()) {
-      // then write the goal we just completed
-      goalStub.AddCommand(
+      // then write the achievement we just achieved
+      stub.AddCommand(
         new RawObjectsAndVerb(
           Raw.Goal,
-          `completed (${goalStub.GetAchievementWord()})`,
+          `completed (${stub.GetTheAchievementWord()})`,
           '',
-          goalStub.GetAchievementWord(),
+          stub.GetTheAchievementWord(),
           [],
           [],
           ''
         )
       )
 
-      // also tell the solution what order the goal was reached
-      this.rootPieceKeysInSolvingOrder.push(goalStub.GetAchievementWord())
+      // also tell the solution what order the achievement was achieved
+      this.rootPieceKeysInSolvingOrder.push(stub.GetTheAchievementWord())
 
-      // Sse if any autos depend on the newly completed goal - if so execute them
+      // Sse if any autos depend on the newly completed achievement - if so execute them
       for (const piece of this.GetAutos()) {
         if (
           piece.inputHints.length === 2 &&
-          piece.inputHints[0] === goalStub.GetAchievementWord()
+          piece.inputHints[0] === stub.GetTheAchievementWord()
         ) {
           const command = createCommandFromAutoPiece(piece)
-          goalStub.AddCommand(command)
+          stub.AddCommand(command)
         }
       }
     }
@@ -169,32 +169,32 @@ export class Validator {
   public GetOrderOfCommands (): RawObjectsAndVerb[] {
     const toReturn: RawObjectsAndVerb[] = []
     for (const key of this.rootPieceKeysInSolvingOrder) {
-      const goalPiece = this.GetRootMap().GoalStubByName(key)
+      const stub = this.GetRootMap().AchievementStubByName(key)
       const at = toReturn.length
-      // const n = goalPiece.commandsCompletedInOrder.length
-      toReturn.splice(at, 0, ...goalPiece.GetOrderedCommands())
+      // const n = stub.commandsCompletedInOrder.length
+      toReturn.splice(at, 0, ...stub.GetOrderedCommands())
     }
     return toReturn
   }
 
   public GetCountRecursively (): number {
     let count = 0
-    for (const goalWord of this.goalStubs.GetValues()) {
-      count += goalWord.GetCountRecursively()
+    for (const stub of this.achievementStubs.GetValues()) {
+      count += stub.GetCountRecursively()
     }
     return count
   }
 
-  public GetNumberOfGoals (): number {
+  public GetNumberOfAchievements (): number {
     return this.GetRootMap().Size()
   }
 
   public GetNumberOfNotYetValidated (): number {
-    let numberOfClearedGoals = 0
-    for (const rootGoal of this.GetRootMap().GetValues()) {
-      numberOfClearedGoals += rootGoal.IsGoalCleared() ? 0 : 1
+    let numberOfNullAchievements = 0
+    for (const achievement of this.GetRootMap().GetValues()) {
+      numberOfNullAchievements += achievement.GetThePiece() == null ? 1 : 0
     }
-    return numberOfClearedGoals
+    return numberOfNullAchievements
   }
 
   public GetNumberOfRemainingPieces (): number {
