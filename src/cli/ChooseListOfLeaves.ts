@@ -9,7 +9,7 @@ export function ChooseListOfLeaves (solutions: Solutions): void {
 
   for (;;) {
     solutions.SolvePartiallyUntilCloning()
-    solutions.MarkGoalsAsCompletedAndMergeIfNeeded()
+    solutions.UpdateSolvedStatuses()
     const numberOfSolutions: number = solutions.NumberOfSolutions()
 
     console.warn('If any leaves are not resolved properly, for example')

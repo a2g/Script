@@ -1,7 +1,7 @@
 import promptSync from 'prompt-sync'
 import { FormatText } from '../puzzle/FormatText'
 import { Solutions } from '../puzzle/Solutions'
-import { PopulatePieceTrees } from './page/PopulatePieceTrees'
+import { SolutionView } from './views/SolutionView'
 import { ShowUnderlinedTitle } from './ShowUnderlinedTitle'
 const prompt = promptSync({})
 
@@ -41,7 +41,7 @@ export function ChooseBackwardSolve (solutions: Solutions): void {
 
     if (firstInput === 'r') {
       solutions.SolvePartiallyUntilCloning()
-      solutions.MarkGoalsAsCompletedAndMergeIfNeeded()
+      solutions.UpdateSolvedStatuses()
       continue
     } else {
       const theNumber = Number(firstInput)
@@ -50,7 +50,8 @@ export function ChooseBackwardSolve (solutions: Solutions): void {
       }
 
       // if they chose a number, go to that number
-      PopulatePieceTrees(solutions, theNumber, titlePath)
+      const solution = solutions.GetSolutions()[theNumber - 1]
+      SolutionView(solution, solutions, titlePath)
     }
   }
 }

@@ -106,7 +106,7 @@ export class Validator {
     for (let j = 0; j < 200; j += 1) {
       rawObjectsAndVerb =
         deconstructDoer.GetNextDoableCommandAndDeconstructTree()
-      if (rawObjectsAndVerb == null) {
+      if (rawObjectsAndVerb === null) {
         // all out of moves!
         // for debugging
         rawObjectsAndVerb =
@@ -116,7 +116,7 @@ export class Validator {
 
       if (rawObjectsAndVerb.type !== Raw.None) {
         // this is just here for debugging!
-        goalStub.PushCommand(rawObjectsAndVerb)
+        goalStub.AddCommand(rawObjectsAndVerb)
         console.log(`${rawObjectsAndVerb.type}  ${rawObjectsAndVerb.objectA} ${rawObjectsAndVerb.objectB}`)
       }
     }
@@ -127,12 +127,12 @@ export class Validator {
     // But if its solved, then we mark it as validated!
     if (deconstructDoer.IsZeroPieces()) {
       // then write the goal we just completed
-      goalStub.PushCommand(
+      goalStub.AddCommand(
         new RawObjectsAndVerb(
           Raw.Goal,
-          `completed (${goalStub.GetGoalWord()})`,
+          `completed (${goalStub.GetAchievementWord()})`,
           '',
-          goalStub.GetGoalWord(),
+          goalStub.GetAchievementWord(),
           [],
           [],
           ''
@@ -140,16 +140,16 @@ export class Validator {
       )
 
       // also tell the solution what order the goal was reached
-      this.rootPieceKeysInSolvingOrder.push(goalStub.GetGoalWord())
+      this.rootPieceKeysInSolvingOrder.push(goalStub.GetAchievementWord())
 
       // Sse if any autos depend on the newly completed goal - if so execute them
       for (const piece of this.GetAutos()) {
         if (
           piece.inputHints.length === 2 &&
-          piece.inputHints[0] === goalStub.GetGoalWord()
+          piece.inputHints[0] === goalStub.GetAchievementWord()
         ) {
           const command = createCommandFromAutoPiece(piece)
-          goalStub.PushCommand(command)
+          goalStub.AddCommand(command)
         }
       }
     }
@@ -172,7 +172,7 @@ export class Validator {
       const goalPiece = this.GetRootMap().GoalStubByName(key)
       const at = toReturn.length
       // const n = goalPiece.commandsCompletedInOrder.length
-      toReturn.splice(at, 0, ...goalPiece.GetCommandsCompletedInOrder())
+      toReturn.splice(at, 0, ...goalPiece.GetOrderedCommands())
     }
     return toReturn
   }

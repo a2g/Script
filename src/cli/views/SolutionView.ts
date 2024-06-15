@@ -1,16 +1,16 @@
 import promptSync from 'prompt-sync'
 import { FormatText } from '../../puzzle/FormatText'
-import { Solutions } from '../../puzzle/Solutions'
-import { TreeClimbingReadOnly } from './TreeClimbingReadOnly'
+import { PieceView } from './PieceView'
 import { AddBrackets } from '../../puzzle/AddBrackets'
 import { ShowUnderlinedTitle } from '../ShowUnderlinedTitle'
+import { Solution } from '../../puzzle/Solution'
+import { Solutions } from '../../puzzle/Solutions'
 const prompt = promptSync({})
 
-export function PopulatePieceTrees (solutions: Solutions, theNumber: number, titlePath: string[]): void {
-  titlePath.push('Populate Piece Trees')
+export function SolutionView (solution: Solution, solutions: Solutions, titlePath: string[]): void {
+  titlePath.push('Solution')
   for (; ;) {
     ShowUnderlinedTitle(titlePath)
-    const solution = solutions.GetSolutions()[theNumber - 1]
 
     const text = FormatText(solution.GetSolvingPath())
     const NAME_NOT_DETERMINABLE = 'name_not_determinable'
@@ -20,15 +20,15 @@ export function PopulatePieceTrees (solutions: Solutions, theNumber: number, tit
         ? text
         : NAME_NOT_DETERMINABLE
 
-    console.warn(`${theNumber}. ${label}`)
+    console.warn(`${label}`)
     let listItemNumber = 0
     let incomplete = 0
-    for (const rootGoal of solution.GetGoalStubMap().GetValues()) {
+    for (const achievementStub of solution.GetGoalStubMap().GetValues()) {
       listItemNumber++
 
       // display list item
-      const output = rootGoal.GetGoalWord()
-      const theGoalPiece = rootGoal.GetThePiece()
+      const output = achievementStub.GetAchievementWord()
+      const theGoalPiece = achievementStub.GetThePiece()
       let inputs = ''
       if (theGoalPiece != null) {
         for (let i = 0; i < theGoalPiece.inputSpiels.length; i++) {
@@ -37,11 +37,11 @@ export function PopulatePieceTrees (solutions: Solutions, theNumber: number, tit
           inputs += `${FormatText(inputSpiel)}`
         }
       }
-      const status = rootGoal.GetSolved() as string
+      const status = achievementStub.GetSolved() as string
       console.warn(
-        `    ${listItemNumber}. ${status} ${FormatText(output)} ${AddBrackets(inputs)} `
+        `${listItemNumber}. ${status} ${FormatText(output)} ${AddBrackets(inputs)} `
       )
-      incomplete += rootGoal.IsSolved() ? 0 : 1
+      incomplete += achievementStub.IsSolved() ? 0 : 1
     }
 
     console.warn(`Remaining Pieces: ${solution.GetNumberOfPiecesRemaining()}`)
@@ -59,8 +59,8 @@ export function PopulatePieceTrees (solutions: Solutions, theNumber: number, tit
       return
     }
     if (input === 'r') {
-      solutions.SolvePartiallyUntilCloning()
-      solutions.MarkGoalsAsCompletedAndMergeIfNeeded()
+      solution.ProcessUntilCloning(solutions)
+      solution.UpdateGoalSolvedStatuses()
       continue
     } else {
       // show map entry for chosen item
@@ -72,9 +72,9 @@ export function PopulatePieceTrees (solutions: Solutions, theNumber: number, tit
           if (j === theNumber) {
             const theGoalPiece = goal.GetThePiece()
             if (theGoalPiece != null) {
-              TreeClimbingReadOnly(theGoalPiece, solution.GetGoalStubMap(), solution.GetVisibleThingsAtTheStart(), titlePath)
+              PieceView(theGoalPiece, solution.GetVisibleThingsAtTheStart(), titlePath)
             } else {
-              prompt(`${goal.GetGoalWord()} Goal.piece WAS NULL. Hit any key to continue: `)
+              prompt(`${goal.GetAchievementWord()} Goal.piece WAS NULL. Hit any key to continue: `)
             }
           }
         }

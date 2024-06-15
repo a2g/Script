@@ -30,7 +30,7 @@ export function getJsonOfAllSolutions (
 
   for (let i = 0; i < 200; i++) {
     solutions.SolvePartiallyUntilCloning()
-    solutions.MarkGoalsAsCompletedAndMergeIfNeeded()
+    solutions.UpdateSolvedStatuses()
   }
 
   // display list
@@ -43,7 +43,7 @@ export function getJsonOfAllSolutions (
       listItemNumber++
 
       // display list item
-      const output = item.GetGoalWord()
+      const output = item.GetAchievementWord()
       console.warn(`    ${listItemNumber}. ${output} )`)
       incomplete += item.IsSolved() ? 0 : 1
     }
@@ -90,7 +90,7 @@ function getJsonArrayOfRootPieces (
   const listOfRootPieceArrays = solution.GetGoalStubMap().GetValues()
   for (const rootPiece of listOfRootPieceArrays) {
     toReturn.push({
-      name: rootPiece.GetGoalWord(),
+      name: rootPiece.GetAchievementWord(),
       isAGoalOrAuto: false,
       children: getJsonArrayOfAllSubPieces(rootPiece.GetThePiece())
     })

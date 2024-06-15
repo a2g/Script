@@ -65,7 +65,7 @@ function main (): void {
                   console.warn(' ')
                   for (let i = 0; i < 200; i++) {
                     solutions.SolvePartiallyUntilCloning()
-                    solutions.MarkGoalsAsCompletedAndMergeIfNeeded()
+                    solutions.UpdateSolvedStatuses()
                   }
                   solutions.PerformThingsNeededAfterAllSolutionsFound()
                   const validators = new Validators(solutions)
@@ -86,7 +86,7 @@ function main (): void {
                 console.warn(' ')
                 for (let i = 0; i < 200; i++) {
                   solutions.SolvePartiallyUntilCloning()
-                  solutions.MarkGoalsAsCompletedAndMergeIfNeeded()
+                  solutions.UpdateSolvedStatuses()
                 }
                 solutions.PerformThingsNeededAfterAllSolutionsFound()
                 const validators = new Validators(solutions)

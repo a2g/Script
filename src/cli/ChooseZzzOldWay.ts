@@ -2,7 +2,7 @@ import promptSync from 'prompt-sync'
 import { AddBrackets } from '../puzzle/AddBrackets'
 import { FormatText } from '../puzzle/FormatText'
 import { Solutions } from '../puzzle/Solutions'
-import { TreeClimbingReadOnly } from './page/TreeClimbingReadOnly'
+import { PieceView } from './views/PieceView'
 
 const prompt = promptSync({})
 
@@ -10,7 +10,7 @@ export function ChooseZzzOldWay (solutions: Solutions): void {
   console.warn('ChooseClimbIntoGoals... ')
 
   for (; ;) {
-    solutions.MarkGoalsAsCompletedAndMergeIfNeeded()
+    solutions.UpdateSolvedStatuses()
     const numberOfSolutions: number = solutions.NumberOfSolutions()
     console.warn('Climb in to goals')
     console.warn('===============')
@@ -35,7 +35,7 @@ export function ChooseZzzOldWay (solutions: Solutions): void {
         listItemNumber++
 
         // display list item
-        const output = item.GetGoalWord()
+        const output = item.GetAchievementWord()
         const piece = item.GetThePiece()
         let inputs = ''
         if (piece != null) {
@@ -76,7 +76,7 @@ export function ChooseZzzOldWay (solutions: Solutions): void {
             i++
             const theGoalPiece = goal.GetThePiece()
             if (i === theNumber && (theGoalPiece != null)) {
-              TreeClimbingReadOnly(theGoalPiece, rootMap, solutionArray[i].GetVisibleThingsAtTheStart(), ['blah'])
+              PieceView(theGoalPiece, solutionArray[i].GetVisibleThingsAtTheStart(), ['blah'])
             }
           }
         }

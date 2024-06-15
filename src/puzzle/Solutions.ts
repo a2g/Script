@@ -78,7 +78,7 @@ export class Solutions {
     return this.solutions
   }
 
-  public MarkGoalsAsCompletedAndMergeIfNeeded (): void {
+  public UpdateSolvedStatuses (): void {
     for (const solution of this.solutions) {
       solution.UpdateGoalSolvedStatuses()
     }

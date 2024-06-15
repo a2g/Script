@@ -54,7 +54,7 @@ export class GoalStub extends PieceBase {
     return this.inputs[0]
   }
 
-  public GetGoalWord (): string {
+  public GetAchievementWord (): string {
     return this.inputHints[0]
   }
 
@@ -87,14 +87,14 @@ export class GoalStub extends PieceBase {
     return this.solved
   }
 
-  public GetCommandsCompletedInOrder (): RawObjectsAndVerb[] {
+  public GetOrderedCommands (): RawObjectsAndVerb[] {
     // I would like to return a read only array here.
     // I can't do that, so instead, I will clone.
     // The best way to clone in is using 'map'
     return this.commandsCompletedInOrder.map((x) => x)
   }
 
-  public PushCommand (rawObjectsAndVerb: RawObjectsAndVerb): void {
+  public AddCommand (rawObjectsAndVerb: RawObjectsAndVerb): void {
     this.commandsCompletedInOrder.push(rawObjectsAndVerb)
   }
 

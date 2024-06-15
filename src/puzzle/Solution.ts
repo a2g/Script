@@ -187,7 +187,7 @@ export class Solution {
     for (const goalStub of this.goalStubs.GetValues()) {
       // if there are no places to attach pieces it will return null
       const piece = goalStub.GetThePiece()
-      const firstMissingPiece = (piece != null) ? piece.ReturnTheFirstNullInputHint() : goalStub.GetGoalWord()
+      const firstMissingPiece = (piece != null) ? piece.ReturnTheFirstNullInputHint() : goalStub.GetAchievementWord()
       if (firstMissingPiece === '') {
         if (!goalStub.IsSolved()) {
           goalStub.SetSolved(Solved.Solved)

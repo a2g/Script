@@ -2,7 +2,7 @@ import promptSync from 'prompt-sync'
 import { FormatText } from '../puzzle/FormatText'
 import { Validators } from '../puzzle/Validators'
 import { ShowUnderlinedTitle } from './ShowUnderlinedTitle'
-import { DeconstructPieceTrees } from './page/DeconstructPieceTrees'
+import { ValidatorView } from './views/ValidatorView'
 const prompt = promptSync({})
 
 export function ChooseForwardValidate (validators: Validators): void {
@@ -47,7 +47,8 @@ export function ChooseForwardValidate (validators: Validators): void {
       }
 
       // if they chose a number, go to that number
-      DeconstructPieceTrees(validators, theNumber, titlePath)
+      const validator = validators.GetValidators()[theNumber - 1]
+      ValidatorView(validator, titlePath)
     }
   }
 }

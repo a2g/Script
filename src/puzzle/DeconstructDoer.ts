@@ -5,7 +5,6 @@ import { Raw } from './Raw'
 import { RawObjectsAndVerb } from './RawObjectsAndVerb'
 import { GoalStub } from './GoalStub'
 import { SpecialTypes } from './SpecialTypes'
-import { Stringify } from './Stringify'
 import { TalkFile } from './talk/TalkFile'
 import { VisibleThingsMap } from './VisibleThingsMap'
 import { Box } from './Box'
@@ -69,8 +68,10 @@ export class DeconstructDoer {
 
           // then we remove this key as a leaf piece..
           // by nulling its  input in the parent.
-          if (piece.parent != null) {
+          const parent = piece.GetParent()
+          if (piece.parent != null && parent != null) {
             for (let i = 0; i < piece.parent.inputHints.length; i++) {
+              // nullify only the input of the parent who matches this output
               if (piece.parent.inputHints[i] === piece.output) {
                 piece.parent.inputs[i] = null
                 // don't blank out the input hint - its used to determine areAllInputHintsInTheVisibleSet
@@ -88,19 +89,29 @@ export class DeconstructDoer {
           }
 
           // set the goal as completed in the currently visible things
-          this.currentlyVisibleThings.Set(this.theGoalStub.GetGoalWord(), new Set<string>())
+          this.currentlyVisibleThings.Set(this.theGoalStub.GetAchievementWord(), new Set<string>())
 
           // Now for the verb/object combo that we need to return
           let toReturn: RawObjectsAndVerb | null = null
 
-          // const pathOfThis = this.GeneratePath(piece)
-          // const pathOfParent = this.GeneratePath(piece.parent)
-          const isGrab: boolean = piece.type.toLowerCase().includes('grab')
-          const isTalk: boolean = piece.type.toLowerCase().includes('talk')
-          const isToggle: boolean = piece.type.toLowerCase().includes('toggle')
-          const isAuto: boolean = piece.type.toLowerCase().includes('auto')
-          const isUse: boolean = piece.type.toLowerCase().includes('use')
-          const isOpen: boolean = piece.type.toLowerCase().includes('open')
+          let verb = Raw.None
+          if (piece.parent == null) {
+            // I think this means tha the root piece isn't set properly!
+            // so we need to set breakpoint on this return, and debug.
+            assert(false)
+          } else if (piece.type.toLowerCase().includes('grab')) {
+            verb = Raw.Grab
+          } else if (piece.type.toLowerCase().includes('talk')) {
+            verb = Raw.Talk
+          } else if (piece.type.toLowerCase().includes('toggle')) {
+            verb = Raw.Toggle
+          } else if (piece.type.toLowerCase().includes('auto')) {
+            verb = Raw.Auto
+          } else if (piece.type.toLowerCase().includes('open')) {
+            verb = Raw.Open
+          } else {
+            verb = Raw.Use
+          }
 
           this.AddToMapOfVisibleThings(piece.output)
 
@@ -154,7 +165,7 @@ export class DeconstructDoer {
               [],
               piece.type
             )
-          } else if (isGrab) {
+          } else if (verb === Raw.Grab) {
             toReturn = new RawObjectsAndVerb(
               Raw.Grab,
               piece.inputHints[0],
@@ -164,7 +175,7 @@ export class DeconstructDoer {
               [],
               piece.type
             )
-          } else if (isTalk) {
+          } else if (verb === Raw.Talk) {
             const path = piece.GetTalkPath()
             const talkPropName = piece.inputHints[0]
             const talkState = this.talks.get(talkPropName + '.jsonc')
@@ -181,7 +192,7 @@ export class DeconstructDoer {
                 piece.type
               )
             }
-          } else if (isOpen) {
+          } else if (verb === Raw.Open) {
             toReturn = new RawObjectsAndVerb(
               Raw.Open,
               piece.inputHints[0],
@@ -191,7 +202,7 @@ export class DeconstructDoer {
               [],
               piece.type
             )
-          } else if (isToggle) {
+          } else if (verb === Raw.Toggle) {
             toReturn = new RawObjectsAndVerb(
               Raw.Toggle,
               piece.inputHints[0],
@@ -201,10 +212,10 @@ export class DeconstructDoer {
               [],
               piece.type
             )
-          } else if (isAuto) {
+          } else if (verb === Raw.Auto) {
             // console.warn(pathOfThis)
             toReturn = createCommandFromAutoPiece(piece)
-          } else if (isUse) {
+          } else if (verb === Raw.Use) {
             // then its nearly definitely 'use', unless I messed up
             toReturn = new RawObjectsAndVerb(
               Raw.Use,
@@ -215,30 +226,6 @@ export class DeconstructDoer {
               [],
               piece.type
             )
-          } else if (piece.inputs.length === 2) {
-            // if they mis-type the verb, then we default to use
-            toReturn = new RawObjectsAndVerb(
-              Raw.Use,
-              piece.inputHints[0],
-              piece.inputHints[1],
-              piece.output,
-              piece.getRestrictions(),
-              [],
-              piece.type
-            )
-          } else if (piece.parent == null) {
-            // I think this means tha the root piece isn't set properly!
-            // so we need to set breakpoint on this return, and debug.
-            assert(false)
-          } else {
-            // assert(false && ' type not identified')
-            const maybePieceInputs1: string = Stringify(
-              piece.inputs.length > 1 ? piece.inputs[0] : ''
-            )
-            const pieceInputs0: string = Stringify(piece.inputs[0])
-            const pieceType: string = Stringify(piece.type)
-            const warning = `Assertion because of type not Identified!: ${pieceType} ${pieceInputs0} ${maybePieceInputs1}`
-            console.warn(warning)
           }
           return toReturn
         }

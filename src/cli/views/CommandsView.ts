@@ -1,19 +1,16 @@
 import promptSync from 'prompt-sync'
 import { ShowUnderlinedTitle } from '../ShowUnderlinedTitle'
-import { Validator } from '../../puzzle/Validator'
 import { Raw } from '../../puzzle/Raw'
 import { RawObjectsAndVerb } from '../../puzzle/RawObjectsAndVerb'
 const prompt = promptSync({ sigint: true })
 
-export function OrderOfCommands (validator: Validator, titlePath: string[]
+export function CommandsView (commands: RawObjectsAndVerb[], titlePath: string[]
 ): void {
-  titlePath.push('Order Of Commands')
+  titlePath.push('Commands')
   let infoLevel = 9
   for (; ;) {
     ShowUnderlinedTitle(titlePath)
 
-    const commands: RawObjectsAndVerb[] =
-      validator.GetOrderOfCommands()
     let listItemNumber = 0
 
     for (const command of commands) {
@@ -23,11 +20,10 @@ export function OrderOfCommands (validator: Validator, titlePath: string[]
       }
       listItemNumber++
       const formattedCommand = FormatCommand(command, infoLevel)
-      console.warn(`    ${listItemNumber}. ${formattedCommand}`)
+      console.warn(`${listItemNumber}. ${formattedCommand}`)
       if (command.type === Raw.Talk) {
         for (const speechLine of command.speechLines) {
-          listItemNumber++
-          console.warn(`    ${listItemNumber}. ${speechLine[0]}: ${speechLine[1]}`)
+          console.warn(`   ${speechLine[0]}: ${speechLine[1]}`)
         }
       }
     }
