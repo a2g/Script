@@ -1,0 +1,156 @@
+{
+  "$schema": "./schema_for_grid.jsonc",
+  "startingDestination": "ceremonial_circle",
+  "grid": [
+    {
+      "destination": "rocket_turret",
+      "col": "G",
+      "row": "1"
+    },
+    {
+      "destination": "attic",
+      "col": "G",
+      "row": "3"
+    },
+    {
+      "destination": "inside_cubby",
+      "col": "I",
+      "row": "3"
+    },
+    {
+      "destination": "bathroom_vent",
+      "col": "H",
+      "row": "5"
+    },
+    {
+      "destination": "furnace_room",
+      "col": "J",
+      "row": "7"
+    },
+    {
+      "destination": "empty_bedroom",
+      "col": "F",
+      "row": "7"
+    },
+    {
+      "destination": "canvas_bedroom",
+      "col": "H",
+      "row": "7"
+    },
+    {
+      "destination": "fireplace_room",
+      "col": "J",
+      "row": "9"
+    },
+    {
+      "destination": "five_statues_room",
+      "col": "L",
+      "row": "9"
+    },
+    {
+      "destination": "upstairs_landing",
+      "col": "G",
+      "row": "9"
+    },
+    {
+      "destination": "entry",
+      "col": "G",
+      "row": "11"
+    },
+    {
+      "destination": "sunstone_altar",
+      "col": "I",
+      "row": "11"
+    },
+    {
+      "destination": "hallway",
+      "col": "K",
+      "row": "11"
+    },
+    {
+      "destination": "downstairs_kitchen",
+      "col": "H",
+      "row": "13"
+    },
+    {
+      "destination": "larder",
+      "col": "L",
+      "row": "13"
+    },
+    {
+      "destination": "inside_icehouse",
+      "col": "A",
+      "row": "13"
+    },
+    {
+      "destination": "ceremonial_circle",
+      "col": "C",
+      "row": "13"
+    },
+    {
+      "destination": "inside_greenhouse",
+      "col": "E",
+      "row": "13"
+    },
+    {
+      "destination": "outside_icehouse",
+      "col": "A",
+      "row": "15"
+    },
+    {
+      "destination": "grove",
+      "col": "C",
+      "row": "15"
+    },
+    {
+      "destination": "outside_greenhouse",
+      "col": "E",
+      "row": "15"
+    },
+    {
+      "destination": "front_door",
+      "col": "G",
+      "row": "15"
+    }
+  ],
+  "objects": {
+    "obj_druid_wielding_knife": "grove",
+    "obj_dog": "grove",
+    "obj_icehouse": "outside_icehouse",
+    "obj_well": "outside_icehouse",
+    "obj_loose_brick": "outside_icehouse",
+    "obj_greenhouse": "outside_greenhouse",
+    "obj_greenhouse_door": "outside_greenhouse",
+    "obj_apples": "outside_greenhouse",
+    "obj_butler": "front_door",
+    "obj_soil_thermometer": "inside_greenhouse",
+    "obj_hurl": "inside_cubby",
+    "obj_furnace": "furnace_room",
+    "obj_furnace_with_coal": "furnace_room",
+    "obj_rocket": "rocket_turret",
+    "obj_control_panel": "furnace_room",
+    "obj_hole_in_wall": "rocket_turret",
+    "obj_crank_in_wall": "rocket_turret",
+    "obj_crank_attached_to_well": "outside_icehouse",
+    "obj_three_punctuated_circles": "inside_icehouse",
+    "obj_arch_druid": "ceremonial_circle",
+    "obj_grandfather_clock": "entry",
+    "obj_cooking_lard": "downstairs_kitchen",
+    "obj_herbs": "inside_greenhouse",
+    "obj_vent": "bathroom_vent",
+    "obj_windup_key": "inside_cubby",
+    "obj_dumbwaiter": "larder",
+    "obj_vinegar": "five_statues_room",
+    "obj_rolling_pin": "five_statues_room",
+    "obj_sunstone": "five_statues_room",
+    "obj_painting": "empty_bedroom",
+    "obj_fireplace(lit)": "fireplace_room",
+    "obj_fireplace_ladder": "fireplace_room",
+    "obj_coal_bunker": "outside_greenhouse",
+    "obj_button(unpressed)": "furnace_room",
+    "obj_button(pressed)": "furnace_room",
+    "obj_rocket_gate": "rocket_turret",
+    "obj_rocket_gate_buttered": "rocket_turret",
+    "obj_furnace_lit": "furnace_room"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "definitions": {
+    "destination_enum": {
+      "enum": [
+        "rocket_turret",
+        "attic",
+        "inside_cubby",
+        "bathroom_vent",
+        "furnace_room",
+        "empty_bedroom",
+        "canvas_bedroom",
+        "fireplace_room",
+        "five_statues_room",
+        "upstairs_landing",
+        "entry",
+        "sunstone_altar",
+        "hallway",
+        "downstairs_kitchen",
+        "larder",
+        "inside_icehouse",
+        "ceremonial_circle",
+        "inside_greenhouse",
+        "outside_icehouse",
+        "grove",
+        "outside_greenhouse",
+        "front_door"
+      ]
+    }
+  }
+}

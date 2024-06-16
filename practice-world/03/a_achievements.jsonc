@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "definitions": {
+    "achievement_enum": {
+      "enum": [
+        "a_win", // put this in so that we can treat
+        "a_dumbwaiter",
+        "a_fireplace",
+        "a_greenhouse",
+        "a_icehouse",
+        "a_castle",
+        "a_hideout",
+        "a_button_pressed"
+      ]
+    }
+  }
+}

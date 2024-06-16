@@ -7,13 +7,13 @@
       "type": "object",
       "properties": {
         "col": {
-          "$ref": "../puzzle-piece-enums.json#/definitions/col_enum"
+          "$ref": "../../../puzzle-pieces/puzzle-piece-enums.json#/definitions/col_enum"
         },
         "row": {
-          "$ref": "../puzzle-piece-enums.json#/definitions/row_enum"
+          "$ref": "../../../puzzle-pieces/puzzle-piece-enums.json#/definitions/row_enum"
         },
-        "location": {
-          "$ref": "03 enums.jsonc#/definitions/location_enum"
+        "destination": {
+          "$ref": "d_destinations.jsonc#/definitions/destination_enum"
         }
       }
     }
@@ -21,21 +21,21 @@
   "additionalProperties": false,
   "minProperties": 3,
   "properties": {
-    "startingLocation": {
-      "$ref": "03 enums.jsonc#/definitions/location_enum"
+    "startingDestination": {
+      "$ref": "d_destinations.jsonc#/definitions/destination_enum"
     },
-    "squares": {
+    "grid": {
       "type": "array",
       "minItems": 0,
       "items": {
         "$ref": "#/definitions/square_type"
       }
     },
-    "props": {
+    "objects": {
       "type": "object",
       "patternProperties": {
         "^prop_": {
-          "$ref": "03 enums.jsonc#/definitions/location_enum"
+          "$ref": "d_destinations.jsonc#/definitions/destination_enum"
         }
       }
     }

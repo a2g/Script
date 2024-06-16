@@ -1,6 +1,6 @@
 {
-  "$schema": "./connections.schema.jsonc",
-  "connections": [
+  "$schema": "./schema_for_edges.jsonc",
+  "edges": [
     {
       "start": "inside_icehouse",
       "end": "outside_icehouse",

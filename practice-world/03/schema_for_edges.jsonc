@@ -3,17 +3,17 @@
   "description": "This is the schema for the main Scenario file for the game. It basically a skeleton, pulling in other more substantial types from other files. It could be split up, but for now its easier managing three files Scenario, Schema and Objects",
   "type": "object",
   "definitions": {
-    "connection_type": {
+    "edge_type": {
       "type": "object",
       "properties": {
         "start": {
-          "$ref": "enums.jsonc#/definitions/location_enum"
+          "$ref": "d_destinations.jsonc#/definitions/destination_enum"
         },
         "end": {
-          "$ref": "enums.jsonc#/definitions/location_enum"
+          "$ref": "d_destinations.jsonc#/definitions/destination_enum"
         },
         "access": {
-          "$ref": "../puzzle-piece-enums.json#/definitions/access_enum"
+          "$ref": "../../../puzzle-pieces/puzzle-piece-enums.json#/definitions/access_enum"
         }
       }
     }
@@ -23,7 +23,7 @@
       "type": "array",
       "minItems": 0,
       "items": {
-        "$ref": "#/definitions/connection_type"
+        "$ref": "#/definitions/edge_type"
       }
     }
   }

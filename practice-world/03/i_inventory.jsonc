@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "definitions": {
+    "inventory_enum": {
+      "enum": [
+        "inv_rock",
+        "inv_apple",
+        "inv_knife",
+        "inv_apple_slices",
+        "inv_greenhouse_key",
+        "inv_torch_lit",
+        "inv_soil_thermometer",
+        "inv_hurl",
+        "inv_crank",
+        "inv_crank2",
+        "inv_cooking_lard",
+        "inv_bucket_of_coal",
+        "inv_sunstone",
+        "inv_button",
+        "inv_three_punctuated_circles",
+        "inv_cogs",
+        "inv_herbs",
+        "inv_burning_herbs",
+        "inv_windup_key",
+        "inv_vinegar",
+        "inv_rolling_pin",
+        "inv_handle",
+        "inv_bucket_of_water",
+        "inv_empty_bucket_after_water",
+        "inv_empty_bucket_after_coal"
+      ]
+    }
+  }
+}

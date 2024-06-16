@@ -12,49 +12,49 @@
       ],
       "properties": {
         "inv1": {
-          "$ref": "enums.jsonc#/definitions/inventory_enum"
+          "$ref": "i_inventory.jsonc#/definitions/inventory_enum"
         },
         "inv2": {
-          "$ref": "enums.jsonc#/definitions/inventory_enum"
+          "$ref": "i_inventory.jsonc#/definitions/inventory_enum"
         },
         "inv3": {
-          "$ref": "enums.jsonc#/definitions/inventory_enum"
+          "$ref": "i_inventory.jsonc#/definitions/inventory_enum"
         },
         "prop1": {
-          "$ref": "enums.jsonc#/definitions/prop_enum"
+          "$ref": "p_props.jsonc#/definitions/prop_enum"
         },
         "prop2": {
-          "$ref": "enums.jsonc#/definitions/prop_enum"
+          "$ref": "p_props.jsonc#/definitions/prop_enum"
         },
         "prop3": {
-          "$ref": "enums.jsonc#/definitions/prop_enum"
+          "$ref": "p_props.jsonc#/definitions/prop_enum"
         },
         "prop4": {
-          "$ref": "enums.jsonc#/definitions/prop_enum"
+          "$ref": "p_props.jsonc#/definitions/prop_enum"
         },
         "prop5": {
-          "$ref": "enums.jsonc#/definitions/prop_enum"
+          "$ref": "p_props.jsonc#/definitions/prop_enum"
         },
         "prop6": {
-          "$ref": "enums.jsonc#/definitions/prop_enum"
+          "$ref": "p_props.jsonc#/definitions/prop_enum"
         },
-        "goal1": {
-          "$ref": "enums.jsonc#/definitions/goal_enum"
+        "a1": {
+          "$ref": "a_achievements.jsonc#/definitions/goal_enum"
         },
-        "goal2": {
-          "$ref": "enums.jsonc#/definitions/goal_enum"
+        "a2": {
+          "$ref": "a_achievements.jsonc#/definitions/achievement_enum"
         },
-        "goal3": {
-          "$ref": "enums.jsonc#/definitions/goal_enum"
+        "a3": {
+          "$ref": "a_achievements.jsonc#/definitions/achievement_enum"
         },
-        "goal4": {
-          "$ref": "enums.jsonc#/definitions/goal_enum"
+        "a4": {
+          "$ref": "a_achievements.jsonc#/definitions/achievement_enum"
         },
-        "goal5": {
-          "$ref": "enums.jsonc#/definitions/goal_enum"
+        "a5": {
+          "$ref": "a_achievements.jsonc#/definitions/achievement_enum"
         },
-        "goal6": {
-          "$ref": "enums.jsonc#/definitions/goal_enum"
+        "a6": {
+          "$ref": "a_achievements.jsonc#/definitions/achievement_enum"
         },
         "isNoFile": {
           "type": "boolean"
@@ -75,7 +75,7 @@
       ],
       "properties": {
         "character": {
-          "$ref": "enums.jsonc#/definitions/character_enum"
+          "$ref": "p_players.jsonc#/definitions/player_enum"
         }
       }
     },
@@ -86,7 +86,7 @@
       ],
       "properties": {
         "prop": {
-          "$ref": "enums.jsonc#/definitions/prop_enum"
+          "$ref": "o_objects.jsonc#/definitions/object_enum"
         }
       }
     }
@@ -99,18 +99,18 @@
         "type": "object",
         "properties": {
           "character": {
-            "$ref": "enums.jsonc#/definitions/character_enum"
+            "$ref": "p_players.jsonc#/definitions/player_enum"
           },
           "thing": {
             "oneOf": [
               {
-                "$ref": "enums.jsonc#/definitions/inventory_enum"
+                "$ref": "i_inventory.jsonc#/definitions/inventory_enum"
               },
               {
-                "$ref": "enums.jsonc#/definitions/goal_enum"
+                "$ref": "a_achievements.jsonc#/definitions/achievement_enum"
               },
               {
-                "$ref": "enums.jsonc#/definitions/prop_enum"
+                "$ref": "o_objects.jsonc#/definitions/object_enum"
               }
             ]
           }

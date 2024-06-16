@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "definitions": {
+    "object_enum": {
+      "enum": [
+        "prop_druid_wielding_knife",
+        "prop_dog",
+        "prop_icehouse",
+        "prop_well",
+        "prop_loose_brick",
+        "prop_greenhouse",
+        "prop_greenhouse_door",
+        "prop_apples",
+        "prop_butler",
+        "prop_soil_thermometer",
+        "prop_hurl",
+        "prop_furnace",
+        "prop_furnace_with_coal",
+        "prop_rocket",
+        "prop_rocket_with_sunstone",
+        "prop_control_panel",
+        "prop_hole_in_wall",
+        "prop_crank_in_wall",
+        "prop_crank_attached_to_well",
+        "prop_three_punctuated_circles",
+        "prop_arch_druid",
+        "prop_grandfather_clock",
+        "prop_cooking_lard",
+        "prop_herbs",
+        "prop_vent",
+        "prop_windup_key",
+        "prop_dumbwaiter",
+        "prop_vinegar",
+        "prop_rolling_pin",
+        "prop_sunstone",
+        "prop_painting",
+        "prop_fireplace(lit)",
+        "prop_fireplace_ladder",
+        "prop_coal_bunker",
+        "prop_button(unpressed)",
+        "prop_button(pressed)",
+        "prop_rocket_gate",
+        "prop_rocket_gate_buttered",
+        "prop_furnace_lit"
+      ]
+    }
+  }
+}
