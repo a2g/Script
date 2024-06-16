@@ -8,6 +8,7 @@ import { Box } from './Box'
 import { TalkFile } from './talk/TalkFile'
 import { Solved } from './Solved'
 import { GenerateMapOfLeavesTracingAchievementsRecursively } from './GenerateMapOfLeavesTraccingGoalsRecursively'
+import { A_WIN } from '../A_WIN'
 
 let globalSolutionId = 101
 /**
@@ -122,21 +123,21 @@ export class Solution {
   }
 
   public KeepOnlyVisitedGoals (): void {
-    const visitedgoalAchievements = new Set<string>()
-    visitedgoalAchievements.add('x_win')
+    const visitedAchievements = new Set<string>()
+    visitedAchievements.add(A_WIN)
     const leaves = new Map<string, Piece>()
     const winGoal = this.stubs.GetAchievementStubIfAny()
     const piece = winGoal?.GetThePiece()
     if (piece != null) {
       GenerateMapOfLeavesTracingAchievementsRecursively(
         piece,
-        'x_win',
+        A_WIN,
         leaves,
-        visitedgoalAchievements,
+        visitedAchievements,
         this.stubs
       )
     }
-    this.stubs.KeepOnlyGivenAchievementStubs(visitedgoalAchievements)
+    this.stubs.KeepOnlyGivenAchievementStubs(visitedAchievements)
   }
 
   public GetSolvingPath (): string {

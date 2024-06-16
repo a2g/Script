@@ -1,11 +1,11 @@
 import { existsSync } from 'fs'
-import { FilenameSuffixes } from '../../FilenameSuffixes'
 import { FormatText } from '../puzzle/FormatText'
 import { join } from 'path'
 import { Piece } from '../puzzle/Piece'
 import { RawObjectsAndVerb } from '../puzzle/RawObjectsAndVerb'
 import { Solution } from '../puzzle/Solution'
 import { Solutions } from '../puzzle/Solutions'
+import { _STARTER_JSONC } from '../_STARTER_JSONC'
 
 interface $INameIsAGoalChildren {
   name: string
@@ -20,7 +20,7 @@ export function getJsonOfAllSolutions (
 ): Record<string, unknown> {
   const path = join(__dirname, `../../../../${repo}/${world}/${area}/`)
 
-  const firstBoxFilename = `${FilenameSuffixes.Starter}.jsonc`
+  const firstBoxFilename = _STARTER_JSONC
 
   if (!existsSync(path + firstBoxFilename)) {
     throw Error(`file doesn't exist ${path}${firstBoxFilename}`)

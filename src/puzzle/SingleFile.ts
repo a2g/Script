@@ -15,6 +15,7 @@ import { GetNextId } from './talk/GetNextId'
 import { TalkFile } from './talk/TalkFile'
 import { Aggregates } from './Aggregates'
 import { AddPiece } from './AddPiece'
+import { _STARTER } from '../_STARTER'
 
 function makeGoalNameDeterministically (partA: string, partB: string): string {
   return `x_gen_${partA}_${partB}_goal`
@@ -153,7 +154,7 @@ export class SingleFile {
             // talk1 is a subclass of a prop: it represents the character that
             // you interact with and can be visible and invisible - just like a prop
             // To talk to a prop it needs to be visible, so we add talk1 as a requisite
-            talkFile.FindAndAddPiecesRecursively('starter', '', [talk1], blankMap, box)
+            talkFile.FindAndAddPiecesRecursively(_STARTER, '', [talk1], blankMap, box)
           }
           break
         case _.EXAMINE_PROP1_YIELDS_INV1:

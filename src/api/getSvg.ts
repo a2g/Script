@@ -3,6 +3,7 @@ import { create } from 'xmlbuilder2'
 import { FilenameSuffixes } from '../../FilenameSuffixes'
 import { Graph } from '../location/Graph'
 import { Point } from '../location/Point'
+import { _STARTER_JSONC } from '../_STARTER_JSONC'
 
 declare interface $Square {
   col: string
@@ -25,24 +26,24 @@ export function getSvg (
   paramB: string
 ): string {
   const path = `${process.cwd()}/${repo}/${world}/`
-  const areaMapFilename = `${area}${FilenameSuffixes.Starter}.jsonc`
-  const connectionsFilename = `${area}${FilenameSuffixes.Connections}.jsonc`
-  if (!existsSync(path + areaMapFilename)) {
+  const gridFilename = `${area}${_STARTER_JSONC}`
+  const edgesFilename = `${area}${FilenameSuffixes.Edges}.jsonc`
+  if (!existsSync(path + gridFilename)) {
     throw Error(
-      `file doesn't exist ${process.cwd()} ${path}${areaMapFilename}`
+      `file doesn't exist ${process.cwd()} ${path}${gridFilename}`
     )
   }
-  const text = readFileSync(path + areaMapFilename, 'utf8')
-  const areaMap = JSON.parse(text)
+  const text = readFileSync(path + gridFilename, 'utf8')
+  const gridJson = JSON.parse(text)
 
   let maxCol = 1
   let maxRow = 1
-  if (!Array.isArray(areaMap.squares)) {
+  if (!Array.isArray(gridJson.squares)) {
     throw Error(
-      `Json did not have array called 'squares' at top level: ${areaMapFilename}`
+      `Json did not have array called 'squares' at top level: ${gridFilename}`
     )
   }
-  const squares = areaMap.squares as $Square[]
+  const squares = gridJson.squares as $Square[]
   for (const square of squares) {
     const colAsString = square.col
     const col = colAsString.length > 0 ? colAsString.charCodeAt(0) - 65 : 0
@@ -97,7 +98,7 @@ export function getSvg (
     // lastNode will be
   }
 
-  const connectionsPath = path + connectionsFilename
+  const connectionsPath = path + edgesFilename
 
   // connections are optional - but need for animations
   if (existsSync(connectionsPath)) {
@@ -139,14 +140,14 @@ export function getSvg (
           graph.addEdge(a, b, 8)
         }
       }
-      const props = new Map<string, string>(Object.entries(areaMap.props))
+      const props = new Map<string, string>(Object.entries(gridJson.props))
 
-      if (areaMap.props != null && Boolean(props)) {
+      if (gridJson.props != null && Boolean(props)) {
         const locationA =
-          paramA.length > 0 ? props.get(paramA) : areaMap.startingLocation
+          paramA.length > 0 ? props.get(paramA) : gridJson.startingLocation
 
         const locationB =
-          paramB.length > 0 ? props.get(paramB) : areaMap.startingLocation
+          paramB.length > 0 ? props.get(paramB) : gridJson.startingLocation
 
         if (locationA != null && locationB != null) {
           const start = centres.get(locationA)

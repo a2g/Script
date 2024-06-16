@@ -3,6 +3,7 @@ import * as fs from 'fs'
 import { TalkFile } from '../puzzle/talk/TalkFile'
 import { Aggregates } from '../puzzle/Aggregates'
 import { Box } from '../puzzle/Box'
+import { _STARTER } from '../_STARTER'
 
 export function DumpGainsFromEachTalkInFolder (folder: string): void {
   const cwd = process.cwd()
@@ -21,7 +22,7 @@ export function DumpGainsFromEachTalkInFolder (folder: string): void {
       console.warn('')
       console.warn(`${file}`)
       console.warn('===========================')
-      talkFile.FindAndAddPiecesRecursively('starter', '', [], mapOGainsByPage, emptyBox)
+      talkFile.FindAndAddPiecesRecursively(_STARTER, '', [], mapOGainsByPage, emptyBox)
 
       for (const set of emptyBox.GetPieces().values()) {
         for (const piece of set) {

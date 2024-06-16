@@ -3,6 +3,8 @@ import { Aggregates } from './Aggregates'
 import { Box } from './Box'
 import { IsPieceOutputtingAGoal } from './IsPieceOutputtingAGoal'
 import { Piece } from './Piece'
+import { A_WIN } from '../A_WIN'
+import { _STARTER } from '../_STARTER'
 
 export function AddPiece (piece: Piece, folder = '', isNoFile = true, box: Box, aggregates: Aggregates): void {
   if (IsPieceOutputtingAGoal(piece)) {
@@ -21,7 +23,7 @@ export function AddPiece (piece: Piece, folder = '', isNoFile = true, box: Box, 
     // if we only added a file if it existed
     // then the error would be hidden and
     // would be subtle to discover
-    if (goalAchievement !== 'x_win' && !isNoFile) {
+    if (goalAchievement !== A_WIN && !isNoFile) {
       const file = `${goalAchievement}.jsonc`
       if (!existsSync(folder + file)) {
         throw new Error(
@@ -42,7 +44,7 @@ export function AddPiece (piece: Piece, folder = '', isNoFile = true, box: Box, 
 
   // add more connections in the dependency tree
   const nameOfBox = box.GetFileNameWithoutExtension()
-  if (nameOfBox !== 'starter' && nameOfBox != null) {
+  if (nameOfBox !== _STARTER && nameOfBox != null) {
     piece.inputHints.push(nameOfBox)
     piece.inputs.push(null)
   }

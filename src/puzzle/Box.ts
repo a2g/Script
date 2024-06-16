@@ -7,6 +7,7 @@ import { TalkFile } from './talk/TalkFile'
 import { Piece } from './Piece'
 import { AchievementStubMap } from './AchievementStubMap'
 import { Aggregates } from './Aggregates'
+import { _STARTER_JSONC } from '../_STARTER_JSONC'
 
 /**
  * So the most important part of this class is that the data
@@ -302,7 +303,7 @@ export class Box {
   }
 
   GetStartersMapOfAllStartingThings (): VisibleThingsMap {
-    const starter = this.aggregates.mapOfBoxes.get('starter.jsonc')
+    const starter = this.aggregates.mapOfBoxes.get(_STARTER_JSONC)
     if (starter != null) {
       return starter.mapOfStartingThings
     }
@@ -310,7 +311,7 @@ export class Box {
   }
 
   GetStartingPieces (): Map<string, Set<Piece>> {
-    const starter = this.aggregates.mapOfBoxes.get('starter.jsonc')
+    const starter = this.aggregates.mapOfBoxes.get(_STARTER_JSONC)
     if (starter != null) {
       return starter.pieces
     }
@@ -318,7 +319,7 @@ export class Box {
   }
 
   GetStartingTalkFiles (): Map<string, TalkFile> {
-    const starter = this.aggregates.mapOfBoxes.get('starter.jsonc')
+    const starter = this.aggregates.mapOfBoxes.get(_STARTER_JSONC)
     if (starter != null) {
       return starter.talkFiles
     }

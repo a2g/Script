@@ -6,6 +6,7 @@ import { Piece } from './Piece'
 import { Solution } from './Solution'
 import { TalkFile } from './talk/TalkFile'
 import { VisibleThingsMap } from './VisibleThingsMap'
+import { A_WIN } from '../A_WIN'
 
 /**
  * Does only a few things:
@@ -16,7 +17,6 @@ import { VisibleThingsMap } from './VisibleThingsMap'
 export class Solutions {
   private readonly solutions: Solution[]
   private readonly combinedBox: Box
-  // private readonly starterBox: Box
   private readonly mapOfStartingThingsAndWhoStartsWithThem: Map<string, Set<string>>
   aggregates: Aggregates
 
@@ -31,7 +31,7 @@ export class Solutions {
       this.combinedBox.GetPieces(),
       this.combinedBox.GetTalkFiles(),
       this.combinedBox.GetMapOfAllStartingThings(),
-      this.CreateStubMapFromgoalAchievements(this.combinedBox.GetSetOfAchievementWords())
+      this.CreateStubMapFromAchievements(this.combinedBox.GetSetOfAchievementWords())
       // this.CreateStubMapFromgoalAchievements(this.aggregates.setOfgoalAchievements)
     )
     this.solutions.push(solution1)
@@ -55,10 +55,6 @@ export class Solutions {
   public NumberOfSolutions (): number {
     return this.solutions.length
   }
-
-  // public GetStarter (): Box {
-  //  return this.starterBox
-  // }
 
   public SolvePartiallyUntilCloning (): boolean {
     let hasACloneJustBeenCreated = false
@@ -92,10 +88,10 @@ export class Solutions {
     }
   }
 
-  public CreateStubMapFromgoalAchievements (setOfStrings: Set<string>): AchievementStubMap {
-    setOfStrings.delete('x_win')
+  public CreateStubMapFromAchievements (setOfStrings: Set<string>): AchievementStubMap {
+    setOfStrings.delete(A_WIN)
     const rootMapFromStubs = new AchievementStubMap(null)
-    rootMapFromStubs.AddAchievementStub('x_win')
+    rootMapFromStubs.AddAchievementStub(A_WIN)
 
     for (const goalAchievement of setOfStrings) {
       rootMapFromStubs.AddAchievementStub(goalAchievement)

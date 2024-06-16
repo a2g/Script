@@ -1,3 +1,4 @@
+import { A_WIN } from '../A_WIN'
 import { GetAnyErrorsFromObjectAvailability } from '../puzzle/GetAnyErrorsFromObjectAvailability'
 import { ProcessAutos } from '../puzzle/ProcessAutos'
 import { Stringify } from '../puzzle/Stringify'
@@ -21,8 +22,8 @@ export function PlayPlayable (playable: Playable): void {
     ProcessAutos(playable.GetHappener(), playable.GetSolution())
 
     // check have we won?
-    if (playable.GetHappener().GetGoalValue('x_win') > 0) {
-      // btw this is the only x_win outside of Solution.ts, so if we can get rid of it, then great
+    if (playable.GetHappener().GetGoalValue(A_WIN) > 0) {
+      // btw this is the only a_win outside of Solution.ts, so if we can get rid of it, then great
       playable.SetCompleted()
       break
     }

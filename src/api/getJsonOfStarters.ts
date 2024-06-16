@@ -1,6 +1,6 @@
 import * as fs from 'fs'
 import { join } from 'path'
-import { FilenameSuffixes } from '../../FilenameSuffixes'
+import { _STARTER_JSONC } from '../_STARTER_JSONC'
 
 export interface $IStarter {
   // used by CLI
@@ -61,7 +61,7 @@ export function getJsonOfStarters (): $IStarter[] {
     process.chdir(`./${repo}/${world}/${area}`)
     const files = fs.readdirSync('.')
     for (const file of files) {
-      if (file === `${FilenameSuffixes.Starter}.jsonc`) {
+      if (file === _STARTER_JSONC) {
         toReturn.push({
           // these are needed for CLI
           file,

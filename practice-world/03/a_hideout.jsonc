@@ -1,5 +1,5 @@
 {
-  "$schema": "./defs.jsonc",
+  "$schema": "./schema_for_achievements.jsonc",
   "startingThings": [
     {
       "thing": "prop_hurl"
@@ -12,13 +12,13 @@
     {
       "piece": "PROP1_GOES_WHEN_GRAB_INV1_WITH_GOAL1",
       "prop1": "prop_hurl",
-      "goal1": "x_access_to_hideout",
+      "goal1": "a_access_to_hideout",
       "inv1": "inv_hurl"
     },
     {
       "piece": "PROP1_GOES_WHEN_GRAB_INV1_WITH_GOAL1",
       "prop1": "prop_windup_key",
-      "goal1": "x_access_to_hideout",
+      "goal1": "a_access_to_hideout",
       "inv1": "inv_windup_key"
     }
   ]

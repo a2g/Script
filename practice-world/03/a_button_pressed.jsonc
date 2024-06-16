@@ -1,5 +1,5 @@
 {
-  "$schema": "./defs.jsonc",
+  "$schema": "./schema_for_achievements.jsonc",
   "startingThings": [
     {
       "thing": "prop_hole_in_wall"
@@ -23,7 +23,7 @@
     },
     {
       "piece": "AUTO_GOAL1_MET_BY_PROPS",
-      "goal1": "x_win",
+      "goal1": "a_win",
       "prop1": "prop_crank_in_wall",
       "prop2": "prop_rocket_gate_buttered"
     }

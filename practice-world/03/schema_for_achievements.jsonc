@@ -21,25 +21,25 @@
           "$ref": "i_inventory.jsonc#/definitions/inventory_enum"
         },
         "prop1": {
-          "$ref": "p_props.jsonc#/definitions/prop_enum"
+          "$ref": "o_objects.jsonc#/definitions/object_enum"
         },
         "prop2": {
-          "$ref": "p_props.jsonc#/definitions/prop_enum"
+          "$ref": "o_objects.jsonc#/definitions/object_enum"
         },
         "prop3": {
-          "$ref": "p_props.jsonc#/definitions/prop_enum"
+          "$ref": "o_objects.jsonc#/definitions/object_enum"
         },
         "prop4": {
-          "$ref": "p_props.jsonc#/definitions/prop_enum"
+          "$ref": "o_objects.jsonc#/definitions/object_enum"
         },
         "prop5": {
-          "$ref": "p_props.jsonc#/definitions/prop_enum"
+          "$ref": "o_objects.jsonc#/definitions/object_enum"
         },
         "prop6": {
-          "$ref": "p_props.jsonc#/definitions/prop_enum"
+          "$ref": "o_objects.jsonc#/definitions/object_enum"
         },
         "a1": {
-          "$ref": "a_achievements.jsonc#/definitions/goal_enum"
+          "$ref": "a_achievements.jsonc#/definitions/achievement_enum"
         },
         "a2": {
           "$ref": "a_achievements.jsonc#/definitions/achievement_enum"

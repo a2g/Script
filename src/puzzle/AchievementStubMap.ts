@@ -3,6 +3,7 @@ import { GenerateMapOfLeavesTracingAchievementsRecursively } from './GenerateMap
 import { Piece } from './Piece'
 import { AchievementStub } from './AchievementStub'
 import { Solved } from './Solved'
+import { A_WIN } from '../A_WIN'
 
 /**
  * This started out simpler that PileOfPieces, because there
@@ -57,7 +58,7 @@ export class AchievementStubMap {
     if (piece != null) {
       GenerateMapOfLeavesTracingAchievementsRecursively(
         piece,
-        'x_win',
+        A_WIN,
         leaves,
         achievementWords,
         this
@@ -103,7 +104,7 @@ export class AchievementStubMap {
   }
 
   public GetAchievementStubIfAny (): AchievementStub | undefined {
-    return this.theMap.get('x_win')
+    return this.theMap.get(A_WIN)
   }
 
   AddAchievementStub (word: string): void {
