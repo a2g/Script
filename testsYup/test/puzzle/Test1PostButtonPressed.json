@@ -23,7 +23,7 @@
     },
     {
       "piece": "AUTO_ACHMT1_MET_BY_OBJS",
-      "achievement1": "x-win",
+      "achievement1": "a_win",
       "obj1": "obj_crank_in_wall",
       "prop2": "obj_rocket_gate_buttered"
     }

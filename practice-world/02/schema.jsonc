@@ -21,22 +21,22 @@
           "$ref": "02 enums.jsonc#/definitions/inventory_enum"
         },
         "obj1": {
-          "$ref": "02 enums.jsonc#/definitions/obj_enum"
+          "$ref": "02 enums.jsonc#/definitions/object_enum"
         },
         "prop2": {
-          "$ref": "02 enums.jsonc#/definitions/obj_enum"
+          "$ref": "02 enums.jsonc#/definitions/object_enum"
         },
         "obj3": {
-          "$ref": "02 enums.jsonc#/definitions/obj_enum"
+          "$ref": "02 enums.jsonc#/definitions/object_enum"
         },
         "obj4": {
-          "$ref": "02 enums.jsonc#/definitions/obj_enum"
+          "$ref": "02 enums.jsonc#/definitions/object_enum"
         },
         "obj5": {
-          "$ref": "02 enums.jsonc#/definitions/obj_enum"
+          "$ref": "02 enums.jsonc#/definitions/object_enum"
         },
         "obj6": {
-          "$ref": "02 enums.jsonc#/definitions/obj_enum"
+          "$ref": "02 enums.jsonc#/definitions/object_enum"
         },
         "achievement1": {
           "$ref": "02 enums.jsonc#/definitions/achievement_enum"
@@ -86,7 +86,7 @@
       ],
       "properties": {
         "prop": {
-          "$ref": "02 enums.jsonc#/definitions/obj_enum"
+          "$ref": "02 enums.jsonc#/definitions/object_enum"
         }
       }
     }
@@ -110,7 +110,7 @@
                 "$ref": "02 enums.jsonc#/definitions/achievement_enum"
               },
               {
-                "$ref": "02 enums.jsonc#/definitions/obj_enum"
+                "$ref": "02 enums.jsonc#/definitions/object_enum"
               }
             ]
           }

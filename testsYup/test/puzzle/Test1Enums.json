@@ -36,7 +36,7 @@
         "inv_empty_bucket_after_coal"
       ]
     },
-    "obj_enum": {
+    "object_enum": {
       "enum": [
         "obj_druid_wielding_knife",
         "obj_dog",
@@ -80,7 +80,7 @@
     },
     "achievement_enum": {
       "enum": [
-        "x-win",
+        "a_win",
         "a03_access_to_greenhouse",
         "a03_access_to_icehouse",
         "a03_access_to_castle",

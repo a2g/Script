@@ -5,9 +5,9 @@ import { AchievementStubMap } from './AchievementStubMap'
 import { Solutions } from './Solutions'
 import { VisibleThingsMap } from './VisibleThingsMap'
 import { Box } from './Box'
-import { ChatFile } from './chat/ChatFile'
+import { ChatFile } from './talk/ChatFile'
 import { Solved } from './Solved'
-import { GenerateMapOfLeavesTracingAchievementsRecursively } from './GenerateMapOfLeavesTraccingAchievementsRecursively'
+import { GenerateMapOfLeavesTracingAchievementsRecursively } from './GenerateMapOfLeavesTraccingGoalsRecursively'
 import { A_WIN } from '../A_WIN'
 
 let globalSolutionId = 101

@@ -19,7 +19,7 @@
         "inv_tinder_kit"
       ]
     },
-    "obj_enum": {
+    "object_enum": {
       "enum": [
         "obj_limestone",
         "obj_teenager",

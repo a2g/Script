@@ -1,5 +1,5 @@
 import { GenerateMapOfLeavesRecursively } from './GenerateMapOfLeavesRecursively'
-import { GenerateMapOfLeavesTracingAchievementsRecursively } from './GenerateMapOfLeavesTraccingAchievementsRecursively'
+import { GenerateMapOfLeavesTracingAchievementsRecursively } from './GenerateMapOfLeavesTraccingGoalsRecursively'
 import { Piece } from './Piece'
 import { AchievementStub } from './AchievementStub'
 import { Solved } from './Solved'

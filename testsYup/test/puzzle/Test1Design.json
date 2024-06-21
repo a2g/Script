@@ -21,22 +21,22 @@
           "$ref": "Test1 enums.jsonc#/definitions/inventory_enum"
         },
         "obj1": {
-          "$ref": "Test1 enums.jsonc#/definitions/obj_enum"
+          "$ref": "Test1 enums.jsonc#/definitions/object_enum"
         },
         "prop2": {
-          "$ref": "Test1 enums.jsonc#/definitions/obj_enum"
+          "$ref": "Test1 enums.jsonc#/definitions/object_enum"
         },
         "obj3": {
-          "$ref": "Test1 enums.jsonc#/definitions/obj_enum"
+          "$ref": "Test1 enums.jsonc#/definitions/object_enum"
         },
         "obj4": {
-          "$ref": "Test1 enums.jsonc#/definitions/obj_enum"
+          "$ref": "Test1 enums.jsonc#/definitions/object_enum"
         },
         "obj5": {
-          "$ref": "Test1 enums.jsonc#/definitions/obj_enum"
+          "$ref": "Test1 enums.jsonc#/definitions/object_enum"
         },
         "obj6": {
-          "$ref": "Test1 enums.jsonc#/definitions/obj_enum"
+          "$ref": "Test1 enums.jsonc#/definitions/object_enum"
         },
         "achievement1": {
           "$ref": "Test1 enums.jsonc#/definitions/achievement_enum"
@@ -86,7 +86,7 @@
       ],
       "properties": {
         "prop": {
-          "$ref": "Test1 enums.jsonc#/definitions/obj_enum"
+          "$ref": "Test1 enums.jsonc#/definitions/object_enum"
         }
       }
     }
@@ -110,7 +110,7 @@
                 "$ref": "Test1 enums.jsonc#/definitions/achievement_enum"
               },
               {
-                "$ref": "Test1 enums.jsonc#/definitions/obj_enum"
+                "$ref": "Test1 enums.jsonc#/definitions/object_enum"
               }
             ]
           }

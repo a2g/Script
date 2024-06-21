@@ -1,13 +1,13 @@
 import { existsSync } from 'fs'
 import { Aggregates } from './Aggregates'
 import { Box } from './Box'
-import { IsPieceOutputtingAAchievement } from './IsPieceOutputtingAAchievement'
+import { IsPieceOutputtingAnAchievement } from './IsPieceOutputtingAnAchievement'
 import { Piece } from './Piece'
 import { A_WIN } from '../A_WIN'
 import { _STARTER } from '../_STARTER'
 
 export function AddPiece (piece: Piece, folder = '', isNoFile = true, box: Box, aggregates: Aggregates): void {
-  if (IsPieceOutputtingAAchievement(piece)) {
+  if (IsPieceOutputtingAnAchievement(piece)) {
     const achievementAchievement = piece.output
     box.GetSetOfAchievementWords().add(achievementAchievement)
     aggregates.setOfachievementAchievements.add(achievementAchievement)

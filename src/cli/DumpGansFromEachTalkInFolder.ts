@@ -1,6 +1,6 @@
 import { join } from 'path'
 import * as fs from 'fs'
-import { ChatFile } from '../puzzle/chat/ChatFile'
+import { ChatFile } from '../puzzle/talk/ChatFile'
 import { Aggregates } from '../puzzle/Aggregates'
 import { Box } from '../puzzle/Box'
 import { _STARTER } from '../_STARTER'

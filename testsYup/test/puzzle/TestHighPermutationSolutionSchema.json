@@ -27,22 +27,22 @@
           "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/inventory_enum"
         },
         "obj1": {
-          "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/obj_enum"
+          "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/object_enum"
         },
         "prop2": {
-          "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/obj_enum"
+          "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/object_enum"
         },
         "obj3": {
-          "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/obj_enum"
+          "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/object_enum"
         },
         "obj4": {
-          "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/obj_enum"
+          "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/object_enum"
         },
         "obj5": {
-          "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/obj_enum"
+          "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/object_enum"
         },
         "obj6": {
-          "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/obj_enum"
+          "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/object_enum"
         },
         "fileToMerge": {
           "type": "string"
@@ -74,7 +74,7 @@
       ],
       "properties": {
         "prop": {
-          "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/obj_enum"
+          "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/object_enum"
         }
       }
     }
@@ -84,7 +84,7 @@
       "type": "array",
       "minItems": 0,
       "items": {
-        "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/obj_enum"
+        "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/object_enum"
       }
     },
     "startingThings": {
@@ -102,7 +102,7 @@
                 "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/inventory_enum"
               },
               {
-                "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/obj_enum"
+                "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/object_enum"
               },
               {
                 "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/flag_type"

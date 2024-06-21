@@ -19,7 +19,7 @@
         "inv_bio-diesel"
       ]
     },
-    "obj_enum": {
+    "object_enum": {
       "enum": [
         "obj_picture",
         "obj_harbour_master",

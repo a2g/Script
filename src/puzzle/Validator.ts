@@ -7,7 +7,7 @@ import { AchievementStubMap } from './AchievementStubMap'
 import { VisibleThingsMap } from './VisibleThingsMap'
 import { Box } from './Box'
 import { createCommandFromAutoPiece } from './createCommandFromAutoPiece'
-import { ChatFile } from './chat/ChatFile'
+import { ChatFile } from './talk/ChatFile'
 import { Validated } from './Validated'
 
 export class Validator {

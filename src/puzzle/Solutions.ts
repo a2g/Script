@@ -4,7 +4,7 @@ import { Box } from './Box'
 import { AchievementStubMap } from './AchievementStubMap'
 import { Piece } from './Piece'
 import { Solution } from './Solution'
-import { ChatFile } from './chat/ChatFile'
+import { ChatFile } from './talk/ChatFile'
 import { VisibleThingsMap } from './VisibleThingsMap'
 import { A_WIN } from '../A_WIN'
 

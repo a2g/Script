@@ -11,8 +11,8 @@ import { parse } from 'jsonc-parser'
 import { Mix } from './Mix'
 import { Verb } from './Verb'
 import { AlleviateBrackets } from './AlleviateBrackets'
-import { GetNextId } from './chat/GetNextId'
-import { ChatFile } from './chat/ChatFile'
+import { GetNextId } from './talk/GetNextId'
+import { ChatFile } from './talk/ChatFile'
 import { Aggregates } from './Aggregates'
 import { AddPiece } from './AddPiece'
 import { _STARTER } from '../_STARTER'
@@ -298,7 +298,7 @@ export class SingleFile {
             const output1 = newAchievement
             AddPiece(
               new Piece(
-                GetNextId() + 'a',
+                `${GetNextId()}a`,
                 null,
                 output1,
                 _.ACHMT1_MET_BY_USING_INV1_WITH_OBJ1,
@@ -324,7 +324,7 @@ export class SingleFile {
               const output2 = inv2
               AddPiece(
                 new Piece(
-                  GetNextId() + 'b',
+                  `${GetNextId()}b`,
                   null,
                   output2,
                   _.AUTO_INV1_BECOMES_INV2_VIA_ACHMT1,
@@ -348,7 +348,7 @@ export class SingleFile {
               const output3 = obj2
               AddPiece(
                 new Piece(
-                  GetNextId() + 'c',
+                  `${GetNextId()}c`,
                   null,
                   output3,
                   _.AUTO_OBJ1_BECOMES_OBJ2_VIA_ACHMT1,
@@ -519,7 +519,7 @@ export class SingleFile {
             const output1 = newAchievement
             AddPiece(
               new Piece(
-                GetNextId() + 'd',
+                `${GetNextId()}d`,
                 null,
                 output1,
                 _.ACHMT1_MET_BY_USING_INV1_WITH_OBJ1,
@@ -544,7 +544,7 @@ export class SingleFile {
               const output2 = inv1
               AddPiece(
                 new Piece(
-                  GetNextId() + 'e',
+                  `${GetNextId()}e`,
                   null,
                   output2,
                   _.AUTO_INV1_OBTAINED_VIA_ACHMT1,
@@ -567,7 +567,7 @@ export class SingleFile {
               const output3 = obj2
               AddPiece(
                 new Piece(
-                  GetNextId() + 'f',
+                  `${GetNextId()}f`,
                   null,
                   output3,
                   _.AUTO_OBJ1_BECOMES_OBJ2_VIA_ACHMT1,
@@ -788,7 +788,7 @@ export class SingleFile {
       } // end switch
       AddPiece(
         new Piece(
-          GetNextId() + 'g',
+          `${GetNextId()}g`,
           boxToMerge,
           output,
           pieceType,

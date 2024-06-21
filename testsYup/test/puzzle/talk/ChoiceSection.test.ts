@@ -1,5 +1,5 @@
 import { expect, test } from '@jest/globals'
-import { ChoiceSection } from '../../../../src/puzzle/chat/ChoiceSection'
+import { ChoiceSection } from '../../../../src/puzzle/talk/ChoiceSection'
 
 test('FindMostNearlyCompleteRowOrColumnCombined', () => {
   const choiceSection = new ChoiceSection('file', 'key')

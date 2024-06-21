@@ -8,6 +8,7 @@ import { ChooseBackwardSolve } from './cli/ChooseBackwardSolve'
 import { Validators } from './puzzle/Validators'
 import { ChooseForwardValidate } from './cli/ChooseForwardValidate'
 import { ChoosePiecesInBoxes } from './cli/ChoosePiecesInBoxes'
+import { DumpGainsFromEachChatInFolder } from './cli/DumpGansFromEachTalkInFolder'
 // import { ChooseValidateSolution } from './cli/ChooseValidateSolutions'
 
 const prompt = promptSync()
@@ -31,7 +32,7 @@ function main (): void {
       default:
         if (index >= 0 && index < starters.length) {
           const starter = starters[index]
-          // DumpGainsFromEachChatInFolder(starter.folder)
+          DumpGainsFromEachChatInFolder(starter.folder)
 
           const solutions = new Solutions(starter.folder, starter.file)
 
