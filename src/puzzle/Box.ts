@@ -62,95 +62,97 @@ export class Box {
     const box1 = this.aggregates.mapOfBoxes.get(filename)
     console.assert(box1 !== null)
     this.aggregates.mapOfBoxes.set(filename, this)
-    if (!existsSync(path + filename)) {
-      throw new Error(
-        `file doesn't exist ${process.cwd()} ${path}${filename} `
-      )
-    }
-    const text = readFileSync(path + filename, 'utf8')
-    const scenario = parse(text)
-
-    /* this loop is only to ascertain all the different */
-    /* possible object names. ie basically all the enums */
-    /* but without needing the enum file */
-    const setProps = new Set<string>()
-    const setAchievements = new Set<string>()
-    const setInvs = new Set<string>()
-    const setChars = new Set<string>()
-    for (const gate of scenario.pieces) {
-      setInvs.add(Stringify(gate.inv1))
-      setInvs.add(Stringify(gate.inv2))
-      setInvs.add(Stringify(gate.inv3))
-      setAchievements.add(Stringify(gate.ament1))
-      setAchievements.add(Stringify(gate.achievement2))
-      setProps.add(Stringify(gate.obj1))
-      setProps.add(Stringify(gate.obj2))
-      setProps.add(Stringify(gate.obj3))
-      setProps.add(Stringify(gate.obj4))
-      setProps.add(Stringify(gate.obj5))
-      setProps.add(Stringify(gate.obj6))
-      setProps.add(Stringify(gate.obj7))
-    }
-
-    /* starting things is optional in the json */
-    if (
-      scenario.startingThings !== undefined &&
-      scenario.startingThings !== null
-    ) {
-      for (const thing of scenario.startingThings) {
-        if (thing.character !== undefined && thing.character !== null) {
-          setChars.add(thing.character)
-        }
+    if (filename.length !== 0) {
+      if (!existsSync(path + filename)) {
+        throw new Error(
+          `file doesn't exist ${process.cwd()} ${path}${filename} `
+        )
       }
-    }
+      const text = readFileSync(path + filename, 'utf8')
+      const scenario = parse(text)
 
-    /* collect all the achievements and pieces file */
-    const singleFile = new SingleFile(this.path, filename, this.aggregates)
-    singleFile.copyAllPiecesToContainers(this)
-
-    /* starting things is optional in the json */
-    if (
-      scenario.startingThings !== undefined &&
-      scenario.startingThings !== null
-    ) {
-      for (const thing of scenario.startingThings) {
-        const theThing = Stringify(thing.thing)
-        if (theThing.startsWith('inv')) {
-          this.startingInvSet.add(theThing)
-        }
-        if (theThing.startsWith('achievement')) {
-          this.startingachievementAchievementSet.add(theThing)
-        }
-        if (theThing.startsWith('obj')) {
-          this.startingPropSet.add(theThing)
-        }
+      /* this loop is only to ascertain all the different */
+      /* possible object names. ie basically all the enums */
+      /* but without needing the enum file */
+      const setProps = new Set<string>()
+      const setAchievements = new Set<string>()
+      const setInvs = new Set<string>()
+      const setChars = new Set<string>()
+      for (const gate of scenario.pieces) {
+        setInvs.add(Stringify(gate.inv1))
+        setInvs.add(Stringify(gate.inv2))
+        setInvs.add(Stringify(gate.inv3))
+        setAchievements.add(Stringify(gate.ament1))
+        setAchievements.add(Stringify(gate.achievement2))
+        setProps.add(Stringify(gate.obj1))
+        setProps.add(Stringify(gate.obj2))
+        setProps.add(Stringify(gate.obj3))
+        setProps.add(Stringify(gate.obj4))
+        setProps.add(Stringify(gate.obj5))
+        setProps.add(Stringify(gate.obj6))
+        setProps.add(Stringify(gate.obj7))
       }
-      for (const item of scenario.startingThings) {
-        if (!this.mapOfStartingThings.Has(item.thing)) {
-          this.mapOfStartingThings.Set(item.thing, new Set<string>())
-        }
-        if (item.character !== undefined && item.character !== null) {
-          const { character } = item
-          const setOfCharacters = this.mapOfStartingThings.Get(item.thing)
-          if (character.length > 0 && setOfCharacters != null) {
-            setOfCharacters.add(character)
+
+      /* starting things is optional in the json */
+      if (
+        scenario.startingThings !== undefined &&
+        scenario.startingThings !== null
+      ) {
+        for (const thing of scenario.startingThings) {
+          if (thing.character !== undefined && thing.character !== null) {
+            setChars.add(thing.character)
           }
         }
       }
-    }
 
-    setChars.delete('')
-    setChars.delete('undefined')
-    setProps.delete('')
-    setProps.delete('undefined')
-    setAchievements.delete('')
-    setAchievements.delete('undefined')
-    setInvs.delete('')
-    setInvs.delete('undefined')
-    this.allProps = Array.from(setProps.values())
-    this.allAchievements = Array.from(setAchievements.values())
-    this.allInvs = Array.from(setInvs.values())
-    this.allChars = Array.from(setChars.values())
+      /* collect all the achievements and pieces file */
+      const singleFile = new SingleFile(this.path, filename, this.aggregates)
+      singleFile.copyAllPiecesToContainers(this)
+
+      /* starting things is optional in the json */
+      if (
+        scenario.startingThings !== undefined &&
+        scenario.startingThings !== null
+      ) {
+        for (const thing of scenario.startingThings) {
+          const theThing = Stringify(thing.thing)
+          if (theThing.startsWith('inv')) {
+            this.startingInvSet.add(theThing)
+          }
+          if (theThing.startsWith('achievement')) {
+            this.startingachievementAchievementSet.add(theThing)
+          }
+          if (theThing.startsWith('obj')) {
+            this.startingPropSet.add(theThing)
+          }
+        }
+        for (const item of scenario.startingThings) {
+          if (!this.mapOfStartingThings.Has(item.thing)) {
+            this.mapOfStartingThings.Set(item.thing, new Set<string>())
+          }
+          if (item.character !== undefined && item.character !== null) {
+            const { character } = item
+            const setOfCharacters = this.mapOfStartingThings.Get(item.thing)
+            if (character.length > 0 && setOfCharacters != null) {
+              setOfCharacters.add(character)
+            }
+          }
+        }
+      }
+
+      setChars.delete('')
+      setChars.delete('undefined')
+      setProps.delete('')
+      setProps.delete('undefined')
+      setAchievements.delete('')
+      setAchievements.delete('undefined')
+      setInvs.delete('')
+      setInvs.delete('undefined')
+      this.allProps = Array.from(setProps.values())
+      this.allAchievements = Array.from(setAchievements.values())
+      this.allInvs = Array.from(setInvs.values())
+      this.allChars = Array.from(setChars.values())
+    }
   }
 
   public CopyStartingThingCharsToGivenMap (givenMap: VisibleThingsMap): void {
