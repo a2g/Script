@@ -3,6 +3,7 @@ import { FormatText } from '../puzzle/FormatText'
 import { Validators } from '../puzzle/Validators'
 import { ShowUnderlinedTitle } from './ShowUnderlinedTitle'
 import { ValidatorView } from './views/ValidatorView'
+import { Solved } from '../puzzle/Solved'
 const prompt = promptSync({})
 
 export function ChooseForwardValidate (validators: Validators): void {
@@ -22,7 +23,9 @@ export function ChooseForwardValidate (validators: Validators): void {
       //  "1. XXXXXX"   <- this is the format we list the solutions
       const a = validator.GetNumberOfNotYetValidated()
       const b = validator.GetNumberOfAchievements()
-      console.warn(`    ${i + 1}. (${a}/${b}) ${name} `)
+      const status = a === 0 ? Solved.Solved : Solved.Not
+
+      console.warn(`    ${i + 1}. ${status}(${a}/${b}) ${name} `)
     }
 
     // allow user to choose item

@@ -13,12 +13,12 @@ export function DumpGainsFromEachChatInFolder (folder: string): void {
   console.warn('Results of FindAndAddPiecesRecursively')
   const files = fs.readdirSync('.')
   for (const file of files) {
-    if (file.startsWith('chats') && file.endsWith('.jsonc')) {
+    if (file.startsWith('c') && file.endsWith('.jsonc') && file !== 'c_chats.jsonc') {
       const aggregates = new Aggregates()
       const chatFile = new ChatFile(file, folder, aggregates)
 
       const mapOGainsByPage = new Map<string, string>()
-      const emptyBox = new Box('path', '', new Aggregates())
+      const emptyBox = new Box('', '', new Aggregates())
       console.warn('')
       console.warn(`${file}`)
       console.warn('===========================')

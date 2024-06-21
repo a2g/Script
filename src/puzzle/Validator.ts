@@ -192,7 +192,7 @@ export class Validator {
   public GetNumberOfNotYetValidated (): number {
     let numberOfNullAchievements = 0
     for (const achievement of this.GetRootMap().GetValues()) {
-      numberOfNullAchievements += achievement.GetThePiece() == null ? 1 : 0
+      numberOfNullAchievements += achievement.GetThePiece() == null ? 0 : 1
     }
     return numberOfNullAchievements
   }

@@ -3,6 +3,7 @@ import { FormatText } from '../puzzle/FormatText'
 import { Solutions } from '../puzzle/Solutions'
 import { SolutionView } from './views/SolutionView'
 import { ShowUnderlinedTitle } from './ShowUnderlinedTitle'
+import { Solved } from '../puzzle/Solved'
 const prompt = promptSync({})
 
 export function ChooseBackwardSolve (solutions: Solutions): void {
@@ -22,10 +23,10 @@ export function ChooseBackwardSolve (solutions: Solutions): void {
         unsolvedCount += achievement.IsSolved() ? 0 : 1
       }
       const total = solution.GetAchievementStubMap().Size()
-
+      const status = unsolvedCount === 0 ? Solved.Solved : Solved.Not
       const name = FormatText(solution.GetSolvingPath())
       //  "1. XXXXXX"   <- this is the format we list the solutions
-      console.warn(`    ${i + 1}. (${unsolvedCount}, ${total}) ${name}`)
+      console.warn(`    ${i + 1}. ${status}(${unsolvedCount}, ${total}) ${name}`)
     }
 
     const firstInput = prompt(
@@ -51,7 +52,9 @@ export function ChooseBackwardSolve (solutions: Solutions): void {
 
       // if they chose a number, go to that number
       const solution = solutions.GetSolutions()[theNumber - 1]
-      SolutionView(solution, solutions, titlePath)
+      if (solution != null) {
+        SolutionView(solution, solutions, titlePath)
+      }
     }
   }
 }
