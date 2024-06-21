@@ -60,8 +60,8 @@
       "inv3": "inv_tinder_kit"
     },
     {
-      "piece": "AUTO_ACHMT1_MET_BY_INVS",
-      "achievement1": "a_win",
+      "piece": "AUTO_AMENT1_MET_BY_INVS",
+      "ament1": "a_win",
       "inv1": "inv_torch_lit"
     }
   ]

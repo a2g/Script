@@ -23,7 +23,7 @@
         "obj1": {
           "$ref": "Test1 enums.jsonc#/definitions/object_enum"
         },
-        "prop2": {
+        "obj2": {
           "$ref": "Test1 enums.jsonc#/definitions/object_enum"
         },
         "obj3": {
@@ -38,7 +38,7 @@
         "obj6": {
           "$ref": "Test1 enums.jsonc#/definitions/object_enum"
         },
-        "achievement1": {
+        "ament1": {
           "$ref": "Test1 enums.jsonc#/definitions/achievement_enum"
         },
         "achievement2": {

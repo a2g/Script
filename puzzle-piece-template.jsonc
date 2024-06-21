@@ -141,7 +141,7 @@
             "required": [
               "inv1",
               "obj1",
-              "prop2"
+              "obj2"
             ]
           }
         },
@@ -177,7 +177,7 @@
           "then": {
             "required": [
               "obj1",
-              "prop2",
+              "obj2",
               "obj3"
             ]
           }
@@ -251,7 +251,7 @@
           "then": {
             "required": [
               "obj1",
-              "prop2"
+              "obj2"
             ]
           }
         },
@@ -260,13 +260,13 @@
             "properties": {
               "piece": {
                 // e.g. achievement_access_thru_fireplace set by obj_fireplace_ladder"
-                "const": "AUTO_ACHMT1_MET_BY_OBJS"
+                "const": "AUTO_AMENT1_MET_BY_OBJS"
               }
             }
           },
           "then": {
             "required": [
-              "achievement1"
+              "ament1"
             ]
           }
         },
@@ -275,13 +275,13 @@
             "properties": {
               "piece": {
                 // e.g. achievement_lit_torch set by inv_lit_torch"
-                "const": "AUTO_ACHMT1_MET_BY_INVS"
+                "const": "AUTO_AMENT1_MET_BY_INVS"
               }
             }
           },
           "then": {
             "required": [
-              "achievement1",
+              "ament1",
               "inv1"
             ]
           }
@@ -297,7 +297,7 @@
           "then": {
             "required": [
               "obj1",
-              "prop2"
+              "obj2"
             ]
           }
         },
@@ -306,13 +306,13 @@
             "properties": {
               "piece": {
                 // e.g. achievement_lit_torch set by inv_lit_torch"
-                "const": "AUTO_ACHMT1_MET_BY_INVS"
+                "const": "AUTO_AMENT1_MET_BY_INVS"
               }
             }
           },
           "then": {
             "required": [
-              "achievement1"
+              "ament1"
             ]
           }
         },
@@ -321,7 +321,7 @@
             "properties": {
               "piece": {
                 // e.g. use two invs together wins game"
-                "const": "ACHMT1_MET_BY_USING_INV1_WITH_INV2"
+                "const": "AMENT1_MET_BY_USING_INV1_WITH_INV2"
               }
             }
           },
@@ -329,7 +329,7 @@
             "required": [
               "inv1",
               "inv2",
-              "achievement1"
+              "ament1"
             ]
           }
         },
@@ -338,7 +338,7 @@
             "properties": {
               "piece": {
                 // e.g. win game using use silver with werewolf during lunar eclipse"
-                "const": "ACHMT1_MET_BY_USING_INV1_WITH_OBJ1_NEED_ACHMTS"
+                "const": "AMENT1_MET_BY_USING_INV1_WITH_OBJ1_NEED_AMENTS"
               }
             }
           },
@@ -346,7 +346,7 @@
             "required": [
               "inv1",
               "obj1",
-              "achievement1",
+              "ament1",
               "achievement2"
             ]
           }
@@ -359,7 +359,7 @@
                   "piece": {
                     // e.g. toggle on to off",
                     // e.g. activated to deactivated"
-                    "const": "ACHMT1_MET_BY_USING_INV1_WITH_OBJ1_LOSE_OBJS"
+                    "const": "AMENT1_MET_BY_USING_INV1_WITH_OBJ1_LOSE_OBJS"
                   }
                 }
               },
@@ -367,7 +367,7 @@
                 "properties": {
                   "piece": {
                     // e.g. chat to woman after setting achievement"
-                    "const": "CHAT_TO_OBJ1_WITH_ACHMT1_GETS_INV1"
+                    "const": "CHAT_TO_OBJ1_WITH_AMENT1_GETS_INV1"
                   }
                 }
               },
@@ -375,7 +375,7 @@
                 "properties": {
                   "piece": {
                     // e.g. achievement is set when use cogs to fix dumbwaiter"
-                    "const": "ACHMT1_MET_BY_LOSING_INV1_WHEN_USED_WITH_OBJ1"
+                    "const": "AMENT1_MET_BY_LOSING_INV1_WHEN_USED_WITH_OBJ1"
                   }
                 }
               },
@@ -383,7 +383,7 @@
                 "properties": {
                   "piece": {
                     // e.g. give gold to king completes game"
-                    "const": "ACHMT1_MET_BY_GIVING_INV1_TO_OBJ1"
+                    "const": "AMENT1_MET_BY_GIVING_INV1_TO_OBJ1"
                   }
                 }
               },
@@ -391,7 +391,7 @@
                 "properties": {
                   "piece": {
                     // e.g. use sword with baddie wins game"
-                    "const": "ACHMT1_MET_BY_USING_INV1_WITH_OBJ1"
+                    "const": "AMENT1_MET_BY_USING_INV1_WITH_OBJ1"
                   }
                 }
               },
@@ -399,7 +399,7 @@
                 "properties": {
                   "piece": {
                     // e.g. grab pile of tyres, with achievement set"
-                    "const": "OBJ1_STAYS_WHEN_GRAB_INV1_WITH_ACHMT1"
+                    "const": "OBJ1_STAYS_WHEN_GRAB_INV1_WITH_AMENT1"
                   }
                 }
               },
@@ -407,7 +407,7 @@
                 "properties": {
                   "piece": {
                     // e.g. grab single tire, if achievement set"
-                    "const": "OBJ1_GOES_WHEN_GRAB_INV1_WITH_ACHMT1"
+                    "const": "OBJ1_GOES_WHEN_GRAB_INV1_WITH_AMENT1"
                   }
                 }
               }
@@ -417,7 +417,7 @@
             "required": [
               "inv1",
               "obj1",
-              "achievement1"
+              "ament1"
             ]
           }
         },
@@ -428,7 +428,7 @@
                 "properties": {
                   "piece": {
                     // e.g. achievement met by "
-                    "const": "ACHMT1_MET_BY_USING_OBJ1_WITH_OBJ2"
+                    "const": "AMENT1_MET_BY_USING_OBJ1_WITH_OBJ2"
                   }
                 }
               },
@@ -436,7 +436,7 @@
                 "properties": {
                   "piece": {
                     // e.g. taxi appears when phone is used with electricity on"
-                    "const": "OBJ1_APPEARS_WHEN_GRAB_OBJ2_WITH_ACHMT1"
+                    "const": "OBJ1_APPEARS_WHEN_GRAB_OBJ2_WITH_AMENT1"
                   }
                 }
               }
@@ -445,8 +445,8 @@
           "then": {
             "required": [
               "obj1",
-              "prop2",
-              "achievement1"
+              "obj2",
+              "ament1"
             ]
           }
         },
@@ -523,13 +523,13 @@
           "if": {
             "properties": {
               "piece": {
-                "const": "AUTO_ACHMT1_MET_BY_ACHMTS"
+                "const": "AUTO_AMENT1_MET_BY_AMENTS"
               }
             }
           },
           "then": {
             "required": [
-              "achievement1",
+              "ament1",
               "achievement2"
             ]
           }
@@ -538,16 +538,16 @@
           "if": {
             "properties": {
               "piece": {
-                "const": "ACHMT1_MET_BY_LOSING_INV1_USED_WITH_OBJ1_AND_OBJS"
+                "const": "AMENT1_MET_BY_LOSING_INV1_USED_WITH_OBJ1_AND_OBJS"
               }
             }
           },
           "then": {
             "required": [
-              "achievement1",
+              "ament1",
               "inv1",
               "obj1",
-              "prop2"
+              "obj2"
             ]
           }
         },
@@ -580,7 +580,7 @@
           "then": {
             "required": [
               "obj1",
-              "prop2",
+              "obj2",
               "inv1",
               "inv2"
             ]
@@ -590,13 +590,13 @@
           "if": {
             "properties": {
               "piece": {
-                "const": "AUTO_INV1_BECOMES_INV2_VIA_ACHMT1"
+                "const": "AUTO_INV1_BECOMES_INV2_VIA_AMENT1"
               }
             }
           },
           "then": {
             "required": [
-              "achievement1",
+              "ament1",
               "inv1",
               "inv2"
             ]
@@ -606,15 +606,15 @@
           "if": {
             "properties": {
               "piece": {
-                "const": "AUTO_OBJ1_BECOMES_OBJ2_VIA_ACHMT1"
+                "const": "AUTO_OBJ1_BECOMES_OBJ2_VIA_AMENT1"
               }
             }
           },
           "then": {
             "required": [
-              "achievement1",
+              "ament1",
               "obj1",
-              "prop2"
+              "obj2"
             ]
           }
         },
@@ -622,14 +622,14 @@
           "if": {
             "properties": {
               "piece": {
-                "const": "AUTO_INV1_OBTAINED_VIA_ACHMT1"
+                "const": "AUTO_INV1_OBTAINED_VIA_AMENT1"
               }
             }
           },
           "then": {
             "required": [
               "inv1",
-              "achievement1"
+              "ament1"
             ]
           }
         },
@@ -637,14 +637,14 @@
           "if": {
             "properties": {
               "piece": {
-                "const": "AUTO_OBJ1_APPEARS_VIA_ACHMT1"
+                "const": "AUTO_OBJ1_APPEARS_VIA_AMENT1"
               }
             }
           },
           "then": {
             "required": [
               "obj1",
-              "achievement1"
+              "ament1"
             ]
           }
         },

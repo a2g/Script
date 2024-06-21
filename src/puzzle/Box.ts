@@ -81,7 +81,7 @@ export class Box {
       setInvs.add(Stringify(gate.inv1))
       setInvs.add(Stringify(gate.inv2))
       setInvs.add(Stringify(gate.inv3))
-      setAchievements.add(Stringify(gate.achievement1))
+      setAchievements.add(Stringify(gate.ament1))
       setAchievements.add(Stringify(gate.achievement2))
       setProps.add(Stringify(gate.obj1))
       setProps.add(Stringify(gate.obj2))

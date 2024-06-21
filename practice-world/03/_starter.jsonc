@@ -34,8 +34,8 @@
   ],
   "pieces": [
     {
-      "piece": "ACHMT1_MET_BY_USING_INV1_WITH_OBJ1",
-      "achievement1": "a_access_to_icehouse",
+      "piece": "AMENT1_MET_BY_USING_INV1_WITH_OBJ1",
+      "ament1": "a_icehouse",
       "inv1": "inv_soil_thermometer",
       "obj1": "obj_icehouse"
     },
@@ -68,8 +68,8 @@
       "inv2": "inv_greenhouse_key"
     },
     {
-      "piece": "ACHMT1_MET_BY_USING_INV1_WITH_OBJ1",
-      "achievement1": "a_access_to_greenhouse",
+      "piece": "AMENT1_MET_BY_USING_INV1_WITH_OBJ1",
+      "ament1": "a_greenhouse",
       "inv1": "inv_greenhouse_key",
       "obj1": "obj_greenhouse_door"
     },
@@ -103,7 +103,7 @@
       "inv1": "inv_bucket_of_water",
       "inv2": "inv_crank",
       "obj1": "obj_well",
-      "prop2": "obj_crank_attached_to_well",
+      "obj2": "obj_crank_attached_to_well",
       "isNoFile": true
     }
   ]

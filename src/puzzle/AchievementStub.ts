@@ -25,7 +25,7 @@ import { Validated } from './Validated'
  *
  * This is also where command steps that pertain to event are kept. Once we have
  * validated an order of achievement solving, then the most single minded way to do it
- * would be to do the steps required of achievement1, then the steps required of achievement2.
+ * would be to do the steps required of ament1, then the steps required of achievement2.
  * The solution could be thousands of permutations that adhere to this,
  * but its handy to have a predictable deterministic solution - at least as a
  * starting point, before optimizations.

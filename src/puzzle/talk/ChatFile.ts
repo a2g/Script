@@ -102,7 +102,7 @@ export class ChatFile {
           let type = ''
           let isNoFile = true
           if (output.startsWith(IdPrefixes.Achievement) || output.startsWith(IdPrefixes.InvAchievement)) {
-            type = _.CHAT_GAINS_ACHMT1_WITH_VARIOUS_REQUISITES
+            type = _.CHAT_GAINS_AMENT1_WITH_VARIOUS_REQUISITES
             if (existsSync(`${this.fileAddress}${output}.jsonc`)) {
               isNoFile = false
             }

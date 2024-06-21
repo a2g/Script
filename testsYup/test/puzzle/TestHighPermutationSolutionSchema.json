@@ -29,7 +29,7 @@
         "obj1": {
           "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/object_enum"
         },
-        "prop2": {
+        "obj2": {
           "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/object_enum"
         },
         "obj3": {

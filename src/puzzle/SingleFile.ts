@@ -16,9 +16,10 @@ import { ChatFile } from './talk/ChatFile'
 import { Aggregates } from './Aggregates'
 import { AddPiece } from './AddPiece'
 import { _STARTER } from '../_STARTER'
+import { IdPrefixes } from '../../IdPrefixes'
 
 function makeAchievementNameDeterministically (partA: string, partB: string): string {
-  return `x_gen_${partA}_${partB}_achievement`
+  return `${IdPrefixes.Achievement}_gen_${partA}_${partB}_ament`
 }
 /**
  * Yup, this is the one location of these
@@ -57,7 +58,7 @@ export class SingleFile {
         count = piece.count
       }
       const chat1 = Stringify(piece.chat1)
-      const achievement1 = Stringify(piece.achievement1)
+      const ament1 = Stringify(piece.ament1)
       const achievement2 = Stringify(piece.achievement2)
       const achievement3 = Stringify(piece.achievement3)
       const achievement4 = Stringify(piece.achievement4)
@@ -88,23 +89,23 @@ export class SingleFile {
       const boxToMerge: Box | null = null
       let command = null
       switch (pieceType) {
-        case _.AUTO_ACHMT1_MET_BY_ACHMTS:
-          output = achievement1
+        case _.AUTO_AMENT1_MET_BY_AMENTS:
+          output = ament1
           inputA = achievement2
           inputB = achievement3
           inputC = achievement4
           inputD = achievement5
           command = new Command(Verb.Auto, Mix.AutoNeedsNothing, '')
           break
-        case _.AUTO_ACHMT1_MET_BY_INVS:
-          output = achievement1
+        case _.AUTO_AMENT1_MET_BY_INVS:
+          output = ament1
           inputA = inv1
           inputB = inv2
           inputC = inv3
           command = new Command(Verb.Auto, Mix.AutoNeedsNothing, '')
           break
-        case _.AUTO_ACHMT1_MET_BY_OBJS:
-          output = achievement1
+        case _.AUTO_AMENT1_MET_BY_OBJS:
+          output = ament1
           inputA = obj1
           inputB = obj2
           inputC = obj3
@@ -113,21 +114,21 @@ export class SingleFile {
           inputF = obj6
           command = new Command(Verb.Auto, Mix.AutoNeedsNothing, '')
           break
-        case _.AUTO_INV1_BECOMES_INV2_VIA_ACHMT1:
-          inputA = achievement1
+        case _.AUTO_INV1_BECOMES_INV2_VIA_AMENT1:
+          inputA = ament1
           inputB = inv1
           output = inv2
           command = new Command(Verb.Auto, Mix.AutoNeedsNothing, '')
           break
-        case _.AUTO_INV1_OBTAINED_VIA_ACHMT1:
+        case _.AUTO_INV1_OBTAINED_VIA_AMENT1:
           happs.array.push(new Happening(Happen.InvAppears, inv1))
           output = inv1
-          inputA = achievement1
+          inputA = ament1
           command = new Command(Verb.Auto, Mix.AutoNeedsNothing, '')
           break
-        case _.AUTO_OBJ1_APPEARS_VIA_ACHMT1:
+        case _.AUTO_OBJ1_APPEARS_VIA_AMENT1:
           output = obj1
-          inputA = achievement1
+          inputA = ament1
           command = new Command(Verb.Auto, Mix.AutoNeedsNothing, '')
           break
         case _.AUTO_OBJ1_BECOMES_OBJ2_BY_OBJS:
@@ -140,8 +141,8 @@ export class SingleFile {
           inputF = obj7
           command = new Command(Verb.Auto, Mix.AutoNeedsNothing, '')
           break
-        case _.AUTO_OBJ1_BECOMES_OBJ2_VIA_ACHMT1:
-          inputA = achievement1
+        case _.AUTO_OBJ1_BECOMES_OBJ2_VIA_AMENT1:
+          inputA = ament1
           inputB = obj1
           output = obj2
           command = new Command(Verb.Auto, Mix.AutoNeedsNothing, '')
@@ -176,39 +177,39 @@ export class SingleFile {
           output = inv2
           command = new Command(Verb.Give, Mix.InvVsProp, inv1, obj1)
           break
-        case _.ACHMT1_MET_BY_KEEPING_INV1_WHEN_USED_WITH_OBJ1:
+        case _.AMENT1_MET_BY_KEEPING_INV1_WHEN_USED_WITH_OBJ1:
           happs.text = `You use the ${inv1} with the ${obj1} and something good happens...`
-          happs.array.push(new Happening(Happen.AchievementIsSet, achievement1))
+          happs.array.push(new Happening(Happen.AchievementIsSet, ament1))
           happs.array.push(new Happening(Happen.InvStays, inv1))
           happs.array.push(new Happening(Happen.PropStays, obj1))
-          output = achievement1
+          output = ament1
           inputA = obj1
           inputB = inv1
           command = new Command(Verb.Use, Mix.InvVsProp, inv1, obj1)
           break
-        case _.ACHMT1_MET_BY_LOSING_BOTH_INV1_AND_OBJ1_WHEN_USED:
+        case _.AMENT1_MET_BY_LOSING_BOTH_INV1_AND_OBJ1_WHEN_USED:
           happs.text = `You use the ${inv1} with the ${obj1} and something good happens...`
-          happs.array.push(new Happening(Happen.AchievementIsSet, achievement1))
+          happs.array.push(new Happening(Happen.AchievementIsSet, ament1))
           happs.array.push(new Happening(Happen.InvGoes, inv1))
           happs.array.push(new Happening(Happen.PropGoes, obj1))
-          output = achievement1
+          output = ament1
           inputA = inv1
           inputB = obj1
           command = new Command(Verb.Use, Mix.InvVsProp, inv1, obj1)
           break
-        case _.ACHMT1_MET_BY_LOSING_INV1_WHEN_USED_WITH_OBJ1:
+        case _.AMENT1_MET_BY_LOSING_INV1_WHEN_USED_WITH_OBJ1:
           happs.text = `You use the ${inv1} with the ${obj1} and something good happens...`
-          happs.array.push(new Happening(Happen.AchievementIsSet, achievement1))
+          happs.array.push(new Happening(Happen.AchievementIsSet, ament1))
           happs.array.push(new Happening(Happen.InvGoes, inv1))
           happs.array.push(new Happening(Happen.PropStays, obj1))
-          output = achievement1
+          output = ament1
           inputA = inv1
           inputB = obj1
           command = new Command(Verb.Use, Mix.InvVsProp, inv1, obj1)
           break
-        case _.ACHMT1_MET_BY_LOSING_INV1_USED_WITH_OBJ1_AND_OBJS:
+        case _.AMENT1_MET_BY_LOSING_INV1_USED_WITH_OBJ1_AND_OBJS:
           happs.text = `With everything set up correctly, you use the ${inv1} with the ${obj1} and something good happens...`
-          happs.array.push(new Happening(Happen.AchievementIsSet, achievement1))
+          happs.array.push(new Happening(Happen.AchievementIsSet, ament1))
           happs.array.push(new Happening(Happen.InvGoes, inv1))
           happs.array.push(new Happening(Happen.PropStays, obj1))
           if (obj2.length > 0) {
@@ -217,49 +218,49 @@ export class SingleFile {
           if (obj3.length > 0) {
             happs.array.push(new Happening(Happen.PropStays, obj3))
           }
-          output = achievement1
+          output = ament1
           inputA = inv1
           inputB = obj1
           inputC = obj2
           inputD = obj3
           command = new Command(Verb.Use, Mix.InvVsProp, inv1, obj1)
           break
-        case _.ACHMT1_MET_BY_USING_INV1_WITH_INV2:
+        case _.AMENT1_MET_BY_USING_INV1_WITH_INV2:
           happs.text = `You use the ${inv1} with the ${inv2} and something good happens...`
           happs.array.push(new Happening(Happen.InvStays, inv1))
           happs.array.push(new Happening(Happen.InvStays, inv2))
-          happs.array.push(new Happening(Happen.AchievementIsSet, achievement1))
+          happs.array.push(new Happening(Happen.AchievementIsSet, ament1))
           inputA = inv1
           inputB = inv2
-          output = achievement1
+          output = ament1
           command = new Command(Verb.Use, Mix.InvVsInv, inv1, inv2)
           break
-        case _.ACHMT1_MET_BY_USING_INV1_WITH_OBJ1:
+        case _.AMENT1_MET_BY_USING_INV1_WITH_OBJ1:
           happs.text = `You use the ${inv1} with the ${obj1} and something good happens...`
           happs.array.push(new Happening(Happen.InvStays, inv1))
           happs.array.push(new Happening(Happen.PropStays, obj1))
-          happs.array.push(new Happening(Happen.AchievementIsSet, achievement1))
+          happs.array.push(new Happening(Happen.AchievementIsSet, ament1))
           inputA = inv1
           inputB = obj1
-          output = achievement1
+          output = ament1
           command = new Command(Verb.Use, Mix.InvVsProp, inv1, obj1)
           break
-        case _.ACHMT1_MET_BY_USING_INV1_WITH_OBJ1_LOSE_OBJS:
+        case _.AMENT1_MET_BY_USING_INV1_WITH_OBJ1_LOSE_OBJS:
           happs.text = `You use the ${inv1} with the  ${obj1} and something good happens...`
           happs.array.push(new Happening(Happen.InvStays, inv1))
           happs.array.push(new Happening(Happen.PropGoes, obj1))
-          happs.array.push(new Happening(Happen.AchievementIsSet, achievement1))
+          happs.array.push(new Happening(Happen.AchievementIsSet, ament1))
           command = new Command(Verb.Use, Mix.InvVsProp, inv1, obj1)
           inputA = inv1
           inputB = obj1
-          output = achievement1
+          output = ament1
           break
-        case _.ACHMT1_MET_BY_USING_INV1_WITH_OBJ1_NEED_ACHMTS:
+        case _.AMENT1_MET_BY_USING_INV1_WITH_OBJ1_NEED_AMENTS:
           happs.text = `You use the ${inv1} with the  ${obj1} and something good happens...`
           happs.array.push(new Happening(Happen.InvStays, inv1))
           happs.array.push(new Happening(Happen.PropStays, obj1))
-          happs.array.push(new Happening(Happen.AchievementIsSet, achievement1))
-          output = achievement1
+          happs.array.push(new Happening(Happen.AchievementIsSet, ament1))
+          output = ament1
           inputA = inv1
           inputB = obj1
           inputC = achievement2
@@ -268,24 +269,24 @@ export class SingleFile {
           inputF = achievement5
           command = new Command(Verb.Use, Mix.InvVsProp, inv1, obj1)
           break
-        case _.ACHMT1_MET_BY_USING_OBJ1_WITH_OBJ2:
+        case _.AMENT1_MET_BY_USING_OBJ1_WITH_OBJ2:
           happs.text = `You use the ${obj1} with the ${obj2} and something good happens...`
           happs.array.push(new Happening(Happen.PropStays, obj1))
           happs.array.push(new Happening(Happen.PropStays, obj2))
-          happs.array.push(new Happening(Happen.AchievementIsSet, achievement1))
+          happs.array.push(new Happening(Happen.AchievementIsSet, ament1))
           inputA = obj1
           inputB = obj2
-          output = achievement1
+          output = ament1
           command = new Command(Verb.Use, Mix.PropVsProp, obj1, obj2)
           break
-        case _.ACHMT1_MET_BY_GIVING_INV1_TO_OBJ1:
-          happs.text = `Achievement is set ${achievement1}`
+        case _.AMENT1_MET_BY_GIVING_INV1_TO_OBJ1:
+          happs.text = `Achievement is set ${ament1}`
           happs.array.push(new Happening(Happen.InvGoes, inv1))
           happs.array.push(new Happening(Happen.PropStays, obj1))
-          happs.array.push(new Happening(Happen.AchievementIsSet, achievement1))
+          happs.array.push(new Happening(Happen.AchievementIsSet, ament1))
           inputA = inv1
           inputB = obj1
-          output = achievement1
+          output = ament1
           command = new Command(Verb.Give, Mix.InvVsProp, inv1, obj1)
           break
         case _.INV1_BECOMES_INV2_AS_OBJ1_BECOMES_OBJ2_GEN:
@@ -301,7 +302,7 @@ export class SingleFile {
                 `${GetNextId()}a`,
                 null,
                 output1,
-                _.ACHMT1_MET_BY_USING_INV1_WITH_OBJ1,
+                _.AMENT1_MET_BY_USING_INV1_WITH_OBJ1,
                 count,
                 new Command(Verb.Use, Mix.InvVsProp, inv1, obj1),
                 happs1,
@@ -327,7 +328,7 @@ export class SingleFile {
                   `${GetNextId()}b`,
                   null,
                   output2,
-                  _.AUTO_INV1_BECOMES_INV2_VIA_ACHMT1,
+                  _.AUTO_INV1_BECOMES_INV2_VIA_AMENT1,
                   count,
                   new Command(Verb.Auto, Mix.AutoNeedsNothing, ''),
                   happs2,
@@ -351,7 +352,7 @@ export class SingleFile {
                   `${GetNextId()}c`,
                   null,
                   output3,
-                  _.AUTO_OBJ1_BECOMES_OBJ2_VIA_ACHMT1,
+                  _.AUTO_OBJ1_BECOMES_OBJ2_VIA_AMENT1,
                   count,
                   new Command(Verb.Auto, Mix.AutoNeedsNothing, ''),
                   happs3,
@@ -522,7 +523,7 @@ export class SingleFile {
                 `${GetNextId()}d`,
                 null,
                 output1,
-                _.ACHMT1_MET_BY_USING_INV1_WITH_OBJ1,
+                _.AMENT1_MET_BY_USING_INV1_WITH_OBJ1,
                 count,
                 new Command(Verb.Use, Mix.InvVsProp, inv1, obj1),
                 happs1,
@@ -547,7 +548,7 @@ export class SingleFile {
                   `${GetNextId()}e`,
                   null,
                   output2,
-                  _.AUTO_INV1_OBTAINED_VIA_ACHMT1,
+                  _.AUTO_INV1_OBTAINED_VIA_AMENT1,
                   count,
                   new Command(Verb.Auto, Mix.AutoNeedsNothing, ''),
                   happs2,
@@ -570,7 +571,7 @@ export class SingleFile {
                   `${GetNextId()}f`,
                   null,
                   output3,
-                  _.AUTO_OBJ1_BECOMES_OBJ2_VIA_ACHMT1,
+                  _.AUTO_OBJ1_BECOMES_OBJ2_VIA_AMENT1,
                   count,
                   new Command(Verb.Auto, Mix.AutoNeedsNothing, ''),
                   happs3,
@@ -606,7 +607,7 @@ export class SingleFile {
           inputB = obj2
           command = new Command(Verb.Open, Mix.InvVsProp, inv1, obj2)
           break
-        case _.OBJ1_APPEARS_WHEN_GRAB_OBJ2_WITH_ACHMT1:
+        case _.OBJ1_APPEARS_WHEN_GRAB_OBJ2_WITH_AMENT1:
           happs.text = `You use the ${obj2} and, somewhere, a ${obj1} appears`
           happs.array.push(new Happening(Happen.PropAppears, obj1))
           command = new Command(Verb.Open, Mix.Inv, inv2)
@@ -615,7 +616,7 @@ export class SingleFile {
           // always constructs the solution as 'grab inputA'
           // so it needs to be input A
           inputA = obj2
-          inputB = achievement1
+          inputB = ament1
           break
         case _.OBJ1_APPEARS_WHEN_USE_INV1_WITH_OBJ2:
           happs.text = `You use the ${inv1} with the ${obj2} and the ${obj2} appears`
@@ -711,7 +712,7 @@ export class SingleFile {
           inputA = obj1
           command = new Command(Verb.Grab, Mix.Prop, obj1)
           break
-        case _.OBJ1_GOES_WHEN_GRAB_INV1_WITH_ACHMT1:
+        case _.OBJ1_GOES_WHEN_GRAB_INV1_WITH_AMENT1:
           happs.text = `You now have a ${inv1}`
           // ly don't mention what happen to the obj you clicked on.  '\n You notice the ' + obj1 + ' has now become a ' + obj2
           happs.array.push(new Happening(Happen.PropGoes, obj1))
@@ -719,15 +720,15 @@ export class SingleFile {
           command = new Command(Verb.Grab, Mix.Prop, obj1)
           output = inv1
           inputA = obj1
-          inputB = achievement1
+          inputB = ament1
           break
-        case _.OBJ1_STAYS_WHEN_GRAB_INV1_WITH_ACHMT1:
+        case _.OBJ1_STAYS_WHEN_GRAB_INV1_WITH_AMENT1:
           happs.text = `You now have a ${inv1}`
           // ly don't mention what happen to the obj you clicked on.  '\n You now have a' + inv1
           happs.array.push(new Happening(Happen.InvAppears, inv1))
           output = inv1
           inputA = obj1
-          inputB = achievement1
+          inputB = ament1
           command = new Command(Verb.Grab, Mix.Prop, obj1)
           break
         case _.CHAT_TO_OBJ1_GETS_INV1:
@@ -737,12 +738,12 @@ export class SingleFile {
           inputA = obj1
           command = new Command(Verb.Chat, Mix.Prop, obj1)
           break
-        case _.CHAT_TO_OBJ1_WITH_ACHMT1_GETS_INV1:
+        case _.CHAT_TO_OBJ1_WITH_AMENT1_GETS_INV1:
           happs.text = `You chated with achievement and now have a ${inv1}`
           happs.array.push(new Happening(Happen.InvAppears, inv1))
           output = inv1
           inputA = obj1
-          inputB = achievement1
+          inputB = ament1
           command = new Command(Verb.Chat, Mix.Prop, obj1)
           break
         case _.THROW_INV1_AT_OBJ1_GETS_INV2_LOSE_BOTH:
@@ -780,6 +781,7 @@ export class SingleFile {
           output = obj2
           command = new Command(Verb.Toggle, Mix.Prop, obj1)
           break
+        case 'AMENT1_MET_BY_GIVING_INV1_TO_OBJ1':
         default:
           console.error(
             `Fatal Error: We did not handle a pieceType that we're supposed to. Check to see if constant names are the same as their values in the schema. ${pieceType}`

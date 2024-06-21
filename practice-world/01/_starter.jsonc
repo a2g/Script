@@ -51,21 +51,21 @@
       "inv2": "inv_bio-diesel"
     },
     {
-      "piece": "ACHMT1_MET_BY_USING_INV1_WITH_OBJ1",
-      "achievement1": "a_electricity_restored",
+      "piece": "AMENT1_MET_BY_USING_INV1_WITH_OBJ1",
+      "ament1": "a_electricity_restored",
       "inv1": "inv_bio-diesel",
       "obj1": "obj_generator",
       "isNoFile": true
     },
     {
-      "piece": "OBJ1_APPEARS_WHEN_GRAB_OBJ2_WITH_ACHMT1",
+      "piece": "OBJ1_APPEARS_WHEN_GRAB_OBJ2_WITH_AMENT1",
       "obj1": "obj_taxi",
-      "prop2": "obj_phone",
-      "achievement1": "a_electricity_restored"
+      "obj2": "obj_phone",
+      "ament1": "a_electricity_restored"
     },
     {
-      "piece": "ACHMT1_MET_BY_GIVING_INV1_TO_OBJ1",
-      "achievement1": "a_win",
+      "piece": "AMENT1_MET_BY_GIVING_INV1_TO_OBJ1",
+      "ament1": "a_win",
       "inv1": "inv_one_irish_punt",
       "obj1": "obj_taxi"
     },

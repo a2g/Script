@@ -39,8 +39,8 @@
       "inv1": "inv_rock"
     },
     {
-      "piece": "ACHMT1_MET_BY_USING_INV1_WITH_OBJ1",
-      "achievement1": "a03_access_to_icehouse",
+      "piece": "AMENT1_MET_BY_USING_INV1_WITH_OBJ1",
+      "ament1": "a03_access_to_icehouse",
       "inv1": "inv_soil_thermometer",
       "obj1": "obj_icehouse"
     },
@@ -68,8 +68,8 @@
       "inv2": "inv_greenhouse_key"
     },
     {
-      "piece": "ACHMT1_MET_BY_USING_INV1_WITH_OBJ1",
-      "achievement1": "achievement_03_access_to_greenhouse",
+      "piece": "AMENT1_MET_BY_USING_INV1_WITH_OBJ1",
+      "ament1": "achievement_03_access_to_greenhouse",
       "inv1": "inv_greenhouse_key",
       "obj1": "obj_greenhouse_door"
     },
@@ -86,14 +86,14 @@
       "inv3": "inv_rolling_pin"
     },
     {
-      "piece": "ACHMT1_MET_BY_USING_INV1_WITH_OBJ1",
-      "achievement1": "achievement_used_bucket_with_coal_bunker",
+      "piece": "AMENT1_MET_BY_USING_INV1_WITH_OBJ1",
+      "ament1": "achievement_used_bucket_with_coal_bunker",
       "inv1": "inv_empty_bucket_after_water",
       "obj1": "obj_coal_bunker"
     },
     {
-      "piece": "AUTO_INV1_OBTAINED_VIA_ACHMT1",
-      "achievement1": "achievement_used_bucket_with_coal_bunker",
+      "piece": "AUTO_INV1_OBTAINED_VIA_AMENT1",
+      "ament1": "achievement_used_bucket_with_coal_bunker",
       "inv1": "inv_bucket_of_coal"
     },
     {
@@ -103,19 +103,19 @@
       "obj1": "obj_crank_attached_to_well"
     },
     {
-      "piece": "ACHMT1_MET_BY_USING_INV1_WITH_OBJ1",
-      "achievement1": "achievement_03_used_crank_with_well",
+      "piece": "AMENT1_MET_BY_USING_INV1_WITH_OBJ1",
+      "ament1": "achievement_03_used_crank_with_well",
       "inv1": "inv_crank",
       "obj1": "obj_well"
     },
     {
-      "piece": "AUTO_OBJ1_APPEARS_VIA_ACHMT1",
-      "achievement1": "achievement_03_used_crank_with_well",
+      "piece": "AUTO_OBJ1_APPEARS_VIA_AMENT1",
+      "ament1": "achievement_03_used_crank_with_well",
       "obj1": "obj_crank_attached_to_well"
     },
     {
-      "piece": "AUTO_INV1_OBTAINED_VIA_ACHMT1",
-      "achievement1": "achievement_03_used_crank_with_well",
+      "piece": "AUTO_INV1_OBTAINED_VIA_AMENT1",
+      "ament1": "achievement_03_used_crank_with_well",
       "inv1": "inv_bucket_of_water"
     }
   ]

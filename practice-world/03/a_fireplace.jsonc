@@ -17,31 +17,31 @@
       "inv1": "inv_bucket_of_coal",
       "obj1": "obj_furnace",
       "inv2": "inv_empty_bucket_after_coal",
-      "prop2": "obj_furnace_with_coal",
+      "obj2": "obj_furnace_with_coal",
       "isNoFile": true
     },
     {
       "piece": "OBJ1_BECOMES_OBJ2_BY_LOSING_INV1",
       "obj1": "obj_rocket",
-      "prop2": "obj_rocket_with_sunstone",
+      "obj2": "obj_rocket_with_sunstone",
       "inv1": "inv_sunstone"
     },
     {
       "piece": "TOGGLE_OBJ1_BECOMES_OBJ2",
       "obj1": "obj_button(unpressed)",
-      "prop2": "obj_button(pressed)"
+      "obj2": "obj_button(pressed)"
     },
     {
-      "piece": "AUTO_ACHMT1_MET_BY_OBJS",
-      "achievement1": "a_button_pressed",
+      "piece": "AUTO_AMENT1_MET_BY_OBJS",
+      "ament1": "a_button_pressed",
       "obj1": "obj_button(pressed)",
-      "prop2": "obj_furnace_lit",
+      "obj2": "obj_furnace_lit",
       "obj3": "obj_rocket_with_sunstone"
     },
     {
       "piece": "OBJ1_BECOMES_OBJ2_BY_KEEPING_INV1",
       "obj1": "obj_furnace_with_coal",
-      "prop2": "obj_furnace_lit",
+      "obj2": "obj_furnace_lit",
       "inv1": "inv_torch_lit"
     }
   ]

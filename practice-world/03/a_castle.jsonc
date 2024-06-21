@@ -31,8 +31,8 @@
   ],
   "pieces": [
     {
-      "piece": "AUTO_ACHMT1_MET_BY_OBJS",
-      "achievement1": "a_access_thru_fireplace",
+      "piece": "AUTO_AMENT1_MET_BY_OBJS",
+      "ament1": "a_fireplace",
       "obj1": "obj_fireplace_ladder"
     },
     {
@@ -41,7 +41,7 @@
       "inv1": "inv_bucket_of_water",
       "inv2": "inv_empty_bucket_after_water",
       "obj1": "obj_fireplace(lit)",
-      "prop2": "obj_fireplace_ladder"
+      "obj2": "obj_fireplace_ladder"
     },
     {
       "piece": "INV1_OBTAINED_BY_LOSING_INV2_KEEPING_OBJ1",
@@ -50,21 +50,21 @@
       "obj1": "obj_grandfather_clock"
     },
     {
-      "piece": "ACHMT1_MET_BY_LOSING_INV1_WHEN_USED_WITH_OBJ1",
-      "achievement1": "a_access_thru_dumbwaiter",
+      "piece": "AMENT1_MET_BY_LOSING_INV1_WHEN_USED_WITH_OBJ1",
+      "ament1": "a_dumbwaiter",
       "inv1": "inv_cogs",
       "obj1": "obj_dumbwaiter"
     },
     {
-      "piece": "ACHMT1_MET_BY_USING_INV1_WITH_OBJ1",
-      "achievement1": "a_access_to_hideout",
+      "piece": "AMENT1_MET_BY_USING_INV1_WITH_OBJ1",
+      "ament1": "a_hideout",
       "inv1": "inv_burning_herbs",
       "obj1": "obj_vent"
     },
     {
-      "piece": "OBJ1_GOES_WHEN_GRAB_INV1_WITH_ACHMT1",
+      "piece": "OBJ1_GOES_WHEN_GRAB_INV1_WITH_AMENT1",
       "obj1": "obj_cooking_lard",
-      "achievement1": "a_access_to_castle",
+      "ament1": "a_castle",
       "inv1": "inv_cooking_lard"
     }
   ]

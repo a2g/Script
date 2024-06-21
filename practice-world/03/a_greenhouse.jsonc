@@ -10,9 +10,9 @@
   ],
   "pieces": [
     {
-      "piece": "OBJ1_GOES_WHEN_GRAB_INV1_WITH_ACHMT1",
+      "piece": "OBJ1_GOES_WHEN_GRAB_INV1_WITH_AMENT1",
       "obj1": "obj_herbs",
-      "achievement1": "a_access_to_greenhouse",
+      "ament1": "a_greenhouse",
       "inv1": "inv_herbs"
     },
     {

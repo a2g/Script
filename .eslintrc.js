@@ -14,6 +14,7 @@ module.exports = {
     sourceType: 'module'
   },
   rules: {
+    '@typescript-eslint/default-case-last': 'off',
     'restrict-template-expressions': 'off',
     '@typescript-eslint/no-empty-interface': 'off'
   }

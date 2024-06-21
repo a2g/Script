@@ -10,15 +10,15 @@
   ],
   "pieces": [
     {
-      "piece": "OBJ1_GOES_WHEN_GRAB_INV1_WITH_ACHMT1",
+      "piece": "OBJ1_GOES_WHEN_GRAB_INV1_WITH_AMENT1",
       "obj1": "obj_hurl",
-      "achievement1": "achievement_03_access_to_hideout",
+      "ament1": "achievement_03_access_to_hideout",
       "inv1": "inv_hurl"
     },
     {
-      "piece": "OBJ1_GOES_WHEN_GRAB_INV1_WITH_ACHMT1",
+      "piece": "OBJ1_GOES_WHEN_GRAB_INV1_WITH_AMENT1",
       "obj1": "obj_windup_key",
-      "achievement1": "achievement_03_access_to_hideout",
+      "ament1": "achievement_03_access_to_hideout",
       "inv1": "inv_windup_key"
     }
   ]

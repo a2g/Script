@@ -23,7 +23,7 @@
         "obj1": {
           "$ref": "o_objects.jsonc#/definitions/object_enum"
         },
-        "prop2": {
+        "obj2": {
           "$ref": "o_objects.jsonc#/definitions/object_enum"
         },
         "obj3": {
@@ -38,22 +38,22 @@
         "obj6": {
           "$ref": "o_objects.jsonc#/definitions/object_enum"
         },
-        "a1": {
+        "ament1": {
           "$ref": "a_achievements.jsonc#/definitions/achievement_enum"
         },
-        "a2": {
+        "ament2": {
           "$ref": "a_achievements.jsonc#/definitions/achievement_enum"
         },
-        "a3": {
+        "ament3": {
           "$ref": "a_achievements.jsonc#/definitions/achievement_enum"
         },
-        "a4": {
+        "ament4": {
           "$ref": "a_achievements.jsonc#/definitions/achievement_enum"
         },
-        "a5": {
+        "ament5": {
           "$ref": "a_achievements.jsonc#/definitions/achievement_enum"
         },
-        "a6": {
+        "ament6": {
           "$ref": "a_achievements.jsonc#/definitions/achievement_enum"
         },
         "isNoFile": {

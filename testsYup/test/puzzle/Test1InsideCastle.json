@@ -31,24 +31,24 @@
   ],
   "pieces": [
     {
-      "piece": "AUTO_ACHMT1_MET_BY_OBJS",
-      "achievement1": "achievement_03_access_thru_fireplace",
+      "piece": "AUTO_AMENT1_MET_BY_OBJS",
+      "ament1": "achievement_03_access_thru_fireplace",
       "obj1": "obj_fireplace_ladder"
     },
     {
-      "piece": "ACHMT1_MET_BY_USING_INV1_WITH_OBJ1",
-      "achievement1": "achievement_03_used_bucket_of_water_with_fire",
+      "piece": "AMENT1_MET_BY_USING_INV1_WITH_OBJ1",
+      "ament1": "achievement_03_used_bucket_of_water_with_fire",
       "inv1": "inv_bucket_of_water",
       "obj1": "obj_fireplace(lit)"
     },
     {
-      "piece": "AUTO_OBJ1_APPEARS_VIA_ACHMT1",
-      "achievement1": "achievement_03_used_bucket_of_water_with_fire",
+      "piece": "AUTO_OBJ1_APPEARS_VIA_AMENT1",
+      "ament1": "achievement_03_used_bucket_of_water_with_fire",
       "obj1": "obj_fireplace_ladder"
     },
     {
-      "piece": "AUTO_INV1_OBTAINED_VIA_ACHMT1",
-      "achievement1": "achievement_03_used_bucket_of_water_with_fire",
+      "piece": "AUTO_INV1_OBTAINED_VIA_AMENT1",
+      "ament1": "achievement_03_used_bucket_of_water_with_fire",
       "inv1": "inv_empty_bucket_after_water"
     },
     {
@@ -58,21 +58,21 @@
       "obj1": "obj_grandfather_clock"
     },
     {
-      "piece": "ACHMT1_MET_BY_LOSING_INV1_WHEN_USED_WITH_OBJ1",
-      "achievement1": "achievement_03_access_thru_dumbwaiter",
+      "piece": "AMENT1_MET_BY_LOSING_INV1_WHEN_USED_WITH_OBJ1",
+      "ament1": "achievement_03_access_thru_dumbwaiter",
       "inv1": "inv_cogs",
       "obj1": "obj_dumbwaiter"
     },
     {
-      "piece": "ACHMT1_MET_BY_USING_INV1_WITH_OBJ1",
-      "achievement1": "achievement_03_access_to_hideout",
+      "piece": "AMENT1_MET_BY_USING_INV1_WITH_OBJ1",
+      "ament1": "achievement_03_access_to_hideout",
       "inv1": "inv_burning_herbs",
       "obj1": "obj_vent"
     },
     {
-      "piece": "OBJ1_GOES_WHEN_GRAB_INV1_WITH_ACHMT1",
+      "piece": "OBJ1_GOES_WHEN_GRAB_INV1_WITH_AMENT1",
       "obj1": "obj_cooking_lard",
-      "achievement1": "achievement_03_access_to_castle",
+      "ament1": "achievement_03_access_to_castle",
       "inv1": "inv_cooking_lard"
     }
   ]

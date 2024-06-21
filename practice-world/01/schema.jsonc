@@ -11,7 +11,7 @@
         }
       ],
       "properties": {
-        "achievement1": {
+        "ament1": {
           "$ref": "01 enums.jsonc#/definitions/achievement_enum"
         },
         "achievement2": {
@@ -29,7 +29,7 @@
         "obj1": {
           "$ref": "01 enums.jsonc#/definitions/object_enum"
         },
-        "prop2": {
+        "obj2": {
           "$ref": "01 enums.jsonc#/definitions/object_enum"
         },
         "obj3": {

@@ -7,14 +7,14 @@
   ],
   "pieces": [
     {
-      "piece": "OBJ1_GOES_WHEN_GRAB_INV1_WITH_ACHMT1",
+      "piece": "OBJ1_GOES_WHEN_GRAB_INV1_WITH_AMENT1",
       "obj1": "obj_three_punctuated_circles",
       "inv1": "inv_three_punctuated_circles",
-      "achievement1": "a_access_to_icehouse"
+      "ament1": "a_icehouse"
     },
     {
-      "piece": "ACHMT1_MET_BY_GIVING_INV1_TO_OBJ1",
-      "achievement1": "a_access_to_castle",
+      "piece": "AMENT1_MET_BY_GIVING_INV1_TO_OBJ1",
+      "ament1": "a_castle",
       "inv1": "inv_three_punctuated_circles",
       "obj1": "obj_arch_druid"
     }
