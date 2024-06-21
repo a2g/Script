@@ -6,10 +6,10 @@ test('should render inv_ in green', () => {
   expect(FormatText('inv_blah')).toBe(Colors.Green + 'blah' + Colors.Reset)
 })
 
-test('should render prop_ in cyan', () => {
-  expect(FormatText('prop_blah')).toBe(Colors.Cyan + 'blah' + Colors.Reset)
+test('should render obj_ in cyan', () => {
+  expect(FormatText('obj_blah')).toBe(Colors.Cyan + 'blah' + Colors.Reset)
 })
 
-test('should render .goal in yellow', () => {
-  expect(FormatText('blah.goal')).toBe(Colors.Yellow + 'blah' + Colors.Reset)
+test('should render .achievement in yellow', () => {
+  expect(FormatText('blah.achievement')).toBe(Colors.Yellow + 'blah' + Colors.Reset)
 })

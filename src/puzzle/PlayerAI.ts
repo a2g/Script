@@ -8,12 +8,12 @@ const prompt = promptSync()
 // const result = prompt(message);
 
 // April 2021
-// The blind / location - agnostic way to find solutions is to have an inv vs props table, and inv vs inv table, and a verb vs props table, and a verb vs invs table, then
+// The blind / location - agnostic way to find solutions is to have an inv vs objs table, and inv vs inv table, and a verb vs objs table, and a verb vs invs table, then
 // 1. Check the invs vs invs ? this is the lowest hanging fruit
 // 2. Check the verbs vs invs ? this is the second lowest hanging fruit - if find something then go to 1.
-// 3. Check the invs vs props ? this is the third lowest hanging fruit - if find a new inv, then go to 1.
-// 4. Check the verbs vs props ? this is the fourth lowest hanging truit - if find something, then go to 1.
-// 5. Ensure there is no PROPS VS PROPS because:
+// 3. Check the invs vs objs ? this is the third lowest hanging fruit - if find a new inv, then go to 1.
+// 4. Check the verbs vs objs ? this is the fourth lowest hanging truit - if find something, then go to 1.
+// 5. Ensure there is no OBJS VS OBJS because:
 //     A.unless we  give the AI knowledge of locations, then a blind  brute force would take forever.
 //     B.even if we did have knowledge of locations, it would mean creating a logic grid per location...which is easy - and doable.hmmn.
 //
@@ -25,8 +25,8 @@ export class PlayerAI implements IHappenerCallbacks {
   public invVsInv: LogicGrid
   public invVsVerb: LogicGrid
   public invVsProp: LogicGrid
-  public propVsVerb: LogicGrid
-  public propVsProp: LogicGrid
+  public objVsVerb: LogicGrid
+  public objVsProp: LogicGrid
   public game: Happener
   public autoCount: number
 
@@ -35,13 +35,13 @@ export class PlayerAI implements IHappenerCallbacks {
     this.autoCount = numberOfAutopilotTurns
     const verbs = game.GetVerbsExcludingUse()
     const invs = game.GetEntireInvSuite()
-    const props = game.GetEntirePropSuite()
+    const objs = game.GetEntirePropSuite()
 
     this.invVsInv = new LogicGrid(invs, invs)
     this.invVsVerb = new LogicGrid(invs, verbs)
-    this.invVsProp = new LogicGrid(invs, props)
-    this.propVsVerb = new LogicGrid(props, verbs)
-    this.propVsProp = new LogicGrid(props, props)
+    this.invVsProp = new LogicGrid(invs, objs)
+    this.objVsVerb = new LogicGrid(objs, verbs)
+    this.objVsProp = new LogicGrid(objs, objs)
     // this.game.SubscribeToCallbacks(this);
 
     // since use same with same is illegal move, we block these out
@@ -50,9 +50,9 @@ export class PlayerAI implements IHappenerCallbacks {
       this.invVsInv.SetColumnRow(i, i)
     }
     // since use same with same is illegal move, we block these out
-    for (let i = 0; i < props.length; i += 1) {
+    for (let i = 0; i < objs.length; i += 1) {
       // classic forloop useful because shared index
-      this.propVsProp.SetColumnRow(i, i)
+      this.objVsProp.SetColumnRow(i, i)
     }
   }
 
@@ -82,7 +82,7 @@ export class PlayerAI implements IHappenerCallbacks {
             ''
           ]
         }
-        // 3. Check the invs vs props ? this is the third lowest hanging fruit - if find a new inv, then go to 1.
+        // 3. Check the invs vs objs ? this is the third lowest hanging fruit - if find a new inv, then go to 1.
         const useInvOnProp = this.invVsInv.GetNextGuess()
         if (useInvOnProp[0] !== -1) {
           this.invVsInv.SetColumnRow(useInvOnProp[0], useInvOnProp[1])
@@ -93,21 +93,21 @@ export class PlayerAI implements IHappenerCallbacks {
             this.game.GetProp(useInvOnProp[1])
           ]
         }
-        // 4. Check the verbs vs props ? this is the fourth lowest hanging truit - if find something, then go to 1.
-        const propVsVerb = this.propVsVerb.GetNextGuess()
-        if (propVsVerb[0] !== -1) {
-          this.propVsVerb.SetColumnRow(propVsVerb[0], propVsVerb[1])
+        // 4. Check the verbs vs objs ? this is the fourth lowest hanging truit - if find something, then go to 1.
+        const objVsVerb = this.objVsVerb.GetNextGuess()
+        if (objVsVerb[0] !== -1) {
+          this.objVsVerb.SetColumnRow(objVsVerb[0], objVsVerb[1])
           return [
-            this.game.GetVerb(propVsVerb[1]),
-            this.game.GetProp(propVsVerb[0]),
+            this.game.GetVerb(objVsVerb[1]),
+            this.game.GetProp(objVsVerb[0]),
             ''
           ]
         }
-        // 5. Ensure there is no PROPS VS PROPS because:
-        const usePropOnProp = this.propVsProp.GetNextGuess()
+        // 5. Ensure there is no OBJS VS OBJS because:
+        const usePropOnProp = this.objVsProp.GetNextGuess()
         if (usePropOnProp[0] !== -1) {
-          this.propVsProp.SetColumnRow(usePropOnProp[0], usePropOnProp[1])
-          this.propVsProp.SetColumnRow(usePropOnProp[1], usePropOnProp[0])
+          this.objVsProp.SetColumnRow(usePropOnProp[0], usePropOnProp[1])
+          this.objVsProp.SetColumnRow(usePropOnProp[1], usePropOnProp[0])
           return [
             'use',
             this.game.GetProp(usePropOnProp[0]),
@@ -165,28 +165,28 @@ export class PlayerAI implements IHappenerCallbacks {
   ): void {
     // the convention for the array is x then y, or column then row.
     // so Set..Column sets the first t
-    this.propVsVerb.SetVisibilityOfColumn(
+    this.objVsVerb.SetVisibilityOfColumn(
       theNumber,
       newValue,
       nameForDebugging
     )
     this.invVsProp.SetVisibilityOfRow(theNumber, newValue, nameForDebugging)
-    this.propVsProp.SetVisibilityOfRow(theNumber, newValue, nameForDebugging)
-    this.propVsProp.SetVisibilityOfColumn(
+    this.objVsProp.SetVisibilityOfRow(theNumber, newValue, nameForDebugging)
+    this.objVsProp.SetVisibilityOfColumn(
       theNumber,
       newValue,
       nameForDebugging
     )
   }
 
-  public OnGoalValueChange (
+  public OnAchievementValueChange (
     theNumber: number,
     newValue: number,
     nameForDebugging: string
   ): void {
     // the convention for the array is x then y, or column then row.
     // so Set..Column sets the first t
-    this.propVsVerb.SetVisibilityOfColumn(
+    this.objVsVerb.SetVisibilityOfColumn(
       theNumber,
       newValue > 0,
       nameForDebugging
@@ -196,12 +196,12 @@ export class PlayerAI implements IHappenerCallbacks {
       newValue > 0,
       nameForDebugging
     )
-    this.propVsProp.SetVisibilityOfRow(
+    this.objVsProp.SetVisibilityOfRow(
       theNumber,
       newValue > 0,
       nameForDebugging
     )
-    this.propVsProp.SetVisibilityOfColumn(
+    this.objVsProp.SetVisibilityOfColumn(
       theNumber,
       newValue > 0,
       nameForDebugging

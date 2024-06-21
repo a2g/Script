@@ -2,22 +2,22 @@
   "$schema": "./schema_for_achievements.jsonc",
   "startingThings": [
     {
-      "thing": "prop_soil_thermometer"
+      "thing": "obj_soil_thermometer"
     },
     {
-      "thing": "prop_herbs"
+      "thing": "obj_herbs"
     }
   ],
   "pieces": [
     {
-      "piece": "PROP1_GOES_WHEN_GRAB_INV1_WITH_GOAL1",
-      "prop1": "prop_herbs",
-      "goal1": "a_access_to_greenhouse",
+      "piece": "OBJ1_GOES_WHEN_GRAB_INV1_WITH_ACHMT1",
+      "obj1": "obj_herbs",
+      "achievement1": "a_access_to_greenhouse",
       "inv1": "inv_herbs"
     },
     {
-      "piece": "PROP1_GOES_WHEN_GRAB_INV1",
-      "prop1": "prop_soil_thermometer",
+      "piece": "OBJ1_GOES_WHEN_GRAB_INV1",
+      "obj1": "obj_soil_thermometer",
       "inv1": "inv_soil_thermometer"
     }
   ]

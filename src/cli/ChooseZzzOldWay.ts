@@ -7,12 +7,12 @@ import { PieceView } from './views/PieceView'
 const prompt = promptSync({})
 
 export function ChooseZzzOldWay (solutions: Solutions): void {
-  console.warn('ChooseClimbIntoGoals... ')
+  console.warn('ChooseClimbIntoAchievements... ')
 
   for (; ;) {
     solutions.UpdateSolvedStatuses()
     const numberOfSolutions: number = solutions.NumberOfSolutions()
-    console.warn('Climb in to goals')
+    console.warn('Climb in to achievements')
     console.warn('===============')
     console.warn(`Number of solutions in solutions = ${numberOfSolutions}`)
 
@@ -52,11 +52,11 @@ export function ChooseZzzOldWay (solutions: Solutions): void {
       }
     }
 
-    console.warn(`Number of goals incomplete ${incomplete}/${listItemNumber}`)
+    console.warn(`Number of achievements incomplete ${incomplete}/${listItemNumber}`)
 
     // allow user to choose item
     const input = prompt(
-      'Choose goal to climb up into or (b)ack, (r)e-run: '
+      'Choose achievement to climb up into or (b)ack, (r)e-run: '
     ).toLowerCase()
     if (input === null || input === 'b') {
       continue
@@ -71,12 +71,12 @@ export function ChooseZzzOldWay (solutions: Solutions): void {
         const solutionArray = solutions.GetSolutions()
         for (let i = 0; i < solutionArray.length; i++) {
           const rootMap = solutionArray[i].GetAchievementStubMap()
-          const goals = rootMap.GetValues()
-          for (const goal of goals) {
+          const achievements = rootMap.GetValues()
+          for (const achievement of achievements) {
             i++
-            const theGoalPiece = goal.GetThePiece()
-            if (i === theNumber && (theGoalPiece != null)) {
-              PieceView(theGoalPiece, solutionArray[i].GetVisibleThingsAtTheStart(), ['blah'])
+            const theAchievementPiece = achievement.GetThePiece()
+            if (i === theNumber && (theAchievementPiece != null)) {
+              PieceView(theAchievementPiece, solutionArray[i].GetVisibleThingsAtTheStart(), ['blah'])
             }
           }
         }

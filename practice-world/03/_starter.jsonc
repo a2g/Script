@@ -5,54 +5,54 @@
       "thing": "inv_torch_lit"
     },
     {
-      "thing": "prop_icehouse"
+      "thing": "obj_icehouse"
     },
     {
-      "thing": "prop_apples"
+      "thing": "obj_apples"
     },
     {
-      "thing": "prop_loose_brick"
+      "thing": "obj_loose_brick"
     },
     {
-      "thing": "prop_druid_wielding_knife"
+      "thing": "obj_druid_wielding_knife"
     },
     {
-      "thing": "prop_butler"
+      "thing": "obj_butler"
     },
     {
-      "thing": "prop_greenhouse_door"
+      "thing": "obj_greenhouse_door"
     },
     {
-      "thing": "prop_coal_bunker"
+      "thing": "obj_coal_bunker"
     },
     {
-      "thing": "prop_well"
+      "thing": "obj_well"
     },
     {
-      "thing": "prop_arch_druid"
+      "thing": "obj_arch_druid"
     }
   ],
   "pieces": [
     {
-      "piece": "GOAL1_MET_BY_USING_INV1_WITH_PROP1",
-      "goal1": "a_access_to_icehouse",
+      "piece": "ACHMT1_MET_BY_USING_INV1_WITH_OBJ1",
+      "achievement1": "a_access_to_icehouse",
       "inv1": "inv_soil_thermometer",
-      "prop1": "prop_icehouse"
+      "obj1": "obj_icehouse"
     },
     {
-      "piece": "PROP1_GOES_WHEN_GRAB_INV1",
-      "prop1": "prop_loose_brick",
+      "piece": "OBJ1_GOES_WHEN_GRAB_INV1",
+      "obj1": "obj_loose_brick",
       "inv1": "inv_rock"
     },
     {
-      "piece": "THROW_INV1_AT_PROP1_GETS_INV2_LOSE_BOTH",
+      "piece": "THROW_INV1_AT_OBJ1_GETS_INV2_LOSE_BOTH",
       "inv1": "inv_rock",
-      "prop1": "prop_apples",
+      "obj1": "obj_apples",
       "inv2": "inv_apple"
     },
     {
-      "piece": "TALK_TO_PROP1_GETS_INV1",
-      "prop1": "prop_druid_wielding_knife",
+      "piece": "CHAT_TO_OBJ1_GETS_INV1",
+      "obj1": "obj_druid_wielding_knife",
       "inv1": "inv_knife"
     },
     {
@@ -62,16 +62,16 @@
       "inv3": "inv_knife"
     },
     {
-      "piece": "GIVE_INV1_TO_PROP1_GETS_INV2",
+      "piece": "GIVE_INV1_TO_OBJ1_GETS_INV2",
       "inv1": "inv_apple_slices",
-      "prop1": "prop_butler",
+      "obj1": "obj_butler",
       "inv2": "inv_greenhouse_key"
     },
     {
-      "piece": "GOAL1_MET_BY_USING_INV1_WITH_PROP1",
-      "goal1": "a_access_to_greenhouse",
+      "piece": "ACHMT1_MET_BY_USING_INV1_WITH_OBJ1",
+      "achievement1": "a_access_to_greenhouse",
       "inv1": "inv_greenhouse_key",
-      "prop1": "prop_greenhouse_door"
+      "obj1": "obj_greenhouse_door"
     },
     {
       "piece": "INV1_BECOMES_INV2_BY_KEEPING_INV3",
@@ -86,24 +86,24 @@
       "inv3": "inv_rolling_pin"
     },
     {
-      "piece": "INV1_OBTAINED_BY_LOSING_INV2_KEEPING_PROP1",
+      "piece": "INV1_OBTAINED_BY_LOSING_INV2_KEEPING_OBJ1",
       "isNoFile": true,
       "inv1": "inv_bucket_of_coal",
       "inv2": "inv_empty_bucket_after_water",
-      "prop1": "prop_coal_bunker"
+      "obj1": "obj_coal_bunker"
     },
     {
-      "piece": "INV1_OBTAINED_BY_LOSING_PROP1_KEEPING_INV2",
+      "piece": "INV1_OBTAINED_BY_LOSING_OBJ1_KEEPING_INV2",
       "inv1": "inv_crank2",
       "inv2": "inv_hurl",
-      "prop1": "prop_crank_attached_to_well"
+      "obj1": "obj_crank_attached_to_well"
     },
     {
-      "piece": "INV1_OBTAINED_WHEN_LOSING_INV2_AND_PROP1_BECOMES_PROP2_GEN",
+      "piece": "INV1_OBTAINED_WHEN_LOSING_INV2_AND_OBJ1_BECOMES_OBJ2_GEN",
       "inv1": "inv_bucket_of_water",
       "inv2": "inv_crank",
-      "prop1": "prop_well",
-      "prop2": "prop_crank_attached_to_well",
+      "obj1": "obj_well",
+      "prop2": "obj_crank_attached_to_well",
       "isNoFile": true
     }
   ]

@@ -13,7 +13,7 @@ export enum Happen {
   PropAppears,
   PropTransitions,
 
-  GoalIsSet,
-  GoalIsIncremented,
-  GoalIsDecremented,
+  AchievementIsSet,
+  AchievementIsIncremented,
+  AchievementIsDecremented,
 }

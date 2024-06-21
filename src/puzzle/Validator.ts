@@ -7,7 +7,7 @@ import { AchievementStubMap } from './AchievementStubMap'
 import { VisibleThingsMap } from './VisibleThingsMap'
 import { Box } from './Box'
 import { createCommandFromAutoPiece } from './createCommandFromAutoPiece'
-import { TalkFile } from './talk/TalkFile'
+import { ChatFile } from './chat/ChatFile'
 import { Validated } from './Validated'
 
 export class Validator {
@@ -15,20 +15,20 @@ export class Validator {
   private readonly rootPieceKeysInSolvingOrder: string[]
   private readonly currentlyVisibleThings: VisibleThingsMap
   private readonly remainingPieces: Map<string, Piece>
-  private readonly talks: Map<string, TalkFile>
+  private readonly chats: Map<string, ChatFile>
   private readonly solutionName
   private readonly essentialIngredients: Set<string> // yup these are added to
 
-  public constructor (name: string, startingPieces: Map<string, Set<Piece>>, startingTalkFiles: Map<string, TalkFile>, stubMap: AchievementStubMap, startingThingsPassedIn: VisibleThingsMap, restrictions: Set<string> | null = null) {
+  public constructor (name: string, startingPieces: Map<string, Set<Piece>>, startingChatFiles: Map<string, ChatFile>, stubMap: AchievementStubMap, startingThingsPassedIn: VisibleThingsMap, restrictions: Set<string> | null = null) {
     this.solutionName = name
     this.achievementStubs = new AchievementStubMap(stubMap)
     this.achievementStubs.CalculateInitialCounts()
     this.rootPieceKeysInSolvingOrder = []
     this.remainingPieces = new Map<string, Piece>()
-    this.talks = new Map<string, TalkFile>()
+    this.chats = new Map<string, ChatFile>()
 
     Box.CopyPiecesFromAtoBViaIds(startingPieces, this.remainingPieces)
-    Box.CopyTalksFromAtoB(startingTalkFiles, this.talks)
+    Box.CopyChatsFromAtoB(startingChatFiles, this.chats)
 
     this.currentlyVisibleThings = new VisibleThingsMap(null)
     if (startingThingsPassedIn != null) {
@@ -58,7 +58,7 @@ export class Validator {
     return this.currentlyVisibleThings
   }
   /*
-  public UpdateGoalSolvedStatusesAndMergeIfNeeded (): void {
+  public UpdateAchievementSolvedStatusesAndMergeIfNeeded (): void {
     // go through all the achievement pieces
     let areAnyUnsolved = false
     for (const achievement of this.achievementStubs.GetValues()) {
@@ -80,7 +80,7 @@ export class Validator {
     }
   } */
 
-  public DeconstructAllGoalsAndRecordSteps (): boolean {
+  public DeconstructAllAchievementsAndRecordSteps (): boolean {
     let wasThereAtLeastSomeProgress = false
     for (const stub of this.achievementStubs.GetValues()) {
       if (stub.GetValidated() === Validated.Not) {
@@ -98,7 +98,7 @@ export class Validator {
       stub,
       this.remainingPieces,
       this.currentlyVisibleThings,
-      this.talks,
+      this.chats,
       this.achievementStubs
     )
 
@@ -129,7 +129,7 @@ export class Validator {
       // then write the achievement we just achieved
       stub.AddCommand(
         new RawObjectsAndVerb(
-          Raw.Goal,
+          Raw.Achievement,
           `completed (${stub.GetTheAchievementWord()})`,
           '',
           stub.GetTheAchievementWord(),

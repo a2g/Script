@@ -57,7 +57,7 @@ export class ChoiceSection {
     return this.key
   }
 
-  public GetAllTalkingWhilstChoosing (choiceToChoose: string): string[][] {
+  public GetAllChatingWhilstChoosing (choiceToChoose: string): string[][] {
     const toReturn = new Array<string[]>()
     for (let i = 0; i < 20; i++) {
       const queueForGivenIndex = this.mapOfQueues.get(i)
@@ -70,7 +70,7 @@ export class ChoiceSection {
             // but it might have a long weird path
             // The long weird path thing should be figured out
             // beforehand and then passed to
-            // TalkFile.CollectSpeechLinesNeededToGetToPath.
+            // ChatFile.CollectSpeechLinesNeededToGetToPath.
             toReturn.push(['you', choiceLine.speech])
 
             // remove head of queue so can't be used again

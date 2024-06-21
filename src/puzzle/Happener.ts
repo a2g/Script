@@ -2,12 +2,12 @@ import { Command } from './Command'
 import { Box } from './Box'
 
 // April 2021
-// The blind / location - agnostic way to find solutions is to have an inv vs props table, and inv vs inv table, and a verb vs props table, and a verb vs invs table, then
+// The blind / location - agnostic way to find solutions is to have an inv vs objs table, and inv vs inv table, and a verb vs objs table, and a verb vs invs table, then
 // 1. Check the invs vs invs ? this is the lowest hanging fruit
 // 2. Check the verbs vs invs ? this is the second lowest hanging fruit - if find something then go to 1.
-// 3. Check the invs vs props ? this is the third lowest hanging fruit - if find a new inv, then go to 1.
-// 3. Check the verbs vs props ? this is the fourth lowest hanging truit - if find something, then go to 1.
-// 4. Ensure there is no PROPS VS PROPS because:
+// 3. Check the invs vs objs ? this is the third lowest hanging fruit - if find a new inv, then go to 1.
+// 3. Check the verbs vs objs ? this is the fourth lowest hanging truit - if find something, then go to 1.
+// 4. Ensure there is no OBJS VS OBJS because:
 //     A.unless we  give the AI knowledge of locations, then a blind  brute force would take forever.
 //     B.even if we did have knowledge of locations, it would mean creating a logic grid per location...which is easy - and doable.hmmn.
 //
@@ -33,9 +33,9 @@ export class Happener {
 
   // private readonly arrayOfVerbVisibilities: boolean[];
 
-  private readonly arrayOfGoalNames: string[]
+  private readonly arrayOfAchievementNames: string[]
 
-  private arrayOfGoalValues: number[]
+  private arrayOfAchievementValues: number[]
 
   // private readonly _box: Box;
 
@@ -44,12 +44,12 @@ export class Happener {
   constructor (box: Box) {
     // yes, all of these need to be initialized to harmless values due to PlayerAI below
     this.arrayOfInvNames = []
-    this.arrayOfGoalNames = []
+    this.arrayOfAchievementNames = []
     this.arrayOfPropNames = []
     this.arrayOfVerbNames = []
     this.arrayOfInventoryVisibilities = []
     this.arrayOfPropVisibilities = []
-    this.arrayOfGoalValues = []
+    this.arrayOfAchievementValues = []
     // this._box = box;
     // PlayerAI needs to be initialized last, because for
     // the first parameter it passes this - and the PlayerAI
@@ -58,22 +58,22 @@ export class Happener {
     // this._callbacks = new PlayerAI(this, 0);
 
     this.arrayOfInvNames = box.GetArrayOfInvs()
-    this.arrayOfGoalNames = box.GetArrayOfGoals()
+    this.arrayOfAchievementNames = box.GetArrayOfAchievements()
     this.arrayOfPropNames = box.GetArrayOfProps()
     this.arrayOfVerbNames = box.GetArrayOfSingleObjectVerbs()
     this.arrayOfInventoryVisibilities = box.GetArrayOfInitialStatesOfInvs()
     this.arrayOfPropVisibilities = box.GetArrayOfInitialStatesOfProps()
-    this.arrayOfGoalValues = box.GetArrayOfInitialStatesOfGoals()
+    this.arrayOfAchievementValues = box.GetArrayOfInitialStatesOfAchievements()
   }
 
-  public SetGoalValue (goal: string, value: number): void {
-    const index = this.GetIndexOfGoal(goal)
-    this.arrayOfGoalValues[index] = value
+  public SetAchievementValue (achievement: string, value: number): void {
+    const index = this.GetIndexOfAchievement(achievement)
+    this.arrayOfAchievementValues[index] = value
   }
 
-  public GetGoalValue (goal: string): number {
-    const index = this.GetIndexOfGoal(goal)
-    const toReturn: number = this.arrayOfGoalValues[index]
+  public GetAchievementValue (achievement: string): number {
+    const index = this.GetIndexOfAchievement(achievement)
+    const toReturn: number = this.arrayOfAchievementValues[index]
     return toReturn
   }
 
@@ -82,8 +82,8 @@ export class Happener {
     this.arrayOfInventoryVisibilities[index] = value
   }
 
-  public SetPropVisible (prop: string, value: boolean): void {
-    const index = this.GetIndexOfProp(prop)
+  public SetPropVisible (obj: string, value: boolean): void {
+    const index = this.GetIndexOfProp(obj)
     this.arrayOfPropVisibilities[index] = value
   }
 
@@ -94,9 +94,9 @@ export class Happener {
       console.warn(happenings.text);
       for (const happening of happenings.array) {
         // one of these will be wrong - but we won't use the wrong one :)
-        const prop = this.GetIndexOfProp(happening.item);
+        const obj = this.GetIndexOfProp(happening.item);
         const inv = this.GetIndexOfInv(happening.item);
-        const goal = this.GetIndexOfGoal(happening.item);
+        const achievement = this.GetIndexOfAchievement(happening.item);
         switch (happening.happen) {
           case Happen.InvAppears:
             if (inv === -1) {
@@ -113,47 +113,47 @@ export class Happener {
             this.callbacks.OnInvVisbilityChange(inv, false, happening.item);
             break;
           case Happen.PropAppears:
-            if (prop === -1) {
-              throw Error('bad prop');
+            if (obj === -1) {
+              throw Error('bad obj');
             }
-            this.arrayOfPropVisibilities[prop] = true;
-            this.callbacks.OnPropVisbilityChange(prop, true, happening.item);
+            this.arrayOfPropVisibilities[obj] = true;
+            this.callbacks.OnPropVisbilityChange(obj, true, happening.item);
             break;
           case Happen.PropGoes:
-            if (prop === -1) {
-              throw Error('bad prop');
+            if (obj === -1) {
+              throw Error('bad obj');
             }
-            this.arrayOfPropVisibilities[prop] = false;
-            this.callbacks.OnPropVisbilityChange(prop, false, happening.item);
+            this.arrayOfPropVisibilities[obj] = false;
+            this.callbacks.OnPropVisbilityChange(obj, false, happening.item);
             break;
-          case Happen.GoalIsDecremented:
-            if (goal === -1) {
-              throw Error('bad goal');
+          case Happen.AchievementIsDecremented:
+            if (achievement === -1) {
+              throw Error('bad achievement');
             }
-            this.arrayOfGoalValues[goal] -= 1;
-            this.callbacks.OnGoalValueChange(
-              goal,
-              this.arrayOfGoalValues[goal],
+            this.arrayOfAchievementValues[achievement] -= 1;
+            this.callbacks.OnAchievementValueChange(
+              achievement,
+              this.arrayOfAchievementValues[achievement],
               happening.item
             );
             break;
-          case Happen.GoalIsIncremented:
-            if (goal === -1) {
-              throw Error('bad goal');
+          case Happen.AchievementIsIncremented:
+            if (achievement === -1) {
+              throw Error('bad achievement');
             }
-            this.arrayOfGoalValues[goal] += 1;
-            this.callbacks.OnGoalValueChange(
-              goal,
-              this.arrayOfGoalValues[goal] + 1,
+            this.arrayOfAchievementValues[achievement] += 1;
+            this.callbacks.OnAchievementValueChange(
+              achievement,
+              this.arrayOfAchievementValues[achievement] + 1,
               happening.item
             );
             break;
-          case Happen.GoalIsSet:
-            if (goal === -1) {
-              throw Error('bad goal');
+          case Happen.AchievementIsSet:
+            if (achievement === -1) {
+              throw Error('bad achievement');
             }
-            this.arrayOfGoalValues[goal] = 1;
-            this.callbacks.OnGoalValueChange(goal, 1, happening.item);
+            this.arrayOfAchievementValues[achievement] = 1;
+            this.callbacks.OnAchievementValueChange(achievement, 1, happening.item);
             break;
           default:
             console.warn(
@@ -177,9 +177,9 @@ export class Happener {
     return indexOfInv
   }
 
-  public GetIndexOfGoal (item: string): number {
-    const indexOfGoal: number = this.arrayOfGoalNames.indexOf(item)
-    return indexOfGoal
+  public GetIndexOfAchievement (item: string): number {
+    const indexOfAchievement: number = this.arrayOfAchievementNames.indexOf(item)
+    return indexOfAchievement
   }
 
   public GetIndexOfProp (item: string): number {
@@ -204,9 +204,9 @@ export class Happener {
     return name
   }
 
-  public GetGoal (i: number): string {
+  public GetAchievement (i: number): string {
     const name: string =
-      i >= 0 ? this.GetEntireGoalSuite()[i][0] : '-1 lookup for GetGoal'
+      i >= 0 ? this.GetEntireAchievementSuite()[i][0] : '-1 lookup for GetAchievement'
     return name
   }
 
@@ -222,11 +222,11 @@ export class Happener {
     return toReturn
   }
 
-  public GetEntireGoalSuite (): Array<[string, number]> {
+  public GetEntireAchievementSuite (): Array<[string, number]> {
     const toReturn: Array<[string, number]> = []
     for (let i = 0; i < this.arrayOfPropNames.length; i += 1) {
       // classic forloop useful because shared index
-      toReturn.push([this.arrayOfGoalNames[i], this.arrayOfGoalValues[i]])
+      toReturn.push([this.arrayOfAchievementNames[i], this.arrayOfAchievementValues[i]])
     }
     return toReturn
   }
@@ -277,12 +277,12 @@ export class Happener {
     return toReturn
   }
 
-  public GetCurrentlyTrueGoals (): string[] {
+  public GetCurrentlyTrueAchievements (): string[] {
     const toReturn: string[] = []
-    for (let i = 0; i < this.arrayOfGoalNames.length; i += 1) {
+    for (let i = 0; i < this.arrayOfAchievementNames.length; i += 1) {
       // classic forloop useful because shared index
-      if (this.arrayOfGoalValues[i] > 0) {
-        toReturn.push(this.arrayOfGoalNames[i])
+      if (this.arrayOfAchievementValues[i] > 0) {
+        toReturn.push(this.arrayOfAchievementNames[i])
       }
     }
     return toReturn

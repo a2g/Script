@@ -17,7 +17,7 @@ export class Piece extends PieceBase {
 
   public boxToMerge: Box | null
 
-  private talkPath: any // only valid for TALK
+  private chatPath: any // only valid for CHAT
 
   public spielOutput: string
 
@@ -57,7 +57,7 @@ export class Piece extends PieceBase {
     this.command = command
     this.happenings = happenings
     this.characterRestrictions = []
-    this.talkPath = ''
+    this.chatPath = ''
     if (typeof restrictions !== 'undefined' && restrictions !== null) {
       for (const restriction of restrictions) {
         this.characterRestrictions.push(restriction.character)
@@ -108,7 +108,7 @@ export class Piece extends PieceBase {
     clone.reuseCount = this.reuseCount
     clone.output = this.output
     clone.boxToMerge = this.boxToMerge
-    clone.talkPath = this.talkPath
+    clone.chatPath = this.chatPath
 
     // the hints
     for (const inputHint of this.inputHints) {
@@ -258,7 +258,7 @@ export class Piece extends PieceBase {
     if (this.happenings != null) {
       for (const happening of this.happenings.array) {
         switch (happening.type) {
-          case Happen.GoalIsSet:
+          case Happen.AchievementIsSet:
           case Happen.InvAppears:
           case Happen.PropAppears:
             visiblePieces.Set(happening.itemA, new Set<string>())
@@ -294,20 +294,20 @@ export class Piece extends PieceBase {
         continue
       }
 
-      // 2. Goal - matches a single goal in the goal root map
-      // then we just set and forget, allowing that goal
+      // 2. Achievement - matches a single achievement in the achievement root map
+      // then we just set and forget, allowing that achievement
       // be completed via the natural process
       if (solution.GetAchievementStubMap().Has(importHintToFind)) {
         const matchingRootPiece = solution
           .GetAchievementStubMap()
           .AchievementStubByName(importHintToFind)
 
-        // is it a goal? (since goal map always contains all goals)
-        // solution.MarkGoalsAsContainingNullsAndMergeIfNeeded()// this is optional...
+        // is it a achievement? (since achievement map always contains all achievements)
+        // solution.MarkAchievementsAsContainingNullsAndMergeIfNeeded()// this is optional...
         const isSolved = matchingRootPiece.IsSolved()
 
         if (isSolved) {
-          this.StubOutInputK(k, SpecialTypes.SomeOtherGoal)
+          this.StubOutInputK(k, SpecialTypes.SomeOtherAchievement)
         }
         continue
       }
@@ -346,7 +346,7 @@ export class Piece extends PieceBase {
 
           // this is only here to make the unit tests make sense
           // something like to fix a bug where cloning doesn't mark piece as complete
-          // theSolution.MarkPieceAsCompleted(theSolution.GetWinGoal())
+          // theSolution.MarkPieceAsCompleted(theSolution.GetWinAchievement())
           // ^^ this might need to recursively ask for parent, since there are no
           // many root pieces
           if (isCloneBeingUsed) {
@@ -376,12 +376,12 @@ export class Piece extends PieceBase {
     return false
   }
 
-  SetTalkPath (talkPath: string): void {
-    this.talkPath = talkPath
+  SetChatPath (chatPath: string): void {
+    this.chatPath = chatPath
   }
 
-  GetTalkPath (): string {
-    return this.talkPath
+  GetChatPath (): string {
+    return this.chatPath
   }
 
   public GetCountRecursively (): number {

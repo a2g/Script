@@ -11,20 +11,20 @@ export function ChooseOrderOfCommands (validators: Validators): void {
   let infoLevel = 1
   for (; ;) {
     for (let i = 0; i < 40; i++) {
-      validators.DeconstructAllGoalsOfAllValidatorsAndRecordSteps()
+      validators.DeconstructAllAchievementsOfAllValidatorsAndRecordSteps()
     }
     const numberOfSolutions: number = validators.GetValidators().length
 
-    console.warn('If any leaves are not resolved properly, for example')
+    console.warn('If any leaves are not resolved objerly, for example')
     console.warn(' - eg items show up as not found when they should be')
-    console.warn(' starting props, or inv items that should not be leafs.')
+    console.warn(' starting objs, or inv items that should not be leafs.')
     console.warn(
       'Then add these to starting sets; or fix up pieces, such that'
     )
     console.warn(
-      'the dependent pieces are discovered; or introduce goal pieces'
+      'the dependent pieces are discovered; or introduce achievement pieces'
     )
-    console.warn('for items that two goals need, but only one ends up with.')
+    console.warn('for items that two achievements need, but only one ends up with.')
     console.warn('GOTCHA: Also validate boxes against schema, as this has ')
     console.warn('been the cause of the problem numerous times.')
     console.warn('')
@@ -84,13 +84,13 @@ export function ChooseOrderOfCommands (validators: Validators): void {
           solution.GetOrderOfCommands()
         for (const command of commands) {
           // 0 is cleanest, later numbers are more detailed
-          if (command.type === Raw.Goal && infoLevel < 3) {
+          if (command.type === Raw.Achievement && infoLevel < 3) {
             continue
           }
           listItemNumber++
           const formattedCommand = FormatCommand(command, infoLevel)
           console.warn(`    ${listItemNumber}. ${formattedCommand}`)
-          if (command.type === Raw.Talk) {
+          if (command.type === Raw.Chat) {
             for (const speechLine of command.speechLines) {
               listItemNumber++
               console.warn(`    ${listItemNumber}. ${speechLine[0]}: ${speechLine[1]}`)
@@ -126,12 +126,12 @@ function FormatCommand (raw: RawObjectsAndVerb, infoLevel: number): string {
     case 4:
     case 5:
     case 6:
-      toReturn = `${raw.mainSpiel}  ${raw.goalSpiel}`
+      toReturn = `${raw.mainSpiel}  ${raw.achievementSpiel}`
       break
     case 7:
     case 8:
     case 9:
-      toReturn = `${raw.mainSpiel}  ${raw.goalSpiel} ${raw.restrictionSpiel} ${raw.typeJustForDebugging}`
+      toReturn = `${raw.mainSpiel}  ${raw.achievementSpiel} ${raw.restrictionSpiel} ${raw.typeJustForDebugging}`
       break
   }
   return toReturn

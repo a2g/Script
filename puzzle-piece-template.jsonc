@@ -70,7 +70,7 @@
                 "properties": {
                   "piece": {
                     // e.g. use inv with pumpkinmachine, and pickup result"
-                    "const": "PROP1_APPEARS_BY_LOSING_INV1_WITH_PROP2"
+                    "const": "OBJ1_APPEARS_BY_LOSING_INV1_WITH_OBJ2"
                   }
                 }
               },
@@ -78,7 +78,7 @@
                 "properties": {
                   "piece": {
                     // e.g. use ball with backboard generate prop"
-                    "const": "PROP1_APPEARS_BY_INV1_WITH_PROP2"
+                    "const": "OBJ1_APPEARS_BY_INV1_WITH_OBJ2"
                   }
                 }
               },
@@ -86,7 +86,7 @@
                 "properties": {
                   "piece": {
                     // e.g. powerpoint -> plugged-in-amp via losing INV_FIXEDAMP"
-                    "const": "PROP1_BECOMES_PROP2_BY_LOSING_INV1"
+                    "const": "OBJ1_BECOMES_OBJ2_BY_LOSING_INV1"
                   }
                 }
               },
@@ -95,7 +95,7 @@
                   "piece": {
                     // e.g. RAISEDBACKBOARD becomes LOWEREDBACKBOARD vie keeping POLEHOOK",
                     // e.g. CLOSED_RADIO becomes  OPENED_RADIO_WITH_TUBE via keeping SCREWDRIVER"
-                    "const": "PROP1_BECOMES_PROP2_BY_KEEPING_INV1"
+                    "const": "OBJ1_BECOMES_OBJ2_BY_KEEPING_INV1"
                   }
                 }
               },
@@ -105,7 +105,7 @@
                     // eg By using the A with B you are able to obtain the INV",
                     // eg powerpoint -> plugged-in-amp via losing INV_FIXEDAMP",
                     // e.g. use radiation suit with the meteor"
-                    "const": "INV1_OBTAINED_BY_PROP1_WITH_PROP2_LOSE_PROPS"
+                    "const": "INV1_OBTAINED_BY_OBJ1_WITH_OBJ2_LOSE_OBJS"
                   }
                 }
               },
@@ -113,7 +113,7 @@
                 "properties": {
                   "piece": {
                     // e.g. opened raio with radiotube becomes merely OPENED RADIO when you grab RADIOTUBE"
-                    "const": "PROP1_BECOMES_PROP2_WHEN_GRAB_INV1"
+                    "const": "OBJ1_BECOMES_OBJ2_WHEN_GRAB_INV1"
                   }
                 }
               },
@@ -122,7 +122,7 @@
                   "piece": {
                     // by using the A with B you are able to obtain the INV",
                     // e.g. use radiation suit with the meteor"
-                    "const": "PROP1_CHANGES_STATE_TO_PROP2_BY_KEEPING_INV1"
+                    "const": "OBJ1_CHANGES_STATE_TO_OBJ2_BY_KEEPING_INV1"
                   }
                 }
               },
@@ -131,7 +131,7 @@
                   "piece": {
                     // eg grab sword-in-stone
                     // sword obtained, as sword-in-stone becomes stone
-                    "const": "INV1_OBTAINED_AS_GRABBED_PROP1_BECOMES_PROP2"
+                    "const": "INV1_OBTAINED_AS_GRABBED_OBJ1_BECOMES_OBJ2"
                   }
                 }
               }
@@ -140,7 +140,7 @@
           "then": {
             "required": [
               "inv1",
-              "prop1",
+              "obj1",
               "prop2"
             ]
           }
@@ -152,15 +152,15 @@
                 "properties": {
                   "piece": {
                     // e.g. open fridge, open window, open blind, open window"
-                    "const": "TOGGLE_PROP1_REVEALS_PROP2_AS_IT_BECOMES_PROP3"
+                    "const": "TOGGLE_OBJ1_REVEALS_OBJ2_AS_IT_BECOMES_OBJ3"
                   }
                 }
               },
               {
                 "properties": {
                   "piece": {
-                    // e.g. prop_crank appears when use use handle with well"
-                    "const": "PROP1_APPEARS_WHEN_USE_INV1_WITH_PROP2"
+                    // e.g. obj_crank appears when use use handle with well"
+                    "const": "OBJ1_APPEARS_WHEN_USE_INV1_WITH_OBJ2"
                   }
                 }
               },
@@ -168,7 +168,7 @@
                 "properties": {
                   "piece": {
                     // e.g. none yet"
-                    "const": "PROP1_BECOMES_PROP2_BY_LOSING_PROP3"
+                    "const": "OBJ1_BECOMES_OBJ2_BY_LOSING_OBJ3"
                   }
                 }
               }
@@ -176,9 +176,9 @@
           },
           "then": {
             "required": [
-              "prop1",
+              "obj1",
               "prop2",
-              "prop3"
+              "obj3"
             ]
           }
         },
@@ -189,7 +189,7 @@
                 "properties": {
                   "piece": {
                     // e.g. grab coconut"
-                    "const": "PROP1_GOES_WHEN_GRAB_INV1"
+                    "const": "OBJ1_GOES_WHEN_GRAB_INV1"
                   }
                 }
               },
@@ -197,15 +197,15 @@
                 "properties": {
                   "piece": {
                     // e.g. grab pile of coconuts"
-                    "const": "PROP1_STAYS_WHEN_GRAB_INV1"
+                    "const": "OBJ1_STAYS_WHEN_GRAB_INV1"
                   }
                 }
               },
               {
                 "properties": {
                   "piece": {
-                    // e.g. talk to woman"
-                    "const": "TALK_TO_PROP1_GETS_INV1"
+                    // e.g. chat to woman"
+                    "const": "CHAT_TO_OBJ1_GETS_INV1"
                   }
                 }
               },
@@ -213,7 +213,7 @@
                 "properties": {
                   "piece": {
                     // e.g. I thought this happened in DD but I read the solution wrong"
-                    "const": "EXAMINE_PROP1_YIELDS_INV1"
+                    "const": "EXAMINE_OBJ1_YIELDS_INV1"
                   }
                 }
               }
@@ -221,7 +221,7 @@
           },
           "then": {
             "required": [
-              "prop1",
+              "obj1",
               "inv1"
             ]
           }
@@ -233,7 +233,7 @@
                 "properties": {
                   "piece": {
                     // e.g. toggle magged up vacuum tubes
-                    "const": "TOGGLE_PROP1_BECOMES_PROP2"
+                    "const": "TOGGLE_OBJ1_BECOMES_OBJ2"
                   }
                 }
               },
@@ -242,7 +242,7 @@
                   "piece": {
                     // e.g. toggle on to off",
                     // e.g. activated to deactivated"
-                    "const": "TOGGLE_PROP1_CHANGES_STATE_TO_PROP2"
+                    "const": "TOGGLE_OBJ1_CHANGES_STATE_TO_OBJ2"
                   }
                 }
               }
@@ -250,7 +250,7 @@
           },
           "then": {
             "required": [
-              "prop1",
+              "obj1",
               "prop2"
             ]
           }
@@ -259,14 +259,14 @@
           "if": {
             "properties": {
               "piece": {
-                // e.g. goal_access_thru_fireplace set by prop_fireplace_ladder"
-                "const": "AUTO_GOAL1_MET_BY_PROPS"
+                // e.g. achievement_access_thru_fireplace set by obj_fireplace_ladder"
+                "const": "AUTO_ACHMT1_MET_BY_OBJS"
               }
             }
           },
           "then": {
             "required": [
-              "goal1"
+              "achievement1"
             ]
           }
         },
@@ -274,14 +274,14 @@
           "if": {
             "properties": {
               "piece": {
-                // e.g. goal_lit_torch set by inv_lit_torch"
-                "const": "AUTO_GOAL1_MET_BY_INVS"
+                // e.g. achievement_lit_torch set by inv_lit_torch"
+                "const": "AUTO_ACHMT1_MET_BY_INVS"
               }
             }
           },
           "then": {
             "required": [
-              "goal1",
+              "achievement1",
               "inv1"
             ]
           }
@@ -290,13 +290,13 @@
           "if": {
             "properties": {
               "piece": {
-                "const": "AUTO_PROP1_BECOMES_PROP2_BY_PROPS"
+                "const": "AUTO_OBJ1_BECOMES_OBJ2_BY_OBJS"
               }
             }
           },
           "then": {
             "required": [
-              "prop1",
+              "obj1",
               "prop2"
             ]
           }
@@ -305,14 +305,14 @@
           "if": {
             "properties": {
               "piece": {
-                // e.g. goal_lit_torch set by inv_lit_torch"
-                "const": "AUTO_GOAL1_MET_BY_INVS"
+                // e.g. achievement_lit_torch set by inv_lit_torch"
+                "const": "AUTO_ACHMT1_MET_BY_INVS"
               }
             }
           },
           "then": {
             "required": [
-              "goal1"
+              "achievement1"
             ]
           }
         },
@@ -321,7 +321,7 @@
             "properties": {
               "piece": {
                 // e.g. use two invs together wins game"
-                "const": "GOAL1_MET_BY_USING_INV1_WITH_INV2"
+                "const": "ACHMT1_MET_BY_USING_INV1_WITH_INV2"
               }
             }
           },
@@ -329,7 +329,7 @@
             "required": [
               "inv1",
               "inv2",
-              "goal1"
+              "achievement1"
             ]
           }
         },
@@ -338,16 +338,16 @@
             "properties": {
               "piece": {
                 // e.g. win game using use silver with werewolf during lunar eclipse"
-                "const": "GOAL1_MET_BY_USING_INV1_WITH_PROP1_NEED_GOALS"
+                "const": "ACHMT1_MET_BY_USING_INV1_WITH_OBJ1_NEED_ACHMTS"
               }
             }
           },
           "then": {
             "required": [
               "inv1",
-              "prop1",
-              "goal1",
-              "goal2"
+              "obj1",
+              "achievement1",
+              "achievement2"
             ]
           }
         },
@@ -359,23 +359,23 @@
                   "piece": {
                     // e.g. toggle on to off",
                     // e.g. activated to deactivated"
-                    "const": "GOAL1_MET_BY_USING_INV1_WITH_PROP1_LOSE_PROPS"
+                    "const": "ACHMT1_MET_BY_USING_INV1_WITH_OBJ1_LOSE_OBJS"
                   }
                 }
               },
               {
                 "properties": {
                   "piece": {
-                    // e.g. talk to woman after setting goal"
-                    "const": "TALK_TO_PROP1_WITH_GOAL1_GETS_INV1"
+                    // e.g. chat to woman after setting achievement"
+                    "const": "CHAT_TO_OBJ1_WITH_ACHMT1_GETS_INV1"
                   }
                 }
               },
               {
                 "properties": {
                   "piece": {
-                    // e.g. goal is set when use cogs to fix dumbwaiter"
-                    "const": "GOAL1_MET_BY_LOSING_INV1_WHEN_USED_WITH_PROP1"
+                    // e.g. achievement is set when use cogs to fix dumbwaiter"
+                    "const": "ACHMT1_MET_BY_LOSING_INV1_WHEN_USED_WITH_OBJ1"
                   }
                 }
               },
@@ -383,7 +383,7 @@
                 "properties": {
                   "piece": {
                     // e.g. give gold to king completes game"
-                    "const": "GOAL1_MET_BY_GIVING_INV1_TO_PROP1"
+                    "const": "ACHMT1_MET_BY_GIVING_INV1_TO_OBJ1"
                   }
                 }
               },
@@ -391,23 +391,23 @@
                 "properties": {
                   "piece": {
                     // e.g. use sword with baddie wins game"
-                    "const": "GOAL1_MET_BY_USING_INV1_WITH_PROP1"
+                    "const": "ACHMT1_MET_BY_USING_INV1_WITH_OBJ1"
                   }
                 }
               },
               {
                 "properties": {
                   "piece": {
-                    // e.g. grab pile of tyres, with goal set"
-                    "const": "PROP1_STAYS_WHEN_GRAB_INV1_WITH_GOAL1"
+                    // e.g. grab pile of tyres, with achievement set"
+                    "const": "OBJ1_STAYS_WHEN_GRAB_INV1_WITH_ACHMT1"
                   }
                 }
               },
               {
                 "properties": {
                   "piece": {
-                    // e.g. grab single tire, if goal set"
-                    "const": "PROP1_GOES_WHEN_GRAB_INV1_WITH_GOAL1"
+                    // e.g. grab single tire, if achievement set"
+                    "const": "OBJ1_GOES_WHEN_GRAB_INV1_WITH_ACHMT1"
                   }
                 }
               }
@@ -416,8 +416,8 @@
           "then": {
             "required": [
               "inv1",
-              "prop1",
-              "goal1"
+              "obj1",
+              "achievement1"
             ]
           }
         },
@@ -427,8 +427,8 @@
               {
                 "properties": {
                   "piece": {
-                    // e.g. goal met by "
-                    "const": "GOAL1_MET_BY_USING_PROP1_WITH_PROP2"
+                    // e.g. achievement met by "
+                    "const": "ACHMT1_MET_BY_USING_OBJ1_WITH_OBJ2"
                   }
                 }
               },
@@ -436,7 +436,7 @@
                 "properties": {
                   "piece": {
                     // e.g. taxi appears when phone is used with electricity on"
-                    "const": "PROP1_APPEARS_WHEN_GRAB_PROP2_WITH_GOAL1"
+                    "const": "OBJ1_APPEARS_WHEN_GRAB_OBJ2_WITH_ACHMT1"
                   }
                 }
               }
@@ -444,9 +444,9 @@
           },
           "then": {
             "required": [
-              "prop1",
+              "obj1",
               "prop2",
-              "goal1"
+              "achievement1"
             ]
           }
         },
@@ -457,7 +457,7 @@
                 "properties": {
                   "piece": {
                     // e.g. key throw rock at apple in tree, obtains apple (lose rock and apple in tree)"
-                    "const": "THROW_INV1_AT_PROP1_GETS_INV2_LOSE_BOTH"
+                    "const": "THROW_INV1_AT_OBJ1_GETS_INV2_LOSE_BOTH"
                   }
                 }
               },
@@ -465,7 +465,7 @@
                 "properties": {
                   "piece": {
                     // e.g. key throw rock at apple in tree, obtains apple (lose rock and apple in tree)"
-                    "const": "INV1_OBTAINED_BY_COMBINING_INV2_WITH_PROP1"
+                    "const": "INV1_OBTAINED_BY_COMBINING_INV2_WITH_OBJ1"
                   }
                 }
               },
@@ -473,7 +473,7 @@
                 "properties": {
                   "piece": {
                     // e.g. no example, but might need it"
-                    "const": "INV1_OBTAINED_BY_INV2_WITH_PROP1_LOSE_NONE"
+                    "const": "INV1_OBTAINED_BY_INV2_WITH_OBJ1_LOSE_NONE"
                   }
                 }
               },
@@ -481,7 +481,7 @@
                 "properties": {
                   "piece": {
                     // e.g. manuscript b edited via typewriter by keeping prop"
-                    "const": "INV1_BECOMES_INV2_BY_KEEPING_PROP"
+                    "const": "INV1_BECOMES_INV2_BY_KEEPING_OBJ"
                   }
                 }
               },
@@ -489,7 +489,7 @@
                 "properties": {
                   "piece": {
                     // e.g. manuscript b edited via typewriter by keeping prop"
-                    "const": "GIVE_INV1_TO_PROP1_GETS_INV2"
+                    "const": "GIVE_INV1_TO_OBJ1_GETS_INV2"
                   }
                 }
               },
@@ -497,7 +497,7 @@
                 "properties": {
                   "piece": {
                     // e.g. obtain cogs when losing key in clock"
-                    "const": "INV1_OBTAINED_BY_LOSING_INV2_KEEPING_PROP1"
+                    "const": "INV1_OBTAINED_BY_LOSING_INV2_KEEPING_OBJ1"
                   }
                 }
               },
@@ -505,7 +505,7 @@
                 "properties": {
                   "piece": {
                     // e.g. obtain crank when use hurl to knock it off the well"
-                    "const": "INV1_OBTAINED_BY_LOSING_PROP1_KEEPING_INV2"
+                    "const": "INV1_OBTAINED_BY_LOSING_OBJ1_KEEPING_INV2"
                   }
                 }
               }
@@ -514,7 +514,7 @@
               "required": [
                 "inv1",
                 "inv2",
-                "prop1"
+                "obj1"
               ]
             }
           }
@@ -523,14 +523,14 @@
           "if": {
             "properties": {
               "piece": {
-                "const": "AUTO_GOAL1_MET_BY_GOALS"
+                "const": "AUTO_ACHMT1_MET_BY_ACHMTS"
               }
             }
           },
           "then": {
             "required": [
-              "goal1",
-              "goal2"
+              "achievement1",
+              "achievement2"
             ]
           }
         },
@@ -538,15 +538,15 @@
           "if": {
             "properties": {
               "piece": {
-                "const": "GOAL1_MET_BY_LOSING_INV1_USED_WITH_PROP1_AND_PROPS"
+                "const": "ACHMT1_MET_BY_LOSING_INV1_USED_WITH_OBJ1_AND_OBJS"
               }
             }
           },
           "then": {
             "required": [
-              "goal1",
+              "achievement1",
               "inv1",
-              "prop1",
+              "obj1",
               "prop2"
             ]
           }
@@ -557,21 +557,21 @@
               {
                 "properties": {
                   "piece": {
-                    "const": "INV1_OBTAINED_AS_PROP1_BECOMES_PROP2_KEEP_INV2"
+                    "const": "INV1_OBTAINED_AS_OBJ1_BECOMES_OBJ2_KEEP_INV2"
                   }
                 }
               },
               {
                 "properties": {
                   "piece": {
-                    "const": "INV1_BECOMES_INV2_AS_PROP1_BECOMES_PROP2_GEN"
+                    "const": "INV1_BECOMES_INV2_AS_OBJ1_BECOMES_OBJ2_GEN"
                   }
                 }
               },
               {
                 "properties": {
                   "piece": {
-                    "const": "INV1_OBTAINED_WHEN_LOSING_INV2_AND_PROP1_BECOMES_PROP2_GEN"
+                    "const": "INV1_OBTAINED_WHEN_LOSING_INV2_AND_OBJ1_BECOMES_OBJ2_GEN"
                   }
                 }
               }
@@ -579,7 +579,7 @@
           },
           "then": {
             "required": [
-              "prop1",
+              "obj1",
               "prop2",
               "inv1",
               "inv2"
@@ -590,13 +590,13 @@
           "if": {
             "properties": {
               "piece": {
-                "const": "AUTO_INV1_BECOMES_INV2_VIA_GOAL1"
+                "const": "AUTO_INV1_BECOMES_INV2_VIA_ACHMT1"
               }
             }
           },
           "then": {
             "required": [
-              "goal1",
+              "achievement1",
               "inv1",
               "inv2"
             ]
@@ -606,14 +606,14 @@
           "if": {
             "properties": {
               "piece": {
-                "const": "AUTO_PROP1_BECOMES_PROP2_VIA_GOAL1"
+                "const": "AUTO_OBJ1_BECOMES_OBJ2_VIA_ACHMT1"
               }
             }
           },
           "then": {
             "required": [
-              "goal1",
-              "prop1",
+              "achievement1",
+              "obj1",
               "prop2"
             ]
           }
@@ -622,14 +622,14 @@
           "if": {
             "properties": {
               "piece": {
-                "const": "AUTO_INV1_OBTAINED_VIA_GOAL1"
+                "const": "AUTO_INV1_OBTAINED_VIA_ACHMT1"
               }
             }
           },
           "then": {
             "required": [
               "inv1",
-              "goal1"
+              "achievement1"
             ]
           }
         },
@@ -637,14 +637,14 @@
           "if": {
             "properties": {
               "piece": {
-                "const": "AUTO_PROP1_APPEARS_VIA_GOAL1"
+                "const": "AUTO_OBJ1_APPEARS_VIA_ACHMT1"
               }
             }
           },
           "then": {
             "required": [
-              "prop1",
-              "goal1"
+              "obj1",
+              "achievement1"
             ]
           }
         },
@@ -669,13 +669,13 @@
           "if": {
             "properties": {
               "piece": {
-                "const": "TALK1_GENERATED_PIECE_PLACEHOLDER"
+                "const": "CHAT1_GENERATED_PIECE_PLACEHOLDER"
               }
             }
           },
           "then": {
             "required": [
-              "talk1"
+              "chat1"
             ]
           }
         }

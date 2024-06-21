@@ -5,7 +5,7 @@ import { Raw } from './Raw'
 import { RawObjectsAndVerb } from './RawObjectsAndVerb'
 import { AchievementStub } from './AchievementStub'
 import { SpecialTypes } from './SpecialTypes'
-import { TalkFile } from './talk/TalkFile'
+import { ChatFile } from './chat/ChatFile'
 import { VisibleThingsMap } from './VisibleThingsMap'
 import { Box } from './Box'
 import { AchievementStubMap } from './AchievementStubMap'
@@ -16,15 +16,15 @@ export class DeconstructDoer {
 
   // the state that needs update
   private readonly currentlyVisibleThings: VisibleThingsMap
-  private readonly talks: Map<string, TalkFile>
+  private readonly chats: Map<string, ChatFile>
   private readonly pieces: Map<string, Piece>
   private readonly stubMap: AchievementStubMap
 
-  public constructor (theStub: AchievementStub, pieces: Map<string, Piece>, visibleThings: VisibleThingsMap, theSolutionsTalkFiles: Map<string, TalkFile>, stubMap: AchievementStubMap) {
+  public constructor (theStub: AchievementStub, pieces: Map<string, Piece>, visibleThings: VisibleThingsMap, theSolutionsChatFiles: Map<string, ChatFile>, stubMap: AchievementStubMap) {
     this.theStub = theStub
     this.stubMap = stubMap
     this.currentlyVisibleThings = visibleThings
-    this.talks = theSolutionsTalkFiles
+    this.chats = theSolutionsChatFiles
     this.pieces = pieces
   }
 
@@ -57,7 +57,7 @@ export class DeconstructDoer {
       }
       if (areAllInputHintsInTheVisibleSet) {
         const isSamePieceIsInOurStash = piece.id !== 'stub' && this.pieces.has(piece.id)
-        const isSomeOtherAchievementThatHasBeenAchieved = (piece.type === SpecialTypes.SomeOtherGoal) && this.stubMap.IsAchievementPieceNulled(piece.output)
+        const isSomeOtherAchievementThatHasBeenAchieved = (piece.type === SpecialTypes.SomeOtherAchievement) && this.stubMap.IsAchievementPieceNulled(piece.output)
         const isStartingThingsAndTheyHaveBeenOpened = (piece.type === SpecialTypes.StartingThings) && this.currentlyVisibleThings.Has(piece.output)
         if (isSamePieceIsInOurStash || isSomeOtherAchievementThatHasBeenAchieved || isStartingThingsAndTheyHaveBeenOpened) {
           // if this best way to check whether we have just completed the root piece?
@@ -96,13 +96,13 @@ export class DeconstructDoer {
 
           let verb = Raw.None
           if (piece.parent == null) {
-            // I think this means tha the root piece isn't set properly!
+            // I think this means tha the root piece isn't set objerly!
             // so we need to set breakpoint on this return, and debug.
             assert(false)
           } else if (piece.type.toLowerCase().includes('grab')) {
             verb = Raw.Grab
-          } else if (piece.type.toLowerCase().includes('talk')) {
-            verb = Raw.Talk
+          } else if (piece.type.toLowerCase().includes('chat')) {
+            verb = Raw.Chat
           } else if (piece.type.toLowerCase().includes('toggle')) {
             verb = Raw.Toggle
           } else if (piece.type.toLowerCase().includes('auto')) {
@@ -124,7 +124,7 @@ export class DeconstructDoer {
           // to what we've already done - ie kill the node
 
           // now lets return the piece
-          if (piece.type === SpecialTypes.SomeOtherGoal) {
+          if (piece.type === SpecialTypes.SomeOtherAchievement) {
             toReturn = new RawObjectsAndVerb(
               Raw.None,
               '',
@@ -175,15 +175,15 @@ export class DeconstructDoer {
               [],
               piece.type
             )
-          } else if (verb === Raw.Talk) {
-            const path = piece.GetTalkPath()
-            const talkPropName = piece.inputHints[0]
-            const talkState = this.talks.get(talkPropName + '.jsonc')
-            if (talkState != null) {
-              const speechLines = talkState.CollectSpeechLinesNeededToGetToPath(path)
+          } else if (verb === Raw.Chat) {
+            const path = piece.GetChatPath()
+            const chatPropName = piece.inputHints[0]
+            const chatState = this.chats.get(chatPropName + '.jsonc')
+            if (chatState != null) {
+              const speechLines = chatState.CollectSpeechLinesNeededToGetToPath(path)
 
               toReturn = new RawObjectsAndVerb(
-                Raw.Talk,
+                Raw.Chat,
                 piece.inputHints[0],
                 '',
                 piece.output,
@@ -270,7 +270,7 @@ export class DeconstructDoer {
     console.warn(`Merging box ${boxToMerge.GetFilename()}`)
 
     Box.CopyPiecesFromAtoBViaIds(boxToMerge.GetPieces(), this.pieces)
-    Box.CopyTalksFromAtoB(boxToMerge.GetTalkFiles(), this.talks)
+    Box.CopyChatsFromAtoB(boxToMerge.GetChatFiles(), this.chats)
     boxToMerge.CopyStartingThingCharsToGivenMap(this.currentlyVisibleThings)
     // I don't think we copy the stubs to the stub map ..do we
     // because even though the stub piece might not be found later

@@ -12,7 +12,7 @@ export class RawObjectsAndVerb {
   public startingCharacterForB: string
   public restrictions: string[]
   public typeJustForDebugging: string
-  public goalSpiel: string
+  public achievementSpiel: string
   public mainSpiel: string
   public restrictionSpiel: string
   public speechLines: string[][]
@@ -37,7 +37,7 @@ export class RawObjectsAndVerb {
     this.startingCharacterForB = ''
     this.restrictions = restrictions
     this.mainSpiel = ''
-    this.goalSpiel = ''
+    this.achievementSpiel = ''
     this.restrictionSpiel = ''
     this.typeJustForDebugging = typeJustForDebugging
     this.speechLines = speechLines
@@ -72,17 +72,17 @@ export class RawObjectsAndVerb {
       case Raw.Auto:
         if (this.objectB.startsWith(IdPrefixes.Inv)) {
           this.mainSpiel = `You obtain a ${objectB}`
-          this.goalSpiel = `as a result of goal ${objectA}`
-        } else if (this.objectB.startsWith(IdPrefixes.Prop)) {
+          this.achievementSpiel = `as a result of achievement ${objectA}`
+        } else if (this.objectB.startsWith(IdPrefixes.Obj)) {
           this.mainSpiel = `You now see a ${objectB}`
-          this.goalSpiel = `as a result of goal ${objectA}`
-        } else if (this.objectB.startsWith(IdPrefixes.Talk)) {
+          this.achievementSpiel = `as a result of achievement ${objectA}`
+        } else if (this.objectB.startsWith(IdPrefixes.Chat)) {
           this.mainSpiel = `You now see a chatty ${objectB}`
-          this.goalSpiel = `as a result of goal ${objectA}`
-        } else if (this.objectB.startsWith(IdPrefixes.Goal)) {
-          this.type = Raw.Goal
-          this.mainSpiel = `Goal met ${objectB}`
-          this.goalSpiel = `as a result of goal ${objectA}`
+          this.achievementSpiel = `as a result of achievement ${objectA}`
+        } else if (this.objectB.startsWith(IdPrefixes.Achievement)) {
+          this.type = Raw.Achievement
+          this.mainSpiel = `Achievement met ${objectB}`
+          this.achievementSpiel = `as a result of achievement ${objectA}`
         } else {
           this.mainSpiel = `${objectB} generically appears.... `
         }
@@ -114,7 +114,7 @@ export class RawObjectsAndVerb {
     console.warn(this.objectB)
   }
 
-  public isAGoalOrAuto (): boolean {
-    return this.type === Raw.Goal || this.type === Raw.Auto
+  public isAAchievementOrAuto (): boolean {
+    return this.type === Raw.Achievement || this.type === Raw.Auto
   }
 }

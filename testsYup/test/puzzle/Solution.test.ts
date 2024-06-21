@@ -23,7 +23,7 @@ describe('Solution', () => {
         const box = new SceneSingle("test/puzzle/Test1First.jsonc");
         const pile:PileOfPieces = new PileOfPieces();
         json.CopyPiecesFromBoxToPile(pile);
-        const objective = "prop_death_by_guitar";
+        const objective = "obj_death_by_guitar";
         const collection = new SolutionCollection();
         const solution = new Solution(new Piece("", "", objective), map)
         collection.push(solution);
@@ -43,7 +43,7 @@ describe('Solution', () => {
             //assert.ok(leafPieceMap.has("inv_deflated_ball"));
             //assert.ok(leafPieceMap.has("inv_pump_with_bike_adapter"));
             //assert.ok(leafPieceMap.has("inv_needle"));
-            //assert.ok(leafPieceMap.has("prop_raised_backboard"));
+            //assert.ok(leafPieceMap.has("obj_raised_backboard"));
             //assert.ok(leafPieceMap.has("inv_pole_hook"));
         }
     });
@@ -53,7 +53,7 @@ describe('Solution', () => {
         const pile:PileOfPieces = new PileOfPieces();
         const pile:PileOfPieces = new PileOfPieces();
         json.CopyPiecesFromBoxToPile(pile);
-        const objective = "prop_death_by_slamdunk";
+        const objective = "obj_death_by_slamdunk";
         const collection = new SolutionCollection();
         const solution = new Solution(new Piece("", "", objective), map);
         collection.push(solution);
@@ -73,7 +73,7 @@ describe('Solution', () => {
             //assert.ok(leafPieceMap.has("inv_deflated_ball"));
             //assert.ok(leafPieceMap.has("inv_pump_with_bike_adapter"));
             //assert.ok(leafPieceMap.has("inv_needle"));
-            //assert.ok(leafPieceMap.has("prop_raised_backboard"));
+            //assert.ok(leafPieceMap.has("obj_raised_backboard"));
             //assert.ok(leafPieceMap.has("inv_pole_hook"));
         }
     });
@@ -87,7 +87,7 @@ describe('Solution', () => {
       box.CopyPiecesFromBoxToPile(pile)
 
       const rootMap = new RootPieceMap(null)
-      box.CopyFullGoalPiecesTreesToContainer(rootMap)
+      box.CopyFullAchievementPiecesTreesToContainer(rootMap)
       const solution = new Solution(rootMap, pile, startingThings)
 
       const collection = new SolverViaRootPiece(solution)
@@ -112,32 +112,32 @@ describe('Solution', () => {
       // expect(leaves).has('/root comment 1/a_win/inv_final_catalyst/')
       /*
       assert.ok(leaves.has('/root comment 1/a_win/inv_final_catalyst/'))
-      assert.ok(leaves.has('/root comment 1/a_win/prop_stageE/prop_stageD/prop_switched_on_item1/'))
-      assert.ok(leaves.has('/root comment 1/a_win/prop_stageE/prop_stageD/prop_switched_on_item2/'))
-      assert.ok(leaves.has('/root comment 1/a_win/prop_stageE/prop_stageD/prop_switched_on_item3/'))
-      assert.ok(leaves.has('/root comment 1/a_win/prop_stageE/prop_stageD/prop_switched_on_item4/'))
-      assert.ok(leaves.has('/root comment 1/a_win/prop_stageE/prop_stageD/prop_stageC/prop_switched_on_item1/'))
-      assert.ok(leaves.has('/root comment 1/a_win/prop_stageE/prop_stageD/prop_stageC/prop_switched_on_item2/'))
-      assert.ok(leaves.has('/root comment 1/a_win/prop_stageE/prop_stageD/prop_stageC/prop_switched_on_item3/'))
-      assert.ok(leaves.has('/root comment 1/a_win/prop_stageE/prop_stageD/prop_stageC/prop_stageB/prop_switched_on_item1/'))
-      assert.ok(leaves.has('/root comment 1/a_win/prop_stageE/prop_stageD/prop_stageC/prop_stageB/prop_switched_on_item2/'))
-      assert.ok(leaves.has('/root comment 1/a_win/prop_stageE/prop_stageD/prop_stageC/prop_stageB/prop_stageA/prop_dispatcher/'))
-      assert.ok(leaves.has('/root comment 1/a_win/prop_stageE/prop_stageD/prop_stageC/prop_stageB/prop_stageA/prop_switched_on_item1/'))
-      assert.ok(leaves.has('/root comment 1/a_win/prop_stageE/prop_switched_on_item1/prop_rigged_item1/prop_switch1/'))
-      assert.ok(leaves.has('/root comment 1/a_win/prop_stageE/prop_switched_on_item1/prop_rigged_item1/prop_attached_item1/prop_rigging_place1/'))
-      assert.ok(leaves.has('/root comment 1/a_win/prop_stageE/prop_switched_on_item1/prop_rigged_item1/prop_attached_item1/inv_box_of_items/'))
-      assert.ok(leaves.has('/root comment 1/a_win/prop_stageE/prop_switched_on_item2/prop_rigged_item2/prop_switch2/'))
-      assert.ok(leaves.has('/root comment 1/a_win/prop_stageE/prop_switched_on_item2/prop_rigged_item2/prop_attached_item2/prop_rigging_place2/'))
-      assert.ok(leaves.has('/root comment 1/a_win/prop_stageE/prop_switched_on_item2/prop_rigged_item2/prop_attached_item2/inv_box_of_items/'))
-      assert.ok(leaves.has('/root comment 1/a_win/prop_stageE/prop_switched_on_item3/prop_rigged_item3/prop_switch3/'))
-      assert.ok(leaves.has('/root comment 1/a_win/prop_stageE/prop_switched_on_item3/prop_rigged_item3/prop_attached_item3/prop_rigging_place3/'))
-      assert.ok(leaves.has('/root comment 1/a_win/prop_stageE/prop_switched_on_item3/prop_rigged_item3/prop_attached_item3/inv_box_of_items/'))
-      assert.ok(leaves.has('/root comment 1/a_win/prop_stageE/prop_switched_on_item4/prop_rigged_item4/prop_switch4/'))
-      assert.ok(leaves.has('/root comment 1/a_win/prop_stageE/prop_switched_on_item4/prop_rigged_item4/prop_attached_item4/prop_rigging_place4/'))
-      assert.ok(leaves.has('/root comment 1/a_win/prop_stageE/prop_switched_on_item4/prop_rigged_item4/prop_attached_item4/inv_box_of_items/'))
-      assert.ok(leaves.has('/root comment 1/a_win/prop_stageE/prop_switched_on_item5/prop_rigged_item5/prop_switch5/'))
-      assert.ok(leaves.has('/root comment 1/a_win/prop_stageE/prop_switched_on_item5/prop_rigged_item5/prop_attached_item5/prop_rigging_place5/'))
-      assert.ok(leaves.has('/root comment 1/a_win/prop_stageE/prop_switched_on_item5/prop_rigged_item5/prop_attached_item5/inv_box_of_items/'))
+      assert.ok(leaves.has('/root comment 1/a_win/obj_stageE/obj_stageD/obj_switched_on_item1/'))
+      assert.ok(leaves.has('/root comment 1/a_win/obj_stageE/obj_stageD/obj_switched_on_item2/'))
+      assert.ok(leaves.has('/root comment 1/a_win/obj_stageE/obj_stageD/obj_switched_on_item3/'))
+      assert.ok(leaves.has('/root comment 1/a_win/obj_stageE/obj_stageD/obj_switched_on_item4/'))
+      assert.ok(leaves.has('/root comment 1/a_win/obj_stageE/obj_stageD/obj_stageC/obj_switched_on_item1/'))
+      assert.ok(leaves.has('/root comment 1/a_win/obj_stageE/obj_stageD/obj_stageC/obj_switched_on_item2/'))
+      assert.ok(leaves.has('/root comment 1/a_win/obj_stageE/obj_stageD/obj_stageC/obj_switched_on_item3/'))
+      assert.ok(leaves.has('/root comment 1/a_win/obj_stageE/obj_stageD/obj_stageC/obj_stageB/obj_switched_on_item1/'))
+      assert.ok(leaves.has('/root comment 1/a_win/obj_stageE/obj_stageD/obj_stageC/obj_stageB/obj_switched_on_item2/'))
+      assert.ok(leaves.has('/root comment 1/a_win/obj_stageE/obj_stageD/obj_stageC/obj_stageB/obj_stageA/obj_dispatcher/'))
+      assert.ok(leaves.has('/root comment 1/a_win/obj_stageE/obj_stageD/obj_stageC/obj_stageB/obj_stageA/obj_switched_on_item1/'))
+      assert.ok(leaves.has('/root comment 1/a_win/obj_stageE/obj_switched_on_item1/obj_rigged_item1/obj_switch1/'))
+      assert.ok(leaves.has('/root comment 1/a_win/obj_stageE/obj_switched_on_item1/obj_rigged_item1/obj_attached_item1/obj_rigging_place1/'))
+      assert.ok(leaves.has('/root comment 1/a_win/obj_stageE/obj_switched_on_item1/obj_rigged_item1/obj_attached_item1/inv_box_of_items/'))
+      assert.ok(leaves.has('/root comment 1/a_win/obj_stageE/obj_switched_on_item2/obj_rigged_item2/obj_switch2/'))
+      assert.ok(leaves.has('/root comment 1/a_win/obj_stageE/obj_switched_on_item2/obj_rigged_item2/obj_attached_item2/obj_rigging_place2/'))
+      assert.ok(leaves.has('/root comment 1/a_win/obj_stageE/obj_switched_on_item2/obj_rigged_item2/obj_attached_item2/inv_box_of_items/'))
+      assert.ok(leaves.has('/root comment 1/a_win/obj_stageE/obj_switched_on_item3/obj_rigged_item3/obj_switch3/'))
+      assert.ok(leaves.has('/root comment 1/a_win/obj_stageE/obj_switched_on_item3/obj_rigged_item3/obj_attached_item3/obj_rigging_place3/'))
+      assert.ok(leaves.has('/root comment 1/a_win/obj_stageE/obj_switched_on_item3/obj_rigged_item3/obj_attached_item3/inv_box_of_items/'))
+      assert.ok(leaves.has('/root comment 1/a_win/obj_stageE/obj_switched_on_item4/obj_rigged_item4/obj_switch4/'))
+      assert.ok(leaves.has('/root comment 1/a_win/obj_stageE/obj_switched_on_item4/obj_rigged_item4/obj_attached_item4/obj_rigging_place4/'))
+      assert.ok(leaves.has('/root comment 1/a_win/obj_stageE/obj_switched_on_item4/obj_rigged_item4/obj_attached_item4/inv_box_of_items/'))
+      assert.ok(leaves.has('/root comment 1/a_win/obj_stageE/obj_switched_on_item5/obj_rigged_item5/obj_switch5/'))
+      assert.ok(leaves.has('/root comment 1/a_win/obj_stageE/obj_switched_on_item5/obj_rigged_item5/obj_attached_item5/obj_rigging_place5/'))
+      assert.ok(leaves.has('/root comment 1/a_win/obj_stageE/obj_switched_on_item5/obj_rigged_item5/obj_attached_item5/inv_box_of_items/'))
 
       */
 

@@ -20,22 +20,22 @@
         "inv3": {
           "$ref": "i_inventory.jsonc#/definitions/inventory_enum"
         },
-        "prop1": {
+        "obj1": {
           "$ref": "o_objects.jsonc#/definitions/object_enum"
         },
         "prop2": {
           "$ref": "o_objects.jsonc#/definitions/object_enum"
         },
-        "prop3": {
+        "obj3": {
           "$ref": "o_objects.jsonc#/definitions/object_enum"
         },
-        "prop4": {
+        "obj4": {
           "$ref": "o_objects.jsonc#/definitions/object_enum"
         },
-        "prop5": {
+        "obj5": {
           "$ref": "o_objects.jsonc#/definitions/object_enum"
         },
-        "prop6": {
+        "obj6": {
           "$ref": "o_objects.jsonc#/definitions/object_enum"
         },
         "a1": {
@@ -63,23 +63,23 @@
           "type": "array",
           "minItems": 0,
           "items": {
-            "$ref": "#/definitions/character_wrapper_type"
+            "$ref": "#/definitions/player_wrapper_type"
           }
         }
       }
     },
-    "character_wrapper_type": {
+    "player_wrapper_type": {
       "type": "object",
       "required": [
-        "character"
+        "player"
       ],
       "properties": {
-        "character": {
+        "player": {
           "$ref": "p_players.jsonc#/definitions/player_enum"
         }
       }
     },
-    "prop_wrapper_type": {
+    "obj_wrapper_type": {
       "type": "object",
       "required": [
         "prop"
@@ -98,7 +98,7 @@
       "items": {
         "type": "object",
         "properties": {
-          "character": {
+          "player": {
             "$ref": "p_players.jsonc#/definitions/player_enum"
           },
           "thing": {

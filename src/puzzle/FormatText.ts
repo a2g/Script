@@ -19,7 +19,7 @@ export function FormatText (
   }
 
   const single = input.toString()
-  if (single.startsWith('sol_prop_')) {
+  if (single.startsWith('sol_obj_')) {
     if (!isColor) return AddBrackets(single.slice(9), isParenthesisNeeded)
     return (
       Colors.Yellow +
@@ -27,7 +27,7 @@ export function FormatText (
       Colors.Reset
     )
   }
-  if (single.startsWith(IdPrefixes.InvGoal)) {
+  if (single.startsWith(IdPrefixes.InvAchievement)) {
     if (!isColor) return single.slice(8)
     return Colors.Yellow + single.slice(8) + Colors.Reset
   }
@@ -43,20 +43,20 @@ export function FormatText (
     if (!isColor) return single.slice(4)
     return Colors.Green + single.slice(4) + Colors.Reset
   }
-  if (single.startsWith(IdPrefixes.Prop)) {
+  if (single.startsWith(IdPrefixes.Obj)) {
     if (!isColor) return single.slice(5)
     return Colors.Cyan + single.slice(5) + Colors.Reset
   }
-  if (single.startsWith(IdPrefixes.Goal)) {
+  if (single.startsWith(IdPrefixes.Achievement)) {
     if (!isColor) return single.slice(1)
     return Colors.Green + single.slice(1) + Colors.Reset
   }
 
-  if (single.startsWith(IdPrefixes.Talk) || single.startsWith(IdPrefixes.Talks)) {
+  if (single.startsWith(IdPrefixes.Chat) || single.startsWith(IdPrefixes.Chats)) {
     if (!isColor) return single.slice(6)
     return Colors.Red + single.slice(6) + Colors.Reset
   }
-  if (single.startsWith(IdPrefixes.Char)) {
+  if (single.startsWith(IdPrefixes.Player)) {
     if (!isColor) return AddBrackets(single.slice(5), isParenthesisNeeded)
     return (
       Colors.Red +

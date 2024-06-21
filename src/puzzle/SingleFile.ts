@@ -11,14 +11,14 @@ import { parse } from 'jsonc-parser'
 import { Mix } from './Mix'
 import { Verb } from './Verb'
 import { AlleviateBrackets } from './AlleviateBrackets'
-import { GetNextId } from './talk/GetNextId'
-import { TalkFile } from './talk/TalkFile'
+import { GetNextId } from './chat/GetNextId'
+import { ChatFile } from './chat/ChatFile'
 import { Aggregates } from './Aggregates'
 import { AddPiece } from './AddPiece'
 import { _STARTER } from '../_STARTER'
 
-function makeGoalNameDeterministically (partA: string, partB: string): string {
-  return `x_gen_${partA}_${partB}_goal`
+function makeAchievementNameDeterministically (partA: string, partB: string): string {
+  return `x_gen_${partA}_${partB}_achievement`
 }
 /**
  * Yup, this is the one location of these
@@ -56,24 +56,24 @@ export class SingleFile {
       if (piece.count !== undefined) {
         count = piece.count
       }
-      const talk1 = Stringify(piece.talk1)
-      const goal1 = Stringify(piece.goal1)
-      const goal2 = Stringify(piece.goal2)
-      const goal3 = Stringify(piece.goal3)
-      const goal4 = Stringify(piece.goal4)
-      const goal5 = Stringify(piece.goal5)
-      // const goal6 = Stringify(piece.goal6)
+      const chat1 = Stringify(piece.chat1)
+      const achievement1 = Stringify(piece.achievement1)
+      const achievement2 = Stringify(piece.achievement2)
+      const achievement3 = Stringify(piece.achievement3)
+      const achievement4 = Stringify(piece.achievement4)
+      const achievement5 = Stringify(piece.achievement5)
+      // const achievement6 = Stringify(piece.achievement6)
       const inv1 = Stringify(piece.inv1)
       const inv2 = Stringify(piece.inv2)
       const inv3 = Stringify(piece.inv3)
       const inv4 = Stringify(piece.inv4)
-      const prop1 = Stringify(piece.prop1)
-      const prop2 = Stringify(piece.prop2)
-      const prop3 = Stringify(piece.prop3)
-      const prop4 = Stringify(piece.prop4)
-      const prop5 = Stringify(piece.prop5)
-      const prop6 = Stringify(piece.prop6)
-      const prop7 = Stringify(piece.prop7)
+      const obj1 = Stringify(piece.obj1)
+      const obj2 = Stringify(piece.obj2)
+      const obj3 = Stringify(piece.obj3)
+      const obj4 = Stringify(piece.obj4)
+      const obj5 = Stringify(piece.obj5)
+      const obj6 = Stringify(piece.obj6)
+      const obj7 = Stringify(piece.obj7)
 
       const isNoFile = piece.isNoFile === undefined ? false : piece.isNoFile as boolean
       const { restrictions } = piece
@@ -88,222 +88,222 @@ export class SingleFile {
       const boxToMerge: Box | null = null
       let command = null
       switch (pieceType) {
-        case _.AUTO_GOAL1_MET_BY_GOALS:
-          output = goal1
-          inputA = goal2
-          inputB = goal3
-          inputC = goal4
-          inputD = goal5
+        case _.AUTO_ACHMT1_MET_BY_ACHMTS:
+          output = achievement1
+          inputA = achievement2
+          inputB = achievement3
+          inputC = achievement4
+          inputD = achievement5
           command = new Command(Verb.Auto, Mix.AutoNeedsNothing, '')
           break
-        case _.AUTO_GOAL1_MET_BY_INVS:
-          output = goal1
+        case _.AUTO_ACHMT1_MET_BY_INVS:
+          output = achievement1
           inputA = inv1
           inputB = inv2
           inputC = inv3
           command = new Command(Verb.Auto, Mix.AutoNeedsNothing, '')
           break
-        case _.AUTO_GOAL1_MET_BY_PROPS:
-          output = goal1
-          inputA = prop1
-          inputB = prop2
-          inputC = prop3
-          inputD = prop4
-          inputE = prop5
-          inputF = prop6
+        case _.AUTO_ACHMT1_MET_BY_OBJS:
+          output = achievement1
+          inputA = obj1
+          inputB = obj2
+          inputC = obj3
+          inputD = obj4
+          inputE = obj5
+          inputF = obj6
           command = new Command(Verb.Auto, Mix.AutoNeedsNothing, '')
           break
-        case _.AUTO_INV1_BECOMES_INV2_VIA_GOAL1:
-          inputA = goal1
+        case _.AUTO_INV1_BECOMES_INV2_VIA_ACHMT1:
+          inputA = achievement1
           inputB = inv1
           output = inv2
           command = new Command(Verb.Auto, Mix.AutoNeedsNothing, '')
           break
-        case _.AUTO_INV1_OBTAINED_VIA_GOAL1:
+        case _.AUTO_INV1_OBTAINED_VIA_ACHMT1:
           happs.array.push(new Happening(Happen.InvAppears, inv1))
           output = inv1
-          inputA = goal1
+          inputA = achievement1
           command = new Command(Verb.Auto, Mix.AutoNeedsNothing, '')
           break
-        case _.AUTO_PROP1_APPEARS_VIA_GOAL1:
-          output = prop1
-          inputA = goal1
+        case _.AUTO_OBJ1_APPEARS_VIA_ACHMT1:
+          output = obj1
+          inputA = achievement1
           command = new Command(Verb.Auto, Mix.AutoNeedsNothing, '')
           break
-        case _.AUTO_PROP1_BECOMES_PROP2_BY_PROPS:
-          inputA = prop1
-          output = prop2
-          inputB = prop3
-          inputC = prop4
-          inputD = prop5
-          inputE = prop6
-          inputF = prop7
+        case _.AUTO_OBJ1_BECOMES_OBJ2_BY_OBJS:
+          inputA = obj1
+          output = obj2
+          inputB = obj3
+          inputC = obj4
+          inputD = obj5
+          inputE = obj6
+          inputF = obj7
           command = new Command(Verb.Auto, Mix.AutoNeedsNothing, '')
           break
-        case _.AUTO_PROP1_BECOMES_PROP2_VIA_GOAL1:
-          inputA = goal1
-          inputB = prop1
-          output = prop2
+        case _.AUTO_OBJ1_BECOMES_OBJ2_VIA_ACHMT1:
+          inputA = achievement1
+          inputB = obj1
+          output = obj2
           command = new Command(Verb.Auto, Mix.AutoNeedsNothing, '')
           break
-        case _.TALK1_GENERATED_PIECE_PLACEHOLDER:
+        case _.CHAT1_GENERATED_PIECE_PLACEHOLDER:
           {
-            const talkFile = new TalkFile(talk1 + '.jsonc', this.path, this.aggregates)
-            box.GetTalkFiles().set(talkFile.GetName(), talkFile)
+            const chatFile = new ChatFile(chat1 + '.jsonc', this.path, this.aggregates)
+            box.GetChatFiles().set(chatFile.GetName(), chatFile)
             const blankMap = new Map<string, string>()
-            // talk1 is a subclass of a prop: it represents the character that
-            // you interact with and can be visible and invisible - just like a prop
-            // To talk to a prop it needs to be visible, so we add talk1 as a requisite
-            talkFile.FindAndAddPiecesRecursively(_STARTER, '', [talk1], blankMap, box)
+            // chat1 is a subclass of a obj: it represents the character that
+            // you interact with and can be visible and invisible - just like a obj
+            // To chat to a obj it needs to be visible, so we add chat1 as a requisite
+            chatFile.FindAndAddPiecesRecursively(_STARTER, '', [chat1], blankMap, box)
           }
           break
-        case _.EXAMINE_PROP1_YIELDS_INV1:
-          happs.text = `You examine the ${prop1} and find a ${inv1}`
-          // ly don't mention what happen to the prop you clicked on.  '\n You now have a' + inv1
+        case _.EXAMINE_OBJ1_YIELDS_INV1:
+          happs.text = `You examine the ${obj1} and find a ${inv1}`
+          // ly don't mention what happen to the obj you clicked on.  '\n You now have a' + inv1
           happs.array.push(new Happening(Happen.InvAppears, inv1))
           output = inv1
-          inputA = prop1
-          command = new Command(Verb.Examine, Mix.Prop, prop1)
+          inputA = obj1
+          command = new Command(Verb.Examine, Mix.Prop, obj1)
           break
-        case _.GIVE_INV1_TO_PROP1_GETS_INV2:
-          happs.text = `You give the ${inv1} to the ${prop1} and you get the ${inv2} in return`
+        case _.GIVE_INV1_TO_OBJ1_GETS_INV2:
+          happs.text = `You give the ${inv1} to the ${obj1} and you get the ${inv2} in return`
           happs.array.push(new Happening(Happen.InvGoes, inv1))
           happs.array.push(new Happening(Happen.InvAppears, inv2))
-          happs.array.push(new Happening(Happen.PropStays, prop1))
-          // keeping prop1
+          happs.array.push(new Happening(Happen.PropStays, obj1))
+          // keeping obj1
           inputA = inv1
-          inputB = prop1
+          inputB = obj1
           output = inv2
-          command = new Command(Verb.Give, Mix.InvVsProp, inv1, prop1)
+          command = new Command(Verb.Give, Mix.InvVsProp, inv1, obj1)
           break
-        case _.GOAL1_MET_BY_KEEPING_INV1_WHEN_USED_WITH_PROP1:
-          happs.text = `You use the ${inv1} with the ${prop1} and something good happens...`
-          happs.array.push(new Happening(Happen.GoalIsSet, goal1))
+        case _.ACHMT1_MET_BY_KEEPING_INV1_WHEN_USED_WITH_OBJ1:
+          happs.text = `You use the ${inv1} with the ${obj1} and something good happens...`
+          happs.array.push(new Happening(Happen.AchievementIsSet, achievement1))
           happs.array.push(new Happening(Happen.InvStays, inv1))
-          happs.array.push(new Happening(Happen.PropStays, prop1))
-          output = goal1
-          inputA = prop1
+          happs.array.push(new Happening(Happen.PropStays, obj1))
+          output = achievement1
+          inputA = obj1
           inputB = inv1
-          command = new Command(Verb.Use, Mix.InvVsProp, inv1, prop1)
+          command = new Command(Verb.Use, Mix.InvVsProp, inv1, obj1)
           break
-        case _.GOAL1_MET_BY_LOSING_BOTH_INV1_AND_PROP1_WHEN_USED:
-          happs.text = `You use the ${inv1} with the ${prop1} and something good happens...`
-          happs.array.push(new Happening(Happen.GoalIsSet, goal1))
+        case _.ACHMT1_MET_BY_LOSING_BOTH_INV1_AND_OBJ1_WHEN_USED:
+          happs.text = `You use the ${inv1} with the ${obj1} and something good happens...`
+          happs.array.push(new Happening(Happen.AchievementIsSet, achievement1))
           happs.array.push(new Happening(Happen.InvGoes, inv1))
-          happs.array.push(new Happening(Happen.PropGoes, prop1))
-          output = goal1
+          happs.array.push(new Happening(Happen.PropGoes, obj1))
+          output = achievement1
           inputA = inv1
-          inputB = prop1
-          command = new Command(Verb.Use, Mix.InvVsProp, inv1, prop1)
+          inputB = obj1
+          command = new Command(Verb.Use, Mix.InvVsProp, inv1, obj1)
           break
-        case _.GOAL1_MET_BY_LOSING_INV1_WHEN_USED_WITH_PROP1:
-          happs.text = `You use the ${inv1} with the ${prop1} and something good happens...`
-          happs.array.push(new Happening(Happen.GoalIsSet, goal1))
+        case _.ACHMT1_MET_BY_LOSING_INV1_WHEN_USED_WITH_OBJ1:
+          happs.text = `You use the ${inv1} with the ${obj1} and something good happens...`
+          happs.array.push(new Happening(Happen.AchievementIsSet, achievement1))
           happs.array.push(new Happening(Happen.InvGoes, inv1))
-          happs.array.push(new Happening(Happen.PropStays, prop1))
-          output = goal1
+          happs.array.push(new Happening(Happen.PropStays, obj1))
+          output = achievement1
           inputA = inv1
-          inputB = prop1
-          command = new Command(Verb.Use, Mix.InvVsProp, inv1, prop1)
+          inputB = obj1
+          command = new Command(Verb.Use, Mix.InvVsProp, inv1, obj1)
           break
-        case _.GOAL1_MET_BY_LOSING_INV1_USED_WITH_PROP1_AND_PROPS:
-          happs.text = `With everything set up correctly, you use the ${inv1} with the ${prop1} and something good happens...`
-          happs.array.push(new Happening(Happen.GoalIsSet, goal1))
+        case _.ACHMT1_MET_BY_LOSING_INV1_USED_WITH_OBJ1_AND_OBJS:
+          happs.text = `With everything set up correctly, you use the ${inv1} with the ${obj1} and something good happens...`
+          happs.array.push(new Happening(Happen.AchievementIsSet, achievement1))
           happs.array.push(new Happening(Happen.InvGoes, inv1))
-          happs.array.push(new Happening(Happen.PropStays, prop1))
-          if (prop2.length > 0) {
-            happs.array.push(new Happening(Happen.PropStays, prop2))
+          happs.array.push(new Happening(Happen.PropStays, obj1))
+          if (obj2.length > 0) {
+            happs.array.push(new Happening(Happen.PropStays, obj2))
           }
-          if (prop3.length > 0) {
-            happs.array.push(new Happening(Happen.PropStays, prop3))
+          if (obj3.length > 0) {
+            happs.array.push(new Happening(Happen.PropStays, obj3))
           }
-          output = goal1
+          output = achievement1
           inputA = inv1
-          inputB = prop1
-          inputC = prop2
-          inputD = prop3
-          command = new Command(Verb.Use, Mix.InvVsProp, inv1, prop1)
+          inputB = obj1
+          inputC = obj2
+          inputD = obj3
+          command = new Command(Verb.Use, Mix.InvVsProp, inv1, obj1)
           break
-        case _.GOAL1_MET_BY_USING_INV1_WITH_INV2:
+        case _.ACHMT1_MET_BY_USING_INV1_WITH_INV2:
           happs.text = `You use the ${inv1} with the ${inv2} and something good happens...`
           happs.array.push(new Happening(Happen.InvStays, inv1))
           happs.array.push(new Happening(Happen.InvStays, inv2))
-          happs.array.push(new Happening(Happen.GoalIsSet, goal1))
+          happs.array.push(new Happening(Happen.AchievementIsSet, achievement1))
           inputA = inv1
           inputB = inv2
-          output = goal1
+          output = achievement1
           command = new Command(Verb.Use, Mix.InvVsInv, inv1, inv2)
           break
-        case _.GOAL1_MET_BY_USING_INV1_WITH_PROP1:
-          happs.text = `You use the ${inv1} with the ${prop1} and something good happens...`
+        case _.ACHMT1_MET_BY_USING_INV1_WITH_OBJ1:
+          happs.text = `You use the ${inv1} with the ${obj1} and something good happens...`
           happs.array.push(new Happening(Happen.InvStays, inv1))
-          happs.array.push(new Happening(Happen.PropStays, prop1))
-          happs.array.push(new Happening(Happen.GoalIsSet, goal1))
+          happs.array.push(new Happening(Happen.PropStays, obj1))
+          happs.array.push(new Happening(Happen.AchievementIsSet, achievement1))
           inputA = inv1
-          inputB = prop1
-          output = goal1
-          command = new Command(Verb.Use, Mix.InvVsProp, inv1, prop1)
+          inputB = obj1
+          output = achievement1
+          command = new Command(Verb.Use, Mix.InvVsProp, inv1, obj1)
           break
-        case _.GOAL1_MET_BY_USING_INV1_WITH_PROP1_LOSE_PROPS:
-          happs.text = `You use the ${inv1} with the  ${prop1} and something good happens...`
+        case _.ACHMT1_MET_BY_USING_INV1_WITH_OBJ1_LOSE_OBJS:
+          happs.text = `You use the ${inv1} with the  ${obj1} and something good happens...`
           happs.array.push(new Happening(Happen.InvStays, inv1))
-          happs.array.push(new Happening(Happen.PropGoes, prop1))
-          happs.array.push(new Happening(Happen.GoalIsSet, goal1))
-          command = new Command(Verb.Use, Mix.InvVsProp, inv1, prop1)
+          happs.array.push(new Happening(Happen.PropGoes, obj1))
+          happs.array.push(new Happening(Happen.AchievementIsSet, achievement1))
+          command = new Command(Verb.Use, Mix.InvVsProp, inv1, obj1)
           inputA = inv1
-          inputB = prop1
-          output = goal1
+          inputB = obj1
+          output = achievement1
           break
-        case _.GOAL1_MET_BY_USING_INV1_WITH_PROP1_NEED_GOALS:
-          happs.text = `You use the ${inv1} with the  ${prop1} and something good happens...`
+        case _.ACHMT1_MET_BY_USING_INV1_WITH_OBJ1_NEED_ACHMTS:
+          happs.text = `You use the ${inv1} with the  ${obj1} and something good happens...`
           happs.array.push(new Happening(Happen.InvStays, inv1))
-          happs.array.push(new Happening(Happen.PropStays, prop1))
-          happs.array.push(new Happening(Happen.GoalIsSet, goal1))
-          output = goal1
+          happs.array.push(new Happening(Happen.PropStays, obj1))
+          happs.array.push(new Happening(Happen.AchievementIsSet, achievement1))
+          output = achievement1
           inputA = inv1
-          inputB = prop1
-          inputC = goal2
-          inputD = goal3
-          inputE = goal4
-          inputF = goal5
-          command = new Command(Verb.Use, Mix.InvVsProp, inv1, prop1)
+          inputB = obj1
+          inputC = achievement2
+          inputD = achievement3
+          inputE = achievement4
+          inputF = achievement5
+          command = new Command(Verb.Use, Mix.InvVsProp, inv1, obj1)
           break
-        case _.GOAL1_MET_BY_USING_PROP1_WITH_PROP2:
-          happs.text = `You use the ${prop1} with the ${prop2} and something good happens...`
-          happs.array.push(new Happening(Happen.PropStays, prop1))
-          happs.array.push(new Happening(Happen.PropStays, prop2))
-          happs.array.push(new Happening(Happen.GoalIsSet, goal1))
-          inputA = prop1
-          inputB = prop2
-          output = goal1
-          command = new Command(Verb.Use, Mix.PropVsProp, prop1, prop2)
+        case _.ACHMT1_MET_BY_USING_OBJ1_WITH_OBJ2:
+          happs.text = `You use the ${obj1} with the ${obj2} and something good happens...`
+          happs.array.push(new Happening(Happen.PropStays, obj1))
+          happs.array.push(new Happening(Happen.PropStays, obj2))
+          happs.array.push(new Happening(Happen.AchievementIsSet, achievement1))
+          inputA = obj1
+          inputB = obj2
+          output = achievement1
+          command = new Command(Verb.Use, Mix.PropVsProp, obj1, obj2)
           break
-        case _.GOAL1_MET_BY_GIVING_INV1_TO_PROP1:
-          happs.text = `Goal is set ${goal1}`
+        case _.ACHMT1_MET_BY_GIVING_INV1_TO_OBJ1:
+          happs.text = `Achievement is set ${achievement1}`
           happs.array.push(new Happening(Happen.InvGoes, inv1))
-          happs.array.push(new Happening(Happen.PropStays, prop1))
-          happs.array.push(new Happening(Happen.GoalIsSet, goal1))
+          happs.array.push(new Happening(Happen.PropStays, obj1))
+          happs.array.push(new Happening(Happen.AchievementIsSet, achievement1))
           inputA = inv1
-          inputB = prop1
-          output = goal1
-          command = new Command(Verb.Give, Mix.InvVsProp, inv1, prop1)
+          inputB = obj1
+          output = achievement1
+          command = new Command(Verb.Give, Mix.InvVsProp, inv1, obj1)
           break
-        case _.INV1_BECOMES_INV2_AS_PROP1_BECOMES_PROP2_GEN:
+        case _.INV1_BECOMES_INV2_AS_OBJ1_BECOMES_OBJ2_GEN:
           {
-            const newGoal = makeGoalNameDeterministically(inv1, prop1)
+            const newAchievement = makeAchievementNameDeterministically(inv1, obj1)
             const happs1 = new Happenings()
-            happs1.array.push(new Happening(Happen.GoalIsSet, newGoal))
+            happs1.array.push(new Happening(Happen.AchievementIsSet, newAchievement))
             const inputA1 = inv1
-            const inputB1 = prop1
-            const output1 = newGoal
+            const inputB1 = obj1
+            const output1 = newAchievement
             AddPiece(
               new Piece(
                 GetNextId() + 'a',
                 null,
                 output1,
-                _.GOAL1_MET_BY_USING_INV1_WITH_PROP1,
+                _.ACHMT1_MET_BY_USING_INV1_WITH_OBJ1,
                 count,
-                new Command(Verb.Use, Mix.InvVsProp, inv1, prop1),
+                new Command(Verb.Use, Mix.InvVsProp, inv1, obj1),
                 happs1,
                 restrictions,
                 inputA1,
@@ -320,14 +320,14 @@ export class SingleFile {
               happs2.array.push(
                 new Happening(Happen.InvTransitions, inv1, inv2)
               )
-              const inputA2 = newGoal
+              const inputA2 = newAchievement
               const output2 = inv2
               AddPiece(
                 new Piece(
                   GetNextId() + 'b',
                   null,
                   output2,
-                  _.AUTO_INV1_BECOMES_INV2_VIA_GOAL1,
+                  _.AUTO_INV1_BECOMES_INV2_VIA_ACHMT1,
                   count,
                   new Command(Verb.Auto, Mix.AutoNeedsNothing, ''),
                   happs2,
@@ -341,17 +341,17 @@ export class SingleFile {
               )
               const happs3 = new Happenings()
               happs3.array.push(
-                new Happening(Happen.PropTransitions, prop1, prop2)
+                new Happening(Happen.PropTransitions, obj1, obj2)
               )
-              const inputA3 = newGoal
-              const inputB3 = prop1
-              const output3 = prop2
+              const inputA3 = newAchievement
+              const inputB3 = obj1
+              const output3 = obj2
               AddPiece(
                 new Piece(
                   GetNextId() + 'c',
                   null,
                   output3,
-                  _.AUTO_PROP1_BECOMES_PROP2_VIA_GOAL1,
+                  _.AUTO_OBJ1_BECOMES_OBJ2_VIA_ACHMT1,
                   count,
                   new Command(Verb.Auto, Mix.AutoNeedsNothing, ''),
                   happs3,
@@ -378,16 +378,16 @@ export class SingleFile {
           inputB = inv1
           command = new Command(Verb.Use, Mix.InvVsInv, inv1, inv2)
           break
-        case _.INV1_BECOMES_INV2_BY_KEEPING_PROP1:
+        case _.INV1_BECOMES_INV2_BY_KEEPING_OBJ1:
           happs.text = `Your ${inv1} has become a ${inv2}`
           happs.array.push(new Happening(Happen.InvGoes, inv1))
           happs.array.push(new Happening(Happen.InvAppears, inv2))
-          happs.array.push(new Happening(Happen.PropStays, prop1))
-          // keeping prop1
+          happs.array.push(new Happening(Happen.PropStays, obj1))
+          // keeping obj1
           inputA = inv1
           output = inv2
-          inputB = prop1
-          command = new Command(Verb.Use, Mix.InvVsProp, inv1, prop1)
+          inputB = obj1
+          command = new Command(Verb.Use, Mix.InvVsProp, inv1, obj1)
           break
         case _.INV1_BECOMES_INV2_BY_LOSING_INV3:
           happs.text = `The ${inv1} has become a  ${inv2}`
@@ -400,14 +400,14 @@ export class SingleFile {
           inputB = inv3
           command = new Command(Verb.Use, Mix.InvVsInv, inv1, inv3)
           break
-        case _.INV1_OBTAINED_AS_GRABBED_PROP1_BECOMES_PROP2:
-          happs.text = `Grabbing the ${prop1} allows you to obtain the ${inv1} ( and it becomes ${prop2}) `
+        case _.INV1_OBTAINED_AS_GRABBED_OBJ1_BECOMES_OBJ2:
+          happs.text = `Grabbing the ${obj1} allows you to obtain the ${inv1} ( and it becomes ${obj2}) `
           happs.array.push(new Happening(Happen.InvAppears, inv1))
-          happs.array.push(new Happening(Happen.PropGoes, prop1))
-          happs.array.push(new Happening(Happen.PropAppears, prop2))
+          happs.array.push(new Happening(Happen.PropGoes, obj1))
+          happs.array.push(new Happening(Happen.PropAppears, obj2))
           output = inv1
-          inputA = prop1
-          command = new Command(Verb.Grab, Mix.Prop, prop1)
+          inputA = obj1
+          command = new Command(Verb.Grab, Mix.Prop, obj1)
           break
         case _.INV1_OBTAINED_AS_INV2_BECOMES_INV3_LOSING_INV4:
           happs.text = `Using the ${inv2} with the ${inv4} allows you to obtain the ${inv1}`
@@ -420,16 +420,16 @@ export class SingleFile {
           inputB = inv4
           command = new Command(Verb.Use, Mix.VerbvsInv, inv2, inv4)
           break
-        case _.INV1_OBTAINED_AS_PROP1_BECOMES_PROP2_KEEP_INV2:
-          happs.text = `Using the ${inv2} on the ${prop1} allows you to obtain the ${inv1}`
+        case _.INV1_OBTAINED_AS_OBJ1_BECOMES_OBJ2_KEEP_INV2:
+          happs.text = `Using the ${inv2} on the ${obj1} allows you to obtain the ${inv1}`
           happs.array.push(new Happening(Happen.InvAppears, inv1))
           happs.array.push(new Happening(Happen.InvStays, inv2))
-          happs.array.push(new Happening(Happen.PropGoes, prop1))
-          happs.array.push(new Happening(Happen.PropAppears, prop2))
+          happs.array.push(new Happening(Happen.PropGoes, obj1))
+          happs.array.push(new Happening(Happen.PropAppears, obj2))
           output = inv1
           inputA = inv2
-          inputB = prop1
-          command = new Command(Verb.Use, Mix.InvVsProp, inv2, prop1)
+          inputB = obj1
+          command = new Command(Verb.Use, Mix.InvVsProp, inv2, obj1)
           break
         case _.INV1_OBTAINED_BY_COMBINING_INV2_WITH_INV3:
           happs.text = `The ${inv2} and the ${inv3} combine to form an ${inv1}`
@@ -441,45 +441,45 @@ export class SingleFile {
           inputB = inv3
           command = new Command(Verb.Use, Mix.InvVsInv, inv2, inv3)
           break
-        case _.INV1_OBTAINED_BY_COMBINING_INV2_WITH_PROP1:
-          happs.text = `By using the ${inv1} with the ${prop1} you have obtained the ${inv1}.`
+        case _.INV1_OBTAINED_BY_COMBINING_INV2_WITH_OBJ1:
+          happs.text = `By using the ${inv1} with the ${obj1} you have obtained the ${inv1}.`
           happs.array.push(new Happening(Happen.InvAppears, inv1))
           happs.array.push(new Happening(Happen.InvGoes, inv2))
-          happs.array.push(new Happening(Happen.PropGoes, prop1))
+          happs.array.push(new Happening(Happen.PropGoes, obj1))
           output = inv1
           inputA = inv2
-          inputB = prop1
-          command = new Command(Verb.Use, Mix.InvVsProp, inv2, prop1)
+          inputB = obj1
+          command = new Command(Verb.Use, Mix.InvVsProp, inv2, obj1)
           break
-        case _.INV1_OBTAINED_BY_INV2_WITH_PROP1_LOSE_NONE:
-          happs.text = `By using the ${inv2} with the ${prop1} you have obtained the ${inv1}.`
+        case _.INV1_OBTAINED_BY_INV2_WITH_OBJ1_LOSE_NONE:
+          happs.text = `By using the ${inv2} with the ${obj1} you have obtained the ${inv1}.`
           happs.array.push(new Happening(Happen.InvAppears, inv1))
           happs.array.push(new Happening(Happen.InvStays, inv2))
-          happs.array.push(new Happening(Happen.PropStays, prop1))
+          happs.array.push(new Happening(Happen.PropStays, obj1))
           output = inv1
           inputA = inv2
-          inputB = prop1
-          command = new Command(Verb.Use, Mix.InvVsProp, inv2, prop1)
+          inputB = obj1
+          command = new Command(Verb.Use, Mix.InvVsProp, inv2, obj1)
           break
-        case _.INV1_OBTAINED_BY_LOSING_INV2_KEEPING_PROP1:
-          happs.text = `By using the ${inv2} with the ${prop1} you have obtained the ${inv1}.`
+        case _.INV1_OBTAINED_BY_LOSING_INV2_KEEPING_OBJ1:
+          happs.text = `By using the ${inv2} with the ${obj1} you have obtained the ${inv1}.`
           happs.array.push(new Happening(Happen.InvAppears, inv1))
           happs.array.push(new Happening(Happen.InvGoes, inv2))
-          happs.array.push(new Happening(Happen.PropStays, prop1))
+          happs.array.push(new Happening(Happen.PropStays, obj1))
           output = inv1
           inputA = inv2
-          inputB = prop1
-          command = new Command(Verb.Use, Mix.InvVsProp, inv2, prop1)
+          inputB = obj1
+          command = new Command(Verb.Use, Mix.InvVsProp, inv2, obj1)
           break
-        case _.INV1_OBTAINED_BY_LOSING_PROP1_KEEPING_INV2:
-          happs.text = `By using the ${inv2} with the ${prop1} you have obtained the ${inv1}.`
+        case _.INV1_OBTAINED_BY_LOSING_OBJ1_KEEPING_INV2:
+          happs.text = `By using the ${inv2} with the ${obj1} you have obtained the ${inv1}.`
           happs.array.push(new Happening(Happen.InvAppears, inv1))
           happs.array.push(new Happening(Happen.InvStays, inv2))
-          happs.array.push(new Happening(Happen.PropGoes, prop1))
+          happs.array.push(new Happening(Happen.PropGoes, obj1))
           output = inv1
           inputA = inv2
-          inputB = prop1
-          command = new Command(Verb.Open, Mix.InvVsProp, inv2, prop1)
+          inputB = obj1
+          command = new Command(Verb.Open, Mix.InvVsProp, inv2, obj1)
           break
         case _.INV1_OBTAINED_BY_OPENING_INV2_WHICH_BECOMES_INV3:
           // eg open radio...BATTERIES!
@@ -491,40 +491,40 @@ export class SingleFile {
           inputA = inv2
           command = new Command(Verb.Open, Mix.Inv, inv2)
           break
-        case _.INV1_OBTAINED_BY_PROP1_WITH_PROP2_LOSE_PROPS:
+        case _.INV1_OBTAINED_BY_OBJ1_WITH_OBJ2_LOSE_OBJS:
           // eg obtain inv_meteor via radiation suit with the meteor.
           // ^^ this is nearly a two in one, but the radiation suit never becomes inventory: you wear it.
-          happs.text = `You use the ${prop1} with the ${prop2} and obtain the ${inv1}`
+          happs.text = `You use the ${obj1} with the ${obj2} and obtain the ${inv1}`
           happs.array.push(new Happening(Happen.InvAppears, inv1))
-          happs.array.push(new Happening(Happen.PropGoes, prop1))
-          happs.array.push(new Happening(Happen.PropGoes, prop2))
+          happs.array.push(new Happening(Happen.PropGoes, obj1))
+          happs.array.push(new Happening(Happen.PropGoes, obj2))
           output = inv1
-          inputA = prop1
-          inputB = prop2
-          command = new Command(Verb.Open, Mix.PropVsProp, prop1, prop2)
+          inputA = obj1
+          inputB = obj2
+          command = new Command(Verb.Open, Mix.PropVsProp, obj1, obj2)
           break
-        case _.INV1_OBTAINED_WHEN_LOSING_INV2_AND_PROP1_BECOMES_PROP2_GEN:
+        case _.INV1_OBTAINED_WHEN_LOSING_INV2_AND_OBJ1_BECOMES_OBJ2_GEN:
           {
-            happs.text = `When you use the ${inv2} with the ${prop1}, you obtain an ${inv1} as the ${prop1} becomes a ${prop2}`
+            happs.text = `When you use the ${inv2} with the ${obj1}, you obtain an ${inv1} as the ${obj1} becomes a ${obj2}`
             happs.array.push(new Happening(Happen.InvGoes, inv2))
             happs.array.push(new Happening(Happen.InvAppears, inv1))
-            happs.array.push(new Happening(Happen.PropGoes, prop1))
-            happs.array.push(new Happening(Happen.PropAppears, prop2))
+            happs.array.push(new Happening(Happen.PropGoes, obj1))
+            happs.array.push(new Happening(Happen.PropAppears, obj2))
 
-            const newGoal = makeGoalNameDeterministically(inv2, prop1)
+            const newAchievement = makeAchievementNameDeterministically(inv2, obj1)
             const happs1 = new Happenings()
-            happs1.array.push(new Happening(Happen.GoalIsSet, newGoal))
+            happs1.array.push(new Happening(Happen.AchievementIsSet, newAchievement))
             const inputA1 = inv2
-            const inputB1 = prop1
-            const output1 = newGoal
+            const inputB1 = obj1
+            const output1 = newAchievement
             AddPiece(
               new Piece(
                 GetNextId() + 'd',
                 null,
                 output1,
-                _.GOAL1_MET_BY_USING_INV1_WITH_PROP1,
+                _.ACHMT1_MET_BY_USING_INV1_WITH_OBJ1,
                 count,
-                new Command(Verb.Use, Mix.InvVsProp, inv1, prop1),
+                new Command(Verb.Use, Mix.InvVsProp, inv1, obj1),
                 happs1,
                 restrictions,
                 inputA1,
@@ -540,14 +540,14 @@ export class SingleFile {
               const happs2 = new Happenings()
               happs2.array.push(new Happening(Happen.InvAppears, inv1))
               happs2.array.push(new Happening(Happen.InvGoes, inv2))
-              const inputA2 = newGoal
+              const inputA2 = newAchievement
               const output2 = inv1
               AddPiece(
                 new Piece(
                   GetNextId() + 'e',
                   null,
                   output2,
-                  _.AUTO_INV1_OBTAINED_VIA_GOAL1,
+                  _.AUTO_INV1_OBTAINED_VIA_ACHMT1,
                   count,
                   new Command(Verb.Auto, Mix.AutoNeedsNothing, ''),
                   happs2,
@@ -560,17 +560,17 @@ export class SingleFile {
                 this.aggregates
               )
               const happs3 = new Happenings()
-              happs3.array.push(new Happening(Happen.PropGoes, prop1))
-              happs3.array.push(new Happening(Happen.PropAppears, prop2))
-              const inputA3 = newGoal
-              const inputB3 = prop1
-              const output3 = prop2
+              happs3.array.push(new Happening(Happen.PropGoes, obj1))
+              happs3.array.push(new Happening(Happen.PropAppears, obj2))
+              const inputA3 = newAchievement
+              const inputB3 = obj1
+              const output3 = obj2
               AddPiece(
                 new Piece(
                   GetNextId() + 'f',
                   null,
                   output3,
-                  _.AUTO_PROP1_BECOMES_PROP2_VIA_GOAL1,
+                  _.AUTO_OBJ1_BECOMES_OBJ2_VIA_ACHMT1,
                   count,
                   new Command(Verb.Auto, Mix.AutoNeedsNothing, ''),
                   happs3,
@@ -586,199 +586,199 @@ export class SingleFile {
             }
           }
           continue // since it does its own calls to AddPiece
-        case _.PROP1_APPEARS_BY_INV1_WITH_PROP2:
-          happs.text = `Using the ${inv1} with the ${prop2} has revealed a ${prop1}`
-          happs.array.push(new Happening(Happen.PropAppears, prop1))
+        case _.OBJ1_APPEARS_BY_INV1_WITH_OBJ2:
+          happs.text = `Using the ${inv1} with the ${obj2} has revealed a ${obj1}`
+          happs.array.push(new Happening(Happen.PropAppears, obj1))
           happs.array.push(new Happening(Happen.InvStays, inv1))
-          happs.array.push(new Happening(Happen.PropStays, prop2))
-          output = prop1
+          happs.array.push(new Happening(Happen.PropStays, obj2))
+          output = obj1
           inputA = inv1
-          inputB = prop2
-          command = new Command(Verb.Open, Mix.InvVsProp, inv1, prop2)
+          inputB = obj2
+          command = new Command(Verb.Open, Mix.InvVsProp, inv1, obj2)
           break
-        case _.PROP1_APPEARS_BY_LOSING_INV1_WITH_PROP2:
-          happs.text = `Using the ${inv1} with the ${prop2} loses ${inv1} , but revaels a ${prop1}`
-          happs.array.push(new Happening(Happen.PropAppears, prop1))
+        case _.OBJ1_APPEARS_BY_LOSING_INV1_WITH_OBJ2:
+          happs.text = `Using the ${inv1} with the ${obj2} loses ${inv1} , but revaels a ${obj1}`
+          happs.array.push(new Happening(Happen.PropAppears, obj1))
           happs.array.push(new Happening(Happen.InvGoes, inv1))
-          happs.array.push(new Happening(Happen.PropStays, prop2))
-          output = prop1
+          happs.array.push(new Happening(Happen.PropStays, obj2))
+          output = obj1
           inputA = inv1
-          inputB = prop2
-          command = new Command(Verb.Open, Mix.InvVsProp, inv1, prop2)
+          inputB = obj2
+          command = new Command(Verb.Open, Mix.InvVsProp, inv1, obj2)
           break
-        case _.PROP1_APPEARS_WHEN_GRAB_PROP2_WITH_GOAL1:
-          happs.text = `You use the ${prop2} and, somewhere, a ${prop1} appears`
-          happs.array.push(new Happening(Happen.PropAppears, prop1))
+        case _.OBJ1_APPEARS_WHEN_GRAB_OBJ2_WITH_ACHMT1:
+          happs.text = `You use the ${obj2} and, somewhere, a ${obj1} appears`
+          happs.array.push(new Happening(Happen.PropAppears, obj1))
           command = new Command(Verb.Open, Mix.Inv, inv2)
-          output = prop1
-          // the prop you grab (ie phone) must be input A - the solution creator
+          output = obj1
+          // the obj you grab (ie phone) must be input A - the solution creator
           // always constructs the solution as 'grab inputA'
           // so it needs to be input A
-          inputA = prop2
-          inputB = goal1
+          inputA = obj2
+          inputB = achievement1
           break
-        case _.PROP1_APPEARS_WHEN_USE_INV1_WITH_PROP2:
-          happs.text = `You use the ${inv1} with the ${prop2} and the ${prop2} appears`
-          happs.array.push(new Happening(Happen.PropAppears, prop1))
+        case _.OBJ1_APPEARS_WHEN_USE_INV1_WITH_OBJ2:
+          happs.text = `You use the ${inv1} with the ${obj2} and the ${obj2} appears`
+          happs.array.push(new Happening(Happen.PropAppears, obj1))
           happs.array.push(new Happening(Happen.InvStays, inv1))
-          happs.array.push(new Happening(Happen.PropStays, prop2))
-          output = prop1
-          // the prop you grab (ie phone) must be input A - the solution creator
+          happs.array.push(new Happening(Happen.PropStays, obj2))
+          output = obj1
+          // the obj you grab (ie phone) must be input A - the solution creator
           // always constructs the solution as 'grab inputA'
           // so it needs to be input A
-          inputA = prop2
+          inputA = obj2
           inputB = inv1
-          command = new Command(Verb.Use, Mix.InvVsProp, inv1, prop2)
+          command = new Command(Verb.Use, Mix.InvVsProp, inv1, obj2)
           break
-        case _.PROP1_BECOMES_PROP2_BY_KEEPING_INV1:
-          happs.text = `You use the ${inv1}, and the ${prop1} becomes a ${inv2}`
-          happs.array.push(new Happening(Happen.PropGoes, prop1))
-          happs.array.push(new Happening(Happen.PropAppears, prop2))
+        case _.OBJ1_BECOMES_OBJ2_BY_KEEPING_INV1:
+          happs.text = `You use the ${inv1}, and the ${obj1} becomes a ${inv2}`
+          happs.array.push(new Happening(Happen.PropGoes, obj1))
+          happs.array.push(new Happening(Happen.PropAppears, obj2))
           happs.array.push(new Happening(Happen.InvStays, inv1))
-          inputA = prop1
-          output = prop2
+          inputA = obj1
+          output = obj2
           inputB = inv1
-          command = new Command(Verb.Use, Mix.InvVsProp, inv1, prop1)
+          command = new Command(Verb.Use, Mix.InvVsProp, inv1, obj1)
           break
-        case _.PROP1_BECOMES_PROP2_BY_KEEPING_PROP3:
-          happs.text = `You use the ${prop3}, and the ${prop1} becomes a ${prop2}`
-          happs.array.push(new Happening(Happen.PropGoes, prop1))
-          happs.array.push(new Happening(Happen.PropAppears, prop2))
-          inputA = prop1
-          output = prop2
-          inputB = prop3
-          command = new Command(Verb.Use, Mix.PropVsProp, prop1, prop3)
+        case _.OBJ1_BECOMES_OBJ2_BY_KEEPING_OBJ3:
+          happs.text = `You use the ${obj3}, and the ${obj1} becomes a ${obj2}`
+          happs.array.push(new Happening(Happen.PropGoes, obj1))
+          happs.array.push(new Happening(Happen.PropAppears, obj2))
+          inputA = obj1
+          output = obj2
+          inputB = obj3
+          command = new Command(Verb.Use, Mix.PropVsProp, obj1, obj3)
           break
-        case _.PROP1_BECOMES_PROP2_BY_LOSING_INV1:
-          happs.text = `You use the ${inv1}, and the ${prop1} becomes a ${prop2}}`
-          happs.array.push(new Happening(Happen.PropGoes, prop1))
-          happs.array.push(new Happening(Happen.PropAppears, prop2))
+        case _.OBJ1_BECOMES_OBJ2_BY_LOSING_INV1:
+          happs.text = `You use the ${inv1}, and the ${obj1} becomes a ${obj2}}`
+          happs.array.push(new Happening(Happen.PropGoes, obj1))
+          happs.array.push(new Happening(Happen.PropAppears, obj2))
           happs.array.push(new Happening(Happen.InvGoes, inv1))
-          inputA = prop1
-          output = prop2
+          inputA = obj1
+          output = obj2
           inputB = inv1
-          command = new Command(Verb.Use, Mix.InvVsProp, inv1, prop1)
+          command = new Command(Verb.Use, Mix.InvVsProp, inv1, obj1)
           break
-        case _.PROP1_BECOMES_PROP2_BY_LOSING_PROP3:
-          happs.text = `You use the ${prop3}, and the ${prop1} becomes a ${prop2}`
-          happs.array.push(new Happening(Happen.PropGoes, prop1))
-          happs.array.push(new Happening(Happen.PropAppears, prop2))
-          happs.array.push(new Happening(Happen.PropGoes, prop3))
-          inputA = prop1
-          output = prop2
-          inputB = prop3
-          command = new Command(Verb.Use, Mix.PropVsProp, prop1, prop3)
+        case _.OBJ1_BECOMES_OBJ2_BY_LOSING_OBJ3:
+          happs.text = `You use the ${obj3}, and the ${obj1} becomes a ${obj2}`
+          happs.array.push(new Happening(Happen.PropGoes, obj1))
+          happs.array.push(new Happening(Happen.PropAppears, obj2))
+          happs.array.push(new Happening(Happen.PropGoes, obj3))
+          inputA = obj1
+          output = obj2
+          inputB = obj3
+          command = new Command(Verb.Use, Mix.PropVsProp, obj1, obj3)
           break
-        case _.PROP1_BECOMES_PROP2_WHEN_GRAB_INV1:
+        case _.OBJ1_BECOMES_OBJ2_WHEN_GRAB_INV1:
           happs.text = `You now have a ${inv1}`
-          // ly don't mention what happen to the prop you clicked on.  '\n You notice the ' + prop1 + ' has now become a ' + prop2
-          happs.array.push(new Happening(Happen.PropGoes, prop1))
-          happs.array.push(new Happening(Happen.PropAppears, prop2))
+          // ly don't mention what happen to the obj you clicked on.  '\n You notice the ' + obj1 + ' has now become a ' + obj2
+          happs.array.push(new Happening(Happen.PropGoes, obj1))
+          happs.array.push(new Happening(Happen.PropAppears, obj2))
           happs.array.push(new Happening(Happen.InvAppears, inv1))
           // This is a weird one, because there are two real-life outputs
           // but only one puzzle output. I forget how I was going to deal with this.
-          inputA = prop1
-          // const inputB, count = '' + reactionsFile.pieces[i].prop2
+          inputA = obj1
+          // const inputB, count = '' + reactionsFile.pieces[i].obj2
           output = inv1
-          command = new Command(Verb.Grab, Mix.Prop, prop1)
+          command = new Command(Verb.Grab, Mix.Prop, obj1)
           break
-        case _.PROP1_CHANGES_STATE_TO_PROP2_BY_KEEPING_INV1:
-          happs.text = `You use the ${inv1}, and the ${prop1} is now ${AlleviateBrackets(
-            prop2
+        case _.OBJ1_CHANGES_STATE_TO_OBJ2_BY_KEEPING_INV1:
+          happs.text = `You use the ${inv1}, and the ${obj1} is now ${AlleviateBrackets(
+            obj2
           )}`
-          happs.array.push(new Happening(Happen.PropGoes, prop1))
-          happs.array.push(new Happening(Happen.PropAppears, prop2))
+          happs.array.push(new Happening(Happen.PropGoes, obj1))
+          happs.array.push(new Happening(Happen.PropAppears, obj2))
           happs.array.push(new Happening(Happen.InvStays, inv1))
-          inputA = prop1
-          output = prop2
+          inputA = obj1
+          output = obj2
           inputB = inv1
-          command = new Command(Verb.Open, Mix.InvVsProp, inv1, prop1)
+          command = new Command(Verb.Open, Mix.InvVsProp, inv1, obj1)
           break
-        case _.PROP1_GOES_WHEN_GRAB_INV1:
+        case _.OBJ1_GOES_WHEN_GRAB_INV1:
           happs.text = `You now have a ${inv1}`
-          // ly don't mention what happen to the prop you clicked on.  '\n You notice the ' + prop1 + ' has now become a ' + prop2
-          happs.array.push(new Happening(Happen.PropGoes, prop1))
+          // ly don't mention what happen to the obj you clicked on.  '\n You notice the ' + obj1 + ' has now become a ' + obj2
+          happs.array.push(new Happening(Happen.PropGoes, obj1))
           happs.array.push(new Happening(Happen.InvAppears, inv1))
-          command = new Command(Verb.Grab, Mix.Prop, prop1)
+          command = new Command(Verb.Grab, Mix.Prop, obj1)
           output = inv1
-          inputA = prop1
+          inputA = obj1
           break
-        case _.PROP1_STAYS_WHEN_GRAB_INV1:
+        case _.OBJ1_STAYS_WHEN_GRAB_INV1:
           happs.text = `You now have a ${inv1}`
-          // ly don't mention what happen to the prop you clicked on.  '\n You now have a' + inv1
+          // ly don't mention what happen to the obj you clicked on.  '\n You now have a' + inv1
           happs.array.push(new Happening(Happen.InvAppears, inv1))
           output = inv1
-          inputA = prop1
-          command = new Command(Verb.Grab, Mix.Prop, prop1)
+          inputA = obj1
+          command = new Command(Verb.Grab, Mix.Prop, obj1)
           break
-        case _.PROP1_GOES_WHEN_GRAB_INV1_WITH_GOAL1:
+        case _.OBJ1_GOES_WHEN_GRAB_INV1_WITH_ACHMT1:
           happs.text = `You now have a ${inv1}`
-          // ly don't mention what happen to the prop you clicked on.  '\n You notice the ' + prop1 + ' has now become a ' + prop2
-          happs.array.push(new Happening(Happen.PropGoes, prop1))
+          // ly don't mention what happen to the obj you clicked on.  '\n You notice the ' + obj1 + ' has now become a ' + obj2
+          happs.array.push(new Happening(Happen.PropGoes, obj1))
           happs.array.push(new Happening(Happen.InvAppears, inv1))
-          command = new Command(Verb.Grab, Mix.Prop, prop1)
+          command = new Command(Verb.Grab, Mix.Prop, obj1)
           output = inv1
-          inputA = prop1
-          inputB = goal1
+          inputA = obj1
+          inputB = achievement1
           break
-        case _.PROP1_STAYS_WHEN_GRAB_INV1_WITH_GOAL1:
+        case _.OBJ1_STAYS_WHEN_GRAB_INV1_WITH_ACHMT1:
           happs.text = `You now have a ${inv1}`
-          // ly don't mention what happen to the prop you clicked on.  '\n You now have a' + inv1
+          // ly don't mention what happen to the obj you clicked on.  '\n You now have a' + inv1
           happs.array.push(new Happening(Happen.InvAppears, inv1))
           output = inv1
-          inputA = prop1
-          inputB = goal1
-          command = new Command(Verb.Grab, Mix.Prop, prop1)
+          inputA = obj1
+          inputB = achievement1
+          command = new Command(Verb.Grab, Mix.Prop, obj1)
           break
-        case _.TALK_TO_PROP1_GETS_INV1:
+        case _.CHAT_TO_OBJ1_GETS_INV1:
           happs.text = `You now have a ${inv1}`
           happs.array.push(new Happening(Happen.InvAppears, inv1))
           output = inv1
-          inputA = prop1
-          command = new Command(Verb.Talk, Mix.Prop, prop1)
+          inputA = obj1
+          command = new Command(Verb.Chat, Mix.Prop, obj1)
           break
-        case _.TALK_TO_PROP1_WITH_GOAL1_GETS_INV1:
-          happs.text = `You talked with goal and now have a ${inv1}`
+        case _.CHAT_TO_OBJ1_WITH_ACHMT1_GETS_INV1:
+          happs.text = `You chated with achievement and now have a ${inv1}`
           happs.array.push(new Happening(Happen.InvAppears, inv1))
           output = inv1
-          inputA = prop1
-          inputB = goal1
-          command = new Command(Verb.Talk, Mix.Prop, prop1)
+          inputA = obj1
+          inputB = achievement1
+          command = new Command(Verb.Chat, Mix.Prop, obj1)
           break
-        case _.THROW_INV1_AT_PROP1_GETS_INV2_LOSE_BOTH:
-          happs.text = `Throw the ${inv1} at the ${prop1} gets you the ${inv2}.`
+        case _.THROW_INV1_AT_OBJ1_GETS_INV2_LOSE_BOTH:
+          happs.text = `Throw the ${inv1} at the ${obj1} gets you the ${inv2}.`
           happs.array.push(new Happening(Happen.InvGoes, inv1))
-          happs.array.push(new Happening(Happen.PropGoes, prop1))
+          happs.array.push(new Happening(Happen.PropGoes, obj1))
           happs.array.push(new Happening(Happen.InvAppears, inv2))
           output = inv2
-          inputA = prop1
+          inputA = obj1
           inputB = inv1
-          command = new Command(Verb.Throw, Mix.InvVsProp, inv1, prop1)
+          command = new Command(Verb.Throw, Mix.InvVsProp, inv1, obj1)
           break
-        case _.TOGGLE_PROP1_BECOMES_PROP2:
-          happs.text = `The ${prop1} has become a ${prop2}`
-          happs.array.push(new Happening(Happen.PropGoes, prop1))
-          happs.array.push(new Happening(Happen.PropAppears, prop2))
-          inputA = prop1
-          output = prop2
-          command = new Command(Verb.Toggle, Mix.Prop, prop1)
+        case _.TOGGLE_OBJ1_BECOMES_OBJ2:
+          happs.text = `The ${obj1} has become a ${obj2}`
+          happs.array.push(new Happening(Happen.PropGoes, obj1))
+          happs.array.push(new Happening(Happen.PropAppears, obj2))
+          inputA = obj1
+          output = obj2
+          command = new Command(Verb.Toggle, Mix.Prop, obj1)
           break
-        case _.TOGGLE_PROP1_CHANGES_STATE_TO_PROP2:
-          happs.text = `The ${prop1} is now ${AlleviateBrackets(prop2)}`
-          happs.array.push(new Happening(Happen.PropGoes, prop1))
-          happs.array.push(new Happening(Happen.PropAppears, prop2))
-          command = new Command(Verb.Toggle, Mix.Prop, prop1)
-          inputA = prop1
-          output = prop2
+        case _.TOGGLE_OBJ1_CHANGES_STATE_TO_OBJ2:
+          happs.text = `The ${obj1} is now ${AlleviateBrackets(obj2)}`
+          happs.array.push(new Happening(Happen.PropGoes, obj1))
+          happs.array.push(new Happening(Happen.PropAppears, obj2))
+          command = new Command(Verb.Toggle, Mix.Prop, obj1)
+          inputA = obj1
+          output = obj2
           break
-        case _.TOGGLE_PROP1_REVEALS_PROP2_AS_IT_BECOMES_PROP3:
-          happs.text = `The ${prop1} becomes ${prop3} and reveals ${prop4}`
-          happs.array.push(new Happening(Happen.PropGoes, prop1))
-          happs.array.push(new Happening(Happen.PropAppears, prop2))
-          happs.array.push(new Happening(Happen.PropAppears, prop3))
-          inputA = prop1
-          output = prop2
-          command = new Command(Verb.Toggle, Mix.Prop, prop1)
+        case _.TOGGLE_OBJ1_REVEALS_OBJ2_AS_IT_BECOMES_OBJ3:
+          happs.text = `The ${obj1} becomes ${obj3} and reveals ${obj4}`
+          happs.array.push(new Happening(Happen.PropGoes, obj1))
+          happs.array.push(new Happening(Happen.PropAppears, obj2))
+          happs.array.push(new Happening(Happen.PropAppears, obj3))
+          inputA = obj1
+          output = obj2
+          command = new Command(Verb.Toggle, Mix.Prop, obj1)
           break
         default:
           console.error(

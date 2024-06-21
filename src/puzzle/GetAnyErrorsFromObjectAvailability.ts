@@ -24,13 +24,13 @@ export function GetAnyErrorsFromObjectAvailability (
   }
   if (type === Mix.PropVsProp) {
     if (!isObject1InVisibleProps || !isObject2InVisibleProps) {
-      return 'One of those props is not visible!'
+      return 'One of those objs is not visible!'
     }
   }
   if (type === Mix.Inv && !isObject1InVisibleInvs) {
     return 'That inv is not visible!'
   } else if (type === Mix.Prop && !isObject1InVisibleProps) {
-    return 'That prop is not visible!'
+    return 'That obj is not visible!'
   }
 
   return '' // no error!

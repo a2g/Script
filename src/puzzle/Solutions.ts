@@ -4,7 +4,7 @@ import { Box } from './Box'
 import { AchievementStubMap } from './AchievementStubMap'
 import { Piece } from './Piece'
 import { Solution } from './Solution'
-import { TalkFile } from './talk/TalkFile'
+import { ChatFile } from './chat/ChatFile'
 import { VisibleThingsMap } from './VisibleThingsMap'
 import { A_WIN } from '../A_WIN'
 
@@ -29,10 +29,10 @@ export class Solutions {
     // now lets initialize the first solution
     const solution1 = Solution.createSolution(
       this.combinedBox.GetPieces(),
-      this.combinedBox.GetTalkFiles(),
+      this.combinedBox.GetChatFiles(),
       this.combinedBox.GetMapOfAllStartingThings(),
       this.CreateStubMapFromAchievements(this.combinedBox.GetSetOfAchievementWords())
-      // this.CreateStubMapFromgoalAchievements(this.aggregates.setOfgoalAchievements)
+      // this.CreateStubMapFromachievementAchievements(this.aggregates.setOfachievementAchievements)
     )
     this.solutions.push(solution1)
 
@@ -76,7 +76,7 @@ export class Solutions {
 
   public UpdateSolvedStatuses (): void {
     for (const solution of this.solutions) {
-      solution.UpdateGoalSolvedStatuses()
+      solution.UpdateAchievementSolvedStatuses()
     }
   }
 
@@ -93,20 +93,20 @@ export class Solutions {
     const rootMapFromStubs = new AchievementStubMap(null)
     rootMapFromStubs.AddAchievementStub(A_WIN)
 
-    for (const goalAchievement of setOfStrings) {
-      rootMapFromStubs.AddAchievementStub(goalAchievement)
+    for (const achievementAchievement of setOfStrings) {
+      rootMapFromStubs.AddAchievementStub(achievementAchievement)
     }
     return rootMapFromStubs
   }
 
   public PerformThingsNeededAfterAllSolutionsFound (): void {
     this.GenerateSolutionNamesTheOldWay()
-    this.KeepOnlyVisitedGoalsFromAllSolutions()
+    this.KeepOnlyVisitedAchievementsFromAllSolutions()
   }
 
-  public KeepOnlyVisitedGoalsFromAllSolutions (): void {
+  public KeepOnlyVisitedAchievementsFromAllSolutions (): void {
     for (const solution of this.solutions) {
-      solution.KeepOnlyVisitedGoals()
+      solution.KeepOnlyVisitedAchievements()
     }
   }
 
@@ -123,7 +123,7 @@ export class Solutions {
         const otherSolution = this.solutions[j]
         const otherLeafs = otherSolution
           .GetRootMap()
-          .GenerateMapOfLeavesFromWinGoal()
+          .GenerateMapOfLeavesFromWinAchievement()
         for (const leafNode of otherLeafs.values()) {
           if (leafNode != null) {
             const otherLeafNodeName = leafNode.GetOutput()
@@ -148,7 +148,7 @@ export class Solutions {
       // GenerateMapOfLeaves
       const currLeaves = currSolution
         .GetRootMap()
-        .GenerateMapOfLeavesFromWinGoal()
+        .GenerateMapOfLeavesFromWinAchievement()
       for (const leafNode of currLeaves.values()) {
         if (leafNode != null) {
           const result = mapForCounting.get(leafNode.GetOutput())
@@ -193,8 +193,8 @@ export class Solutions {
     return this.combinedBox.GetStartersMapOfAllStartingThings()
   }
 
-  public GetStartingTalkFiles (): Map<string, TalkFile> {
-    return this.combinedBox.GetStartingTalkFiles()
+  public GetStartingChatFiles (): Map<string, ChatFile> {
+    return this.combinedBox.GetStartingChatFiles()
   }
 
   public GetStartingPieces (): Map<string, Set<Piece>> {

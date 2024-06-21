@@ -18,8 +18,8 @@ export function ChooseBackwardSolve (solutions: Solutions): void {
     for (let i = 0; i < solutions.GetSolutions().length; i++) {
       const solution = solutions.GetSolutions()[i]
       let unsolvedCount = 0
-      for (const goal of solution.GetAchievementStubMap().GetValues()) {
-        unsolvedCount += goal.IsSolved() ? 0 : 1
+      for (const achievement of solution.GetAchievementStubMap().GetValues()) {
+        unsolvedCount += achievement.IsSolved() ? 0 : 1
       }
       const total = solution.GetAchievementStubMap().Size()
 

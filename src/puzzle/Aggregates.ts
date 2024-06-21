@@ -3,9 +3,9 @@ import { Piece } from './Piece'
 
 export class Aggregates {
   /**
-   * #### All the goal words
+   * #### All the achievement words
    */
-  public setOfgoalAchievements: Set<string>
+  public setOfachievementAchievements: Set<string>
   /**
    * #### Set of outputs that can be solved twice
    */
@@ -16,7 +16,7 @@ export class Aggregates {
    */
   public mapOfBoxes: Map<string, Box>
   constructor () {
-    this.setOfgoalAchievements = new Set<string>()
+    this.setOfachievementAchievements = new Set<string>()
     this.piecesMapped = new Map<string, Set<Piece>>()
     this.mapOfBoxes = new Map<string, Box>()
   }

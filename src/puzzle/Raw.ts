@@ -3,9 +3,9 @@ export enum Raw {
   None = 'None',
   Grab = 'Grab',
   Open = 'Open',
-  Talk = 'Talk',
+  Chat = 'Chat',
   Toggle = 'Toggle',
   Use = 'Use',
   Give = 'Give',
-  Goal = 'Goal',
+  Achievement = 'Achievement',
 }

@@ -23,8 +23,8 @@ export class ChoiceLine {
             this.onceType = OnceType.SelectableOnce
           } else if (value === OnceType.OfferableOnce.toLowerCase()) {
             this.onceType = OnceType.OfferableOnce
-          } else if (value === OnceType.SelectableOncePerTalk.toLowerCase()) {
-            this.onceType = OnceType.SelectableOncePerTalk
+          } else if (value === OnceType.SelectableOncePerChat.toLowerCase()) {
+            this.onceType = OnceType.SelectableOncePerChat
           }
         } else if (key === VisibleIf.Exists) {
           this.theseRequisites.push(value)

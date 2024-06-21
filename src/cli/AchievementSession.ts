@@ -3,13 +3,13 @@ import { PlayerAI } from '../puzzle/PlayerAI'
 import { Solution } from '../puzzle/Solution'
 import { Playable } from './Playable'
 
-export class GoalSession {
-  public prerequisiteGoals: string[]
+export class AchievementSession {
+  public prerequisiteAchievements: string[]
   public prerequisiteType: string
-  public sunsetGoals: string[]
+  public sunsetAchievements: string[]
   public sunsetType: string
-  public goalEnum: string
-  public goalName: string
+  public achievementEnum: string
+  public achievementName: string
   public startingThings: Map<string, Set<string>>
   public playable: Playable
   constructor (
@@ -20,16 +20,16 @@ export class GoalSession {
     const numberOfAutopilotTurns = 0
     const player = new PlayerAI(happener, numberOfAutopilotTurns)
     this.playable = new Playable(player, happener, solution)
-    this.prerequisiteGoals = []
+    this.prerequisiteAchievements = []
     this.prerequisiteType = ''
-    this.sunsetGoals = []
+    this.sunsetAchievements = []
     this.sunsetType = ''
-    this.goalEnum = ''
-    this.goalName = ''
+    this.achievementEnum = ''
+    this.achievementName = ''
     this.startingThings = startingThings
   }
 
   public GetTitle (): string {
-    return this.goalName
+    return this.achievementName
   }
 }

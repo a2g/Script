@@ -22,26 +22,26 @@ export function ChooseToPlayCampaign(): void {
     filenames.set(incoming.locationEnum, array);
   }
   /*
-    const sessions = new GoalSessionCollection();
-    for (let goal of Druids.goals) {
-      if(goal.location)
+    const sessions = new AchievementSessionCollection();
+    for (let achievement of Druids.achievements) {
+      if(achievement.location)
       {
-        const array = filenames.get(goal.location);
+        const array = filenames.get(achievement.location);
         if(array)
         {
-          array.push(goal.piecesAddedUponActivation)
+          array.push(achievement.piecesAddedUponActivation)
       }
-      let location = locations.get(goal.location);
+      let location = locations.get(achievement.location);
       if (location !== undefined) {
         let box = new ReadOnlyJsonMultipleCombined(location.fileSet);
         let happener = new Happener(pileOfPieces);
-        let s = new GoalSession(happener, box.GetMapOfAllStartingThings(), box.CopyPiecesFromBoxToPile());
-        s.prerequisiteGoals = goal.prerequisiteGoals;
-        s.prerequisiteType = goal.prerequisiteType;
-        s.goalName = goal.goalName;
-        s.goalEnum = goal.goalEnum;
-        s.sunsetGoals = goal.sunsetGoals;
-        s.sunsetType = goal.sunsetType;
+        let s = new AchievementSession(happener, box.GetMapOfAllStartingThings(), box.CopyPiecesFromBoxToPile());
+        s.prerequisiteAchievements = achievement.prerequisiteAchievements;
+        s.prerequisiteType = achievement.prerequisiteType;
+        s.achievementName = achievement.achievementName;
+        s.achievementEnum = achievement.achievementEnum;
+        s.sunsetAchievements = achievement.sunsetAchievements;
+        s.sunsetType = achievement.sunsetType;
         sessions.Push(s);
       }
     }

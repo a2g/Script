@@ -2,21 +2,21 @@
   "$schema": "./Test1Design.jsonc",
   "startingThings": [
     {
-      "thing": "prop_three_punctuated_circles"
+      "thing": "obj_three_punctuated_circles"
     }
   ],
   "pieces": [
     {
-      "piece": "PROP1_GOES_WHEN_GRAB_INV1_WITH_GOAL1",
-      "prop1": "prop_three_punctuated_circles",
+      "piece": "OBJ1_GOES_WHEN_GRAB_INV1_WITH_ACHMT1",
+      "obj1": "obj_three_punctuated_circles",
       "inv1": "inv_three_punctuated_circles",
-      "goal1": "x03_access_to_icehouse"
+      "achievement1": "a03_access_to_icehouse"
     },
     {
-      "piece": "GOAL1_MET_BY_GIVING_INV1_TO_PROP1",
-      "goal1": "goal_03_access_to_castle",
+      "piece": "ACHMT1_MET_BY_GIVING_INV1_TO_OBJ1",
+      "achievement1": "achievement_03_access_to_castle",
       "inv1": "inv_three_punctuated_circles",
-      "prop1": "prop_arch_druid"
+      "obj1": "obj_arch_druid"
     }
   ]
 }

@@ -5,40 +5,40 @@
       "thing": "inv_bottle_top"
     },
     {
-      "thing": "prop_limestone"
+      "thing": "obj_limestone"
     },
     {
-      "thing": "prop_teenager"
+      "thing": "obj_teenager"
     },
     {
-      "thing": "prop_arch-druid"
+      "thing": "obj_arch-druid"
     },
     {
-      "thing": "prop_officer_dooley"
+      "thing": "obj_officer_dooley"
     },
     {
-      "thing": "prop_officer_dooley"
+      "thing": "obj_officer_dooley"
     }
   ],
   "pieces": [
     {
-      "piece": "PROP1_STAYS_WHEN_GRAB_INV1",
-      "prop1": "prop_officer_dooley",
+      "piece": "OBJ1_STAYS_WHEN_GRAB_INV1",
+      "obj1": "obj_officer_dooley",
       "inv1": "inv_piece_of_robe"
     },
     {
-      "piece": "PROP1_STAYS_WHEN_GRAB_INV1",
-      "prop1": "prop_limestone",
+      "piece": "OBJ1_STAYS_WHEN_GRAB_INV1",
+      "obj1": "obj_limestone",
       "inv1": "inv_flint"
     },
     {
-      "piece": "PROP1_STAYS_WHEN_GRAB_INV1",
-      "prop1": "prop_teenager",
+      "piece": "OBJ1_STAYS_WHEN_GRAB_INV1",
+      "obj1": "obj_teenager",
       "inv1": "inv_poitan"
     },
     {
-      "piece": "PROP1_GOES_WHEN_GRAB_INV1",
-      "prop1": "prop_arch-druid",
+      "piece": "OBJ1_GOES_WHEN_GRAB_INV1",
+      "obj1": "obj_arch-druid",
       "inv1": "inv_shillelagh"
     },
     {
@@ -60,8 +60,8 @@
       "inv3": "inv_tinder_kit"
     },
     {
-      "piece": "AUTO_GOAL1_MET_BY_INVS",
-      "goal1": "a_win",
+      "piece": "AUTO_ACHMT1_MET_BY_INVS",
+      "achievement1": "a_win",
       "inv1": "inv_torch_lit"
     }
   ]

@@ -5,9 +5,9 @@ import { AchievementStubMap } from './AchievementStubMap'
 import { Solutions } from './Solutions'
 import { VisibleThingsMap } from './VisibleThingsMap'
 import { Box } from './Box'
-import { TalkFile } from './talk/TalkFile'
+import { ChatFile } from './chat/ChatFile'
 import { Solved } from './Solved'
-import { GenerateMapOfLeavesTracingAchievementsRecursively } from './GenerateMapOfLeavesTraccingGoalsRecursively'
+import { GenerateMapOfLeavesTracingAchievementsRecursively } from './GenerateMapOfLeavesTraccingAchievementsRecursively'
 import { A_WIN } from '../A_WIN'
 
 let globalSolutionId = 101
@@ -18,7 +18,7 @@ export class Solution {
   // important ones
   private readonly stubs: AchievementStubMap
   private readonly remainingPieces: Map<string, Set<Piece>>
-  private readonly talks: Map<string, TalkFile>
+  private readonly chats: Map<string, ChatFile>
 
   // less important
 
@@ -31,7 +31,7 @@ export class Solution {
   private constructor (
     id: number,
     pieces: Map<string, Set<Piece>>,
-    talks: Map<string, TalkFile>,
+    chats: Map<string, ChatFile>,
     startingThingsPassedIn: VisibleThingsMap,
     stubsToCopy: AchievementStubMap | null,
     restrictions: Set<string> | null = null,
@@ -39,11 +39,11 @@ export class Solution {
   ) {
     this.id = id
     this.stubs = new AchievementStubMap(stubsToCopy)
-    this.talks = new Map<string, TalkFile>()
+    this.chats = new Map<string, ChatFile>()
     this.remainingPieces = new Map<string, Set<Piece>>()
 
     // pieces
-    Box.CopyTalksFromAtoB(talks, this.talks)
+    Box.CopyChatsFromAtoB(chats, this.chats)
     Box.CopyPiecesFromAtoB(pieces, this.remainingPieces)
 
     // starting things AND currentlyVisibleThings
@@ -76,14 +76,14 @@ export class Solution {
 
   public static createSolution (
     pieces: Map<string, Set<Piece>>,
-    talks: Map<string, TalkFile>,
+    chats: Map<string, ChatFile>,
     startingThingsPassedIn: VisibleThingsMap,
     stubs: AchievementStubMap | null,
     restrictions: Set<string> | null = null,
     nameSegments: string[] | null = null
   ): Solution {
     globalSolutionId++
-    return new Solution(globalSolutionId, pieces, talks, startingThingsPassedIn, stubs, restrictions, nameSegments)
+    return new Solution(globalSolutionId, pieces, chats, startingThingsPassedIn, stubs, restrictions, nameSegments)
   }
 
   public Clone (): Solution {
@@ -98,7 +98,7 @@ export class Solution {
 
     const clonedSolution = Solution.createSolution(
       this.remainingPieces,
-      this.talks,
+      this.chats,
       this.startingThings,
       clonedRootPieceMap,
       this.essentialIngredients,
@@ -122,12 +122,12 @@ export class Solution {
     return isBreakingDueToSolutionCloning
   }
 
-  public KeepOnlyVisitedGoals (): void {
+  public KeepOnlyVisitedAchievements (): void {
     const visitedAchievements = new Set<string>()
     visitedAchievements.add(A_WIN)
     const leaves = new Map<string, Piece>()
-    const winGoal = this.stubs.GetAchievementStubIfAny()
-    const piece = winGoal?.GetThePiece()
+    const winAchievement = this.stubs.GetAchievementStubIfAny()
+    const piece = winAchievement?.GetThePiece()
     if (piece != null) {
       GenerateMapOfLeavesTracingAchievementsRecursively(
         piece,
@@ -182,9 +182,9 @@ export class Solution {
     return this.startingThings
   }
 
-  public UpdateGoalSolvedStatuses (): void {
+  public UpdateAchievementSolvedStatuses (): void {
     let thereAreStillSomeUnsolved = false
-    // go through all the goal pieces
+    // go through all the achievement pieces
     for (const stub of this.stubs.GetValues()) {
       // if there are no places to attach pieces it will return null
       const piece = stub.GetThePiece()
@@ -199,13 +199,13 @@ export class Solution {
     }
 
     if (!thereAreStillSomeUnsolved) {
-    //  this.KeepOnlyVisitedGoals()
+    //  this.KeepOnlyVisitedAchievements()
     }
   }
 
   public IsUnsolved (): boolean {
-    for (const goal of this.stubs.GetValues()) {
-      if (!goal.IsSolved()) {
+    for (const achievement of this.stubs.GetValues()) {
+      if (!achievement.IsSolved()) {
         return true
       }
     }
@@ -220,8 +220,8 @@ export class Solution {
     return this.remainingPieces.size
   }
 
-  public GetTalkFiles (): Map<string, TalkFile> {
-    return this.talks
+  public GetChatFiles (): Map<string, ChatFile> {
+    return this.chats
   }
 
   public GetAutos (): Piece[] {

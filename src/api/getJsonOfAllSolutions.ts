@@ -7,9 +7,9 @@ import { Solution } from '../puzzle/Solution'
 import { Solutions } from '../puzzle/Solutions'
 import { _STARTER_JSONC } from '../_STARTER_JSONC'
 
-interface $INameIsAGoalChildren {
+interface $INameIsAAchievementChildren {
   name: string
-  isAGoalOrAuto: boolean
+  isAAchievementOrAuto: boolean
   children: Array<Record<string, unknown>>
 }
 
@@ -49,7 +49,7 @@ export function getJsonOfAllSolutions (
     }
   }
 
-  console.warn(`Number of goals incomplete ${incomplete}/${listItemNumber}`)
+  console.warn(`Number of achievements incomplete ${incomplete}/${listItemNumber}`)
 
   const json = getJsonOfSolutionsFromSolver(solutions)
   return json
@@ -66,14 +66,14 @@ function getJsonOfSolutionsFromSolver (
 
 function getJsonArrayOfSolutions (
   solutions: Solution[]
-): $INameIsAGoalChildren[] {
-  const toReturn = new Array<$INameIsAGoalChildren>()
+): $INameIsAAchievementChildren[] {
+  const toReturn = new Array<$INameIsAAchievementChildren>()
   let i = 0
   for (const solution of solutions) {
     i += 1
     toReturn.push({
       name: `Solution ${i}`,
-      isAGoalOrAuto: false,
+      isAAchievementOrAuto: false,
       children: getJsonArrayOfRootPieces(solution)
     })
   }
@@ -91,7 +91,7 @@ function getJsonArrayOfRootPieces (
   for (const rootPiece of listOfRootPieceArrays) {
     toReturn.push({
       name: rootPiece.GetTheAchievementWord(),
-      isAGoalOrAuto: false,
+      isAAchievementOrAuto: false,
       children: getJsonArrayOfAllSubPieces(rootPiece.GetThePiece())
     })
   }
@@ -100,7 +100,7 @@ function getJsonArrayOfRootPieces (
   // then we push the actual order of commands
   toReturn.push({
     name: 'List of Commands',
-    isAGoalOrAuto: false,
+    isAAchievementOrAuto: false,
     children: getJsonArrayOfOrderedSteps(solution.GetOrderOfCommands())
   }) */
   return toReturn
@@ -116,20 +116,20 @@ function getJsonArrayOfAllSubPieces (piece: Piece | null): unknown[] {
       if (pieceOrNull != null) {
         toReturn.push({
           name: hint,
-          isAGoalOrAuto: false,
+          isAAchievementOrAuto: false,
           children: getJsonArrayOfAllSubPieces(pieceOrNull)
         })
       } else {
         toReturn.push({
           name: hint,
-          isAGoalOrAuto: false
+          isAAchievementOrAuto: false
         })
       }
     }
     if (i === -1) {
       toReturn.push({
         name: piece.output,
-        isAGoalOrAuto: false
+        isAAchievementOrAuto: false
       })
     }
   }
@@ -149,14 +149,14 @@ export function getJsonArrayOfOrderedSteps (
     //
     //
     let newLocation = lastLocation // default to last
-    if (step.objectA.startsWith('prop_')) {
+    if (step.objectA.startsWith('obj_')) {
       newLocation = step.objectA
-    } else if (step.objectB.startsWith('prop_')) {
+    } else if (step.objectB.startsWith('obj_')) {
       newLocation = step.objectB
     }
     toReturn.push({
       name: step.mainSpiel,
-      isAGoalOrAuto: step.isAGoalOrAuto(),
+      isAAchievementOrAuto: step.isAAchievementOrAuto(),
       paramA: lastLocation,
       paramB: newLocation,
       children: []
@@ -164,7 +164,7 @@ export function getJsonArrayOfOrderedSteps (
     for (const speechLine of step.speechLines) {
       toReturn.push({
         name: speechLine,
-        isAGoalOrAuto: true,
+        isAAchievementOrAuto: true,
         paramA: newLocation,
         paramB: newLocation,
         children: []

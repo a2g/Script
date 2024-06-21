@@ -3,19 +3,19 @@ import { SpecialTypes } from './SpecialTypes'
 
 /**
  * #### Description
- * Drills down on a piece, and generates map of leaves tracing goals recursively.
- * The difference between this and @ref GenerateMapOfLeavesTracingGoalsRecursively
+ * Drills down on a piece, and generates map of leaves tracing achievements recursively.
+ * The difference between this and @ref GenerateMapOfLeavesTracingAchievementsRecursively
  * is that this one drills down on pieces of type CompletedElsewhere - this
  * other one does not.
  * #### Example
- * GenerateMapOfLeavesTracingGoalsRecursively(
-       winGoal.piece,
+ * GenerateMapOfLeavesTracingAchievementsRecursively(
+       winAchievement.piece,
        A_WIN,
        true
        leaves
      )
  * #### Links
- * See also @ref GenerateMapOfLeavesTracingGoalsRecursively
+ * See also @ref GenerateMapOfLeavesTracingAchievementsRecursively
  * @param piece piece the piece to drill down on
  * @param path this is a helper for telling where we are in the recursion
  * @param isOnlyNulls this was the cause of a very hard to find bug in solving!
@@ -33,7 +33,7 @@ export function GenerateMapOfLeavesRecursively (
     const inputType = input == null ? 'null' : input.type
     // either set an entry in the leaf map or not...
     switch (inputType) {
-      case SpecialTypes.SomeOtherGoal:
+      case SpecialTypes.SomeOtherAchievement:
       case SpecialTypes.StartingThings:
       case SpecialTypes.VerifiedLeaf:
       case 'null':

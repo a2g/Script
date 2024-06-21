@@ -3,7 +3,7 @@ import { Piece } from '../puzzle/Piece'
 
 export function ChooseToFindUnused (box: Box): void {
   const invs = box.GetArrayOfInvs()
-  const props = box.GetArrayOfProps()
+  const objs = box.GetArrayOfProps()
   // eslint-disable-next-line no-undef
   const it: IterableIterator<Set<Piece>> = box.GetPieceIterator()
 
@@ -18,16 +18,16 @@ export function ChooseToFindUnused (box: Box): void {
         if (invIndex >= 0) {
           invs.splice(invIndex, 1)
         }
-        const propIndex = props.indexOf(inputName)
-        if (propIndex > 0) {
-          props.splice(propIndex, 1)
+        const objIndex = objs.indexOf(inputName)
+        if (objIndex > 0) {
+          objs.splice(objIndex, 1)
         }
       }
     }
   }
 
-  console.warn('Unused props:')
-  props.forEach((name: string) => {
+  console.warn('Unused objs:')
+  objs.forEach((name: string) => {
     console.warn(name)
   })
 

@@ -11,11 +11,11 @@ import { Aggregates } from '../Aggregates'
 import { AddPiece } from '../AddPiece'
 import { Box } from '../Box'
 
-export class TalkFile {
+export class ChatFile {
   filename: string
   fileAddress: string
   choices: Map<string, ChoiceSection>
-  nonChoices: Map<String, NonChoiceSection>
+  nonChoices: Map<string, NonChoiceSection>
   aggregates: Aggregates
 
   constructor (filename: string, fileAddress: string, aggregates: Aggregates) {
@@ -28,15 +28,15 @@ export class TalkFile {
     const pathAndFile = fileAddress + filename
     if (!existsSync(pathAndFile)) {
       throw new Error(
-        `The talks_xxxx.jsonc was not found: ${pathAndFile} `
+        `The chats_xxxx.jsonc was not found: ${pathAndFile} `
       )
     }
     const text = readFileSync(pathAndFile, 'utf-8')
     const parsedJson: any = parse(text)
-    const talks = parsedJson.talks
+    const chats = parsedJson.chats
 
-    for (const key in talks) {
-      const array = talks[key]
+    for (const key in chats) {
+      const array = chats[key]
 
       if (key.endsWith('_choices')) {
         const choiceSection = new ChoiceSection(pathAndFile, key)
@@ -50,15 +50,15 @@ export class TalkFile {
     }
   }
 
-  public Clone (): TalkFile {
-    const talkFile = new TalkFile(this.GetName(), this.fileAddress, this.aggregates)
+  public Clone (): ChatFile {
+    const chatFile = new ChatFile(this.GetName(), this.fileAddress, this.aggregates)
     for (const choice of this.choices.values()) {
-      talkFile.AddChoiceSection(choice.Clone())
+      chatFile.AddChoiceSection(choice.Clone())
     }
     for (const nonChoice of this.nonChoices.values()) {
-      talkFile.AddNonChoiceSection(nonChoice.Clone())
+      chatFile.AddNonChoiceSection(nonChoice.Clone())
     }
-    return talkFile
+    return chatFile
   }
 
   public AddChoiceSection (choice: ChoiceSection): void {
@@ -101,20 +101,20 @@ export class TalkFile {
           const inputF = (requisites.length > 5) ? requisites[5] : 'undefined'
           let type = ''
           let isNoFile = true
-          if (output.startsWith(IdPrefixes.Goal) || output.startsWith(IdPrefixes.InvGoal)) {
-            type = _.TALK_GAINS_GOAL1_WITH_VARIOUS_REQUISITES
+          if (output.startsWith(IdPrefixes.Achievement) || output.startsWith(IdPrefixes.InvAchievement)) {
+            type = _.CHAT_GAINS_ACHMT1_WITH_VARIOUS_REQUISITES
             if (existsSync(`${this.fileAddress}${output}.jsonc`)) {
               isNoFile = false
             }
           } else if (output.startsWith(IdPrefixes.Inv)) {
-            type = _.TALK_GAINS_INV1_WITH_VARIOUS_REQUISITES
-          } else if (output.startsWith(IdPrefixes.Prop)) {
-            type = _.TALK_GAINS_PROP1_WITH_VARIOUS_REQUISITES
+            type = _.CHAT_GAINS_INV1_WITH_VARIOUS_REQUISITES
+          } else if (output.startsWith(IdPrefixes.Obj)) {
+            type = _.CHAT_GAINS_OBJ1_WITH_VARIOUS_REQUISITES
           }
           // important that it uses the next id here
           const id = GetNextId() + 't' + (isNoFile ? '' : 'm')
           const piece = new Piece(id, null, output, type, 1, null, null, null, inputA, inputB, inputC, inputD, inputE, inputF)
-          piece.SetTalkPath(`${path}/${name}`)
+          piece.SetChatPath(`${path}/${name}`)
           AddPiece(piece, this.fileAddress, isNoFile, box, this.aggregates)
           mapOGainsBySection.set(name, output)
         } else if (nonChoiceSection.goto.length > 0) {
@@ -127,23 +127,23 @@ export class TalkFile {
     }
   }
 
-  CollectSpeechLinesNeededToGetToPath (talkPath: any): string[][] {
+  CollectSpeechLinesNeededToGetToPath (chatPath: any): string[][] {
     const toReturn = new Array<string[]>()
-    const splitted: string[] = talkPath.split('/')
+    const splitted: string[] = chatPath.split('/')
 
     for (let i = 0; i < splitted.length; i++) {
       const segment = splitted[i]
       if (segment.endsWith('choices')) {
         const choiceSection = this.choices.get(segment)
         if (choiceSection != null) {
-          const talkings = choiceSection.GetAllTalkingWhilstChoosing(splitted[i + 1])
-          toReturn.push(...talkings)
+          const chatings = choiceSection.GetAllChatingWhilstChoosing(splitted[i + 1])
+          toReturn.push(...chatings)
         }
       } else {
         const nonChoiceSection = this.nonChoices.get(segment)
         if (nonChoiceSection != null) {
-          const talkings = nonChoiceSection.GetAllTalking()
-          toReturn.push(...talkings)
+          const chatings = nonChoiceSection.GetAllChating()
+          toReturn.push(...chatings)
         }
       }
     }

@@ -3,7 +3,7 @@ import { SingleFile } from './SingleFile'
 import { Stringify } from './Stringify'
 import { VisibleThingsMap } from './VisibleThingsMap'
 import { parse } from 'jsonc-parser'
-import { TalkFile } from './talk/TalkFile'
+import { ChatFile } from './chat/ChatFile'
 import { Piece } from './Piece'
 import { AchievementStubMap } from './AchievementStubMap'
 import { Aggregates } from './Aggregates'
@@ -25,38 +25,38 @@ export class Box {
   }
 
   private readonly allProps: string[]
-  private readonly allGoals: string[]
+  private readonly allAchievements: string[]
   private readonly achievementWordSet: Set<string>
   private readonly allInvs: string[]
   private readonly allChars: string[]
   private readonly mapOfStartingThings: VisibleThingsMap
   private readonly startingInvSet: Set<string>
   private readonly startingPropSet: Set<string>
-  private readonly startinggoalAchievementSet: Set<string>
+  private readonly startingachievementAchievementSet: Set<string>
   private readonly filename: string
   private readonly path: string
   private readonly pieces: Map<string, Set<Piece>>
-  private readonly talkFiles: Map<string, TalkFile>
+  private readonly chatFiles: Map<string, ChatFile>
   private readonly aggregates: Aggregates
 
   constructor (path: string, filename: string, aggregates: Aggregates) {
     this.aggregates = aggregates
     this.path = path
-    this.talkFiles = new Map<string, TalkFile>()
+    this.chatFiles = new Map<string, ChatFile>()
     this.filename = filename
 
     this.allProps = []
-    this.allGoals = []
+    this.allAchievements = []
     this.allInvs = []
     this.allChars = []
     /* preen starting invs from the startingThings */
     this.startingInvSet = new Set<string>()
-    this.startinggoalAchievementSet = new Set<string>()
+    this.startingachievementAchievementSet = new Set<string>()
     this.startingPropSet = new Set<string>()
     this.achievementWordSet = new Set<string>()
     this.mapOfStartingThings = new VisibleThingsMap(null)
     this.pieces = new Map<string, Set<Piece>>()
-    this.talkFiles = new Map<string, TalkFile>()
+    this.chatFiles = new Map<string, ChatFile>()
 
     this.aggregates.mapOfBoxes.set(filename, this)
     const box1 = this.aggregates.mapOfBoxes.get(filename)
@@ -74,22 +74,22 @@ export class Box {
     /* possible object names. ie basically all the enums */
     /* but without needing the enum file */
     const setProps = new Set<string>()
-    const setGoals = new Set<string>()
+    const setAchievements = new Set<string>()
     const setInvs = new Set<string>()
     const setChars = new Set<string>()
     for (const gate of scenario.pieces) {
       setInvs.add(Stringify(gate.inv1))
       setInvs.add(Stringify(gate.inv2))
       setInvs.add(Stringify(gate.inv3))
-      setGoals.add(Stringify(gate.goal1))
-      setGoals.add(Stringify(gate.goal2))
-      setProps.add(Stringify(gate.prop1))
-      setProps.add(Stringify(gate.prop2))
-      setProps.add(Stringify(gate.prop3))
-      setProps.add(Stringify(gate.prop4))
-      setProps.add(Stringify(gate.prop5))
-      setProps.add(Stringify(gate.prop6))
-      setProps.add(Stringify(gate.prop7))
+      setAchievements.add(Stringify(gate.achievement1))
+      setAchievements.add(Stringify(gate.achievement2))
+      setProps.add(Stringify(gate.obj1))
+      setProps.add(Stringify(gate.obj2))
+      setProps.add(Stringify(gate.obj3))
+      setProps.add(Stringify(gate.obj4))
+      setProps.add(Stringify(gate.obj5))
+      setProps.add(Stringify(gate.obj6))
+      setProps.add(Stringify(gate.obj7))
     }
 
     /* starting things is optional in the json */
@@ -104,7 +104,7 @@ export class Box {
       }
     }
 
-    /* collect all the goals and pieces file */
+    /* collect all the achievements and pieces file */
     const singleFile = new SingleFile(this.path, filename, this.aggregates)
     singleFile.copyAllPiecesToContainers(this)
 
@@ -118,10 +118,10 @@ export class Box {
         if (theThing.startsWith('inv')) {
           this.startingInvSet.add(theThing)
         }
-        if (theThing.startsWith('goal')) {
-          this.startinggoalAchievementSet.add(theThing)
+        if (theThing.startsWith('achievement')) {
+          this.startingachievementAchievementSet.add(theThing)
         }
-        if (theThing.startsWith('prop')) {
+        if (theThing.startsWith('obj')) {
           this.startingPropSet.add(theThing)
         }
       }
@@ -143,12 +143,12 @@ export class Box {
     setChars.delete('undefined')
     setProps.delete('')
     setProps.delete('undefined')
-    setGoals.delete('')
-    setGoals.delete('undefined')
+    setAchievements.delete('')
+    setAchievements.delete('undefined')
     setInvs.delete('')
     setInvs.delete('undefined')
     this.allProps = Array.from(setProps.values())
-    this.allGoals = Array.from(setGoals.values())
+    this.allAchievements = Array.from(setAchievements.values())
     this.allInvs = Array.from(setInvs.values())
     this.allChars = Array.from(setChars.values())
   }
@@ -167,8 +167,8 @@ export class Box {
     return this.allInvs
   }
 
-  public GetArrayOfGoals (): string[] {
-    return this.allGoals
+  public GetArrayOfAchievements (): string[] {
+    return this.allAchievements
   }
 
   public GetArrayOfSingleObjectVerbs (): string[] {
@@ -179,12 +179,12 @@ export class Box {
     return this.GetArrayOfInitialStatesOfSingleObjectVerbs()
   }
 
-  public GetArrayOfInitialStatesOfGoals (): number[] {
+  public GetArrayOfInitialStatesOfAchievements (): number[] {
     /* construct array of booleans in exact same order as ArrayOfProps - so they can be correlated */
-    const startingSet = this.startinggoalAchievementSet
+    const startingSet = this.startingachievementAchievementSet
     const initialStates: number[] = []
-    for (const goal of this.allGoals) {
-      const isNonZero = startingSet.has(goal)
+    for (const achievement of this.allAchievements) {
+      const isNonZero = startingSet.has(achievement)
       initialStates.push(isNonZero ? 1 : 0)
     }
     return initialStates
@@ -208,8 +208,8 @@ export class Box {
     /* construct array of booleans in exact same order as ArrayOfProps - so they can be correlated */
     const startingSet = this.GetSetOfStartingProps()
     const visibilities: boolean[] = []
-    for (const prop of this.allProps) {
-      const isVisible = startingSet.has(prop)
+    for (const obj of this.allProps) {
+      const isVisible = startingSet.has(obj)
       visibilities.push(isVisible)
     }
     return visibilities
@@ -234,8 +234,8 @@ export class Box {
     return this.filename
   }
 
-  public AddTalkFile (talkFile: TalkFile): void {
-    this.talkFiles.set(talkFile.GetName(), talkFile)
+  public AddChatFile (chatFile: ChatFile): void {
+    this.chatFiles.set(chatFile.GetName(), chatFile)
   }
 
   public GetSetOfAchievementWords (): Set<string> {
@@ -271,14 +271,14 @@ export class Box {
     })
   }
 
-  public static CopyTalksFromAtoB (a: Map<string, TalkFile>, b: Map<string, TalkFile>): void {
-    for (const talk of a.values()) {
-      b.set(talk.GetName(), talk)
+  public static CopyChatsFromAtoB (a: Map<string, ChatFile>, b: Map<string, ChatFile>): void {
+    for (const chat of a.values()) {
+      b.set(chat.GetName(), chat)
     }
   }
 
-  GetTalkFiles (): Map<string, TalkFile> {
-    return this.talkFiles
+  GetChatFiles (): Map<string, ChatFile> {
+    return this.chatFiles
   }
 
   public Get (givenOutput: string): Set<Piece> | undefined {
@@ -318,12 +318,12 @@ export class Box {
     return new Map<string, Set<Piece>>()
   }
 
-  GetStartingTalkFiles (): Map<string, TalkFile> {
+  GetStartingChatFiles (): Map<string, ChatFile> {
     const starter = this.aggregates.mapOfBoxes.get(_STARTER_JSONC)
     if (starter != null) {
-      return starter.talkFiles
+      return starter.chatFiles
     }
-    return new Map<string, TalkFile>()
+    return new Map<string, ChatFile>()
   }
 
   GetPiecesAsString (): string {
@@ -340,7 +340,7 @@ export class Box {
     for (const box of mapOfBoxes.values()) {
       if (box.filename !== this.filename) {
         Box.CopyPiecesFromAtoB(box.pieces, this.pieces)
-        Box.CopyTalksFromAtoB(box.talkFiles, this.talkFiles)
+        Box.CopyChatsFromAtoB(box.chatFiles, this.chatFiles)
         box.achievementWordSet.forEach(x => this.achievementWordSet.add(x))
         box.mapOfStartingThings.CopyTo(this.mapOfStartingThings)
       }

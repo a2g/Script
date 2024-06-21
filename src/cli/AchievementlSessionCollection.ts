@@ -1,38 +1,38 @@
 import definitions from '../../oldCampaignFramework.json'
-import { GoalSession } from './GoalSession'
+import { AchievementSession } from './AchievementSession'
 
-export class GoalSessionCollection {
-  private readonly goals: GoalSession[]
+export class AchievementSessionCollection {
+  private readonly achievements: AchievementSession[]
   constructor () {
-    this.goals = new Array<GoalSession>()
+    this.achievements = new Array<AchievementSession>()
   }
 
   public IsActive (index: number): boolean {
-    const ggoals = new Set<string>()
-    if (index < 0 || index >= this.goals.length) {
+    const gachievements = new Set<string>()
+    if (index < 0 || index >= this.achievements.length) {
       return false
     }
-    for (const section of this.goals) {
+    for (const section of this.achievements) {
       if (section.playable.IsCompleted()) {
-        ggoals.add(section.goalEnum)
+        gachievements.add(section.achievementEnum)
       }
     }
     let prerequisitesCompleted = 0
-    for (const prerequisite of this.goals[index].prerequisiteGoals) {
-      if (ggoals.has(prerequisite)) {
+    for (const prerequisite of this.achievements[index].prerequisiteAchievements) {
+      if (gachievements.has(prerequisite)) {
         prerequisitesCompleted++
       }
     }
 
     let sunsetsCompleted = 0
-    for (const sunset of this.goals[index].sunsetGoals) {
-      if (ggoals.has(sunset)) {
+    for (const sunset of this.achievements[index].sunsetAchievements) {
+      if (gachievements.has(sunset)) {
         sunsetsCompleted++
       }
     }
 
     let isPrerequisiteSatisfied = false
-    switch (this.goals[index].prerequisiteType) {
+    switch (this.achievements[index].prerequisiteType) {
       case definitions.definitions.condition_enum_entity.oneOrMore:
         isPrerequisiteSatisfied = prerequisitesCompleted >= 1
         break
@@ -44,11 +44,11 @@ export class GoalSessionCollection {
         break
       default:
         isPrerequisiteSatisfied =
-          prerequisitesCompleted >= this.goals[index].prerequisiteGoals.length
+          prerequisitesCompleted >= this.achievements[index].prerequisiteAchievements.length
     }
 
     let isSunsetSatisfied = false
-    switch (this.goals[index].sunsetType) {
+    switch (this.achievements[index].sunsetType) {
       case definitions.definitions.condition_enum_entity.oneOrMore:
         isSunsetSatisfied = sunsetsCompleted >= 1
         break
@@ -60,7 +60,7 @@ export class GoalSessionCollection {
         break
       default:
         isSunsetSatisfied =
-          sunsetsCompleted >= this.goals[index].sunsetGoals.length
+          sunsetsCompleted >= this.achievements[index].sunsetAchievements.length
     }
 
     // default to must have completed all
@@ -68,15 +68,15 @@ export class GoalSessionCollection {
     return isActive
   }
 
-  public Push (session: GoalSession): void {
-    this.goals.push(session)
+  public Push (session: AchievementSession): void {
+    this.achievements.push(session)
   }
 
-  public Get (i: number): GoalSession {
-    return this.goals[i]
+  public Get (i: number): AchievementSession {
+    return this.achievements[i]
   }
 
   public Length (): number {
-    return this.goals.length
+    return this.achievements.length
   }
 }

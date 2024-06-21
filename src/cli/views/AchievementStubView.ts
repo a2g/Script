@@ -21,11 +21,11 @@ export function AchievementStubView (stub: AchievementStub, visibleThingsAtTheMo
     } else if (input === 'o') {
       CommandsView(stub.GetOrderedCommands(), titlePath)
     } else if (input === 't') {
-      const theGoalPiece = stub.GetThePiece()
-      if (theGoalPiece != null) {
-        PieceView(theGoalPiece, visibleThingsAtTheMoment, titlePath)
+      const theAchievementPiece = stub.GetThePiece()
+      if (theAchievementPiece != null) {
+        PieceView(theAchievementPiece, visibleThingsAtTheMoment, titlePath)
       } else {
-        prompt(`${stub.GetTheAchievementWord()} Goal.piece WAS NULL. Hit any key to continue: `)
+        prompt(`${stub.GetTheAchievementWord()} Achievement.piece WAS NULL. Hit any key to continue: `)
       }
     }
   }

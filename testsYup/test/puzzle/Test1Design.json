@@ -20,41 +20,41 @@
         "inv3": {
           "$ref": "Test1 enums.jsonc#/definitions/inventory_enum"
         },
-        "prop1": {
-          "$ref": "Test1 enums.jsonc#/definitions/prop_enum"
+        "obj1": {
+          "$ref": "Test1 enums.jsonc#/definitions/obj_enum"
         },
         "prop2": {
-          "$ref": "Test1 enums.jsonc#/definitions/prop_enum"
+          "$ref": "Test1 enums.jsonc#/definitions/obj_enum"
         },
-        "prop3": {
-          "$ref": "Test1 enums.jsonc#/definitions/prop_enum"
+        "obj3": {
+          "$ref": "Test1 enums.jsonc#/definitions/obj_enum"
         },
-        "prop4": {
-          "$ref": "Test1 enums.jsonc#/definitions/prop_enum"
+        "obj4": {
+          "$ref": "Test1 enums.jsonc#/definitions/obj_enum"
         },
-        "prop5": {
-          "$ref": "Test1 enums.jsonc#/definitions/prop_enum"
+        "obj5": {
+          "$ref": "Test1 enums.jsonc#/definitions/obj_enum"
         },
-        "prop6": {
-          "$ref": "Test1 enums.jsonc#/definitions/prop_enum"
+        "obj6": {
+          "$ref": "Test1 enums.jsonc#/definitions/obj_enum"
         },
-        "goal1": {
-          "$ref": "Test1 enums.jsonc#/definitions/goal_enum"
+        "achievement1": {
+          "$ref": "Test1 enums.jsonc#/definitions/achievement_enum"
         },
-        "goal2": {
-          "$ref": "Test1 enums.jsonc#/definitions/goal_enum"
+        "achievement2": {
+          "$ref": "Test1 enums.jsonc#/definitions/achievement_enum"
         },
-        "goal3": {
-          "$ref": "Test1 enums.jsonc#/definitions/goal_enum"
+        "achievement3": {
+          "$ref": "Test1 enums.jsonc#/definitions/achievement_enum"
         },
-        "goal4": {
-          "$ref": "Test1 enums.jsonc#/definitions/goal_enum"
+        "achievement4": {
+          "$ref": "Test1 enums.jsonc#/definitions/achievement_enum"
         },
-        "goal5": {
-          "$ref": "Test1 enums.jsonc#/definitions/goal_enum"
+        "achievement5": {
+          "$ref": "Test1 enums.jsonc#/definitions/achievement_enum"
         },
-        "goal6": {
-          "$ref": "Test1 enums.jsonc#/definitions/goal_enum"
+        "achievement6": {
+          "$ref": "Test1 enums.jsonc#/definitions/achievement_enum"
         },
         "isNoFile": {
           "type": "boolean"
@@ -63,30 +63,30 @@
           "type": "array",
           "minItems": 0,
           "items": {
-            "$ref": "#/definitions/char_wrapper_type"
+            "$ref": "#/definitions/player_wrapper_type"
           }
         }
       }
     },
-    "char_wrapper_type": {
+    "player_wrapper_type": {
       "type": "object",
       "required": [
-        "character"
+        "player"
       ],
       "properties": {
-        "character": {
-          "$ref": "Test1 enums.jsonc#/definitions/character_enum"
+        "player": {
+          "$ref": "Test1 enums.jsonc#/definitions/player_enum"
         }
       }
     },
-    "prop_wrapper_type": {
+    "obj_wrapper_type": {
       "type": "object",
       "required": [
         "prop"
       ],
       "properties": {
         "prop": {
-          "$ref": "Test1 enums.jsonc#/definitions/prop_enum"
+          "$ref": "Test1 enums.jsonc#/definitions/obj_enum"
         }
       }
     }
@@ -98,8 +98,8 @@
       "items": {
         "type": "object",
         "properties": {
-          "character": {
-            "$ref": "Test1 enums.jsonc#/definitions/character_enum"
+          "player": {
+            "$ref": "Test1 enums.jsonc#/definitions/player_enum"
           },
           "thing": {
             "oneOf": [
@@ -107,10 +107,10 @@
                 "$ref": "Test1 enums.jsonc#/definitions/inventory_enum"
               },
               {
-                "$ref": "Test1 enums.jsonc#/definitions/goal_enum"
+                "$ref": "Test1 enums.jsonc#/definitions/achievement_enum"
               },
               {
-                "$ref": "Test1 enums.jsonc#/definitions/prop_enum"
+                "$ref": "Test1 enums.jsonc#/definitions/obj_enum"
               }
             ]
           }

@@ -33,7 +33,7 @@ describe('Solution', () => {
         const box = new SceneSingle("test/puzzle/Test1First.jsonc");
               const pile:PileOfPieces = new PileOfPieces();
         json.CopyPiecesFromBoxToPile(pile);
-        const objective = "prop_death_by_guitar";
+        const objective = "obj_death_by_guitar";
         const collection = new SolutionCollection();
         const solution = new Solution(new Piece("", "", objective), map);
         collection.2ution);
@@ -53,7 +53,7 @@ describe('Solution', () => {
             //assert.ok(leafPieceMap.has("inv_deflated_ball"));
             //assert.ok(leafPieceMap.has("inv_pump_with_bike_adapter"));
             //assert.ok(leafPieceMap.has("inv_needle"));
-            //assert.ok(leafPieceMap.has("prop_raised_backboard"));
+            //assert.ok(leafPieceMap.has("obj_raised_backboard"));
             //assert.ok(leafPieceMap.has("inv_pole_hook"));
         }
     });
@@ -61,7 +61,7 @@ describe('Solution', () => {
     it("Test of another non-cloning 5 step", () => {
         const box = new SceneSingle("test/puzzle/Test1First.jsonc");
         const map = json.CopyPiecesFromBoxToPile();
-        const objective = "prop_death_by_slamdunk";
+        const objective = "obj_death_by_slamdunk";
         const collection = new SolutionCollection();
         collection.push(new Solution(new Piece("", "", objective), map));
         // process the rest of the pieces
@@ -80,7 +80,7 @@ describe('Solution', () => {
             //assert.ok(leafPieceMap.has("inv_deflated_ball"));
             //assert.ok(leafPieceMap.has("inv_pump_with_bike_adapter"));
             //assert.ok(leafPieceMap.has("inv_needle"));
-            //assert.ok(leafPieceMap.has("prop_raised_backboard"));
+            //assert.ok(leafPieceMap.has("obj_raised_backboard"));
             //assert.ok(leafPieceMap.has("inv_pole_hook"));
         }
     });

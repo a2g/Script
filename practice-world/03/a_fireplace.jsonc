@@ -2,46 +2,46 @@
   "$schema": "./schema_for_achievements.jsonc",
   "startingThings": [
     {
-      "thing": "prop_button(unpressed)"
+      "thing": "obj_button(unpressed)"
     },
     {
-      "thing": "prop_rocket"
+      "thing": "obj_rocket"
     },
     {
-      "thing": "prop_furnace"
+      "thing": "obj_furnace"
     }
   ],
   "pieces": [
     {
-      "piece": "INV1_BECOMES_INV2_AS_PROP1_BECOMES_PROP2_GEN",
+      "piece": "INV1_BECOMES_INV2_AS_OBJ1_BECOMES_OBJ2_GEN",
       "inv1": "inv_bucket_of_coal",
-      "prop1": "prop_furnace",
+      "obj1": "obj_furnace",
       "inv2": "inv_empty_bucket_after_coal",
-      "prop2": "prop_furnace_with_coal",
+      "prop2": "obj_furnace_with_coal",
       "isNoFile": true
     },
     {
-      "piece": "PROP1_BECOMES_PROP2_BY_LOSING_INV1",
-      "prop1": "prop_rocket",
-      "prop2": "prop_rocket_with_sunstone",
+      "piece": "OBJ1_BECOMES_OBJ2_BY_LOSING_INV1",
+      "obj1": "obj_rocket",
+      "prop2": "obj_rocket_with_sunstone",
       "inv1": "inv_sunstone"
     },
     {
-      "piece": "TOGGLE_PROP1_BECOMES_PROP2",
-      "prop1": "prop_button(unpressed)",
-      "prop2": "prop_button(pressed)"
+      "piece": "TOGGLE_OBJ1_BECOMES_OBJ2",
+      "obj1": "obj_button(unpressed)",
+      "prop2": "obj_button(pressed)"
     },
     {
-      "piece": "AUTO_GOAL1_MET_BY_PROPS",
-      "goal1": "a_button_pressed",
-      "prop1": "prop_button(pressed)",
-      "prop2": "prop_furnace_lit",
-      "prop3": "prop_rocket_with_sunstone"
+      "piece": "AUTO_ACHMT1_MET_BY_OBJS",
+      "achievement1": "a_button_pressed",
+      "obj1": "obj_button(pressed)",
+      "prop2": "obj_furnace_lit",
+      "obj3": "obj_rocket_with_sunstone"
     },
     {
-      "piece": "PROP1_BECOMES_PROP2_BY_KEEPING_INV1",
-      "prop1": "prop_furnace_with_coal",
-      "prop2": "prop_furnace_lit",
+      "piece": "OBJ1_BECOMES_OBJ2_BY_KEEPING_INV1",
+      "obj1": "obj_furnace_with_coal",
+      "prop2": "obj_furnace_lit",
       "inv1": "inv_torch_lit"
     }
   ]

@@ -3,7 +3,7 @@ export enum Verb {
   Use = 'use',
   Open = 'open',
   Give = 'give',
-  Talk = 'talk',
+  Chat = 'chat',
   Grab = 'grab',
   Examine = 'examine',
   Throw = 'throw',

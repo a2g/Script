@@ -4,7 +4,7 @@ import { ChooseListOfLeaves } from './cli/ChooseListOfLeaves'
 import { ChooseOrderOfCommands } from './cli/ChooseOrderOfCommands'
 import { $IStarter, getJsonOfStarters } from './api/getJsonOfStarters'
 import { ChooseBackwardSolve } from './cli/ChooseBackwardSolve'
-// import { DumpGainsFromEachTalkInFolder } from './cli/DumpGansFromEachTalkInFolder'
+// import { DumpGainsFromEachChatInFolder } from './cli/DumpGansFromEachChatInFolder'
 import { Validators } from './puzzle/Validators'
 import { ChooseForwardValidate } from './cli/ChooseForwardValidate'
 import { ChoosePiecesInBoxes } from './cli/ChoosePiecesInBoxes'
@@ -31,7 +31,7 @@ function main (): void {
       default:
         if (index >= 0 && index < starters.length) {
           const starter = starters[index]
-          // DumpGainsFromEachTalkInFolder(starter.folder)
+          // DumpGainsFromEachChatInFolder(starter.folder)
 
           const solutions = new Solutions(starter.folder, starter.file)
 

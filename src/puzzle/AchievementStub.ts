@@ -24,8 +24,8 @@ import { Validated } from './Validated'
  * it clear we have these flags.
  *
  * This is also where command steps that pertain to event are kept. Once we have
- * validated an order of goal solving, then the most single minded way to do it
- * would be to do the steps required of goal1, then the steps required of goal2.
+ * validated an order of achievement solving, then the most single minded way to do it
+ * would be to do the steps required of achievement1, then the steps required of achievement2.
  * The solution could be thousands of permutations that adhere to this,
  * but its handy to have a predictable deterministic solution - at least as a
  * starting point, before optimizations.
@@ -99,11 +99,11 @@ export class AchievementStub extends PieceBase {
   }
 
   public ProcessUntilCloning (solution: Solution, solutions: Solutions, path: string): boolean {
-    // if the goalAchievement piece is already found, we recurse
+    // if the achievementAchievement piece is already found, we recurse
     if (this.inputs[0] != null) {
       return this.inputs[0].ProcessUntilCloning(solution, solutions, path + this.inputHints[0] + '/')
     }
-    // else we find the goal word piece
+    // else we find the achievement word piece
 
     const setOfMatchingPieces = solution.GetPiecesThatOutputString(this.inputHints[0])
 
@@ -127,7 +127,7 @@ export class AchievementStub extends PieceBase {
 
         // this is only here to make the unit tests make sense
         // something like to fix a bug where cloning doesn't mark piece as complete
-        // theSolution.MarkPieceAsCompleted(theSolution.GetWinGoal())
+        // theSolution.MarkPieceAsCompleted(theSolution.GetWinAchievement())
         // ^^ this might need to recursively ask for parent, since there are no
         // many root pieces
         if (isCloneBeingUsed) {

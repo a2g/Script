@@ -26,23 +26,23 @@
         "inv3": {
           "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/inventory_enum"
         },
-        "prop1": {
-          "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/prop_enum"
+        "obj1": {
+          "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/obj_enum"
         },
         "prop2": {
-          "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/prop_enum"
+          "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/obj_enum"
         },
-        "prop3": {
-          "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/prop_enum"
+        "obj3": {
+          "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/obj_enum"
         },
-        "prop4": {
-          "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/prop_enum"
+        "obj4": {
+          "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/obj_enum"
         },
-        "prop5": {
-          "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/prop_enum"
+        "obj5": {
+          "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/obj_enum"
         },
-        "prop6": {
-          "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/prop_enum"
+        "obj6": {
+          "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/obj_enum"
         },
         "fileToMerge": {
           "type": "string"
@@ -51,30 +51,30 @@
           "type": "array",
           "minItems": 0,
           "items": {
-            "$ref": "#/definitions/char_wrapper_type"
+            "$ref": "#/definitions/player_wrapper_type"
           }
         }
       }
     },
-    "char_wrapper_type": {
+    "player_wrapper_type": {
       "type": "object",
       "required": [
-        "character"
+        "player"
       ],
       "properties": {
-        "character": {
-          "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/character_enum"
+        "player": {
+          "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/player_enum"
         }
       }
     },
-    "prop_wrapper_type": {
+    "obj_wrapper_type": {
       "type": "object",
       "required": [
         "prop"
       ],
       "properties": {
         "prop": {
-          "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/prop_enum"
+          "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/obj_enum"
         }
       }
     }
@@ -84,7 +84,7 @@
       "type": "array",
       "minItems": 0,
       "items": {
-        "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/prop_enum"
+        "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/obj_enum"
       }
     },
     "startingThings": {
@@ -93,8 +93,8 @@
       "items": {
         "type": "object",
         "properties": {
-          "character": {
-            "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/character_enum"
+          "player": {
+            "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/player_enum"
           },
           "thing": {
             "oneOf": [
@@ -102,7 +102,7 @@
                 "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/inventory_enum"
               },
               {
-                "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/prop_enum"
+                "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/obj_enum"
               },
               {
                 "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/flag_type"

@@ -2,23 +2,23 @@
   "$schema": "./Test1Design.jsonc",
   "startingThings": [
     {
-      "thing": "prop_hurl"
+      "thing": "obj_hurl"
     },
     {
-      "thing": "prop_windup_key"
+      "thing": "obj_windup_key"
     }
   ],
   "pieces": [
     {
-      "piece": "PROP1_GOES_WHEN_GRAB_INV1_WITH_GOAL1",
-      "prop1": "prop_hurl",
-      "goal1": "goal_03_access_to_hideout",
+      "piece": "OBJ1_GOES_WHEN_GRAB_INV1_WITH_ACHMT1",
+      "obj1": "obj_hurl",
+      "achievement1": "achievement_03_access_to_hideout",
       "inv1": "inv_hurl"
     },
     {
-      "piece": "PROP1_GOES_WHEN_GRAB_INV1_WITH_GOAL1",
-      "prop1": "prop_windup_key",
-      "goal1": "goal_03_access_to_hideout",
+      "piece": "OBJ1_GOES_WHEN_GRAB_INV1_WITH_ACHMT1",
+      "obj1": "obj_windup_key",
+      "achievement1": "achievement_03_access_to_hideout",
       "inv1": "inv_windup_key"
     }
   ]

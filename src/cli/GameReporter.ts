@@ -85,15 +85,15 @@ export class GameReporter {
     console.warn(sceneString)
   }
 
-  public ReportGoals (goals: string[]): void {
-    if (goals.length === 0) {
-      return console.warn('No goals have been set')
+  public ReportAchievements (achievements: string[]): void {
+    if (achievements.length === 0) {
+      return console.warn('No achievements have been set')
     }
 
-    let sceneString: string = 'Non zero goals: ' + FormatText(goals[0])
-    for (let i = 1; i < goals.length; i++) {
+    let sceneString: string = 'Non zero achievements: ' + FormatText(achievements[0])
+    for (let i = 1; i < achievements.length; i++) {
       // classic forloop useful because starting at 1
-      sceneString += ', ' + FormatText(goals[i])
+      sceneString += ', ' + FormatText(achievements[i])
     }
 
     console.warn(sceneString)

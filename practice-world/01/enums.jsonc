@@ -2,9 +2,9 @@
   "$schema": "http://json-schema.org/draft-07/schema",
   "type": "object",
   "definitions": {
-    "character_enum": {
+    "player_enum": {
       "enum": [
-        "char_main"
+        "player_main"
       ]
     },
     "inventory_enum": {
@@ -19,20 +19,20 @@
         "inv_bio-diesel"
       ]
     },
-    "prop_enum": {
+    "obj_enum": {
       "enum": [
-        "prop_picture",
-        "prop_harbour_master",
-        "prop_bartender",
-        "prop_greasy_grease_paper",
-        "prop_generator",
-        "prop_boatman",
-        "prop_taxi",
-        "prop_phone",
-        "prop_picture_frame"
+        "obj_picture",
+        "obj_harbour_master",
+        "obj_bartender",
+        "obj_greasy_grease_paper",
+        "obj_generator",
+        "obj_boatman",
+        "obj_taxi",
+        "obj_phone",
+        "obj_picture_frame"
       ]
     },
-    "goal_enum": {
+    "achievement_enum": {
       "enum": [
         "a_win",
         "a_electricity_restored"

@@ -12,7 +12,7 @@ export function ParseTokenizedCommandLineFromFromThreeStrings (
   const is1InPropsRaw = happener.GetArrayOfProps().includes(strings[1])
   const is1InPropsPrefixed = happener
     .GetArrayOfProps()
-    .includes(`prop_${strings[1]}`)
+    .includes(`obj_${strings[1]}`)
   const is1InInvsRaw = happener.GetArrayOfInvs().includes(strings[1])
   const is1InInvsPrefixed = happener
     .GetArrayOfInvs()
@@ -20,7 +20,7 @@ export function ParseTokenizedCommandLineFromFromThreeStrings (
   const is2InPropsRaw = happener.GetArrayOfProps().includes(strings[2])
   const is2InPropsPrefixed = happener
     .GetArrayOfProps()
-    .includes(`prop_${strings[2]}`)
+    .includes(`obj_${strings[2]}`)
   const is2InInvsRaw = happener.GetArrayOfInvs().includes(strings[2])
   const is2InInvsPrefixed = happener
     .GetArrayOfInvs()
@@ -33,7 +33,7 @@ export function ParseTokenizedCommandLineFromFromThreeStrings (
     }
 
     if (is1InPropsPrefixed) {
-      return new Command(Verb.Grab, Mix.Prop, `prop_${strings[1]}`)
+      return new Command(Verb.Grab, Mix.Prop, `obj_${strings[1]}`)
     }
     return new Command(
       Verb.Grab,
@@ -49,7 +49,7 @@ export function ParseTokenizedCommandLineFromFromThreeStrings (
       return new Command(Verb.Toggle, Mix.Prop, strings[1])
     }
     if (is1InPropsPrefixed) {
-      return new Command(Verb.Toggle, Mix.Prop, `prop_${strings[1]}`)
+      return new Command(Verb.Toggle, Mix.Prop, `obj_${strings[1]}`)
     }
     if (is1InInvsRaw) {
       return new Command(Verb.Toggle, Mix.Inv, strings[1])
@@ -98,7 +98,7 @@ export function ParseTokenizedCommandLineFromFromThreeStrings (
         Verb.Use,
         Mix.InvVsProp,
         `inv_${strings[1]}`,
-        `prop_${strings[2]}`
+        `obj_${strings[2]}`
       )
     }
     if (is2InInvsPrefixed && is1InPropsPrefixed) {
@@ -107,7 +107,7 @@ export function ParseTokenizedCommandLineFromFromThreeStrings (
         Verb.Use,
         Mix.InvVsProp,
         `inv_${strings[2]}`,
-        `prop_${strings[1]}`
+        `obj_${strings[1]}`
       )
     }
     if (is1InPropsPrefixed && is2InPropsPrefixed) {
@@ -115,8 +115,8 @@ export function ParseTokenizedCommandLineFromFromThreeStrings (
       return new Command(
         Verb.Use,
         Mix.PropVsProp,
-        `prop_${strings[1]}`,
-        `prop_${strings[2]}`
+        `obj_${strings[1]}`,
+        `obj_${strings[2]}`
       )
       /* mixed case a */
     }
@@ -145,7 +145,7 @@ export function ParseTokenizedCommandLineFromFromThreeStrings (
         Verb.Use,
         Mix.InvVsProp,
         strings[1],
-        `prop_${strings[2]}`
+        `obj_${strings[2]}`
       )
     }
     if (is1InInvsPrefixed && is2InPropsRaw) {
@@ -164,7 +164,7 @@ export function ParseTokenizedCommandLineFromFromThreeStrings (
         Verb.Use,
         Mix.InvVsProp,
         strings[2],
-        `prop_${strings[1]}`
+        `obj_${strings[1]}`
       )
     }
     if (is2InInvsPrefixed && is1InPropsRaw) {
@@ -184,7 +184,7 @@ export function ParseTokenizedCommandLineFromFromThreeStrings (
         Mix.PropVsProp,
 
         strings[1],
-        `prop_${strings[2]}`
+        `obj_${strings[2]}`
       )
     }
     if (is1InPropsPrefixed && is2InPropsRaw) {
@@ -192,7 +192,7 @@ export function ParseTokenizedCommandLineFromFromThreeStrings (
       return new Command(
         Verb.Use,
         Mix.PropVsProp,
-        `prop_${strings[1]}`,
+        `obj_${strings[1]}`,
         strings[2]
       )
     }

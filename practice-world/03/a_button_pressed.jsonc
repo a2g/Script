@@ -2,30 +2,30 @@
   "$schema": "./schema_for_achievements.jsonc",
   "startingThings": [
     {
-      "thing": "prop_hole_in_wall"
+      "thing": "obj_hole_in_wall"
     },
     {
-      "thing": "prop_rocket_gate"
+      "thing": "obj_rocket_gate"
     }
   ],
   "pieces": [
     {
-      "piece": "PROP1_BECOMES_PROP2_BY_LOSING_INV1",
-      "prop1": "prop_rocket_gate",
-      "prop2": "prop_rocket_gate_buttered",
+      "piece": "OBJ1_BECOMES_OBJ2_BY_LOSING_INV1",
+      "obj1": "obj_rocket_gate",
+      "prop2": "obj_rocket_gate_buttered",
       "inv1": "inv_cooking_lard"
     },
     {
-      "piece": "PROP1_BECOMES_PROP2_BY_LOSING_INV1",
-      "prop1": "prop_hole_in_wall",
-      "prop2": "prop_crank_in_wall",
+      "piece": "OBJ1_BECOMES_OBJ2_BY_LOSING_INV1",
+      "obj1": "obj_hole_in_wall",
+      "prop2": "obj_crank_in_wall",
       "inv1": "inv_crank2"
     },
     {
-      "piece": "AUTO_GOAL1_MET_BY_PROPS",
-      "goal1": "a_win",
-      "prop1": "prop_crank_in_wall",
-      "prop2": "prop_rocket_gate_buttered"
+      "piece": "AUTO_ACHMT1_MET_BY_OBJS",
+      "achievement1": "a_win",
+      "obj1": "obj_crank_in_wall",
+      "prop2": "obj_rocket_gate_buttered"
     }
   ]
 }

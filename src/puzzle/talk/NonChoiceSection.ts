@@ -60,7 +60,7 @@ export class NonChoiceSection {
     return this.key
   }
 
-  public GetAllTalking (): string[][] {
+  public GetAllChating (): string[][] {
     const toReturn = new Array<string[]>()
     toReturn.push(...this.arrayOfOtherStuff)
     return toReturn

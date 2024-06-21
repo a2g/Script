@@ -11,18 +11,18 @@ export function PlayPlayable (playable: Playable): void {
   for (; ;) {
     // aggregates current situation to cmd output
     const reporter = GameReporter.GetInstance()
-    const goals = playable.GetHappener().GetCurrentlyTrueGoals()
+    const achievements = playable.GetHappener().GetCurrentlyTrueAchievements()
     const invs = playable.GetHappener().GetCurrentVisibleInventory()
-    const props = playable.GetHappener().GetCurrentVisibleProps()
-    reporter.ReportGoals(goals)
+    const objs = playable.GetHappener().GetCurrentVisibleProps()
+    reporter.ReportAchievements(achievements)
     reporter.ReportInventory(invs)
-    reporter.ReportScene(props)
+    reporter.ReportScene(objs)
 
     // Process all the autos
     ProcessAutos(playable.GetHappener(), playable.GetSolution())
 
     // check have we won?
-    if (playable.GetHappener().GetGoalValue(A_WIN) > 0) {
+    if (playable.GetHappener().GetAchievementValue(A_WIN) > 0) {
       // btw this is the only a_win outside of Solution.ts, so if we can get rid of it, then great
       playable.SetCompleted()
       break

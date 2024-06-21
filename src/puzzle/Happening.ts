@@ -38,25 +38,25 @@ export class Happening {
       case Happen.PropStays:
       case Happen.PropAppears:
       case Happen.PropTransitions:
-        if (!itemA.startsWith('prop')) {
+        if (!itemA.startsWith('obj')) {
           console.warn(
-            'Mismatch! the item (' + itemA + ') does not start with "prop"'
+            'Mismatch! the item (' + itemA + ') does not start with "obj"'
           )
         }
-        if (itemB !== '' && !itemB.startsWith('prop')) {
+        if (itemB !== '' && !itemB.startsWith('obj')) {
           console.warn(
-            'Mismatch! the item (' + itemB + ') does not start with "prop"'
+            'Mismatch! the item (' + itemB + ') does not start with "obj"'
           )
         }
         break
-      case Happen.GoalIsDecremented:
-      case Happen.GoalIsIncremented:
-      case Happen.GoalIsSet:
-        if (!itemA.startsWith(IdPrefixes.Goal)) {
+      case Happen.AchievementIsDecremented:
+      case Happen.AchievementIsIncremented:
+      case Happen.AchievementIsSet:
+        if (!itemA.startsWith(IdPrefixes.Achievement)) {
           console.warn(
             'Convention mismatch! the item (' +
             itemA +
-            ') does not begin with a goal prefix"'
+            ') does not begin with a achievement prefix"'
           )
         }
         break

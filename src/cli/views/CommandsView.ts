@@ -15,13 +15,13 @@ export function CommandsView (commands: RawObjectsAndVerb[], titlePath: string[]
 
     for (const command of commands) {
       // 0 is cleanest, later numbers are more detailed
-      if (command.type === Raw.Goal && infoLevel < 3) {
+      if (command.type === Raw.Achievement && infoLevel < 3) {
         continue
       }
       listItemNumber++
       const formattedCommand = FormatCommand(command, infoLevel)
       console.warn(`${listItemNumber}. ${formattedCommand}`)
-      if (command.type === Raw.Talk) {
+      if (command.type === Raw.Chat) {
         for (const speechLine of command.speechLines) {
           console.warn(`   ${speechLine[0]}: ${speechLine[1]}`)
         }
@@ -54,12 +54,12 @@ function FormatCommand (raw: RawObjectsAndVerb, infoLevel: number): string {
     case 4:
     case 5:
     case 6:
-      toReturn = `${raw.mainSpiel}  ${raw.goalSpiel}`
+      toReturn = `${raw.mainSpiel}  ${raw.achievementSpiel}`
       break
     case 7:
     case 8:
     case 9:
-      toReturn = `${raw.mainSpiel}  ${raw.goalSpiel} ${raw.restrictionSpiel} ${raw.typeJustForDebugging}`
+      toReturn = `${raw.mainSpiel}  ${raw.achievementSpiel} ${raw.restrictionSpiel} ${raw.typeJustForDebugging}`
       break
   }
   return toReturn

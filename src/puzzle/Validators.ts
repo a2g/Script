@@ -16,7 +16,7 @@ export class Validators {
       const validator = new Validator(
         solution.GetSolvingPath(),
         solutions.GetStartingPieces(),
-        solutions.GetStartingTalkFiles(),
+        solutions.GetStartingChatFiles(),
         solution.GetAchievementStubMap(),
         solutions.GetStartersMapOfAllStartingThings())
       this.validators.push(validator)
@@ -27,10 +27,10 @@ export class Validators {
     return this.validators
   }
 
-  public DeconstructAllGoalsOfAllValidatorsAndRecordSteps (): boolean {
+  public DeconstructAllAchievementsOfAllValidatorsAndRecordSteps (): boolean {
     let wasThereAtLeastSomeProgress = false
     for (const validator of this.validators) {
-      if (validator.DeconstructAllGoalsAndRecordSteps()) {
+      if (validator.DeconstructAllAchievementsAndRecordSteps()) {
         wasThereAtLeastSomeProgress = true
       }
     }

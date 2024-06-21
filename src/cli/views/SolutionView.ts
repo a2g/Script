@@ -28,11 +28,11 @@ export function SolutionView (solution: Solution, solutions: Solutions, titlePat
 
       // display list item
       const output = achievementStub.GetTheAchievementWord()
-      const theGoalPiece = achievementStub.GetThePiece()
+      const theAchievementPiece = achievementStub.GetThePiece()
       let inputs = ''
-      if (theGoalPiece != null) {
-        for (let i = 0; i < theGoalPiece.inputSpiels.length; i++) {
-          const inputSpiel = theGoalPiece.inputSpiels[i]
+      if (theAchievementPiece != null) {
+        for (let i = 0; i < theAchievementPiece.inputSpiels.length; i++) {
+          const inputSpiel = theAchievementPiece.inputSpiels[i]
           inputs += (i === 0) ? '' : ','
           inputs += `${FormatText(inputSpiel)}`
         }
@@ -46,11 +46,11 @@ export function SolutionView (solution: Solution, solutions: Solutions, titlePat
 
     console.warn(`Remaining Pieces: ${solution.GetNumberOfPiecesRemaining()}`)
 
-    console.warn(`Number of goals incomplete ${incomplete}/${listItemNumber}`)
+    console.warn(`Number of achievements incomplete ${incomplete}/${listItemNumber}`)
 
     // allow user to choose item
     const input = prompt(
-      'Choose goal to climb down on or (b)ack, (r)e-run: '
+      'Choose achievement to climb down on or (b)ack, (r)e-run: '
     ).toLowerCase()
     if (input === null || input === 'b') {
       break
@@ -60,21 +60,21 @@ export function SolutionView (solution: Solution, solutions: Solutions, titlePat
     }
     if (input === 'r') {
       solution.ProcessUntilCloning(solutions)
-      solution.UpdateGoalSolvedStatuses()
+      solution.UpdateAchievementSolvedStatuses()
       continue
     } else {
       // show map entry for chosen item
       const theNumber = Number(input)
       if (theNumber > 0 && theNumber <= listItemNumber) {
         let j = 0
-        for (const goal of solution.GetAchievementStubMap().GetValues()) {
+        for (const achievement of solution.GetAchievementStubMap().GetValues()) {
           j++
           if (j === theNumber) {
-            const theGoalPiece = goal.GetThePiece()
-            if (theGoalPiece != null) {
-              PieceView(theGoalPiece, solution.GetVisibleThingsAtTheStart(), titlePath)
+            const theAchievementPiece = achievement.GetThePiece()
+            if (theAchievementPiece != null) {
+              PieceView(theAchievementPiece, solution.GetVisibleThingsAtTheStart(), titlePath)
             } else {
-              prompt(`${goal.GetTheAchievementWord()} Goal.piece WAS NULL. Hit any key to continue: `)
+              prompt(`${achievement.GetTheAchievementWord()} Achievement.piece WAS NULL. Hit any key to continue: `)
             }
           }
         }

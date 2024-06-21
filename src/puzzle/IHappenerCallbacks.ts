@@ -9,7 +9,7 @@ export interface IHappenerCallbacks {
     newValue: boolean,
     nameForDebugging: string
   ) => void
-  OnGoalValueChange: (
+  OnAchievementValueChange: (
     numberOfObjectWhoseVisibilityChanged: number,
     newValue: number,
     nameForDebugging: string

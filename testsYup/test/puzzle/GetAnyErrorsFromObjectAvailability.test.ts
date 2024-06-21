@@ -24,10 +24,10 @@ describe('GetAnyErrorsFromObjectAvailability', () => {
     expect(result).toContain('items is not visible')
   })
 
-  test('Trigger One of those props is not visible!', () => {
+  test('Trigger One of those objs is not visible!', () => {
     const mix = new Command(Verb.Use, Mix.PropVsProp, 'a', 'b')
     const result = GetAnyErrorsFromObjectAvailability(mix, ['a'], [])
-    expect(result).toContain('props is not visible')
+    expect(result).toContain('objs is not visible')
   })
 
   test('Trigger That inv is not visible!', () => {
@@ -36,9 +36,9 @@ describe('GetAnyErrorsFromObjectAvailability', () => {
     expect(result).toContain('inv is not visible')
   })
 
-  it('Trigger That prop is not visible!', () => {
+  it('Trigger That obj is not visible!', () => {
     const mix = new Command(Verb.Grab, Mix.Prop, 'b', '')
     const result = GetAnyErrorsFromObjectAvailability(mix, ['a'], [])
-    expect(result).toContain('prop is not visible')
+    expect(result).toContain('obj is not visible')
   })
 })

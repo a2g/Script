@@ -140,14 +140,14 @@ export function getSvg (
           graph.addEdge(a, b, 8)
         }
       }
-      const props = new Map<string, string>(Object.entries(gridJson.props))
+      const objs = new Map<string, string>(Object.entries(gridJson.objs))
 
-      if (gridJson.props != null && Boolean(props)) {
+      if (gridJson.objs != null && Boolean(objs)) {
         const locationA =
-          paramA.length > 0 ? props.get(paramA) : gridJson.startingLocation
+          paramA.length > 0 ? objs.get(paramA) : gridJson.startingLocation
 
         const locationB =
-          paramB.length > 0 ? props.get(paramB) : gridJson.startingLocation
+          paramB.length > 0 ? objs.get(paramB) : gridJson.startingLocation
 
         if (locationA != null && locationB != null) {
           const start = centres.get(locationA)

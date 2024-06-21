@@ -19,7 +19,7 @@ export function GetDisplayName (
   }
 
   const single = input.toString()
-  if (single.startsWith('sol_prop_')) {
+  if (single.startsWith('sol_obj_')) {
     return (
       Colors.Yellow +
       AddBrackets(single.slice(9), isParenthesisNeeded) +
@@ -35,13 +35,13 @@ export function GetDisplayName (
   if (single.startsWith(IdPrefixes.Inv)) {
     return Colors.Green + single.slice(4) + Colors.Reset
   }
-  if (single.startsWith(IdPrefixes.Prop)) {
+  if (single.startsWith(IdPrefixes.Obj)) {
     return Colors.Cyan + single.slice(5) + Colors.Reset
   }
-  if (single.startsWith(IdPrefixes.Goal)) {
+  if (single.startsWith(IdPrefixes.Achievement)) {
     return Colors.Green + single.slice(1) + Colors.Reset
   }
-  if (single.startsWith(IdPrefixes.Char)) {
+  if (single.startsWith(IdPrefixes.Player)) {
     return (
       Colors.Red +
       AddBrackets(single.slice(5), isParenthesisNeeded) +

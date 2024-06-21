@@ -3,7 +3,7 @@
   "description": "Gate Campaign Framework - allows chaining of puzzle-pieces.jsons together in to a campaign",
   "type": "object",
   "definitions": {
-    "goal_enum_entity": {
+    "achievement_enum_entity": {
       "enum": [
         "G1",
         "G2",
@@ -95,14 +95,14 @@
         }
       }
     },
-    "goal_entity": {
+    "achievement_entity": {
       "type": "object",
       "properties": {
-        "goalName": {
+        "achievementName": {
           "type": "string"
         },
-        "goalEnum": {
-          "$ref": "#/definitions/goal_enum_entity"
+        "achievementEnum": {
+          "$ref": "#/definitions/achievement_enum_entity"
         },
         "location": {
           "$ref": "#/definitions/area_enum_entity"
@@ -110,21 +110,21 @@
         "prerequisiteType": {
           "$ref": "#/definitions/condition_enum_entity"
         },
-        "prerequisiteGoals": {
+        "prerequisiteAchievements": {
           "type": "array",
           "minItems": 0,
           "items": {
-            "$ref": "#/definitions/goal_enum_entity"
+            "$ref": "#/definitions/achievement_enum_entity"
           }
         },
         "sunsetType": {
           "$ref": "#/definitions/condition_enum_entity"
         },
-        "sunsetGoals": {
+        "sunsetAchievements": {
           "type": "array",
           "minItems": 0,
           "items": {
-            "$ref": "#/definitions/goal_enum_entity"
+            "$ref": "#/definitions/achievement_enum_entity"
           }
         }
       }
@@ -138,11 +138,11 @@
         "$ref": "#/definitions/location_entity"
       }
     },
-    "goals": {
+    "achievements": {
       "type": "array",
       "minItems": 0,
       "items": {
-        "$ref": "#/definitions/goal_entity"
+        "$ref": "#/definitions/achievement_entity"
       }
     }
   }

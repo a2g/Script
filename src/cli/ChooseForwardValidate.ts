@@ -38,7 +38,7 @@ export function ChooseForwardValidate (validators: Validators): void {
     }
 
     if (firstInput === 'r') {
-      validators.DeconstructAllGoalsOfAllValidatorsAndRecordSteps()
+      validators.DeconstructAllAchievementsOfAllValidatorsAndRecordSteps()
       continue
     } else {
       const theNumber = Number(firstInput)

@@ -6,35 +6,35 @@ export function ProcessAutos (
   happener: Happener,
   solution: Solution
 ): void {
-  const goals = happener.GetCurrentlyTrueGoals()
+  const achievements = happener.GetCurrentlyTrueAchievements()
   const items = happener.GetCurrentVisibleInventory()
-  const props = happener.GetCurrentVisibleProps()
+  const objs = happener.GetCurrentVisibleProps()
 
   const autos = solution.GetAutos()
   for (const piece of autos) {
     let numberSatisfied = 0
     for (const inputName of piece.inputHints) {
-      if (inputName.startsWith(IdPrefixes.Prop)) {
-        if (props.includes(inputName)) {
+      if (inputName.startsWith(IdPrefixes.Obj)) {
+        if (objs.includes(inputName)) {
           numberSatisfied += 1
         }
       } else if (inputName.startsWith(IdPrefixes.Inv)) {
         if (items.includes(inputName)) {
           numberSatisfied += 1
         }
-      } else if (inputName.startsWith(IdPrefixes.Goal)) {
-        if (goals.includes(inputName)) {
+      } else if (inputName.startsWith(IdPrefixes.Achievement)) {
+        if (achievements.includes(inputName)) {
           numberSatisfied += 1
         }
       }
     }
     if (numberSatisfied === piece.inputHints.length) {
-      if (piece.output.startsWith('prop_')) {
-        console.warn(`Auto: prop set visible ${piece.output}`)
+      if (piece.output.startsWith('obj_')) {
+        console.warn(`Auto: obj set visible ${piece.output}`)
         happener.SetPropVisible(piece.output, true)
-      } else if (piece.output.startsWith('goal_')) {
-        console.warn(`Auto: goal set to true ${piece.output}`)
-        happener.SetGoalValue(piece.output, 1)
+      } else if (piece.output.startsWith('achievement_')) {
+        console.warn(`Auto: achievement set to true ${piece.output}`)
+        happener.SetAchievementValue(piece.output, 1)
       } else if (piece.output.startsWith('inv_')) {
         console.warn(`Auto: inv set to visible ${piece.output}`)
         happener.SetInvVisible(piece.output, true)

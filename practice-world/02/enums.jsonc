@@ -2,9 +2,9 @@
   "$schema": "http://json-schema.org/draft-07/schema",
   "type": "object",
   "definitions": {
-    "character_enum": {
+    "player_enum": {
       "enum": [
-        "char_main"
+        "player_main"
       ]
     },
     "inventory_enum": {
@@ -19,15 +19,15 @@
         "inv_tinder_kit"
       ]
     },
-    "prop_enum": {
+    "obj_enum": {
       "enum": [
-        "prop_limestone",
-        "prop_teenager",
-        "prop_arch-druid",
-        "prop_officer_dooley"
+        "obj_limestone",
+        "obj_teenager",
+        "obj_arch-druid",
+        "obj_officer_dooley"
       ]
     },
-    "goal_enum": {
+    "achievement_enum": {
       "enum": [
         "a_win"
       ]

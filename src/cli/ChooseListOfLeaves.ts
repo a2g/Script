@@ -12,16 +12,16 @@ export function ChooseListOfLeaves (solutions: Solutions): void {
     solutions.UpdateSolvedStatuses()
     const numberOfSolutions: number = solutions.NumberOfSolutions()
 
-    console.warn('If any leaves are not resolved properly, for example')
+    console.warn('If any leaves are not resolved objerly, for example')
     console.warn(' - eg items show up as not found when they should be')
-    console.warn(' starting props, or inv items that should not be leafs.')
+    console.warn(' starting objs, or inv items that should not be leafs.')
     console.warn(
       'Then add these to starting sets; or fix up pieces, such that'
     )
     console.warn(
-      'the dependent pieces are discovered; or introduce goal pieces'
+      'the dependent pieces are discovered; or introduce achievement pieces'
     )
-    console.warn('for items that two goals need, but only one ends up with.')
+    console.warn('for items that two achievements need, but only one ends up with.')
     console.warn('GOTCHA: Also validate boxes against schema, as this has ')
     console.warn('been the cause of the problem on numerous occasions.')
     console.warn('')
@@ -75,10 +75,10 @@ export function ChooseListOfLeaves (solutions: Solutions): void {
       if (theNumber > 0 && theNumber <= listItemNumber) {
         let i = 0
         for (const solution of solutions.GetSolutions()) {
-          const goals = solution
+          const achievements = solution
             .GetAchievementStubMap()
             .GenerateMapOfLeavesFromAllRoots(isOnlyNulls)
-          for (const key of goals.keys()) {
+          for (const key of achievements.keys()) {
             i++
             if (i === theNumber) {
               console.warn('This is the life of the selected ingredient: ')

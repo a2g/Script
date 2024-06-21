@@ -3,12 +3,12 @@ import { AchievementStubMap } from './AchievementStubMap'
 import { SpecialTypes } from './SpecialTypes'
 /**
  * #### Description
- * Drills down on a piece, and generates map of leaves tracing goals recursively.
+ * Drills down on a piece, and generates map of leaves tracing achievements recursively.
  * The difference between this and @ref GenerateMapOfLeavesRecursively is that
  * the latter does not drill down on pieces of type CompletedElsewhere - this one does
  * #### Example
- * eg GenerateMapOfLeavesTracingGoalsRecursively(
-        winGoal.piece,
+ * eg GenerateMapOfLeavesTracingAchievementsRecursively(
+        winAchievement.piece,
         A_WIN,
         leaves,
         theRootPieceMap
@@ -18,13 +18,13 @@ import { SpecialTypes } from './SpecialTypes'
  * @param piece the piece to drill down on
  * @param path this is a helper for telling where we are in the recursion
  * @param map any discovered leaves are put in here, keyed by path
- * @param rootPieceMap this is what it uses to drill down to other goals
+ * @param rootPieceMap this is what it uses to drill down to other achievements
  */
 export function GenerateMapOfLeavesTracingAchievementsRecursively (
   piece: Piece,
   path: string,
   map: Map<string, Piece | null>,
-  goalAchievements: Set<string>,
+  achievementAchievements: Set<string>,
   rootPieceMap: AchievementStubMap
 ): void {
   for (let i = 0; i < piece.inputs.length; i += 1) {
@@ -32,18 +32,18 @@ export function GenerateMapOfLeavesTracingAchievementsRecursively (
     const inputType = input == null ? 'null' : input.type
     // either set an entry in the leaf map or not...
     switch (inputType) {
-      case SpecialTypes.SomeOtherGoal: {
+      case SpecialTypes.SomeOtherAchievement: {
         const stub = rootPieceMap.AchievementStubByName(piece.inputHints[i])
         // Generating name ran may have to multiple with same name');
         const stubPiece = stub.GetThePiece()
-        const goalAchievement = stub.GetTheAchievementWord()
-        goalAchievements.add(goalAchievement)
+        const achievementAchievement = stub.GetTheAchievementWord()
+        achievementAchievements.add(achievementAchievement)
         if (stubPiece != null) {
           GenerateMapOfLeavesTracingAchievementsRecursively(
             stubPiece,
             stubPiece.GetOutput(),
             map,
-            goalAchievements,
+            achievementAchievements,
             rootPieceMap
           )
         }
@@ -62,7 +62,7 @@ export function GenerateMapOfLeavesTracingAchievementsRecursively (
         input,
         `${path}/${piece.inputHints[i]}`,
         map,
-        goalAchievements,
+        achievementAchievements,
         rootPieceMap
       )
     }

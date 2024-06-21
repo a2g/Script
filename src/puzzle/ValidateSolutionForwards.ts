@@ -7,12 +7,12 @@ import { Solution } from './Solution'
 
 export function ValidateSolutionForwards (solution: Solution, _starter: Box, _outputListOfOperations: RawObjectsAndVerb[]): boolean {
 
-  for(const goalStruct of solution.GetRootMap().GetValues()){
+  for(const achievementStruct of solution.GetRootMap().GetValues()){
        // push the commands
        const deconstructDoer = new DeconstructDoer(
-        goalStruct,
+        achievementStruct,
         this.currentlyVisibleThings,
-        this.GetTalkFiles()
+        this.GetChatFiles()
       )
       let rawObjectsAndVerb: RawObjectsAndVerb | null = null
       for (let j = 0; j < 200; j += 1) {
@@ -28,37 +28,37 @@ export function ValidateSolutionForwards (solution: Solution, _starter: Box, _ou
 
         if (rawObjectsAndVerb.type !== Raw.None) {
           // this is just here for debugging!
-          goalStruct.PushCommand(rawObjectsAndVerb)
+          achievementStruct.PushCommand(rawObjectsAndVerb)
         }
       }
 
-      // set the goal as completed in the currently visible things
-      this.currentlyVisibleThings.Set(goalStruct.goalAchievement, new Set<string>())
+      // set the achievement as completed in the currently visible things
+      this.currentlyVisibleThings.Set(achievementStruct.achievementAchievement, new Set<string>())
 
-      // then write the goal we just completed
-      goalStruct.PushCommand(
+      // then write the achievement we just completed
+      achievementStruct.PushCommand(
         new RawObjectsAndVerb(
-          Raw.Goal,
-          `completed (${goalStruct.goalAchievement})`,
+          Raw.Achievement,
+          `completed (${achievementStruct.achievementAchievement})`,
           '',
-          goalStruct.goalAchievement,
+          achievementStruct.achievementAchievement,
           [],
           [],
           ''
         )
       )
 
-      // also tell the solution what order the goal was reached
-      this.rootPieceKeysInSolvingOrder.push(goalStruct.goalAchievement)
+      // also tell the solution what order the achievement was reached
+      this.rootPieceKeysInSolvingOrder.push(achievementStruct.achievementAchievement)
 
-      // Sse if any autos depend on the newly completed goal - if so execute them
+      // Sse if any autos depend on the newly completed achievement - if so execute them
       for (const piece of this.GetAutos()) {
         if (
           piece.inputHints.length === 2 &&
-          piece.inputHints[0] === goalStruct.goalAchievement
+          piece.inputHints[0] === achievementStruct.achievementAchievement
         ) {
           const command = createCommandFromAutoPiece(piece)
-          goalStruct.PushCommand(command)
+          achievementStruct.PushCommand(command)
         }
       }
   }

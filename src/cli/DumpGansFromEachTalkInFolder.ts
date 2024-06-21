@@ -1,11 +1,11 @@
 import { join } from 'path'
 import * as fs from 'fs'
-import { TalkFile } from '../puzzle/talk/TalkFile'
+import { ChatFile } from '../puzzle/chat/ChatFile'
 import { Aggregates } from '../puzzle/Aggregates'
 import { Box } from '../puzzle/Box'
 import { _STARTER } from '../_STARTER'
 
-export function DumpGainsFromEachTalkInFolder (folder: string): void {
+export function DumpGainsFromEachChatInFolder (folder: string): void {
   const cwd = process.cwd()
   process.chdir(join(__dirname, '/../../../..'))
   process.chdir(folder)
@@ -13,16 +13,16 @@ export function DumpGainsFromEachTalkInFolder (folder: string): void {
   console.warn('Results of FindAndAddPiecesRecursively')
   const files = fs.readdirSync('.')
   for (const file of files) {
-    if (file.startsWith('talks') && file.endsWith('.jsonc')) {
+    if (file.startsWith('chats') && file.endsWith('.jsonc')) {
       const aggregates = new Aggregates()
-      const talkFile = new TalkFile(file, folder, aggregates)
+      const chatFile = new ChatFile(file, folder, aggregates)
 
       const mapOGainsByPage = new Map<string, string>()
       const emptyBox = new Box('path', '', new Aggregates())
       console.warn('')
       console.warn(`${file}`)
       console.warn('===========================')
-      talkFile.FindAndAddPiecesRecursively(_STARTER, '', [], mapOGainsByPage, emptyBox)
+      chatFile.FindAndAddPiecesRecursively(_STARTER, '', [], mapOGainsByPage, emptyBox)
 
       for (const set of emptyBox.GetPieces().values()) {
         for (const piece of set) {

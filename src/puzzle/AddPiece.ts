@@ -1,17 +1,17 @@
 import { existsSync } from 'fs'
 import { Aggregates } from './Aggregates'
 import { Box } from './Box'
-import { IsPieceOutputtingAGoal } from './IsPieceOutputtingAGoal'
+import { IsPieceOutputtingAAchievement } from './IsPieceOutputtingAAchievement'
 import { Piece } from './Piece'
 import { A_WIN } from '../A_WIN'
 import { _STARTER } from '../_STARTER'
 
 export function AddPiece (piece: Piece, folder = '', isNoFile = true, box: Box, aggregates: Aggregates): void {
-  if (IsPieceOutputtingAGoal(piece)) {
-    const goalAchievement = piece.output
-    box.GetSetOfAchievementWords().add(goalAchievement)
-    aggregates.setOfgoalAchievements.add(goalAchievement)
-    // if not file exists for goal name
+  if (IsPieceOutputtingAAchievement(piece)) {
+    const achievementAchievement = piece.output
+    box.GetSetOfAchievementWords().add(achievementAchievement)
+    aggregates.setOfachievementAchievements.add(achievementAchievement)
+    // if not file exists for achievement name
     // then throw an exception, unless
     //  - xwin
     //  - isNoFile flag ==true
@@ -23,18 +23,18 @@ export function AddPiece (piece: Piece, folder = '', isNoFile = true, box: Box, 
     // if we only added a file if it existed
     // then the error would be hidden and
     // would be subtle to discover
-    if (goalAchievement !== A_WIN && !isNoFile) {
-      const file = `${goalAchievement}.jsonc`
+    if (achievementAchievement !== A_WIN && !isNoFile) {
+      const file = `${achievementAchievement}.jsonc`
       if (!existsSync(folder + file)) {
         throw new Error(
-          `Ensure "isNoFile" needs to be marked for goal ${goalAchievement} of ${piece.type} in ${goalAchievement}, because the following file doesn't exist ${folder}`
+          `Ensure "isNoFile" needs to be marked for achievement ${achievementAchievement} of ${piece.type} in ${achievementAchievement}, because the following file doesn't exist ${folder}`
         )
       }
 
       let childBox = aggregates.mapOfBoxes.get(file)
       if (childBox == null) {
         /* this map not only collects all the boxes */
-        /* but prevents two pieces that output same goal from */
+        /* but prevents two pieces that output same achievement from */
         /* processing the same file */
         childBox = new Box(folder, file, aggregates)
       }

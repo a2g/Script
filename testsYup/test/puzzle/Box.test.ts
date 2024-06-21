@@ -6,10 +6,10 @@ test('Test GetMapOfAllStartingThings', () => {
   const aggregates = new Aggregates()
   const box = new Box('testsYup/test/puzzle/', 'Test1First.jsonc', aggregates)
 
-  // const goals = box.GetSetOfStartingGoals()
-  const props = box.GetSetOfStartingProps()
+  // const achievements = box.GetSetOfStartingAchievements()
+  const objs = box.GetSetOfStartingProps()
   // const invs = box.GetSetOfStartingInvs()
   // assert.strictEqual(collection.length, 1);
-  // expect(goals.size).toEqual(0)
-  expect(props.size).toEqual(9)
+  // expect(achievements.size).toEqual(0)
+  expect(objs.size).toEqual(9)
 })

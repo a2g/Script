@@ -1,0 +1,89 @@
+{
+  "$schema": "./01 defs.jsonc",
+  "startingThings": [
+    {
+      "thing": "obj_bartender"
+    },
+    {
+      "thing": "obj_boatman"
+    },
+    {
+      "thing": "obj_harbour_master"
+    },
+    {
+      "thing": "inv_american_dollars"
+    },
+    {
+      "thing": "obj_picture_frame"
+    },
+    {
+      "thing": "obj_greasy_grease_paper"
+    },
+    {
+      "thing": "obj_phone"
+    },
+    {
+      "thing": "obj_generator"
+    }
+  ],
+  "pieces": [
+    {
+      "piece": "CHAT_TO_OBJ1_GETS_INV1",
+      "obj1": "obj_harbour_master",
+      "inv1": "inv_spirits"
+    },
+    {
+      "piece": "GIVE_INV1_TO_OBJ1_GETS_INV2",
+      "inv1": "inv_framed_money",
+      "obj1": "obj_bartender",
+      "inv2": "inv_one_irish_punt"
+    },
+    {
+      "piece": "INV1_OBTAINED_BY_COMBINING_INV2_WITH_INV3",
+      "inv1": "inv_unguent",
+      "inv2": "inv_spirits",
+      "inv3": "inv_grease_proof_paper"
+    },
+    {
+      "piece": "GIVE_INV1_TO_OBJ1_GETS_INV2",
+      "inv1": "inv_unguent",
+      "obj1": "obj_boatman",
+      "inv2": "inv_bio-diesel"
+    },
+    {
+      "piece": "ACHMT1_MET_BY_USING_INV1_WITH_OBJ1",
+      "achievement1": "a_electricity_restored",
+      "inv1": "inv_bio-diesel",
+      "obj1": "obj_generator",
+      "isNoFile": true
+    },
+    {
+      "piece": "OBJ1_APPEARS_WHEN_GRAB_OBJ2_WITH_ACHMT1",
+      "obj1": "obj_taxi",
+      "prop2": "obj_phone",
+      "achievement1": "a_electricity_restored"
+    },
+    {
+      "piece": "ACHMT1_MET_BY_GIVING_INV1_TO_OBJ1",
+      "achievement1": "a_win",
+      "inv1": "inv_one_irish_punt",
+      "obj1": "obj_taxi"
+    },
+    {
+      "piece": "OBJ1_GOES_WHEN_GRAB_INV1",
+      "obj1": "obj_picture_frame",
+      "inv1": "inv_picture_frame"
+    },
+    {
+      "piece": "INV1_BECOMES_INV2_BY_KEEPING_INV3",
+      "inv1": "inv_picture_frame",
+      "inv2": "inv_framed_money",
+      "inv3": "inv_american_dollars"
+    },
+    {
+      "piece": "OBJ1_GOES_WHEN_GRAB_INV1",
+      "obj1": "obj_greasy_grease_paper",
+      "inv1": "inv_grease_proof_paper"
+    }
+  ]
+}

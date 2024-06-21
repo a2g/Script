@@ -28,32 +28,32 @@ export function ValidatorView (validator: Validator, titlePath: string[]): void 
 
     console.warn(`${label}`)
     let listItemNumber = 0
-    for (const rootGoal of validator.GetRootMap().GetValues()) {
+    for (const rootAchievement of validator.GetRootMap().GetValues()) {
       listItemNumber++
 
       // display list item
-      const output = rootGoal.GetTheAchievementWord()
-      const theGoalPiece = rootGoal.GetThePiece()
+      const output = rootAchievement.GetTheAchievementWord()
+      const theAchievementPiece = rootAchievement.GetThePiece()
       let inputs = ''
-      if (theGoalPiece != null) {
-        for (const inputSpiel of theGoalPiece.inputSpiels) {
+      if (theAchievementPiece != null) {
+        for (const inputSpiel of theAchievementPiece.inputSpiels) {
           inputs += `${FormatText(inputSpiel)},`
         }
       }
-      const pieceCount = rootGoal.GetCountRecursively()
-      const originalCount = rootGoal.GetOriginalPieceCount()
-      const id = (theGoalPiece != null) ? theGoalPiece.id : ''
-      const status = rootGoal.GetValidated() as string
+      const pieceCount = rootAchievement.GetCountRecursively()
+      const originalCount = rootAchievement.GetOriginalPieceCount()
+      const id = (theAchievementPiece != null) ? theAchievementPiece.id : ''
+      const status = rootAchievement.GetValidated() as string
       console.warn(
         `${listItemNumber}. ${status}(${pieceCount}/${originalCount}) ${FormatText(output)} ${id} ${AddBrackets(inputs)}`
       )
     }
 
-    console.warn(`Number of goals back to zero ${validator.GetNumberOfNotYetValidated()}/${validator.GetNumberOfAchievements()}`)
+    console.warn(`Number of achievements back to zero ${validator.GetNumberOfNotYetValidated()}/${validator.GetNumberOfAchievements()}`)
 
     // allow user to choose item
     const input = prompt(
-      'Choose goal to climb down on or (b)ack, (o)rder, (r)e-run: '
+      'Choose achievement to climb down on or (b)ack, (o)rder, (r)e-run: '
     ).toLowerCase()
     if (input === null || input === 'b') {
       break
@@ -62,7 +62,7 @@ export function ValidatorView (validator: Validator, titlePath: string[]): void 
       return
     }
     if (input === 'r') {
-      validator.DeconstructAllGoalsAndRecordSteps()
+      validator.DeconstructAllAchievementsAndRecordSteps()
       continue
     } else if (input === 'o') {
       CommandsView(validator.GetOrderOfCommands(), titlePath)
@@ -71,10 +71,10 @@ export function ValidatorView (validator: Validator, titlePath: string[]): void 
       const theNumber = Number(input)
       if (theNumber > 0 && theNumber <= listItemNumber) {
         let j = 0
-        for (const goal of validator.GetRootMap().GetValues()) {
+        for (const achievement of validator.GetRootMap().GetValues()) {
           j++
           if (j === theNumber) {
-            AchievementStubView(goal, validator.GetVisibleThingsAtTheMoment(), titlePath)
+            AchievementStubView(achievement, validator.GetVisibleThingsAtTheMoment(), titlePath)
             return
           }
         }

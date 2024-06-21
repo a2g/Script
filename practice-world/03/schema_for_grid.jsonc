@@ -34,7 +34,7 @@
     "objects": {
       "type": "object",
       "patternProperties": {
-        "^prop_": {
+        "^obj_": {
           "$ref": "d_destinations.jsonc#/definitions/destination_enum"
         }
       }

@@ -11,11 +11,11 @@
         }
       ],
       "properties": {
-        "goal1": {
-          "$ref": "01 enums.jsonc#/definitions/goal_enum"
+        "achievement1": {
+          "$ref": "01 enums.jsonc#/definitions/achievement_enum"
         },
-        "goal2": {
-          "$ref": "01 enums.jsonc#/definitions/goal_enum"
+        "achievement2": {
+          "$ref": "01 enums.jsonc#/definitions/achievement_enum"
         },
         "inv1": {
           "$ref": "01 enums.jsonc#/definitions/inventory_enum"
@@ -26,23 +26,23 @@
         "inv3": {
           "$ref": "01 enums.jsonc#/definitions/inventory_enum"
         },
-        "prop1": {
-          "$ref": "01 enums.jsonc#/definitions/prop_enum"
+        "obj1": {
+          "$ref": "01 enums.jsonc#/definitions/obj_enum"
         },
         "prop2": {
-          "$ref": "01 enums.jsonc#/definitions/prop_enum"
+          "$ref": "01 enums.jsonc#/definitions/obj_enum"
         },
-        "prop3": {
-          "$ref": "01 enums.jsonc#/definitions/prop_enum"
+        "obj3": {
+          "$ref": "01 enums.jsonc#/definitions/obj_enum"
         },
-        "prop4": {
-          "$ref": "01 enums.jsonc#/definitions/prop_enum"
+        "obj4": {
+          "$ref": "01 enums.jsonc#/definitions/obj_enum"
         },
-        "prop5": {
-          "$ref": "01 enums.jsonc#/definitions/prop_enum"
+        "obj5": {
+          "$ref": "01 enums.jsonc#/definitions/obj_enum"
         },
-        "prop6": {
-          "$ref": "01 enums.jsonc#/definitions/prop_enum"
+        "obj6": {
+          "$ref": "01 enums.jsonc#/definitions/obj_enum"
         },
         "isNoFile": {
           "type": "boolean"
@@ -51,30 +51,30 @@
           "type": "array",
           "minItems": 0,
           "items": {
-            "$ref": "#/definitions/character_wrapper_type"
+            "$ref": "#/definitions/player_wrapper_type"
           }
         }
       }
     },
-    "character_wrapper_type": {
+    "player_wrapper_type": {
       "type": "object",
       "required": [
-        "character"
+        "player"
       ],
       "properties": {
-        "character": {
-          "$ref": "01 enums.jsonc#/definitions/character_enum"
+        "player": {
+          "$ref": "01 enums.jsonc#/definitions/player_enum"
         }
       }
     },
-    "prop_wrapper_type": {
+    "obj_wrapper_type": {
       "type": "object",
       "required": [
         "prop"
       ],
       "properties": {
         "prop": {
-          "$ref": "01 enums.jsonc#/definitions/prop_enum"
+          "$ref": "01 enums.jsonc#/definitions/obj_enum"
         }
       }
     }
@@ -86,8 +86,8 @@
       "items": {
         "type": "object",
         "properties": {
-          "character": {
-            "$ref": "01 enums.jsonc#/definitions/character_enum"
+          "player": {
+            "$ref": "01 enums.jsonc#/definitions/player_enum"
           },
           "thing": {
             "oneOf": [
@@ -95,10 +95,10 @@
                 "$ref": "01 enums.jsonc#/definitions/inventory_enum"
               },
               {
-                "$ref": "01 enums.jsonc#/definitions/goal_enum"
+                "$ref": "01 enums.jsonc#/definitions/achievement_enum"
               },
               {
-                "$ref": "01 enums.jsonc#/definitions/prop_enum"
+                "$ref": "01 enums.jsonc#/definitions/obj_enum"
               }
             ]
           }

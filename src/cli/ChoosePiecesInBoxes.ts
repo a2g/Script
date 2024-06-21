@@ -37,10 +37,10 @@ export function ChoosePiecesInBoxes (solutions: Solutions): void {
       if (theNumber > 0 && theNumber <= listItemNumber) {
         let i = 0
         for (const solution of solutions.GetSolutions()) {
-          const goals = solution
+          const achievements = solution
             .GetAchievementStubMap()
             .GenerateMapOfLeavesFromAllRoots(isOnlyNulls)
-          for (const key of goals.keys()) {
+          for (const key of achievements.keys()) {
             i++
             if (i === theNumber) {
               console.warn('This is the life of the selected ingredient: ')
