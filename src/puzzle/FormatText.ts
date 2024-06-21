@@ -31,7 +31,7 @@ export function FormatText (
     if (!isColor) return single.slice(8)
     return Colors.Yellow + single.slice(8) + Colors.Reset
   }
-  if (single.startsWith('sol_x')) {
+  if (single.startsWith('sol_a')) {
     if (!isColor) return single.slice(9)
     return Colors.Yellow + single.slice(9) + Colors.Reset
   }
@@ -44,8 +44,8 @@ export function FormatText (
     return Colors.Green + single.slice(4) + Colors.Reset
   }
   if (single.startsWith(IdPrefixes.Obj)) {
-    if (!isColor) return single.slice(5)
-    return Colors.Cyan + single.slice(5) + Colors.Reset
+    if (!isColor) return single.slice(4)
+    return Colors.Cyan + single.slice(4) + Colors.Reset
   }
   if (single.startsWith(IdPrefixes.Achievement)) {
     if (!isColor) return single.slice(1)
@@ -53,11 +53,11 @@ export function FormatText (
   }
 
   if (single.startsWith(IdPrefixes.Chat) || single.startsWith(IdPrefixes.Chats)) {
-    if (!isColor) return single.slice(6)
-    return Colors.Red + single.slice(6) + Colors.Reset
+    if (!isColor) return single.slice(1)
+    return Colors.Red + single.slice(1) + Colors.Reset
   }
   if (single.startsWith(IdPrefixes.Player)) {
-    if (!isColor) return AddBrackets(single.slice(5), isParenthesisNeeded)
+    if (!isColor) return AddBrackets(single.slice(7), isParenthesisNeeded)
     return (
       Colors.Red +
       AddBrackets(single.slice(5), isParenthesisNeeded) +
