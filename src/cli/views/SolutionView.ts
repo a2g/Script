@@ -72,7 +72,7 @@ export function SolutionView (solution: Solution, solutions: Solutions, titlePat
           if (j === theNumber) {
             const theAchievementPiece = achievement.GetThePiece()
             if (theAchievementPiece != null) {
-              PieceView(theAchievementPiece, solution.GetVisibleThingsAtTheStart(), titlePath)
+              PieceView(theAchievementPiece, solution.GetVisibleThingsAtTheStart(), [...titlePath])
             } else {
               prompt(`${achievement.GetTheAchievementWord()} Achievement.piece WAS NULL. Hit any key to continue: `)
             }

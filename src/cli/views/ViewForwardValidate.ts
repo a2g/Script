@@ -51,7 +51,7 @@ export function ViewForwardValidate (validators: Validators): void {
 
       // if they chose a number, go to that number
       const validator = validators.GetValidators()[theNumber - 1]
-      ValidatorView(validator, titlePath)
+      ValidatorView(validator, [...titlePath])
     }
   }
 }

@@ -65,7 +65,7 @@ export function ValidatorView (validator: Validator, titlePath: string[]): void 
       validator.DeconstructAllAchievementsAndRecordSteps()
       continue
     } else if (input === 'o') {
-      CommandsView(validator.GetOrderOfCommands(), titlePath)
+      CommandsView(validator.GetOrderOfCommands(), [...titlePath])
     } else {
       // show map entry for chosen item
       const theNumber = Number(input)
@@ -74,7 +74,7 @@ export function ValidatorView (validator: Validator, titlePath: string[]): void 
         for (const achievement of validator.GetRootMap().GetValues()) {
           j++
           if (j === theNumber) {
-            AchievementStubView(achievement, validator.GetVisibleThingsAtTheMoment(), titlePath)
+            AchievementStubView(achievement, validator.GetVisibleThingsAtTheMoment(), [...titlePath])
             return
           }
         }

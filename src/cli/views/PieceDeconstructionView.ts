@@ -43,7 +43,7 @@ export function PieceDeconstructionView (
       if (theNumber > 0 && theNumber <= targets.length) {
         const result = targets[theNumber - 1]
         if (result != null) {
-          PieceDeconstructionView(result, validator, stub, visibleThings, titlePath)
+          PieceDeconstructionView(result, validator, stub, visibleThings, [...titlePath])
         } else {
           prompt('THAT WAS NULL. Hit any key to continue: ')
         }

@@ -53,7 +53,7 @@ export function ViewBackwardSolve (solutions: Solutions): void {
       // if they chose a number, go to that number
       const solution = solutions.GetSolutions()[theNumber - 1]
       if (solution != null) {
-        SolutionView(solution, solutions, titlePath)
+        SolutionView(solution, solutions, [...titlePath])
       }
     }
   }

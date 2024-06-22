@@ -41,19 +41,19 @@
         "ament1": {
           "$ref": "02 enums.jsonc#/definitions/achievement_enum"
         },
-        "achievement2": {
+        "ament2": {
           "$ref": "02 enums.jsonc#/definitions/achievement_enum"
         },
-        "achievement3": {
+        "ament3": {
           "$ref": "02 enums.jsonc#/definitions/achievement_enum"
         },
-        "achievement4": {
+        "ament4": {
           "$ref": "02 enums.jsonc#/definitions/achievement_enum"
         },
-        "achievement5": {
+        "ament5": {
           "$ref": "02 enums.jsonc#/definitions/achievement_enum"
         },
-        "achievement6": {
+        "ament6": {
           "$ref": "02 enums.jsonc#/definitions/achievement_enum"
         },
         "isNoFile": {

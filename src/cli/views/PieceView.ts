@@ -36,7 +36,7 @@ export function PieceView (
       if (theNumber > 0 && theNumber <= targets.length) {
         const result = targets[theNumber - 1]
         if (result != null) {
-          PieceView(result, visibleThings, titlePath)
+          PieceView(result, visibleThings, [...titlePath])
         } else {
           prompt('THAT WAS NULL. Hit any key to continue: ')
         }
