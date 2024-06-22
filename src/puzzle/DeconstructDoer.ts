@@ -85,7 +85,12 @@ export class DeconstructDoer {
 
           // if its from our stash, then remove it from stash
           if (isSamePieceIsInOurStash) {
-            this.pieces.delete(piece.id)
+            if (piece.reuseCount - 1 <= 0) {
+              this.pieces.delete(piece.id)
+            } else {
+              piece.SetCount(piece.reuseCount - 1)
+              console.warn(`trans.count is now ${piece.reuseCount}`)
+            }
           }
 
           // set the achievement as completed in the currently visible things
