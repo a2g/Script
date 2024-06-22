@@ -59,11 +59,11 @@ export class SingleFile {
       }
       const chat1 = Stringify(piece.chat1)
       const ament1 = Stringify(piece.ament1)
-      const achievement2 = Stringify(piece.achievement2)
-      const achievement3 = Stringify(piece.achievement3)
-      const achievement4 = Stringify(piece.achievement4)
-      const achievement5 = Stringify(piece.achievement5)
-      // const achievement6 = Stringify(piece.achievement6)
+      const ament2 = Stringify(piece.ament2)
+      const ament3 = Stringify(piece.ament3)
+      const ament4 = Stringify(piece.ament4)
+      const ament5 = Stringify(piece.ament5)
+      // const ament6 = Stringify(piece.ament6)
       const inv1 = Stringify(piece.inv1)
       const inv2 = Stringify(piece.inv2)
       const inv3 = Stringify(piece.inv3)
@@ -91,10 +91,10 @@ export class SingleFile {
       switch (pieceType) {
         case _.AUTO_AMENT1_MET_BY_AMENTS:
           output = ament1
-          inputA = achievement2
-          inputB = achievement3
-          inputC = achievement4
-          inputD = achievement5
+          inputA = ament2
+          inputB = ament3
+          inputC = ament4
+          inputD = ament5
           command = new Command(Verb.Auto, Mix.AutoNeedsNothing, '')
           break
         case _.AUTO_AMENT1_MET_BY_INVS:
@@ -263,10 +263,10 @@ export class SingleFile {
           output = ament1
           inputA = inv1
           inputB = obj1
-          inputC = achievement2
-          inputD = achievement3
-          inputE = achievement4
-          inputF = achievement5
+          inputC = ament2
+          inputD = ament3
+          inputE = ament4
+          inputF = ament5
           command = new Command(Verb.Use, Mix.InvVsProp, inv1, obj1)
           break
         case _.AMENT1_MET_BY_USING_OBJ1_WITH_OBJ2:

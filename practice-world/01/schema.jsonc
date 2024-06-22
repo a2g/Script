@@ -14,7 +14,7 @@
         "ament1": {
           "$ref": "01 enums.jsonc#/definitions/achievement_enum"
         },
-        "achievement2": {
+        "ament2": {
           "$ref": "01 enums.jsonc#/definitions/achievement_enum"
         },
         "inv1": {
