@@ -1,13 +1,13 @@
 import promptSync from 'prompt-sync'
 import { Solutions } from './puzzle/Solutions'
-import { ChooseListOfLeaves } from './cli/ChooseListOfLeaves'
-import { ChooseOrderOfCommands } from './cli/ChooseOrderOfCommands'
+import { ViewListOfLeaves } from './cli/views/ViewListOfLeaves'
+import { ViewOrderOfCommands } from './cli/views/ViewOrderOfCommands'
 import { $IStarter, getJsonOfStarters } from './api/getJsonOfStarters'
-import { ChooseBackwardSolve } from './cli/ChooseBackwardSolve'
+import { ViewBackwardSolve } from './cli/views/ViewBackwardSolve'
 // import { DumpGainsFromEachChatInFolder } from './cli/DumpGansFromEachChatInFolder'
 import { Validators } from './puzzle/Validators'
-import { ChooseForwardValidate } from './cli/ChooseForwardValidate'
-import { ChoosePiecesInBoxes } from './cli/ChoosePiecesInBoxes'
+import { ViewForwardValidate } from './cli/views/ViewForwardValidate'
+import { ViewPiecesInBoxes } from './cli/views/ViewPiecesInBoxes'
 import { DumpGainsFromEachChatInFolder } from './cli/DumpGansFromEachTalkInFolder'
 // import { ChooseValidateSolution } from './cli/ChooseValidateSolutions'
 
@@ -59,7 +59,7 @@ function main (): void {
             }
             switch (choice) {
               case '1':
-                ChooseBackwardSolve(solutions)
+                ViewBackwardSolve(solutions)
                 break
               case '2':
                 {
@@ -70,17 +70,17 @@ function main (): void {
                   }
                   solutions.PerformThingsNeededAfterAllSolutionsFound()
                   const validators = new Validators(solutions)
-                  ChooseForwardValidate(validators)
+                  ViewForwardValidate(validators)
                 }
                 break
               case '3':
-                ChoosePiecesInBoxes(solutions)
+                ViewPiecesInBoxes(solutions)
                 break
               case '4':
-                ChooseListOfLeaves(solutions)
+                ViewListOfLeaves(solutions)
                 break
               case '5':
-                ChooseListOfLeaves(solutions)
+                ViewListOfLeaves(solutions)
                 break
               case '6':
               {
@@ -92,7 +92,7 @@ function main (): void {
                 solutions.PerformThingsNeededAfterAllSolutionsFound()
                 const validators = new Validators(solutions)
 
-                ChooseOrderOfCommands(validators)
+                ViewOrderOfCommands(validators)
                 break
               }
 

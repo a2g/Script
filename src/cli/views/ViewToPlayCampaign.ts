@@ -2,7 +2,7 @@
 import Campaign from '../../practice-world/Campaign.jsonc';
 import { Area } from './Area';
 
-export function ChooseToPlayCampaign(): void {
+export function ViewToPlayCampaign(): void {
   const filenames = new Map<string, string[]>();
   const locations = new Map<string, Area>();
   for (const incoming of Campaign.areas) {

@@ -1,6 +1,6 @@
 /* import { Box } from '../puzzle/Box';
 
-export function ChooseToPlaySingle(
+export function ViewToPlaySingle(
   box: Box,
   numberOfAutopilotTurns: number
 ): void {

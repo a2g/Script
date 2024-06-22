@@ -1,12 +1,12 @@
 import promptSync from 'prompt-sync'
-import { FormatText } from '../puzzle/FormatText'
-import { Solutions } from '../puzzle/Solutions'
-import { SolutionView } from './views/SolutionView'
-import { ShowUnderlinedTitle } from './ShowUnderlinedTitle'
-import { Solved } from '../puzzle/Solved'
+import { FormatText } from '../../puzzle/FormatText'
+import { Solutions } from '../../puzzle/Solutions'
+import { SolutionView } from './SolutionView'
+import { ShowUnderlinedTitle } from '../ShowUnderlinedTitle'
+import { Solved } from '../../puzzle/Solved'
 const prompt = promptSync({})
 
-export function ChooseBackwardSolve (solutions: Solutions): void {
+export function ViewBackwardSolve (solutions: Solutions): void {
   const titlePath = ['Backwards Solve']
   for (; ;) {
     ShowUnderlinedTitle(titlePath)

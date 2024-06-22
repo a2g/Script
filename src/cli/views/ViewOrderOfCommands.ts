@@ -1,11 +1,11 @@
 import promptSync from 'prompt-sync'
-import { FormatText } from '../puzzle/FormatText'
-import { RawObjectsAndVerb } from '../puzzle/RawObjectsAndVerb'
-import { Raw } from '../puzzle/Raw'
-import { Validators } from '../puzzle/Validators'
+import { FormatText } from '../../puzzle/FormatText'
+import { RawObjectsAndVerb } from '../../puzzle/RawObjectsAndVerb'
+import { Raw } from '../../puzzle/Raw'
+import { Validators } from '../../puzzle/Validators'
 const prompt = promptSync({})
 
-export function ChooseOrderOfCommands (validators: Validators): void {
+export function ViewOrderOfCommands (validators: Validators): void {
   console.warn(' ')
 
   let infoLevel = 1

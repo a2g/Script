@@ -1,12 +1,12 @@
 import promptSync from 'prompt-sync'
-import { AddBrackets } from '../puzzle/AddBrackets'
-import { FormatText } from '../puzzle/FormatText'
-import { Solutions } from '../puzzle/Solutions'
-import { PieceView } from './views/PieceView'
+import { AddBrackets } from '../../puzzle/AddBrackets'
+import { FormatText } from '../../puzzle/FormatText'
+import { Solutions } from '../../puzzle/Solutions'
+import { PieceView } from './PieceView'
 
 const prompt = promptSync({})
 
-export function ChooseZzzOldWay (solutions: Solutions): void {
+export function ViewZzzOldWay (solutions: Solutions): void {
   console.warn('ChooseClimbIntoAchievements... ')
 
   for (; ;) {

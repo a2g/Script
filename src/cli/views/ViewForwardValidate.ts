@@ -1,12 +1,12 @@
 import promptSync from 'prompt-sync'
-import { FormatText } from '../puzzle/FormatText'
-import { Validators } from '../puzzle/Validators'
-import { ShowUnderlinedTitle } from './ShowUnderlinedTitle'
-import { ValidatorView } from './views/ValidatorView'
-import { Solved } from '../puzzle/Solved'
+import { FormatText } from '../../puzzle/FormatText'
+import { Validators } from '../../puzzle/Validators'
+import { ShowUnderlinedTitle } from '../ShowUnderlinedTitle'
+import { ValidatorView } from './ValidatorView'
+import { Solved } from '../../puzzle/Solved'
 const prompt = promptSync({})
 
-export function ChooseForwardValidate (validators: Validators): void {
+export function ViewForwardValidate (validators: Validators): void {
   const titlePath = ['Forwards Validate']
   for (; ;) {
     ShowUnderlinedTitle(titlePath)

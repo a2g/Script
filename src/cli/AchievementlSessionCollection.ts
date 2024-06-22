@@ -8,25 +8,25 @@ export class AchievementSessionCollection {
   }
 
   public IsActive (index: number): boolean {
-    const gachievements = new Set<string>()
+    const set = new Set<string>()
     if (index < 0 || index >= this.achievements.length) {
       return false
     }
     for (const section of this.achievements) {
       if (section.playable.IsCompleted()) {
-        gachievements.add(section.achievementEnum)
+        set.add(section.achievementEnum)
       }
     }
     let prerequisitesCompleted = 0
     for (const prerequisite of this.achievements[index].prerequisiteAchievements) {
-      if (gachievements.has(prerequisite)) {
+      if (set.has(prerequisite)) {
         prerequisitesCompleted++
       }
     }
 
     let sunsetsCompleted = 0
     for (const sunset of this.achievements[index].sunsetAchievements) {
-      if (gachievements.has(sunset)) {
+      if (set.has(sunset)) {
         sunsetsCompleted++
       }
     }

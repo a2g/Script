@@ -1,7 +1,7 @@
-import { Box } from '../puzzle/Box'
-import { Piece } from '../puzzle/Piece'
+import { Box } from '../../puzzle/Box'
+import { Piece } from '../../puzzle/Piece'
 
-export function ChooseToFindUnused (box: Box): void {
+export function ViewToFindUnused (box: Box): void {
   const invs = box.GetArrayOfInvs()
   const objs = box.GetArrayOfProps()
   // eslint-disable-next-line no-undef
