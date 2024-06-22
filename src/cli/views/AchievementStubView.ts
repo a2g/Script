@@ -12,7 +12,7 @@ export function AchievementStubView (stub: AchievementStub, visibleThingsAtTheMo
   for (; ;) {
     ShowUnderlinedTitle(titlePath)
     const input = prompt(
-      `This achievement stub's Achievement Word is ${stub.GetTheAchievementWord()}` +
+      `This achievement stub's Achievement Word is ${stub.GetTheAchievementWord()}. ` +
       `This achievement stub's Piece is ${stub.GetThePiece() !== null ? 'non-null' : 'null'}` +
       '\nWhat to do with achievement stub: (b)ack, (o)rdered-commands, (t)raverse tree  '
     ).toLowerCase()
