@@ -347,6 +347,7 @@ export class SingleFile {
               const inputA3 = newAchievement
               const inputB3 = obj1
               const output3 = obj2
+              count = 10
               AddPiece(
                 new Piece(
                   `${GetNextId()}c`,
