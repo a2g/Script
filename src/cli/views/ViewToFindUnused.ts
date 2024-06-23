@@ -3,7 +3,7 @@ import { Piece } from '../../puzzle/Piece'
 
 export function ViewToFindUnused (box: Box): void {
   const invs = box.GetArrayOfInvs()
-  const objs = box.GetArrayOfProps()
+  const objs = box.GetArrayOfObjs()
   // eslint-disable-next-line no-undef
   const it: IterableIterator<Set<Piece>> = box.GetPieceIterator()
 

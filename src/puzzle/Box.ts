@@ -24,15 +24,15 @@ export class Box {
     return [true, true]
   }
 
-  private readonly allProps: string[]
+  private readonly allObjs: string[]
   private readonly allAchievements: string[]
   private readonly achievementWordSet: Set<string>
   private readonly allInvs: string[]
-  private readonly allChars: string[]
+  private readonly allPlayers: string[]
   private readonly mapOfStartingThings: VisibleThingsMap
   private readonly startingInvSet: Set<string>
   private readonly startingPropSet: Set<string>
-  private readonly startingachievementAchievementSet: Set<string>
+  private readonly startingAchievementSet: Set<string>
   private readonly filename: string
   private readonly path: string
   private readonly pieces: Map<string, Set<Piece>>
@@ -45,13 +45,13 @@ export class Box {
     this.chatFiles = new Map<string, ChatFile>()
     this.filename = filename
 
-    this.allProps = []
+    this.allObjs = []
     this.allAchievements = []
     this.allInvs = []
-    this.allChars = []
+    this.allPlayers = []
     /* preen starting invs from the startingThings */
     this.startingInvSet = new Set<string>()
-    this.startingachievementAchievementSet = new Set<string>()
+    this.startingAchievementSet = new Set<string>()
     this.startingPropSet = new Set<string>()
     this.achievementWordSet = new Set<string>()
     this.mapOfStartingThings = new VisibleThingsMap(null)
@@ -74,23 +74,23 @@ export class Box {
       /* this loop is only to ascertain all the different */
       /* possible object names. ie basically all the enums */
       /* but without needing the enum file */
-      const setProps = new Set<string>()
-      const setAchievements = new Set<string>()
+      const setObjs = new Set<string>()
+      const setAments = new Set<string>()
       const setInvs = new Set<string>()
-      const setChars = new Set<string>()
+      const setPlayers = new Set<string>()
       for (const gate of scenario.pieces) {
         setInvs.add(Stringify(gate.inv1))
         setInvs.add(Stringify(gate.inv2))
         setInvs.add(Stringify(gate.inv3))
-        setAchievements.add(Stringify(gate.ament1))
-        setAchievements.add(Stringify(gate.ament2))
-        setProps.add(Stringify(gate.obj1))
-        setProps.add(Stringify(gate.obj2))
-        setProps.add(Stringify(gate.obj3))
-        setProps.add(Stringify(gate.obj4))
-        setProps.add(Stringify(gate.obj5))
-        setProps.add(Stringify(gate.obj6))
-        setProps.add(Stringify(gate.obj7))
+        setAments.add(Stringify(gate.ament1))
+        setAments.add(Stringify(gate.ament2))
+        setObjs.add(Stringify(gate.obj1))
+        setObjs.add(Stringify(gate.obj2))
+        setObjs.add(Stringify(gate.obj3))
+        setObjs.add(Stringify(gate.obj4))
+        setObjs.add(Stringify(gate.obj5))
+        setObjs.add(Stringify(gate.obj6))
+        setObjs.add(Stringify(gate.obj7))
       }
 
       /* starting things is optional in the json */
@@ -100,7 +100,7 @@ export class Box {
       ) {
         for (const thing of scenario.startingThings) {
           if (thing.character !== undefined && thing.character !== null) {
-            setChars.add(thing.character)
+            setPlayers.add(thing.character)
           }
         }
       }
@@ -120,7 +120,7 @@ export class Box {
             this.startingInvSet.add(theThing)
           }
           if (theThing.startsWith('achievement')) {
-            this.startingachievementAchievementSet.add(theThing)
+            this.startingAchievementSet.add(theThing)
           }
           if (theThing.startsWith('obj')) {
             this.startingPropSet.add(theThing)
@@ -140,18 +140,18 @@ export class Box {
         }
       }
 
-      setChars.delete('')
-      setChars.delete('undefined')
-      setProps.delete('')
-      setProps.delete('undefined')
-      setAchievements.delete('')
-      setAchievements.delete('undefined')
+      setAments.delete('')
+      setAments.delete('undefined')
+      setPlayers.delete('')
+      setPlayers.delete('undefined')
+      setObjs.delete('')
+      setObjs.delete('undefined')
       setInvs.delete('')
       setInvs.delete('undefined')
-      this.allProps = Array.from(setProps.values())
-      this.allAchievements = Array.from(setAchievements.values())
+      this.allObjs = Array.from(setObjs.values())
+      this.allAchievements = Array.from(setAments.values())
       this.allInvs = Array.from(setInvs.values())
-      this.allChars = Array.from(setChars.values())
+      this.allPlayers = Array.from(setPlayers.values())
     }
   }
 
@@ -161,15 +161,15 @@ export class Box {
     }
   }
 
-  public GetArrayOfProps (): string[] {
-    return this.allProps
+  public GetArrayOfObjs (): string[] {
+    return this.allObjs
   }
 
   public GetArrayOfInvs (): string[] {
     return this.allInvs
   }
 
-  public GetArrayOfAchievements (): string[] {
+  public GetArrayOfAments (): string[] {
     return this.allAchievements
   }
 
@@ -183,7 +183,7 @@ export class Box {
 
   public GetArrayOfInitialStatesOfAchievements (): number[] {
     /* construct array of booleans in exact same order as ArrayOfProps - so they can be correlated */
-    const startingSet = this.startingachievementAchievementSet
+    const startingSet = this.startingAchievementSet
     const initialStates: number[] = []
     for (const achievement of this.allAchievements) {
       const isNonZero = startingSet.has(achievement)
@@ -192,7 +192,7 @@ export class Box {
     return initialStates
   }
 
-  public GetSetOfStartingProps (): Set<string> {
+  public GetSetOfStartingObjs (): Set<string> {
     return this.startingPropSet
   }
 
@@ -206,11 +206,11 @@ export class Box {
 
   // public GetStartingThingsForCharacter(charName: string): Set<string> {
 
-  public GetArrayOfInitialStatesOfProps (): boolean[] {
+  public GetArrayOfInitialStatesOfObjs (): boolean[] {
     /* construct array of booleans in exact same order as ArrayOfProps - so they can be correlated */
-    const startingSet = this.GetSetOfStartingProps()
+    const startingSet = this.GetSetOfStartingObjs()
     const visibilities: boolean[] = []
-    for (const obj of this.allProps) {
+    for (const obj of this.allObjs) {
       const isVisible = startingSet.has(obj)
       visibilities.push(isVisible)
     }
@@ -228,8 +228,8 @@ export class Box {
     return visibilities
   }
 
-  public GetArrayOfCharacters (): string[] {
-    return this.allChars
+  public GetArrayOfPlayers (): string[] {
+    return this.allPlayers
   }
 
   public GetFilename (): string {
@@ -291,7 +291,7 @@ export class Box {
     return this.pieces
   }
 
-  public GetStartingThingsForCharacter (charName: string): Set<string> {
+  public GetStartingThingsForPlayer (charName: string): Set<string> {
     const startingThingSet = new Set<string>()
     for (const item of this.mapOfStartingThings.GetIterableIterator()) {
       for (const name of item[1]) {

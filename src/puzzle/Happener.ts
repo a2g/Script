@@ -58,11 +58,11 @@ export class Happener {
     // this._callbacks = new PlayerAI(this, 0);
 
     this.arrayOfInvNames = box.GetArrayOfInvs()
-    this.arrayOfAchievementNames = box.GetArrayOfAchievements()
-    this.arrayOfPropNames = box.GetArrayOfProps()
+    this.arrayOfAchievementNames = box.GetArrayOfAments()
+    this.arrayOfPropNames = box.GetArrayOfObjs()
     this.arrayOfVerbNames = box.GetArrayOfSingleObjectVerbs()
     this.arrayOfInventoryVisibilities = box.GetArrayOfInitialStatesOfInvs()
-    this.arrayOfPropVisibilities = box.GetArrayOfInitialStatesOfProps()
+    this.arrayOfPropVisibilities = box.GetArrayOfInitialStatesOfObjs()
     this.arrayOfAchievementValues = box.GetArrayOfInitialStatesOfAchievements()
   }
 

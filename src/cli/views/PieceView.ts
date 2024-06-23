@@ -10,9 +10,11 @@ export function PieceView (
   titlePath.push('Piece')
   for (; ;) {
     ShowUnderlinedTitle(titlePath)
+
     const id = piece.id
-    const output: string = piece.spielOutput
-    console.warn(`output: ${output} id: ${id}`)
+    console.warn(`id: ${id}`)
+    console.warn(`output: ${piece.output}`)
+    console.warn(`type: ${piece.type}`)
     const targets = new Array<Piece | null>()
     for (let i = 0; i < piece.inputs.length; i++) {
       targets.push(piece.inputs[i])

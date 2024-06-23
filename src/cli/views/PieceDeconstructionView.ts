@@ -14,15 +14,18 @@ export function PieceDeconstructionView (
   titlePath.push('Piece(Deconstruct)')
   for (; ;) {
     ShowUnderlinedTitle(titlePath)
-    const id = piece.id
-    const output: string = piece.spielOutput > piece.output ? piece.spielOutput : piece.output
-    console.warn(`output: ${output} id: ${id}`)
+    console.warn(`Pieces remaining ${validator.GetNumberOfRemainingPieces()} (${validator.GetRemainingPiecesAsString()})`)
+    // const output: string = (piece.spielOutput.length > piece.output.length) ? piece.spielOutput : piece.output
+    const output = (piece.parent == null) ? '(stub)' : piece.output
+    console.warn(`id: ${piece.id}`)
+    console.warn(`output: ${output}`)
+    console.warn(`type: ${piece.type}`)
     const targets = new Array<Piece | null>()
     for (let i = 0; i < piece.inputs.length; i++) {
       targets.push(piece.inputs[i])
       const inputSpiel: string = piece.inputSpiels[i]
       const type: string = piece.type
-      console.warn(`input: ${i + 1}. spiel=${inputSpiel} ${type}`)
+      console.warn(`input: ${i + 1}. ${inputSpiel} ${type}`)
     }
 
     // allow user to choose item

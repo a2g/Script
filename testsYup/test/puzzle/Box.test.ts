@@ -7,7 +7,7 @@ test('Test GetMapOfAllStartingThings', () => {
   const box = new Box('testsYup/test/puzzle/', 'Test1First.jsonc', aggregates)
 
   // const achievements = box.GetSetOfStartingAchievements()
-  const objs = box.GetSetOfStartingProps()
+  const objs = box.GetSetOfStartingObjs()
   // const invs = box.GetSetOfStartingInvs()
   // assert.strictEqual(collection.length, 1);
   // expect(achievements.size).toEqual(0)

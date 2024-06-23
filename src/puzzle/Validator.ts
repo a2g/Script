@@ -204,7 +204,7 @@ export class Validator {
   GetRemainingPiecesAsString (): string {
     let stringOfPieceIds = ''
     for (const piece of this.remainingPieces.values()) {
-      stringOfPieceIds += `${piece.id}-${piece.output}, `
+      stringOfPieceIds += `${piece.id}-${piece.output}, \n`
     }
     return stringOfPieceIds
   }

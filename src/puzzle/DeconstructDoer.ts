@@ -83,7 +83,7 @@ export class DeconstructDoer {
             this.MergeBox(piece.boxToMerge)
           }
 
-          // if its from our stash, then remove it from stash
+          // if its from our stash, then decrement it or remove it from stash
           if (isSamePieceIsInOurStash) {
             if (piece.reuseCount - 1 <= 0) {
               this.pieces.delete(piece.id)

@@ -74,7 +74,7 @@ export function ValidatorView (validator: Validator, titlePath: string[]): void 
         for (const achievement of validator.GetRootMap().GetValues()) {
           j++
           if (j === theNumber) {
-            AchievementStubView(achievement, validator.GetVisibleThingsAtTheMoment(), [...titlePath])
+            AchievementStubView(achievement, validator, validator.GetVisibleThingsAtTheMoment(), [...titlePath])
             return
           }
         }

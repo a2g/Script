@@ -10,10 +10,10 @@ export function AddPiece (piece: Piece, folder = '', isNoFile = true, box: Box, 
   if (IsPieceOutputtingAnAchievement(piece)) {
     const achievementAchievement = piece.output
     box.GetSetOfAchievementWords().add(achievementAchievement)
-    aggregates.setOfachievementAchievements.add(achievementAchievement)
+    aggregates.setOfAchievements.add(achievementAchievement)
     // if not file exists for achievement name
     // then throw an exception, unless
-    //  - xwin
+    //  - a_win
     //  - isNoFile flag ==true
     // this will force addressing whether
     // the problem is due to renaming <-- commonly is!
@@ -27,7 +27,7 @@ export function AddPiece (piece: Piece, folder = '', isNoFile = true, box: Box, 
       const file = `${achievementAchievement}.jsonc`
       if (!existsSync(folder + file)) {
         throw new Error(
-          `Ensure "isNoFile" needs to be marked for achievement ${achievementAchievement} of ${piece.type} in ${achievementAchievement}, because the following file doesn't exist ${folder}`
+          `Ensure "isNoFile" needs to be marked for achievement ${achievementAchievement} of ${piece.type} in ${achievementAchievement}, because the following file doesn't exist ${folder}${file}`
         )
       }
 
