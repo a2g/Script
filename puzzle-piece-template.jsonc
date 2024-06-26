@@ -347,7 +347,7 @@
               "inv1",
               "obj1",
               "ament1",
-              "achievement2"
+              "ament2"
             ]
           }
         },
@@ -530,7 +530,7 @@
           "then": {
             "required": [
               "ament1",
-              "achievement2"
+              "ament2"
             ]
           }
         },
