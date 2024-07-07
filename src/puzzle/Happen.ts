@@ -8,10 +8,10 @@ export enum Happen {
   InvAppears,
   InvTransitions,
 
-  PropGoes,
-  PropStays,
-  PropAppears,
-  PropTransitions,
+  ObjGoes,
+  ObjStays,
+  ObjAppears,
+  ObjTransitions,
 
   AchievementIsSet,
   AchievementIsIncremented,

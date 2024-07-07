@@ -260,11 +260,11 @@ export class Piece extends PieceBase {
         switch (happening.type) {
           case Happen.AchievementIsSet:
           case Happen.InvAppears:
-          case Happen.PropAppears:
+          case Happen.ObjAppears:
             visiblePieces.Set(happening.itemA, new Set<string>())
             break
           case Happen.InvGoes:
-          case Happen.PropGoes:
+          case Happen.ObjGoes:
           default:
             visiblePieces.Delete(happening.itemA)
             break

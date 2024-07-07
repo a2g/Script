@@ -35,9 +35,9 @@ export class Happening {
         }
         break
       case Happen.ObjGoes:
-      case Happen.PropStays:
-      case Happen.PropAppears:
-      case Happen.PropTransitions:
+      case Happen.ObjStays:
+      case Happen.ObjAppears:
+      case Happen.ObjTransitions:
         if (!itemA.startsWith('obj')) {
           console.warn(
             'Mismatch! the item (' + itemA + ') does not start with "obj"'

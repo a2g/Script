@@ -170,7 +170,7 @@ export class SingleFile {
           happs.text = `You give the ${inv1} to the ${obj1} and you get the ${inv2} in return`
           happs.array.push(new Happening(Happen.InvGoes, inv1))
           happs.array.push(new Happening(Happen.InvAppears, inv2))
-          happs.array.push(new Happening(Happen.PropStays, obj1))
+          happs.array.push(new Happening(Happen.ObjStays, obj1))
           // keeping obj1
           inputA = inv1
           inputB = obj1
@@ -181,7 +181,7 @@ export class SingleFile {
           happs.text = `You use the ${inv1} with the ${obj1} and something good happens...`
           happs.array.push(new Happening(Happen.AchievementIsSet, ament1))
           happs.array.push(new Happening(Happen.InvStays, inv1))
-          happs.array.push(new Happening(Happen.PropStays, obj1))
+          happs.array.push(new Happening(Happen.ObjStays, obj1))
           output = ament1
           inputA = obj1
           inputB = inv1
@@ -191,7 +191,7 @@ export class SingleFile {
           happs.text = `You use the ${inv1} with the ${obj1} and something good happens...`
           happs.array.push(new Happening(Happen.AchievementIsSet, ament1))
           happs.array.push(new Happening(Happen.InvGoes, inv1))
-          happs.array.push(new Happening(Happen.PropGoes, obj1))
+          happs.array.push(new Happening(Happen.ObjGoes, obj1))
           output = ament1
           inputA = inv1
           inputB = obj1
@@ -201,7 +201,7 @@ export class SingleFile {
           happs.text = `You use the ${inv1} with the ${obj1} and something good happens...`
           happs.array.push(new Happening(Happen.AchievementIsSet, ament1))
           happs.array.push(new Happening(Happen.InvGoes, inv1))
-          happs.array.push(new Happening(Happen.PropStays, obj1))
+          happs.array.push(new Happening(Happen.ObjStays, obj1))
           output = ament1
           inputA = inv1
           inputB = obj1
@@ -211,12 +211,12 @@ export class SingleFile {
           happs.text = `With everything set up correctly, you use the ${inv1} with the ${obj1} and something good happens...`
           happs.array.push(new Happening(Happen.AchievementIsSet, ament1))
           happs.array.push(new Happening(Happen.InvGoes, inv1))
-          happs.array.push(new Happening(Happen.PropStays, obj1))
+          happs.array.push(new Happening(Happen.ObjStays, obj1))
           if (obj2.length > 0) {
-            happs.array.push(new Happening(Happen.PropStays, obj2))
+            happs.array.push(new Happening(Happen.ObjStays, obj2))
           }
           if (obj3.length > 0) {
-            happs.array.push(new Happening(Happen.PropStays, obj3))
+            happs.array.push(new Happening(Happen.ObjStays, obj3))
           }
           output = ament1
           inputA = inv1
@@ -238,7 +238,7 @@ export class SingleFile {
         case _.AMENT1_MET_BY_USING_INV1_WITH_OBJ1:
           happs.text = `You use the ${inv1} with the ${obj1} and something good happens...`
           happs.array.push(new Happening(Happen.InvStays, inv1))
-          happs.array.push(new Happening(Happen.PropStays, obj1))
+          happs.array.push(new Happening(Happen.ObjStays, obj1))
           happs.array.push(new Happening(Happen.AchievementIsSet, ament1))
           inputA = inv1
           inputB = obj1
@@ -248,7 +248,7 @@ export class SingleFile {
         case _.AMENT1_MET_BY_USING_INV1_WITH_OBJ1_LOSE_OBJS:
           happs.text = `You use the ${inv1} with the  ${obj1} and something good happens...`
           happs.array.push(new Happening(Happen.InvStays, inv1))
-          happs.array.push(new Happening(Happen.PropGoes, obj1))
+          happs.array.push(new Happening(Happen.ObjGoes, obj1))
           happs.array.push(new Happening(Happen.AchievementIsSet, ament1))
           command = new Command(Verb.Use, Mix.InvVsProp, inv1, obj1)
           inputA = inv1
@@ -258,7 +258,7 @@ export class SingleFile {
         case _.AMENT1_MET_BY_USING_INV1_WITH_OBJ1_NEED_AMENTS:
           happs.text = `You use the ${inv1} with the  ${obj1} and something good happens...`
           happs.array.push(new Happening(Happen.InvStays, inv1))
-          happs.array.push(new Happening(Happen.PropStays, obj1))
+          happs.array.push(new Happening(Happen.ObjStays, obj1))
           happs.array.push(new Happening(Happen.AchievementIsSet, ament1))
           output = ament1
           inputA = inv1
@@ -271,8 +271,8 @@ export class SingleFile {
           break
         case _.AMENT1_MET_BY_USING_OBJ1_WITH_OBJ2:
           happs.text = `You use the ${obj1} with the ${obj2} and something good happens...`
-          happs.array.push(new Happening(Happen.PropStays, obj1))
-          happs.array.push(new Happening(Happen.PropStays, obj2))
+          happs.array.push(new Happening(Happen.ObjStays, obj1))
+          happs.array.push(new Happening(Happen.ObjStays, obj2))
           happs.array.push(new Happening(Happen.AchievementIsSet, ament1))
           inputA = obj1
           inputB = obj2
@@ -282,7 +282,7 @@ export class SingleFile {
         case _.AMENT1_MET_BY_GIVING_INV1_TO_OBJ1:
           happs.text = `Achievement is set ${ament1}`
           happs.array.push(new Happening(Happen.InvGoes, inv1))
-          happs.array.push(new Happening(Happen.PropStays, obj1))
+          happs.array.push(new Happening(Happen.ObjStays, obj1))
           happs.array.push(new Happening(Happen.AchievementIsSet, ament1))
           inputA = inv1
           inputB = obj1
@@ -353,7 +353,7 @@ export class SingleFile {
                   new Command(Verb.Auto, Mix.AutoNeedsNothing, ''),
                   new Happenings(
                     '',
-                    [new Happening(Happen.PropTransitions, obj1, obj2)]
+                    [new Happening(Happen.ObjTransitions, obj1, obj2)]
                   ),
                   restrictions,
                   inputA3,
@@ -382,7 +382,7 @@ export class SingleFile {
           happs.text = `Your ${inv1} has become a ${inv2}`
           happs.array.push(new Happening(Happen.InvGoes, inv1))
           happs.array.push(new Happening(Happen.InvAppears, inv2))
-          happs.array.push(new Happening(Happen.PropStays, obj1))
+          happs.array.push(new Happening(Happen.ObjStays, obj1))
           // keeping obj1
           inputA = inv1
           output = inv2
@@ -403,8 +403,8 @@ export class SingleFile {
         case _.INV1_OBTAINED_AS_GRABBED_OBJ1_BECOMES_OBJ2:
           happs.text = `Grabbing the ${obj1} allows you to obtain the ${inv1} ( and it becomes ${obj2}) `
           happs.array.push(new Happening(Happen.InvAppears, inv1))
-          happs.array.push(new Happening(Happen.PropGoes, obj1))
-          happs.array.push(new Happening(Happen.PropAppears, obj2))
+          happs.array.push(new Happening(Happen.ObjGoes, obj1))
+          happs.array.push(new Happening(Happen.ObjAppears, obj2))
           output = inv1
           inputA = obj1
           command = new Command(Verb.Grab, Mix.Prop, obj1)
@@ -424,8 +424,8 @@ export class SingleFile {
           happs.text = `Using the ${inv2} on the ${obj1} allows you to obtain the ${inv1}`
           happs.array.push(new Happening(Happen.InvAppears, inv1))
           happs.array.push(new Happening(Happen.InvStays, inv2))
-          happs.array.push(new Happening(Happen.PropGoes, obj1))
-          happs.array.push(new Happening(Happen.PropAppears, obj2))
+          happs.array.push(new Happening(Happen.ObjGoes, obj1))
+          happs.array.push(new Happening(Happen.ObjAppears, obj2))
           output = inv1
           inputA = inv2
           inputB = obj1
@@ -446,7 +446,7 @@ export class SingleFile {
           happs.text = `By using the ${inv1} with the ${obj1} you have obtained the ${inv1}.`
           happs.array.push(new Happening(Happen.InvAppears, inv1))
           happs.array.push(new Happening(Happen.InvGoes, inv2))
-          happs.array.push(new Happening(Happen.PropGoes, obj1))
+          happs.array.push(new Happening(Happen.ObjGoes, obj1))
           output = inv1
           inputA = inv2
           inputB = obj1
@@ -456,7 +456,7 @@ export class SingleFile {
           happs.text = `By using the ${inv2} with the ${obj1} you have obtained the ${inv1}.`
           happs.array.push(new Happening(Happen.InvAppears, inv1))
           happs.array.push(new Happening(Happen.InvStays, inv2))
-          happs.array.push(new Happening(Happen.PropStays, obj1))
+          happs.array.push(new Happening(Happen.ObjStays, obj1))
           output = inv1
           inputA = inv2
           inputB = obj1
@@ -466,7 +466,7 @@ export class SingleFile {
           happs.text = `By using the ${inv2} with the ${obj1} you have obtained the ${inv1}.`
           happs.array.push(new Happening(Happen.InvAppears, inv1))
           happs.array.push(new Happening(Happen.InvGoes, inv2))
-          happs.array.push(new Happening(Happen.PropStays, obj1))
+          happs.array.push(new Happening(Happen.ObjStays, obj1))
           output = inv1
           inputA = inv2
           inputB = obj1
@@ -476,7 +476,7 @@ export class SingleFile {
           happs.text = `By using the ${inv2} with the ${obj1} you have obtained the ${inv1}.`
           happs.array.push(new Happening(Happen.InvAppears, inv1))
           happs.array.push(new Happening(Happen.InvStays, inv2))
-          happs.array.push(new Happening(Happen.PropGoes, obj1))
+          happs.array.push(new Happening(Happen.ObjGoes, obj1))
           output = inv1
           inputA = inv2
           inputB = obj1
@@ -497,8 +497,8 @@ export class SingleFile {
           // ^^ this is nearly a two in one, but the radiation suit never becomes inventory: you wear it.
           happs.text = `You use the ${obj1} with the ${obj2} and obtain the ${inv1}`
           happs.array.push(new Happening(Happen.InvAppears, inv1))
-          happs.array.push(new Happening(Happen.PropGoes, obj1))
-          happs.array.push(new Happening(Happen.PropGoes, obj2))
+          happs.array.push(new Happening(Happen.ObjGoes, obj1))
+          happs.array.push(new Happening(Happen.ObjGoes, obj2))
           output = inv1
           inputA = obj1
           inputB = obj2
@@ -509,8 +509,8 @@ export class SingleFile {
             happs.text = `When you use the ${inv2} with the ${obj1}, you obtain an ${inv1} as the ${obj1} becomes a ${obj2}`
             happs.array.push(new Happening(Happen.InvGoes, inv2))
             happs.array.push(new Happening(Happen.InvAppears, inv1))
-            happs.array.push(new Happening(Happen.PropGoes, obj1))
-            happs.array.push(new Happening(Happen.PropAppears, obj2))
+            happs.array.push(new Happening(Happen.ObjGoes, obj1))
+            happs.array.push(new Happening(Happen.ObjAppears, obj2))
 
             const newAchievement = makeAchievementNameDeterministically(inv2, obj1)
 
@@ -579,8 +579,8 @@ export class SingleFile {
                   new Happenings(
                     '',
                     [
-                      new Happening(Happen.PropGoes, obj1),
-                      new Happening(Happen.PropAppears, obj2)
+                      new Happening(Happen.ObjGoes, obj1),
+                      new Happening(Happen.ObjAppears, obj2)
                     ]
                   ),
                   restrictions,
@@ -597,9 +597,9 @@ export class SingleFile {
           continue // since it does its own calls to AddPiece
         case _.OBJ1_APPEARS_BY_INV1_WITH_OBJ2:
           happs.text = `Using the ${inv1} with the ${obj2} has revealed a ${obj1}`
-          happs.array.push(new Happening(Happen.PropAppears, obj1))
+          happs.array.push(new Happening(Happen.ObjAppears, obj1))
           happs.array.push(new Happening(Happen.InvStays, inv1))
-          happs.array.push(new Happening(Happen.PropStays, obj2))
+          happs.array.push(new Happening(Happen.ObjStays, obj2))
           output = obj1
           inputA = inv1
           inputB = obj2
@@ -607,9 +607,9 @@ export class SingleFile {
           break
         case _.OBJ1_APPEARS_BY_LOSING_INV1_WITH_OBJ2:
           happs.text = `Using the ${inv1} with the ${obj2} loses ${inv1} , but revaels a ${obj1}`
-          happs.array.push(new Happening(Happen.PropAppears, obj1))
+          happs.array.push(new Happening(Happen.ObjAppears, obj1))
           happs.array.push(new Happening(Happen.InvGoes, inv1))
-          happs.array.push(new Happening(Happen.PropStays, obj2))
+          happs.array.push(new Happening(Happen.ObjStays, obj2))
           output = obj1
           inputA = inv1
           inputB = obj2
@@ -617,7 +617,7 @@ export class SingleFile {
           break
         case _.OBJ1_APPEARS_WHEN_GRAB_OBJ2_WITH_AMENT1:
           happs.text = `You use the ${obj2} and, somewhere, a ${obj1} appears`
-          happs.array.push(new Happening(Happen.PropAppears, obj1))
+          happs.array.push(new Happening(Happen.ObjAppears, obj1))
           command = new Command(Verb.Open, Mix.Inv, inv2)
           output = obj1
           // the obj you grab (ie phone) must be input A - the solution creator
@@ -628,9 +628,9 @@ export class SingleFile {
           break
         case _.OBJ1_APPEARS_WHEN_USE_INV1_WITH_OBJ2:
           happs.text = `You use the ${inv1} with the ${obj2} and the ${obj2} appears`
-          happs.array.push(new Happening(Happen.PropAppears, obj1))
+          happs.array.push(new Happening(Happen.ObjAppears, obj1))
           happs.array.push(new Happening(Happen.InvStays, inv1))
-          happs.array.push(new Happening(Happen.PropStays, obj2))
+          happs.array.push(new Happening(Happen.ObjStays, obj2))
           output = obj1
           // the obj you grab (ie phone) must be input A - the solution creator
           // always constructs the solution as 'grab inputA'
@@ -641,8 +641,8 @@ export class SingleFile {
           break
         case _.OBJ1_BECOMES_OBJ2_BY_KEEPING_INV1:
           happs.text = `You use the ${inv1}, and the ${obj1} becomes a ${inv2}`
-          happs.array.push(new Happening(Happen.PropGoes, obj1))
-          happs.array.push(new Happening(Happen.PropAppears, obj2))
+          happs.array.push(new Happening(Happen.ObjGoes, obj1))
+          happs.array.push(new Happening(Happen.ObjAppears, obj2))
           happs.array.push(new Happening(Happen.InvStays, inv1))
           inputA = obj1
           output = obj2
@@ -651,8 +651,8 @@ export class SingleFile {
           break
         case _.OBJ1_BECOMES_OBJ2_BY_KEEPING_OBJ3:
           happs.text = `You use the ${obj3}, and the ${obj1} becomes a ${obj2}`
-          happs.array.push(new Happening(Happen.PropGoes, obj1))
-          happs.array.push(new Happening(Happen.PropAppears, obj2))
+          happs.array.push(new Happening(Happen.ObjGoes, obj1))
+          happs.array.push(new Happening(Happen.ObjAppears, obj2))
           inputA = obj1
           output = obj2
           inputB = obj3
@@ -660,8 +660,8 @@ export class SingleFile {
           break
         case _.OBJ1_BECOMES_OBJ2_BY_LOSING_INV1:
           happs.text = `You use the ${inv1}, and the ${obj1} becomes a ${obj2}}`
-          happs.array.push(new Happening(Happen.PropGoes, obj1))
-          happs.array.push(new Happening(Happen.PropAppears, obj2))
+          happs.array.push(new Happening(Happen.ObjGoes, obj1))
+          happs.array.push(new Happening(Happen.ObjAppears, obj2))
           happs.array.push(new Happening(Happen.InvGoes, inv1))
           inputA = obj1
           output = obj2
@@ -670,9 +670,9 @@ export class SingleFile {
           break
         case _.OBJ1_BECOMES_OBJ2_BY_LOSING_OBJ3:
           happs.text = `You use the ${obj3}, and the ${obj1} becomes a ${obj2}`
-          happs.array.push(new Happening(Happen.PropGoes, obj1))
-          happs.array.push(new Happening(Happen.PropAppears, obj2))
-          happs.array.push(new Happening(Happen.PropGoes, obj3))
+          happs.array.push(new Happening(Happen.ObjGoes, obj1))
+          happs.array.push(new Happening(Happen.ObjAppears, obj2))
+          happs.array.push(new Happening(Happen.ObjGoes, obj3))
           inputA = obj1
           output = obj2
           inputB = obj3
@@ -681,8 +681,8 @@ export class SingleFile {
         case _.OBJ1_BECOMES_OBJ2_WHEN_GRAB_INV1:
           happs.text = `You now have a ${inv1}`
           // ly don't mention what happen to the obj you clicked on.  '\n You notice the ' + obj1 + ' has now become a ' + obj2
-          happs.array.push(new Happening(Happen.PropGoes, obj1))
-          happs.array.push(new Happening(Happen.PropAppears, obj2))
+          happs.array.push(new Happening(Happen.ObjGoes, obj1))
+          happs.array.push(new Happening(Happen.ObjAppears, obj2))
           happs.array.push(new Happening(Happen.InvAppears, inv1))
           // This is a weird one, because there are two real-life outputs
           // but only one puzzle output. I forget how I was going to deal with this.
@@ -695,8 +695,8 @@ export class SingleFile {
           happs.text = `You use the ${inv1}, and the ${obj1} is now ${AlleviateBrackets(
             obj2
           )}`
-          happs.array.push(new Happening(Happen.PropGoes, obj1))
-          happs.array.push(new Happening(Happen.PropAppears, obj2))
+          happs.array.push(new Happening(Happen.ObjGoes, obj1))
+          happs.array.push(new Happening(Happen.ObjAppears, obj2))
           happs.array.push(new Happening(Happen.InvStays, inv1))
           inputA = obj1
           output = obj2
@@ -706,7 +706,7 @@ export class SingleFile {
         case _.OBJ1_GOES_WHEN_GRAB_INV1:
           happs.text = `You now have a ${inv1}`
           // ly don't mention what happen to the obj you clicked on.  '\n You notice the ' + obj1 + ' has now become a ' + obj2
-          happs.array.push(new Happening(Happen.PropGoes, obj1))
+          happs.array.push(new Happening(Happen.ObjGoes, obj1))
           happs.array.push(new Happening(Happen.InvAppears, inv1))
           command = new Command(Verb.Grab, Mix.Prop, obj1)
           output = inv1
@@ -723,7 +723,7 @@ export class SingleFile {
         case _.OBJ1_GOES_WHEN_GRAB_INV1_WITH_AMENT1:
           happs.text = `You now have a ${inv1}`
           // ly don't mention what happen to the obj you clicked on.  '\n You notice the ' + obj1 + ' has now become a ' + obj2
-          happs.array.push(new Happening(Happen.PropGoes, obj1))
+          happs.array.push(new Happening(Happen.ObjGoes, obj1))
           happs.array.push(new Happening(Happen.InvAppears, inv1))
           command = new Command(Verb.Grab, Mix.Prop, obj1)
           output = inv1
@@ -757,7 +757,7 @@ export class SingleFile {
         case _.THROW_INV1_AT_OBJ1_GETS_INV2_LOSE_BOTH:
           happs.text = `Throw the ${inv1} at the ${obj1} gets you the ${inv2}.`
           happs.array.push(new Happening(Happen.InvGoes, inv1))
-          happs.array.push(new Happening(Happen.PropGoes, obj1))
+          happs.array.push(new Happening(Happen.ObjGoes, obj1))
           happs.array.push(new Happening(Happen.InvAppears, inv2))
           output = inv2
           inputA = obj1
@@ -766,25 +766,25 @@ export class SingleFile {
           break
         case _.TOGGLE_OBJ1_BECOMES_OBJ2:
           happs.text = `The ${obj1} has become a ${obj2}`
-          happs.array.push(new Happening(Happen.PropGoes, obj1))
-          happs.array.push(new Happening(Happen.PropAppears, obj2))
+          happs.array.push(new Happening(Happen.ObjGoes, obj1))
+          happs.array.push(new Happening(Happen.ObjAppears, obj2))
           inputA = obj1
           output = obj2
           command = new Command(Verb.Toggle, Mix.Prop, obj1)
           break
         case _.TOGGLE_OBJ1_CHANGES_STATE_TO_OBJ2:
           happs.text = `The ${obj1} is now ${AlleviateBrackets(obj2)}`
-          happs.array.push(new Happening(Happen.PropGoes, obj1))
-          happs.array.push(new Happening(Happen.PropAppears, obj2))
+          happs.array.push(new Happening(Happen.ObjGoes, obj1))
+          happs.array.push(new Happening(Happen.ObjAppears, obj2))
           command = new Command(Verb.Toggle, Mix.Prop, obj1)
           inputA = obj1
           output = obj2
           break
         case _.TOGGLE_OBJ1_REVEALS_OBJ2_AS_IT_BECOMES_OBJ3:
           happs.text = `The ${obj1} becomes ${obj3} and reveals ${obj4}`
-          happs.array.push(new Happening(Happen.PropGoes, obj1))
-          happs.array.push(new Happening(Happen.PropAppears, obj2))
-          happs.array.push(new Happening(Happen.PropAppears, obj3))
+          happs.array.push(new Happening(Happen.ObjGoes, obj1))
+          happs.array.push(new Happening(Happen.ObjAppears, obj2))
+          happs.array.push(new Happening(Happen.ObjAppears, obj3))
           inputA = obj1
           output = obj2
           command = new Command(Verb.Toggle, Mix.Prop, obj1)
