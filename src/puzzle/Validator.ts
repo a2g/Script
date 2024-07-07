@@ -129,8 +129,8 @@ export class Validator {
       // then write the achievement we just achieved
       stub.AddCommand(
         new RawObjectsAndVerb(
-          Raw.Achievement,
-          `completed (${stub.GetTheAchievementWord()})`,
+          Raw.DeonstructorNoticedZeroPieces,
+          ' in the stub named )',
           '',
           stub.GetTheAchievementWord(),
           [],

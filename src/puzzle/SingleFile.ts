@@ -85,7 +85,7 @@ export class SingleFile {
       let inputD = 'undefined'
       let inputE = 'undefined'
       let inputF = 'undefined'
-      const happs = new Happenings()
+      const happs = new Happenings('', [])
       const boxToMerge: Box | null = null
       let command = null
       switch (pieceType) {
@@ -292,8 +292,6 @@ export class SingleFile {
         case _.INV1_BECOMES_INV2_AS_OBJ1_BECOMES_OBJ2_GEN:
           {
             const newAchievement = makeAchievementNameDeterministically(inv1, obj1)
-            const happs1 = new Happenings()
-            happs1.array.push(new Happening(Happen.AchievementIsSet, newAchievement))
             const inputA1 = inv1
             const inputB1 = obj1
             const output1 = newAchievement
@@ -305,7 +303,9 @@ export class SingleFile {
                 _.AMENT1_MET_BY_USING_INV1_WITH_OBJ1,
                 count,
                 new Command(Verb.Use, Mix.InvVsProp, inv1, obj1),
-                happs1,
+                new Happenings('',
+                  [new Happening(Happen.AchievementIsSet, newAchievement)]
+                ),
                 restrictions,
                 inputA1,
                 inputB1
@@ -317,10 +317,6 @@ export class SingleFile {
             )
 
             if (!isCopyRootPiecesOnly) {
-              const happs2 = new Happenings()
-              happs2.array.push(
-                new Happening(Happen.InvTransitions, inv1, inv2)
-              )
               const inputA2 = newAchievement
               const output2 = inv2
               AddPiece(
@@ -331,7 +327,10 @@ export class SingleFile {
                   _.AUTO_INV1_BECOMES_INV2_VIA_AMENT1,
                   count,
                   new Command(Verb.Auto, Mix.AutoNeedsNothing, ''),
-                  happs2,
+                  new Happenings(
+                    '',
+                    [new Happening(Happen.InvTransitions, inv1, inv2)]
+                  ),
                   restrictions,
                   inputA2
                 ),
@@ -339,10 +338,6 @@ export class SingleFile {
                 true, // there's no file, its dynamic
                 box,
                 this.aggregates
-              )
-              const happs3 = new Happenings()
-              happs3.array.push(
-                new Happening(Happen.PropTransitions, obj1, obj2)
               )
               const inputA3 = newAchievement
               const inputB3 = obj1
@@ -356,7 +351,10 @@ export class SingleFile {
                   _.AUTO_OBJ1_BECOMES_OBJ2_VIA_AMENT1,
                   count,
                   new Command(Verb.Auto, Mix.AutoNeedsNothing, ''),
-                  happs3,
+                  new Happenings(
+                    '',
+                    [new Happening(Happen.PropTransitions, obj1, obj2)]
+                  ),
                   restrictions,
                   inputA3,
                   inputB3
@@ -433,6 +431,7 @@ export class SingleFile {
           inputB = obj1
           command = new Command(Verb.Use, Mix.InvVsProp, inv2, obj1)
           break
+
         case _.INV1_OBTAINED_BY_COMBINING_INV2_WITH_INV3:
           happs.text = `The ${inv2} and the ${inv3} combine to form an ${inv1}`
           happs.array.push(new Happening(Happen.InvAppears, inv1))
@@ -514,8 +513,7 @@ export class SingleFile {
             happs.array.push(new Happening(Happen.PropAppears, obj2))
 
             const newAchievement = makeAchievementNameDeterministically(inv2, obj1)
-            const happs1 = new Happenings()
-            happs1.array.push(new Happening(Happen.AchievementIsSet, newAchievement))
+
             const inputA1 = inv2
             const inputB1 = obj1
             const output1 = newAchievement
@@ -527,7 +525,10 @@ export class SingleFile {
                 _.AMENT1_MET_BY_USING_INV1_WITH_OBJ1,
                 count,
                 new Command(Verb.Use, Mix.InvVsProp, inv1, obj1),
-                happs1,
+                new Happenings(
+                  'AMENT1_MET_BY_USING_INV1_WITH_OBJ1',
+                  [new Happening(Happen.AchievementIsSet, newAchievement)]
+                ),
                 restrictions,
                 inputA1,
                 inputB1
@@ -539,9 +540,6 @@ export class SingleFile {
             )
 
             if (!isCopyRootPiecesOnly) {
-              const happs2 = new Happenings()
-              happs2.array.push(new Happening(Happen.InvAppears, inv1))
-              happs2.array.push(new Happening(Happen.InvGoes, inv2))
               const inputA2 = newAchievement
               const output2 = inv1
               AddPiece(
@@ -552,7 +550,13 @@ export class SingleFile {
                   _.AUTO_INV1_OBTAINED_VIA_AMENT1,
                   count,
                   new Command(Verb.Auto, Mix.AutoNeedsNothing, ''),
-                  happs2,
+                  new Happenings(
+                    '',
+                    [
+                      new Happening(Happen.InvAppears, inv1),
+                      new Happening(Happen.InvGoes, inv2)
+                    ]
+                  ),
                   restrictions,
                   inputA2
                 ),
@@ -561,9 +565,6 @@ export class SingleFile {
                 box,
                 this.aggregates
               )
-              const happs3 = new Happenings()
-              happs3.array.push(new Happening(Happen.PropGoes, obj1))
-              happs3.array.push(new Happening(Happen.PropAppears, obj2))
               const inputA3 = newAchievement
               const inputB3 = obj1
               const output3 = obj2
@@ -575,7 +576,13 @@ export class SingleFile {
                   _.AUTO_OBJ1_BECOMES_OBJ2_VIA_AMENT1,
                   count,
                   new Command(Verb.Auto, Mix.AutoNeedsNothing, ''),
-                  happs3,
+                  new Happenings(
+                    '',
+                    [
+                      new Happening(Happen.PropGoes, obj1),
+                      new Happening(Happen.PropAppears, obj2)
+                    ]
+                  ),
                   restrictions,
                   inputA3,
                   inputB3

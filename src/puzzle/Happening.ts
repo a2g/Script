@@ -34,7 +34,7 @@ export class Happening {
           )
         }
         break
-      case Happen.PropGoes:
+      case Happen.ObjGoes:
       case Happen.PropStays:
       case Happen.PropAppears:
       case Happen.PropTransitions:

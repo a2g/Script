@@ -410,6 +410,14 @@
                     "const": "OBJ1_GOES_WHEN_GRAB_INV1_WITH_AMENT1"
                   }
                 }
+              },
+              {
+                "properties": {
+                  // as part of generated type
+                  "piece": {
+                    "const": "AMENT1_MET_BY_GRABBING_OBJ_AND_GAINING_INV1"
+                  }
+                }
               }
             ]
           },
@@ -676,6 +684,23 @@
           "then": {
             "required": [
               "chat1"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "piece": {
+                "const": "INV1_OBTAINED_AS_OBJ1_GRABBED_AND_OBJ2_BECOMES_OBJ3_GEN"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "inv1",
+              "obj1",
+              "obj2",
+              "obj3"
             ]
           }
         }

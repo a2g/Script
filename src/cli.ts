@@ -37,7 +37,7 @@ function main (): void {
           const solutions = new Solutions(starter.folder, starter.file)
 
           for (; ;) {
-            console.warn(`\nSubMenu of ${starter.file}`)
+            console.warn(`\nSubMenu of ${starter.folder}/${starter.file}`)
             console.warn(
               `number of pieces = ${solutions
                 .GetSolutions()[0]
