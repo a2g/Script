@@ -81,7 +81,7 @@ export class RawObjectsAndVerb {
           this.achievementSpiel = `as a result of achievement ${objectA}`
         } else if (this.objectB.startsWith(IdPrefixes.Achievement)) {
           this.type = Raw.Achievement
-          this.mainSpiel = `Achievement met ${objectB}`
+          this.mainSpiel = `Achievement unlocked ${objectB}`
           this.achievementSpiel = `as a result of achievement ${objectA}`
         } else {
           this.mainSpiel = `${objectB} generically appears.... `

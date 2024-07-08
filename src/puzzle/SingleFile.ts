@@ -50,7 +50,6 @@ export class SingleFile {
   private copyPiecesToContainer (
     box: Box
   ): void {
-    const isCopyRootPiecesOnly = false
     for (const piece of this.scenario.pieces) {
       const pieceType: string = piece.piece
       let count = 1
@@ -327,55 +326,53 @@ export class SingleFile {
               this.aggregates
             )
 
-            if (!isCopyRootPiecesOnly) {
-              const inputA2 = newAchievement
-              const output2 = inv2
-              AddPiece(
-                new Piece(
-                  `${GetNextId()}b`,
-                  null,
-                  output2,
-                  _.AUTO_INV1_BECOMES_INV2_VIA_AMENT1,
-                  count,
-                  new Command(Verb.Auto, Mix.AutoNeedsNothing, ''),
-                  new Happenings(
-                    '',
-                    [new Happening(Happen.InvTransitions, inv1, inv2)]
-                  ),
-                  restrictions,
-                  inputA2
+            const inputA2 = newAchievement
+            const output2 = inv2
+            AddPiece(
+              new Piece(
+                `${GetNextId()}b`,
+                null,
+                output2,
+                _.AUTO_INV1_BECOMES_INV2_VIA_AMENT1,
+                count,
+                new Command(Verb.Auto, Mix.AutoNeedsNothing, ''),
+                new Happenings(
+                  '',
+                  [new Happening(Happen.InvTransitions, inv1, inv2)]
                 ),
-                this.path,
-                true, // there's no file, its dynamic
-                box,
-                this.aggregates
-              )
-              const inputA3 = newAchievement
-              const inputB3 = obj1
-              const output3 = obj2
-              count = 10
-              AddPiece(
-                new Piece(
-                  `${GetNextId()}c`,
-                  null,
-                  output3,
-                  _.AUTO_OBJ1_BECOMES_OBJ2_VIA_AMENT1,
-                  count,
-                  new Command(Verb.Auto, Mix.AutoNeedsNothing, ''),
-                  new Happenings(
-                    '',
-                    [new Happening(Happen.ObjTransitions, obj1, obj2)]
-                  ),
-                  restrictions,
-                  inputA3,
-                  inputB3
+                restrictions,
+                inputA2
+              ),
+              this.path,
+              true, // there's no file, its dynamic
+              box,
+              this.aggregates
+            )
+            const inputA3 = newAchievement
+            const inputB3 = obj1
+            const output3 = obj2
+            count = 10
+            AddPiece(
+              new Piece(
+                `${GetNextId()}c`,
+                null,
+                output3,
+                _.AUTO_OBJ1_BECOMES_OBJ2_VIA_AMENT1,
+                count,
+                new Command(Verb.Auto, Mix.AutoNeedsNothing, ''),
+                new Happenings(
+                  '',
+                  [new Happening(Happen.ObjTransitions, obj1, obj2)]
                 ),
-                this.path,
-                true, // there's no file, its dynamic,
-                box,
-                this.aggregates
-              )
-            }
+                restrictions,
+                inputA3,
+                inputB3
+              ),
+              this.path,
+              true, // there's no file, its dynamic,
+              box,
+              this.aggregates
+            )
           }
           continue // since it does its own calls to AddPiece
         case _.INV1_BECOMES_INV2_BY_KEEPING_INV3:
@@ -602,60 +599,58 @@ export class SingleFile {
               this.aggregates
             )
 
-            if (!isCopyRootPiecesOnly) {
-              const inputA2 = newAchievement
-              const output2 = inv1
-              AddPiece(
-                new Piece(
-                  `${GetNextId()}e`,
-                  null,
-                  output2,
-                  _.AUTO_INV1_OBTAINED_VIA_AMENT1,
-                  count,
-                  new Command(Verb.Auto, Mix.AutoNeedsNothing, ''),
-                  new Happenings(
-                    '',
-                    [
-                      new Happening(Happen.InvAppears, inv1),
-                      new Happening(Happen.InvGoes, inv2)
-                    ]
-                  ),
-                  restrictions,
-                  inputA2
+            const inputA2 = newAchievement
+            const output2 = inv1
+            AddPiece(
+              new Piece(
+                `${GetNextId()}e`,
+                null,
+                output2,
+                _.AUTO_INV1_OBTAINED_VIA_AMENT1,
+                count,
+                new Command(Verb.Auto, Mix.AutoNeedsNothing, ''),
+                new Happenings(
+                  '',
+                  [
+                    new Happening(Happen.InvAppears, inv1),
+                    new Happening(Happen.InvGoes, inv2)
+                  ]
                 ),
-                this.path,
-                true, // there's no file, its dynamic
-                box,
-                this.aggregates
-              )
-              const inputA3 = newAchievement
-              const inputB3 = obj1
-              const output3 = obj2
-              AddPiece(
-                new Piece(
-                  `${GetNextId()}f`,
-                  null,
-                  output3,
-                  _.AUTO_OBJ1_BECOMES_OBJ2_VIA_AMENT1,
-                  count,
-                  new Command(Verb.Auto, Mix.AutoNeedsNothing, ''),
-                  new Happenings(
-                    '',
-                    [
-                      new Happening(Happen.ObjGoes, obj1),
-                      new Happening(Happen.ObjAppears, obj2)
-                    ]
-                  ),
-                  restrictions,
-                  inputA3,
-                  inputB3
+                restrictions,
+                inputA2
+              ),
+              this.path,
+              true, // there's no file, its dynamic
+              box,
+              this.aggregates
+            )
+            const inputA3 = newAchievement
+            const inputB3 = obj1
+            const output3 = obj2
+            AddPiece(
+              new Piece(
+                `${GetNextId()}f`,
+                null,
+                output3,
+                _.AUTO_OBJ1_BECOMES_OBJ2_VIA_AMENT1,
+                count,
+                new Command(Verb.Auto, Mix.AutoNeedsNothing, ''),
+                new Happenings(
+                  '',
+                  [
+                    new Happening(Happen.ObjGoes, obj1),
+                    new Happening(Happen.ObjAppears, obj2)
+                  ]
                 ),
-                this.path,
-                true, // there's no file, its dynamic
-                box,
-                this.aggregates
-              )
-            }
+                restrictions,
+                inputA3,
+                inputB3
+              ),
+              this.path,
+              true, // there's no file, its dynamic
+              box,
+              this.aggregates
+            )
           }
           continue // since it does its own calls to AddPiece
         case _.OBJ1_APPEARS_BY_INV1_WITH_OBJ2:
