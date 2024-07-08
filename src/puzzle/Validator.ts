@@ -128,9 +128,8 @@ export class Validator {
     if (deconstructDoer.IsZeroPieces()) {
       // then write the achievement we just achieved
       stub.AddCommand(
-        new RawObjectsAndVerb(
-          Raw.DeonstructorNoticedZeroPieces,
-          ' in the stub named )',
+        new RawObjectsAndVerb(Raw.DeonstructorNoticedZeroPieces,
+          ' in ',
           '',
           stub.GetTheAchievementWord(),
           [],
@@ -173,6 +172,14 @@ export class Validator {
       const at = toReturn.length
       // const n = stub.commandsCompletedInOrder.length
       toReturn.splice(at, 0, ...stub.GetOrderedCommands())
+      toReturn.push(new RawObjectsAndVerb(Raw.None,
+        ` --------------- end of achievement ${key}`,
+        '',
+        '',
+        [],
+        [],
+        ''
+      ))
     }
     return toReturn
   }

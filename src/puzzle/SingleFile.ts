@@ -177,6 +177,17 @@ export class SingleFile {
           output = inv2
           command = new Command(Verb.Give, Mix.InvVsProp, inv1, obj1)
           break
+        case _.AMENT1_MET_BY_GRABBING_OBJ_AND_GAINING_INV1:
+          happs.text = `You use the ${inv1} with the ${obj1} and something good happens...`
+          happs.array.push(new Happening(Happen.AchievementIsSet, ament1))
+          happs.array.push(new Happening(Happen.InvAppears, inv1))
+          happs.array.push(new Happening(Happen.ObjGoes, obj1))
+          output = ament1
+          inputA = obj1
+          inputB = inv1
+          command = new Command(Verb.Grab, Mix.Prop, obj1)
+          break
+
         case _.AMENT1_MET_BY_KEEPING_INV1_WHEN_USED_WITH_OBJ1:
           happs.text = `You use the ${inv1} with the ${obj1} and something good happens...`
           happs.array.push(new Happening(Happen.AchievementIsSet, ament1))
@@ -409,6 +420,58 @@ export class SingleFile {
           inputA = obj1
           command = new Command(Verb.Grab, Mix.Prop, obj1)
           break
+        case _.INV1_OBTAINED_AS_OBJ1_GRABBED_AND_OBJ2_BECOMES_OBJ3_GEN:
+        {
+          command = new Command(Verb.Grab, Mix.Prop, obj1)
+
+          // we treat the inv1 as an invament
+          AddPiece(
+            new Piece(
+                `${GetNextId()}h`,
+                null,
+                inv1, // <-- output
+                _.AMENT1_MET_BY_GRABBING_OBJ_AND_GAINING_INV1,
+                count,
+                new Command(Verb.Grab, Mix.Inv, inv1),
+                new Happenings(
+                  `Grabbing the ${obj1} gains you the  ${inv1}`,
+                  [
+                    new Happening(Happen.AchievementIsSet, inv1),
+                    new Happening(Happen.InvAppears, inv1)
+                  ]
+                ),
+                restrictions,
+                obj1// <-- the input
+            ),
+            this.path,
+            true, // there's no file, its dynamic,
+            box,
+            this.aggregates
+          )
+
+          AddPiece(
+            new Piece(
+                `${GetNextId()}i`,
+                null,
+                obj3, // <-- output 'as obj2 becomes obj3 '
+                _.AUTO_OBJ1_BECOMES_OBJ2_VIA_AMENT1,
+                count,
+                new Command(Verb.Auto, Mix.AutoNeedsNothing, ''),
+                new Happenings(
+                  `Grabbing the ${inv1} has a side-effect of making ${obj2} turn into ${obj3}`,
+                  [new Happening(Happen.ObjTransitions, obj2, obj3)]
+                ),
+                restrictions,
+                inv1, // gaining inv1 is now met as an achievement (see preceding AddPiece)
+                obj2 // <-- input 'as obj2 becomes obj3 ',
+            ),
+            this.path,
+            true, // there's no file, its dynamic
+            box,
+            this.aggregates
+          )
+          continue
+        }
         case _.INV1_OBTAINED_AS_INV2_BECOMES_INV3_LOSING_INV4:
           happs.text = `Using the ${inv2} with the ${inv4} allows you to obtain the ${inv1}`
           happs.array.push(new Happening(Happen.InvAppears, inv1))
