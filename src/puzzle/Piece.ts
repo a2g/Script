@@ -297,18 +297,19 @@ export class Piece extends PieceBase {
       // 2. Achievement - matches a single achievement in the achievement root map
       // then we just set and forget, allowing that achievement
       // be completed via the natural process
-      if (solution.GetAchievementStubMap().Has(importHintToFind)) {
-        const matchingRootPiece = solution
-          .GetAchievementStubMap()
-          .AchievementStubByName(importHintToFind)
+      const matchingRootPiece = solution
+        .GetAchievementStubMap()
+        .GetAchievementStubByNameNoThrow(importHintToFind)
+      if (matchingRootPiece != null) {
+        // set it as needed will enable it to be solved if it isn't already
+        matchingRootPiece.SetNeeded()
 
-        // is it a achievement? (since achievement map always contains all achievements)
-        // solution.MarkAchievementsAsContainingNullsAndMergeIfNeeded()// this is optional...
+        // Only if its already solved do we stub it out
         const isSolved = matchingRootPiece.IsSolved()
-
         if (isSolved) {
           this.StubOutInputK(k, SpecialTypes.SomeOtherAchievement)
         }
+
         continue
       }
 

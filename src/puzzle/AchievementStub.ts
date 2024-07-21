@@ -33,12 +33,14 @@ import { Validated } from './Validated'
 export class AchievementStub extends PieceBase {
   private readonly commandsCompletedInOrder: RawObjectsAndVerb[]
   private solved: Solved = Solved.Not
+  private isNeeded: boolean
   private validated: Validated = Validated.Not
   private originalPieceCount = 0
 
-  constructor (achievementWord: string, commandsCompletedInOrder: RawObjectsAndVerb[], solved = Solved.Not) {
+  constructor (achievementWord: string, commandsCompletedInOrder: RawObjectsAndVerb[], isNeeded = false, solved = Solved.Not) {
     super(achievementWord)
     this.solved = solved
+    this.isNeeded = isNeeded
     this.inputHints.push(achievementWord)
     this.inputs.push(null)
 
@@ -59,7 +61,7 @@ export class AchievementStub extends PieceBase {
   }
 
   public CloneIncludingLeaves (): AchievementStub {
-    const newAchievementStub = new AchievementStub(this.inputHints[0], this.commandsCompletedInOrder)
+    const newAchievementStub = new AchievementStub(this.inputHints[0], this.commandsCompletedInOrder, this.isNeeded, this.solved)
     if (this.inputs[0] != null) {
       newAchievementStub.inputs[0] = this.inputs[0].ClonePieceAndEntireTree()
       newAchievementStub.inputs[0].parent = newAchievementStub
@@ -77,6 +79,14 @@ export class AchievementStub extends PieceBase {
 
   public IsSolved (): boolean {
     return this.solved !== Solved.Not
+  }
+
+  public IsNeeded (): boolean {
+    return this.isNeeded
+  }
+
+  public SetNeeded (): void {
+    this.isNeeded = true
   }
 
   public GetValidated (): Validated {

@@ -249,8 +249,8 @@ export class Box {
   }
 
   public CopyStubsToGivenStubMap (destinationStubMap: AchievementStubMap): void {
-    for (const stub of this.achievementWordSet) {
-      destinationStubMap.AddAchievementStub(stub)
+    for (const achievementWord of this.achievementWordSet) {
+      destinationStubMap.AddAchievementStub(achievementWord, false)
     }
   }
 

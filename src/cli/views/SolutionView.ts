@@ -38,8 +38,9 @@ export function SolutionView (solution: Solution, solutions: Solutions, titlePat
         }
       }
       const status = achievementStub.GetSolved() as string
+      const needed = achievementStub.IsNeeded() ? 'Y' : 'N'
       console.warn(
-        `${listItemNumber}. ${status} ${FormatText(output)} ${AddBrackets(inputs)} `
+        `${listItemNumber}. ${status} ${needed} ${FormatText(output)} ${AddBrackets(inputs)} `
       )
       incomplete += achievementStub.IsSolved() ? 0 : 1
     }

@@ -91,10 +91,10 @@ export class Solutions {
   public CreateStubMapFromAchievements (setOfStrings: Set<string>): AchievementStubMap {
     setOfStrings.delete(A_WIN)
     const rootMapFromStubs = new AchievementStubMap(null)
-    rootMapFromStubs.AddAchievementStub(A_WIN)
+    rootMapFromStubs.AddAchievementStub(A_WIN, true)
 
     for (const achievementAchievement of setOfStrings) {
-      rootMapFromStubs.AddAchievementStub(achievementAchievement)
+      rootMapFromStubs.AddAchievementStub(achievementAchievement, false)
     }
     return rootMapFromStubs
   }

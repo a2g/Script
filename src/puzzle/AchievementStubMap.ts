@@ -107,10 +107,11 @@ export class AchievementStubMap {
     return this.theMap.get(A_WIN)
   }
 
-  AddAchievementStub (word: string): void {
+  AddAchievementStub (word: string, isNeeded: boolean): void {
     if (!this.theMap.has(word)) {
       console.warn(`Merged achievement word ${word}`)
-      this.theMap.set(word, new AchievementStub(word, [], Solved.Not))
+      const newStub = new AchievementStub(word, [], isNeeded, Solved.Not)
+      this.theMap.set(word, newStub)
     } else {
       console.warn(`Already exists: Failed to merge achievement ${word}  `)
     }
