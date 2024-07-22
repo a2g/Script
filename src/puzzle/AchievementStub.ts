@@ -136,11 +136,6 @@ export class AchievementStub extends PieceBase {
           theSolution.RemovePiece(theMatchingPiece)
         }
 
-        // this is only here to make the unit tests make sense
-        // something like to fix a bug where cloning doesn't mark piece as complete
-        // theSolution.MarkPieceAsCompleted(theSolution.GetWinAchievement())
-        // ^^ this might need to recursively ask for parent, since there are no
-        // many root pieces
         if (isCloneBeingUsed) {
           solutions.GetSolutions().push(theSolution)
         }
@@ -150,7 +145,6 @@ export class AchievementStub extends PieceBase {
         console.assert(theAchievementStub != null)
         if (theAchievementStub != null) {
           if (matchingPieces.length > 1) {
-            // }[${i > 0 ? matchingPieces.length - i : 0}]
             const firstInput = theMatchingPiece.inputHints.length > 0 ? theMatchingPiece.inputHints[0] : 'no-hint'
             theSolution.PushSolvingPathSegment(`${firstInput}`)
           }

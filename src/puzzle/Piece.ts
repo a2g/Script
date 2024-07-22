@@ -341,15 +341,9 @@ export class Piece extends PieceBase {
 
           if (matchingPieces.length > 1) {
             const firstInput = theMatchingPiece.inputHints.length > 0 ? theMatchingPiece.inputHints[0] : 'no-hint'
-            // theSolution.PushSolvingPathSegment(`${importHintToFind}[${i > 0 ? matchingPieces.length - i : 0}]`)
             theSolution.PushSolvingPathSegment(`${firstInput}`)
           }
 
-          // this is only here to make the unit tests make sense
-          // something like to fix a bug where cloning doesn't mark piece as complete
-          // theSolution.MarkPieceAsCompleted(theSolution.GetWinAchievement())
-          // ^^ this might need to recursively ask for parent, since there are no
-          // many root pieces
           if (isCloneBeingUsed) {
             solutions.GetSolutions().push(theSolution)
           }
@@ -365,6 +359,7 @@ export class Piece extends PieceBase {
             theSolution.AddToListOfEssentials(theMatchingPiece.getRestrictions())
           } else {
             console.warn('piece is null - so we are cloning wrong')
+            throw new Error('piece is null - so we are cloning wrong')
           }
         }
 
