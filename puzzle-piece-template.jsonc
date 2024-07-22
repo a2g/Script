@@ -677,7 +677,7 @@
           "if": {
             "properties": {
               "piece": {
-                "const": "CHAT1_GENERATED_PIECE_PLACEHOLDER"
+                "const": "INCLUDE_ALL_PIECES_IN_CHAT1"
               }
             }
           },

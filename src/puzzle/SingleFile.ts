@@ -146,7 +146,7 @@ export class SingleFile {
           output = obj2
           command = new Command(Verb.Auto, Mix.AutoNeedsNothing, '')
           break
-        case _.CHAT1_GENERATED_PIECE_PLACEHOLDER:
+        case _.INCLUDE_ALL_PIECES_IN_CHAT1:
           {
             const chatFile = new ChatFile(chat1 + '.jsonc', this.path, this.aggregates)
             box.GetChatFiles().set(chatFile.GetName(), chatFile)
