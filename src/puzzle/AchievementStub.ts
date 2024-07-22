@@ -108,14 +108,34 @@ export class AchievementStub extends PieceBase {
     this.commandsCompletedInOrder.push(rawObjectsAndVerb)
   }
 
-  public ProcessUntilCloning (solution: Solution, solutions: Solutions, path: string): boolean {
+  public ProcessStubUntilCloning (solution: Solution, solutions: Solutions, path: string): boolean {
     // if the achievementAchievement piece is already found, we recurse
     if (this.inputs[0] != null) {
       return this.inputs[0].ProcessUntilCloning(solution, solutions, path + this.inputHints[0] + '/')
     }
     // else we find the achievement word piece
 
-    const setOfMatchingPieces = solution.GetPiecesThatOutputString(this.inputHints[0])
+    const importHintToFind = this.inputHints[0]// one ever 1 here.
+    // 2. Achievement - matches a single achievement in the achievement root map
+    // then we just set and forget, allowing that achievement
+    // be completed via the natural process
+    const matchingRootPiece = solution
+      .GetAchievementStubMap()
+      .GetAchievementStubByNameNoThrow(importHintToFind)
+    if (matchingRootPiece != null) {
+      // set it as needed will enable it to be solved if it isn't already
+      matchingRootPiece.SetNeeded()
+
+      // Only if its already solved do we stub it out
+      // const isSolved = matchingRootPiece.IsSolved()
+      // if (isSolved) {
+      //  this.StubOutInputK(k, SpecialTypes.SomeOtherAchievement)
+      // }
+
+      // continue
+    }
+
+    const setOfMatchingPieces = solution.GetPiecesThatOutputString(importHintToFind)
 
     if (setOfMatchingPieces.size > 0) {
       const matchingPieces = Array.from(setOfMatchingPieces)

@@ -112,7 +112,7 @@ export class Solution {
     let isBreakingDueToSolutionCloning = false
     for (const stub of this.stubs.GetValues()) {
       if (stub.IsNeeded() && !stub.IsSolved()) {
-        if (stub.ProcessUntilCloning(this, solutions, '/')) {
+        if (stub.ProcessStubUntilCloning(this, solutions, '/')) {
           isBreakingDueToSolutionCloning = true
           break
         }

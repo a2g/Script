@@ -125,6 +125,14 @@ export class AchievementStubMap {
     }
   }
 
+  public RemoveZeroOrUnneededStubs (): void {
+    for (const stub of this.GetValues()) {
+      if (!stub.IsNeeded()) {
+        this.theMap.delete(stub.output)
+      }
+    }
+  }
+
   public KeepOnlyGivenAchievementStubs (achievementsToKeep: Set<string>): void {
     for (const key of this.theMap.keys()) {
       if (!achievementsToKeep.has(key)) {

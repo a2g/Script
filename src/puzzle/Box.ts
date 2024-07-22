@@ -257,7 +257,8 @@ export class Box {
   public static CopyPiecesFromAtoBViaIds (a: Map<string, Set<Piece>>, b: Map<string, Piece>): void {
     a.forEach((setOfPieces: Set<Piece>) => {
       setOfPieces.forEach((piece: Piece) => {
-        b.set(piece.id, piece)
+        const newPiece = piece.ClonePieceAndEntireTree()
+        b.set(piece.id, newPiece)
       })
     })
   }
@@ -268,7 +269,8 @@ export class Box {
         if (!b.has(piece.output)) {
           b.set(piece.output, new Set<Piece>())
         }
-        b.get(piece.output)?.add(piece)
+        const newPiece = piece.ClonePieceAndEntireTree()
+        b.get(piece.output)?.add(newPiece)
       })
     })
   }

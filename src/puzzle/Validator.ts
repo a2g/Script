@@ -22,6 +22,7 @@ export class Validator {
   public constructor (name: string, startingPieces: Map<string, Set<Piece>>, startingChatFiles: Map<string, ChatFile>, stubMap: AchievementStubMap, startingThingsPassedIn: VisibleThingsMap, restrictions: Set<string> | null = null) {
     this.solutionName = name
     this.achievementStubs = new AchievementStubMap(stubMap)
+    this.achievementStubs.RemoveZeroOrUnneededStubs()
     this.achievementStubs.CalculateInitialCounts()
     this.rootPieceKeysInSolvingOrder = []
     this.remainingPieces = new Map<string, Piece>()
