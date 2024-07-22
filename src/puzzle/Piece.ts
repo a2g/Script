@@ -7,6 +7,7 @@ import { Solutions } from './Solutions'
 import { SpecialTypes } from './SpecialTypes'
 import { VisibleThingsMap } from './VisibleThingsMap'
 import { PieceBase } from './PieceBase'
+import { CloneShared } from './CloneShared'
 
 export class Piece extends PieceBase {
   public id: string
@@ -316,58 +317,7 @@ export class Piece extends PieceBase {
       // 4. PLain old pieces
       // This is where we get all the pieces that fit
       // and if there is more than one, then we clone
-      const setOfMatchingPieces = solution
-        .GetPiecesThatOutputString(importHintToFind)
-
-      if (setOfMatchingPieces.size > 0) {
-        const matchingPieces = Array.from(setOfMatchingPieces)
-        // In our array the currentSolution, is at index zero
-        // so we start at the highest index in the list
-        // we when we finish the loop, we are with
-        for (let i = matchingPieces.length - 1; i >= 0; i--) {
-          // need reverse iterator
-          const theMatchingPiece = matchingPieces[i]
-
-          // Clone - if needed!
-          const isCloneBeingUsed = i > 0
-          const theSolution = isCloneBeingUsed ? solution.Clone() : solution
-
-          // This is the earliest possible point we can remove the
-          // matching piece: i.e. after the cloning has occurred
-          // remove all the pieces before cloning
-          for (const theMatchingPiece of setOfMatchingPieces) {
-            theSolution.RemovePiece(theMatchingPiece)
-          }
-
-          if (matchingPieces.length > 1) {
-            const firstInput = theMatchingPiece.inputHints.length > 0 ? theMatchingPiece.inputHints[0] : 'no-hint'
-            theSolution.PushSolvingPathSegment(`${firstInput}`)
-          }
-
-          if (isCloneBeingUsed) {
-            solutions.GetSolutions().push(theSolution)
-          }
-
-          // rediscover the current piece in theSolution - again because we might be cloned
-          const thePiece = theSolution.FindAnyPieceMatchingIdRecursively(this.id)
-
-          if (thePiece != null) {
-            theMatchingPiece.parent = thePiece
-            thePiece.inputs[k] = theMatchingPiece
-
-            // all pieces are incomplete when they are *just* added
-            theSolution.AddToListOfEssentials(theMatchingPiece.getRestrictions())
-          } else {
-            console.warn('piece is null - so we are cloning wrong')
-            throw new Error('piece is null - so we are cloning wrong')
-          }
-        }
-
-        const hasACloneJustBeenCreated = matchingPieces.length > 1
-        if (hasACloneJustBeenCreated) {
-          return true
-        } // yes is incomplete
-      }
+      if (CloneShared(solution, solutions, importHintToFind, k, this.id, true)) { return true }
     }
     return false
   }

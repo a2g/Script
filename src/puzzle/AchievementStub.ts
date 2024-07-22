@@ -1,3 +1,4 @@
+import { CloneShared } from './CloneShared'
 import { Piece } from './Piece'
 import { PieceBase } from './PieceBase'
 import { RawObjectsAndVerb } from './RawObjectsAndVerb'
@@ -113,59 +114,10 @@ export class AchievementStub extends PieceBase {
     if (this.inputs[0] != null) {
       return this.inputs[0].ProcessUntilCloning(solution, solutions, path + this.inputHints[0] + '/')
     }
+
     // else we find the achievement word piece
-
     const importHintToFind = this.inputHints[0]// one ever 1 here.
-    const setOfMatchingPieces = solution.GetPiecesThatOutputString(importHintToFind)
-
-    if (setOfMatchingPieces.size > 0) {
-      const matchingPieces = Array.from(setOfMatchingPieces)
-      // In our array the currentSolution, is at index zero
-      // so we start at the highest index in the list
-      // we when we finish the loop, we are with
-      for (let i = matchingPieces.length - 1; i >= 0; i--) {
-        // need reverse iterator
-        const theMatchingPiece = matchingPieces[i]
-
-        // Clone - if needed!
-        const isCloneBeingUsed = i > 0
-        const theSolution = isCloneBeingUsed ? solution.Clone() : solution
-
-        // remove all the pieces after cloning
-        for (const theMatchingPiece of setOfMatchingPieces) {
-          theSolution.RemovePiece(theMatchingPiece)
-        }
-
-        if (isCloneBeingUsed) {
-          solutions.GetSolutions().push(theSolution)
-        }
-
-        // rediscover the current AchievementStub in theSolution - again because we might be cloned
-        const theAchievementStub = theSolution.GetAchievementStubMap().GetAchievementStubByNameNoThrow(this.inputHints[0])
-        console.assert(theAchievementStub != null)
-        if (theAchievementStub != null) {
-          if (matchingPieces.length > 1) {
-            const firstInput = theMatchingPiece.inputHints.length > 0 ? theMatchingPiece.inputHints[0] : 'no-hint'
-            theSolution.PushSolvingPathSegment(`${firstInput}`)
-          }
-
-          theMatchingPiece.parent = theAchievementStub
-          theAchievementStub.inputs[0] = theMatchingPiece
-
-          // all pieces are incomplete when they are *just* added
-          theSolution.AddToListOfEssentials(theMatchingPiece.getRestrictions())
-        } else {
-          console.warn('piece is null - so we are cloning wrong')
-          throw new Error('piece is null - so we are cloning wrong')
-        }
-      }
-
-      const hasACloneJustBeenCreated = matchingPieces.length > 1
-      if (hasACloneJustBeenCreated) {
-        return true
-      } // yes is incomplete
-    }
-    return false
+    return CloneShared(solution, solutions, importHintToFind, 0, '', false)
   }
 
   public GetCountRecursively (): number {
