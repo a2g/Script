@@ -116,17 +116,6 @@ export class AchievementStub extends PieceBase {
     // else we find the achievement word piece
 
     const importHintToFind = this.inputHints[0]// one ever 1 here.
-    // 2. Achievement - matches a single achievement in the achievement root map
-    // then we just set and forget, allowing that achievement
-    // be completed via the natural process
-    const matchingRootPiece = solution
-      .GetAchievementStubMap()
-      .GetAchievementStubByNameNoThrow(importHintToFind)
-    if (matchingRootPiece != null) {
-      // set it as needed will enable it to be solved if it isn't already
-      matchingRootPiece.SetNeeded()
-    }
-
     const setOfMatchingPieces = solution.GetPiecesThatOutputString(importHintToFind)
 
     if (setOfMatchingPieces.size > 0) {
