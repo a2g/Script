@@ -125,14 +125,6 @@ export class AchievementStub extends PieceBase {
     if (matchingRootPiece != null) {
       // set it as needed will enable it to be solved if it isn't already
       matchingRootPiece.SetNeeded()
-
-      // Only if its already solved do we stub it out
-      // const isSolved = matchingRootPiece.IsSolved()
-      // if (isSolved) {
-      //  this.StubOutInputK(k, SpecialTypes.SomeOtherAchievement)
-      // }
-
-      // continue
     }
 
     const setOfMatchingPieces = solution.GetPiecesThatOutputString(importHintToFind)
