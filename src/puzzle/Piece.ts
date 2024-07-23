@@ -7,7 +7,7 @@ import { Solutions } from './Solutions'
 import { SpecialTypes } from './SpecialTypes'
 import { VisibleThingsMap } from './VisibleThingsMap'
 import { PieceBase } from './PieceBase'
-import { CloneShared } from './CloneShared'
+import { ProcessAndReturnTrueIfCloneOccurs } from './ProcessAndReturnTrueIfCloneOccurs'
 
 export class Piece extends PieceBase {
   public id: string
@@ -314,10 +314,11 @@ export class Piece extends PieceBase {
         continue
       }
 
-      // 4. PLain old pieces
+      // 4. Plain old pieces
       // This is where we get all the pieces that fit
-      // and if there is more than one, then we clone
-      if (CloneShared(solution, solutions, importHintToFind, k, this.id, true)) { return true }
+      if (ProcessAndReturnTrueIfCloneOccurs(this, k, this.id, solution, solutions)) {
+        return true
+      }
     }
     return false
   }

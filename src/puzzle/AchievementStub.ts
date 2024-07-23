@@ -1,4 +1,4 @@
-import { CloneShared } from './CloneShared'
+import { ProcessAndReturnTrueIfCloneOccurs } from './ProcessAndReturnTrueIfCloneOccurs'
 import { Piece } from './Piece'
 import { PieceBase } from './PieceBase'
 import { RawObjectsAndVerb } from './RawObjectsAndVerb'
@@ -110,14 +110,13 @@ export class AchievementStub extends PieceBase {
   }
 
   public ProcessStubUntilCloning (solution: Solution, solutions: Solutions, path: string): boolean {
-    // if the achievementAchievement piece is already found, we recurse
+    // if the achievement piece is already found, we drill into it
     if (this.inputs[0] != null) {
       return this.inputs[0].ProcessUntilCloning(solution, solutions, path + this.inputHints[0] + '/')
     }
 
-    // else we find the achievement word piece
-    const importHintToFind = this.inputHints[0]// one ever 1 here.
-    return CloneShared(solution, solutions, importHintToFind, 0, '', false)
+    // else we find the achievement from piece
+    return ProcessAndReturnTrueIfCloneOccurs(this, 0, '', solution, solutions)
   }
 
   public GetCountRecursively (): number {
