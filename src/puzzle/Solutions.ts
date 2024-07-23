@@ -142,8 +142,8 @@ export class Solutions {
       let minLeafNodeNameCount = 1000 // something high
       let minLeafNodeName = ''
 
-      // get the restrictions accumulated from all the solution nodes
-      const accumulatedRestrictions = currSolution.GetAccumulatedRestrictions()
+      // get the prerequisites accumulated from all the solution nodes
+      const accumulatedPrerequisites = currSolution.GetAccumulatedPrerequisites()
 
       // GenerateMapOfLeaves
       const currLeaves = currSolution
@@ -161,12 +161,12 @@ export class Solutions {
             minLeafNodeName = leafNode.GetOutput()
           }
 
-          // now we potentially add startingSet items to restrictions
+          // now we potentially add startingSet items to prerequisites
           this.mapOfStartingThingsAndWhoCanHaveThem.forEach(
             (characters: Set<string>, key: string) => {
               if (key === leafNode.GetOutput()) {
                 for (const character of characters) {
-                  accumulatedRestrictions.add(character)
+                  accumulatedPrerequisites.add(character)
                 }
               }
             }
@@ -180,8 +180,8 @@ export class Solutions {
             'sol_' +
             minLeafNodeName +
             Colors.Reset +
-            (accumulatedRestrictions.size > 0
-              ? AddBrackets(GetDisplayName(Array.from(accumulatedRestrictions)))
+            (accumulatedPrerequisites.size > 0
+              ? AddBrackets(GetDisplayName(Array.from(accumulatedPrerequisites)))
               : '')
           )
         }

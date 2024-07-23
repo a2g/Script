@@ -47,7 +47,7 @@
         "fileToMerge": {
           "type": "string"
         },
-        "restrictions": {
+        "prerequisites": {
           "type": "array",
           "minItems": 0,
           "items": {

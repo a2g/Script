@@ -59,7 +59,7 @@
         "isNoFile": {
           "type": "boolean"
         },
-        "restrictions": {
+        "prerequisites": {
           "type": "array",
           "minItems": 0,
           "items": {

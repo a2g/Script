@@ -10,7 +10,7 @@ export class RawObjectsAndVerb {
   public output: string
   public startingCharacterForA: string
   public startingCharacterForB: string
-  public restrictions: string[]
+  public prerequisites: string[]
   public typeJustForDebugging: string
   public achievementSpiel: string
   public mainSpiel: string
@@ -25,7 +25,7 @@ export class RawObjectsAndVerb {
     objectA: string,
     objectB: string,
     output: string,
-    restrictions: string[],
+    prerequisites: string[],
     speechLines: string[][],
     typeJustForDebugging: string
   ) {
@@ -35,7 +35,7 @@ export class RawObjectsAndVerb {
     this.output = output
     this.startingCharacterForA = ''
     this.startingCharacterForB = ''
-    this.restrictions = restrictions
+    this.prerequisites = prerequisites
     this.mainSpiel = ''
     this.achievementSpiel = ''
     this.restrictionSpiel = ''
@@ -57,8 +57,8 @@ export class RawObjectsAndVerb {
       FormatText(this.startingCharacterForB, isColor, true)
 
     this.restrictionSpiel =
-      this.restrictions.length > 0
-        ? AddBrackets(FormatText(this.restrictions, isColor))
+      this.prerequisites.length > 0
+        ? AddBrackets(FormatText(this.prerequisites, isColor))
         : ''
 
     let joiner = ' '

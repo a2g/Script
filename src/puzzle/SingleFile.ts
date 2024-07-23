@@ -76,7 +76,7 @@ export class SingleFile {
       const obj7 = Stringify(piece.obj7)
 
       const isNoFile = piece.isNoFile === undefined ? false : piece.isNoFile as boolean
-      const { restrictions } = piece
+      const { prerequisites } = piece
       let output = 'undefined'
       let inputA = 'undefined'
       let inputB = 'undefined'
@@ -316,7 +316,7 @@ export class SingleFile {
                 new Happenings('',
                   [new Happening(Happen.AchievementIsSet, newAchievement)]
                 ),
-                restrictions,
+                prerequisites,
                 inputA1,
                 inputB1
               ),
@@ -340,7 +340,7 @@ export class SingleFile {
                   '',
                   [new Happening(Happen.InvTransitions, inv1, inv2)]
                 ),
-                restrictions,
+                prerequisites,
                 inputA2
               ),
               this.path,
@@ -364,7 +364,7 @@ export class SingleFile {
                   '',
                   [new Happening(Happen.ObjTransitions, obj1, obj2)]
                 ),
-                restrictions,
+                prerequisites,
                 inputA3,
                 inputB3
               ),
@@ -437,7 +437,7 @@ export class SingleFile {
                     new Happening(Happen.InvAppears, inv1)
                   ]
                 ),
-                restrictions,
+                prerequisites,
                 obj1// <-- the input
             ),
             this.path,
@@ -458,7 +458,7 @@ export class SingleFile {
                   `Grabbing the ${inv1} has a side-effect of making ${obj2} turn into ${obj3}`,
                   [new Happening(Happen.ObjTransitions, obj2, obj3)]
                 ),
-                restrictions,
+                prerequisites,
                 inv1, // gaining inv1 is now met as an achievement (see preceding AddPiece)
                 obj2 // <-- input 'as obj2 becomes obj3 ',
             ),
@@ -589,7 +589,7 @@ export class SingleFile {
                   'AMENT1_MET_BY_USING_INV1_WITH_OBJ1',
                   [new Happening(Happen.AchievementIsSet, newAchievement)]
                 ),
-                restrictions,
+                prerequisites,
                 inputA1,
                 inputB1
               ),
@@ -616,7 +616,7 @@ export class SingleFile {
                     new Happening(Happen.InvGoes, inv2)
                   ]
                 ),
-                restrictions,
+                prerequisites,
                 inputA2
               ),
               this.path,
@@ -642,7 +642,7 @@ export class SingleFile {
                     new Happening(Happen.ObjAppears, obj2)
                   ]
                 ),
-                restrictions,
+                prerequisites,
                 inputA3,
                 inputB3
               ),
@@ -863,7 +863,7 @@ export class SingleFile {
           count,
           command,
           happs,
-          restrictions,
+          prerequisites,
           inputA,
           inputB,
           inputC,

@@ -75,7 +75,7 @@ export function ProcessAndReturnTrueIfCloneOccurs (
         thePiece.inputs[k] = theMatchingPiece
 
         // this basically adds the requirements to the solutions prerequisites
-        theSolution.AddToListOfEssentials(theMatchingPiece.getRestrictions())
+        theSolution.AddToListOfPrerequisites(theMatchingPiece.getPrerequisites())
       } else {
         console.warn('piece is null - so we are cloning wrong')
         throw new Error('piece is null - so we are cloning wrong')

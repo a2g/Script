@@ -19,7 +19,7 @@ export class Validator {
   private readonly solutionName
   private readonly essentialIngredients: Set<string> // yup these are added to
 
-  public constructor (name: string, startingPieces: Map<string, Set<Piece>>, startingChatFiles: Map<string, ChatFile>, stubMap: AchievementStubMap, startingThingsPassedIn: VisibleThingsMap, restrictions: Set<string> | null = null) {
+  public constructor (name: string, startingPieces: Map<string, Set<Piece>>, startingChatFiles: Map<string, ChatFile>, stubMap: AchievementStubMap, startingThingsPassedIn: VisibleThingsMap, prerequisites: Set<string> | null = null) {
     this.solutionName = name
     this.achievementStubs = new AchievementStubMap(stubMap)
     this.achievementStubs.RemoveZeroOrUnneededStubs()
@@ -38,10 +38,10 @@ export class Validator {
       }
     }
 
-    // its restrictionsEncounteredDuringSolving is passed in we deep copy it
+    // its prerequisitesEncounteredDuringSolving is passed in we deep copy it
     this.essentialIngredients = new Set<string>()
-    if (restrictions != null) {
-      for (const restriction of restrictions) {
+    if (prerequisites != null) {
+      for (const restriction of prerequisites) {
         this.essentialIngredients.add(restriction)
       }
     }
@@ -217,7 +217,7 @@ export class Validator {
     return stringOfPieceIds
   }
 
-  public AddToListOfEssentials (essentialIngredients: string[]): void {
+  public AddToListOfPrerequisites (essentialIngredients: string[]): void {
     essentialIngredients.forEach(item => this.essentialIngredients.add(item))
   }
 }

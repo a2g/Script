@@ -26,7 +26,7 @@ export class Piece extends PieceBase {
 
   public parent: PieceBase | null // this is not needed for leaf finding - but *is* needed for command finding.
 
-  public characterRestrictions: string[]
+  public characterPrerequisites: string[]
 
   public happenings: Happenings | null
 
@@ -40,7 +40,7 @@ export class Piece extends PieceBase {
     reuseCount = 1, // put it here so all the tests don't need to specify it.
     command: Command | null = null,
     happenings: Happenings | null = null,
-    restrictions: Array<{ character: string }> | null | undefined = null, // put it here so all the tests don't need to specify it.
+    prerequisites: Array<{ character: string }> | null | undefined = null, // put it here so all the tests don't need to specify it.
     inputA = 'undefined',
     inputB = 'undefined',
     inputC = 'undefined',
@@ -57,11 +57,11 @@ export class Piece extends PieceBase {
     this.type = type
     this.command = command
     this.happenings = happenings
-    this.characterRestrictions = []
+    this.characterPrerequisites = []
     this.chatPath = ''
-    if (typeof restrictions !== 'undefined' && restrictions !== null) {
-      for (const restriction of restrictions) {
-        this.characterRestrictions.push(restriction.character)
+    if (typeof prerequisites !== 'undefined' && prerequisites !== null) {
+      for (const restriction of prerequisites) {
+        this.characterPrerequisites.push(restriction.character)
       }
     }
     this.inputSpiels = []
@@ -132,8 +132,8 @@ export class Piece extends PieceBase {
       }
     }
 
-    for (const restriction of this.characterRestrictions) {
-      clone.characterRestrictions.push(restriction)
+    for (const restriction of this.characterPrerequisites) {
+      clone.characterPrerequisites.push(restriction)
     }
 
     if (this.happenings != null) {
@@ -247,8 +247,8 @@ export class Piece extends PieceBase {
     return this.parent
   }
 
-  public getRestrictions (): string[] {
-    return this.characterRestrictions
+  public getPrerequisites (): string[] {
+    return this.characterPrerequisites
   }
 
   public GetOutput (): string {

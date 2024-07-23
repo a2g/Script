@@ -15,7 +15,7 @@ export function createCommandFromAutoPiece (piece: Piece): RawObjectsAndVerb {
     piece.inputHints[0],
     piece.output,
     piece.output,
-    piece.getRestrictions(),
+    piece.getPrerequisites(),
     [],
     piece.type
   )

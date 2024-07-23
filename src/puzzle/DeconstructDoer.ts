@@ -135,7 +135,7 @@ export class DeconstructDoer {
               '',
               '',
               piece.output,
-              piece.getRestrictions(),
+              piece.getPrerequisites(),
               [],
               piece.type
             )
@@ -145,7 +145,7 @@ export class DeconstructDoer {
               '',
               '',
               piece.output,
-              piece.getRestrictions(),
+              piece.getPrerequisites(),
               [],
               piece.type
 
@@ -156,7 +156,7 @@ export class DeconstructDoer {
               '',
               '',
               piece.output,
-              piece.getRestrictions(),
+              piece.getPrerequisites(),
               [],
               piece.type
             )
@@ -166,7 +166,7 @@ export class DeconstructDoer {
               '',
               '',
               piece.output,
-              piece.getRestrictions(),
+              piece.getPrerequisites(),
               [],
               piece.type
             )
@@ -176,7 +176,7 @@ export class DeconstructDoer {
               piece.inputHints[0],
               '',
               piece.output,
-              piece.getRestrictions(),
+              piece.getPrerequisites(),
               [],
               piece.type
             )
@@ -192,7 +192,7 @@ export class DeconstructDoer {
                 piece.inputHints[0],
                 '',
                 piece.output,
-                piece.getRestrictions(),
+                piece.getPrerequisites(),
                 speechLines,
                 piece.type
               )
@@ -203,7 +203,7 @@ export class DeconstructDoer {
               piece.inputHints[0],
               '',
               piece.output,
-              piece.getRestrictions(),
+              piece.getPrerequisites(),
               [],
               piece.type
             )
@@ -213,7 +213,7 @@ export class DeconstructDoer {
               piece.inputHints[0],
               '',
               piece.output,
-              piece.getRestrictions(),
+              piece.getPrerequisites(),
               [],
               piece.type
             )
@@ -227,7 +227,7 @@ export class DeconstructDoer {
               piece.inputHints[0],
               piece.inputHints[1],
               piece.output,
-              piece.getRestrictions(),
+              piece.getPrerequisites(),
               [],
               piece.type
             )

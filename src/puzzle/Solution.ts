@@ -34,7 +34,7 @@ export class Solution {
     chats: Map<string, ChatFile>,
     startingThingsPassedIn: VisibleThingsMap,
     stubsToCopy: AchievementStubMap | null,
-    restrictions: Set<string> | null = null,
+    prerequisites: Set<string> | null = null,
     nameSegments: string[] | null = null
   ) {
     this.id = id
@@ -65,10 +65,10 @@ export class Solution {
       this.solvingPathSegments.push(`${this.id}`)
     }
 
-    // its restrictionsEncounteredDuringSolving is passed in we deep copy it
+    // its prerequisitesEncounteredDuringSolving is passed in we deep copy it
     this.essentialIngredients = new Set<string>()
-    if (restrictions != null) {
-      for (const restriction of restrictions) {
+    if (prerequisites != null) {
+      for (const restriction of prerequisites) {
         this.essentialIngredients.add(restriction)
       }
     }
@@ -79,11 +79,11 @@ export class Solution {
     chats: Map<string, ChatFile>,
     startingThingsPassedIn: VisibleThingsMap,
     stubs: AchievementStubMap | null,
-    restrictions: Set<string> | null = null,
+    prerequisites: Set<string> | null = null,
     nameSegments: string[] | null = null
   ): Solution {
     globalSolutionId++
-    return new Solution(globalSolutionId, pieces, chats, startingThingsPassedIn, stubs, restrictions, nameSegments)
+    return new Solution(globalSolutionId, pieces, chats, startingThingsPassedIn, stubs, prerequisites, nameSegments)
   }
 
   public Clone (): Solution {
@@ -149,7 +149,7 @@ export class Solution {
     return result
   }
 
-  public AddToListOfEssentials (essentialIngredients: string[]): void {
+  public AddToListOfPrerequisites (essentialIngredients: string[]): void {
     essentialIngredients.forEach(item => this.essentialIngredients.add(item))
   }
 

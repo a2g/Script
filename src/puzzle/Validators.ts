@@ -47,7 +47,7 @@ export class Validators {
           const hasObjectA: boolean = charactersSet.has(command.objectA)
           const hasObjectB: boolean = charactersSet.has(command.objectB)
           if (hasObjectA || hasObjectB) {
-            validator.AddToListOfEssentials([character])
+            validator.AddToListOfPrerequisites([character])
           }
         }
       }
