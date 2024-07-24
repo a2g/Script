@@ -46,7 +46,8 @@ export class DeconstructDoer {
 
   private GetNextDoableCommandRecursively (piece: Piece): RawObjectsAndVerb | null {
     if (this.isALeaf(piece)) {
-      // if its a leaf, we check whether we can return command, otherwise
+      // if its a leaf, we do a quick check whether we can return a command,
+      // if we can't then 
       // we recurse through children
 
       let areAllInputHintsInTheVisibleSet = true

@@ -17,12 +17,12 @@ export function GetAnyErrorsFromObjectAvailability (
       return 'One of those inventory items is not visible!'
     }
   }
-  if (type === Mix.InvVsProp) {
+  if (type === Mix.InvVsObject) {
     if (!isObject1InVisibleInvs || !isObject2InVisibleProps) {
       return 'One of those items is not visible!'
     }
   }
-  if (type === Mix.PropVsProp) {
+  if (type === Mix.ObjVsObj) {
     if (!isObject1InVisibleProps || !isObject2InVisibleProps) {
       return 'One of those objs is not visible!'
     }

@@ -73,15 +73,15 @@ export function ParseTokenizedCommandLineFromFromThreeStrings (
     }
     if (is1InInvsRaw && is2InPropsRaw) {
       /* b */
-      return new Command(Verb.Use, Mix.InvVsProp, strings[1], strings[2])
+      return new Command(Verb.Use, Mix.InvVsObject, strings[1], strings[2])
     }
     if (is2InInvsRaw && is1InPropsRaw) {
       /* c */
-      return new Command(Verb.Use, Mix.InvVsProp, strings[2], strings[1])
+      return new Command(Verb.Use, Mix.InvVsObject, strings[2], strings[1])
     }
     if (is1InPropsRaw && is2InPropsRaw) {
       /* d */
-      return new Command(Verb.Use, Mix.PropVsProp, strings[1], strings[2])
+      return new Command(Verb.Use, Mix.ObjVsObj, strings[1], strings[2])
     }
     /* pure prefixed */ if (is1InInvsPrefixed && is2InInvsPrefixed) {
       /* a */
@@ -96,7 +96,7 @@ export function ParseTokenizedCommandLineFromFromThreeStrings (
       /* b */
       return new Command(
         Verb.Use,
-        Mix.InvVsProp,
+        Mix.InvVsObject,
         `inv_${strings[1]}`,
         `obj_${strings[2]}`
       )
@@ -105,7 +105,7 @@ export function ParseTokenizedCommandLineFromFromThreeStrings (
       /* c */
       return new Command(
         Verb.Use,
-        Mix.InvVsProp,
+        Mix.InvVsObject,
         `inv_${strings[2]}`,
         `obj_${strings[1]}`
       )
@@ -114,7 +114,7 @@ export function ParseTokenizedCommandLineFromFromThreeStrings (
       /* d */
       return new Command(
         Verb.Use,
-        Mix.PropVsProp,
+        Mix.ObjVsObj,
         `obj_${strings[1]}`,
         `obj_${strings[2]}`
       )
@@ -143,7 +143,7 @@ export function ParseTokenizedCommandLineFromFromThreeStrings (
       /* b */
       return new Command(
         Verb.Use,
-        Mix.InvVsProp,
+        Mix.InvVsObject,
         strings[1],
         `obj_${strings[2]}`
       )
@@ -152,7 +152,7 @@ export function ParseTokenizedCommandLineFromFromThreeStrings (
       /* b */
       return new Command(
         Verb.Use,
-        Mix.InvVsProp,
+        Mix.InvVsObject,
         `inv_${strings[1]}`,
         strings[2]
       )
@@ -162,7 +162,7 @@ export function ParseTokenizedCommandLineFromFromThreeStrings (
       /* c */
       return new Command(
         Verb.Use,
-        Mix.InvVsProp,
+        Mix.InvVsObject,
         strings[2],
         `obj_${strings[1]}`
       )
@@ -171,7 +171,7 @@ export function ParseTokenizedCommandLineFromFromThreeStrings (
       /* c */
       return new Command(
         Verb.Use,
-        Mix.InvVsProp,
+        Mix.InvVsObject,
         `inv_${strings[2]}`,
         strings[1]
       )
@@ -181,7 +181,7 @@ export function ParseTokenizedCommandLineFromFromThreeStrings (
       // d
       return new Command(
         Verb.Use,
-        Mix.PropVsProp,
+        Mix.ObjVsObj,
 
         strings[1],
         `obj_${strings[2]}`
@@ -191,7 +191,7 @@ export function ParseTokenizedCommandLineFromFromThreeStrings (
       // d
       return new Command(
         Verb.Use,
-        Mix.PropVsProp,
+        Mix.ObjVsObj,
         `obj_${strings[1]}`,
         strings[2]
       )

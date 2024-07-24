@@ -174,7 +174,7 @@ export class SingleFile {
           inputA = inv1
           inputB = obj1
           output = inv2
-          command = new Command(Verb.Give, Mix.InvVsProp, inv1, obj1)
+          command = new Command(Verb.Give, Mix.InvVsObject, inv1, obj1)
           break
         case _.AMENT1_MET_BY_GRABBING_OBJ_AND_GAINING_INV1:
           happs.text = `You use the ${inv1} with the ${obj1} and something good happens...`
@@ -195,7 +195,7 @@ export class SingleFile {
           output = ament1
           inputA = obj1
           inputB = inv1
-          command = new Command(Verb.Use, Mix.InvVsProp, inv1, obj1)
+          command = new Command(Verb.Use, Mix.InvVsObject, inv1, obj1)
           break
         case _.AMENT1_MET_BY_LOSING_BOTH_INV1_AND_OBJ1_WHEN_USED:
           happs.text = `You use the ${inv1} with the ${obj1} and something good happens...`
@@ -205,7 +205,7 @@ export class SingleFile {
           output = ament1
           inputA = inv1
           inputB = obj1
-          command = new Command(Verb.Use, Mix.InvVsProp, inv1, obj1)
+          command = new Command(Verb.Use, Mix.InvVsObject, inv1, obj1)
           break
         case _.AMENT1_MET_BY_LOSING_INV1_WHEN_USED_WITH_OBJ1:
           happs.text = `You use the ${inv1} with the ${obj1} and something good happens...`
@@ -215,7 +215,7 @@ export class SingleFile {
           output = ament1
           inputA = inv1
           inputB = obj1
-          command = new Command(Verb.Use, Mix.InvVsProp, inv1, obj1)
+          command = new Command(Verb.Use, Mix.InvVsObject, inv1, obj1)
           break
         case _.AMENT1_MET_BY_LOSING_INV1_USED_WITH_OBJ1_AND_OBJS:
           happs.text = `With everything set up correctly, you use the ${inv1} with the ${obj1} and something good happens...`
@@ -233,7 +233,7 @@ export class SingleFile {
           inputB = obj1
           inputC = obj2
           inputD = obj3
-          command = new Command(Verb.Use, Mix.InvVsProp, inv1, obj1)
+          command = new Command(Verb.Use, Mix.InvVsObject, inv1, obj1)
           break
         case _.AMENT1_MET_BY_USING_INV1_WITH_INV2:
           happs.text = `You use the ${inv1} with the ${inv2} and something good happens...`
@@ -253,14 +253,14 @@ export class SingleFile {
           inputA = inv1
           inputB = obj1
           output = ament1
-          command = new Command(Verb.Use, Mix.InvVsProp, inv1, obj1)
+          command = new Command(Verb.Use, Mix.InvVsObject, inv1, obj1)
           break
         case _.AMENT1_MET_BY_USING_INV1_WITH_OBJ1_LOSE_OBJS:
           happs.text = `You use the ${inv1} with the  ${obj1} and something good happens...`
           happs.array.push(new Happening(Happen.InvStays, inv1))
           happs.array.push(new Happening(Happen.ObjGoes, obj1))
           happs.array.push(new Happening(Happen.AchievementIsSet, ament1))
-          command = new Command(Verb.Use, Mix.InvVsProp, inv1, obj1)
+          command = new Command(Verb.Use, Mix.InvVsObject, inv1, obj1)
           inputA = inv1
           inputB = obj1
           output = ament1
@@ -277,7 +277,7 @@ export class SingleFile {
           inputD = ament3
           inputE = ament4
           inputF = ament5
-          command = new Command(Verb.Use, Mix.InvVsProp, inv1, obj1)
+          command = new Command(Verb.Use, Mix.InvVsObject, inv1, obj1)
           break
         case _.AMENT1_MET_BY_USING_OBJ1_WITH_OBJ2:
           happs.text = `You use the ${obj1} with the ${obj2} and something good happens...`
@@ -287,7 +287,7 @@ export class SingleFile {
           inputA = obj1
           inputB = obj2
           output = ament1
-          command = new Command(Verb.Use, Mix.PropVsProp, obj1, obj2)
+          command = new Command(Verb.Use, Mix.ObjVsObj, obj1, obj2)
           break
         case _.AMENT1_MET_BY_GIVING_INV1_TO_OBJ1:
           happs.text = `Achievement is set ${ament1}`
@@ -297,7 +297,7 @@ export class SingleFile {
           inputA = inv1
           inputB = obj1
           output = ament1
-          command = new Command(Verb.Give, Mix.InvVsProp, inv1, obj1)
+          command = new Command(Verb.Give, Mix.InvVsObject, inv1, obj1)
           break
         case _.INV1_BECOMES_INV2_AS_OBJ1_BECOMES_OBJ2_GEN:
           {
@@ -312,7 +312,7 @@ export class SingleFile {
                 output1,
                 _.AMENT1_MET_BY_USING_INV1_WITH_OBJ1,
                 count,
-                new Command(Verb.Use, Mix.InvVsProp, inv1, obj1),
+                new Command(Verb.Use, Mix.InvVsObject, inv1, obj1),
                 new Happenings('',
                   [new Happening(Happen.AchievementIsSet, newAchievement)]
                 ),
@@ -395,7 +395,7 @@ export class SingleFile {
           inputA = inv1
           output = inv2
           inputB = obj1
-          command = new Command(Verb.Use, Mix.InvVsProp, inv1, obj1)
+          command = new Command(Verb.Use, Mix.InvVsObject, inv1, obj1)
           break
         case _.INV1_BECOMES_INV2_BY_LOSING_INV3:
           happs.text = `The ${inv1} has become a  ${inv2}`
@@ -478,7 +478,7 @@ export class SingleFile {
           output = inv1
           inputA = inv2
           inputB = inv4
-          command = new Command(Verb.Use, Mix.VerbvsInv, inv2, inv4)
+          command = new Command(Verb.Use, Mix.VerbVsInv, inv2, inv4)
           break
         case _.INV1_OBTAINED_AS_OBJ1_BECOMES_OBJ2_KEEP_INV2:
           happs.text = `Using the ${inv2} on the ${obj1} allows you to obtain the ${inv1}`
@@ -489,7 +489,7 @@ export class SingleFile {
           output = inv1
           inputA = inv2
           inputB = obj1
-          command = new Command(Verb.Use, Mix.InvVsProp, inv2, obj1)
+          command = new Command(Verb.Use, Mix.InvVsObject, inv2, obj1)
           break
 
         case _.INV1_OBTAINED_BY_COMBINING_INV2_WITH_INV3:
@@ -510,7 +510,7 @@ export class SingleFile {
           output = inv1
           inputA = inv2
           inputB = obj1
-          command = new Command(Verb.Use, Mix.InvVsProp, inv2, obj1)
+          command = new Command(Verb.Use, Mix.InvVsObject, inv2, obj1)
           break
         case _.INV1_OBTAINED_BY_INV2_WITH_OBJ1_LOSE_NONE:
           happs.text = `By using the ${inv2} with the ${obj1} you have obtained the ${inv1}.`
@@ -520,7 +520,7 @@ export class SingleFile {
           output = inv1
           inputA = inv2
           inputB = obj1
-          command = new Command(Verb.Use, Mix.InvVsProp, inv2, obj1)
+          command = new Command(Verb.Use, Mix.InvVsObject, inv2, obj1)
           break
         case _.INV1_OBTAINED_BY_LOSING_INV2_KEEPING_OBJ1:
           happs.text = `By using the ${inv2} with the ${obj1} you have obtained the ${inv1}.`
@@ -530,7 +530,7 @@ export class SingleFile {
           output = inv1
           inputA = inv2
           inputB = obj1
-          command = new Command(Verb.Use, Mix.InvVsProp, inv2, obj1)
+          command = new Command(Verb.Use, Mix.InvVsObject, inv2, obj1)
           break
         case _.INV1_OBTAINED_BY_LOSING_OBJ1_KEEPING_INV2:
           happs.text = `By using the ${inv2} with the ${obj1} you have obtained the ${inv1}.`
@@ -540,7 +540,7 @@ export class SingleFile {
           output = inv1
           inputA = inv2
           inputB = obj1
-          command = new Command(Verb.Open, Mix.InvVsProp, inv2, obj1)
+          command = new Command(Verb.Open, Mix.InvVsObject, inv2, obj1)
           break
         case _.INV1_OBTAINED_BY_OPENING_INV2_WHICH_BECOMES_INV3:
           // eg open radio...BATTERIES!
@@ -562,7 +562,7 @@ export class SingleFile {
           output = inv1
           inputA = obj1
           inputB = obj2
-          command = new Command(Verb.Open, Mix.PropVsProp, obj1, obj2)
+          command = new Command(Verb.Open, Mix.ObjVsObj, obj1, obj2)
           break
         case _.INV1_OBTAINED_WHEN_LOSING_INV2_AND_OBJ1_BECOMES_OBJ2_GEN:
           {
@@ -584,7 +584,7 @@ export class SingleFile {
                 output1,
                 _.AMENT1_MET_BY_USING_INV1_WITH_OBJ1,
                 count,
-                new Command(Verb.Use, Mix.InvVsProp, inv1, obj1),
+                new Command(Verb.Use, Mix.InvVsObject, inv1, obj1),
                 new Happenings(
                   'AMENT1_MET_BY_USING_INV1_WITH_OBJ1',
                   [new Happening(Happen.AchievementIsSet, newAchievement)]
@@ -661,7 +661,7 @@ export class SingleFile {
           output = obj1
           inputA = inv1
           inputB = obj2
-          command = new Command(Verb.Open, Mix.InvVsProp, inv1, obj2)
+          command = new Command(Verb.Open, Mix.InvVsObject, inv1, obj2)
           break
         case _.OBJ1_APPEARS_BY_LOSING_INV1_WITH_OBJ2:
           happs.text = `Using the ${inv1} with the ${obj2} loses ${inv1} , but revaels a ${obj1}`
@@ -671,7 +671,7 @@ export class SingleFile {
           output = obj1
           inputA = inv1
           inputB = obj2
-          command = new Command(Verb.Open, Mix.InvVsProp, inv1, obj2)
+          command = new Command(Verb.Open, Mix.InvVsObject, inv1, obj2)
           break
         case _.OBJ1_APPEARS_WHEN_GRAB_OBJ2_WITH_AMENT1:
           happs.text = `You use the ${obj2} and, somewhere, a ${obj1} appears`
@@ -695,7 +695,7 @@ export class SingleFile {
           // so it needs to be input A
           inputA = obj2
           inputB = inv1
-          command = new Command(Verb.Use, Mix.InvVsProp, inv1, obj2)
+          command = new Command(Verb.Use, Mix.InvVsObject, inv1, obj2)
           break
         case _.OBJ1_BECOMES_OBJ2_BY_KEEPING_INV1:
           happs.text = `You use the ${inv1}, and the ${obj1} becomes a ${inv2}`
@@ -705,7 +705,7 @@ export class SingleFile {
           inputA = obj1
           output = obj2
           inputB = inv1
-          command = new Command(Verb.Use, Mix.InvVsProp, inv1, obj1)
+          command = new Command(Verb.Use, Mix.InvVsObject, inv1, obj1)
           break
         case _.OBJ1_BECOMES_OBJ2_BY_KEEPING_OBJ3:
           happs.text = `You use the ${obj3}, and the ${obj1} becomes a ${obj2}`
@@ -714,7 +714,7 @@ export class SingleFile {
           inputA = obj1
           output = obj2
           inputB = obj3
-          command = new Command(Verb.Use, Mix.PropVsProp, obj1, obj3)
+          command = new Command(Verb.Use, Mix.ObjVsObj, obj1, obj3)
           break
         case _.OBJ1_BECOMES_OBJ2_BY_LOSING_INV1:
           happs.text = `You use the ${inv1}, and the ${obj1} becomes a ${obj2}}`
@@ -724,7 +724,7 @@ export class SingleFile {
           inputA = obj1
           output = obj2
           inputB = inv1
-          command = new Command(Verb.Use, Mix.InvVsProp, inv1, obj1)
+          command = new Command(Verb.Use, Mix.InvVsObject, inv1, obj1)
           break
         case _.OBJ1_BECOMES_OBJ2_BY_LOSING_OBJ3:
           happs.text = `You use the ${obj3}, and the ${obj1} becomes a ${obj2}`
@@ -734,7 +734,7 @@ export class SingleFile {
           inputA = obj1
           output = obj2
           inputB = obj3
-          command = new Command(Verb.Use, Mix.PropVsProp, obj1, obj3)
+          command = new Command(Verb.Use, Mix.ObjVsObj, obj1, obj3)
           break
         case _.OBJ1_BECOMES_OBJ2_WHEN_GRAB_INV1:
           happs.text = `You now have a ${inv1}`
@@ -759,7 +759,7 @@ export class SingleFile {
           inputA = obj1
           output = obj2
           inputB = inv1
-          command = new Command(Verb.Open, Mix.InvVsProp, inv1, obj1)
+          command = new Command(Verb.Open, Mix.InvVsObject, inv1, obj1)
           break
         case _.OBJ1_GOES_WHEN_GRAB_INV1:
           happs.text = `You now have a ${inv1}`
@@ -820,7 +820,7 @@ export class SingleFile {
           output = inv2
           inputA = obj1
           inputB = inv1
-          command = new Command(Verb.Throw, Mix.InvVsProp, inv1, obj1)
+          command = new Command(Verb.Throw, Mix.InvVsObject, inv1, obj1)
           break
         case _.TOGGLE_OBJ1_BECOMES_OBJ2:
           happs.text = `The ${obj1} has become a ${obj2}`

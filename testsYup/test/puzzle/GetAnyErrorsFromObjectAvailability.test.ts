@@ -19,13 +19,13 @@ describe('GetAnyErrorsFromObjectAvailability', () => {
   })
 
   test('Trigger One of those items is not visible!', () => {
-    const mix = new Command(Verb.Use, Mix.InvVsProp, 'a', 'b')
+    const mix = new Command(Verb.Use, Mix.InvVsObject, 'a', 'b')
     const result = GetAnyErrorsFromObjectAvailability(mix, ['a'], [])
     expect(result).toContain('items is not visible')
   })
 
   test('Trigger One of those objs is not visible!', () => {
-    const mix = new Command(Verb.Use, Mix.PropVsProp, 'a', 'b')
+    const mix = new Command(Verb.Use, Mix.ObjVsObj, 'a', 'b')
     const result = GetAnyErrorsFromObjectAvailability(mix, ['a'], [])
     expect(result).toContain('objs is not visible')
   })

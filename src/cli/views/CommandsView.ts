@@ -15,7 +15,13 @@ export function CommandsView (commands: RawObjectsAndVerb[], titlePath: string[]
 
     for (const command of commands) {
       // 0 is cleanest, later numbers are more detailed
+      if (command.type === Raw.Achievement && infoLevel < 5) {
+        continue
+      }
       if (command.type === Raw.Achievement && infoLevel < 3) {
+        continue
+      }
+      if (command.type === Raw.DeonstructorNoticedZeroPieces && infoLevel < 1) {
         continue
       }
       listItemNumber++
@@ -49,15 +55,15 @@ function FormatCommand (raw: RawObjectsAndVerb, infoLevel: number): string {
     case 1:
     case 2:
     case 3:
-      toReturn = `${raw.mainSpiel}`
-      break
     case 4:
     case 5:
     case 6:
+    case 7:
+      toReturn = `${raw.mainSpiel}`
+      break
+    case 8:
       toReturn = `${raw.mainSpiel}  ${raw.achievementSpiel}`
       break
-    case 7:
-    case 8:
     case 9:
       toReturn = `${raw.mainSpiel}  ${raw.achievementSpiel} ${raw.restrictionSpiel} ${raw.typeJustForDebugging}`
       break

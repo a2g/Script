@@ -31,7 +31,7 @@ export function ProcessAndReturnTrueIfCloneOccurs (
 
     // In our array the currentSolution, is at index zero
     // so we start at the highest index in the list
-    // we when we finish the loop, we are with
+    // we when we finish the loop, we are with the non-cloned solution
     for (let i = matchingPieces.length - 1; i >= 0; i--) {
       // need reverse iterator
       const theMatchingPiece = matchingPieces[i]

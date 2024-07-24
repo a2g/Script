@@ -7,9 +7,9 @@ export enum Mix {
   Prop,
   Inv,
   InvVsInv,
-  InvVsProp,
-  VerbvsProp,
-  VerbvsInv,
-  PropVsProp,
+  InvVsObject,
+  VerbVsObject,
+  VerbVsInv,
+  ObjVsObj,
   AutoNeedsNothing,
 }
