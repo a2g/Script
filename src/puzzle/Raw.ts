@@ -8,5 +8,6 @@ export enum Raw {
   Use = 'Use',
   Give = 'Give',
   Achievement = 'Achievement',
+  Separator = 'Separator',
   DeonstructorNoticedZeroPieces = 'DeonstructorNoticedZeroPieces'
 }
