@@ -58,29 +58,7 @@ export class Validator {
   public GetVisibleThingsAtTheMoment (): VisibleThingsMap {
     return this.currentlyVisibleThings
   }
-  /*
-  public UpdateAchievementSolvedStatusesAndMergeIfNeeded (): void {
-    // go through all the achievement pieces
-    let areAnyUnsolved = false
-    for (const achievement of this.achievementStubs.GetValues()) {
-      // if there are no places to attach pieces it will return null
-      const firstMissingPiece = (achievement.piece != null) ? achievement.piece.ReturnTheFirstNullInputHint() : achievement.achievementWord
-      if (firstMissingPiece === '') {
-        if (!achievement.IsZeroPieces()) {
-          achievement.SetValidated(Validated.Validated)
-          if (achievement.piece?.boxToMerge != null) {
-            this.MergeBox(achievement.piece.boxToMerge)
-          }
-        }
-      } else {
-        areAnyUnsolved = true
-      }
-    }
-    if (!areAnyUnsolved) {
-      this.isSolved = true
-    }
-  } */
-
+  
   public DeconstructAllAchievementsAndRecordSteps (): boolean {
     let wasThereAtLeastSomeProgress = false
     for (const stub of this.achievementStubs.GetValues()) {
@@ -173,7 +151,7 @@ export class Validator {
       const at = toReturn.length
       // const n = stub.commandsCompletedInOrder.length
       toReturn.splice(at, 0, ...stub.GetOrderedCommands())
-      toReturn.push(new RawObjectsAndVerb(Raw.None,
+      toReturn.push(new RawObjectsAndVerb(Raw.Separator,
         ` --------------- end of achievement ${key}`,
         '',
         '',
