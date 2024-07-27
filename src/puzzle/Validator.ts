@@ -58,7 +58,7 @@ export class Validator {
   public GetVisibleThingsAtTheMoment (): VisibleThingsMap {
     return this.currentlyVisibleThings
   }
-  
+
   public DeconstructAllAchievementsAndRecordSteps (): boolean {
     let wasThereAtLeastSomeProgress = false
     for (const stub of this.achievementStubs.GetValues()) {
