@@ -537,8 +537,8 @@
           },
           "then": {
             "required": [
-              "ament1",
-              "ament2"
+              "ament1"
+              //"ament2" some have only a single explicit because rely on box ament
             ]
           }
         },
