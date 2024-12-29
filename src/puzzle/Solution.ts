@@ -111,7 +111,7 @@ export class Solution {
   public ProcessUntilCloning (solutions: Solutions): boolean {
     let isBreakingDueToSolutionCloning = false
     for (const stub of this.stubs.GetValues()) {
-      if (stub.IsNeeded() && !stub.IsSolved()) {
+      if (/* stub.IsNeeded()&& */ !stub.IsSolved()) {
         if (stub.ProcessStubUntilCloning(this, solutions, '/')) {
           isBreakingDueToSolutionCloning = true
           break

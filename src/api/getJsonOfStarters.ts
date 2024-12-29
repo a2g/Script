@@ -35,7 +35,9 @@ export function getJsonOfStarters (): $IStarter[] {
     'package.json',
     'tsconfig.json',
     '.git',
-    '.DS_Store'
+    '.DS_Store',
+    'package-lock.json',
+    'node_modules'
   ])
   process.chdir('./exclusive-worlds')
   const folders = fs.readdirSync('.')

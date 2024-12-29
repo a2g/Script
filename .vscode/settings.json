@@ -4,9 +4,62 @@
     "typescript"
   ],
   "editor.codeActionsOnSave": {
-    "source.fixAll": true
+    "source.fixAll": "explicit"
   },
   "typescript.tsdk": "node_modules/typescript/lib/",
   "git.ignoreLimitWarning": true,
-  "git-blame.gitWebUrl": ""
+  "git-blame.gitWebUrl": "",
+  "editor.trimAutoWhitespace": true,
+  "files.eol": "\n",
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "files.trimTrailingWhitespace": true,
+  "javascript.validate.enable": false,
+  "standard.autoFixOnSave": true,
+  "standard.engine": "ts-standard",
+  "xml.format.enforceQuoteStyle": "ignore",
+  "xml.format.emptyElements": "ignore",
+  "xml.format.preserveAttributeLineBreaks": true,
+  "xml.format.preserveEmptyContent": true,
+  "xml.format.joinCommentLines": false,
+  "xml.format.joinContentLines": false,
+  "xml.format.spaceBeforeEmptyCloseTag": true,
+  "xml.format.closingBracketNewLine": false,
+  "xml.preferences.quoteStyle": "double",
+  "xml.format.splitAttributesIndentSize": 2,
+  "xml.format.preservedNewlines": 1,
+  "xml.format.maxLineWidth": 0,
+  "[javascript]": {
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "editor.formatOnSave": false
+  },
+  "[json]": {
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "editor.formatOnSave": true
+  },
+  "[jsonc]": {
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "editor.formatOnSave": true
+  },
+  "[typescript]": {
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "editor.formatOnSave": false
+  },
+  "[xml]": {
+    "editor.defaultFormatter": "redhat.vscode-xml",
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "editor.formatOnSave": true,
+    "editor.detectIndentation": false
+  },
+  "cSpell.words": [
+    "invament",
+    "printworks",
+    "airraid"
+  ],
+  "rewrap.wrappingColumn": 100
 }

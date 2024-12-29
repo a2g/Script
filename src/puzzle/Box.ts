@@ -119,7 +119,7 @@ export class Box {
           if (theThing.startsWith('inv')) {
             this.startingInvSet.add(theThing)
           }
-          if (theThing.startsWith('achievement')) {
+          if (theThing.startsWith('a')) {
             this.startingAchievementSet.add(theThing)
           }
           if (theThing.startsWith('obj')) {

@@ -20,7 +20,7 @@ export function DumpGainsFromEachChatInFolder (folder: string): void {
       const mapOGainsByPage = new Map<string, string>()
       const emptyBox = new Box('', '', new Aggregates())
       console.warn('')
-      console.warn(`${file}`)
+      console.warn(`Talk file: ${file}`)
       console.warn('===========================')
       chatFile.FindAndAddPiecesRecursively(_STARTER, '', [], mapOGainsByPage, emptyBox)
 

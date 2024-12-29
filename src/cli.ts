@@ -4,12 +4,10 @@ import { ViewListOfLeaves } from './cli/views/ViewListOfLeaves'
 import { ViewOrderOfCommands } from './cli/views/ViewOrderOfCommands'
 import { $IStarter, getJsonOfStarters } from './api/getJsonOfStarters'
 import { ViewBackwardSolve } from './cli/views/ViewBackwardSolve'
-// import { DumpGainsFromEachChatInFolder } from './cli/DumpGansFromEachChatInFolder'
 import { Validators } from './puzzle/Validators'
 import { ViewForwardValidate } from './cli/views/ViewForwardValidate'
 import { ViewPiecesInBoxes } from './cli/views/ViewPiecesInBoxes'
 import { DumpGainsFromEachChatInFolder } from './cli/DumpGansFromEachTalkInFolder'
-// import { ChooseValidateSolution } from './cli/ChooseValidateSolutions'
 
 const prompt = promptSync()
 
