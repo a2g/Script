@@ -87,7 +87,7 @@
         "$ref": "TestHighPermutationSolutionObjects.jsonc#/definitions/object_enum"
       }
     },
-    "startingThings": {
+    "startingThingsLinkedToPlayers": {
       "type": "array",
       "minItems": 0,
       "items": {

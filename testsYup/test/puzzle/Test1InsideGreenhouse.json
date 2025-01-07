@@ -1,6 +1,6 @@
 {
   "$schema": "./Test1Design.jsonc",
-  "startingThings": [
+  "startingThingsLinkedToPlayers": [
     {
       "thing": "obj_soil_thermometer"
     },

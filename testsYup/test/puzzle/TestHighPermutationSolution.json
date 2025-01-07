@@ -133,7 +133,7 @@
       "obj3": "obj_switched_on_item1"
     }
   ],
-  "startingThings": [
+  "startingThingsLinkedToPlayers": [
     {
       "thing": "inv_box_of_items",
       "player": "player1"

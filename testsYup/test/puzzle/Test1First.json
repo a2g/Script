@@ -1,6 +1,6 @@
 {
   "$schema": "./Test1Design.jsonc",
-  "startingThings": [
+  "startingThingsLinkedToPlayers": [
     {
       "thing": "inv_torch_lit"
     },

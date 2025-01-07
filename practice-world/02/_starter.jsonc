@@ -1,6 +1,6 @@
 {
   "$schema": "./02 defs.jsonc",
-  "startingThings": [
+  "startingThingsLinkedToPlayers": [
     {
       "thing": "inv_bottle_top"
     },

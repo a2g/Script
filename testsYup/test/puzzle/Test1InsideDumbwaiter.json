@@ -1,6 +1,6 @@
 {
   "$schema": "./Test1Design.jsonc",
-  "startingThings": [ ],
+  "startingThingsLinkedToPlayers": [ ],
   "pieces": [
     {
       "piece": "INV1_OBTAINED_BY_LOSING_INV2_KEEPING_OBJ1",

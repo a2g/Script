@@ -92,7 +92,7 @@
     }
   },
   "properties": {
-    "startingThings": {
+    "startingThingsLinkedToPlayers": {
       "type": "array",
       "minItems": 0,
       "items": {

@@ -1,6 +1,6 @@
 {
   "$schema": "./01 defs.jsonc",
-  "startingThings": [
+  "startingThingsLinkedToPlayers": [
     {
       "thing": "obj_bartender"
     },

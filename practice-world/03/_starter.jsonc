@@ -1,6 +1,6 @@
 {
   "$schema": "./schema_for_achievements.jsonc",
-  "startingThings": [
+  "startingThingsLinkedToPlayers": [
     {
       "thing": "inv_torch_lit"
     },
